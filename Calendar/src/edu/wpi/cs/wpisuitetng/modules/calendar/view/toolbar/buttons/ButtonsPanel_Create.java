@@ -7,7 +7,7 @@
  * 
  * Contributors: Team Rolling Thunder
  ******************************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.requirementmanager.view.buttons;
+package edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons;
 
 import java.awt.Dimension;
 import java.awt.Image;
@@ -27,81 +27,80 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
 import edu.wpi.cs.wpisuitetng.janeway.gui.container.toolbar.ToolbarGroupView;
-import edu.wpi.cs.wpisuitetng.modules.requirementmanager.view.ViewEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
-/**
- * @author justinhess
- * @version $Revision: 1.0 $
- */
-public class RequirementButtonsPanel extends ToolbarGroupView{
+
+@SuppressWarnings("serial")
+public class ButtonsPanel_Create extends ToolbarGroupView{
 	
 	// initialize the main view toolbar buttons
-		private JButton createButton = new JButton("<html>Create<br />Requirement</html>");
-		
-		private final JButton createIterationButton = new JButton("<html>Create<br />Iteration</html>");
-		private final JPanel contentPanel = new JPanel();
+		private JButton createCommitButton;
+		private final JButton createEventButton;
+
 	
-	public RequirementButtonsPanel(){
+	public ButtonsPanel_Create(){
 		super("");
-		
-		this.contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
+		createCommitButton= new JButton("<html>Create<br />Commitment</html>");
+		createEventButton= new JButton("<html>Create<br />Event</html>");
+		JPanel contentPanel = new JPanel();
+
+		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
 		this.setPreferredWidth(350);
 		
-		//this.createIterationButton.setSize(200, 200);
-		//this.createButton.setPreferredSize(new Dimension(200, 200));
-		this.createButton.setHorizontalAlignment(SwingConstants.CENTER);
+		this.createEventButton.setSize(200, 200);
+		this.createCommitButton.setPreferredSize(new Dimension(200, 200));
+		this.createCommitButton.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		try {
-		    Image img = ImageIO.read(getClass().getResource("new_req.png"));
-		    this.createButton.setIcon(new ImageIcon(img));
+		    Image img = ImageIO.read(getClass().getResource("new_commit.png"));
+		    this.createCommitButton.setIcon(new ImageIcon(img));
 		    
-		    img = ImageIO.read(getClass().getResource("new_itt.png"));
-		    this.createIterationButton.setIcon(new ImageIcon(img));
+		    img = ImageIO.read(getClass().getResource("new_event.png"));
+		    this.createEventButton.setIcon(new ImageIcon(img));
 		    
 		} catch (IOException ex) {}
 		
 		// the action listener for the Create Requirement Button
-		createButton.addActionListener(new ActionListener() {
+		createCommitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// bring up a create requirement pane if not in Multiple Requirement Editing Mode
 				//if (!ViewEventController.getInstance().getOverviewTable().getEditFlag()) {
-					ViewEventController.getInstance().createRequirement();
+					GUIEventController.getInstance().createCommitment();
 			//	}
 			}
 		});		
 		
-		//action listener for the Create Iteration Button
-		createIterationButton.addActionListener(new ActionListener() {
+		//action listener for the Create Event Button
+		createEventButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//if (!ViewEventController.getInstance().getOverviewTable().getEditFlag()) {
-					ViewEventController.getInstance().createIteration();
+					GUIEventController.getInstance().createEvent();
 				}
 		//	}
 		});
 			
-		contentPanel.add(createButton);
-		contentPanel.add(createIterationButton);
+		contentPanel.add(createCommitButton);
+		contentPanel.add(createEventButton);
 		contentPanel.setOpaque(false);
 		
-
 		this.add(contentPanel);
 	}
 	/**
-	 * Method getCreateButton.
+	 * Method getCreateCommitButton.
 	
 	 * @return JButton */
-	public JButton getCreateButton() {
-		return createButton;
+	public JButton getCreateCommitButton() {
+		return createCommitButton;
 	}
 
 	/**
-	 * Method getCreateIterationButton.
+	 * Method getCreateEventButton.
 	
 	 * @return JButton */
-	public JButton getCreateIterationButton() {
-		return createIterationButton;
+	public JButton getCreateEventButton() {
+		return createEventButton;
 	}
 
 	
