@@ -36,20 +36,23 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	// initialize the main view toolbar buttons
 		private JButton createCommitButton;
 		private final JButton createEventButton;
-
+		private final JButton showMonthButton;
 	
 	public ButtonsPanel_Create(){
 		super("");
 		createCommitButton= new JButton("<html>Create<br />Commitment</html>");
 		createEventButton= new JButton("<html>Create<br />Event</html>");
+		showMonthButton = new JButton("<html>Create<br />Month</html>");
 		JPanel contentPanel = new JPanel();
 
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
-		this.setPreferredWidth(350);
+		this.setPreferredWidth(500);
 		
 		this.createEventButton.setSize(200, 200);
 		this.createCommitButton.setPreferredSize(new Dimension(200, 200));
 		this.createCommitButton.setHorizontalAlignment(SwingConstants.CENTER);
+		this.showMonthButton.setPreferredSize(new Dimension(200, 200));
+		this.showMonthButton.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		try {
 		    Image img = ImageIO.read(getClass().getResource("new_commit.png"));
@@ -57,6 +60,9 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		    
 		    img = ImageIO.read(getClass().getResource("new_event.png"));
 		    this.createEventButton.setIcon(new ImageIcon(img));
+		    
+		    img = ImageIO.read(getClass().getResource("new_event.png"));
+		    this.showMonthButton.setIcon(new ImageIcon(img));
 		    
 		} catch (IOException ex) {}
 		
@@ -80,9 +86,18 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 				}
 		//	}
 		});
+		
+		showMonthButton.addActionListener(new ActionListener () {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GUIEventController.getInstance().showMonthView();
+			}
+		});
+		
 			
 		contentPanel.add(createCommitButton);
 		contentPanel.add(createEventButton);
+		contentPanel.add(showMonthButton);
 		contentPanel.setOpaque(false);
 		
 		this.add(contentPanel);
@@ -101,6 +116,10 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	 * @return JButton */
 	public JButton getCreateEventButton() {
 		return createEventButton;
+	}
+	
+	public JButton getShowMonthButton() {
+		return showMonthButton;
 	}
 
 	
