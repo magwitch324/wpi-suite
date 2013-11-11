@@ -42,7 +42,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		super("");
 		createCommitButton= new JButton("<html>Create<br />Commitment</html>");
 		createEventButton= new JButton("<html>Create<br />Event</html>");
-		showMonthButton = new JButton("<html>Create<br />Month</html>");
+		showMonthButton = new JButton("<html>View<br />Month</html>");
 		JPanel contentPanel = new JPanel();
 
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
