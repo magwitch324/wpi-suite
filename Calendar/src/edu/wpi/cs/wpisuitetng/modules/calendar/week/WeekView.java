@@ -3,24 +3,38 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.week;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
+
 import javax.swing.JComboBox;
 import javax.swing.JTextPane;
+
 import java.awt.List;
+
 import javax.swing.JInternalFrame;
 import javax.swing.JTabbedPane;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JFormattedTextField;
 import javax.swing.Box;
+
 import java.awt.GridLayout;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import javax.swing.JEditorPane;
 
 public class WeekView extends JPanel {
@@ -30,6 +44,24 @@ public class WeekView extends JPanel {
 	 */
 	public WeekView() {
 		setLayout(null);
+		
+		GregorianCalendar start = startDate();
+		String weekName = new SimpleDateFormat("MMM").format(start.getTime()) + " " + start.get(Calendar.DAY_OF_MONTH);
+		String sunday = start.get(Calendar.DAY_OF_MONTH) + " Sunday";
+		start.add(Calendar.DATE, 1);
+		String monday = start.get(Calendar.DAY_OF_MONTH) + " Monday";
+		start.add(Calendar.DATE, 1);
+		String tuesday = start.get(Calendar.DAY_OF_MONTH) + " Tuesday";
+		start.add(Calendar.DATE, 1);
+		String wednesday = start.get(Calendar.DAY_OF_MONTH) + " Wednesday";
+		start.add(Calendar.DATE, 1);
+		String thursday = start.get(Calendar.DAY_OF_MONTH) + " Thursday";
+		start.add(Calendar.DATE, 1);
+		String friday = start.get(Calendar.DAY_OF_MONTH) + " Friday";
+		start.add(Calendar.DATE, 1);
+		String saturday = start.get(Calendar.DAY_OF_MONTH) + " Saturday";
+		weekName += new SimpleDateFormat("MMM").format(start.getTime()) + " " + start.get(Calendar.DAY_OF_MONTH);
+						
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, -11, 500, 300);
@@ -102,5 +134,14 @@ public class WeekView extends JPanel {
 		editorPane_6.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_1.add(editorPane_6);
 
+	}
+	public GregorianCalendar startDate(){
+		Date today = new Date();
+		GregorianCalendar calendar = new GregorianCalendar();
+		calendar.setTime(today);
+		GregorianCalendar tmp = new GregorianCalendar();
+		tmp.set(Calendar.WEEK_OF_YEAR, tmp.get(Calendar.WEEK_OF_YEAR));
+		tmp.set(Calendar.YEAR, tmp.get(Calendar.YEAR));
+		return tmp;
 	}
 }
