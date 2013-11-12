@@ -9,7 +9,9 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.JComponent;
@@ -17,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.monthtab.CalendarMonth;
+import edu.wpi.cs.wpisuitetng.modules.calendar.monthtab.CalendarMonth2;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons.ButtonsPanel_Create;
@@ -98,11 +101,13 @@ public class GUIEventController {
 	}
 
 	public void showMonthView() {
-		CalendarMonth monthView = new CalendarMonth(2013, 11);
-		JPanel monthPanel = monthView.CalendarMonthBuild();
-		main.addTab("MonthView.", null, monthPanel, "MonthView");
+		//CalendarMonth monthView = new CalendarMonth(2013, 11);
+		//JPanel monthPanel = monthView.CalendarMonthBuild();
+		CalendarMonth2 monthView2 = new CalendarMonth2();
+		//main.addTab("MonthView.", null, monthPanel, "MonthView");
+		main.addTab("MonthView.", null, monthView2, "MonthView");
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
-		main.setSelectedComponent(monthView);
+		main.setSelectedComponent(monthView2);
 	}
 }
