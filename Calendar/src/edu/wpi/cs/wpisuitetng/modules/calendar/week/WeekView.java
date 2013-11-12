@@ -48,19 +48,19 @@ public class WeekView extends JPanel {
 		GregorianCalendar start = startDate();
 		String weekName = new SimpleDateFormat("MMM").format(start.getTime()) + " " + start.get(Calendar.DAY_OF_MONTH);
 		String sunday = start.get(Calendar.DAY_OF_MONTH) + " Sunday";
-		start.add(Calendar.DATE, 1);
+		start.add(Calendar.DAY_OF_YEAR, 1);
 		String monday = start.get(Calendar.DAY_OF_MONTH) + " Monday";
-		start.add(Calendar.DATE, 1);
+		start.add(Calendar.DAY_OF_YEAR, 1);
 		String tuesday = start.get(Calendar.DAY_OF_MONTH) + " Tuesday";
-		start.add(Calendar.DATE, 1);
+		start.add(Calendar.DAY_OF_YEAR, 1);
 		String wednesday = start.get(Calendar.DAY_OF_MONTH) + " Wednesday";
-		start.add(Calendar.DATE, 1);
+		start.add(Calendar.DAY_OF_YEAR, 1);
 		String thursday = start.get(Calendar.DAY_OF_MONTH) + " Thursday";
-		start.add(Calendar.DATE, 1);
+		start.add(Calendar.DAY_OF_YEAR, 1);
 		String friday = start.get(Calendar.DAY_OF_MONTH) + " Friday";
-		start.add(Calendar.DATE, 1);
+		start.add(Calendar.DAY_OF_YEAR, 1);
 		String saturday = start.get(Calendar.DAY_OF_MONTH) + " Saturday";
-		weekName += new SimpleDateFormat("MMM").format(start.getTime()) + " " + start.get(Calendar.DAY_OF_MONTH);
+		weekName += " - " + new SimpleDateFormat("MMM").format(start.getTime()) + " " + start.get(Calendar.DAY_OF_MONTH);
 						
 		
 		JPanel panel = new JPanel();
@@ -68,12 +68,12 @@ public class WeekView extends JPanel {
 		add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblMonthdayyear = new JLabel("Month/Day/Year");
+		JLabel lblMonthdayyear = new JLabel(weekName);
 		lblMonthdayyear.setBounds(210, 11, 80, 14);
 		lblMonthdayyear.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblMonthdayyear);
 		
-		JButton btnNewButton = new JButton("Mon");
+		JButton btnNewButton = new JButton(monday);
 		btnNewButton.setBounds(123, 36, 60, 23);
 		panel.add(btnNewButton);
 		
@@ -97,7 +97,7 @@ public class WeekView extends JPanel {
 		btnNewButton_5.setBounds(430, 36, 60, 23);
 		panel.add(btnNewButton_5);
 		
-		JButton btnNewButton_6 = new JButton("Sun");
+		JButton btnNewButton_6 = new JButton(sunday);
 		btnNewButton_6.setBounds(62, 36, 60, 23);
 		panel.add(btnNewButton_6);
 		
@@ -136,12 +136,9 @@ public class WeekView extends JPanel {
 
 	}
 	public GregorianCalendar startDate(){
-		Date today = new Date();
-		GregorianCalendar calendar = new GregorianCalendar();
-		calendar.setTime(today);
 		GregorianCalendar tmp = new GregorianCalendar();
-		tmp.set(Calendar.WEEK_OF_YEAR, tmp.get(Calendar.WEEK_OF_YEAR));
-		tmp.set(Calendar.YEAR, tmp.get(Calendar.YEAR));
+		tmp.add(Calendar.DAY_OF_WEEK, 
+	              tmp.getFirstDayOfWeek() - tmp.get(Calendar.DAY_OF_WEEK));
 		return tmp;
 	}
 }
