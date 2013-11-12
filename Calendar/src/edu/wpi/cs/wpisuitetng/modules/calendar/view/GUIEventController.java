@@ -99,6 +99,15 @@ public class GUIEventController {
 		main.repaint();
 		main.setSelectedComponent(newEvent);
 	}
+	
+	public void showMonthView0() {
+		CalendarMonth monthView = new CalendarMonth(2013, 11);
+		JPanel monthPanel = monthView.CalendarMonthBuild();
+		main.addTab("MonthView.", null, monthPanel, "MonthView");
+		main.invalidate(); //force the tabbedpane to redraw.
+		main.repaint();
+		main.setSelectedComponent(monthView);
+	}
 
 	public void showMonthView() {
 		//CalendarMonth monthView = new CalendarMonth(2013, 11);
