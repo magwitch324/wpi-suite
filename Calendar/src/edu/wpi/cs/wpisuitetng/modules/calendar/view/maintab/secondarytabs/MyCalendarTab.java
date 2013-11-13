@@ -74,7 +74,7 @@ public class MyCalendarTab extends JSplitPane {
 		buttonPanel.add(nextMonth);
 		buttonPanel.add(nextYear);
 
-		CalendarMonth c= new CalendarMonth();
+		CalendarMonth c= new CalendarMonth("January", 3, 31);
 		
 		
 		

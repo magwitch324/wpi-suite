@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class JPanel2 extends JPanel{
 
-private int tag;
+private int tag = -1;
 	
 public void setTag(int tag){
 	this.tag = tag;
