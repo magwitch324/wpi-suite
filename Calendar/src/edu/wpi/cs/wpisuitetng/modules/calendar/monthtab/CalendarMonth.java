@@ -11,42 +11,36 @@
  *********************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.monthtab;
 
+<<<<<<< HEAD
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+=======
+>>>>>>> 93f13a502cef8e707c66a4412af22c87bcb734f1
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
-
-import java.awt.Color;
-
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.MatteBorder;
 
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import java.awt.FlowLayout;
 import java.awt.Font;
 
 import javax.swing.SwingConstants;
-import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.JTabbedPane;
 import javax.swing.BoxLayout;
 
+<<<<<<< HEAD
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Calendar;
+=======
+>>>>>>> 93f13a502cef8e707c66a4412af22c87bcb734f1
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.lang.*;
 
@@ -78,12 +72,14 @@ public class CalendarMonth extends JPanel {
 		//Get first day of month and number of days
 		GregorianCalendar cal = new GregorianCalendar(year, month, 1);
 		startOfMonth = cal.get(GregorianCalendar.DAY_OF_WEEK);
+
 		numberOfDays = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
 		monthName = Month.getMonthName(month);
 		
 		this.setBounds(100, 100, 543, 396);
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
 		JPanel MonthPanel = new JPanel();
 		this.add(MonthPanel);
 		
@@ -220,13 +216,14 @@ public class CalendarMonth extends JPanel {
 	
 	private enum Day {
 		
-	    Monday(1),
-		Tuesday(2),
-		Wendesday(3),
-		Thursday(4),
-		Friday(5),
-		Saturday(6),
-		Sunday(7);
+		Sunday(1),
+	    Monday(2),
+		Tuesday(3),
+		Wendesday(4),
+		Thursday(5),
+		Friday(6),
+		Saturday(7);
+		
 		
 		private final int dayNumber;
 		
