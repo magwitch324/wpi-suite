@@ -11,23 +11,22 @@
  *********************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.monthtab;
 
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.GridLayout;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-
+import java.awt.Dimension;
 import java.awt.Font;
-
-import javax.swing.SwingConstants;
-import javax.swing.border.TitledBorder;
-import javax.swing.BoxLayout;
-
+import java.awt.GridLayout;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+
+
 
 /**
  * Description
@@ -41,7 +40,7 @@ public class CalendarMonth extends JPanel {
 	private int realDay = cal.get(GregorianCalendar.DAY_OF_MONTH); //Get day
 	private int realMonth = cal.get(GregorianCalendar.MONTH); //Get month
 	private int realYear = cal.get(GregorianCalendar.YEAR); //Get year
-	private JPanel MonthPane;
+	//private JPanel MonthPane;
 	
 	private int year;
 	private int month;
@@ -52,39 +51,28 @@ public class CalendarMonth extends JPanel {
 	public CalendarMonth(int year, int month) {
 		this.year = year;
 		this.month = month;
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public JPanel CalendarMonthBuild() {
 		int numberOfDays, startOfMonth; //Number Of Days, Start Of Month
-
+		
 		//Get first day of month and number of days
 		GregorianCalendar cal = new GregorianCalendar(year, month, 1);
-		numberOfDays = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
 		startOfMonth = cal.get(GregorianCalendar.DAY_OF_WEEK);
-		int startDate  =  startOfMonth;
+
+		numberOfDays = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
 		monthName = Month.getMonthName(month);
 		
-		
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 543, 396);
-		MonthPane = new JPanel();
-		MonthPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		//setContentPane(MonthPane);
-		MonthPane.setLayout(new BoxLayout(MonthPane, BoxLayout.Y_AXIS));
-		
+		this.setBounds(100, 100, 543, 396);
+		this.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
 		JPanel MonthPanel = new JPanel();
-		MonthPane.add(MonthPanel);
-		
+		this.add(MonthPanel);
 		
 		JLabel lblNewLabel = new JLabel(monthName + ", " + year);
 		MonthPanel.add(lblNewLabel);
 		
 		JPanel DayPanel = new JPanel();
 		DayPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		MonthPane.add(DayPanel);
+		this.add(DayPanel);
 		DayPanel.setLayout(new GridLayout(0, 7, 0, 0));
 		
 		JLabel label = new JLabel("Su");
@@ -124,38 +112,68 @@ public class CalendarMonth extends JPanel {
 		
 		JPanel datePanel = new JPanel();
 		datePanel.setBorder(null);
-		MonthPane.add(datePanel);
+		this.add(datePanel);
 		datePanel.setLayout(new GridLayout(6, 7, 0, 0));
 		
 		JButton button;
 		//Draw calendar
 		for (int i = 1; i <= 42; i++){
 			String date = "";
-			if(startDate <= i && i <= numberOfDays) {
-				date = String.valueOf(i);
+			if(i >= startOfMonth && i <= numberOfDays + startOfMonth - 1) {
+				date = String.valueOf(i - startOfMonth + 1);
 			}
 			button = new JButton(date);
-			button.setFont(new Font("SimSun", Font.PLAIN, 35));
+			button.setFont(new Font("SimSun", Font.PLAIN, 12));
+			button.setSize(new Dimension(15, 15));
 			datePanel.add(button);
 		}
-
-		return MonthPane;
+		
+		
 	}
+
+	public CalendarMonth previousYear()
+	{
+		return new CalendarMonth(this.year - 1, this.month);
+	}
+	
+	public CalendarMonth previousMonth()
+	{
+		return new CalendarMonth(this.year, this.month - 1);
+	}
+	
+	public CalendarMonth today()
+	{
+		return new CalendarMonth(this.year + 1, this.month);
+	}
+	
+	public CalendarMonth nextYear()
+	{
+		return new CalendarMonth(this.year + 1, this.month);
+	}
+	
+	public CalendarMonth nextMonth()
+	{
+		return new CalendarMonth(this.year, this.month + 1);
+	}
+	
+
+	
+
 	
 	private enum Month {
 		
-	    January(1),
-		February(2),
-		March(3),
-		April(4),
-		May(5),
-		June(6),
-		July(7),
-		August(8),
-		September(9),
-		October(10),
-		November(11),
-		December(12);
+	    January(0),
+		February(1),
+		March(2),
+		April(3),
+		May(4),
+		June(5),
+		July(6),
+		August(7),
+		September(8),
+		October(9),
+		November(10),
+		December(11);
 		
 		private final int monthNumber;
 		
@@ -176,6 +194,8 @@ public class CalendarMonth extends JPanel {
 		    result = (name == null) ? null : name.toString();
 		    return result;
 		}
+		
+		
 	}
 	
 	private enum Day {

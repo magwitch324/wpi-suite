@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import net.miginfocom.swing.MigLayout;
 
 public class CalendarMonth implements ICalenderView{
@@ -38,9 +39,13 @@ public class CalendarMonth implements ICalenderView{
 		
 		/**monthPanel will be the mainPanel returned by this object*/
 		monthPanel = new JPanel();
+		
 		monthPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		
+		c.anchor = GridBagConstraints.CENTER;
+		c.gridx = 3;
+		c.gridy = 0;
+		monthPanel.add(monthName, c);
 		/**dayPanels consist of 42 panel objects to complete the 6-row 7-column setup*/
 		dayPanels = new JPanel2[42];
 		
@@ -49,7 +54,7 @@ public class CalendarMonth implements ICalenderView{
 		
 		/**column and row variables which handles setting up the calendar layout*/
 		int x = 0;
-		int y = 0;
+		int y = 1;
 		
 		/**looping to setup all 42 dayPanels with at least default setting and sizes*/
 		for(int i = 0; i<42; i++){
@@ -142,7 +147,7 @@ public class CalendarMonth implements ICalenderView{
 		   public void mousePressed(MouseEvent e) {
 		       JPanel2 panel = (JPanel2)e.getSource();
 		       if(panel.getTag() != -1){
-		    	   //Call day object with tag
+		    	  // GUIEventController.getInstance().showMonthView();
 		    	   System.out.println(panel.getTag());
 		       }
 		   }

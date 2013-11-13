@@ -133,12 +133,26 @@ public class GUIEventController {
 		//CalendarMonth monthView = new CalendarMonth(2013, 11);
 		//JPanel monthPanel = monthView.CalendarMonthBuild();
 		//CalendarMonth2 monthView2 = new CalendarMonth2();
-		//WeekView week = new WeekView();
-		CalendarYear year = new CalendarYear(2013);
+		WeekView week = new WeekView();
+		//CalendarYear year = new CalendarYear(2013);
 		//main.addTab("MonthView.", null, monthPanel, "MonthView");
-		main.addTab("WeekView", null, year, "WeekView");
+		main.addTab("WeekView", null, week, "WeekView");
+		main.invalidate(); //force the tabbedpane to redraw.
+		main.repaint();
+		main.setSelectedComponent(week);
+	}
+	
+	public void showYearView() {
+		//CalendarMonth monthView = new CalendarMonth(2013, 11);
+		//JPanel monthPanel = monthView.CalendarMonthBuild();
+		//CalendarMonth2 monthView2 = new CalendarMonth2();
+		CalendarYear year = new CalendarYear(2013);
+		//CalendarYear year = new CalendarYear(2013);
+		//main.addTab("MonthView.", null, monthPanel, "MonthView");
+		main.addTab("YearView", null, year, "YearView");
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(year);
 	}
+	
 }
