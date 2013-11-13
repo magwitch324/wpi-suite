@@ -13,6 +13,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -25,6 +26,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarMonth;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarYear;
 import edu.wpi.cs.wpisuitetng.modules.calendar.WeekView;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.events.EventPanel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons.ButtonsPanel_Create;
@@ -98,7 +103,8 @@ public class GUIEventController {
 	}
 
 	public void createEvent() {
-		ButtonsPanel_Create newEvent = new ButtonsPanel_Create();
+		Date date = new Date(0);
+		AddEventController.getInstance().addEvent(new Event(3, "Sample Event", "Sample event description", date));
 		main.addTab("newEvent.", null, newEvent, "New Event");
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
