@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.monthtab.CalendarMonth;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import net.miginfocom.swing.MigLayout;
 
@@ -37,6 +38,8 @@ public class MyCalendarTab extends JSplitPane {
 	private JButton nextMonth;
 	private JButton prevMonth;
 	private JButton today;
+	
+	private CalendarMonth calMonth;
 	
 	private JLabel selectionLabel;
 	public MyCalendarTab() {
@@ -72,6 +75,7 @@ public class MyCalendarTab extends JSplitPane {
 		buttonPanel.add(today);
 		buttonPanel.add(nextMonth);
 		buttonPanel.add(nextYear);
+
 		
 		contentPanel.add(buttonPanel, "alignx center, dock north");
  		
@@ -101,7 +105,7 @@ public class MyCalendarTab extends JSplitPane {
 		//keyPanel.add(keyLabel, "alignx center, push, span, wrap");
 		//keyPanel.add(selectedIteration, "alignx left, push, span, wrap");
 		//keyPanel.add(allIterations, "alignx left, push, span, wrap");
-		//JPanel keyWrapper = new JPanel(new MigLayout());
+		//JPanel keyWrapper = new JPanel(new MigLayout());	
 		
 		//keyWrapper.add(keyPanel, "wrap");
 		//keyWrapper.add(selectionPanel);

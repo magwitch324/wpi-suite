@@ -13,6 +13,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import java.awt.Color;
+import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -21,7 +22,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.monthtab.CalendarMonth;
+import edu.wpi.cs.wpisuitetng.modules.calendar.yeartab.CalendarYear;
 import net.miginfocom.swing.MigLayout;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Calendar;
 
 
 /**
@@ -37,6 +46,8 @@ public class TeamCalendarTab extends JSplitPane {
 	private JButton nextMonth;
 	private JButton prevMonth;
 	private JButton today;
+	
+	private JPanel  calMonth;
 	
 	private JLabel selectionLabel;
 	
@@ -69,7 +80,108 @@ public class TeamCalendarTab extends JSplitPane {
 		buttonPanel.add(today);
 		buttonPanel.add(nextMonth);
 		buttonPanel.add(nextYear);
-		
+
 		contentPanel.add(buttonPanel, "alignx center, dock north");
+		CalendarYear calYear = new CalendarYear(2013);
+			contentPanel.add(calYear, "alignx center, dock north");
+		//}
+
+		
+		scrollPane.setViewportView(contentPanel);
+		this.setRightComponent(scrollPane);
+		this.setDividerLocation(180);
 	}
+	
+	/*
+	private void setupButtonListeners()
+	{
+		nextYear.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				nextYear();
+			}	
+		});
+		
+		prevYear.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				previousYear();
+			}
+		});
+		
+		today.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				today();
+			}
+		});
+		
+		prevMonth.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				previousMonth();
+			}
+		});
+		
+		nextMonth.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				nextMonth();
+			}
+		});
+		
+	}
+	*/
+	/*
+	/**
+	 * Switches the calendar to the previous year.
+
+	private void previousYear()
+	{
+		Calendar cal = calendarView.getCalendar();
+		cal.add(Calendar.YEAR, -1);
+		calendarView.setFirstDisplayedDay(cal.getTime());
+	}
+	
+	
+	/**
+	 * Switches the calendar to the current date
+	
+	private void today()
+	{
+		Calendar cal = Calendar.getInstance();
+		calendarView.setFirstDisplayedDay(cal.getTime());
+	}
+
+	/**
+	 * Switches the calendar to the next month.
+
+	private void nextMonth()
+	{
+		Calendar cal = calendarView.getCalendar();
+		cal.add(Calendar.MONTH, 1);
+		calendarView.setFirstDisplayedDay(cal.getTime());
+	}
+	
+	/**
+	 * Switches the calendar to the previous month.
+
+	private void previousMonth()
+	{
+		Calendar cal = calendarView.getCalendar();
+		cal.add(Calendar.MONTH, -1);
+		calendarView.setFirstDisplayedDay(cal.getTime());
+	}
+	
+	/**
+	 * Switches the calendar to the next year.
+
+	private void nextYear()
+	{
+		Calendar cal = calendarView.getCalendar();
+		cal.add(Calendar.YEAR, +1);
+		calendarView.setFirstDisplayedDay(cal.getTime());
+	}
+*/
 }
