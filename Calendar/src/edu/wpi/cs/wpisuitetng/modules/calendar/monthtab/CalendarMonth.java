@@ -11,39 +11,22 @@
  *********************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.monthtab;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
-
-import java.awt.Color;
-
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.MatteBorder;
 
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import java.awt.FlowLayout;
 import java.awt.Font;
 
 import javax.swing.SwingConstants;
-import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.JTabbedPane;
 import javax.swing.BoxLayout;
-import java.awt.Component;
-import java.util.ArrayList;
+
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -81,8 +64,9 @@ public class CalendarMonth extends JPanel {
 		GregorianCalendar cal = new GregorianCalendar(year, month, 1);
 		numberOfDays = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
 		startOfMonth = cal.get(GregorianCalendar.DAY_OF_WEEK);
-		int startDate  =  (1 + startOfMonth - 2) % 7;
+		int startDate  =  startOfMonth;
 		monthName = Month.getMonthName(month);
+		
 		
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 543, 396);
@@ -196,13 +180,14 @@ public class CalendarMonth extends JPanel {
 	
 	private enum Day {
 		
-	    Monday(1),
-		Tuesday(2),
-		Wendesday(3),
-		Thursday(4),
-		Friday(5),
-		Saturday(6),
-		Sunday(7);
+		Sunday(1),
+	    Monday(2),
+		Tuesday(3),
+		Wendesday(4),
+		Thursday(5),
+		Friday(6),
+		Saturday(7);
+		
 		
 		private final int dayNumber;
 		

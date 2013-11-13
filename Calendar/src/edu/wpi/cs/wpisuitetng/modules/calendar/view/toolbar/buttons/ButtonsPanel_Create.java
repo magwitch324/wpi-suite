@@ -36,21 +36,25 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	// initialize the main view toolbar buttons
 		private JButton createCommitButton;
 		private final JButton createEventButton;
+		private final JButton showMonthButton0;
 		private final JButton showMonthButton;
 	
 	public ButtonsPanel_Create(){
 		super("");
 		createCommitButton= new JButton("<html>Create<br />Commitment</html>");
 		createEventButton= new JButton("<html>Create<br />Event</html>");
+		showMonthButton0 = new JButton("<html>View<br />Month0</html>");
 		showMonthButton = new JButton("<html>View<br />Month</html>");
 		JPanel contentPanel = new JPanel();
 
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
-		this.setPreferredWidth(500);
+		this.setPreferredWidth(600);
 		
 		this.createEventButton.setSize(200, 200);
 		this.createCommitButton.setPreferredSize(new Dimension(200, 200));
 		this.createCommitButton.setHorizontalAlignment(SwingConstants.CENTER);
+		this.showMonthButton0.setPreferredSize(new Dimension(200, 200));
+		this.showMonthButton0.setHorizontalAlignment(SwingConstants.CENTER);
 		this.showMonthButton.setPreferredSize(new Dimension(200, 200));
 		this.showMonthButton.setHorizontalAlignment(SwingConstants.CENTER);
 		
@@ -60,6 +64,9 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		    
 		    img = ImageIO.read(getClass().getResource("new_event.png"));
 		    this.createEventButton.setIcon(new ImageIcon(img));
+		    
+		    img = ImageIO.read(getClass().getResource("new_event.png"));
+		    this.showMonthButton0.setIcon(new ImageIcon(img));
 		    
 		    img = ImageIO.read(getClass().getResource("new_event.png"));
 		    this.showMonthButton.setIcon(new ImageIcon(img));
@@ -87,6 +94,13 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		//	}
 		});
 		
+		showMonthButton0.addActionListener(new ActionListener () {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GUIEventController.getInstance().showMonthView0();
+			}
+		});
+		
 		showMonthButton.addActionListener(new ActionListener () {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -97,6 +111,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 			
 		contentPanel.add(createCommitButton);
 		contentPanel.add(createEventButton);
+		contentPanel.add(showMonthButton0);
 		contentPanel.add(showMonthButton);
 		contentPanel.setOpaque(false);
 		
@@ -116,6 +131,9 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	 * @return JButton */
 	public JButton getCreateEventButton() {
 		return createEventButton;
+	}
+	public JButton getShowMonthButton0() {
+		return showMonthButton0;
 	}
 	
 	public JButton getShowMonthButton() {
