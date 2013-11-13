@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/WPISuite-Interfaces"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4">
 		<attributes>
@@ -15,5 +13,7 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
