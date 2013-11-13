@@ -35,11 +35,9 @@ import edu.wpi.cs.wpisuitetng.modules.defecttracker.entitymanagers.DefectManager
 import edu.wpi.cs.wpisuitetng.modules.postboard.model.PostBoardEntityManager;
 import edu.wpi.cs.wpisuitetng.modules.requirementmanager.models.RequirementEntityManager;
 import edu.wpi.cs.wpisuitetng.modules.requirementmanager.models.iterations.IterationEntityManager;
-<<<<<<< .merge_file_7QjvGk
 
-=======
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventEntityManager;
->>>>>>> .merge_file_6A58wF
+
 /**
  * This singleton class responds to API requests directed at 
  * models by contacting their respective entity managers
