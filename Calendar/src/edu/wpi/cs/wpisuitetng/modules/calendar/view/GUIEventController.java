@@ -18,7 +18,13 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.monthtab.CalendarMonth;
+
+
+
+
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarMonth;
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarYear;
+import edu.wpi.cs.wpisuitetng.modules.calendar.WeekView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.monthtab.CalendarMonth2;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
@@ -101,22 +107,38 @@ public class GUIEventController {
 	}
 	
 	public void showMonthView0() {
-		CalendarMonth monthView = new CalendarMonth(2013, 11);
-		JPanel monthPanel = monthView.CalendarMonthBuild();
-		main.addTab("MonthView.", null, monthPanel, "MonthView");
+		//CalendarMonth monthView = new CalendarMonth(2013, 11);
+		//JPanel monthPanel = monthView.CalendarMonthBuild();
+		CalendarMonth c = new CalendarMonth("January",3,31);
+		main.addTab("MonthView", null, c.getCalPanel(), "MonthView");
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
-		main.setSelectedComponent(monthView);
+		main.setSelectedComponent(c.getCalPanel());
 	}
 
 	public void showMonthView() {
 		//CalendarMonth monthView = new CalendarMonth(2013, 11);
 		//JPanel monthPanel = monthView.CalendarMonthBuild();
-		CalendarMonth2 monthView2 = new CalendarMonth2();
+		//CalendarMonth2 monthView2 = new CalendarMonth2();
+		DayView day = new DayView();
+		
 		//main.addTab("MonthView.", null, monthPanel, "MonthView");
-		main.addTab("MonthView.", null, monthView2, "MonthView");
+		main.addTab("DayView", null, day, "MonthView");
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
-		main.setSelectedComponent(monthView2);
+		main.setSelectedComponent(day);
+	}
+	
+	public void showWeekView() {
+		//CalendarMonth monthView = new CalendarMonth(2013, 11);
+		//JPanel monthPanel = monthView.CalendarMonthBuild();
+		//CalendarMonth2 monthView2 = new CalendarMonth2();
+		//WeekView week = new WeekView();
+		CalendarYear year = new CalendarYear(2013);
+		//main.addTab("MonthView.", null, monthPanel, "MonthView");
+		main.addTab("WeekView", null, year, "WeekView");
+		main.invalidate(); //force the tabbedpane to redraw.
+		main.repaint();
+		main.setSelectedComponent(year);
 	}
 }
