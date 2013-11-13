@@ -25,7 +25,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarMonth;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarYear;
 import edu.wpi.cs.wpisuitetng.modules.calendar.WeekView;
-import edu.wpi.cs.wpisuitetng.modules.calendar.monthtab.CalendarMonth2;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons.ButtonsPanel_Create;
