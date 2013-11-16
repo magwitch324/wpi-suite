@@ -185,8 +185,6 @@ public class TeamCalendar extends JPanel implements ICalendar {
             }
         });
 		
-		
-		
 		apane.add(backwardbutton);
 		apane.add(todaybutton);
 		apane.add(forwardbutton);
@@ -206,7 +204,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
 			viewpanel.add(new DayView(mycal));
 			break;
 		case(1):
-			//TODO dayview
+			viewpanel.add(new WeekView(mycal));
 			break;
 		case(2):
 			//TODO dayview
