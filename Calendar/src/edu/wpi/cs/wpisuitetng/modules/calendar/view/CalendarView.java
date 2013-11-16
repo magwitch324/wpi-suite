@@ -26,6 +26,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * Sets up the panel with the refresh function
 	 */
 	public CalendarView(Calendar calendar) {
+		setRange(calendar);
 	}
 	/**
 	 * create and display View componenets

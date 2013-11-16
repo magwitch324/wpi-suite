@@ -4,30 +4,28 @@ import java.util.Calendar;
 
 public class DayView extends CalendarView {
 
+	Calendar day;
+	
 	public DayView(Calendar calendar) {
 		super(calendar);
 		setCalPane(new DayPane());
 		setCommitmentView(new CommitmentView());
 		refresh();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void setRange(Calendar calendar) {
-		// TODO Auto-generated method stub
-
+		day = calendar;
 	}
 
 	@Override
 	public void nextUnit() {
-		// TODO Auto-generated method stub
-
+		day.add(Calendar.DAY_OF_MONTH, 1);
 	}
 
 	@Override
 	public void prevUnit() {
-		// TODO Auto-generated method stub
-
+		day.add(Calendar.DAY_OF_MONTH, -1);
 	}
 
 }
