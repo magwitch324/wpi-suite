@@ -13,6 +13,7 @@ import java.util.Locale;
 public class WeekView extends CalendarView {
 
 	private Calendar startDate;
+	private Calendar endDate;
 	
 	public WeekView(Calendar calendar) {
 		super(calendar);
@@ -26,9 +27,13 @@ public class WeekView extends CalendarView {
 	 */
 	@Override
 	public void setRange(Calendar calendar) {
-		startDate = calendar;
-		startDate.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-		Calendar endDate = startDate;
+		startDate = (Calendar) calendar.clone();
+
+		while (startDate.get(Calendar.DAY_OF_WEEK) != startDate.getFirstDayOfWeek()) {
+			startDate.add(Calendar.DAY_OF_WEEK, -1);
+		}
+		
+		endDate = (Calendar) startDate.clone();
 		endDate.add(Calendar.WEEK_OF_MONTH, 1);
 		
 		String startMonthName = startDate.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.ENGLISH);
@@ -38,7 +43,7 @@ public class WeekView extends CalendarView {
 		int startYear = startDate.get(Calendar.YEAR);
 		int endYear = endDate.get(Calendar.YEAR);
 		
-		setLabel(startMonthName + " " + startDayNum + ", " + startYear + " - " + startMonthName + " " + startDayNum + ", " + startYear);
+		setLabel(startMonthName + " " + startDayNum + ", " + startYear + " - " + endMonthName + " " + endDayNum + ", " + endYear);
 				
 		refresh();
 	}
