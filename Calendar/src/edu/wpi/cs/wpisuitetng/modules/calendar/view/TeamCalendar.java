@@ -67,8 +67,8 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		
 		layout.putConstraint(SpringLayout.WEST, viewpanel, 5, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.NORTH, viewpanel, 5, SpringLayout.SOUTH, datepanel);
-		layout.putConstraint(SpringLayout.EAST, viewpanel, 5, SpringLayout.EAST, this);
-		layout.putConstraint(SpringLayout.SOUTH, viewpanel, 5, SpringLayout.SOUTH, this);
+		layout.putConstraint(SpringLayout.EAST, viewpanel, -5, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.SOUTH, viewpanel, -5, SpringLayout.SOUTH, this);
 		
 		this.add(viewpanel);
 		
@@ -134,6 +134,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		else{
 			mycal.add(viewsizeval[currenttype.getCurrentType()], step);
 		}
+		setView();
 	}
 	
 	protected void switchview(types changeto){
@@ -196,7 +197,28 @@ public class TeamCalendar extends JPanel implements ICalendar {
 	}
 	
 	protected void setView(){
+		viewpanel.removeAll();
 		//TODO do views
+		switch(currenttype.getCurrentType()){
+		case(0):
+			viewpanel.add(new DayView(mycal));
+			break;
+		case(1):
+			//TODO dayview
+			break;
+		case(2):
+			//TODO dayview
+			break;
+		case(3):
+			//TODO dayview
+			break;
+		default:
+			//TODO error
+			break;
+		}
+		
+		viewpanel.revalidate();
+		viewpanel.repaint();
 		
 	}
 	
