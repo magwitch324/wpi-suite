@@ -18,9 +18,9 @@ public class DayView extends CalendarView {
 	public void setRange(Calendar calendar) {
 		day = calendar;
 		String dayName = day.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
-		String dayNum = day.getDisplayName(Calendar.DAY_OF_MONTH, Calendar.LONG, Locale.ENGLISH);
+		int dayNum = day.get(day.DAY_OF_MONTH);
 		String monthName = day.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
-		String year = day.getDisplayName(Calendar.YEAR, Calendar.LONG, Locale.ENGLISH);
+		int year = day.get(day.YEAR);
 		setLabel(dayName + ", " + monthName + " " + dayNum + ", " + year);
 		refresh();
 	}

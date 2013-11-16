@@ -120,7 +120,6 @@ public class TeamCalendar extends JPanel implements ICalendar {
             }
         });
 		
-		
 		apane.add(viewbtns[0]);
 		apane.add(viewbtns[1]);
 		apane.add(viewbtns[2]);
