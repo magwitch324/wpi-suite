@@ -59,7 +59,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		add(top);
 		
 		Calendar date = Calendar.getInstance();
-		date.set(2013, Calendar.NOVEMBER, 16);
+//		date.set(2013, Calendar.NOVEMBER, 16);
 		
 		//temp. example view
 		CalendarView view = new DayView(date);
