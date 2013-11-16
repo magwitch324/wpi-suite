@@ -16,7 +16,8 @@ public class DayView extends CalendarView {
 
 	@Override
 	public void setRange(Calendar calendar) {
-		day = calendar;
+		day = (Calendar) calendar.clone();
+		
 		String dayName = day.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
 		int dayNum = day.get(day.DAY_OF_MONTH);
 		String monthName = day.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
