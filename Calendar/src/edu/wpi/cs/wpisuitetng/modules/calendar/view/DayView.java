@@ -16,16 +16,7 @@ public class DayView extends CalendarView {
 	@Override
 	public void setRange(Calendar calendar) {
 		day = calendar;
-	}
-
-	@Override
-	public void nextUnit() {
-		day.add(Calendar.DAY_OF_MONTH, 1);
-	}
-
-	@Override
-	public void prevUnit() {
-		day.add(Calendar.DAY_OF_MONTH, -1);
+		refresh();
 	}
 
 }

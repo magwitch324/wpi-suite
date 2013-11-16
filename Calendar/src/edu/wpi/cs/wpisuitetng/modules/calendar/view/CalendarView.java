@@ -76,15 +76,6 @@ public abstract class CalendarView extends JSplitPane {
 	 */
 	abstract public void setRange(Calendar calendar);
 	
-	/**
-	 * Move the range forward one unit in time
-	 */
-	abstract public void nextUnit();
-	/**
-	 * Move the range backward one unit in time
-	 */
-	abstract public void prevUnit();
-
 	public void setCalPane(ICalPane pane) {
 		// TODO Auto-generated method stub
 		this.calPane = pane;

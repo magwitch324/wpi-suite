@@ -29,20 +29,4 @@ public class WeekView extends CalendarView {
 		startDate.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 	}
 
-	/* (non-Javadoc)
-	 * @see edu.wpi.cs.wpisuitetng.modules.calendar.view.CalendarView#nextUnit()
-	 */
-	@Override
-	public void nextUnit() {
-		startDate.add(Calendar.WEEK_OF_MONTH, 1);
-	}
-
-	/* (non-Javadoc)
-	 * @see edu.wpi.cs.wpisuitetng.modules.calendar.view.CalendarView#prevUnit()
-	 */
-	@Override
-	public void prevUnit() {
-		startDate.add(Calendar.WEEK_OF_MONTH, -1);
-	}
-
 }
