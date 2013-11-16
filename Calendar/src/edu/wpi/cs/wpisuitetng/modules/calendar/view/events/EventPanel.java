@@ -1,5 +1,9 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.events;
 
+/* 
+ * This is now a depreciated module. Delete when possible
+ */
+
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
