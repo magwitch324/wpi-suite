@@ -128,7 +128,7 @@ public class GUIEventController {
 		//CalendarMonth monthView = new CalendarMonth(2013, 11);
 		//JPanel monthPanel = monthView.CalendarMonthBuild();
 		//CalendarMonth2 monthView2 = new CalendarMonth2();
-		DayView day = new DayView();
+		DayPane day = new DayPane();
 		
 		//main.addTab("MonthView.", null, monthPanel, "MonthView");
 		main.addTab("DayView", null, day, "MonthView");

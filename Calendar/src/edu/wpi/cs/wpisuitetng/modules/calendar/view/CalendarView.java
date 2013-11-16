@@ -26,9 +26,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * Sets up the panel with the refresh function
 	 */
 	public CalendarView(Calendar calendar) {
-		this.refresh();
-	}	
-	
+	}
 	/**
 	 * create and display View componenets
 	 */
@@ -85,6 +83,16 @@ public abstract class CalendarView extends JSplitPane {
 	 * Move the range backward one unit in time
 	 */
 	abstract public void prevUnit();
+
+	public void setCalPane(ICalPane pane) {
+		// TODO Auto-generated method stub
+		this.calPane = pane;
+	}
+	
+	public void setCommitmentView(CommitmentView comm) {
+		// TODO Auto-generated method stub
+		this.commitments = comm;
+	}
 	
 	
 	

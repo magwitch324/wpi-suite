@@ -23,7 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarMonth;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.DayView;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.DayPane;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import net.miginfocom.swing.MigLayout;
 
@@ -76,7 +76,7 @@ public class MyCalendarTab extends JSplitPane {
 		buttonPanel.add(nextYear);
 
 		CalendarMonth c= new CalendarMonth("January", 3, 31);
-		DayView d = new DayView();
+		DayPane d = new DayPane();
 		
 		
 		contentPanel.add(buttonPanel, "alignx center, dock north");

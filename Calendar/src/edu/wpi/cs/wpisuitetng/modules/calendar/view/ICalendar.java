@@ -1,5 +1,5 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
-public interface ICalender {
+public interface ICalendar {
 
 }
