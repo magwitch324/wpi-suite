@@ -1,5 +1,6 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
@@ -198,6 +199,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
 	
 	protected void setView(){
 		viewpanel.removeAll();
+		viewpanel.setLayout(new GridLayout(1,1));
 		//TODO do views
 		switch(currenttype.getCurrentType()){
 		case(0):
