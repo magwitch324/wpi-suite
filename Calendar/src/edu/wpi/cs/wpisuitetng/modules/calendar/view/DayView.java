@@ -11,7 +11,7 @@ public class DayView extends CalendarView {
 		super(calendar);
 		setCalPane(new DayPane());
 		setCommitmentView(new CommitmentView());
-		refresh();
+		setRange(calendar);
 	}
 
 	@Override
