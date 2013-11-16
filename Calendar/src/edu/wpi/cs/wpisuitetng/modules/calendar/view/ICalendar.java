@@ -1,5 +1,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
-public interface ICalendar {
+import javax.swing.JComponent;
 
+public interface ICalendar {
+	JComponent getComponent();
 }

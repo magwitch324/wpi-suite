@@ -1,13 +1,15 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Calendar;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+import javax.swing.SpringLayout;
 
 public class TeamCalendar extends JPanel implements ICalendar {
 	
@@ -28,53 +30,176 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		}
 	}
 	
-	types currrenttype = types.DAY;
+	types currenttype = types.DAY;
+	Calendar mycal = Calendar.getInstance();
 	
-	JPanel name = new JPanel(); 
+	JPanel viewpanel = new JPanel(); 
+	JToggleButton[] viewbtns = new JToggleButton[4];
+	
+	int[] viewsizeval = {Calendar.DATE, Calendar.WEEK_OF_YEAR, Calendar.MONTH, Calendar.YEAR};
+	
 	
 	public TeamCalendar() {
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		super();
+		drawThis();
+	}
+	
+	protected void drawThis(){
+		SpringLayout layout = new SpringLayout();
+		setLayout(layout);
 		
-		JPanel top = new JPanel();
-		top.setLayout(new BoxLayout(top, BoxLayout.X_AXIS));
+		JComponent viewbtnpanel = getViewButtonPanel();
+		layout.putConstraint(SpringLayout.WEST, viewbtnpanel, 5, SpringLayout.WEST, this);
+		layout.putConstraint(SpringLayout.NORTH, viewbtnpanel, 5, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.EAST, viewbtnpanel, -30, SpringLayout.HORIZONTAL_CENTER, this);
+		this.add(viewbtnpanel);
 		
-		JToggleButton DayButton = new JToggleButton("Day");
-		JToggleButton WeekButton = new JToggleButton("Week");
-		JToggleButton MonthButton = new JToggleButton("Month");
-		JToggleButton YearButton = new JToggleButton("Year");
-		JButton ForwardButton = new JButton(">>");
-		JButton BackwardButton = new JButton("<<");
-		JButton TodayButton = new JButton("Today");
-		JComboBox FilterChoices = new JComboBox();
+		JComponent datepanel = getDatePanel();
+		layout.putConstraint(SpringLayout.NORTH, datepanel, 5, SpringLayout.SOUTH, viewbtnpanel);
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datepanel, 0, SpringLayout.HORIZONTAL_CENTER, this);
+		this.add(datepanel);
 		
-		top.add(DayButton);
-		top.add(WeekButton);
-		top.add(MonthButton);
-		top.add(YearButton);
-		top.add(BackwardButton);
-		top.add(TodayButton);
-		top.add(ForwardButton);
-		top.add(FilterChoices);
+		JComboBox filter = new JComboBox();
+		layout.putConstraint(SpringLayout.WEST, filter, 30, SpringLayout.HORIZONTAL_CENTER, this);
+		layout.putConstraint(SpringLayout.NORTH, filter, 5, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.EAST, filter, -5, SpringLayout.EAST, this);
+		this.add(filter);
 		
-		add(top);
+		layout.putConstraint(SpringLayout.WEST, viewpanel, 5, SpringLayout.WEST, this);
+		layout.putConstraint(SpringLayout.NORTH, viewpanel, 5, SpringLayout.SOUTH, datepanel);
+		layout.putConstraint(SpringLayout.EAST, viewpanel, 5, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.SOUTH, viewpanel, 5, SpringLayout.SOUTH, this);
 		
-		Calendar date = Calendar.getInstance();
-		date.set(2013, Calendar.NOVEMBER, 16);
+		this.add(viewpanel);
 		
-		//temp. example view
-		CalendarView view = new DayView(date);
-		view.setAlignmentX(CENTER_ALIGNMENT);
-		add(view); 
+		setView();
+		
+	}
+	
+	protected JComponent getViewButtonPanel(){
+		JPanel apane = new JPanel();
+		
+		viewbtns[0] = new JToggleButton("Day");
+		viewbtns[0].addActionListener(new ActionListener() {
+			 
+            public void actionPerformed(ActionEvent e)
+            {
+                //Execute when button is pressed
+            	switchview(types.DAY);
+            }
+        });
+		
+		
+		viewbtns[1] = new JToggleButton("Week");
+		viewbtns[1].addActionListener(new ActionListener() {
+			 
+            public void actionPerformed(ActionEvent e)
+            {
+                //Execute when button is pressed
+            	switchview(types.WEEK);
+            }
+        });
+		
+		viewbtns[2] = new JToggleButton("Month");
+		viewbtns[2].addActionListener(new ActionListener() {
+			 
+            public void actionPerformed(ActionEvent e)
+            {
+                //Execute when button is pressed
+            	switchview(types.MONTH);
+            }
+        });
+		
+		viewbtns[3] = new JToggleButton("Year");
+		viewbtns[3].addActionListener(new ActionListener() {
+			 
+            public void actionPerformed(ActionEvent e)
+            {
+                //Execute when button is pressed
+            	switchview(types.YEAR);
+            }
+        });
+		
+		
+		apane.add(viewbtns[0]);
+		apane.add(viewbtns[1]);
+		apane.add(viewbtns[2]);
+		apane.add(viewbtns[3]);
+		return apane;
+	}
+	
+	protected void stepCalendar(int step){
+		if(step == 0){
+			mycal = Calendar.getInstance();
+		}
+		else{
+			mycal.add(viewsizeval[currenttype.getCurrentType()], step);
+		}
+	}
+	
+	protected void switchview(types changeto){
+		if(currenttype != changeto){
+			
+			for(int i = 0; i < 4; i++){
+				viewbtns[i].setSelected(false);
+			}
+			
+			currenttype = changeto;
+			setView();
+		}
+		
+		viewbtns[changeto.getCurrentType()].setSelected(true);
+	}
+	
+	protected JComponent getDatePanel(){
+		JPanel apane = new JPanel();
+		
+		JButton backwardbutton = new JButton("<<");
+		backwardbutton.addActionListener(new ActionListener() {
+			 
+            public void actionPerformed(ActionEvent e)
+            {
+                //Execute when button is pressed
+            	stepCalendar(-1);
+            }
+        });
+		
+		JButton todaybutton = new JButton("Today");
+		todaybutton.addActionListener(new ActionListener() {
+			 
+            public void actionPerformed(ActionEvent e)
+            {
+                //Execute when button is pressed
+            	stepCalendar(0);
+            }
+        });
+		
+		JButton forwardbutton = new JButton(">>");
+		forwardbutton.addActionListener(new ActionListener() {
+			 
+            public void actionPerformed(ActionEvent e)
+            {
+                //Execute when button is pressed
+            	stepCalendar(1);
+            }
+        });
 		
 		
 		
-		
+		apane.add(backwardbutton);
+		apane.add(todaybutton);
+		apane.add(forwardbutton);
+		return apane;
 	}
 	
 	public JComponent getComponent() {
-		return name; 
+		return this; 
 	}
 	
+	protected void setView(){
+		//TODO do views
+		
+	}
 	
 	
 	
