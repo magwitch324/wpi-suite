@@ -34,6 +34,7 @@ public abstract class CalendarView extends JSplitPane {
 		
 		setLeftComponent(calPane.getPane());
 		setRightComponent(makeRightView());
+		setResizeWeight(1.0);
 		
 	}
 	
