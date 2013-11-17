@@ -1,4 +1,4 @@
-package edu.wpi.cs.wpisuitetng.modules.calendar.models.category;
+package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import java.util.Date;
 
@@ -10,51 +10,38 @@ public class Commitment extends AbstractModel {
 	// Commitment characteristics.
 	private int id;
 	private String name;
-	private Date startDate;
-	private Date endDate;
+	private Date dueDate;
 	private String description;
-	private String participants;
 	private int categoryId;
-	private int repeat;
 
 	//Getters
-	public int getId() 				{ return id;}
+	public int getId() 				{return id;}
 	public String getName() 		{return name;}
-	public Date getStartDate() 		{return startDate;}
-	public Date getEndDate() 		{return endDate;}
+	public Date getDueDate() 		{return dueDate;}
 	public String getDescription() 	{return description;}
-	public String getParticipants() {return participants;}
+	
 	public int getCategoryId()	 	{return categoryId;}
-	public int getRepeat() 			{return repeat;}
-
+	
 	//Setters
 	public void setId		   (int id)				{this.id = id;}
 	public void setName		   (String name) 		{this.name = name;}
-	public void setStartDay	   (Date startDate)	    {this.startDate = startDate;}
-	public void setEndDate	   (Date endDate) 		{this.endDate = endDate;}
+	public void setDueDate	   (Date dueDate) 		{this.dueDate = dueDate;}
 	public void setDescription (String description) {this.description = description;}
-	public void setParticipants(String participants){this.participants = participants;}
 	public void setCategoryId  (int categoryId) 	{this.categoryId = categoryId;}
-	public void setRepeat      (int repeat) 		{this.repeat = repeat;}
 
 	public Commitment() {
 		super();
-		name = description = participants = "";
-		startDate = new Date(0);
-		endDate = new Date(0);
+		name = description = "";
+		dueDate = new Date();
 	}
 	
-	public Commitment(int id, String name, Date startDate, Date endDate,
-					String description, String participants, int categoryId, int repeat) {
+	public Commitment(String name, Date dueDate,
+					String description, int categoryId) {
 		this();
-		this.id = id;
 		this.name = name;
-		this.startDate = startDate;
-		this.endDate = endDate;
+		this.dueDate = dueDate;
 		this.description = description;
-		this.participants = participants;
 		this.categoryId = categoryId;
-		this.repeat = repeat;
 	}
 
 	/**
@@ -154,12 +141,9 @@ public class Commitment extends AbstractModel {
 	public void copyFrom(Commitment toCopyFrom) {
 		this.id = 			toCopyFrom.getId();
 		this.name = 		toCopyFrom.getName();
-		this.startDate =	toCopyFrom.getStartDate();
-		this.endDate = 		toCopyFrom.getEndDate();
+		this.dueDate = 		toCopyFrom.getDueDate();
 		this.description =  toCopyFrom.getDescription();
-		this.participants = toCopyFrom.getParticipants();
 		this.categoryId = 	toCopyFrom.getCategoryId();
-		this.repeat = 		toCopyFrom.getRepeat();
 
 	}
 	
