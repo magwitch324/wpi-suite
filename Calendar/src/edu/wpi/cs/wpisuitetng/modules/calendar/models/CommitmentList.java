@@ -89,7 +89,7 @@ public class CommitmentList {
 
 	/**
 	 * 
-	 * Provides the next ID number that should be used for a new category that is created.
+	 * Provides the next ID number that should be used for a new commitment that is created.
 	 * 
 
 	 * @return the next open id number */
@@ -100,21 +100,21 @@ public class CommitmentList {
 	}
 
 	/**
-	 * This function takes an index and finds the category in the list of categories
-	 * for the project. Used internally by the JList in NewCategoryList.
+	 * This function takes an index and finds the commitment in the list of categories
+	 * for the project. Used internally by the JList in NewCommitmentList.
 	 * 
-	 * @param index The index of the category to be returned
+	 * @param index The index of the commitment to be returned
 
 
 
-	 * @return the category associated with the provided index * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int)
+	 * @return the commitment associated with the provided index * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int)
 	 */
 	public Commitment getElementAt(int index) {
 		return commitments.get(commitments.size() - 1 - index);
 	}
 
 	/**
-	 * Removes all categories from this model
+	 * Removes all commitments from this model
 	 * 
 	 * NOTE: One cannot simply construct a new instance of
 	 * the model, because other classes in this module have
@@ -126,38 +126,32 @@ public class CommitmentList {
 	}
 
 	/**
-	 * Adds the given array of categories to the list
+	 * Adds the given array of commitments to the list
 	 * 
-	 * @param categories the array of categories to add
+	 * @param categories the array of commitments to add
 	 */
 	public void addCommitments(Commitment[] array) {
-		Collections.addAll(commitments, array);
-		sortByAlphabet();
+		int i = 0;
+		while(i < array.length){
+			commitments.add(array[i]);
+		}
 	}
 
 	/**
-	 * Returns the list of the categories
+	 * Returns the list of the commitments
 
-	 * @return the categories held within the CategoryList. */
+	 * @return the commitments held within the CommitmentList. */
 	public List<Commitment> getCommitments() {
 		return commitments;
 	}
 	
 	/**
-	 * Update the category list
+	 * Update the commitment list
 	 * 
-	 * @param the category to be update
+	 * @param the commitment to be update
 	 */
 	public void update (Commitment newCommitment) {
 		commitments.remove(getCommitment(newCommitment.getId()));
 		commitments.add(newCommitment);
-		sortByAlphabet();
-	}
-
-	/**
-	 * Sort the elements in the categories according to the alphabet
-	 */
-	public void sortByAlphabet() {
-		Collections.sort(commitments, new Commitment());
 	}
 }
