@@ -1,5 +1,6 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -100,6 +101,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		JPanel apane = new JPanel();
 		
 		viewbtns[0] = new JToggleButton("Day");
+		viewbtns[0].setFont(new Font("Arial", 1, 14));
 		viewbtns[0].addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)
@@ -111,6 +113,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		
 		
 		viewbtns[1] = new JToggleButton("Week");
+		viewbtns[1].setFont(new Font("Arial", 1, 14));
 		viewbtns[1].addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)
@@ -121,6 +124,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
         });
 		
 		viewbtns[2] = new JToggleButton("Month");
+		viewbtns[2].setFont(new Font("Arial", 1, 14));
 		viewbtns[2].addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)
@@ -131,6 +135,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
         });
 		
 		viewbtns[3] = new JToggleButton("Year");
+		viewbtns[3].setFont(new Font("Arial", 1, 14));
 		viewbtns[3].addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)
@@ -242,13 +247,13 @@ public class TeamCalendar extends JPanel implements ICalendar {
 	}
 	
 	public void setCal(Calendar changeto){
-		mycal = changeto;
+		mycal = (Calendar)changeto.clone();
 		setView();
 	}
 	
 	public void setCalsetView(Calendar acal, TeamCalendar.types switchtype)
 	{
-		mycal = acal;
+		mycal = (Calendar)acal.clone();
 		switchview(switchtype);
 		setView();
 	}
