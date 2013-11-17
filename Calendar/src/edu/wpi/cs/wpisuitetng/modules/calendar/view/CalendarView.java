@@ -14,6 +14,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Calendar;
 
@@ -60,6 +61,7 @@ public abstract class CalendarView extends JSplitPane {
 		labelPanel.setMaximumSize(new Dimension(160, 80));
 //		labelPanel.setBorder(new LineBorder(Color.BLACK));
 		JLabel dateLabel = new JLabel(dateRange);
+		dateLabel.setFont(new Font("Arial", Font.PLAIN, 16));
 		
 		labelPanel.add(dateLabel);
 		
