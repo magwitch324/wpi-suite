@@ -6,8 +6,15 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
+import javax.swing.border.LineBorder;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.Calendar;
 
 /**
@@ -47,15 +54,20 @@ public abstract class CalendarView extends JSplitPane {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
 		JPanel labelPanel = new JPanel();
-
+		labelPanel.setLayout(new GridLayout(1,1,0,0));
+		
+		labelPanel.setPreferredSize(new Dimension(160, 80));
+		labelPanel.setMaximumSize(new Dimension(160, 80));
+//		labelPanel.setBorder(new LineBorder(Color.BLACK));
 		JLabel dateLabel = new JLabel(dateRange);
-        dateLabel.setAlignmentX(CENTER_ALIGNMENT);
-        dateLabel.setAlignmentY(CENTER_ALIGNMENT);
 		
 		labelPanel.add(dateLabel);
 		
 		panel.add(labelPanel);
 		
+		JSeparator separator = new JSeparator();
+		separator.setOrientation(VERTICAL_SPLIT);
+		panel.add(separator);
 		panel.add(commitments);
 		
 		return panel;
