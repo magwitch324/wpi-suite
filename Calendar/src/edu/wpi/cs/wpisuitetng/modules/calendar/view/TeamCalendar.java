@@ -241,7 +241,17 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		
 	}
 	
+	public void setCal(Calendar changeto){
+		mycal = changeto;
+		setView();
+	}
 	
+	public void setCalsetView(Calendar acal, TeamCalendar.types switchtype)
+	{
+		mycal = acal;
+		switchview(switchtype);
+		setView();
+	}
 	
 	
 }
