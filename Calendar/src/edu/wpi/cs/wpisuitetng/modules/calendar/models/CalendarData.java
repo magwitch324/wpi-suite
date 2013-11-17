@@ -17,23 +17,27 @@ public class CalendarData extends AbstractModel {
 
 	/** the name of the CalendarData */
 	private String name;
+	private CategoryList categories;
+	private CommitmentList commitments;
 
 	/**
-	 * Constructs a category with default characteristics
+	 * Constructs a CalendarData with default characteristics
 	 */
 	public CalendarData() {
 		super();
 		name = "";
+		this.catagories = new CategoryList();
+		this.commitments = new CommitmentList(); 
 	}
 
 	/**
-	 * Construct a Category with required properties provided and others set
+	 * Construct a CalendarData with required properties provided and others set
 	 * to default
 	 * 
 	 * @param id
-	 *            The ID number of the category
+	 *            The ID number of the CalendarData
 	 * @param name
-	 *            The name of the category
+	 *            The name of the CalendarData
 	 */
 	// need to phase out supplying the ID
 	public CalendarData(int id, String name) {
@@ -41,16 +45,52 @@ public class CalendarData extends AbstractModel {
 		this.id = id;
 		this.name = name;
 	}
-
+	
+	
+	/**
+	 * Returns the list of commitments in this calendar
+	 * 
+	 * @return the list of commitments
+	 */
+	public CommitmentList getCommitments(){
+		return commitments;
+	}
+	
+	/**
+	 * Returns the list of categories in this calendar
+	 * 
+	 * @return the list of categories
+	 */
+	public CategoryList getCategories(){
+		return categories;
+	}
+	
+	/**
+	 * Adds a commitment to the calendar
+	 * 
+	 * @param commitment
+	 */
+	public void addCommitment(Commitment newCommitment){
+		//TODO add correct call
+	}
+	
+	/**
+	 * Adds a category to the calendar
+	 * 
+	 * @param category
+	 */
+	public void addCategory(Category newCategory){
+		//TODO add correct call
+	}
 
 	/**
-	 * Returns an instance of Category constructed using the given
-	 * Event encoded as a JSON string.
+	 * Returns an instance of CalendarData constructed using the given
+	 * CalendarData encoded as a JSON string.
 	 * 
 	 * @param json
-	 *            JSON-encoded Category to deserialize
+	 *            JSON-encoded CalendarData to deserialize
 	
-	 * @return the Category contained in the given JSON */
+	 * @return the CalendarData contained in the given JSON */
 	public static CalendarData fromJson(String json) {
 		final Gson parser = new Gson();
 		return parser.fromJson(json, CalendarData.class);
@@ -127,9 +167,9 @@ public class CalendarData extends AbstractModel {
 	 * @return String * @see edu.wpi.cs.wpisuitetng.modules.Model#toJSON() * @see edu.wpi.cs.wpisuitetng.modules.Model#toJSON()
 	 */
 	@Override
-	/**This returns a Json encoded String representation of this category object.
+	/**This returns a Json encoded String representation of this CalendarData object.
 	 * 
-	 * @return a Json encoded String representation of this category
+	 * @return a Json encoded String representation of this CalendarData
 	 * 
 	 */
 	public String toJSON() {
@@ -137,13 +177,13 @@ public class CalendarData extends AbstractModel {
 	}
 
 	/**
-	 * Returns an array of Category parsed from the given JSON-encoded
+	 * Returns an array of CalendarData parsed from the given JSON-encoded
 	 * string.
 	 * 
 	 * @param json
 	 *            string containing a JSON-encoded array of Category
 	
-	 * @return an array of Category deserialized from the given JSON string */
+	 * @return an array of CalendarData deserialized from the given JSON string */
 	public static CalendarData[] fromJsonArray(String json) {
 		final Gson parser = new Gson();
 		return parser.fromJson(json, CalendarData[].class);
