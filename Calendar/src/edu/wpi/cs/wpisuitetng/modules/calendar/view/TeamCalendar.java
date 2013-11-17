@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.SpringLayout;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.config.CalendarConfManager;
+
 public class TeamCalendar extends JPanel implements ICalendar {
 	
 	protected enum types {
@@ -42,7 +44,23 @@ public class TeamCalendar extends JPanel implements ICalendar {
 	
 	public TeamCalendar() {
 		super();
+		
+		// Loads calendar configuration
+		mycal = CalendarConfManager.getConfig().getDate();
+		if (mycal == null)
+			mycal = Calendar.getInstance();
+		
+		// Draws GUI
 		drawThis();
+		
+		// Saves calendar configuration on shutdown
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+		    @Override
+		    public void run() {
+		    	CalendarConfManager.getConfig().setDate(mycal);
+		        CalendarConfManager.writeConfig();
+		    }
+		});
 	}
 	
 	protected void drawThis(){

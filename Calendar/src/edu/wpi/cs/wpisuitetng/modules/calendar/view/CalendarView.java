@@ -58,8 +58,7 @@ public abstract class CalendarView extends JSplitPane {
 		
 		labelPanel.setPreferredSize(new Dimension(160, 80));
 		labelPanel.setMaximumSize(new Dimension(160, 80));
-//		labelPanel.setBorder(new LineBorder(Color.BLACK));
-		JLabel dateLabel = new JLabel(dateRange);
+		JLabel dateLabel = new JLabel("<html><body style='width: 160px'>" + dateRange + "</html>");
 		
 		labelPanel.add(dateLabel);
 		
