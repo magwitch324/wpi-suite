@@ -71,7 +71,7 @@ public abstract class CalendarView extends JSplitPane {
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(VERTICAL_SPLIT);
 		panel.add(separator);
-		panel.add(commitments);
+		panel.add(commitments, BorderLayout.CENTER);
 		
 		return panel;
 		
