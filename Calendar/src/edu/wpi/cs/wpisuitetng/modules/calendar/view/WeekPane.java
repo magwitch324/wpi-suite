@@ -79,7 +79,9 @@ public class WeekPane extends JPanel implements ICalPane {
     	JPanel apane = new JPanel();
 	    apane.setLayout(new GridLayout(1,7));
 	    for(int i = 0; i<7; i++){
-	    	apane.add( new DetailedDay(Calendar.getInstance()));
+	    	Calendar acal = Calendar.getInstance();
+	    	acal.add(Calendar.DATE, i);
+	    	apane.add( new DetailedDay( acal ) );
 	    }
     	return apane;
     }
