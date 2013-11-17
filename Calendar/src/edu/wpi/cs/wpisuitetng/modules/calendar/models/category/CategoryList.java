@@ -51,6 +51,7 @@ public class CategoryList {
 		try 
 		{
 			AddCategoryController.getInstance().addCategory(newReq);
+			sortByAlphabet();
 		}
 		catch(Exception e)
 		{
@@ -148,6 +149,7 @@ public class CategoryList {
 	 */
 	public void addCategorys(Category[] array) {
 		Collections.addAll(categories, array);
+		sortByAlphabet();
 	}
 
 	/**
