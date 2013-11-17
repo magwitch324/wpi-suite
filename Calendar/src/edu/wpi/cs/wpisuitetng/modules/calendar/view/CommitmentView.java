@@ -67,12 +67,12 @@ public class CommitmentView extends JPanel {
 	     // BorderLayout b = new BorderLayout();
 	     // b.addLayoutComponent(commitPanel, BorderLayout.CENTER);
 	        commitPanel.setLayout(new BoxLayout(commitPanel, BoxLayout.Y_AXIS));
-	        String testData = new String("Commitment1: did a commitment here it is move on to next");
-	        for(int i = 0; i< 150; i++){
-	        	JLabel commit = new JLabel(testData);
-	        	JLabel line = new JLabel("\n");
-	        	commitPanel.add(commit);
-	        }
+//	        String testData = new String("Commitment1: did a commitment here it is move on to next");
+//	        for(int i = 0; i< 150; i++){
+//	        	JLabel commit = new JLabel(testData);
+//	        	JLabel line = new JLabel("\n");
+//	        	commitPanel.add(commit);
+//	        }
 	        
 	     //  commitPanel.setPreferredSize(new Dimension(300, 350));
 		 //    commitPanel.setMinimumSize(new Dimension(350,300)); 

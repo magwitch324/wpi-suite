@@ -3,6 +3,7 @@
  */
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -55,7 +56,7 @@ public abstract class CalendarView extends JSplitPane {
 		JPanel labelPanel = new JPanel();
 		labelPanel.setLayout(new GridLayout(1,1,0,0));
 		labelPanel.setBorder(new EmptyBorder(0, 10, 0 , 10));
-		labelPanel.setMinimumSize(new Dimension(250, 0));
+		labelPanel.setMinimumSize(new Dimension(250, 75));
 		
 		JLabel dateLabel = new JLabel("<html><body style='width: 100%'><center>" + dateRange + "</center></html>", SwingConstants.CENTER);
 		dateLabel.setFont(new Font("Arial", Font.BOLD, 16));

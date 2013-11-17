@@ -35,7 +35,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
 	}
 	
 	types currenttype = types.DAY;
-	Calendar mycal = Calendar.getInstance();
+	protected Calendar mycal;;
 	
 	JPanel viewpanel = new JPanel(); 
 	JToggleButton[] viewbtns = new JToggleButton[4];
@@ -49,7 +49,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		// Loads calendar configuration
 		mycal = CalendarConfManager.getConfig().getDate();
 		if (mycal == null)
-			mycal = Calendar.getInstance();
+			mycal = (Calendar) Calendar.getInstance().clone();
 		
 		// Draws GUI
 		drawThis();
