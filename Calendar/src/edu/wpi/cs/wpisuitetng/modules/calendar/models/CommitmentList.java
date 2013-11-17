@@ -3,9 +3,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import edu.wpi.cs.wpisuitetng.modules.calendar.controller.events.AddCategoryController;
 //import edu.wpi.cs.wpisuitetng.modules.requirementmanager.controller.AddRequirementController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Category;
 
 public class CommitmentList {
 

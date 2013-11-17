@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.Event;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.EventModel;
+
 
 public class Event extends AbstractModel {
 

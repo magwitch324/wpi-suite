@@ -28,10 +28,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarMonth;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarYear;
 import edu.wpi.cs.wpisuitetng.modules.calendar.WeekView;
-import edu.wpi.cs.wpisuitetng.modules.calendar.controller.events.AddEventController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.Event;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.EventModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.events.EventPanel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons.ButtonsPanel_Create;
@@ -105,15 +102,7 @@ public class GUIEventController {
 	}
 
 	public void createEvent() {
-		Date date = new Date(0);
 
-		EventPanel newEvent;
-		newEvent = new EventPanel();
-//		ButtonsPanel_Create newEvent = new ButtonsPanel_Create();
-		main.addTab("newEvent.", null, newEvent, "New Event");
-		main.invalidate(); //force the tabbedpane to redraw.
-		main.repaint();
-		main.setSelectedComponent(newEvent);
 	}
 	
 	public void showMonthView0() {
