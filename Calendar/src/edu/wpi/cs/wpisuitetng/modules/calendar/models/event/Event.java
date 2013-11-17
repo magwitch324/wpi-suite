@@ -1,4 +1,4 @@
-package edu.wpi.cs.wpisuitetng.modules.calendar.models;
+package edu.wpi.cs.wpisuitetng.modules.calendar.models.event;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,8 @@ import java.util.Date;
 import com.google.gson.Gson;
 
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.EventModel;
 
 public class Event extends AbstractModel {
 

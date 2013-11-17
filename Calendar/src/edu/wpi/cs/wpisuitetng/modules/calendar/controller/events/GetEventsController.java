@@ -7,13 +7,13 @@
  * 
  * Contributors: Team Rolling Thunder
  ******************************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
+package edu.wpi.cs.wpisuitetng.modules.calendar.controller.events;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.EventModel;
 import edu.wpi.cs.wpisuitetng.network.Network;
 import edu.wpi.cs.wpisuitetng.network.Request;
 import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;

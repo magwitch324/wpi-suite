@@ -7,10 +7,10 @@
  * 
  * Contributors: Team Rolling Thunder
  ******************************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
+package edu.wpi.cs.wpisuitetng.modules.calendar.controller.events;
 
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.Event;
 import edu.wpi.cs.wpisuitetng.network.Network;
 import edu.wpi.cs.wpisuitetng.network.Request;
 import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
@@ -22,41 +22,41 @@ import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
  * @version $Revision: 1.0 $
  * @author justinhess
  */
-public class AddEventController{
+public class UpdateEventController{
 	
-	private static AddEventController instance;
-	private AddEventRequestObserver observer;
+	private static UpdateEventController instance;
+	private UpdateEventRequestObserver observer;
 	
 	/**
-	 * Construct an AddEventController for the given model, view pair
+	 * Construct an UpdateEventController for the given model, view pair
 	
 	
 	 */
-	private AddEventController() {
-		observer = new AddEventRequestObserver(this);
+	private UpdateEventController() {
+		observer = new UpdateEventRequestObserver(this);
 	}
 	
 	/**
 	
-	 * @return the instance of the AddEventController or creates one if it does not
+	 * @return the instance of the UpdateEventController or creates one if it does not
 	 * exist. */
-	public static AddEventController getInstance()
+	public static UpdateEventController getInstance()
 	{
 		if(instance == null)
 		{
-			instance = new AddEventController();
+			instance = new UpdateEventController();
 		}
 		
 		return instance;
 	}
 
 	/**
-	 * This method adds a event to the server.
-	 * @param newEvent is the event to be added to the server.
+	 * This method updates a event to the server.
+	 * @param newEvent is the event to be updated to the server.
 	 */
-	public void addEvent(Event newEvent) 
+	public void updateEvent(Event newEvent) 
 	{
-		final Request request = Network.getInstance().makeRequest("calendar/event", HttpMethod.PUT); // PUT == create
+		Request request = Network.getInstance().makeRequest("calendar/event", HttpMethod.POST); // POST == update
 		request.setBody(newEvent.toJSON()); // put the new event in the body of the request
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); 

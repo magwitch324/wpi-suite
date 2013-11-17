@@ -7,57 +7,57 @@
  * 
  * Contributors: Team Rolling Thunder
  ******************************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
+package edu.wpi.cs.wpisuitetng.modules.calendar.controller.events;
 
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Category;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.Event;
 import edu.wpi.cs.wpisuitetng.network.Network;
 import edu.wpi.cs.wpisuitetng.network.Request;
 import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
 
 /**
  * This controller responds when the user clicks the Update button by
- * adding the contents of the category text fields to the model as a new
- * category.
+ * adding the contents of the event text fields to the model as a new
+ * event.
  * @version $Revision: 1.0 $
  * @author justinhess
  */
-public class AddCategoryController{
+public class AddEventController{
 	
-	private static AddCategoryController instance;
-	private AddCategoryRequestObserver observer;
+	private static AddEventController instance;
+	private AddEventRequestObserver observer;
 	
 	/**
 	 * Construct an AddEventController for the given model, view pair
 	
 	
 	 */
-	private AddCategoryController() {
-		observer = new AddCategoryRequestObserver(this);
+	private AddEventController() {
+		observer = new AddEventRequestObserver(this);
 	}
 	
 	/**
 	
 	 * @return the instance of the AddEventController or creates one if it does not
 	 * exist. */
-	public static AddCategoryController getInstance()
+	public static AddEventController getInstance()
 	{
 		if(instance == null)
 		{
-			instance = new AddCategoryController();
+			instance = new AddEventController();
 		}
 		
 		return instance;
 	}
 
 	/**
-	 * This method adds a category to the server.
-	 * @param newCategory is the category to be added to the server.
+	 * This method adds a event to the server.
+	 * @param newEvent is the event to be added to the server.
 	 */
-	public void addCategory(Category newCategory) 
+	public void addEvent(Event newEvent) 
 	{
-		final Request request = Network.getInstance().makeRequest("calendar/category", HttpMethod.PUT); // PUT == create
-		request.setBody(newCategory.toJSON()); // put the new category in the body of the request
+		final Request request = Network.getInstance().makeRequest("calendar/event", HttpMethod.PUT); // PUT == create
+		request.setBody(newEvent.toJSON()); // put the new event in the body of the request
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); 
 	}

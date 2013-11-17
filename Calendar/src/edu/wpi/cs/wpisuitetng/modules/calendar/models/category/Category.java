@@ -1,23 +1,25 @@
-package edu.wpi.cs.wpisuitetng.modules.calendar.models;
+package edu.wpi.cs.wpisuitetng.modules.calendar.models.category;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Date;
 
 import com.google.gson.Gson;
 
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Category;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.category.Category;
 
-public class Category extends AbstractModel {
+
+public class Category extends AbstractModel implements Comparator<Category>{
 
 	/** the ID of the category */
 	private int id;
 
 	/** the name of the category */
 	private String name;
-
+	
+	
 	/**
 	 * Constructs a category with default characteristics
 	 */
@@ -172,9 +174,9 @@ public class Category extends AbstractModel {
 	public String toString() {
 		return this.getName();
 	}
-
-
-
 	
-	
+	@Override
+	public int compare(Category c1, Category c2) {
+		return c1.getName().compareToIgnoreCase(c2.getName());
+	}
 }

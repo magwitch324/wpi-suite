@@ -1,4 +1,4 @@
-package edu.wpi.cs.wpisuitetng.modules.calendar.models;
+package edu.wpi.cs.wpisuitetng.modules.calendar.models.category;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,13 +10,12 @@ import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
 
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddCategoryController;
+
+
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.events.AddCategoryController;
 //import edu.wpi.cs.wpisuitetng.modules.requirementmanager.controller.AddRequirementController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Category;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CategoryModel;
-//import edu.wpi.cs.wpisuitetng.modules.requirementmanager.models.characteristics.RequirementStatus;
-//import edu.wpi.cs.wpisuitetng.modules.requirementmanager.models.iterations.Iteration;
-//import edu.wpi.cs.wpisuitetng.modules.requirementmanager.view.ViewEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.category.Category;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.category.CategoryModel;
 
 public class CategoryModel extends AbstractListModel {
 

@@ -1,6 +1,6 @@
-package edu.wpi.cs.wpisuitetng.modules.calendar.models;
+package edu.wpi.cs.wpisuitetng.modules.calendar.models.category;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.category.Category;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.Role;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 
-public class EventEntityManager implements EntityManager<Event> {
+public class CategoryEntityManager implements EntityManager<Category> {
 
 	/** The database */
 	Data db;
@@ -30,63 +30,63 @@ public class EventEntityManager implements EntityManager<Event> {
 	 * 
 	 * @param db a reference to the persistent database
 	 */
-	public EventEntityManager(Data db) {
+	public CategoryEntityManager(Data db) {
 		this.db = db; 
 	}
 
 	/**
-	 * Saves a Event when it is received from a client
+	 * Saves a Category when it is received from a client
 	 * 
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#makeEntity(edu.wpi.cs.wpisuitetng.Session, java.lang.String)
 	 */
 	@Override
-	public Event makeEntity(Session s, String content) throws WPISuiteException {
-		final Event newEvent = Event.fromJson(content);
-		if(!db.save(newEvent, s.getProject())) {
+	public Category makeEntity(Session s, String content) throws WPISuiteException {
+		final Category newCategory = Category.fromJson(content);
+		if(!db.save(newCategory, s.getProject())) {
 			throw new WPISuiteException();
 		}
-		return newEvent;
+		return newCategory;
 	}
 	
 	/**
-	 * Retrieves a single event from the database
+	 * Retrieves a single category from the database
 	 * @param s the session
-	 * @param id the id number of the event to retrieve
+	 * @param id the id number of the category to retrieve
 	
 	
 	
 	
-	 * @return the event matching the given id * @throws NotFoundException * @throws NotFoundException * @throws NotFoundException
+	 * @return the category matching the given id * @throws NotFoundException * @throws NotFoundException * @throws NotFoundException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getEntity(Session, String) */
 	@Override
-	public Event[] getEntity(Session s, String id) throws NotFoundException {
+	public Category[] getEntity(Session s, String id) throws NotFoundException {
 		final int intId = Integer.parseInt(id);
 		if(intId < 1) {
 			throw new NotFoundException();
 		}
-		Event[] events = null;
+		Category[] categorys = null;
 		try {
-			events = db.retrieve(Event.class, "id", intId, s.getProject()).toArray(new Event[0]);
+			categorys = db.retrieve(Category.class, "id", intId, s.getProject()).toArray(new Category[0]);
 		} catch (WPISuiteException e) {
 			e.printStackTrace();
 		}
-		if(events.length < 1 || events[0] == null) {
+		if(categorys.length < 1 || categorys[0] == null) {
 			throw new NotFoundException();
 		}
-		return events;
+		return categorys;
 	}
 
 	/**
-	 * Retrieves all events from the database
+	 * Retrieves all categorys from the database
 	 * @param s the session
 	
 	
 	
-	 * @return array of all stored events * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session) * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session) * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session)
+	 * @return array of all stored categorys * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session) * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session) * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session)
 	 */
 	@Override
-	public Event[] getAll(Session s) {
-		return db.retrieveAll(new Event(), s.getProject()).toArray(new Event[0]);
+	public Category[] getAll(Session s) {
+		return db.retrieveAll(new Category(), s.getProject()).toArray(new Category[0]);
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class EventEntityManager implements EntityManager<Event> {
 	 * @param model the model to be saved
 	 */
 	@Override
-	public void save(Session s, Event model) {
+	public void save(Session s, Category model) {
 		db.save(model, s.getProject());
 	}
 	
@@ -113,9 +113,9 @@ public class EventEntityManager implements EntityManager<Event> {
 	}
 	
 	/**
-	 * Deletes a event from the database
+	 * Deletes a category from the database
 	 * @param s the session
-	 * @param id the id of the event to delete
+	 * @param id the id of the category to delete
 	
 	
 	
@@ -129,7 +129,7 @@ public class EventEntityManager implements EntityManager<Event> {
 	}
 	
 	/**
-	 * Deletes all events from the database
+	 * Deletes all categorys from the database
 	 * @param s the session
 	
 	
@@ -138,20 +138,20 @@ public class EventEntityManager implements EntityManager<Event> {
 	@Override
 	public void deleteAll(Session s) throws WPISuiteException {
 		ensureRole(s, Role.ADMIN);
-		db.deleteAll(new Event(), s.getProject());
+		db.deleteAll(new Category(), s.getProject());
 	}
 	
 	/**
-	 * Returns the number of events in the database
+	 * Returns the number of categorys in the database
 	
 	
 	
 	
-	 * @return number of events stored * @throws WPISuiteException * @throws WPISuiteException * @throws WPISuiteException
+	 * @return number of categorys stored * @throws WPISuiteException * @throws WPISuiteException * @throws WPISuiteException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#Count() */
 	@Override
 	public int Count() throws WPISuiteException {
-		return db.retrieveAll(new Event()).size();
+		return db.retrieveAll(new Category()).size();
 	}
 
 	/**
@@ -161,33 +161,33 @@ public class EventEntityManager implements EntityManager<Event> {
 	
 	
 	
-	 * @return Event * @throws WPISuiteException * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#update(Session, String) * @throws WPISuiteException
+	 * @return Category * @throws WPISuiteException * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#update(Session, String) * @throws WPISuiteException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#update(Session, String)
 	 */
 	@Override
-	public Event update(Session session, String content) throws WPISuiteException {
+	public Category update(Session session, String content) throws WPISuiteException {
 		
-		Event updatedEvent = Event.fromJson(content);
+		Category updatedCategory = Category.fromJson(content);
 		/*
-		 * Because of the disconnected objects problem in db4o, we can't just save Events.
-		 * We have to get the original defect from db4o, copy properties from updatedEvent,
-		 * then save the original Event again.
+		 * Because of the disconnected objects problem in db4o, we can't just save Categorys.
+		 * We have to get the original defect from db4o, copy properties from updatedCategory,
+		 * then save the original Category again.
 		 */
-		List<Model> oldEvents = db.retrieve(Event.class, "id", updatedEvent.getId(), session.getProject());
-		if(oldEvents.size() < 1 || oldEvents.get(0) == null) {
-			throw new BadRequestException("Event with ID does not exist.");
+		List<Model> oldCategorys = db.retrieve(Category.class, "id", updatedCategory.getId(), session.getProject());
+		if(oldCategorys.size() < 1 || oldCategorys.get(0) == null) {
+			throw new BadRequestException("Category with ID does not exist.");
 		}
 				
-		Event existingEvent = (Event)oldEvents.get(0);		
+		Category existingCategory = (Category)oldCategorys.get(0);		
 
-		// copy values to old event and fill in our changeset appropriately
-		existingEvent.copyFrom(updatedEvent);
+		// copy values to old category and fill in our changeset appropriately
+		existingCategory.setName(updatedCategory.getName());
 		
-		if(!db.save(existingEvent, session.getProject())) {
+		if(!db.save(existingCategory, session.getProject())) {
 			throw new WPISuiteException();
 		}
 		
-		return existingEvent;
+		return existingCategory;
 	}
 
 	/**

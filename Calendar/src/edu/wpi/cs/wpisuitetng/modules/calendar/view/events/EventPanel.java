@@ -4,10 +4,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetEventsController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.events.GetEventsController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.EventModel;
+
 import javax.swing.JButton;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 

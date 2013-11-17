@@ -7,9 +7,9 @@
  * 
  * Contributors: Team Rolling Thunder
  ******************************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
+package edu.wpi.cs.wpisuitetng.modules.calendar.controller.events;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.Event;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
@@ -17,19 +17,18 @@ import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
 /**
  * This observer is called when a response is received from a request
  * to the server to add a event.
- *
  * @version $Revision: 1.0 $
  * @author justinhess
  */
-public class UpdateEventRequestObserver implements RequestObserver {
-	
-	private final UpdateEventController controller;
+public class AddEventRequestObserver implements RequestObserver {
+		
+	private AddEventController controller;
 	
 	/**
 	 * Constructs the observer given an AddEventController
 	 * @param controller the controller used to add events
 	 */
-	public UpdateEventRequestObserver(UpdateEventController controller) {
+	public AddEventRequestObserver(AddEventController controller) {
 		this.controller = controller;
 	}
 	
@@ -47,7 +46,7 @@ public class UpdateEventRequestObserver implements RequestObserver {
 		// Parse the event out of the response body
 		final Event event = Event.fromJson(response.getBody());		
 	}
-	
+
 	/**
 	 * Takes an action if the response results in an error.
 	 * Specifically, outputs that the request failed.
@@ -56,8 +55,7 @@ public class UpdateEventRequestObserver implements RequestObserver {
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseError(IRequest) */
 	@Override
 	public void responseError(IRequest iReq) {
-		System.err.println(iReq.getResponse().getStatusMessage());
-		System.err.println("The request to update a event failed.");
+		System.err.println("The request to add a event failed.");
 	}
 
 	/**
@@ -69,7 +67,7 @@ public class UpdateEventRequestObserver implements RequestObserver {
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#fail(IRequest, Exception) */
 	@Override
 	public void fail(IRequest iReq, Exception exception) {
-		System.err.println("The request to update a event failed.");
+		System.err.println("The request to add a event failed.");
 	}
 
 }

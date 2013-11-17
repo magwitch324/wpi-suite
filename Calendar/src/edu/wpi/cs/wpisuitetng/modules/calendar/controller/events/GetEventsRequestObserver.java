@@ -7,44 +7,44 @@
  * 
  * Contributors: Team Rolling Thunder
  ******************************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
+package edu.wpi.cs.wpisuitetng.modules.calendar.controller.events;
 
 import java.util.Date;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Category;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.Event;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 
 /**
- * This observer handles responses to requests for all categories
+ * This observer handles responses to requests for all events
  *
  * @version $Revision: 1.0 $
  * @author justinhess
  */
-public class GetCategoryRequestObserver implements RequestObserver {
+public class GetEventsRequestObserver implements RequestObserver {
 	
-	private GetCategoryController controller;
+	private GetEventsController controller;
 	
 	/**
-	 * Constructs the observer given a GetCategoryController
-	 * @param controller the controller used to retrieve categories
+	 * Constructs the observer given a GetEventsController
+	 * @param controller the controller used to retrieve events
 	 */
-	public GetCategoryRequestObserver(GetCategoryController controller) {
+	public GetEventsRequestObserver(GetEventsController controller) {
 		this.controller = controller;
 	}
 
 	/**
-	 * Parse the categories out of the response body and pass them to the controller
+	 * Parse the events out of the response body and pass them to the controller
 	 * 
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseSuccess(edu.wpi.cs.wpisuitetng.network.models.IRequest)
 	 */
 	@Override
 	public void responseSuccess(IRequest iReq) {
 		// Convert the JSON array of events to a Event object array
-		Category[] categories = Category.fromJsonArray(iReq.getResponse().getBody());
+		Event[] events = Event.fromJsonArray(iReq.getResponse().getBody());
 		
 		// Pass these Events to the controller
-		controller.receivedCategories(categories);
+		controller.receivedEvents(events);
 		
 	}
 
@@ -63,8 +63,8 @@ public class GetCategoryRequestObserver implements RequestObserver {
 	 */
 	@Override
 	public void fail(IRequest iReq, Exception exception) {
-		Category[] errorCategory = { new Category(6, "Error") };
-		controller.receivedCategories(errorCategory);
+		Event[] errorEvent = { new Event(6, "Error", "error desc", new Date(0)) };
+		controller.receivedEvents(errorEvent);
 	}
 
 }
