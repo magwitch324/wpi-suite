@@ -3,21 +3,18 @@
  */
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.util.Calendar;
+
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.util.Calendar;
+import javax.swing.border.EmptyBorder;
 
 /**
  * @author cttibbetts
@@ -57,13 +54,12 @@ public abstract class CalendarView extends JSplitPane {
 		
 		JPanel labelPanel = new JPanel();
 		labelPanel.setLayout(new GridLayout(1,1,0,0));
+		labelPanel.setBorder(new EmptyBorder(0, 10, 0 , 10));
+		labelPanel.setMinimumSize(new Dimension(250, 0));
 		
-		labelPanel.setMinimumSize(new Dimension(200, 100));
-		labelPanel.setPreferredSize(new Dimension(200, 100));
-		labelPanel.setMaximumSize(new Dimension(200, 100));
-		JLabel dateLabel = new JLabel("<html><center><body style='width: 180px'>" + dateRange + "</center></html>");
-
-		dateLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+		JLabel dateLabel = new JLabel("<html><body style='width: 100%'><center>" + dateRange + "</center></html>", SwingConstants.CENTER);
+		dateLabel.setFont(new Font("Arial", Font.BOLD, 16));
+		
 		labelPanel.add(dateLabel);
 		
 		panel.add(labelPanel);

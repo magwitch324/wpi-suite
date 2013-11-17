@@ -43,7 +43,7 @@ public class WeekView extends CalendarView {
 		int startYear = startDate.get(Calendar.YEAR);
 		int endYear = endDate.get(Calendar.YEAR);
 		
-		setLabel(startMonthName + " " + startDayNum + ", " + startYear + " - " + endMonthName + " " + endDayNum + ", " + endYear);
+		setLabel(startMonthName + " " + startDayNum + ", " + startYear + "\n-\n" + endMonthName + " " + endDayNum + ", " + endYear);
 				
 		refresh();
 	}
