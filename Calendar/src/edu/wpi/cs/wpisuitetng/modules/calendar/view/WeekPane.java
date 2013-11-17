@@ -43,7 +43,8 @@ public class WeekPane extends JPanel implements ICalPane {
 		      mainPanel.setPreferredSize(new Dimension(30, 2000));
 		      
 		      scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
-			      
+		      scrollPane.getVerticalScrollBar().setValue(800);
+		      
 			    JComponent days = getDays();
 			    layout.putConstraint(SpringLayout.WEST, days, 0, SpringLayout.WEST, mainPanel);
 			    layout.putConstraint(SpringLayout.NORTH, days, 0, SpringLayout.NORTH, mainPanel);
@@ -78,7 +79,7 @@ public class WeekPane extends JPanel implements ICalPane {
     	JPanel apane = new JPanel();
 	    apane.setLayout(new GridLayout(1,7));
 	    for(int i = 0; i<7; i++){
-	    	apane.add( new DetailedDayView(Calendar.getInstance()));
+	    	apane.add( new DetailedDay(Calendar.getInstance()));
 	    }
     	return apane;
     }

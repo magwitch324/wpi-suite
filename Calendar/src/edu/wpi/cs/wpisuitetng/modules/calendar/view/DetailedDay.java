@@ -15,12 +15,12 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SpringLayout;
 
-public class DetailedDayView extends JPanel {
+public class DetailedDay extends JPanel {
 	
 	JSeparator[] halfhourmarks= new JSeparator[48];
 	SpringLayout layout = new SpringLayout();
 	
-	DetailedDayView(Calendar adate){
+	DetailedDay(Calendar adate){
 		super();		
 		this.setMinimumSize(new Dimension(50, 800));
 		this.setPreferredSize(new Dimension(50, 800));

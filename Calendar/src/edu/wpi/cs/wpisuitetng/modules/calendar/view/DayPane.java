@@ -49,8 +49,9 @@ public class DayPane extends JPanel implements ICalPane {
 		      mainPanel.setPreferredSize(new Dimension(30, 2000));
 			      
 			    scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
+			    scrollPane.getVerticalScrollBar().setValue(800);
 			    
-			    JComponent daypane = new DetailedDayView(Calendar.getInstance());
+			    JComponent daypane = new DetailedDay(Calendar.getInstance());
 			    layout.putConstraint(SpringLayout.WEST, daypane, 0, SpringLayout.WEST, mainPanel);
 			    layout.putConstraint(SpringLayout.NORTH, daypane, 0, SpringLayout.NORTH, mainPanel);
 			    layout.putConstraint(SpringLayout.SOUTH, daypane, 0, SpringLayout.SOUTH, mainPanel);
