@@ -13,18 +13,12 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
-
-
-
-
-
-
-
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarMonth;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarYear;
 import edu.wpi.cs.wpisuitetng.modules.calendar.WeekView;
@@ -37,11 +31,6 @@ public class GUIEventController {
 	private static GUIEventController instance = null;
 	private MainTabView main = null;
 	private ToolbarView toolbar = null;
-	//private OverviewTable overviewTable = null;
-	//private OverviewTreePanel overviewTree = null;
-	//private ArrayList<RequirementPanel> listOfEditingPanels = new ArrayList<RequirementPanel>();
-	//private ArrayList<IterationPanel> listOfIterationPanels = new ArrayList<IterationPanel>();
-	//private IterationOverviewPanel iterationOverview;
 
 	/**
 	 * Default constructor for ViewEventController.  Is protected to prevent instantiation.
@@ -105,53 +94,8 @@ public class GUIEventController {
 
 	}
 	
-	public void showMonthView0() {
-		//CalendarMonth monthView = new CalendarMonth(2013, 11);
-		//JPanel monthPanel = monthView.CalendarMonthBuild();
-		CalendarMonth c = new CalendarMonth("January",3,31);
-		main.addTab("MonthView", null, c.getCalPanel(), "MonthView");
-		main.invalidate(); //force the tabbedpane to redraw.
-		main.repaint();
-		main.setSelectedComponent(c.getCalPanel());
-	}
-
-	public void showMonthView() {
-		//CalendarMonth monthView = new CalendarMonth(2013, 11);
-		//JPanel monthPanel = monthView.CalendarMonthBuild();
-		//CalendarMonth2 monthView2 = new CalendarMonth2();
-		DayView day = new DayView();
-		
-		//main.addTab("MonthView.", null, monthPanel, "MonthView");
-		main.addTab("DayView", null, day, "MonthView");
-		main.invalidate(); //force the tabbedpane to redraw.
-		main.repaint();
-		main.setSelectedComponent(day);
-	}
-	
-	public void showWeekView() {
-		//CalendarMonth monthView = new CalendarMonth(2013, 11);
-		//JPanel monthPanel = monthView.CalendarMonthBuild();
-		//CalendarMonth2 monthView2 = new CalendarMonth2();
-		WeekView week = new WeekView();
-		//CalendarYear year = new CalendarYear(2013);
-		//main.addTab("MonthView.", null, monthPanel, "MonthView");
-		main.addTab("WeekView", null, week, "WeekView");
-		main.invalidate(); //force the tabbedpane to redraw.
-		main.repaint();
-		main.setSelectedComponent(week);
-	}
-	
-	public void showYearView() {
-		//CalendarMonth monthView = new CalendarMonth(2013, 11);
-		//JPanel monthPanel = monthView.CalendarMonthBuild();
-		//CalendarMonth2 monthView2 = new CalendarMonth2();
-		CalendarYear year = new CalendarYear(2013);
-		//CalendarYear year = new CalendarYear(2013);
-		//main.addTab("MonthView.", null, monthPanel, "MonthView");
-		main.addTab("YearView", null, year, "YearView");
-		main.invalidate(); //force the tabbedpane to redraw.
-		main.repaint();
-		main.setSelectedComponent(year);
+	public void switchView(Calendar acal, TeamCalendar.types switchtype, TeamCalendar ateamcal){
+		ateamcal.setCalsetView(acal, switchtype);
 	}
 	
 }

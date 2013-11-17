@@ -20,6 +20,8 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JTabbedPane;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.MyCalendar;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.TeamCalendar;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.MyCalendarTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.TeamCalendarTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.tab.ClosableTabComponent;
@@ -37,8 +39,8 @@ public class MainTabView extends JTabbedPane {
 		setTabLayoutPolicy(SCROLL_TAB_LAYOUT);
 		setBorder(BorderFactory.createEmptyBorder(5, 3, 3, 3));
 		
-		addTab("Team Calendar", new ImageIcon(), new TeamCalendarTab());
-		addTab("My Calendar", new ImageIcon(), new MyCalendarTab());
+		addTab("Team Calendar", new ImageIcon(), new TeamCalendar());
+		addTab("My Calendar", new ImageIcon(), new MyCalendar());
 		
 	}
 	
