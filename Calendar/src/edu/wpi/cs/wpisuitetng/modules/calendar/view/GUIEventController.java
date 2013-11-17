@@ -106,7 +106,7 @@ public class GUIEventController {
 
 	public void createEvent() {
 		Date date = new Date(0);
-		AddEventController.getInstance().addEvent(new Event(3, "Sample Event", "Sample event description", date));
+
 		EventPanel newEvent;
 		newEvent = new EventPanel();
 //		ButtonsPanel_Create newEvent = new ButtonsPanel_Create();
