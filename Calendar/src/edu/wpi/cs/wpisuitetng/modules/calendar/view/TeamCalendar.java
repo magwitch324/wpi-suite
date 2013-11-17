@@ -90,6 +90,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		layout.putConstraint(SpringLayout.SOUTH, viewpanel, -5, SpringLayout.SOUTH, this);
 		
 		this.add(viewpanel);
+		viewbtns[currenttype.getCurrentType()].setSelected(true);
 		
 		setView();
 		

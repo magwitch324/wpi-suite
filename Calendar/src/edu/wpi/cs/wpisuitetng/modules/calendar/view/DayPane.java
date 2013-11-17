@@ -1,5 +1,6 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
  
+import java.util.Calendar;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -9,13 +10,17 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SpringLayout;
 import javax.swing.border.LineBorder;
  
 public class DayPane extends JPanel implements ICalPane {
@@ -23,77 +28,75 @@ public class DayPane extends JPanel implements ICalPane {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JPanel mainPanel;
+	JPanel mainPanel = new JPanel();
  
        /**
        * Create the panel.
        */
        public DayPane() {
-    	   
-              setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-              
-              // HEADER
-              JPanel jHeader = new JPanel();
-              
-              DateFormat ft = new SimpleDateFormat("EEEE, MMMM d, yyyy");
-              Date today = new Date();
-              JLabel date = new JLabel(ft.format(today));
-              date.setAlignmentX(CENTER_ALIGNMENT);
-              date.setAlignmentY(CENTER_ALIGNMENT);
-              date.setFont(new Font(null, 1, 20));
-              jHeader.add(date);
-              
-              jHeader.setPreferredSize(new Dimension(10000, 250));
-              add(jHeader);
-              
-              
-              // HOURS
-              JScrollPane scrollPane = new JScrollPane();
-              scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-              scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-              add(scrollPane);
-              mainPanel = new JPanel();
-              scrollPane.setViewportView(mainPanel);
-              mainPanel.setPreferredSize(new Dimension(480, 1600));
-              GridBagLayout gbl_mainPanel = new GridBagLayout();
-              mainPanel.setLayout(gbl_mainPanel);
-              for (int i = 0; i < 24; i++) {
-                     JPanel hrLabelPanel = new JPanel();
-                     hrLabelPanel.setBackground(Color.white);
-                     GridBagConstraints gbc_pnlHr = new GridBagConstraints();
-                     gbc_pnlHr.fill = GridBagConstraints.BOTH;
-                     gbc_pnlHr.weightx = 1;
-                     gbc_pnlHr.weighty = 1;
-                     gbc_pnlHr.gridx = 0;
-                     gbc_pnlHr.gridy = i;
-                     mainPanel.add(hrLabelPanel, gbc_pnlHr);
-                     String ampm = i + 1 <= 12 ? " AM" : " PM";
-                     JLabel lblHrLabel = new JLabel(Integer.toString((i + 11) % 12 + 1)
-                                  + ampm);
-                     lblHrLabel.setBackground(Color.white);
-                     hrLabelPanel.add(lblHrLabel);
-                     hrLabelPanel.setBorder(new LineBorder(Color.darkGray, 1, false));
-                     JPanel eventPanel = new JPanel();
-                     GridBagConstraints gbc_eventPanel = new GridBagConstraints();
-                     gbc_eventPanel.fill = GridBagConstraints.BOTH;
-                     gbc_eventPanel.weightx = 9;
-                     gbc_eventPanel.weighty = 1;
-                     gbc_eventPanel.gridx = 1;
-                     gbc_eventPanel.gridy = i;
-                     mainPanel.add(eventPanel, gbc_eventPanel);
-                     eventPanel.setBorder(new LineBorder(Color.darkGray, 1, false));
-                     eventPanel.setLayout(new GridLayout(2, 1, 0, 0));
-                     JPanel firstHalf = new JPanel();
-                     JPanel secondHalf = new JPanel();
-                     firstHalf.setBorder(new LineBorder(Color.lightGray, 1, false));
-                     firstHalf.setBackground(Color.white);
-                     secondHalf.setBorder(new LineBorder(Color.lightGray, 1, false));
-                     secondHalf.setBackground(Color.white);
-                     eventPanel.add(firstHalf);
-                     eventPanel.add(secondHalf);
-              }
+		   		
+		      setLayout(new GridLayout(1,1));
+		
+		      // HOURS
+		      JScrollPane scrollPane = new JScrollPane(mainPanel, 
+		    		  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
+		    		  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		      scrollPane.setMinimumSize(new Dimension(300, 300));
+		      add(scrollPane);
+		      
+		      SpringLayout layout = new SpringLayout();
+		      mainPanel.setLayout(layout);
+		      mainPanel.setPreferredSize(new Dimension(30, 2000));
+			      
+			    scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
+			    
+			    JComponent daypane = new DetailedDayView(Calendar.getInstance());
+			    layout.putConstraint(SpringLayout.WEST, daypane, 0, SpringLayout.WEST, mainPanel);
+			    layout.putConstraint(SpringLayout.NORTH, daypane, 0, SpringLayout.NORTH, mainPanel);
+			    layout.putConstraint(SpringLayout.SOUTH, daypane, 0, SpringLayout.SOUTH, mainPanel);
+			    layout.putConstraint(SpringLayout.EAST, daypane, 0, SpringLayout.EAST, mainPanel);
+			    mainPanel.add(daypane);
+  
        }
 
+     protected JComponent getTimesBar(double height){
+    	 JPanel apane = new JPanel();
+    	 SpringLayout layout = new SpringLayout();
+    	 apane.setLayout(layout);
+    	 
+    	 int y = (int)(height/24.0);
+    	 String[] times = {"12:00", "1 AM","2:00","3:00","4:00","5:00","6:00",
+    			 		 "7:00","8:00","9:00","10:00","11:00","12 PM",
+    			 		 "1:00","2:00","3:00","4:00","5:00","6:00",
+    			 		 "7:00","8:00","9:00","10:00","11:00"};
+    	 JLabel cur, last;
+    	 
+		cur = new JLabel(times[1]);
+		//layout.putConstraint(SpringLayout.WEST, cur, 0, SpringLayout.WEST, apane);
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, cur, y, SpringLayout.NORTH, apane);
+	    layout.putConstraint(SpringLayout.EAST, cur, 0, SpringLayout.EAST, apane);
+	    int max = cur.getPreferredSize().width;
+	    apane.add(cur);
+	    last = cur;
+	    
+    	 for(int i = 2; i < 24; i++){
+			    cur = new JLabel(times[i]);
+			    //layout.putConstraint(SpringLayout.WEST, cur, 0, SpringLayout.WEST, apane);
+			    layout.putConstraint(SpringLayout.VERTICAL_CENTER, cur, (int)(height*i/24.0), SpringLayout.NORTH, apane);
+			    layout.putConstraint(SpringLayout.EAST, cur, 0, SpringLayout.EAST, apane);
+			    max = cur.getPreferredSize().width > max ? cur.getPreferredSize().width : max;
+			    apane.add(cur);
+			    last = cur;
+    	 }
+    	 
+     	 apane.setPreferredSize(new Dimension(max+5, (int)height));
+     	 apane.setSize(new Dimension(max+5, (int)height));
+     	 
+    	 
+    	 return apane;
+     }
+     
+     
 	@Override
 	public JPanel getPane() {
 		// TODO Auto-generated method stub
