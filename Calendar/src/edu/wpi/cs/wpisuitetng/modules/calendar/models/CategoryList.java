@@ -1,76 +1,46 @@
-package edu.wpi.cs.wpisuitetng.modules.calendar.models.category;
+package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
-
-import javax.swing.AbstractListModel;
-import javax.swing.DefaultListModel;
-import javax.swing.ListModel;
-
-
-
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.events.AddCategoryController;
 //import edu.wpi.cs.wpisuitetng.modules.requirementmanager.controller.AddRequirementController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.category.Category;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.category.CategoryModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Category;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CategoryList;
 
-public class CategoryModel extends AbstractListModel {
+public class CategoryList {
 
 	/**
 	 * The list in which all the categories for a single project are contained
 	 */
 	private List<Category> categories;
-	private int nextID; // the next available ID number for the categories that are added.
-	
-	//the static object to allow the category model to be 
-	private static CategoryModel instance; 
 
 	/**
 	 * Constructs an empty list of categories for the project
 	 */
-	private CategoryModel (){
+	public CategoryList (){
 		categories = new ArrayList<Category>();
-		nextID = 0;
 	}
-	
-	/**
-	
-	 * @return the instance of the category model singleton. */
-	public static CategoryModel getInstance()
-	{
-		if(instance == null)
-		{
-			instance = new CategoryModel();
-		}
-		
-		return instance;
-	}
-	
+
+
+
 	/**
 	 * Adds a single category to the categories of the project
 	 * 
-	 * @param newReq The category to be added to the list of categories in the project
+	 * @param newCat The category to be added to the list of categories in the project
 	 */
-	public void addCategory(Category newReq){
+	public void addCategory(Category newCat){
 		// add the category
-		categories.add(newReq);
-		try 
-		{
-			AddCategoryController.getInstance().addCategory(newReq);
-		}
-		catch(Exception e)
-		{
-			
-		}
+		categories.add(newCat);
+		sortByAlphabet();
+
 	}
 	/**
 	 * Returns the Category with the given ID
 	 * 
 	 * @param id The ID number of the category to be returned
-	
+
 	 * @return the category for the id or null if the category is not found */
 	public Category getCategory(int id)
 	{
@@ -98,9 +68,6 @@ public class CategoryModel extends AbstractListModel {
 				break;
 			}
 		}
-		try {
-		}
-		catch(Exception e) {}
 	}
 
 	/**
@@ -111,27 +78,16 @@ public class CategoryModel extends AbstractListModel {
 	public int getSize() {
 		return categories.size();
 	}
-	
-	/**
-	 * 
-	 * Provides the next ID number that should be used for a new category that is created.
-	 * 
-	
-	 * @return the next open id number */
-	public int getNextID()
-	{
-		
-		return this.nextID++;
-	}
+
 
 	/**
 	 * This function takes an index and finds the category in the list of categories
-	 * for the project. Used internally by the JList in NewCategoryModel.
+	 * for the project. Used internally by the JList in NewCategoryList.
 	 * 
 	 * @param index The index of the category to be returned
-	
-	
-	
+
+
+
 	 * @return the category associated with the provided index * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int)
 	 */
 	public Category getElementAt(int index) {
@@ -146,47 +102,43 @@ public class CategoryModel extends AbstractListModel {
 	 * references to it. Hence, we manually remove each category
 	 * from the model.
 	 */
-	public void emptyModel() {
-		int oldSize = getSize();
-		Iterator<Category> iterator = categories.iterator();
-		while (iterator.hasNext()) {
-			iterator.next();
-			iterator.remove();
-		}
-		this.fireIntervalRemoved(this, 0, Math.max(oldSize - 1, 0));
-		
+	public void removeAll() {
+		categories.removeAll(getCategorys());
 	}
-	
+
 	/**
 	 * Adds the given array of categories to the list
 	 * 
 	 * @param categories the array of categories to add
 	 */
-	public void addCategorys(Category[] categories) {
-		for (int i = 0; i < categories.length; i++) {
-			this.categories.add(categories[i]);
-			if(categories[i].getId() >= nextID) nextID = categories[i].getId() + 1;
-		}
-		this.fireIntervalAdded(this, 0, Math.max(getSize() - 1, 0));
-		
+	public void addCategorys(Category[] array) {
+		Collections.addAll(categories, array);
+		sortByAlphabet();
 	}
 
 	/**
 	 * Returns the list of the categories
-	
-	 * @return the categories held within the categorymodel. */
+
+	 * @return the categories held within the CategoryList. */
 	public List<Category> getCategorys() {
 		return categories;
 	}
+	
+	/**
+	 * Update the category list
+	 * 
+	 * @param the category to be update
+	 */
+	public void update (Category newCategory) {
+		categories.remove(getCategory(newCategory.getId()));
+		categories.add(newCategory);
+		sortByAlphabet();
+	}
 
-	
-	
-	
-	
-
-	
-
-
-	
-	
+	/**
+	 * Sort the elements in the categories according to the alphabet
+	 */
+	public void sortByAlphabet() {
+		Collections.sort(categories, new Category());
+	}
 }

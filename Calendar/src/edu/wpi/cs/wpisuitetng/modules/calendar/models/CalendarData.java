@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Category;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventModel;
 
 public class CalendarData extends AbstractModel {
 
@@ -26,7 +25,7 @@ public class CalendarData extends AbstractModel {
 	public CalendarData() {
 		super();
 		name = "";
-		this.catagories = new CategoryList();
+		this.categories = new CategoryList();
 		this.commitments = new CommitmentList(); 
 	}
 
