@@ -45,23 +45,23 @@ public class TeamCalendar extends JPanel implements ICalendar {
 	
 	public TeamCalendar() {
 		super();
-		
+		mycal = Calendar.getInstance();
 		// Loads calendar configuration
-		mycal = CalendarConfManager.getConfig().getDate();
-		if (mycal == null)
-			mycal = (Calendar) Calendar.getInstance().clone();
+//		mycal = CalendarConfManager.getConfig().getDate();
+//		if (mycal == null)
+//			mycal = (Calendar) Calendar.getInstance().clone();
 		
 		// Draws GUI
 		drawThis();
 		
 		// Saves calendar configuration on shutdown
-		Runtime.getRuntime().addShutdownHook(new Thread() {
-		    @Override
-		    public void run() {
-		    	CalendarConfManager.getConfig().setDate(mycal);
-		        CalendarConfManager.writeConfig();
-		    }
-		});
+//		Runtime.getRuntime().addShutdownHook(new Thread() {
+//		    @Override
+//		    public void run() {
+//		    	CalendarConfManager.getConfig().setDate(mycal);
+//		        CalendarConfManager.writeConfig();
+//		    }
+//		});
 	}
 	
 	protected void drawThis(){
