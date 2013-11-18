@@ -14,6 +14,7 @@ import javax.swing.JToggleButton;
 import javax.swing.SpringLayout;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.config.CalendarConfManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
 
 public class TeamCalendar extends JPanel implements ICalendar {
 	
@@ -106,7 +107,8 @@ public class TeamCalendar extends JPanel implements ICalendar {
 			 
             public void actionPerformed(ActionEvent e)
             {
-                //Execute when button is pressed
+                //Execute when button is pressed	
+            	GetCalendarDataController.getInstance().retrieveCalendarData();
             	switchview(types.DAY);
             }
         });

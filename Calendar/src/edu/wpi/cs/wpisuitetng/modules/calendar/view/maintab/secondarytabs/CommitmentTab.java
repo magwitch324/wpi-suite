@@ -63,7 +63,7 @@ import java.awt.Color;
 public class CommitmentTab extends JPanel {
 	private JTextField nameTextField;
 	private GridBagConstraints gbc_nameTextField;
-	private JSpinner categorySpinner;
+	private JSpinner timeSpinner;
 	
 	SpinnerDateModelHalfHour model1 = new SpinnerDateModelHalfHour();  
 	private JButton btnAddCommitment;
@@ -180,17 +180,17 @@ public class CommitmentTab extends JPanel {
 		gbc_lblTime.weighty = 1;
 		formPanel.add(lblTime, gbc_lblTime);
 		
-		categorySpinner = new JSpinner( new SpinnerDateModelHalfHour());
-	    categorySpinner.setModel(model1);
+		timeSpinner = new JSpinner( new SpinnerDateModelHalfHour());
+	    timeSpinner.setModel(model1);
 		
-		JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(categorySpinner, "hh:mm a");
-		categorySpinner.setEditor(timeEditor);
+		JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner, "hh:mm a");
+		timeSpinner.setEditor(timeEditor);
 		
 		//Rounds the spinner to 30 or 00
-		categorySpinner.addChangeListener(new ChangeListener() {
+		timeSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				Calendar c = new GregorianCalendar();
-				c.setTime((Date)categorySpinner.getValue());
+				c.setTime((Date)timeSpinner.getValue());
 				int minutesVal = c.get(Calendar.MINUTE);
 				int hourVal = c.get(Calendar.HOUR);
 				int newMinutesVal;
@@ -223,7 +223,7 @@ public class CommitmentTab extends JPanel {
 		gbc_spinner.gridy = 3;
 		gbc_spinner.weightx = 1;
 		gbc_spinner.weighty = 3;
-		formPanel.add(categorySpinner, gbc_spinner);
+		formPanel.add(timeSpinner, gbc_spinner);
 		
 		JLabel lblDate_1 = new JLabel("Date:");
 		lblDate_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -284,12 +284,23 @@ public class CommitmentTab extends JPanel {
 	 */
 	private void addCommitment() {
 		// TODO Auto-generated method stub
+		int id = 7;
 		Commitment newComm = new Commitment();
-		CalendarData calData = new CalendarData(); //needs to change to get existing CalendarData
+		CalendarData calData = CalendarDataModel.getInstance().getCalendarData(id); //needs to change to get existing CalendarData
 		newComm.setCategoryId(((Category)this.categoryComboBox.getSelectedItem()).getId());
 		newComm.setDescription(this.descriptionTextArea.getText());
-		newComm.setDueDate(this.datePicker.getDate());
-		newComm.setId(8);
+		
+		//Parse date and time info
+		Calendar calDate = new GregorianCalendar();
+		Calendar calTime = new GregorianCalendar();
+		calDate.setTime(this.datePicker.getDate());
+		calTime.setTime((Date)timeSpinner.getValue());
+		calDate.set(Calendar.HOUR, calTime.get(Calendar.HOUR));
+		calDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
+		
+		//set due date
+		newComm.setDueDate(calDate.getTime());
+		newComm.setId(calData.getCommitments().getNextID());
 		newComm.setName(this.nameTextField.getText());
 		
 

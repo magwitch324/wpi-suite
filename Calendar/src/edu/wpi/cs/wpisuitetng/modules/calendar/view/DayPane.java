@@ -1,7 +1,9 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
  
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.awt.Color;
@@ -22,6 +24,12 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.border.LineBorder;
+
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
  
 public class DayPane extends JPanel implements ICalPane {
        /**
@@ -34,7 +42,8 @@ public class DayPane extends JPanel implements ICalPane {
        * Create the panel.
        */
        public DayPane() {
-		   		
+		   	 
+    	   
 		      setLayout(new GridLayout(1,1));
 		
 		      // HOURS
@@ -51,7 +60,10 @@ public class DayPane extends JPanel implements ICalPane {
 			    scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
 			    scrollPane.getVerticalScrollBar().setValue(800);
 			    
-			    JComponent daypane = new DetailedDay(Calendar.getInstance());
+			    DetailedDay daypane = new DetailedDay(Calendar.getInstance());
+			    loadCommitments(daypane);
+			    
+			    
 			    layout.putConstraint(SpringLayout.WEST, daypane, 0, SpringLayout.WEST, mainPanel);
 			    layout.putConstraint(SpringLayout.NORTH, daypane, 0, SpringLayout.NORTH, mainPanel);
 			    layout.putConstraint(SpringLayout.SOUTH, daypane, 0, SpringLayout.SOUTH, mainPanel);
@@ -60,7 +72,23 @@ public class DayPane extends JPanel implements ICalPane {
   
        }
 
-     protected JComponent getTimesBar(double height){
+     /** Populate detailed day with commitments
+     * @param dayPane
+     * 
+     */
+    private void loadCommitments(DetailedDay daypane) {
+		// TODO Auto-generated method stub
+    	 CalendarDataModel calDataModel = CalendarDataModel.getInstance();
+ 	   	CalendarData calData = calDataModel.getCalendarData(7); //get calData with ID of 7
+ 	   	CommitmentList commList = null;
+ 	   	if(calData != null)
+ 	   		 commList = calData.getCommitments();
+    	 
+    	 if(commList!=null)
+    		 daypane.addCommitments(commList);
+	}
+
+	protected JComponent getTimesBar(double height){
     	 JPanel apane = new JPanel();
     	 SpringLayout layout = new SpringLayout();
     	 apane.setLayout(layout);

@@ -71,6 +71,7 @@ public class CalendarData extends AbstractModel {
 	 */
 	public void addCommitment(Commitment newCommitment){
 		//TODO add correct call
+		commitments.addCommitment(newCommitment);
 	}
 	
 	/**
