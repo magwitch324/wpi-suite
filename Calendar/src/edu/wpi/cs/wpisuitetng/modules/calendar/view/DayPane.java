@@ -61,6 +61,8 @@ public class DayPane extends JPanel implements ICalPane {
 			    scrollPane.getVerticalScrollBar().setValue(800);
 			    
 			    DetailedDay daypane = new DetailedDay(Calendar.getInstance());
+			    
+			    //load and add commitments to the detailedday
 			    loadCommitments(daypane);
 			    
 			    
@@ -72,8 +74,8 @@ public class DayPane extends JPanel implements ICalPane {
   
        }
 
-     /** Populate detailed day with commitments
-     * @param dayPane
+     /** Load commitments and populate detailed day
+     * @param dayPane DetailedDay in which commitments will be displayed
      * 
      */
     private void loadCommitments(DetailedDay daypane) {

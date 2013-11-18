@@ -107,7 +107,8 @@ public class TeamCalendar extends JPanel implements ICalendar {
 			 
             public void actionPerformed(ActionEvent e)
             {
-                //Execute when button is pressed	
+                //Execute when button is pressed
+            	//Retrieve all CalendarDatas from server
             	GetCalendarDataController.getInstance().retrieveCalendarData();
             	switchview(types.DAY);
             }

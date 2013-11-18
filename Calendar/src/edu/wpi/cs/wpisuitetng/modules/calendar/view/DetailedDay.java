@@ -116,13 +116,20 @@ public class DetailedDay extends JPanel {
 		this.repaint();
 	}
 	
+	/**
+	 * @param comm Commitment to be added to the display
+	 */
 	public void addCommitment(Commitment comm)
 	{
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(comm.getDueDate());
+		
+		//map hour to location in terms of halfhourmarks (0 - 47)
 		int loc = cal.get(Calendar.HOUR_OF_DAY)*2;
 		if (cal.get(Calendar.MINUTE) == 30)
 			loc += 1;
+		
+		//add white panel in appropriate half hour slot
 		JPanel commPanel = new JPanel();
 		commPanel.setBackground(Color.white);
 		this.add(commPanel);				
@@ -132,6 +139,9 @@ public class DetailedDay extends JPanel {
 		layout.putConstraint(SpringLayout.SOUTH, commPanel, 0, SpringLayout.NORTH, halfhourmarks[loc+1]);
 	}
 
+	/**
+	 * @param commList CommitmentList to be added to the display
+	 */
 	public void addCommitments(CommitmentList commList) {
 		// TODO Auto-generated method stub
 		for(int i = 0; i < commList.getSize(); i++)

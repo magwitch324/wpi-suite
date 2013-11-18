@@ -8,11 +8,10 @@ import javax.swing.SpinnerDateModel;
 
 /**
  * @author sfp
- * SpinnerDateModel that increments by 30 minutes
+ * SpinnerDateModel Increments time value by 30 minutes
  */
 public class SpinnerDateModelHalfHour extends SpinnerDateModel {
 
-	private Calendar cal = new GregorianCalendar(); 
 
 	public SpinnerDateModelHalfHour() {
 		// TODO Auto-generated constructor stub
@@ -27,21 +26,33 @@ public class SpinnerDateModelHalfHour extends SpinnerDateModel {
 	
 	public Object getNextValue()  
 	   {  
+	      Calendar cal = new GregorianCalendar();
+	      cal.setTime((Date)super.getValue());
 	      cal.add(Calendar.MINUTE, 30);  
-	      return cal.getTime();  
+	      super.setValue(cal.getTime());
+	      return super.getValue();  
 	   }  
 	   public Object getPreviousValue()  
 	   {  
-		  cal.add(Calendar.MINUTE, -30);
-	      return cal.getTime();// substract 15 minutes  
+		  Calendar cal = new GregorianCalendar();
+	      cal.setTime((Date)super.getValue());
+	      cal.add(Calendar.MINUTE, -30);  
+	      super.setValue(cal.getTime());
+	      return super.getValue();// substract 15 minutes  
 	   }  
 	   public Object getValue()
 	   {
-		   return cal.getTime();
+		   return super.getValue();
 	   }
 	   public void setValue(Date newTime)
 	   {
-		   cal.setTime(newTime);
+		   if ((newTime == null) || !(newTime instanceof Date)) {
+	            throw new IllegalArgumentException("illegal value");
+	        }
+		   if (!newTime.equals(super.getValue())) {
+			   super.setValue(newTime);
+	           fireStateChanged();
+		   }
 	   }
 
 }
