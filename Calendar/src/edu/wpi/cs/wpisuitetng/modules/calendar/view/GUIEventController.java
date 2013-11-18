@@ -19,11 +19,13 @@ import java.util.Date;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
+
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarMonth;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarYear;
 import edu.wpi.cs.wpisuitetng.modules.calendar.WeekView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons.ButtonsPanel_Create;
 
@@ -83,8 +85,8 @@ public class GUIEventController {
 	}
 
 	public void createCommitment() {
-		ButtonsPanel_Create newCommit = new ButtonsPanel_Create();
-		main.addTab("newCreate.", null, newCommit, "New Commitment");
+		CommitmentTab newCommit = new CommitmentTab();
+		main.addTab("New Commitment", null, newCommit, "New Commitment");
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(newCommit);

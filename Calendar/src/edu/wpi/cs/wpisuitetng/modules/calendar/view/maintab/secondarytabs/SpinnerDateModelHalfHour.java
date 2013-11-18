@@ -6,6 +6,10 @@ import java.util.GregorianCalendar;
 
 import javax.swing.SpinnerDateModel;
 
+/**
+ * @author sfp
+ * SpinnerDateModel that increments by 30 minutes
+ */
 public class SpinnerDateModelHalfHour extends SpinnerDateModel {
 
 	private Calendar cal = new GregorianCalendar(); 

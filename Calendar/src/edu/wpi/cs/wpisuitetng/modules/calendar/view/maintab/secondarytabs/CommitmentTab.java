@@ -16,8 +16,15 @@ import javax.swing.text.DefaultFormatter;
 
 import org.jdesktop.swingx.JXDatePicker;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Category;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CategoryList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -37,12 +44,23 @@ import java.awt.event.InputMethodEvent;
 import javax.swing.event.ChangeEvent;
 import javax.swing.JButton;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+/**
+ * @author sfp
+ *
+ */
 public class CommitmentTab extends JPanel {
-	private JTextField textField;
-	private GridBagConstraints gbc_1;
-	private JSpinner spinner;
+	private JTextField nameTextField;
+	private GridBagConstraints gbc_nameTextField;
+	private JSpinner categorySpinner;
 	
 	SpinnerDateModelHalfHour model1 = new SpinnerDateModelHalfHour();  
+	private JButton btnAddCommitment;
+	private JComboBox<Category> categoryComboBox;
+	private JTextPane descriptionTextField;
+	private JXDatePicker datePicker;
 	/**
 	 * Create the panel.
 	 */
@@ -68,15 +86,15 @@ public class CommitmentTab extends JPanel {
         gbc.gridy = 0;
 		formPanel.add(lblName, gbc);
 		
-		textField = new JTextField();
-		gbc_1 = new GridBagConstraints();
-		gbc_1.insets = new Insets(0, 0, 5, 0);
-		gbc_1.fill = GridBagConstraints.HORIZONTAL;
-        gbc_1.weightx = 3;
-        gbc_1.weighty = 1;
-        gbc_1.gridx = 1;
-        gbc_1.gridy = 0;
-		formPanel.add(textField, gbc_1);
+		nameTextField = new JTextField();
+		gbc_nameTextField = new GridBagConstraints();
+		gbc_nameTextField.insets = new Insets(0, 0, 5, 0);
+		gbc_nameTextField.fill = GridBagConstraints.HORIZONTAL;
+        gbc_nameTextField.weightx = 3;
+        gbc_nameTextField.weighty = 1;
+        gbc_nameTextField.gridx = 1;
+        gbc_nameTextField.gridy = 0;
+		formPanel.add(nameTextField, gbc_nameTextField);
 		
 		JLabel lblDesc = new JLabel("Description:");
 		lblDesc.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -89,15 +107,15 @@ public class CommitmentTab extends JPanel {
         gbc_2.gridy = 1;
 		formPanel.add(lblDesc, gbc_2);
 		
-		JTextPane textFieldDesc = new JTextPane();
-		GridBagConstraints gbc_3 = new GridBagConstraints();
-		gbc_3.insets = new Insets(0, 0, 5, 0);
-		gbc_3.fill = GridBagConstraints.BOTH;
-        gbc_3.weightx = 3;
-        gbc_3.weighty = 5;
-        gbc_3.gridx = 1;
-        gbc_3.gridy = 1;
-		formPanel.add(textFieldDesc, gbc_3);
+		descriptionTextField = new JTextPane();
+		GridBagConstraints gbc_descriptionTextField = new GridBagConstraints();
+		gbc_descriptionTextField.insets = new Insets(0, 0, 5, 0);
+		gbc_descriptionTextField.fill = GridBagConstraints.BOTH;
+        gbc_descriptionTextField.weightx = 3;
+        gbc_descriptionTextField.weighty = 5;
+        gbc_descriptionTextField.gridx = 1;
+        gbc_descriptionTextField.gridy = 1;
+		formPanel.add(descriptionTextField, gbc_descriptionTextField);
 		
 		
 		
@@ -112,15 +130,19 @@ public class CommitmentTab extends JPanel {
 		gbc_lblDate.weighty = 1;
 		formPanel.add(lblDate, gbc_lblDate);
 		
-		JComboBox comboBox = new JComboBox();
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.insets = new Insets(0, 0, 5, 0);
-		gbc_comboBox.gridx = 1;
-		gbc_comboBox.gridy = 2;
-		gbc_comboBox.weightx = 3;
-		gbc_comboBox.weighty = 1;
-		formPanel.add(comboBox, gbc_comboBox);
+		//Create category box, add two dummy categories
+		categoryComboBox = new JComboBox<Category>();
+		categoryComboBox.addItem(new Category(4, "Cat1"));
+		categoryComboBox.addItem(new Category(4, "Cat2"));
+
+		GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
+		gbc_categoryComboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_categoryComboBox.insets = new Insets(0, 0, 5, 0);
+		gbc_categoryComboBox.gridx = 1;
+		gbc_categoryComboBox.gridy = 2;
+		gbc_categoryComboBox.weightx = 3;
+		gbc_categoryComboBox.weighty = 1;
+		formPanel.add(categoryComboBox, gbc_categoryComboBox);
 		
 		
 		
@@ -136,15 +158,17 @@ public class CommitmentTab extends JPanel {
 		gbc_lblTime.weighty = 1;
 		formPanel.add(lblTime, gbc_lblTime);
 		
-		spinner = new JSpinner( new SpinnerDateModelHalfHour());
-	    spinner.setModel(model1);
+		categorySpinner = new JSpinner( new SpinnerDateModelHalfHour());
+	    categorySpinner.setModel(model1);
 		
-		JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(spinner, "hh:mm a");
-		spinner.setEditor(timeEditor);
-		spinner.addChangeListener(new ChangeListener() {
+		JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(categorySpinner, "hh:mm a");
+		categorySpinner.setEditor(timeEditor);
+		
+		//Rounds the spinner to 30 or 00
+		categorySpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				Calendar c = new GregorianCalendar();
-				c.setTime((Date)spinner.getValue());
+				c.setTime((Date)categorySpinner.getValue());
 				int minutesVal = c.get(Calendar.MINUTE);
 				int hourVal = c.get(Calendar.HOUR);
 				int newMinutesVal;
@@ -163,7 +187,6 @@ public class CommitmentTab extends JPanel {
 					c.set(Calendar.MINUTE, newMinutesVal);
 					c.set(Calendar.HOUR, newHourVal);
 					model1.setValue(c.getTime());
-//					spinner.setModel(model1);
 					
 				}
 			}
@@ -178,7 +201,7 @@ public class CommitmentTab extends JPanel {
 		gbc_spinner.gridy = 3;
 		gbc_spinner.weightx = 1;
 		gbc_spinner.weighty = 3;
-		formPanel.add(spinner, gbc_spinner);
+		formPanel.add(categorySpinner, gbc_spinner);
 		
 		JLabel lblDate_1 = new JLabel("Date:");
 		lblDate_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -192,7 +215,7 @@ public class CommitmentTab extends JPanel {
 		gbc_lblDate_1.weighty = 1;
 		formPanel.add(lblDate_1, gbc_lblDate_1);
 		
-		JXDatePicker jdp = new JXDatePicker();
+		datePicker = new JXDatePicker();
 		
 		GridBagConstraints gbc_jdp = new GridBagConstraints();
 		gbc_jdp.insets = new Insets(0, 0, 5, 0);
@@ -201,9 +224,18 @@ public class CommitmentTab extends JPanel {
 		gbc_jdp.gridy = 4;
 		gbc_jdp.weightx = 1;
 		gbc_jdp.weighty = 3;
-		formPanel.add(jdp, gbc_jdp);
+		formPanel.add(datePicker, gbc_jdp);
 		
-		JButton btnAddCommitment = new JButton("Add Commitment");
+		btnAddCommitment = new JButton("Add Commitment");
+		btnAddCommitment.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				addCommitment();
+				
+			}
+
+			
+		});
 		GridBagConstraints gbc_btnAddCommitment = new GridBagConstraints();
 		gbc_btnAddCommitment.anchor = GridBagConstraints.CENTER;
 		gbc_btnAddCommitment.weightx = 5;
@@ -218,6 +250,39 @@ public class CommitmentTab extends JPanel {
 	
 	
 	
+	public JButton getBtnAddCommitment() {
+		return btnAddCommitment;
+	}
+	public JSpinner getSpinner() {
+		return categorySpinner;
+	}
+	public JComboBox getCategoryComboBox() {
+		return categoryComboBox;
+	}
+	public JTextPane getDescriptionTextField() {
+		return descriptionTextField;
+	}
+	public JTextField getNameTextField() {
+		return nameTextField;
+	}
+	
+	/**
+	 * Adds new commitment with information contained in fields
+	 */
+	private void addCommitment() {
+		// TODO Auto-generated method stub
+		Commitment newComm = new Commitment();
+		CalendarData calData = new CalendarData(); //needs to change to get existing CalendarData
+		newComm.setCategoryId(((Category)this.categoryComboBox.getSelectedItem()).getId());
+		newComm.setDescription(this.descriptionTextField.getText());
+		newComm.setDueDate(this.datePicker.getDate());
+		newComm.setId(8);
+		newComm.setName(this.nameTextField.getText());
+		
+
+		calData.addCommitment(newComm);
+		CalendarDataModel.getInstance().addCalendarData(calData);
+	}
 }
 
 
