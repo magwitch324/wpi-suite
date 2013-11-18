@@ -29,8 +29,6 @@ public class DetailedDay extends JPanel {
 	
 	JSeparator[] halfhourmarks= new JSeparator[48];
 	SpringLayout layout = new SpringLayout();
-	private JPanel backgroundPanel;
-	private JPanel foregroundPanel;
 	
 	
 	
@@ -59,19 +57,9 @@ public class DetailedDay extends JPanel {
 				// TODO Auto-generated method stub
 			}
 		});
-		OverlayLayout layerLayout = new OverlayLayout(this);
-		this.setLayout(layerLayout);
-		foregroundPanel = new JPanel();
-		this.add(foregroundPanel);
-		SpringLayout fLayout = new SpringLayout();
-		foregroundPanel.setLayout(fLayout);
-		foregroundPanel.setOpaque(false);
 		
-		backgroundPanel = new JPanel();
-		backgroundPanel.setMinimumSize(new Dimension(50, 800));
-		backgroundPanel.setPreferredSize(new Dimension(50, 800));
-		this.add(backgroundPanel);
-		backgroundPanel.setLayout(layout);
+		
+		this.setLayout(layout);
 		
 		
 		
@@ -87,13 +75,13 @@ public class DetailedDay extends JPanel {
 				col = Color.GRAY;
 			}
 			halfhourmarks[i].setBackground(col);
-			backgroundPanel.add(halfhourmarks[i]);
+			this.add(halfhourmarks[i]);
 			
 			
 				
 		}
 		
-		layout.putConstraint(SpringLayout.NORTH, halfhourmarks[0], 0, SpringLayout.NORTH, backgroundPanel);
+		layout.putConstraint(SpringLayout.NORTH, halfhourmarks[0], 0, SpringLayout.NORTH, this);
 		
 		this.didResize();
 	}
@@ -103,11 +91,11 @@ public class DetailedDay extends JPanel {
 	}
 	
 	protected void didResize(){
-		int x = (int)(((backgroundPanel.getSize().getWidth())*0.01)*((backgroundPanel.getSize().getWidth())*0.01));
+		int x = (int)(((this.getSize().getWidth())*0.01)*((this.getSize().getWidth())*0.01));
 		x = x > 5 ? x : 5;
 		x = x < 15 ? x : 15;
-		layout.putConstraint(SpringLayout.WEST, halfhourmarks[0], x, SpringLayout.WEST, backgroundPanel);
-		layout.putConstraint(SpringLayout.EAST, halfhourmarks[0], -x, SpringLayout.EAST, backgroundPanel);
+		layout.putConstraint(SpringLayout.WEST, halfhourmarks[0], x, SpringLayout.WEST, this);
+		layout.putConstraint(SpringLayout.EAST, halfhourmarks[0], -x, SpringLayout.EAST, this);
 		
 		for(int i = 1; i < 48; i++){
 			int val = x;
@@ -115,17 +103,17 @@ public class DetailedDay extends JPanel {
 				val*=2;
 
 			layout.putConstraint(SpringLayout.VERTICAL_CENTER, halfhourmarks[i], 
-								(int)((backgroundPanel.getSize().getHeight())*i/48.0),
-								SpringLayout.NORTH, backgroundPanel);
+								(int)((this.getSize().getHeight())*i/48.0),
+								SpringLayout.NORTH, this);
 			
-			layout.putConstraint(SpringLayout.WEST, halfhourmarks[i], val, SpringLayout.WEST, backgroundPanel);
-			layout.putConstraint(SpringLayout.EAST, halfhourmarks[i], -val, SpringLayout.EAST, backgroundPanel);
+			layout.putConstraint(SpringLayout.WEST, halfhourmarks[i], val, SpringLayout.WEST, this);
+			layout.putConstraint(SpringLayout.EAST, halfhourmarks[i], -val, SpringLayout.EAST, this);
 			
 			
 		}
 		
-		backgroundPanel.revalidate();
-		backgroundPanel.repaint();
+		this.revalidate();
+		this.repaint();
 	}
 	
 	public void addCommitment(Commitment comm)
@@ -135,13 +123,13 @@ public class DetailedDay extends JPanel {
 		int loc = cal.get(Calendar.HOUR_OF_DAY)*2;
 		if (cal.get(Calendar.MINUTE) == 30)
 			loc += 1;
-		JPanel test = new JPanel();
-		test.setBackground(Color.red);
-		backgroundPanel.add(test);				
-		layout.putConstraint(SpringLayout.NORTH, test, 0, SpringLayout.NORTH, halfhourmarks[loc]);
-		layout.putConstraint(SpringLayout.EAST, test, 0, SpringLayout.EAST, backgroundPanel);
-		layout.putConstraint(SpringLayout.WEST, test, 0, SpringLayout.WEST, backgroundPanel);
-		layout.putConstraint(SpringLayout.SOUTH, test, 0, SpringLayout.NORTH, halfhourmarks[loc+1]);
+		JPanel commPanel = new JPanel();
+		commPanel.setBackground(Color.white);
+		this.add(commPanel);				
+		layout.putConstraint(SpringLayout.NORTH, commPanel, 0, SpringLayout.NORTH, halfhourmarks[loc]);
+		layout.putConstraint(SpringLayout.EAST, commPanel, 0, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.WEST, commPanel, 0, SpringLayout.WEST, this);
+		layout.putConstraint(SpringLayout.SOUTH, commPanel, 0, SpringLayout.NORTH, halfhourmarks[loc+1]);
 	}
 
 	public void addCommitments(CommitmentList commList) {
