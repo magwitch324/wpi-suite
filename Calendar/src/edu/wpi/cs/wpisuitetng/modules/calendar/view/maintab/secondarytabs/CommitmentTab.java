@@ -333,7 +333,7 @@ public class CommitmentTab extends JPanel {
 	 * Adds new commitment with information contained in fields
 	 */
 	private void addCommitment() {
-		// TODO Auto-generated method stub
+		/*// TODO Auto-generated method stub
 		int id = 7;
 		Commitment newComm = new Commitment();
 		CalendarData calData
@@ -361,6 +361,8 @@ public class CommitmentTab extends JPanel {
 		calData.addCommitment(newComm);
 		CalendarDataModel.getInstance().addCalendarData(calData);
 //		GUIEventController.getInstance().removeTab(this);
+ * 
+ */
 	}
 }
 

@@ -12,10 +12,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.Category;
 public class CalendarData extends AbstractModel {
 
 	/** the ID of the CalendarData */
-	private int id;
-
-	/** the name of the CalendarData */
-	private String name;
+	private String id;
 	private CategoryList categories;
 	private CommitmentList commitments;
 
@@ -24,7 +21,7 @@ public class CalendarData extends AbstractModel {
 	 */
 	public CalendarData() {
 		super();
-		name = "";
+		id = "";
 		this.categories = new CategoryList();
 		this.commitments = new CommitmentList(); 
 	}
@@ -39,10 +36,10 @@ public class CalendarData extends AbstractModel {
 	 *            The name of the CalendarData
 	 */
 	// need to phase out supplying the ID
-	public CalendarData(int id, String name) {
+	public CalendarData(String id) {
 		this();
 		this.id = id;
-		this.name = name;
+
 	}
 	
 	
@@ -101,7 +98,7 @@ public class CalendarData extends AbstractModel {
 	 * 
 	
 	 * @return the id */
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -111,33 +108,8 @@ public class CalendarData extends AbstractModel {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
-	}
-
-	/**
-	 * getter for the name
-	 * 
-	
-	 * @return the name */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * setter for the name
-	 * 
-	 * @param name
-	 *            the name to set
-	 */
-	public void setName(String n) {
-
-		if (name.length() > 100) {
-			this.name = n.substring(0, 100);
-		} else { 
-			this.name = n;
-		}
-		
 	}
 
 	/**
@@ -210,10 +182,14 @@ public class CalendarData extends AbstractModel {
 	 */
 	@Override
 	public String toString() {
-		return this.getName();
+		return this.getId();
 	}
 
-
+	public void copyFrom(CalendarData toCopyFrom){
+		this.id = toCopyFrom.getId();
+		this.categories = toCopyFrom.getCategories();
+		this.commitments = toCopyFrom.getCommitments();
+	}
 
 	
 	

@@ -79,7 +79,7 @@ public class DayPane extends JPanel implements ICalPane {
      * 
      */
     private void loadCommitments(DetailedDay daypane) {
-		// TODO Auto-generated method stub
+		/*// TODO Auto-generated method stub
     	 CalendarDataModel calDataModel = CalendarDataModel.getInstance();
  	   	CalendarData calData = calDataModel.getCalendarData(7); //get calData with ID of 7
  	   	CommitmentList commList = null;
@@ -88,6 +88,7 @@ public class DayPane extends JPanel implements ICalPane {
     	 
     	 if(commList!=null)
     		 daypane.addCommitments(commList);
+    		 */
 	}
 
 	protected JComponent getTimesBar(double height){

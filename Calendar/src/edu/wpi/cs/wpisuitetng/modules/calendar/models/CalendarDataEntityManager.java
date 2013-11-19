@@ -60,13 +60,9 @@ public class CalendarDataEntityManager implements EntityManager<CalendarData> {
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getEntity(Session, String) */
 	@Override
 	public CalendarData[] getEntity(Session s, String id) throws NotFoundException {
-		final int intId = Integer.parseInt(id);
-		if(intId < 1) {
-			throw new NotFoundException();
-		}
 		CalendarData[] calData = null;
 		try {
-			calData = db.retrieve(CalendarData.class, "id", intId, s.getProject()).toArray(new CalendarData[0]);
+			calData = db.retrieve(CalendarData.class, "id", id, s.getProject()).toArray(new CalendarData[0]);
 		} catch (WPISuiteException e) {
 			e.printStackTrace();
 		}
@@ -181,7 +177,7 @@ public class CalendarDataEntityManager implements EntityManager<CalendarData> {
 		CalendarData existingCalData = (CalendarData)oldCalData.get(0);		
 
 		// copy values to old CalendarData and fill in our changeset appropriately
-		existingCalData.setName(updatedCalData.getName());
+		existingCalData.copyFrom(updatedCalData);
 		
 		if(!db.save(existingCalData, session.getProject())) {
 			throw new WPISuiteException();
