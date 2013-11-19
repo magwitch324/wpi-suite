@@ -78,6 +78,8 @@ public class DayPane extends JPanel implements ICalPane {
 		  	 
     	 if(commList!=null)
     		 daypane.addCommitments(commList); 
+    	 daypane.revalidate();
+    	 daypane.repaint();
 	}
 
 	protected JComponent getTimesBar(double height){

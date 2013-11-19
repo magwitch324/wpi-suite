@@ -17,6 +17,8 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+
 /**
  * @author cttibbetts
  *
@@ -97,6 +99,12 @@ public abstract class CalendarView extends JSplitPane {
 		// TODO Auto-generated method stub
 		this.commitments = comm;
 	}
+	
+	/** Display calendar data in internal panels, decides what commitments 
+	 * fall within range
+	 * @param calData Calendar Data to be displayed
+	 */
+	abstract public void displayCalData(CalendarData calData);
 	
 	
 	
