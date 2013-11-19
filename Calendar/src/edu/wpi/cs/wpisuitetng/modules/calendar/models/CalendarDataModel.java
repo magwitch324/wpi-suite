@@ -34,7 +34,6 @@ public class CalendarDataModel extends AbstractListModel {
 	 */
 	private CalendarDataModel (){
 		calendarDatas = new ArrayList<CalendarData>();
-		nextID = 0;
 	}
 	
 	/**
@@ -73,13 +72,13 @@ public class CalendarDataModel extends AbstractListModel {
 	 * @param id The ID number of the CalendarData to be returned
 	
 	 * @return the CalendarData for the id or null if the CalendarData is not found */
-	public CalendarData getCalendarData(int id)
+	public CalendarData getCalendarData(String id)
 	{
 		CalendarData temp = null;
 		// iterate through list of CalendarDatas until id is found
 		for (int i=0; i < this.calendarDatas.size(); i++){
 			temp = calendarDatas.get(i);
-			if (temp.getId() == id){
+			if (temp.getId().equals(id)){
 				break;
 			}
 		}
@@ -90,18 +89,16 @@ public class CalendarDataModel extends AbstractListModel {
 	 * 
 	 * @param removeId The ID number of the CalendarData to be removed from the list of CalendarDatas in the project
 	 */
-	public void removeCalendarData(int removeId){
+	public void removeCalendarData(String removeId){
 		// iterate through list of CalendarDatas until id of project is found
 		for (int i=0; i < this.calendarDatas.size(); i++){
-			if (calendarDatas.get(i).getId() == removeId){
+			if (calendarDatas.get(i).getId().equals(removeId)){
 				// remove the id
 				calendarDatas.remove(i);
 				break;
 			}
 		}
-		try {
-		}
-		catch(Exception e) {}
+
 	}
 
 	/**
@@ -113,17 +110,7 @@ public class CalendarDataModel extends AbstractListModel {
 		return calendarDatas.size();
 	}
 	
-	/**
-	 * 
-	 * Provides the next ID number that should be used for a new CalendarData that is created.
-	 * 
-	
-	 * @return the next open id number */
-	public int getNextID()
-	{
-		
-		return this.nextID++;
-	}
+
 
 	/**
 	 * This function takes an index and finds the CalendarData in the list of CalendarDatas
@@ -166,7 +153,7 @@ public class CalendarDataModel extends AbstractListModel {
 	public void addCalendarData(CalendarData[] calData) {
 		for (int i = 0; i < calData.length; i++) {
 			this.calendarDatas.add(calData[i]);
-			if(calData[i].getId() >= nextID) nextID = calData[i].getId() + 1;
+
 		}
 		this.fireIntervalAdded(this, 0, Math.max(getSize() - 1, 0));
 		

@@ -1,6 +1,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,10 +14,16 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.SpringLayout;
 
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.config.CalendarConfManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+
 
 public class TeamCalendar extends JPanel implements ICalendar {
+	
+	private boolean initialized;
 	
 	protected enum types {
 		DAY(0),
@@ -54,7 +61,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		
 		// Draws GUI
 		drawThis();
-		
+		initialized = false;
 		// Saves calendar configuration on shutdown
 //		Runtime.getRuntime().addShutdownHook(new Thread() {
 //		    @Override
@@ -261,5 +268,32 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		setView();
 	}
 	
+	/**
+	 * Overrides the paintComponent method to retrieve the requirements on the first painting.
+	 * 
+	 * @param g	The component object to paint
+	 */
+	@Override
+	public void paintComponent(Graphics g)
+	{
+		if(!initialized)
+		{
+			try 
+			{
+				GetCalendarDataController.getInstance().retrieveCalendarData();
+				System.out.println("retrieved on initialization2");
+				if (CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()) == null){
+					CalendarData calData = new CalendarData(ConfigManager.getConfig().getProjectName());
+				}
+				initialized = true;
+			}
+			catch (Exception e)
+			{
+
+			}
+		}
+
+		super.paintComponent(g);
+	}
 	
 }

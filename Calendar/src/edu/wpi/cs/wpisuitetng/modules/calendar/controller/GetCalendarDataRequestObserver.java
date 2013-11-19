@@ -63,7 +63,7 @@ public class GetCalendarDataRequestObserver implements RequestObserver {
 	 */
 	@Override
 	public void fail(IRequest iReq, Exception exception) {
-		CalendarData[] errorCalData = { new CalendarData(6, "Error") };
+		CalendarData[] errorCalData = { new CalendarData("Error") };
 		controller.receivedCalendarData(errorCalData);
 	}
 
