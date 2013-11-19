@@ -49,7 +49,7 @@ public class MainTabView extends JTabbedPane {
 	public void insertTab(String title, Icon icon, Component component,
 			String tip, int index) {
 		super.insertTab(title, icon, component, tip, index);
-		if (!(component instanceof MyCalendarTab) && !(component instanceof TeamCalendarTab)) {
+		if (!(component instanceof TeamCalendar) && !(component instanceof TeamCalendarTab)) {
 			setTabComponentAt(index, new ClosableTabComponent(this));
 		}
 	}

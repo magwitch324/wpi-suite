@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.Calendar;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -50,7 +51,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
 	JToggleButton[] viewbtns = new JToggleButton[4];
 	
 	int[] viewsizeval = {Calendar.DATE, Calendar.WEEK_OF_YEAR, Calendar.MONTH, Calendar.YEAR};
-	
+	protected Font defualtfont = new Font("Arial", 1, 14);
 	
 	public TeamCalendar() {
 		super();
@@ -63,6 +64,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		// Draws GUI
 		drawThis();
 		initialized = false;
+		
 		// Saves calendar configuration on shutdown
 //		Runtime.getRuntime().addShutdownHook(new Thread() {
 //		    @Override
@@ -80,7 +82,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		JComponent viewbtnpanel = getViewButtonPanel();
 		layout.putConstraint(SpringLayout.WEST, viewbtnpanel, 5, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.NORTH, viewbtnpanel, 5, SpringLayout.NORTH, this);
-		layout.putConstraint(SpringLayout.EAST, viewbtnpanel, -30, SpringLayout.HORIZONTAL_CENTER, this);
+		//layout.putConstraint(SpringLayout.EAST, viewbtnpanel, -30, SpringLayout.HORIZONTAL_CENTER, this);
 		this.add(viewbtnpanel);
 		
 		JComponent datepanel = getDatePanel();
@@ -88,10 +90,19 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datepanel, 0, SpringLayout.HORIZONTAL_CENTER, this);
 		this.add(datepanel);
 		
+		JCheckBox showcom = new JCheckBox("Show Commitments");
+		showcom.setFont(defualtfont);
+		layout.putConstraint(SpringLayout.WEST, showcom, 30, SpringLayout.EAST, viewbtnpanel);
+		layout.putConstraint(SpringLayout.NORTH, showcom, 0, SpringLayout.NORTH, viewbtnpanel);
+		//layout.putConstraint(SpringLayout.EAST, showcom, -5, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.SOUTH, showcom, 0, SpringLayout.SOUTH, viewbtnpanel);
+		this.add(showcom);
+		
 		JComboBox filter = new JComboBox();
-		layout.putConstraint(SpringLayout.WEST, filter, 30, SpringLayout.HORIZONTAL_CENTER, this);
-		layout.putConstraint(SpringLayout.NORTH, filter, 5, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.WEST, filter, 30, SpringLayout.EAST, showcom);
+		layout.putConstraint(SpringLayout.NORTH, filter, 0, SpringLayout.NORTH, viewbtnpanel);
 		layout.putConstraint(SpringLayout.EAST, filter, -5, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.SOUTH, showcom, 0, SpringLayout.SOUTH, viewbtnpanel);
 		this.add(filter);
 		
 		layout.putConstraint(SpringLayout.WEST, viewpanel, 5, SpringLayout.WEST, this);
@@ -108,9 +119,10 @@ public class TeamCalendar extends JPanel implements ICalendar {
 	
 	protected JComponent getViewButtonPanel(){
 		JPanel apane = new JPanel();
+		apane.setLayout(new GridLayout(1,4));
 		
 		viewbtns[0] = new JToggleButton("Day");
-		viewbtns[0].setFont(new Font("Arial", 1, 14));
+		viewbtns[0].setFont(defualtfont);
 		viewbtns[0].addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)
@@ -122,7 +134,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		
 		
 		viewbtns[1] = new JToggleButton("Week");
-		viewbtns[1].setFont(new Font("Arial", 1, 14));
+		viewbtns[1].setFont(defualtfont);
 		viewbtns[1].addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)
@@ -133,7 +145,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
         });
 		
 		viewbtns[2] = new JToggleButton("Month");
-		viewbtns[2].setFont(new Font("Arial", 1, 14));
+		viewbtns[2].setFont(defualtfont);
 		viewbtns[2].addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)
@@ -144,7 +156,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
         });
 		
 		viewbtns[3] = new JToggleButton("Year");
-		viewbtns[3].setFont(new Font("Arial", 1, 14));
+		viewbtns[3].setFont(defualtfont);
 		viewbtns[3].addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)
@@ -189,6 +201,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		JPanel apane = new JPanel();
 		
 		JButton backwardbutton = new JButton("<<");
+		backwardbutton.setFont(defualtfont);
 		backwardbutton.addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)
@@ -199,6 +212,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
         });
 		
 		JButton todaybutton = new JButton("Today");
+		todaybutton.setFont(defualtfont);
 		todaybutton.addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)
@@ -209,6 +223,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
         });
 		
 		JButton forwardbutton = new JButton(">>");
+		forwardbutton.setFont(defualtfont);
 		forwardbutton.addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)
@@ -234,10 +249,10 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		//TODO do views
 		switch(currenttype.getCurrentType()){
 		case(0):
-			viewpanel.add(new DayView(mycal));
+			viewpanel.add(new DayView(mycal, this));
 			break;
 		case(1):
-			viewpanel.add(new WeekView(mycal));
+			viewpanel.add(new WeekView(mycal, this));
 			break;
 		case(2):
 			//TODO dayview

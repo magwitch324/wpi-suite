@@ -42,36 +42,33 @@ public class DayPane extends JPanel implements ICalPane {
        /**
        * Create the panel.
        */
-       public DayPane() {
-		   	 
-    	   
-		      setLayout(new GridLayout(1,1));
+	public DayPane(Calendar datecalendar, TeamCalendar tcalendar) {
+			   	   
+		setLayout(new GridLayout(1,1));
 		
-		      // HOURS
-		      JScrollPane scrollPane = new JScrollPane(mainPanel, 
-		    		  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
-		    		  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		      scrollPane.setMinimumSize(new Dimension(300, 300));
-		      add(scrollPane);
+		// HOURS
+		JScrollPane scrollPane = new JScrollPane(mainPanel, 
+				  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
+				  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setMinimumSize(new Dimension(300, 300));
+		add(scrollPane);
+		  
+		SpringLayout layout = new SpringLayout();
+		mainPanel.setLayout(layout);
+		mainPanel.setPreferredSize(new Dimension(30, 2000));
 		      
-		      SpringLayout layout = new SpringLayout();
-		      mainPanel.setLayout(layout);
-		      mainPanel.setPreferredSize(new Dimension(30, 2000));
-			      
-			    scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
-			    scrollPane.getVerticalScrollBar().setValue(800);
-			    
-			    daypane = new DetailedDay(Calendar.getInstance());
-			    
-			    
-			    
-			    layout.putConstraint(SpringLayout.WEST, daypane, 0, SpringLayout.WEST, mainPanel);
-			    layout.putConstraint(SpringLayout.NORTH, daypane, 0, SpringLayout.NORTH, mainPanel);
-			    layout.putConstraint(SpringLayout.SOUTH, daypane, 0, SpringLayout.SOUTH, mainPanel);
-			    layout.putConstraint(SpringLayout.EAST, daypane, 0, SpringLayout.EAST, mainPanel);
-			    mainPanel.add(daypane);
-  
-       }
+		scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
+		scrollPane.getVerticalScrollBar().setValue(800);
+		
+		daypane = new DetailedDay(datecalendar);
+		
+		layout.putConstraint(SpringLayout.WEST, daypane, 0, SpringLayout.WEST, mainPanel);
+		layout.putConstraint(SpringLayout.NORTH, daypane, 0, SpringLayout.NORTH, mainPanel);
+		layout.putConstraint(SpringLayout.SOUTH, daypane, 0, SpringLayout.SOUTH, mainPanel);
+		layout.putConstraint(SpringLayout.EAST, daypane, 0, SpringLayout.EAST, mainPanel);
+		mainPanel.add(daypane);
+		  
+	}
 
     
     /** Displays commitments on DetailedDay
@@ -88,35 +85,25 @@ public class DayPane extends JPanel implements ICalPane {
     	 SpringLayout layout = new SpringLayout();
     	 apane.setLayout(layout);
     	 
-    	 int y = (int)(height/24.0);
     	 String[] times = {"12:00", "1 AM","2:00","3:00","4:00","5:00","6:00",
     			 		 "7:00","8:00","9:00","10:00","11:00","12 PM",
     			 		 "1:00","2:00","3:00","4:00","5:00","6:00",
     			 		 "7:00","8:00","9:00","10:00","11:00"};
-    	 JLabel cur, last;
-    	 
-		cur = new JLabel(times[1]);
-		//layout.putConstraint(SpringLayout.WEST, cur, 0, SpringLayout.WEST, apane);
-		layout.putConstraint(SpringLayout.VERTICAL_CENTER, cur, y, SpringLayout.NORTH, apane);
-	    layout.putConstraint(SpringLayout.EAST, cur, 0, SpringLayout.EAST, apane);
-	    int max = cur.getPreferredSize().width;
-	    apane.add(cur);
-	    last = cur;
+
+	    int max = 0;
 	    
-    	 for(int i = 2; i < 24; i++){
-			    cur = new JLabel(times[i]);
-			    //layout.putConstraint(SpringLayout.WEST, cur, 0, SpringLayout.WEST, apane);
-			    layout.putConstraint(SpringLayout.VERTICAL_CENTER, cur, (int)(height*i/24.0), SpringLayout.NORTH, apane);
-			    layout.putConstraint(SpringLayout.EAST, cur, 0, SpringLayout.EAST, apane);
-			    max = cur.getPreferredSize().width > max ? cur.getPreferredSize().width : max;
-			    apane.add(cur);
-			    last = cur;
+    	 for(int i = 1; i < 24; i++){
+			    JLabel alab = new JLabel(times[i]);
+			    alab.setFont(new Font("Arial", 1, 12));
+			    layout.putConstraint(SpringLayout.VERTICAL_CENTER, alab, (int)(height*i/24.0), SpringLayout.NORTH, apane);
+			    layout.putConstraint(SpringLayout.EAST, alab, 0, SpringLayout.EAST, apane);
+			    max = alab.getPreferredSize().width > max ? alab.getPreferredSize().width : max;
+			    apane.add(alab);
     	 }
     	 
      	 apane.setPreferredSize(new Dimension(max+5, (int)height));
      	 apane.setSize(new Dimension(max+5, (int)height));
      	 
-    	 
     	 return apane;
      }
      

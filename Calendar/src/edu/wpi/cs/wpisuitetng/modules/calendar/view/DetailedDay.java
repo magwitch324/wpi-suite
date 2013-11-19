@@ -49,7 +49,6 @@ public class DetailedDay extends JPanel {
 
 			@Override
 			public void componentShown(ComponentEvent e) {
-				System.out.println("here!!!");
 			}
 
 			@Override
@@ -75,10 +74,8 @@ public class DetailedDay extends JPanel {
 				col = Color.GRAY;
 			}
 			halfhourmarks[i].setBackground(col);
+			halfhourmarks[i].setForeground(col);
 			this.add(halfhourmarks[i]);
-			
-			
-				
 		}
 		
 		layout.putConstraint(SpringLayout.NORTH, halfhourmarks[0], 0, SpringLayout.NORTH, this);
@@ -118,6 +115,7 @@ public class DetailedDay extends JPanel {
 	
 	/**
 	 * @param comm Commitment to be added to the display
+	 * @deprecated This should not be used since commitments should be created elsewhere
 	 */
 	public void addCommitment(Commitment comm)
 	{
@@ -145,6 +143,7 @@ public class DetailedDay extends JPanel {
 
 	/**
 	 * @param commList CommitmentList to be added to the display
+	 * @deprecated This should not be used since commitments should be created elsewhere
 	 */
 	public void addCommitments(CommitmentList commList) {
 		// TODO Auto-generated method stub
