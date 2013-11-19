@@ -333,13 +333,12 @@ public class CommitmentTab extends JPanel {
 	 * Adds new commitment with information contained in fields
 	 */
 	private void addCommitment() {
-		/*// TODO Auto-generated method stub
-		int id = 7;
+		// TODO Auto-generated method stub
 		Commitment newComm = new Commitment();
-		CalendarData calData
-		if (this.rdbtnPersonal.isSelected())
-			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getUserName()); 
-		else
+		CalendarData calData;
+//		if (this.rdbtnPersonal.isSelected())
+//			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getUserName() + "/" ConfigManager.getConfig().getUserName()); 
+//		else
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
 		newComm.setCategoryId(((Category)this.categoryComboBox.getSelectedItem()).getId());
 		newComm.setDescription(this.descriptionTextArea.getText());
@@ -361,8 +360,8 @@ public class CommitmentTab extends JPanel {
 		calData.addCommitment(newComm);
 		CalendarDataModel.getInstance().addCalendarData(calData);
 //		GUIEventController.getInstance().removeTab(this);
- * 
- */
+ 
+ 
 	}
 }
 
