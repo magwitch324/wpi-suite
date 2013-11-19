@@ -8,33 +8,74 @@ import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 
 public class Commitment extends AbstractModel {
 	// Commitment characteristics.
+	/** the ID of the category */
 	private int id;
+	/** the Name of the category */
 	private String name;
+	/** the DueDate of the category */
 	private Date dueDate;
+	/** the Description of the category */
 	private String description;
+	/** the CategoryID of the category */
 	private int categoryId;
 
 	//Getters
+	 /**Getter for the ID	
+	 * @return the id */
 	public int getId() 				{return id;}
+	 /**Getter for the Name	
+	 * @return the name */
 	public String getName() 		{return name;}
+	 /**Getter for the DueDate	
+	 * @return the due date */
 	public Date getDueDate() 		{return dueDate;}
+	 /**Getter for the Description	
+	 * @return the description */
 	public String getDescription() 	{return description;}
-	
+	 /**Getter for the categoryId	
+	 * @return the category id */
 	public int getCategoryId()	 	{return categoryId;}
 	
 	//Setters
+	/**Setter for the id
+	 * @param id the id to set*/
 	public void setId		   (int id)				{this.id = id;}
+	/**Setter for the name
+	 * @param id the name to set*/
 	public void setName		   (String name) 		{this.name = name;}
+	/**Setter for the dueDate
+	 * @param id the due date to set*/
 	public void setDueDate	   (Date dueDate) 		{this.dueDate = dueDate;}
+	/**Setter for the Description
+	 * @param id the Description to set*/
 	public void setDescription (String description) {this.description = description;}
+	/**Setter for the categoryId
+	 * @param id the id to category id*/
 	public void setCategoryId  (int categoryId) 	{this.categoryId = categoryId;}
 
+	/** Construct a Category with required properties provided and others set
+	 * to default
+	 * @param id
+	 *            The ID number of the category
+	 * @param name
+	 *            The name of the category*/
 	public Commitment() {
 		super();
 		name = description = "";
 		dueDate = new Date();
 	}
 	
+	/** Construct a Category with required properties provided and others set
+	 * to default
+	 * @param id
+	 *            The ID number of the category
+	 * @param name
+	 *            The name number of the category
+	 * @param dueDate
+	 *            The due date number of the category
+	 * @param categoryId
+	 *            The category ID number of the category*/
+
 	public Commitment(String name, Date dueDate,
 					String description, int categoryId) {
 		this();
