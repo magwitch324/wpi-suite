@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
 public class DayView extends CalendarView {
 
@@ -35,7 +37,16 @@ public class DayView extends CalendarView {
 	public void displayCalData(CalendarData calData) {
 		// TODO Auto-generated method stub
 		if(calData != null)
-			dayPane.displayCommitments(calData.getCommitments());
+		{
+			CommitmentList dayCommList = new CommitmentList();
+			for(Commitment comm : calData.getCommitments().getCommitments())
+			{
+				if (comm.getDueDate().getDay() == day.getTime().getDay())
+					dayCommList.addCommitment(comm);
+			}
+			dayPane.displayCommitments(dayCommList);
+
+		}
 		
 	}
 
