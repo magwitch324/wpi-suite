@@ -77,7 +77,7 @@ public class DayPane extends JPanel implements ICalPane {
     public void displayCommitments(CommitmentList commList) {
 		  	 
     	 if(commList!=null)
-    		 daypane.addCommitments(commList); 
+    		 daypane.displayCommitments(commList); 
     	 daypane.revalidate();
     	 daypane.repaint();
 	}

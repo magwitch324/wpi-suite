@@ -113,11 +113,11 @@ public class DetailedDay extends JPanel {
 		this.repaint();
 	}
 	
-	/**
+	/** Displays previously created commitments on DetailedDay
 	 * @param comm Commitment to be added to the display
-	 * @deprecated This should not be used since commitments should be created elsewhere
+	 * 
 	 */
-	public void addCommitment(Commitment comm)
+	public void displayCommitment(Commitment comm)
 	{
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(comm.getDueDate());
@@ -141,13 +141,13 @@ public class DetailedDay extends JPanel {
 			layout.putConstraint(SpringLayout.SOUTH, commPanel, 0, SpringLayout.NORTH, halfhourmarks[loc+1]);
 	}
 
-	/**
+	/** Displays previously created commitments on DetailedDay
 	 * @param commList CommitmentList to be added to the display
-	 * @deprecated This should not be used since commitments should be created elsewhere
+	 * 
 	 */
-	public void addCommitments(CommitmentList commList) {
+	public void displayCommitments(CommitmentList commList) {
 		// TODO Auto-generated method stub
 		for(int i = 0; i < commList.getSize(); i++)
-			addCommitment(commList.getElementAt(i));
+			displayCommitment(commList.getElementAt(i));
 	}
 }
