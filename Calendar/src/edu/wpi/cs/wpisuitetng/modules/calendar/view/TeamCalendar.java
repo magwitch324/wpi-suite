@@ -24,6 +24,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 public class TeamCalendar extends JPanel implements ICalendar {
 	
 	private boolean initialized;
+	private CalendarData calData;
 	
 	protected enum types {
 		DAY(0),
@@ -115,8 +116,6 @@ public class TeamCalendar extends JPanel implements ICalendar {
             public void actionPerformed(ActionEvent e)
             {
                 //Execute when button is pressed
-            	//Retrieve all CalendarDatas from server
-            	GetCalendarDataController.getInstance().retrieveCalendarData();
             	switchview(types.DAY);
             }
         });
@@ -283,7 +282,8 @@ public class TeamCalendar extends JPanel implements ICalendar {
 				GetCalendarDataController.getInstance().retrieveCalendarData();
 				System.out.println("retrieved on initialization2");
 				if (CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()) == null){
-					CalendarData calData = new CalendarData(ConfigManager.getConfig().getProjectName());
+					CalendarData createdCal = new CalendarData(ConfigManager.getConfig().getProjectName());
+					CalendarDataModel.getInstance().addCalendarData(createdCal);
 				}
 				initialized = true;
 			}
@@ -292,7 +292,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
 
 			}
 		}
-
+		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName());
 		super.paintComponent(g);
 	}
 	

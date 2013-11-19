@@ -3,15 +3,20 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import java.util.Calendar;
 import java.util.Locale;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+
 public class DayView extends CalendarView {
 
 	Calendar day;
+	private DayPane dayPane;
 	
 	public DayView(Calendar calendar) {
 		super(calendar);
-		setCalPane(new DayPane());
+		dayPane = new DayPane();
+		setCalPane(dayPane);
 		setCommitmentView(new CommitmentView());
 		setRange(calendar);
+		
 	}
 
 	@Override

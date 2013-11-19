@@ -37,6 +37,7 @@ public class DayPane extends JPanel implements ICalPane {
 	 */
 	private static final long serialVersionUID = 1L;
 	JPanel mainPanel = new JPanel();
+	private DetailedDay daypane;
  
        /**
        * Create the panel.
@@ -60,10 +61,8 @@ public class DayPane extends JPanel implements ICalPane {
 			    scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
 			    scrollPane.getVerticalScrollBar().setValue(800);
 			    
-			    DetailedDay daypane = new DetailedDay(Calendar.getInstance());
+			    daypane = new DetailedDay(Calendar.getInstance());
 			    
-			    //load and add commitments to the detailedday
-			    loadCommitments(daypane);
 			    
 			    
 			    layout.putConstraint(SpringLayout.WEST, daypane, 0, SpringLayout.WEST, mainPanel);
@@ -74,21 +73,14 @@ public class DayPane extends JPanel implements ICalPane {
   
        }
 
-     /** Load commitments and populate detailed day
-     * @param dayPane DetailedDay in which commitments will be displayed
-     * 
+    
+    /** Displays commitments on DetailedDay
+     * @param commList List of commitments to be displayed
      */
-    private void loadCommitments(DetailedDay daypane) {
-		/*// TODO Auto-generated method stub
-    	 CalendarDataModel calDataModel = CalendarDataModel.getInstance();
- 	   	CalendarData calData = calDataModel.getCalendarData(7); //get calData with ID of 7
- 	   	CommitmentList commList = null;
- 	   	if(calData != null)
- 	   		 commList = calData.getCommitments();
-    	 
+    public void displayCommitments(CommitmentList commList) {
+		  	 
     	 if(commList!=null)
-    		 daypane.addCommitments(commList);
-    		 */
+    		 daypane.addCommitments(commList); 
 	}
 
 	protected JComponent getTimesBar(double height){
