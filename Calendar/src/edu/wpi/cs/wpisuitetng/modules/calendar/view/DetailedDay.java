@@ -132,11 +132,15 @@ public class DetailedDay extends JPanel {
 		//add white panel in appropriate half hour slot
 		JPanel commPanel = new JPanel();
 		commPanel.setBackground(Color.white);
+		commPanel.add(new JLabel(comm.getName()));
 		this.add(commPanel);				
 		layout.putConstraint(SpringLayout.NORTH, commPanel, 0, SpringLayout.NORTH, halfhourmarks[loc]);
 		layout.putConstraint(SpringLayout.EAST, commPanel, 0, SpringLayout.EAST, this);
 		layout.putConstraint(SpringLayout.WEST, commPanel, 0, SpringLayout.WEST, this);
-		layout.putConstraint(SpringLayout.SOUTH, commPanel, 0, SpringLayout.NORTH, halfhourmarks[loc+1]);
+		if (loc == 47)
+			layout.putConstraint(SpringLayout.SOUTH, commPanel, 0, SpringLayout.SOUTH, this);
+		else
+			layout.putConstraint(SpringLayout.SOUTH, commPanel, 0, SpringLayout.NORTH, halfhourmarks[loc+1]);
 	}
 
 	/**
