@@ -303,6 +303,8 @@ public class CommitmentTab extends JPanel {
 		int id = 7;
 		Commitment newComm = new Commitment();
 		CalendarData calData = CalendarDataModel.getInstance().getCalendarData(id); //needs to change to get existing CalendarData
+		if(calData == null)
+			calData = new CalendarData();
 		newComm.setCategoryId(((Category)this.categoryComboBox.getSelectedItem()).getId());
 		newComm.setDescription(this.descriptionTextArea.getText());
 		
