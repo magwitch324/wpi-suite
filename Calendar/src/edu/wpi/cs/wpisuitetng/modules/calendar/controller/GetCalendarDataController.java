@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import edu.wpi.cs.wpisuitetng.network.Network;
 import edu.wpi.cs.wpisuitetng.network.Request;
 import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
@@ -91,6 +92,8 @@ public class GetCalendarDataController implements ActionListener {
 			
 			// add the categories to the local model
 			CalendarDataModel.getInstance().addCalendarData(calData);
+			//refreshes calendar GUI
+			GUIEventController.getInstance().updateCalData();
 		}
 	}
 }

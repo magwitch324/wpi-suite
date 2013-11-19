@@ -31,4 +31,12 @@ public class DayView extends CalendarView {
 		refresh();
 	}
 
+	@Override
+	public void displayCalData(CalendarData calData) {
+		// TODO Auto-generated method stub
+		if(calData != null)
+			dayPane.displayCommitments(calData.getCommitments());
+		
+	}
+
 }

@@ -17,6 +17,7 @@ import javax.swing.text.DefaultFormatter;
 import org.jdesktop.swingx.JXDatePicker;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Category;
@@ -358,8 +359,7 @@ public class CommitmentTab extends JPanel {
 		
 
 		calData.addCommitment(newComm);
-		CalendarDataModel.getInstance().addCalendarData(calData);
-//		GUIEventController.getInstance().removeTab(this);
+		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
  
  
 	}
