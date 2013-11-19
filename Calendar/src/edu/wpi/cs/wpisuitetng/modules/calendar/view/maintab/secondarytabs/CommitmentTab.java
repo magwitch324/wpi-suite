@@ -1,8 +1,6 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import javax.swing.JPanel;
-
-
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -18,6 +16,7 @@ import javax.swing.text.DefaultFormatter;
 
 import org.jdesktop.swingx.JXDatePicker;
 
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Category;
@@ -56,6 +55,9 @@ import javax.swing.border.LineBorder;
 
 import java.awt.Color;
 
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+
 /**
  * @author sfp
  *
@@ -73,6 +75,11 @@ public class CommitmentTab extends JPanel {
 	private JScrollPane descPane;
 	private JPanel panel;
 	private JSpinner.DateEditor timeEditor;
+	private JPanel panel_1;
+	private JRadioButton rdbtnPersonal;
+	private JRadioButton rdbtnTeam;
+	private JLabel lblType;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 	/**
 	 * Create the panel.
 	 */
@@ -85,6 +92,8 @@ public class CommitmentTab extends JPanel {
 		
 		// form uses GridBagLayout w/ two columns
 		GridBagLayout gbl = new GridBagLayout();
+		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
+		gbl.columnWeights = new double[]{0.0, 1.0};
 		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0};
 		gbl.columnWidths = new int[] {0, 0};
 		formPanel.setLayout(gbl);
@@ -171,6 +180,31 @@ public class CommitmentTab extends JPanel {
 		gbc_categoryComboBox.weighty = 1;
 		formPanel.add(categoryComboBox, gbc_categoryComboBox);
 		
+		lblType = new JLabel("Type:");
+		lblType.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblType = new GridBagConstraints();
+		gbc_lblType.anchor = GridBagConstraints.EAST;
+		gbc_lblType.insets = new Insets(0, 0, 5, 5);
+		gbc_lblType.gridx = 0;
+		gbc_lblType.gridy = 3;
+		formPanel.add(lblType, gbc_lblType);
+		
+		panel_1 = new JPanel();
+		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_1.fill = GridBagConstraints.BOTH;
+		gbc_panel_1.gridx = 1;
+		gbc_panel_1.gridy = 3;
+		formPanel.add(panel_1, gbc_panel_1);
+		
+		rdbtnPersonal = new JRadioButton("Personal");
+		buttonGroup.add(rdbtnPersonal);
+		panel_1.add(rdbtnPersonal);
+		
+		rdbtnTeam = new JRadioButton("Team");
+		buttonGroup.add(rdbtnTeam);
+		panel_1.add(rdbtnTeam);
+		
 		
 		//Time label
 		JLabel lblTime = new JLabel("Time:");
@@ -180,7 +214,7 @@ public class CommitmentTab extends JPanel {
 		gbc_lblTime.fill = GridBagConstraints.VERTICAL;
 		gbc_lblTime.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTime.gridx = 0;
-		gbc_lblTime.gridy = 3;
+		gbc_lblTime.gridy = 4;
 		gbc_lblTime.weightx = 1;
 		gbc_lblTime.weighty = 1;
 		formPanel.add(lblTime, gbc_lblTime);
@@ -196,7 +230,7 @@ public class CommitmentTab extends JPanel {
 		gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
 		gbc_spinner.insets = new Insets(0, 0, 5, 0);
 		gbc_spinner.gridx = 1;
-		gbc_spinner.gridy = 3;
+		gbc_spinner.gridy = 4;
 		gbc_spinner.weightx = 1;
 		gbc_spinner.weighty = 3;
 		formPanel.add(timeSpinner, gbc_spinner);
@@ -209,7 +243,7 @@ public class CommitmentTab extends JPanel {
 		gbc_lblDate_1.anchor = GridBagConstraints.EAST;
 		gbc_lblDate_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDate_1.gridx = 0;
-		gbc_lblDate_1.gridy = 4;
+		gbc_lblDate_1.gridy = 5;
 		gbc_lblDate_1.weightx = 1;
 		gbc_lblDate_1.weighty = 1;
 		formPanel.add(lblDate_1, gbc_lblDate_1);
@@ -220,7 +254,7 @@ public class CommitmentTab extends JPanel {
 		gbc_jdp.insets = new Insets(0, 0, 5, 0);
 		gbc_jdp.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jdp.gridx = 1;
-		gbc_jdp.gridy = 4;
+		gbc_jdp.gridy = 5;
 		gbc_jdp.weightx = 1;
 		gbc_jdp.weighty = 3;
 		formPanel.add(datePicker, gbc_jdp);
@@ -242,7 +276,7 @@ public class CommitmentTab extends JPanel {
 		gbc_btnAddCommitment.insets = new Insets(0, 0, 5, 0);
 		gbc_btnAddCommitment.anchor = GridBagConstraints.CENTER;
 		gbc_btnAddCommitment.gridx = 1;
-		gbc_btnAddCommitment.gridy = 5;
+		gbc_btnAddCommitment.gridy = 6;
 		formPanel.add(btnAddCommitment, gbc_btnAddCommitment);
 		
 		
@@ -252,7 +286,7 @@ public class CommitmentTab extends JPanel {
 		gbc_panel5.fill = GridBagConstraints.BOTH;
 		gbc_panel5.insets = new Insets(0, 0, 0, 100);
 		gbc_panel5.gridx = 0;
-		gbc_panel5.gridy = 6;
+		gbc_panel5.gridy = 7;
 		formPanel.add(dummyPanel, gbc_panel5);
 		
 	}
@@ -302,7 +336,11 @@ public class CommitmentTab extends JPanel {
 		// TODO Auto-generated method stub
 		int id = 7;
 		Commitment newComm = new Commitment();
-		CalendarData calData = CalendarDataModel.getInstance().getCalendarData(id); //needs to change to get existing CalendarData
+		CalendarData calData
+		if (this.rdbtnPersonal.isSelected())
+			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getUserName()); 
+		else
+			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
 		newComm.setCategoryId(((Category)this.categoryComboBox.getSelectedItem()).getId());
 		newComm.setDescription(this.descriptionTextArea.getText());
 		
