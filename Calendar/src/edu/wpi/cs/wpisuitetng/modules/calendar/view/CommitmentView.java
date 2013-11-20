@@ -96,8 +96,9 @@ public class CommitmentView extends JPanel {
 	        JLabel description = new JLabel("<HTML>Description: "+ commitmentList.get(i).getDescription()+"</HTML>");
 	        commitmentPanel.setLayout(new GridBagLayout());
 	        GridBagConstraints c = new GridBagConstraints();
-	        c.anchor = GridBagConstraints.EAST;
+	        c.anchor = GridBagConstraints.LINE_START;
 	        c.fill = GridBagConstraints.HORIZONTAL;
+	        c.weightx = 1;
 	        c.gridx = i;
 	        commitmentPanel.add(name,c);
 	        commitmentPanel.add(date,c);
@@ -119,6 +120,9 @@ public class CommitmentView extends JPanel {
 			separator.setOrientation(JSplitPane.VERTICAL_SPLIT);
 			commitPanel.add(separator);
 	        }
+		
+		revalidate();
+		repaint();
 	}
 	
 }
