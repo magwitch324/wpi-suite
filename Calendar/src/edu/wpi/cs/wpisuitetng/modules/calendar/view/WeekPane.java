@@ -6,10 +6,9 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.swing.BorderFactory;
@@ -22,6 +21,8 @@ import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
+
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 
 /**
  * @author cttibbetts
@@ -174,12 +175,28 @@ public class WeekPane extends JPanel implements ICalPane {
     	
 	    for(int i = 0; i<7; i++){
 	    	Calendar acal = (Calendar)mydate.clone();
-	    	acal.add(Calendar.DATE, i);
+	    	acal.add(Calendar.DAY_OF_MONTH, 1);
 	    	//TODO add function
 	    	//JPanel viewpane = getWeekCommitPaneforDate( acal );
 	    	JPanel viewpane = new JPanel();
 	    	
-			JScrollPane ascrollpane = new JScrollPane(viewpane, 
+	    	CommitmentView commits = new CommitmentView(calendarused);
+	    	
+	    	ArrayList<Commitment> comList = new ArrayList<Commitment>(calendarused.getCalData().getCommitments().getCommitments());
+	    	ArrayList<Commitment> newList = new ArrayList<Commitment>();
+	    	for (Commitment c : comList) {
+	    		if ((c.getDueDate().getDate()  == acal.get(Calendar.DAY_OF_MONTH) ||
+	    			 c.getDueDate().getMonth() == acal.get(Calendar.MONTH)) ||
+	    			 c.getDueDate().getYear()  == acal.get(Calendar.YEAR)) {
+	    			newList.add(c);
+	    		}
+	    	}
+	    	
+	    	commits.setCommList(newList);
+	    	
+	    	//viewpane.add(commits);
+	    	
+			JScrollPane ascrollpane = new JScrollPane(commits, 
 					ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			ascrollpane.setMinimumSize(new Dimension(10,40));

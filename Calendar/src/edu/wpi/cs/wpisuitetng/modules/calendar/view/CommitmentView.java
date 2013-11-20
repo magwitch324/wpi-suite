@@ -44,6 +44,8 @@ public class CommitmentView extends JPanel {
 
 	JPanel commitPanel;
 	TeamCalendar tcalendar;
+
+	List<Commitment> commitmentList = new ArrayList();
 //	private List<CommitmentViewPanel> commitmentPanelList;
 	
 	public CommitmentView(TeamCalendar tcalendar) {
@@ -64,7 +66,7 @@ public class CommitmentView extends JPanel {
 	      layout.putConstraint(SpringLayout.SOUTH, scrollPane, 0, SpringLayout.SOUTH, this);
 	      scrollPane.setViewportView(commitPanel);
 	      
-	   
+	      	setCommList();
 	        update();
 	        //test data will be where event data is handled
 	        
@@ -79,13 +81,19 @@ public class CommitmentView extends JPanel {
 	        */
 	}
 	
-	public void update(){
-		commitPanel.removeAll();
-		List<Commitment> commitmentList = new ArrayList();
+	public void setCommList(ArrayList<Commitment> commitments) {
+		commitmentList = commitments;
+	}
+	
+	public void setCommList() {
 		if(tcalendar.getCalData() != null){
 			System.out.println("got COMMITMENTS FOR VIEW");
 		commitmentList = tcalendar.getCalData().getCommitments().getCommitments();
 		}
+	}
+	
+	public void update(){
+		commitPanel.removeAll();
 		SpringLayout commPanelLayout = new SpringLayout();
         commitPanel.setLayout(commPanelLayout);
         List<CommitmentViewPanel> commPanelList = new ArrayList<CommitmentViewPanel>();
