@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
@@ -43,30 +44,69 @@ public class DayPane extends JPanel implements ICalPane {
        * Create the panel.
        */
 	public DayPane(Calendar datecalendar, TeamCalendar tcalendar) {
-			   	   
-		setLayout(new GridLayout(1,1));
-		
-		// HOURS
-		JScrollPane scrollPane = new JScrollPane(mainPanel, 
-				  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
-				  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setMinimumSize(new Dimension(300, 300));
-		add(scrollPane);
-		  
-		SpringLayout layout = new SpringLayout();
-		mainPanel.setLayout(layout);
-		mainPanel.setPreferredSize(new Dimension(30, 2000));
-		      
-		scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
-		scrollPane.getVerticalScrollBar().setValue(800);
-		
-		daypane = new DetailedDay(datecalendar);
-		
-		layout.putConstraint(SpringLayout.WEST, daypane, 0, SpringLayout.WEST, mainPanel);
-		layout.putConstraint(SpringLayout.NORTH, daypane, 0, SpringLayout.NORTH, mainPanel);
-		layout.putConstraint(SpringLayout.SOUTH, daypane, 0, SpringLayout.SOUTH, mainPanel);
-		layout.putConstraint(SpringLayout.EAST, daypane, 0, SpringLayout.EAST, mainPanel);
-		mainPanel.add(daypane);
+		if(tcalendar.getShowCommitements()){
+			setLayout(new GridLayout(1,1));
+			
+			// HOURS
+			JScrollPane scrollPane = new JScrollPane(mainPanel, 
+					  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
+					  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			scrollPane.setMinimumSize(new Dimension(300, 300));
+			add(scrollPane);
+			  
+			JPanel apane = new JPanel();
+	    	apane.setLayout(new GridLayout(1,2));
+
+		    JLabel eventlabel = new JLabel("Events", SwingConstants.CENTER);
+		    eventlabel.setFont(new Font("Arial", 1, 14));
+		    apane.add( eventlabel );
+		    
+		    JLabel commitlabel = new JLabel("Commitments", SwingConstants.CENTER);
+		    commitlabel.setFont(new Font("Arial", 1, 14));
+		    apane.add( commitlabel );
+		    
+		    scrollPane.setColumnHeaderView(apane);
+		    	
+			SpringLayout layout = new SpringLayout();
+			mainPanel.setLayout(layout);
+			mainPanel.setPreferredSize(new Dimension(30, 2000));
+			      
+			scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
+			scrollPane.getVerticalScrollBar().setValue(800);
+			
+			daypane = new DetailedDay(datecalendar);
+			
+			layout.putConstraint(SpringLayout.WEST, daypane, 0, SpringLayout.WEST, mainPanel);
+			layout.putConstraint(SpringLayout.NORTH, daypane, 0, SpringLayout.NORTH, mainPanel);
+			layout.putConstraint(SpringLayout.SOUTH, daypane, 0, SpringLayout.SOUTH, mainPanel);
+			layout.putConstraint(SpringLayout.EAST, daypane, 0, SpringLayout.EAST, mainPanel);
+			mainPanel.add(daypane);
+	   	}
+	   	else{
+			setLayout(new GridLayout(1,1));
+			
+			// HOURS
+			JScrollPane scrollPane = new JScrollPane(mainPanel, 
+					  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
+					  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			scrollPane.setMinimumSize(new Dimension(300, 300));
+			add(scrollPane);
+			  
+			SpringLayout layout = new SpringLayout();
+			mainPanel.setLayout(layout);
+			mainPanel.setPreferredSize(new Dimension(30, 2000));
+			      
+			scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
+			scrollPane.getVerticalScrollBar().setValue(800);
+			
+			daypane = new DetailedDay(datecalendar);
+			
+			layout.putConstraint(SpringLayout.WEST, daypane, 0, SpringLayout.WEST, mainPanel);
+			layout.putConstraint(SpringLayout.NORTH, daypane, 0, SpringLayout.NORTH, mainPanel);
+			layout.putConstraint(SpringLayout.SOUTH, daypane, 0, SpringLayout.SOUTH, mainPanel);
+			layout.putConstraint(SpringLayout.EAST, daypane, 0, SpringLayout.EAST, mainPanel);
+			mainPanel.add(daypane);
+	   	}
 		  
 	}
 
@@ -94,7 +134,7 @@ public class DayPane extends JPanel implements ICalPane {
 	    
     	 for(int i = 1; i < 24; i++){
 			    JLabel alab = new JLabel(times[i]);
-			    alab.setFont(new Font("Arial", 1, 12));
+			    alab.setFont(new Font("Arial", 1, 14));
 			    layout.putConstraint(SpringLayout.VERTICAL_CENTER, alab, (int)(height*i/24.0), SpringLayout.NORTH, apane);
 			    layout.putConstraint(SpringLayout.EAST, alab, 0, SpringLayout.EAST, apane);
 			    max = alab.getPreferredSize().width > max ? alab.getPreferredSize().width : max;

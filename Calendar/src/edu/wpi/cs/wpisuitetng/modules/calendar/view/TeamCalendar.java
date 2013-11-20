@@ -49,6 +49,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
 	
 	JPanel viewpanel = new JPanel(); 
 	JToggleButton[] viewbtns = new JToggleButton[4];
+	JCheckBox showcom;
 	
 	int[] viewsizeval = {Calendar.DATE, Calendar.WEEK_OF_YEAR, Calendar.MONTH, Calendar.YEAR};
 	protected Font defualtfont = new Font("Arial", 1, 14);
@@ -90,8 +91,14 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datepanel, 0, SpringLayout.HORIZONTAL_CENTER, this);
 		this.add(datepanel);
 		
-		JCheckBox showcom = new JCheckBox("Show Commitments");
+		showcom = new JCheckBox("Show Commitments");
 		showcom.setFont(defualtfont);
+		showcom.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+            	setView();
+            }
+        });
 		layout.putConstraint(SpringLayout.WEST, showcom, 30, SpringLayout.EAST, viewbtnpanel);
 		layout.putConstraint(SpringLayout.NORTH, showcom, 0, SpringLayout.NORTH, viewbtnpanel);
 		//layout.putConstraint(SpringLayout.EAST, showcom, -5, SpringLayout.EAST, this);
@@ -280,6 +287,10 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		mycal = (Calendar)acal.clone();
 		switchview(switchtype);
 		setView();
+	}
+	
+	public boolean getShowCommitements(){
+		return showcom.isSelected();
 	}
 	
 	/**

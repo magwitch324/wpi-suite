@@ -29,6 +29,8 @@ public class DetailedDay extends JPanel {
 	
 	JSeparator[] halfhourmarks= new JSeparator[48];
 	SpringLayout layout = new SpringLayout();
+	JPanel mainview = new JPanel();
+	JComponent secondview = null;
 	
 	
 	
@@ -36,36 +38,51 @@ public class DetailedDay extends JPanel {
 		super();		
 		this.setMinimumSize(new Dimension(50, 800));
 		this.setPreferredSize(new Dimension(50, 800));
-		this.addComponentListener(new ComponentListener() {
-		    public void componentResized(ComponentEvent e) {
-		        // do stuff    
-		    	didResize();
-		    }
-
-			@Override
-			public void componentMoved(ComponentEvent e) {
-				// TODO Auto-generated method stub	
-			}
-
-			@Override
-			public void componentShown(ComponentEvent e) {
-			}
-
-			@Override
-			public void componentHidden(ComponentEvent e) {
-				// TODO Auto-generated method stub
-			}
-		});
+		this.addComponentListener(new resizeevent());
+		//TODO add get events pane
+		//mainview = GetEventsPane();
+		layout.putConstraint(SpringLayout.WEST, mainview, 0, SpringLayout.WEST, this);
+		layout.putConstraint(SpringLayout.NORTH, mainview, 0, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.EAST, mainview, 0, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.SOUTH, mainview, 0, SpringLayout.SOUTH, this);
+		mainview.setBackground(new Color(0,0,0,0));
+		this.add(mainview);
 		
 		
 		this.setLayout(layout);
+		this.makelines();
+		this.didResize();
+	}
+	
+	public DetailedDay(Calendar adate, JComponent secondview){
+		super();		
+		this.setMinimumSize(new Dimension(50, 800));
+		this.setPreferredSize(new Dimension(50, 800));
+		this.addComponentListener(new resizeevent());
+		this.secondview = secondview;
 		
+		layout.putConstraint(SpringLayout.WEST, mainview, 0, SpringLayout.WEST, this);
+		layout.putConstraint(SpringLayout.NORTH, mainview, 0, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.EAST, mainview, 2, SpringLayout.HORIZONTAL_CENTER, this);
+		layout.putConstraint(SpringLayout.SOUTH, mainview, 0, SpringLayout.SOUTH, this);
+		mainview.setBackground(new Color(0,0,0,0));
+		this.add(mainview);
 		
+		layout.putConstraint(SpringLayout.WEST, secondview, 2, SpringLayout.HORIZONTAL_CENTER, this);
+		layout.putConstraint(SpringLayout.NORTH, secondview, 0, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.EAST, secondview, 0, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.SOUTH, secondview, 0, SpringLayout.SOUTH, this);
+		this.add(secondview);
 		
+		this.setLayout(layout);
+		this.makelines();
+		this.didResize();
+	}
+	
+	protected void makelines(){
 		//half hour marks code
 		for(int i = 0; i < 48; i++){
 			halfhourmarks[i] = new JSeparator();
-			
 			Color col;
 			if(i%2==0){
 				col = Color.BLACK;
@@ -77,10 +94,7 @@ public class DetailedDay extends JPanel {
 			halfhourmarks[i].setForeground(col);
 			this.add(halfhourmarks[i]);
 		}
-		
 		layout.putConstraint(SpringLayout.NORTH, halfhourmarks[0], 0, SpringLayout.NORTH, this);
-		
-		this.didResize();
 	}
 	
 	public JPanel get(){
@@ -88,6 +102,7 @@ public class DetailedDay extends JPanel {
 	}
 	
 	protected void didResize(){
+		
 		int x = (int)(((this.getSize().getWidth())*0.01)*((this.getSize().getWidth())*0.01));
 		x = x > 5 ? x : 5;
 		x = x < 15 ? x : 15;
@@ -98,21 +113,39 @@ public class DetailedDay extends JPanel {
 			int val = x;
 			if(i%2==1)
 				val*=2;
-
 			layout.putConstraint(SpringLayout.VERTICAL_CENTER, halfhourmarks[i], 
 								(int)((this.getSize().getHeight())*i/48.0),
 								SpringLayout.NORTH, this);
-			
 			layout.putConstraint(SpringLayout.WEST, halfhourmarks[i], val, SpringLayout.WEST, this);
 			layout.putConstraint(SpringLayout.EAST, halfhourmarks[i], -val, SpringLayout.EAST, this);
-			
-			
 		}
 		
 		this.revalidate();
 		this.repaint();
+		
 	}
 	
+	
+	protected class resizeevent implements ComponentListener {
+	    public void componentResized(ComponentEvent e) {
+	        // do stuff    
+	    	didResize();
+	    }
+
+		@Override
+		public void componentMoved(ComponentEvent e) {
+			// TODO Auto-generated method stub	
+		}
+
+		@Override
+		public void componentShown(ComponentEvent e) {
+		}
+
+		@Override
+		public void componentHidden(ComponentEvent e) {
+			// TODO Auto-generated method stub
+		}
+	}
 	/**
 	 * @param comm Commitment to be added to the display
 	 * @deprecated This should not be used since commitments should be created elsewhere

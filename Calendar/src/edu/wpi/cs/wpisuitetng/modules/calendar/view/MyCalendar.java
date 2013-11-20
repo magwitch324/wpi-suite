@@ -1,5 +1,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Calendar;
 
 import javax.swing.JCheckBox;
@@ -30,8 +32,14 @@ public class MyCalendar extends TeamCalendar {
 		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datepanel, 0, SpringLayout.HORIZONTAL_CENTER, this);
 		this.add(datepanel);
 		
-		JCheckBox showcom = new JCheckBox("Show Commitments");
+		showcom = new JCheckBox("Show Commitments");
 		showcom.setFont(defualtfont);
+		showcom.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+            	setView();
+            }
+        });
 		layout.putConstraint(SpringLayout.WEST, showcom, 30, SpringLayout.EAST, viewbtnpanel);
 		layout.putConstraint(SpringLayout.NORTH, showcom, 0, SpringLayout.NORTH, viewbtnpanel);
 		//layout.putConstraint(SpringLayout.EAST, showcom, -5, SpringLayout.EAST, this);
