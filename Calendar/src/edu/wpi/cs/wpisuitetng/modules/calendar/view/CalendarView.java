@@ -26,7 +26,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 public abstract class CalendarView extends JSplitPane {
 	
 	private ICalPane calPane;
-	private CommitmentView commitments;
+	protected CommitmentView commitments;
 	private String dateRange;
 	
 	
@@ -58,10 +58,10 @@ public abstract class CalendarView extends JSplitPane {
 		JPanel labelPanel = new JPanel();
 		labelPanel.setLayout(new GridLayout(1,1,0,0));
 		labelPanel.setBorder(new EmptyBorder(0, 10, 0 , 10));
-		labelPanel.setMinimumSize(new Dimension(250, 75));
+		labelPanel.setMinimumSize(new Dimension(300, 50));
 		
 		JLabel dateLabel = new JLabel("<html><body style='width: 100%'><center>" + dateRange + "</center></html>", SwingConstants.CENTER);
-		dateLabel.setFont(new Font("Arial", Font.BOLD, 16));
+		dateLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
 		
 		labelPanel.add(dateLabel);
 		

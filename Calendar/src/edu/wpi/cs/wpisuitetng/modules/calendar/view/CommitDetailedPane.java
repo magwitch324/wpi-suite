@@ -3,6 +3,8 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,50 +18,42 @@ import javax.swing.SpringLayout;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 
 public class CommitDetailedPane extends JPanel {
-	JComponent[] halfblocks = new JComponent[48];
+	
+	//JComponent[] halfblocks = new JComponent[48];
+	
 	public CommitDetailedPane(Calendar adate, ArrayList<Commitment> commits){
 		super();
-		this.setLayout(new GridLayout(7,1));
+		System.out.println( "start" );
+		this.setLayout(new GridLayout(48,1));
+
 		Calendar acalit = (Calendar)adate.clone();
-		acalit.clear(Calendar.HOUR_OF_DAY);
-		acalit.clear(Calendar.MINUTE);
-		acalit.clear(Calendar.SECOND);
-		acalit.clear(Calendar.MILLISECOND);
 		
-		Iterator<Commitment> it = commits.iterator();
-		Commitment cur = null;
-		while(it.hasNext()){
-			cur = it.next();
-		}
-		while(cur != null && it.hasNext() && cur.getDueDate().before(acalit.getTime())){
-			cur = it.next();
-		}
-		for(int i = 0; i < 48; i++){
+		
+		for(int index = 0; index < 48; index++){
 			ArrayList<Commitment> tomake = new ArrayList<Commitment>();
-			
-			acalit.add(Calendar.MINUTE, 30);
-			while(cur != null && it.hasNext()){
-				tomake.add(cur);
-				cur = it.next();
-				if(cur.getDueDate().before(acalit.getTime()) ){
-					break;
-				}
+			for( int i = 0; i < commits.size(); i++){
+				Calendar acal = Calendar.getInstance();
+				acal.setTime(commits.get(i).getDueDate());
+				if(adate.get(Calendar.DATE) == acal.get(Calendar.DATE) &&
+						adate.get(Calendar.MONTH) == acal.get(Calendar.MONTH) &&
+						adate.get(Calendar.YEAR) == acal.get(Calendar.YEAR)){
+					
+					int pos = acal.get(Calendar.HOUR_OF_DAY)*2;
+					pos += acal.get(Calendar.MINUTE) == 30 ? 1 : 0;
+					
+					if (pos == index){
+						tomake.add(commits.get(i));
+					}
+				}	
 			}
-			
-			if(cur.getDueDate().before(acalit.getTime()) ){
-				tomake.add(cur);
-			}
-			
-			halfblocks[i] = new halfblocks(tomake);
-			halfblocks[i].setBackground(new Color(0,0,0,0));
-			this.add(halfblocks[i]);
+			this.add(new thehalfblocks(tomake));
 		}
-		
+
 		this.setBackground(new Color(0,0,0,0));
-		
+		System.out.println( "end" );
 	}
 	
-	protected void didResize(){
+	/*protected void didResize(){
 		System.out.println( "did resize" );
 		int x = (int)this.getSize().getWidth();
 		int y = (int)this.getSize().getHeight();
@@ -74,18 +68,23 @@ public class CommitDetailedPane extends JPanel {
 		
 		this.revalidate();
 		this.repaint();
-	}
+	}*/
 	
-	protected class halfblocks extends JPanel{
-		public halfblocks(ArrayList<Commitment> commits){
+	protected class thehalfblocks extends JPanel{
+		public thehalfblocks(ArrayList<Commitment> commits){
 			super();
-			this.setLayout(new GridLayout(1, commits.size(), 0, 1));
+			if(commits.size() > 0)
+				this.setLayout(new GridLayout(1, 1, 0, 1));
 			
 			Iterator<Commitment> it = commits.iterator();
 			
-			while(it.hasNext()){
+			int i = 0;
+			while(it.hasNext() && i < 1){
+				i++;
 				this.add(this.getComPanel(it.next()));
 			}
+			
+			this.setBackground(new Color(0,0,0,0));
 			
 		}
 		
@@ -109,7 +108,6 @@ public class CommitDetailedPane extends JPanel {
 			String name = "Name - " + tochange.getName();
 			String descr = "Descr - " + tochange.getDescription();
 			apane.setLayout(new GridLayout(2,1));
-			
 			JLabel alab = new JLabel(time + " " + name);
 			//alab.setSize( alab.getPreferredSize() );
 			alab.setBackground(new Color(0,0,0,0));
@@ -119,7 +117,7 @@ public class CommitDetailedPane extends JPanel {
 			//alab.setSize( alab.getPreferredSize() );
 			alab.setBackground(new Color(0,0,0,0));
 			apane.add(alab);
-			
+
 			//apane.setPreferredSize(new Dimension(100,100));
 			return apane;
 		}

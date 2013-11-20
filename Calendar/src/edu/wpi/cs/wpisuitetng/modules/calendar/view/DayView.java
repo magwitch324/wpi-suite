@@ -16,7 +16,7 @@ public class DayView extends CalendarView {
 		super(datecalendar);
 		dayPane = new DayPane(datecalendar, tcalendar);
 		setCalPane(dayPane);
-		setCommitmentView(new CommitmentView());
+		setCommitmentView(new CommitmentView(tcalendar));
 		setRange(datecalendar);
 		
 	}
@@ -29,7 +29,7 @@ public class DayView extends CalendarView {
 		int dayNum = day.get(day.DAY_OF_MONTH);
 		String monthName = day.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
 		int year = day.get(day.YEAR);
-		setLabel(dayName + ", " + monthName + " " + dayNum + ", " + year);
+		setLabel(dayName + ", " + monthName + " " + dayNum + "<br>" + year);
 		refresh();
 	}
 
@@ -45,6 +45,7 @@ public class DayView extends CalendarView {
 					dayCommList.addCommitment(comm);
 			}
 			dayPane.displayCommitments(dayCommList);
+		    commitments.update();
 
 		}
 		

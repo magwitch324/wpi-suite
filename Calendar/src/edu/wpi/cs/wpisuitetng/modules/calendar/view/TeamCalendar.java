@@ -316,10 +316,11 @@ public class TeamCalendar extends JPanel implements ICalendar {
 			{
 				GetCalendarDataController.getInstance().retrieveCalendarData();
 				System.out.println("retrieved on initialization2");
-				if (CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()) == null){
+				/*if (CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()) == null){
+					System.out.println("CREATING NEW CALDATA");
 					CalendarData createdCal = new CalendarData(ConfigManager.getConfig().getProjectName());
 					CalendarDataModel.getInstance().addCalendarData(createdCal);
-				}
+				}*/
 				initialized = true;
 			}
 			catch (Exception e)
@@ -331,8 +332,12 @@ public class TeamCalendar extends JPanel implements ICalendar {
 	}
 
 	public void updateCalData() {
+		if (CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()) == null){
+			System.out.println("CREATING NEW CALDATA");
+			CalendarData createdCal = new CalendarData(ConfigManager.getConfig().getProjectName());
+			CalendarDataModel.getInstance().addCalendarData(createdCal);
+		}
 		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName());
 		calView.displayCalData(calData);
 	}
-	
 }

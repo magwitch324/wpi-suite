@@ -1,5 +1,6 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
@@ -35,8 +36,14 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.Insets;
 
 import javax.swing.JTextPane;
@@ -81,19 +88,42 @@ public class CommitmentTab extends JPanel {
 	private JRadioButton rdbtnTeam;
 	private JLabel lblType;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JButton btnCancel;
+	private Commitment editingCommitment;
+	private EditingMode mode = EditingMode.ADDING;
+	private JButton btnDelete;
+	private JPanel buttonPanel;
+	
+	private enum EditingMode {
+		ADDING(0),
+		EDITING(1);
+		
+		private int currentMode;
+		
+		private EditingMode(int currentMode) {
+			this.currentMode = currentMode;
+		}
+	}
+	
 	/**
 	 * Create the panel.
 	 */
 	public CommitmentTab() {
 		//Sets new commitment form to left of pane
-		setLayout(new BorderLayout());
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		JPanel formPanel = new JPanel();
-		formPanel.setPreferredSize(new Dimension(400,800));
-		add(formPanel, BorderLayout.WEST);
+		formPanel.setPreferredSize(new Dimension(400,200));
+		
+		Component horizontalStrut = Box.createHorizontalStrut(200);
+		add(horizontalStrut);
+		add(formPanel, 0.5);
+		
+		Component horizontalStrut_1 = Box.createHorizontalStrut(200);
+		add(horizontalStrut_1);
 		
 		// form uses GridBagLayout w/ two columns
 		GridBagLayout gbl = new GridBagLayout();
-		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
+		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0};
 		gbl.columnWeights = new double[]{0.0, 1.0};
 		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0};
 		gbl.columnWidths = new int[] {0, 0};
@@ -118,11 +148,39 @@ public class CommitmentTab extends JPanel {
 		gbc_nameTextField = new GridBagConstraints();
 		gbc_nameTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_nameTextField.fill = GridBagConstraints.HORIZONTAL;
-        gbc_nameTextField.weightx = 3;
+        gbc_nameTextField.weightx = 10;
         gbc_nameTextField.weighty = 1;
         gbc_nameTextField.gridx = 1;
         gbc_nameTextField.gridy = 0;
 		formPanel.add(nameTextField, gbc_nameTextField);
+		
+		nameTextField.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(nameTextField.getText().equals("") || datePicker.getDate() == null){
+					btnAddCommitment.setEnabled(false);
+				} else {
+					btnAddCommitment.setEnabled(true);
+				}
+			}
+			
+			
+			
+			
+		});
+		
 		
 		//Description label
 		JLabel lblDesc = new JLabel("Description:");
@@ -136,23 +194,23 @@ public class CommitmentTab extends JPanel {
 		
 		
 		//Scrollpane for description text area
-		descPane = new JScrollPane();
-		descPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		descPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+//		descPane = new JScrollPane();
+//		descPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+//		descPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
 		//Text area for description
 		descriptionTextArea = new JTextArea();
-		descriptionTextArea.setPreferredSize(new Dimension(280,160));
-		descPane.setViewportView(descriptionTextArea);
+//		descriptionTextArea.setPreferredSize(new Dimension(500,160));
+//		descPane.setViewportView(descriptionTextArea);
 		descriptionTextArea.setLineWrap(true);
 		GridBagConstraints gbc_descriptionTextField = new GridBagConstraints();
-		gbc_descriptionTextField.anchor = GridBagConstraints.WEST;
+		gbc_descriptionTextField.fill = GridBagConstraints.BOTH;
 		gbc_descriptionTextField.insets = new Insets(0, 0, 5, 0);
-        gbc_descriptionTextField.weightx = 3;
+        gbc_descriptionTextField.weightx = 10;
         gbc_descriptionTextField.weighty = 5;
         gbc_descriptionTextField.gridx = 1;
         gbc_descriptionTextField.gridy = 1;
-		formPanel.add(descPane, gbc_descriptionTextField);
+		formPanel.add(descriptionTextArea, gbc_descriptionTextField);
 		
 		
 		//Category label
@@ -177,7 +235,7 @@ public class CommitmentTab extends JPanel {
 		gbc_categoryComboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_categoryComboBox.gridx = 1;
 		gbc_categoryComboBox.gridy = 2;
-		gbc_categoryComboBox.weightx = 3;
+		gbc_categoryComboBox.weightx = 10;
 		gbc_categoryComboBox.weighty = 1;
 		formPanel.add(categoryComboBox, gbc_categoryComboBox);
 		
@@ -206,6 +264,7 @@ public class CommitmentTab extends JPanel {
 		buttonGroup.add(rdbtnTeam);
 		panel_1.add(rdbtnTeam);
 		
+		rdbtnTeam.setSelected(true);
 		
 		//Time label
 		JLabel lblTime = new JLabel("Time:");
@@ -236,6 +295,9 @@ public class CommitmentTab extends JPanel {
 		gbc_spinner.weighty = 3;
 		formPanel.add(timeSpinner, gbc_spinner);
 		
+
+		timeSpinner.setValue(Calendar.getInstance().getTime());
+		
 		//Date label
 		JLabel lblDate_1 = new JLabel("Date:");
 		lblDate_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -260,38 +322,200 @@ public class CommitmentTab extends JPanel {
 		gbc_jdp.weighty = 3;
 		formPanel.add(datePicker, gbc_jdp);
 		
+		datePicker.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(nameTextField.getText().equals("") || datePicker.getDate() == null){
+					btnAddCommitment.setEnabled(false);
+				} else {
+					btnAddCommitment.setEnabled(true);
+				}
+			}
+			
+			
+			
+			
+		});
+		
+		datePicker.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(nameTextField.getText().equals("") || datePicker.getDate() == null){
+					btnAddCommitment.setEnabled(false);
+				} else {
+					btnAddCommitment.setEnabled(true);
+				}
+				
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(nameTextField.getText().equals("") || datePicker.getDate() == null){
+					btnAddCommitment.setEnabled(false);
+				} else {
+					btnAddCommitment.setEnabled(true);
+				}
+				
+			}
+
+			
+			
+			
+			
+		});
+		
+
+		
+		Calendar c = new GregorianCalendar();
+	    c.set(Calendar.HOUR_OF_DAY, 0);
+	    c.set(Calendar.MINUTE, 0);
+	    c.set(Calendar.SECOND, 0);
+		datePicker.setDate(c.getTime());
+		
+		
+		buttonPanel = new JPanel(new BorderLayout());
+		
 		//Add Commitment button
-		btnAddCommitment = new JButton("Add Commitment");
+		btnAddCommitment = new JButton("Save Commitment");
+
 		btnAddCommitment.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				addCommitment();
+			}
+			
+			
+		});
+		
+		datePicker.addPropertyChangeListener(new PropertyChangeListener(){
+
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				if(nameTextField.getText().equals("") || datePicker.getDate() == null){
+					btnAddCommitment.setEnabled(false);
+				} else {
+					btnAddCommitment.setEnabled(true);
+				}
 				
 			}
+			
+		});
+		
+		datePicker.getEditor().addKeyListener(new KeyListener(){
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(nameTextField.getText().equals("") || datePicker.getEditor().getText().equals("")){
+					btnAddCommitment.setEnabled(false);
+				} else {
+					btnAddCommitment.setEnabled(true);
+				}
+			}
+			
+			
+			
+		});
+		
+		btnAddCommitment.setEnabled(false);
+		
+		
+		
+		GridBagConstraints gbc_btnPanel = new GridBagConstraints();
+		gbc_btnPanel.insets = new Insets(0, 0, 5, 0);
+		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
+		gbc_btnPanel.gridx = 1;
+		gbc_btnPanel.gridy = 6;
+		
+		//Add Cancel button
+		btnCancel = new JButton("Cancel");
+		btnCancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				removeTab();
+			}
+
+			
 
 			
 		});
 		
 		
-		GridBagConstraints gbc_btnAddCommitment = new GridBagConstraints();
-		gbc_btnAddCommitment.insets = new Insets(0, 0, 5, 0);
-		gbc_btnAddCommitment.anchor = GridBagConstraints.CENTER;
-		gbc_btnAddCommitment.gridx = 1;
-		gbc_btnAddCommitment.gridy = 6;
-		formPanel.add(btnAddCommitment, gbc_btnAddCommitment);
 		
+		buttonPanel.add(btnAddCommitment, BorderLayout.WEST);		
+		buttonPanel.add(btnCancel, BorderLayout.EAST);
+		formPanel.add(buttonPanel, gbc_btnPanel);
 		
-		//Dummy panel that fixes the left column width (GridBagLayout sucks)
-		JPanel dummyPanel = new JPanel();
-		GridBagConstraints gbc_panel5 = new GridBagConstraints();
-		gbc_panel5.fill = GridBagConstraints.BOTH;
-		gbc_panel5.insets = new Insets(0, 0, 0, 100);
-		gbc_panel5.gridx = 0;
-		gbc_panel5.gridy = 7;
-		formPanel.add(dummyPanel, gbc_panel5);
 		
 	}
 
+	/**
+	 * Create a commitment tab in editing mode.
+	 */
+	public CommitmentTab(Commitment commToEdit, CalendarData calData) {
+		this();
+		editingCommitment = commToEdit;
+		this.mode = EditingMode.EDITING;
+		
+		this.nameTextField.setText(editingCommitment.getName());
+		this.descriptionTextArea.setText(editingCommitment.getDescription());
+		this.categoryComboBox.setSelectedItem(editingCommitment.getCategoryId());
+		
+		if(calData.getId().equals(ConfigManager.getConfig().getProjectName()))
+			this.rdbtnTeam.setSelected(true);
+		else
+			this.rdbtnPersonal.setSelected(true);
+		
+		this.rdbtnTeam.setEnabled(false);
+		this.rdbtnPersonal.setEnabled(false);
+		
+		this.timeSpinner.setValue(editingCommitment.getDueDate());
+		this.datePicker.setDate(editingCommitment.getDueDate());
+		btnDelete = new JButton("Delete");
+		btnCancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				//Delete the commitment
+			}
+			
+		});
+		buttonPanel.add(btnDelete, BorderLayout.CENTER);
+
+	}
+	
+	/**
+	 * Close this commitment tab
+	 */
+	protected void removeTab() {
+		GUIEventController.getInstance().removeTab(this);
+	}
+
+
+	
 	
 	/**
 	 * Add an event handler to round the spinner minute value when not 0 or 30
@@ -335,12 +559,29 @@ public class CommitmentTab extends JPanel {
 	 */
 	private void addCommitment() {
 		// TODO Auto-generated method stub
-		Commitment newComm = new Commitment();
+
+		
+		if(nameTextField.getText().equals("") || datePicker.getDate() == null){
+			return;
+		}
+		
+
+
 		CalendarData calData;
 //		if (this.rdbtnPersonal.isSelected())
-//			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getUserName() + "/" ConfigManager.getConfig().getUserName()); 
+//			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getUserName() + "-" ConfigManager.getConfig().getUserName()); 
 //		else
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
+		
+		Commitment newComm;
+		if(mode == EditingMode.ADDING)
+		{
+			newComm = new Commitment();
+			newComm.setId(calData.getCommitments().getNextID());
+		}
+		else
+			newComm = editingCommitment;
+			
 		newComm.setCategoryId(((Category)this.categoryComboBox.getSelectedItem()).getId());
 		newComm.setDescription(this.descriptionTextArea.getText());
 		
@@ -354,15 +595,21 @@ public class CommitmentTab extends JPanel {
 		
 		//set due date
 		newComm.setDueDate(calDate.getTime());
-		newComm.setId(calData.getCommitments().getNextID());
 		newComm.setName(this.nameTextField.getText());
 		
+		if (mode == EditingMode.ADDING)
+			calData.addCommitment(newComm);
+		else
+			calData.getCommitments().update(newComm);
 
-		calData.addCommitment(newComm);
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+
  
- 
+		this.removeTab();
+
 	}
+
+
 }
 
 

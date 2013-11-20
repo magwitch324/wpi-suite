@@ -16,6 +16,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JLayeredPane;
 import javax.swing.JSeparator;
 import javax.swing.OverlayLayout;
 import javax.swing.SpringLayout;
@@ -65,13 +66,15 @@ public class DetailedDay extends JLayeredPane {
 		layout.putConstraint(SpringLayout.NORTH, mainview, 0, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.EAST, mainview, 2, SpringLayout.HORIZONTAL_CENTER, this);
 		layout.putConstraint(SpringLayout.SOUTH, mainview, 0, SpringLayout.SOUTH, this);
-		this.add(mainview);
+		mainview.setBackground(new Color(0,0,0,0));
+		this.add(mainview, 1);
 		
 		layout.putConstraint(SpringLayout.WEST, this.secondview, 2, SpringLayout.HORIZONTAL_CENTER, this);
 		layout.putConstraint(SpringLayout.NORTH, this.secondview, 0, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.EAST, this.secondview, 0, SpringLayout.EAST, this);
 		layout.putConstraint(SpringLayout.SOUTH, this.secondview, 0, SpringLayout.SOUTH, this);
-		this.add(this.secondview);
+		this.secondview.setBackground(new Color(0,0,0,0));
+		this.add(this.secondview, 0);
 	
 		this.makelines();
 		this.didResize();
@@ -90,7 +93,7 @@ public class DetailedDay extends JLayeredPane {
 			}
 			halfhourmarks[i].setBackground(col);
 			halfhourmarks[i].setForeground(col);
-			this.add(halfhourmarks[i]);
+			this.add(halfhourmarks[i], i+5);
 		}
 		layout.putConstraint(SpringLayout.NORTH, halfhourmarks[0], 0, SpringLayout.NORTH, this);
 	}
