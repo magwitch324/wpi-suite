@@ -15,6 +15,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -36,6 +37,7 @@ public class GUIEventController {
 	private ToolbarView toolbar = null;
 	private TeamCalendar teamCalendar;
 	private MyCalendar myCalendar;
+	private List<CommitmentTab> listOfCommitmentTabs;
 
 	/**
 	 * Default constructor for ViewEventController.  Is protected to prevent instantiation.
@@ -89,6 +91,11 @@ public class GUIEventController {
 	 * @return the main view */
 	public MainTabView getMainView() {
 		return main;
+	}
+	
+	public void removeTab(CommitmentTab commTab)
+	{
+		main.remove(commTab);
 	}
 
 	public void createCommitment() {
