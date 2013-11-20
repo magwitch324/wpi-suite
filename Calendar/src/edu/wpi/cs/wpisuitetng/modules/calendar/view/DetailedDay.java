@@ -15,6 +15,7 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JLayeredPane;
 import javax.swing.JSeparator;
 import javax.swing.OverlayLayout;
 import javax.swing.SpringLayout;
@@ -25,7 +26,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
-public class DetailedDay extends JPanel {
+public class DetailedDay extends JLayeredPane {
 	
 	JSeparator[] halfhourmarks= new JSeparator[48];
 	SpringLayout layout = new SpringLayout();
@@ -93,10 +94,6 @@ public class DetailedDay extends JPanel {
 			this.add(halfhourmarks[i]);
 		}
 		layout.putConstraint(SpringLayout.NORTH, halfhourmarks[0], 0, SpringLayout.NORTH, this);
-	}
-	
-	public JPanel get(){
-		return this;
 	}
 	
 	protected void didResize(){
