@@ -39,6 +39,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.Insets;
@@ -150,7 +151,7 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(nameTextField.getText().equals("")){
+				if(nameTextField.getText().equals("") || datePicker.getDate() == null){
 					btnAddCommitment.setEnabled(false);
 				} else {
 					btnAddCommitment.setEnabled(true);
@@ -303,6 +304,63 @@ public class CommitmentTab extends JPanel {
 		gbc_jdp.weighty = 3;
 		formPanel.add(datePicker, gbc_jdp);
 		
+		datePicker.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(nameTextField.getText().equals("") || datePicker.getDate() == null){
+					btnAddCommitment.setEnabled(false);
+				} else {
+					btnAddCommitment.setEnabled(true);
+				}
+			}
+			
+			
+			
+			
+		});
+		
+		datePicker.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(nameTextField.getText().equals("") || datePicker.getDate() == null){
+					btnAddCommitment.setEnabled(false);
+				} else {
+					btnAddCommitment.setEnabled(true);
+				}
+				
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(nameTextField.getText().equals("") || datePicker.getDate() == null){
+					btnAddCommitment.setEnabled(false);
+				} else {
+					btnAddCommitment.setEnabled(true);
+				}
+				
+			}
+
+			
+			
+			
+			
+		});
+		
+
+		
 		Calendar c = new GregorianCalendar();
 	    c.set(Calendar.HOUR_OF_DAY, 0);
 	    c.set(Calendar.MINUTE, 0);
@@ -321,6 +379,20 @@ public class CommitmentTab extends JPanel {
 				
 			}
 			
+			
+		});
+		
+		datePicker.addPropertyChangeListener(new PropertyChangeListener(){
+
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				if(nameTextField.getText().equals("") || datePicker.getDate() == null){
+					btnAddCommitment.setEnabled(false);
+				} else {
+					btnAddCommitment.setEnabled(true);
+				}
+				
+			}
 			
 		});
 		
@@ -407,6 +479,11 @@ public class CommitmentTab extends JPanel {
 	 */
 	private void addCommitment() {
 		// TODO Auto-generated method stub
+		
+		if(nameTextField.getText().equals("") || datePicker.getDate() == null){
+			return;
+		}
+		
 		Commitment newComm = new Commitment();
 		CalendarData calData;
 //		if (this.rdbtnPersonal.isSelected())
@@ -433,7 +510,7 @@ public class CommitmentTab extends JPanel {
 		calData.addCommitment(newComm);
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
  
- 
+		this.removeTab();
 	}
 
 
