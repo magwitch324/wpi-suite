@@ -23,6 +23,8 @@ import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 /**
  * @author cttibbetts
@@ -130,13 +132,13 @@ public class WeekPane extends JPanel implements ICalPane {
     	
     	JPanel apane = new JPanel();
     	SpringLayout layout = new SpringLayout();
-    	GridLayout g = new GridLayout(1,8);
+    	GridLayout g = new GridLayout(1,7);
     	
     	apane.setLayout(g);
-    	
+    	Border empty = new EmptyBorder(0, 50, 0, 0);
+    	apane.setBorder(empty);
     	int height = 0;
-    	JLabel label = new JLabel("   HI");
-    	apane.add(label);
+    	
 	    for(int i = 0; i<7; i++){
 	    	JLabel alab = new JLabel(weekdays[i], SwingConstants.CENTER);
 	    	alab.setFont(new Font("SansSerif", 1, 12));
