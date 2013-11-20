@@ -13,6 +13,7 @@ import java.awt.event.MouseListener;
 import java.util.Calendar;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -54,7 +55,12 @@ public class WeekPane extends JPanel implements ICalPane {
 					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	   		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 			scrollPane.setMinimumSize(new Dimension(700, 300));
-			splitpane.setLeftComponent(scrollPane);
+			JPanel finalPane = new JPanel();
+			finalPane.add(this.getHeader((int)mainPanel.getPreferredSize().getWidth()));
+			finalPane.add(scrollPane);
+			
+			
+			splitpane.setLeftComponent(finalPane);
 			
 			SpringLayout layout = new SpringLayout();
 			mainPanel.setLayout(layout);
@@ -86,7 +92,11 @@ public class WeekPane extends JPanel implements ICalPane {
 											ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 			scrollPane.setBorder(BorderFactory.createEmptyBorder());
 			scrollPane.setMinimumSize(new Dimension(700, 300));
-			add(scrollPane);
+			JPanel finalPane = new JPanel();
+			finalPane.setLayout(new BoxLayout(finalPane, BoxLayout.Y_AXIS));
+			finalPane.add(this.getHeader((int)mainPanel.getPreferredSize().getWidth()));
+			finalPane.add(scrollPane);
+			add(finalPane);
 			      
 			SpringLayout layout = new SpringLayout();
 			mainPanel.setLayout(layout);
@@ -120,8 +130,9 @@ public class WeekPane extends JPanel implements ICalPane {
     	JPanel apane = new JPanel();
     	SpringLayout layout = new SpringLayout();
     	GridLayout g = new GridLayout(1,7);
-    	apane.setLayout(new GridLayout(1,7));
 
+    	apane.setLayout(g);
+    	
     	int height = 0;
 	    for(int i = 0; i<7; i++){
 	    	JLabel alab = new JLabel(weekdays[i], SwingConstants.CENTER);
@@ -130,7 +141,7 @@ public class WeekPane extends JPanel implements ICalPane {
 	    	height = (int) new JLabel(weekdays[i]).getPreferredSize().getHeight();
 	    }
 
-    	apane.setMinimumSize(new Dimension(700, 300));
+    	apane.setMinimumSize(new Dimension(700, 30));
     
     	return apane;
     }

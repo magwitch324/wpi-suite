@@ -32,11 +32,10 @@ public class DetailedDay extends JLayeredPane {
 	SpringLayout layout = new SpringLayout();
 	JPanel mainview = new JPanel();
 	JComponent secondview = null;
-	
+	String dateName;
 	public DetailedDay(Calendar adate, String dateName){
 		super();	
-		JLabel label = new JLabel(dateName);
-		this.add(label);
+		this.dateName = dateName;
 		this.setMinimumSize(new Dimension(50, 800));
 		this.setPreferredSize(new Dimension(50, 800));
 		this.addComponentListener(new resizeevent());
@@ -47,9 +46,10 @@ public class DetailedDay extends JLayeredPane {
 		layout.putConstraint(SpringLayout.EAST, mainview, 0, SpringLayout.EAST, this);
 		layout.putConstraint(SpringLayout.SOUTH, mainview, 0, SpringLayout.SOUTH, this);
 		mainview.setBackground(new Color(0,0,0,0));
-
+	//	JLabel label = new JLabel(dateName);
+	//	mainview.add(label);
 		this.add(mainview);
-		
+
 		
 		this.setLayout(layout);
 		this.makelines();
@@ -83,6 +83,7 @@ public class DetailedDay extends JLayeredPane {
 	
 	protected void makelines(){
 		//half hour marks code
+
 		for(int i = 0; i < 48; i++){
 			halfhourmarks[i] = new JSeparator();
 			Color col;
