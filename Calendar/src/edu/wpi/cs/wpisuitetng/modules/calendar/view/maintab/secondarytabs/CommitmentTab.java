@@ -37,8 +37,11 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.Insets;
@@ -88,6 +91,8 @@ public class CommitmentTab extends JPanel {
 	private JButton btnCancel;
 	private Commitment editingCommitment;
 	private EditingMode mode = EditingMode.ADDING;
+	private JButton btnDelete;
+	private JPanel buttonPanel;
 	
 	private enum EditingMode {
 		ADDING(0),
@@ -118,7 +123,7 @@ public class CommitmentTab extends JPanel {
 		
 		// form uses GridBagLayout w/ two columns
 		GridBagLayout gbl = new GridBagLayout();
-		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
+		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0};
 		gbl.columnWeights = new double[]{0.0, 1.0};
 		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0};
 		gbl.columnWidths = new int[] {0, 0};
@@ -164,7 +169,7 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(nameTextField.getText().equals("")){
+				if(nameTextField.getText().equals("") || datePicker.getDate() == null){
 					btnAddCommitment.setEnabled(false);
 				} else {
 					btnAddCommitment.setEnabled(true);
@@ -317,6 +322,63 @@ public class CommitmentTab extends JPanel {
 		gbc_jdp.weighty = 3;
 		formPanel.add(datePicker, gbc_jdp);
 		
+		datePicker.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(nameTextField.getText().equals("") || datePicker.getDate() == null){
+					btnAddCommitment.setEnabled(false);
+				} else {
+					btnAddCommitment.setEnabled(true);
+				}
+			}
+			
+			
+			
+			
+		});
+		
+		datePicker.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(nameTextField.getText().equals("") || datePicker.getDate() == null){
+					btnAddCommitment.setEnabled(false);
+				} else {
+					btnAddCommitment.setEnabled(true);
+				}
+				
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(nameTextField.getText().equals("") || datePicker.getDate() == null){
+					btnAddCommitment.setEnabled(false);
+				} else {
+					btnAddCommitment.setEnabled(true);
+				}
+				
+			}
+
+			
+			
+			
+			
+		});
+		
+
+		
 		Calendar c = new GregorianCalendar();
 	    c.set(Calendar.HOUR_OF_DAY, 0);
 	    c.set(Calendar.MINUTE, 0);
@@ -324,15 +386,57 @@ public class CommitmentTab extends JPanel {
 		datePicker.setDate(c.getTime());
 		
 		
-		JPanel buttonPanel = new JPanel(new BorderLayout());
+		buttonPanel = new JPanel(new BorderLayout());
 		
 		//Add Commitment button
-		btnAddCommitment = new JButton("Add Commitment");
+		btnAddCommitment = new JButton("Save Commitment");
+
 		btnAddCommitment.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				addCommitment();
 			}
+			
+			
+		});
+		
+		datePicker.addPropertyChangeListener(new PropertyChangeListener(){
+
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				if(nameTextField.getText().equals("") || datePicker.getDate() == null){
+					btnAddCommitment.setEnabled(false);
+				} else {
+					btnAddCommitment.setEnabled(true);
+				}
+				
+			}
+			
+		});
+		
+		datePicker.getEditor().addKeyListener(new KeyListener(){
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(nameTextField.getText().equals("") || datePicker.getEditor().getText().equals("")){
+					btnAddCommitment.setEnabled(false);
+				} else {
+					btnAddCommitment.setEnabled(true);
+				}
+			}
+			
 			
 			
 		});
@@ -362,7 +466,7 @@ public class CommitmentTab extends JPanel {
 		
 		
 		
-		buttonPanel.add(btnAddCommitment, BorderLayout.WEST);
+		buttonPanel.add(btnAddCommitment, BorderLayout.WEST);		
 		buttonPanel.add(btnCancel, BorderLayout.EAST);
 		formPanel.add(buttonPanel, gbc_btnPanel);
 		
@@ -391,9 +495,19 @@ public class CommitmentTab extends JPanel {
 		
 		this.timeSpinner.setValue(editingCommitment.getDueDate());
 		this.datePicker.setDate(editingCommitment.getDueDate());
-		
+		btnDelete = new JButton("Delete");
+		btnDelete.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				deleteCommitment();
+			}
+			
+		});
+		buttonPanel.add(btnDelete, BorderLayout.CENTER);
+
 	}
 	
+
 	/**
 	 * Close this commitment tab
 	 */
@@ -446,6 +560,14 @@ public class CommitmentTab extends JPanel {
 	 */
 	private void addCommitment() {
 		// TODO Auto-generated method stub
+
+		
+		if(nameTextField.getText().equals("") || datePicker.getDate() == null){
+			return;
+		}
+		
+
+
 		CalendarData calData;
 //		if (this.rdbtnPersonal.isSelected())
 //			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getUserName() + "-" ConfigManager.getConfig().getUserName()); 
@@ -482,8 +604,24 @@ public class CommitmentTab extends JPanel {
 			calData.getCommitments().update(newComm);
 
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+
+ 
+		this.removeTab();
+
+	}
+	
+
+	protected void deleteCommitment() {
+		// TODO Auto-generated method stub
+		CalendarData calData;
+	//	if (this.rdbtnPersonal.isSelected())
+	//		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getUserName() + "-" ConfigManager.getConfig().getUserName()); 
+	//	else
+		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
+		
+		calData.getCommitments().removeCommmitment(editingCommitment.getId());
+		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 		removeTab();
-			
 	}
 
 
