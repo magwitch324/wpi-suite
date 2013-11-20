@@ -296,9 +296,10 @@ public class CommitmentTab extends JPanel {
 		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				
-				
+				removeTab();
 			}
+
+			
 
 			
 		});
@@ -309,19 +310,18 @@ public class CommitmentTab extends JPanel {
 		buttonPanel.add(btnCancel, BorderLayout.EAST);
 		formPanel.add(buttonPanel, gbc_btnPanel);
 		
-//		
-//		//Dummy panel that fixes the left column width (GridBagLayout sucks)
-//		JPanel dummyPanel = new JPanel();
-//		GridBagConstraints gbc_panel5 = new GridBagConstraints();
-//		gbc_panel5.fill = GridBagConstraints.BOTH;
-//		gbc_panel5.insets = new Insets(0, 0, 0, 20);
-//		gbc_panel5.gridx = 0;
-//		gbc_panel5.gridy = 7;
-//		formPanel.add(dummyPanel, gbc_panel5);
 		
 	}
 
 	
+	/**
+	 * Close this commitment tab
+	 */
+	protected void removeTab() {
+		GUIEventController.getInstance().removeTab(this);
+	}
+
+
 	/**
 	 * Add an event handler to round the spinner minute value when not 0 or 30
 	 */
