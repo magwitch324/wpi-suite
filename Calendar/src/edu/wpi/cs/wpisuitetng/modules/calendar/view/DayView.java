@@ -16,7 +16,7 @@ public class DayView extends CalendarView {
 		super(datecalendar);
 		dayPane = new DayPane(datecalendar, tcalendar);
 		setCalPane(dayPane);
-		setCommitmentView(new CommitmentView(tcalendar.getCalData()));
+		setCommitmentView(new CommitmentView(tcalendar));
 		setRange(datecalendar);
 		
 	}
@@ -45,6 +45,7 @@ public class DayView extends CalendarView {
 					dayCommList.addCommitment(comm);
 			}
 			dayPane.displayCommitments(dayCommList);
+		    commitments.update();
 
 		}
 		

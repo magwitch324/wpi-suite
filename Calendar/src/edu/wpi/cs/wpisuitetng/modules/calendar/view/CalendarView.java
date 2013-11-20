@@ -26,7 +26,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 public abstract class CalendarView extends JSplitPane {
 	
 	private ICalPane calPane;
-	private CommitmentView commitments;
+	protected CommitmentView commitments;
 	private String dateRange;
 	
 	

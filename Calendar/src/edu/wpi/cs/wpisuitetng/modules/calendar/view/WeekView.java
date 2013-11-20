@@ -20,7 +20,7 @@ public class WeekView extends CalendarView {
 	public WeekView(Calendar datecalendar, TeamCalendar tcalendar) {
 		super(datecalendar);
 		setCalPane(new WeekPane(datecalendar, tcalendar));
-		setCommitmentView(new CommitmentView(tcalendar.getCalData()));
+		setCommitmentView(new CommitmentView(tcalendar));
 		setRange(datecalendar);
 	}
 	
@@ -52,6 +52,7 @@ public class WeekView extends CalendarView {
 
 	@Override
 	public void displayCalData(CalendarData calData) {
+		commitments.update();
 		// TODO Auto-generated method stub
 		
 	}
