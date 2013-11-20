@@ -565,8 +565,6 @@ public class CommitmentTab extends JPanel {
 		if(nameTextField.getText().equals("") || datePicker.getDate() == null){
 			return;
 		}
-		
-
 
 		CalendarData calData;
 //		if (this.rdbtnPersonal.isSelected())
@@ -574,11 +572,14 @@ public class CommitmentTab extends JPanel {
 //		else
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
 		
+		for(Commitment comm: calData.getCommitments().getCommitments())
+		{
+			System.out.println("Commitment name: " + comm.getName()+", id: "+ comm.getId());
+		}
 		Commitment newComm;
 		if(mode == EditingMode.ADDING)
 		{
 			newComm = new Commitment();
-			newComm.setId(calData.getCommitments().getNextID());
 		}
 		else
 			newComm = editingCommitment;

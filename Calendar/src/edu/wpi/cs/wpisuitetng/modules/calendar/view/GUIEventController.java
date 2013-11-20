@@ -98,6 +98,7 @@ public class GUIEventController {
 	public void removeTab(CommitmentTab commTab)
 	{
 		main.remove(commTab);
+		main.setSelectedComponent(teamCalendar);
 	}
 
 	public void createCommitment() {
