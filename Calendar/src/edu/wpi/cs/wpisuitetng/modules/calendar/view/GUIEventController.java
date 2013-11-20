@@ -25,6 +25,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarMonth;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarYear;
 import edu.wpi.cs.wpisuitetng.modules.calendar.WeekView;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab;
@@ -104,6 +106,14 @@ public class GUIEventController {
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(newCommit);
+	}
+	
+	public void editCommitment(Commitment comm, CalendarData calData) {
+		CommitmentTab editCommit = new CommitmentTab(comm, calData);
+		main.addTab("Edit Commitment", null, editCommit, "Edit Commitment");
+		main.invalidate(); //force the tabbedpane to redraw.
+		main.repaint();
+		main.setSelectedComponent(editCommit);
 	}
 
 	public void createEvent() {

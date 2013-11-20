@@ -332,7 +332,6 @@ public class CommitmentTab extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				addCommitment();
-				
 			}
 			
 			
@@ -483,8 +482,8 @@ public class CommitmentTab extends JPanel {
 			calData.getCommitments().update(newComm);
 
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
- 
- 
+		removeTab();
+			
 	}
 
 
