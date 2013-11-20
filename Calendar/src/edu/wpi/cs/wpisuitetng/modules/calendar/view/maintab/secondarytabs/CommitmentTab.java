@@ -84,6 +84,20 @@ public class CommitmentTab extends JPanel {
 	private JLabel lblType;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JButton btnCancel;
+	private Commitment editingCommitment;
+	private EditingMode mode = EditingMode.ADDING;
+	
+	private enum EditingMode {
+		ADDING(0),
+		EDITING(1);
+		
+		private int currentMode;
+		
+		private EditingMode(int currentMode) {
+			this.currentMode = currentMode;
+		}
+	}
+	
 	/**
 	 * Create the panel.
 	 */
@@ -323,6 +337,30 @@ public class CommitmentTab extends JPanel {
 		
 	}
 
+	/**
+	 * Create a commitment tab in editing mode.
+	 */
+	public CommitmentTab(Commitment commToEdit, CalendarData calData) {
+		this();
+		editingCommitment = commToEdit;
+		this.mode = EditingMode.EDITING;
+		
+		this.nameTextField.setText(editingCommitment.getName());
+		this.descriptionTextArea.setText(editingCommitment.getDescription());
+		this.categoryComboBox.setSelectedItem(editingCommitment.getCategoryId());
+		
+		if(calData.getId().equals(ConfigManager.getConfig().getProjectName()))
+			this.rdbtnTeam.setSelected(true);
+		else
+			this.rdbtnPersonal.setSelected(true);
+		
+		this.rdbtnTeam.setEnabled(false);
+		this.rdbtnPersonal.setEnabled(false);
+		
+		this.timeSpinner.setValue(editingCommitment.getDueDate());
+		this.datePicker.setDate(editingCommitment.getDueDate());
+		
+	}
 	
 	/**
 	 * Close this commitment tab
@@ -332,6 +370,8 @@ public class CommitmentTab extends JPanel {
 	}
 
 
+	
+	
 	/**
 	 * Add an event handler to round the spinner minute value when not 0 or 30
 	 */
@@ -374,12 +414,21 @@ public class CommitmentTab extends JPanel {
 	 */
 	private void addCommitment() {
 		// TODO Auto-generated method stub
-		Commitment newComm = new Commitment();
 		CalendarData calData;
 //		if (this.rdbtnPersonal.isSelected())
-//			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getUserName() + "/" ConfigManager.getConfig().getUserName()); 
+//			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getUserName() + "-" ConfigManager.getConfig().getUserName()); 
 //		else
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
+		
+		Commitment newComm;
+		if(mode == EditingMode.ADDING)
+		{
+			newComm = new Commitment();
+			newComm.setId(calData.getCommitments().getNextID());
+		}
+		else
+			newComm = editingCommitment;
+			
 		newComm.setCategoryId(((Category)this.categoryComboBox.getSelectedItem()).getId());
 		newComm.setDescription(this.descriptionTextArea.getText());
 		
@@ -393,21 +442,19 @@ public class CommitmentTab extends JPanel {
 		
 		//set due date
 		newComm.setDueDate(calDate.getTime());
-		newComm.setId(calData.getCommitments().getNextID());
 		newComm.setName(this.nameTextField.getText());
 		
+		if (mode == EditingMode.ADDING)
+			calData.addCommitment(newComm);
+		else
+			calData.getCommitments().update(newComm);
 
-		calData.addCommitment(newComm);
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
  
  
 	}
 
 
-	public boolean readyToRemove() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }
 
 
