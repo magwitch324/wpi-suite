@@ -56,6 +56,7 @@ public class WeekPane extends JPanel implements ICalPane {
 	   		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 			scrollPane.setMinimumSize(new Dimension(700, 300));
 			JPanel finalPane = new JPanel();
+			finalPane.setLayout(new BoxLayout(finalPane, BoxLayout.Y_AXIS));
 			finalPane.add(this.getHeader((int)mainPanel.getPreferredSize().getWidth()));
 			finalPane.add(scrollPane);
 			
@@ -129,14 +130,16 @@ public class WeekPane extends JPanel implements ICalPane {
     	
     	JPanel apane = new JPanel();
     	SpringLayout layout = new SpringLayout();
-    	GridLayout g = new GridLayout(1,7);
-
+    	GridLayout g = new GridLayout(1,8);
+    	
     	apane.setLayout(g);
     	
     	int height = 0;
+    	JLabel label = new JLabel("   HI");
+    	apane.add(label);
 	    for(int i = 0; i<7; i++){
 	    	JLabel alab = new JLabel(weekdays[i], SwingConstants.CENTER);
-	    	alab.setFont(new Font("Arial", 1, 12));
+	    	alab.setFont(new Font("SansSerif", 1, 12));
 	    	apane.add( alab );
 	    	height = (int) new JLabel(weekdays[i]).getPreferredSize().getHeight();
 	    }
