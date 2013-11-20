@@ -76,23 +76,24 @@ public class CommitmentView extends JPanel {
 	}
 	
 	public void update(){
+		commitPanel.removeAll();
 		List<Commitment> commitmentList = new ArrayList();
 		if(tcalendar.getCalData() != null){
 			System.out.println("got COMMITMENTS FOR VIEW");
 		commitmentList = tcalendar.getCalData().getCommitments().getCommitments();
 		}
-		for(int i = 0; i < 30; i++){
-	        Commitment commit = new Commitment();
-	        commit.setName("Commitment Name");
-	        commit.setDueDate(new Date());
-	        commit.setDescription("The description of this commitment is right here. This will be shown as the description.");
+		for(int i = 0; i < commitmentList.size(); i++){
+	        //Commitment commit = new Commitment();
+	       // commit.setName("Commitment Name");
+	       // commit.setDueDate(new Date());
+	       // commit.setDescription("The description of this commitment is right here. This will be shown as the description.");
 	        JPanel commitmentPanel = new JPanel();
 	        commitmentPanel.setBackground(Color.LIGHT_GRAY);
 	        //commitmentPanel.setBorder((BorderFactory.createMatteBorder(
             //        -2, -2, -2, -2, Color.GRAY)));
-	        JLabel name = new JLabel("Name: "+commit.getName());
-	        JLabel date = new JLabel("Due Date: "+ commit.getDueDate());
-	        JLabel description = new JLabel("<HTML>Description: "+ commit.getDescription()+"</HTML>");
+	        JLabel name = new JLabel("Name: "+commitmentList.get(i).getName());
+	        JLabel date = new JLabel("Due Date: "+ commitmentList.get(i).getDueDate());
+	        JLabel description = new JLabel("<HTML>Description: "+ commitmentList.get(i).getDescription()+"</HTML>");
 	        commitmentPanel.setLayout(new GridBagLayout());
 	        GridBagConstraints c = new GridBagConstraints();
 	        c.anchor = GridBagConstraints.EAST;
