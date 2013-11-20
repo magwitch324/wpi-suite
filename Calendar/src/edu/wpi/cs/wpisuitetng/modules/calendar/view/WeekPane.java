@@ -107,7 +107,13 @@ public class WeekPane extends JPanel implements ICalPane {
 	}
 
     protected JComponent getHeader(int width){
-    	String[] weekdays = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
+    	String[] weekdays = {"Sunday, ", "Monday, ", "Tuesday, ",
+    						"Wednesday, ", "Thursday, ", "Friday, ", "Saturday, " };
+    	int initial = mydate.get(Calendar.DATE);
+    	
+    	for(int i=0; i < 7; i++) {
+    		weekdays[i] += (initial + i);
+    	}
     	
     	JPanel apane = new JPanel();
     	apane.setLayout(new GridLayout(1,7));
@@ -119,7 +125,7 @@ public class WeekPane extends JPanel implements ICalPane {
 	    	apane.add( alab );
 	    	height = (int) new JLabel(weekdays[i]).getPreferredSize().getHeight();
 	    }
-	    
+
     	//apane.setPreferredSize(new Dimension(width, height));
     	
     	return apane;
