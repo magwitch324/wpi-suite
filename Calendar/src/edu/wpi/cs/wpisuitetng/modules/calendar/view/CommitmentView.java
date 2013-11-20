@@ -140,7 +140,7 @@ public class CommitmentView extends JPanel {
 	        
 	        commPanelList.add(i, commitmentPanel);
 	        commitmentPanel.setMaximumSize(new Dimension(2000,100));
-	        if(i > 1)
+	        if(i > 0)
 	        	commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 1, SpringLayout.SOUTH, commPanelList.get(i-1));
 	        else
 	        	commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 0, SpringLayout.NORTH, commitPanel);
@@ -156,6 +156,9 @@ public class CommitmentView extends JPanel {
         	commPanelLayout.putConstraint(SpringLayout.EAST, separator, 0, SpringLayout.EAST, commitPanel);
 
 			commitPanel.add(separator);
+			if (i == commitmentList.size() - 1)
+				commPanelLayout.putConstraint(SpringLayout.SOUTH, commitPanel, 0, SpringLayout.SOUTH, separator);
+
 	        }
 		
 		revalidate();
