@@ -215,6 +215,7 @@ public class CommitmentTab extends JPanel {
 		buttonGroup.add(rdbtnTeam);
 		panel_1.add(rdbtnTeam);
 		
+		rdbtnTeam.setSelected(true);
 		
 		//Time label
 		JLabel lblTime = new JLabel("Time:");
@@ -245,6 +246,9 @@ public class CommitmentTab extends JPanel {
 		gbc_spinner.weighty = 3;
 		formPanel.add(timeSpinner, gbc_spinner);
 		
+
+		timeSpinner.setValue(Calendar.getInstance().getTime());
+		
 		//Date label
 		JLabel lblDate_1 = new JLabel("Date:");
 		lblDate_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -268,6 +272,12 @@ public class CommitmentTab extends JPanel {
 		gbc_jdp.weightx = 1;
 		gbc_jdp.weighty = 3;
 		formPanel.add(datePicker, gbc_jdp);
+		
+		Calendar c = new GregorianCalendar();
+	    c.set(Calendar.HOUR_OF_DAY, 0);
+	    c.set(Calendar.MINUTE, 0);
+	    c.set(Calendar.SECOND, 0);
+		datePicker.setDate(c.getTime());
 		
 		
 		JPanel buttonPanel = new JPanel(new BorderLayout());
