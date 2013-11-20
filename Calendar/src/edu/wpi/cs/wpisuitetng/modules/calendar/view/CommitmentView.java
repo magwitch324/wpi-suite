@@ -120,6 +120,9 @@ public class CommitmentView extends JPanel {
 			separator.setOrientation(JSplitPane.VERTICAL_SPLIT);
 			commitPanel.add(separator);
 	        }
+		
+		revalidate();
+		repaint();
 	}
 	
 }
