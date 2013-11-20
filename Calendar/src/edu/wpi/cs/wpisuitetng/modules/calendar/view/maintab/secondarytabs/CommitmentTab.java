@@ -1,5 +1,6 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
@@ -35,6 +36,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.Insets;
@@ -81,15 +83,22 @@ public class CommitmentTab extends JPanel {
 	private JRadioButton rdbtnTeam;
 	private JLabel lblType;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JButton btnCancel;
 	/**
 	 * Create the panel.
 	 */
 	public CommitmentTab() {
 		//Sets new commitment form to left of pane
-		setLayout(new BorderLayout());
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		JPanel formPanel = new JPanel();
-		formPanel.setPreferredSize(new Dimension(400,800));
-		add(formPanel, BorderLayout.WEST);
+		formPanel.setPreferredSize(new Dimension(400,200));
+		
+		Component horizontalStrut = Box.createHorizontalStrut(200);
+		add(horizontalStrut);
+		add(formPanel, 0.5);
+		
+		Component horizontalStrut_1 = Box.createHorizontalStrut(200);
+		add(horizontalStrut_1);
 		
 		// form uses GridBagLayout w/ two columns
 		GridBagLayout gbl = new GridBagLayout();
@@ -118,7 +127,7 @@ public class CommitmentTab extends JPanel {
 		gbc_nameTextField = new GridBagConstraints();
 		gbc_nameTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_nameTextField.fill = GridBagConstraints.HORIZONTAL;
-        gbc_nameTextField.weightx = 3;
+        gbc_nameTextField.weightx = 10;
         gbc_nameTextField.weighty = 1;
         gbc_nameTextField.gridx = 1;
         gbc_nameTextField.gridy = 0;
@@ -136,23 +145,23 @@ public class CommitmentTab extends JPanel {
 		
 		
 		//Scrollpane for description text area
-		descPane = new JScrollPane();
-		descPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		descPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+//		descPane = new JScrollPane();
+//		descPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+//		descPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
 		//Text area for description
 		descriptionTextArea = new JTextArea();
-		descriptionTextArea.setPreferredSize(new Dimension(280,160));
-		descPane.setViewportView(descriptionTextArea);
+//		descriptionTextArea.setPreferredSize(new Dimension(500,160));
+//		descPane.setViewportView(descriptionTextArea);
 		descriptionTextArea.setLineWrap(true);
 		GridBagConstraints gbc_descriptionTextField = new GridBagConstraints();
-		gbc_descriptionTextField.anchor = GridBagConstraints.WEST;
+		gbc_descriptionTextField.fill = GridBagConstraints.BOTH;
 		gbc_descriptionTextField.insets = new Insets(0, 0, 5, 0);
-        gbc_descriptionTextField.weightx = 3;
+        gbc_descriptionTextField.weightx = 10;
         gbc_descriptionTextField.weighty = 5;
         gbc_descriptionTextField.gridx = 1;
         gbc_descriptionTextField.gridy = 1;
-		formPanel.add(descPane, gbc_descriptionTextField);
+		formPanel.add(descriptionTextArea, gbc_descriptionTextField);
 		
 		
 		//Category label
@@ -177,7 +186,7 @@ public class CommitmentTab extends JPanel {
 		gbc_categoryComboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_categoryComboBox.gridx = 1;
 		gbc_categoryComboBox.gridy = 2;
-		gbc_categoryComboBox.weightx = 3;
+		gbc_categoryComboBox.weightx = 10;
 		gbc_categoryComboBox.weighty = 1;
 		formPanel.add(categoryComboBox, gbc_categoryComboBox);
 		
@@ -260,6 +269,9 @@ public class CommitmentTab extends JPanel {
 		gbc_jdp.weighty = 3;
 		formPanel.add(datePicker, gbc_jdp);
 		
+		
+		JPanel buttonPanel = new JPanel(new BorderLayout());
+		
 		//Add Commitment button
 		btnAddCommitment = new JButton("Add Commitment");
 		btnAddCommitment.addMouseListener(new MouseAdapter() {
@@ -273,22 +285,39 @@ public class CommitmentTab extends JPanel {
 		});
 		
 		
-		GridBagConstraints gbc_btnAddCommitment = new GridBagConstraints();
-		gbc_btnAddCommitment.insets = new Insets(0, 0, 5, 0);
-		gbc_btnAddCommitment.anchor = GridBagConstraints.CENTER;
-		gbc_btnAddCommitment.gridx = 1;
-		gbc_btnAddCommitment.gridy = 6;
-		formPanel.add(btnAddCommitment, gbc_btnAddCommitment);
+		GridBagConstraints gbc_btnPanel = new GridBagConstraints();
+		gbc_btnPanel.insets = new Insets(0, 0, 5, 0);
+		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
+		gbc_btnPanel.gridx = 1;
+		gbc_btnPanel.gridy = 6;
+		
+		//Add Cancel button
+		btnCancel = new JButton("Cancel");
+		btnCancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				
+				
+			}
+
+			
+		});
 		
 		
-		//Dummy panel that fixes the left column width (GridBagLayout sucks)
-		JPanel dummyPanel = new JPanel();
-		GridBagConstraints gbc_panel5 = new GridBagConstraints();
-		gbc_panel5.fill = GridBagConstraints.BOTH;
-		gbc_panel5.insets = new Insets(0, 0, 0, 100);
-		gbc_panel5.gridx = 0;
-		gbc_panel5.gridy = 7;
-		formPanel.add(dummyPanel, gbc_panel5);
+		
+		buttonPanel.add(btnAddCommitment, BorderLayout.WEST);
+		buttonPanel.add(btnCancel, BorderLayout.EAST);
+		formPanel.add(buttonPanel, gbc_btnPanel);
+		
+//		
+//		//Dummy panel that fixes the left column width (GridBagLayout sucks)
+//		JPanel dummyPanel = new JPanel();
+//		GridBagConstraints gbc_panel5 = new GridBagConstraints();
+//		gbc_panel5.fill = GridBagConstraints.BOTH;
+//		gbc_panel5.insets = new Insets(0, 0, 0, 20);
+//		gbc_panel5.gridx = 0;
+//		gbc_panel5.gridy = 7;
+//		formPanel.add(dummyPanel, gbc_panel5);
 		
 	}
 

@@ -29,6 +29,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons.ButtonsPanel_Create;
+import edu.wpi.cs.wpisuitetng.modules.requirementmanager.view.iterations.IterationPanel;
+import edu.wpi.cs.wpisuitetng.modules.requirementmanager.view.requirements.RequirementPanel;
 
 public class GUIEventController {
 	private static GUIEventController instance = null;
@@ -90,6 +92,16 @@ public class GUIEventController {
 	public MainTabView getMainView() {
 		return main;
 	}
+	
+//	public void removeTab(JComponent comp)
+//	{
+//		
+//		if(!((CommitmentTab)comp).readyToRemove()) return;
+//		this.listOf.remove(comp);
+//
+//		
+//		main.remove(comp);
+//	}
 
 	public void createCommitment() {
 		CommitmentTab newCommit = new CommitmentTab();
