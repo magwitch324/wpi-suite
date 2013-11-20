@@ -39,8 +39,7 @@ public class MainTabView extends JTabbedPane {
 		setTabPlacement(TOP);
 		setTabLayoutPolicy(SCROLL_TAB_LAYOUT);
 		setBorder(BorderFactory.createEmptyBorder(5, 3, 3, 3));
-		addTab("Team Calendar", new ImageIcon(), new TeamCalendar());
-		addTab("My Calendar", new ImageIcon(), new MyCalendar());
+		
 		
 	}
 	

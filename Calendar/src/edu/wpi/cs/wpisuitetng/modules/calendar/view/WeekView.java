@@ -6,6 +6,8 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import java.util.Calendar;
 import java.util.Locale;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+
 /**
  * @author cttibbetts
  *
@@ -46,6 +48,12 @@ public class WeekView extends CalendarView {
 		setLabel(startMonthName + " " + startDayNum + ", " + startYear + "\n-\n" + endMonthName + " " + endDayNum + ", " + endYear);
 				
 		refresh();
+	}
+
+	@Override
+	public void displayCalData(CalendarData calData) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

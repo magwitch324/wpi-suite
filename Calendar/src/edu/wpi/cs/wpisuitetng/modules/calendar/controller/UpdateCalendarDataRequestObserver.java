@@ -10,6 +10,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
@@ -45,7 +46,10 @@ public class UpdateCalendarDataRequestObserver implements RequestObserver {
 		final ResponseModel response = iReq.getResponse();
 		
 		// Parse the category out of the response body
-		final CalendarData event = CalendarData.fromJson(response.getBody());		
+		final CalendarData event = CalendarData.fromJson(response.getBody());
+		//refreshes calendar GUI
+		GUIEventController.getInstance().updateCalData();
+
 	}
 	
 	/**

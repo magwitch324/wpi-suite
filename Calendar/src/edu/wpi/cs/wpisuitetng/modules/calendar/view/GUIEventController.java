@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -33,6 +34,8 @@ public class GUIEventController {
 	private static GUIEventController instance = null;
 	private MainTabView main = null;
 	private ToolbarView toolbar = null;
+	private TeamCalendar teamCalendar;
+	private MyCalendar myCalendar;
 
 	/**
 	 * Default constructor for ViewEventController.  Is protected to prevent instantiation.
@@ -57,6 +60,10 @@ public class GUIEventController {
 	 */
 	public void setMainView(MainTabView mainview) {
 		main = mainview;
+		teamCalendar = new TeamCalendar();
+		myCalendar = new MyCalendar();
+		main.addTab("Team Calendar", new ImageIcon(), teamCalendar);
+		main.addTab("My Calendar", new ImageIcon(), myCalendar);
 	}
 
 	/**
@@ -98,6 +105,11 @@ public class GUIEventController {
 	
 	public void switchView(Calendar acal, TeamCalendar.types switchtype, TeamCalendar ateamcal){
 		ateamcal.setCalsetView(acal, switchtype);
+	}
+
+	public void updateCalData() {
+		// TODO Auto-generated method stub
+		teamCalendar.updateCalData();
 	}
 	
 }

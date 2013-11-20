@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -53,6 +54,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
 	
 	int[] viewsizeval = {Calendar.DATE, Calendar.WEEK_OF_YEAR, Calendar.MONTH, Calendar.YEAR};
 	protected Font defualtfont = new Font("Arial", 1, 14);
+	private CalendarView calView;
 	
 	public TeamCalendar() {
 		super();
@@ -256,10 +258,14 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		//TODO do views
 		switch(currenttype.getCurrentType()){
 		case(0):
-			viewpanel.add(new DayView(mycal, this));
+			calView = (new DayView(mycal, this));
+			calView.displayCalData(calData);
+			viewpanel.add(calView);
 			break;
 		case(1):
-			viewpanel.add(new WeekView(mycal, this));
+			calView = (new WeekView(mycal, this));
+			calView.displayCalData(calData);
+			viewpanel.add(calView);
 			break;
 		case(2):
 			//TODO dayview
@@ -318,8 +324,12 @@ public class TeamCalendar extends JPanel implements ICalendar {
 
 			}
 		}
-		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName());
 		super.paintComponent(g);
+	}
+
+	public void updateCalData() {
+		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName());
+		calView.displayCalData(calData);
 	}
 	
 }
