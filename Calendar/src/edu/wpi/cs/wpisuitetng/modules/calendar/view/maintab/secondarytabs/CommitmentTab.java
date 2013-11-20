@@ -37,6 +37,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -409,6 +411,33 @@ public class CommitmentTab extends JPanel {
 				}
 				
 			}
+			
+		});
+		
+		datePicker.getEditor().addKeyListener(new KeyListener(){
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(nameTextField.getText().equals("") || datePicker.getEditor().getText().equals("")){
+					btnAddCommitment.setEnabled(false);
+				} else {
+					btnAddCommitment.setEnabled(true);
+				}
+			}
+			
+			
 			
 		});
 		
