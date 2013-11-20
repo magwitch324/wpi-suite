@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -39,9 +40,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 public class CommitmentView extends JPanel {
 
 	JPanel commitPanel;
+	TeamCalendar tcalendar;
 	
-	public CommitmentView(CalendarData calData) {
-	
+	public CommitmentView(TeamCalendar tcalendar) {
+		this.tcalendar = tcalendar;
 		
 
 		commitPanel = new JPanel();
@@ -62,7 +64,7 @@ public class CommitmentView extends JPanel {
 	        update();
 	        //test data will be where event data is handled
 	        
-	      //List<Commitment> commitmentList = calData.getCommitments().getCommitments();
+	      
 	        
 	      /*  String testData = new String("Commitment1: did a commitment here it is move on to next");
 	        for(int i = 0; i< 150; i++){
@@ -74,19 +76,24 @@ public class CommitmentView extends JPanel {
 	}
 	
 	public void update(){
-		
-		for(int i = 0; i < 30; i++){
-	        Commitment commit = new Commitment();
-	        commit.setName("Commitment Name");
-	        commit.setDueDate(new Date());
-	        commit.setDescription("The description of this commitment is right here. This will be shown as the description.");
+		commitPanel.removeAll();
+		List<Commitment> commitmentList = new ArrayList();
+		if(tcalendar.getCalData() != null){
+			System.out.println("got COMMITMENTS FOR VIEW");
+		commitmentList = tcalendar.getCalData().getCommitments().getCommitments();
+		}
+		for(int i = 0; i < commitmentList.size(); i++){
+	        //Commitment commit = new Commitment();
+	       // commit.setName("Commitment Name");
+	       // commit.setDueDate(new Date());
+	       // commit.setDescription("The description of this commitment is right here. This will be shown as the description.");
 	        JPanel commitmentPanel = new JPanel();
 	        commitmentPanel.setBackground(Color.LIGHT_GRAY);
 	        //commitmentPanel.setBorder((BorderFactory.createMatteBorder(
             //        -2, -2, -2, -2, Color.GRAY)));
-	        JLabel name = new JLabel("Name: "+commit.getName());
-	        JLabel date = new JLabel("Due Date: "+ commit.getDueDate());
-	        JLabel description = new JLabel("<HTML>Description: "+ commit.getDescription()+"</HTML>");
+	        JLabel name = new JLabel("Name: "+commitmentList.get(i).getName());
+	        JLabel date = new JLabel("Due Date: "+ commitmentList.get(i).getDueDate());
+	        JLabel description = new JLabel("<HTML>Description: "+ commitmentList.get(i).getDescription()+"</HTML>");
 	        commitmentPanel.setLayout(new GridBagLayout());
 	        GridBagConstraints c = new GridBagConstraints();
 	        c.anchor = GridBagConstraints.EAST;
