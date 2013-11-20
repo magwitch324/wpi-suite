@@ -189,7 +189,6 @@ public class WeekPane extends JPanel implements ICalPane {
 	    	acal.add(Calendar.DAY_OF_MONTH, 1);
 	    	//TODO add function
 	    	//JPanel viewpane = getWeekCommitPaneforDate( acal );
-	    	JPanel viewpane = new JPanel();
 	    	
 	    	CommitmentView commits = new CommitmentView(calendarused);
 	    	
@@ -204,8 +203,6 @@ public class WeekPane extends JPanel implements ICalPane {
 	    	}
 	    	
 	    	commits.setCommList(newList);
-	    	
-	    	//viewpane.add(commits);
 	    	
 			JScrollPane ascrollpane = new JScrollPane(commits, 
 					ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 

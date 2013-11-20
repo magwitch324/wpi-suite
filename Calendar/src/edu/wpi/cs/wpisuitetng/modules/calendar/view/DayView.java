@@ -45,6 +45,7 @@ public class DayView extends CalendarView {
 					dayCommList.addCommitment(comm);
 			}
 			dayPane.displayCommitments(dayCommList);
+			commitments.setCommList();
 		    commitments.update();
 
 		}
