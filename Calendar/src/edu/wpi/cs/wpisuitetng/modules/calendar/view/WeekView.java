@@ -38,14 +38,14 @@ public class WeekView extends CalendarView {
 		endDate = (Calendar) startDate.clone();
 		endDate.add(Calendar.WEEK_OF_MONTH, 1);
 		endDate.add(Calendar.DAY_OF_MONTH, -1);
-		String startMonthName = startDate.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.ENGLISH);
-		String endMonthName = endDate.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.ENGLISH);
+		String startMonthName = startDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+		String endMonthName = endDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
 		int startDayNum = startDate.get(Calendar.DAY_OF_MONTH);
 		int endDayNum = endDate.get(Calendar.DAY_OF_MONTH);
 		int startYear = startDate.get(Calendar.YEAR);
 		int endYear = endDate.get(Calendar.YEAR);
 		
-		setLabel(startMonthName + " " + startDayNum + ", " + startYear + "\n-\n" + endMonthName + " " + endDayNum + ", " + endYear);
+		setLabel(startMonthName + " " + startDayNum + ", " + startYear + "<br>---<br>" + endMonthName + " " + endDayNum + ", " + endYear);
 				
 		refresh();
 	}
