@@ -17,6 +17,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+
 /**
  * @author cttibbetts
  *
@@ -25,7 +27,7 @@ public class CommitmentView extends JPanel {
 
 	JPanel commitPanel;
 	
-	public CommitmentView() {
+	public CommitmentView(CalendarData calData) {
 	
 		
 

@@ -332,4 +332,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		calView.displayCalData(calData);
 	}
 	
+	public CalendarData getCalData(){
+		return this.calData;
+	}
 }
