@@ -46,13 +46,14 @@ public class WeekPane extends JPanel implements ICalPane {
 	   	if(tcalendar.getShowCommitements()){
 	   		setLayout(new GridLayout(1,1));
 	   		JSplitPane splitpane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+	   		this.setMinimumSize(new Dimension(1200,1000));
 	   		this.add(splitpane);
 	   		
 	   		JScrollPane scrollPane = new JScrollPane(mainPanel, 
 					ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
-					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	   		scrollPane.setBorder(BorderFactory.createEmptyBorder());
-			scrollPane.setMinimumSize(new Dimension(300, 300));
+			scrollPane.setMinimumSize(new Dimension(700, 300));
 			splitpane.setLeftComponent(scrollPane);
 			
 			SpringLayout layout = new SpringLayout();
@@ -69,7 +70,7 @@ public class WeekPane extends JPanel implements ICalPane {
 			layout.putConstraint(SpringLayout.EAST, days, 0, SpringLayout.EAST, mainPanel);
 			mainPanel.add(days);
 			
-			scrollPane.setColumnHeaderView(getHeader((int)mainPanel.getPreferredSize().getWidth()));
+			//scrollPane.setColumnHeaderView(getHeader((int)mainPanel.getPreferredSize().getWidth()));
 			
 			scrollPane.revalidate(); 
 			
@@ -82,9 +83,9 @@ public class WeekPane extends JPanel implements ICalPane {
 			      // HOURS
 			JScrollPane scrollPane = new JScrollPane(mainPanel, 
 											ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
-											ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+											ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 			scrollPane.setBorder(BorderFactory.createEmptyBorder());
-			scrollPane.setMinimumSize(new Dimension(300, 300));
+			scrollPane.setMinimumSize(new Dimension(700, 300));
 			add(scrollPane);
 			      
 			SpringLayout layout = new SpringLayout();
@@ -101,7 +102,7 @@ public class WeekPane extends JPanel implements ICalPane {
 			layout.putConstraint(SpringLayout.EAST, days, 0, SpringLayout.EAST, mainPanel);
 			mainPanel.add(days);
 				    
-			scrollPane.setColumnHeaderView(getHeader((int)mainPanel.getPreferredSize().getWidth()));
+			//scrollPane.setColumnHeaderView(getHeader((int)mainPanel.getPreferredSize().getWidth()));
 				    
 			scrollPane.revalidate(); 
 	   	}
@@ -117,6 +118,8 @@ public class WeekPane extends JPanel implements ICalPane {
     	}
     	
     	JPanel apane = new JPanel();
+    	SpringLayout layout = new SpringLayout();
+    	GridLayout g = new GridLayout(1,7);
     	apane.setLayout(new GridLayout(1,7));
 
     	int height = 0;
@@ -127,18 +130,26 @@ public class WeekPane extends JPanel implements ICalPane {
 	    	height = (int) new JLabel(weekdays[i]).getPreferredSize().getHeight();
 	    }
 
-    	//apane.setPreferredSize(new Dimension(width, height));
-    	
+    	apane.setMinimumSize(new Dimension(700, 300));
+    
     	return apane;
     }
     
     protected JComponent getDays(){
     	JPanel apane = new JPanel();
 	    apane.setLayout(new GridLayout(1,7));
+    	String[] weekdays = {"Sunday, ", "Monday, ", "Tuesday, ",
+				"Wednesday, ", "Thursday, ", "Friday, ", "Saturday, " };
+    	int initial = mydate.get(Calendar.DATE);
+    	
+       	for(int i=0; i < 7; i++) {
+    		weekdays[i] += (initial + i);
+    	}
+    	
 	    for(int i = 0; i<7; i++){
 	    	Calendar acal = (Calendar)mydate.clone();
 	    	acal.add(Calendar.DATE, i);
-	    	JLayeredPane aday = new DetailedDay( acal );
+	    	JLayeredPane aday = new DetailedDay(acal,weekdays[i]);
 	    	aday.addMouseListener(new AMouseEvent(acal, calendarused));
 	    	apane.add( aday );
 	    }
