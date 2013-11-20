@@ -89,6 +89,8 @@ public class CommitmentTab extends JPanel {
 	private JButton btnCancel;
 	private Commitment editingCommitment;
 	private EditingMode mode = EditingMode.ADDING;
+	private JButton btnDelete;
+	private JPanel buttonPanel;
 	
 	private enum EditingMode {
 		ADDING(0),
@@ -119,7 +121,7 @@ public class CommitmentTab extends JPanel {
 		
 		// form uses GridBagLayout w/ two columns
 		GridBagLayout gbl = new GridBagLayout();
-		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
+		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0};
 		gbl.columnWeights = new double[]{0.0, 1.0};
 		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0};
 		gbl.columnWidths = new int[] {0, 0};
@@ -382,10 +384,11 @@ public class CommitmentTab extends JPanel {
 		datePicker.setDate(c.getTime());
 		
 		
-		JPanel buttonPanel = new JPanel(new BorderLayout());
+		buttonPanel = new JPanel(new BorderLayout());
 		
 		//Add Commitment button
-		btnAddCommitment = new JButton("Add Commitment");
+		btnAddCommitment = new JButton("Save Commitment");
+
 		btnAddCommitment.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -434,7 +437,7 @@ public class CommitmentTab extends JPanel {
 		
 		
 		
-		buttonPanel.add(btnAddCommitment, BorderLayout.WEST);
+		buttonPanel.add(btnAddCommitment, BorderLayout.WEST);		
 		buttonPanel.add(btnCancel, BorderLayout.EAST);
 		formPanel.add(buttonPanel, gbc_btnPanel);
 		
@@ -463,7 +466,16 @@ public class CommitmentTab extends JPanel {
 		
 		this.timeSpinner.setValue(editingCommitment.getDueDate());
 		this.datePicker.setDate(editingCommitment.getDueDate());
-		
+		btnDelete = new JButton("Delete");
+		btnCancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				//Delete the commitment
+			}
+			
+		});
+		buttonPanel.add(btnDelete, BorderLayout.CENTER);
+
 	}
 	
 	/**
