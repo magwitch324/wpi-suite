@@ -131,7 +131,7 @@ public class WeekPane extends JPanel implements ICalPane {
 	    for(int i = 0; i<7; i++){
 	    	Calendar acal = (Calendar)mydate.clone();
 	    	acal.add(Calendar.DATE, i);
-	    	JPanel aday = new DetailedDay( acal );
+	    	JComponent aday = new DetailedDay(acal);
 	    	aday.addMouseListener(new AMouseEvent(acal, calendarused));
 	    	apane.add( aday );
 	    }

@@ -14,6 +14,7 @@ import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.OverlayLayout;
@@ -25,7 +26,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
-public class DetailedDay extends JPanel {
+public class DetailedDay extends JLayeredPane {
 	
 	JSeparator[] halfhourmarks= new JSeparator[48];
 	SpringLayout layout = new SpringLayout();
@@ -58,21 +59,20 @@ public class DetailedDay extends JPanel {
 		this.setPreferredSize(new Dimension(50, 800));
 		this.addComponentListener(new resizeevent());
 		this.secondview = secondview;
+		this.setLayout(layout);
 		
 		layout.putConstraint(SpringLayout.WEST, mainview, 0, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.NORTH, mainview, 0, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.EAST, mainview, 2, SpringLayout.HORIZONTAL_CENTER, this);
 		layout.putConstraint(SpringLayout.SOUTH, mainview, 0, SpringLayout.SOUTH, this);
-		mainview.setBackground(new Color(0,0,0,0));
 		this.add(mainview);
 		
-		layout.putConstraint(SpringLayout.WEST, secondview, 2, SpringLayout.HORIZONTAL_CENTER, this);
-		layout.putConstraint(SpringLayout.NORTH, secondview, 0, SpringLayout.NORTH, this);
-		layout.putConstraint(SpringLayout.EAST, secondview, 0, SpringLayout.EAST, this);
-		layout.putConstraint(SpringLayout.SOUTH, secondview, 0, SpringLayout.SOUTH, this);
-		this.add(secondview);
-		
-		this.setLayout(layout);
+		layout.putConstraint(SpringLayout.WEST, this.secondview, 2, SpringLayout.HORIZONTAL_CENTER, this);
+		layout.putConstraint(SpringLayout.NORTH, this.secondview, 0, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.EAST, this.secondview, 0, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.SOUTH, this.secondview, 0, SpringLayout.SOUTH, this);
+		this.add(this.secondview);
+	
 		this.makelines();
 		this.didResize();
 	}
@@ -93,10 +93,6 @@ public class DetailedDay extends JPanel {
 			this.add(halfhourmarks[i]);
 		}
 		layout.putConstraint(SpringLayout.NORTH, halfhourmarks[0], 0, SpringLayout.NORTH, this);
-	}
-	
-	public JPanel get(){
-		return this;
 	}
 	
 	protected void didResize(){
