@@ -39,6 +39,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.Insets;
 
 import javax.swing.JTextPane;
@@ -132,6 +134,34 @@ public class CommitmentTab extends JPanel {
         gbc_nameTextField.gridx = 1;
         gbc_nameTextField.gridy = 0;
 		formPanel.add(nameTextField, gbc_nameTextField);
+		
+		nameTextField.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(nameTextField.getText().equals("")){
+					btnAddCommitment.setEnabled(false);
+				} else {
+					btnAddCommitment.setEnabled(true);
+				}
+			}
+			
+			
+			
+			
+		});
+		
 		
 		//Description label
 		JLabel lblDesc = new JLabel("Description:");
@@ -290,9 +320,12 @@ public class CommitmentTab extends JPanel {
 				addCommitment();
 				
 			}
-
+			
 			
 		});
+		
+		btnAddCommitment.setEnabled(false);
+		
 		
 		
 		GridBagConstraints gbc_btnPanel = new GridBagConstraints();
