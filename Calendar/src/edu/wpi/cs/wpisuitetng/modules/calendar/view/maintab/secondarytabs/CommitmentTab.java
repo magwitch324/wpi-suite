@@ -392,6 +392,12 @@ public class CommitmentTab extends JPanel {
  
  
 	}
+
+
+	public boolean readyToRemove() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
 
 
