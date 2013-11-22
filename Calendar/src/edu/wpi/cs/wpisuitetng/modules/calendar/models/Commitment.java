@@ -19,7 +19,7 @@ public class Commitment extends AbstractModel {
 	/** the categoryID of the category */
 	private int categoryId;
 	/** the status of the commitment */
-	private boolean status; // true for in progress, false for completed
+	private boolean status; // false for in progress, true for completed
 	
 
 	//Getters
@@ -72,7 +72,7 @@ public class Commitment extends AbstractModel {
 		super();
 		name = description = "";
 		dueDate = new Date();
-		status = true;
+		status = false;
 		
 	}
 	
