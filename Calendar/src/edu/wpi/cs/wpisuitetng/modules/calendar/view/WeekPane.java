@@ -6,6 +6,8 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -33,6 +35,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
  */
 public class WeekPane extends JPanel implements ICalPane {
 	JPanel mainPanel = new JPanel();
+	JScrollPane scrollPane = new JScrollPane(mainPanel, 
+			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
+			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	Calendar mydate;
 	TeamCalendar calendarused;
 	
@@ -45,90 +50,71 @@ public class WeekPane extends JPanel implements ICalPane {
 	   	while(mydate.get(Calendar.DAY_OF_WEEK) != mydate.getFirstDayOfWeek() ){
 	   		mydate.add(Calendar.DATE, -1);
 	   	}
-
 	   	
+	   	setLayout(new GridLayout(1,1));
+		scrollPane.setMinimumSize(new Dimension(500, 300));
+		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane.setMinimumSize(new Dimension(500, 300));
+		
+		SpringLayout layout = new SpringLayout();
+		mainPanel.setLayout(layout);
+		mainPanel.setPreferredSize(new Dimension(30, 2000));		
+		JComponent days = getDays();
+		layout.putConstraint(SpringLayout.WEST, days, 0, SpringLayout.WEST, mainPanel);
+		layout.putConstraint(SpringLayout.NORTH, days, 0, SpringLayout.NORTH, mainPanel);
+		layout.putConstraint(SpringLayout.SOUTH, days, 0, SpringLayout.SOUTH, mainPanel);
+		layout.putConstraint(SpringLayout.EAST, days, 0, SpringLayout.EAST, mainPanel);
+		mainPanel.add(days);
+		
+		scrollPane.setColumnHeaderView(getHeader(0));
+		scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
+		scrollPane.getVerticalScrollBar().setValue(800);   
+		
+		
 	   	if(tcalendar.getShowCommitements()){
-	   		setLayout(new GridLayout(1,1));
 	   		JSplitPane splitpane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-	   		this.setMinimumSize(new Dimension(1200,1000));
 	   		this.add(splitpane);
-	   		
-	   		JScrollPane scrollPane = new JScrollPane(mainPanel, 
-					ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
-					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-	   		scrollPane.setBorder(BorderFactory.createEmptyBorder());
-			scrollPane.setMinimumSize(new Dimension(700, 300));
-			JPanel finalPane = new JPanel();
-			finalPane.setLayout(new BoxLayout(finalPane, BoxLayout.Y_AXIS));
-			finalPane.add(this.getHeader((int)mainPanel.getPreferredSize().getWidth()));
-			finalPane.add(scrollPane);
-			
-			
-			splitpane.setLeftComponent(finalPane);
-			
-			SpringLayout layout = new SpringLayout();
-			mainPanel.setLayout(layout);
-			mainPanel.setPreferredSize(new Dimension(30, 2000));
-			
-			scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
-			scrollPane.getVerticalScrollBar().setValue(800);
-			
-			JComponent days = getDays();
-			layout.putConstraint(SpringLayout.WEST, days, 0, SpringLayout.WEST, mainPanel);
-			layout.putConstraint(SpringLayout.NORTH, days, 0, SpringLayout.NORTH, mainPanel);
-			layout.putConstraint(SpringLayout.SOUTH, days, 0, SpringLayout.SOUTH, mainPanel);
-			layout.putConstraint(SpringLayout.EAST, days, 0, SpringLayout.EAST, mainPanel);
-			mainPanel.add(days);
-			
-			//scrollPane.setColumnHeaderView(getHeader((int)mainPanel.getPreferredSize().getWidth()));
-			
-			scrollPane.revalidate(); 
-			
+			splitpane.setLeftComponent(scrollPane);
 			splitpane.setBottomComponent(getCommits());
 	   	}
 	   	else{
-	   		
-			setLayout(new GridLayout(1,1));
-			
-			      // HOURS
-			JScrollPane scrollPane = new JScrollPane(mainPanel, 
-											ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
-											ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-			scrollPane.setBorder(BorderFactory.createEmptyBorder());
-			scrollPane.setMinimumSize(new Dimension(700, 300));
-			JPanel finalPane = new JPanel();
-			finalPane.setLayout(new BoxLayout(finalPane, BoxLayout.Y_AXIS));
-			finalPane.add(this.getHeader((int)mainPanel.getPreferredSize().getWidth()));
-			finalPane.add(scrollPane);
-			add(finalPane);
-			      
-			SpringLayout layout = new SpringLayout();
-			mainPanel.setLayout(layout);
-			mainPanel.setPreferredSize(new Dimension(30, 2000));
-			      
-			scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
-			scrollPane.getVerticalScrollBar().setValue(800);
-			      
-			JComponent days = getDays();
-			layout.putConstraint(SpringLayout.WEST, days, 0, SpringLayout.WEST, mainPanel);
-			layout.putConstraint(SpringLayout.NORTH, days, 0, SpringLayout.NORTH, mainPanel);
-			layout.putConstraint(SpringLayout.SOUTH, days, 0, SpringLayout.SOUTH, mainPanel);
-			layout.putConstraint(SpringLayout.EAST, days, 0, SpringLayout.EAST, mainPanel);
-			mainPanel.add(days);
-				    
-			//scrollPane.setColumnHeaderView(getHeader((int)mainPanel.getPreferredSize().getWidth()));
-				    
-			scrollPane.revalidate(); 
+			this.add(scrollPane);
 	   	}
+	   	
+	   	scrollPane.addComponentListener(new ComponentAdapter(){
+			public void componentResized(ComponentEvent e){
+				
+				scrollPane.setColumnHeaderView(getHeader(0));
+				System.out.println(scrollPane.getColumnHeader().getSize().getWidth() + " : " + scrollPane.getColumnHeader().getView().getPreferredSize().getWidth());
+				
+				if(scrollPane.getColumnHeader().getSize().getWidth() <
+						scrollPane.getColumnHeader().getView().getPreferredSize().getWidth()){
+					scrollPane.setColumnHeaderView(getHeader(1));
+				}
+				
+				scrollPane.revalidate();
+				
+				if(scrollPane.getColumnHeader().getSize().getWidth() <
+						scrollPane.getColumnHeader().getView().getPreferredSize().getWidth()){
+					scrollPane.setColumnHeaderView(getHeader(2));
+				}
+				
+				scrollPane.revalidate();
+			}
+		});
 	}
 
-    protected JComponent getHeader(int width){
-    	String[] weekdays = {"Sunday, ", "Monday, ", "Tuesday, ",
-    						"Wednesday, ", "Thursday, ", "Friday, ", "Saturday, " };
-    	int initial = mydate.get(Calendar.DATE);
+    protected JComponent getHeader(int use){
+    	String[][] weekdays = {{"Sunday, ", "Monday, ", "Tuesday, ",
+    						"Wednesday, ", "Thursday, ", "Friday, ", "Saturday, " },
+    						{"Sun, ", "Mon, ", "Tue, ","Wed, ", "Thu, ", "Fri, ", "Sat, " },
+    						{"Sun", "Mon", "Tue","Wed", "Thu", "Fri", "Sat" }};
     	
-    	for(int i=0; i < 7; i++) {
-    		weekdays[i] += (initial + i);
+    	int initial = mydate.get(Calendar.DATE);
+    	if(use < 2){
+    		for(int i=0; i < 7; i++) {
+    			weekdays[use][i] += (initial + i);
+    		}
     	}
     	
     	JPanel apane = new JPanel();
@@ -136,18 +122,14 @@ public class WeekPane extends JPanel implements ICalPane {
     	GridLayout g = new GridLayout(1,7);
     	
     	apane.setLayout(g);
-    	Border empty = new EmptyBorder(0, 50, 0, 0);
-    	apane.setBorder(empty);
     	int height = 0;
     	
 	    for(int i = 0; i<7; i++){
-	    	JLabel alab = new JLabel(weekdays[i], SwingConstants.CENTER);
+	    	JLabel alab = new JLabel(weekdays[use][i], SwingConstants.CENTER);
 	    	alab.setFont(new Font("SansSerif", 1, 12));
 	    	apane.add( alab );
-	    	height = (int) new JLabel(weekdays[i]).getPreferredSize().getHeight();
 	    }
-
-    	apane.setMinimumSize(new Dimension(700, 30));
+	    
     
     	return apane;
     }
