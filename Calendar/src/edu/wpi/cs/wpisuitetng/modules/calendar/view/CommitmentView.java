@@ -44,6 +44,8 @@ public class CommitmentView extends JPanel {
 
 	JPanel commitPanel;
 	TeamCalendar tcalendar;
+
+	List<Commitment> commitmentList = new ArrayList();
 //	private List<CommitmentViewPanel> commitmentPanelList;
 	
 	public CommitmentView(TeamCalendar tcalendar) {
@@ -64,7 +66,7 @@ public class CommitmentView extends JPanel {
 	      layout.putConstraint(SpringLayout.SOUTH, scrollPane, 0, SpringLayout.SOUTH, this);
 	      scrollPane.setViewportView(commitPanel);
 	      
-	        commitPanel.setLayout(new BoxLayout(commitPanel, BoxLayout.Y_AXIS));
+	      	setCommList();
 	        update();
 	        //test data will be where event data is handled
 	        
@@ -79,13 +81,22 @@ public class CommitmentView extends JPanel {
 	        */
 	}
 	
-	public void update(){
-		commitPanel.removeAll();
-		List<Commitment> commitmentList = new ArrayList();
+	public void setCommList(ArrayList<Commitment> commitments) {
+		commitmentList = commitments;
+	}
+	
+	public void setCommList() {
 		if(tcalendar.getCalData() != null){
 			System.out.println("got COMMITMENTS FOR VIEW");
 		commitmentList = tcalendar.getCalData().getCommitments().getCommitments();
 		}
+	}
+	
+	public void update(){
+		commitPanel.removeAll();
+		SpringLayout commPanelLayout = new SpringLayout();
+        commitPanel.setLayout(commPanelLayout);
+        List<CommitmentViewPanel> commPanelList = new ArrayList<CommitmentViewPanel>();
 		for(int i = 0; i < commitmentList.size(); i++){
 	        //Commitment commit = new Commitment();
 	       // commit.setName("Commitment Name");
@@ -127,11 +138,27 @@ public class CommitmentView extends JPanel {
 				}		
 			});
 	        
-	        
-	        commitPanel.add(commitmentPanel,c);
+	        commPanelList.add(i, commitmentPanel);
+	        commitmentPanel.setMaximumSize(new Dimension(2000,100));
+	        if(i > 0)
+	        	commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 1, SpringLayout.SOUTH, commPanelList.get(i-1));
+	        else
+	        	commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 0, SpringLayout.NORTH, commitPanel);
+	       
+        	commPanelLayout.putConstraint(SpringLayout.WEST, commitmentPanel, 0, SpringLayout.WEST, commitPanel);
+        	commPanelLayout.putConstraint(SpringLayout.EAST, commitmentPanel, 0, SpringLayout.EAST, commitPanel);
+
+	        commitPanel.add(commitmentPanel);
 	        JSeparator separator = new JSeparator();
 			separator.setOrientation(JSplitPane.VERTICAL_SPLIT);
+        	commPanelLayout.putConstraint(SpringLayout.NORTH, separator, 1, SpringLayout.SOUTH, commitmentPanel);
+        	commPanelLayout.putConstraint(SpringLayout.WEST, separator, 0, SpringLayout.WEST, commitPanel);
+        	commPanelLayout.putConstraint(SpringLayout.EAST, separator, 0, SpringLayout.EAST, commitPanel);
+
 			commitPanel.add(separator);
+			if (i == commitmentList.size() - 1)
+				commPanelLayout.putConstraint(SpringLayout.SOUTH, commitPanel, 0, SpringLayout.SOUTH, separator);
+
 	        }
 		
 		revalidate();

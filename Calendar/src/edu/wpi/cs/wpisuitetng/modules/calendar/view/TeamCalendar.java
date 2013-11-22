@@ -25,8 +25,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 
 public class TeamCalendar extends JPanel implements ICalendar {
 	
-	private boolean initialized;
-	private CalendarData calData;
+	protected boolean initialized;
+	protected CalendarData calData;
 	
 	protected enum types {
 		DAY(0),
@@ -45,16 +45,16 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		}
 	}
 	
-	types currenttype = types.DAY;
+	protected types currenttype = types.DAY;
 	protected Calendar mycal;;
 	
-	JPanel viewpanel = new JPanel(); 
-	JToggleButton[] viewbtns = new JToggleButton[4];
-	JCheckBox showcom;
+	protected JPanel viewpanel = new JPanel(); 
+	protected JToggleButton[] viewbtns = new JToggleButton[4];
+	protected JCheckBox showcom;
 	
-	int[] viewsizeval = {Calendar.DATE, Calendar.WEEK_OF_YEAR, Calendar.MONTH, Calendar.YEAR};
+	protected int[] viewsizeval = {Calendar.DATE, Calendar.WEEK_OF_YEAR, Calendar.MONTH, Calendar.YEAR};
 	protected Font defualtfont = new Font("Arial", 1, 14);
-	private CalendarView calView;
+	protected CalendarView calView;
 	
 	public TeamCalendar() {
 		super();

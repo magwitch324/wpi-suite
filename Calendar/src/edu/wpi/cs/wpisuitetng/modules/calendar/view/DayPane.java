@@ -74,9 +74,13 @@ public class DayPane extends JPanel implements ICalPane {
 			scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
 			scrollPane.getVerticalScrollBar().setValue(800);
 			
+//<<<<<<< HEAD
 			daypane = new DetailedDay(datecalendar, 
 										new CommitDetailedPane(datecalendar, 
 																new ArrayList<Commitment>(tcalendar.getCalData().getCommitments().getCommitments())  ));
+/*=======
+			daypane = new DetailedDay(datecalendar,"");
+>>>>>>> 8d54f788e1fec6a7eab547aca6afdaba2701252d*/
 			
 			layout.putConstraint(SpringLayout.WEST, daypane, 0, SpringLayout.WEST, mainPanel);
 			layout.putConstraint(SpringLayout.NORTH, daypane, 0, SpringLayout.NORTH, mainPanel);
@@ -101,7 +105,7 @@ public class DayPane extends JPanel implements ICalPane {
 			scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
 			scrollPane.getVerticalScrollBar().setValue(800);
 			
-			daypane = new DetailedDay(datecalendar);
+			daypane = new DetailedDay(datecalendar,"");
 			
 			layout.putConstraint(SpringLayout.WEST, daypane, 0, SpringLayout.WEST, mainPanel);
 			layout.putConstraint(SpringLayout.NORTH, daypane, 0, SpringLayout.NORTH, mainPanel);

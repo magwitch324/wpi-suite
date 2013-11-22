@@ -496,10 +496,10 @@ public class CommitmentTab extends JPanel {
 		this.timeSpinner.setValue(editingCommitment.getDueDate());
 		this.datePicker.setDate(editingCommitment.getDueDate());
 		btnDelete = new JButton("Delete");
-		btnCancel.addMouseListener(new MouseAdapter() {
+		btnDelete.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				//Delete the commitment
+				deleteCommitment();
 			}
 			
 		});
@@ -507,6 +507,7 @@ public class CommitmentTab extends JPanel {
 
 	}
 	
+
 	/**
 	 * Close this commitment tab
 	 */
@@ -564,8 +565,6 @@ public class CommitmentTab extends JPanel {
 		if(nameTextField.getText().equals("") || datePicker.getDate() == null){
 			return;
 		}
-		
-
 
 		CalendarData calData;
 //		if (this.rdbtnPersonal.isSelected())
@@ -573,11 +572,14 @@ public class CommitmentTab extends JPanel {
 //		else
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
 		
+		for(Commitment comm: calData.getCommitments().getCommitments())
+		{
+			System.out.println("Commitment name: " + comm.getName()+", id: "+ comm.getId());
+		}
 		Commitment newComm;
 		if(mode == EditingMode.ADDING)
 		{
 			newComm = new Commitment();
-			newComm.setId(calData.getCommitments().getNextID());
 		}
 		else
 			newComm = editingCommitment;
@@ -607,6 +609,20 @@ public class CommitmentTab extends JPanel {
  
 		this.removeTab();
 
+	}
+	
+
+	protected void deleteCommitment() {
+		// TODO Auto-generated method stub
+		CalendarData calData;
+	//	if (this.rdbtnPersonal.isSelected())
+	//		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getUserName() + "-" ConfigManager.getConfig().getUserName()); 
+	//	else
+		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
+		
+		calData.getCommitments().removeCommmitment(editingCommitment.getId());
+		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+		removeTab();
 	}
 
 

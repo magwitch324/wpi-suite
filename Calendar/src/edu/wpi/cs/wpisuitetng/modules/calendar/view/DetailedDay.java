@@ -33,9 +33,10 @@ public class DetailedDay extends JLayeredPane {
 	SpringLayout layout = new SpringLayout();
 	JPanel mainview = new JPanel();
 	JComponent secondview = null;
-	
-	public DetailedDay(Calendar adate){
-		super();		
+	String dateName;
+	public DetailedDay(Calendar adate, String dateName){
+		super();	
+		this.dateName = dateName;
 		this.setMinimumSize(new Dimension(50, 800));
 		this.setPreferredSize(new Dimension(50, 800));
 		this.addComponentListener(new resizeevent());
@@ -46,8 +47,10 @@ public class DetailedDay extends JLayeredPane {
 		layout.putConstraint(SpringLayout.EAST, mainview, 0, SpringLayout.EAST, this);
 		layout.putConstraint(SpringLayout.SOUTH, mainview, 0, SpringLayout.SOUTH, this);
 		mainview.setBackground(new Color(0,0,0,0));
+	//	JLabel label = new JLabel(dateName);
+	//	mainview.add(label);
 		this.add(mainview);
-		
+
 		
 		this.setLayout(layout);
 		this.makelines();
@@ -71,7 +74,7 @@ public class DetailedDay extends JLayeredPane {
 		
 		layout.putConstraint(SpringLayout.WEST, this.secondview, 2, SpringLayout.HORIZONTAL_CENTER, this);
 		layout.putConstraint(SpringLayout.NORTH, this.secondview, 0, SpringLayout.NORTH, this);
-		layout.putConstraint(SpringLayout.EAST, this.secondview, 0, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.EAST, this.secondview, -10, SpringLayout.EAST, this);
 		layout.putConstraint(SpringLayout.SOUTH, this.secondview, 0, SpringLayout.SOUTH, this);
 		this.secondview.setBackground(new Color(0,0,0,0));
 		this.add(this.secondview, 0);
@@ -82,6 +85,7 @@ public class DetailedDay extends JLayeredPane {
 	
 	protected void makelines(){
 		//half hour marks code
+
 		for(int i = 0; i < 48; i++){
 			halfhourmarks[i] = new JSeparator();
 			Color col;

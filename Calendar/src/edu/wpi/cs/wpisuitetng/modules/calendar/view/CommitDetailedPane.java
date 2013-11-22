@@ -14,21 +14,50 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 
 public class CommitDetailedPane extends JPanel {
 	
-	//JComponent[] halfblocks = new JComponent[48];
-	
+	ArrayList<Commitment> commits;
+	Calendar adate;
 	public CommitDetailedPane(Calendar adate, ArrayList<Commitment> commits){
 		super();
 		System.out.println( "start" );
-		this.setLayout(new GridLayout(48,1));
+		this.setLayout(new SpringLayout());
+		this.addComponentListener(new ComponentListener() {
+		    public void componentResized(ComponentEvent e) {didResize();}
+	
+			@Override
+			public void componentMoved(ComponentEvent e) {}
+	
+			@Override
+			public void componentShown(ComponentEvent e) {}
+	
+			@Override
+			public void componentHidden(ComponentEvent e) {}
+		});
+		
+		this.commits = commits;
+		this.adate = (Calendar)adate.clone();
+		
+		this.didResize();
 
-		Calendar acalit = (Calendar)adate.clone();
+		this.setBackground(new Color(0,0,0,0));
+		System.out.println( "end" );
+	}
+	
+	protected void didResize(){
+		System.out.println( "did resize" );
+		JComponent[] halfblocks = new JComponent[48];
+		this.removeAll();
 		
-		
+		int x = (int)this.getSize().getWidth();
+		int y = (int)this.getSize().getHeight();
+		SpringLayout layout = (SpringLayout)this.getLayout();
+
 		for(int index = 0; index < 48; index++){
 			ArrayList<Commitment> tomake = new ArrayList<Commitment>();
 			for( int i = 0; i < commits.size(); i++){
@@ -46,51 +75,41 @@ public class CommitDetailedPane extends JPanel {
 					}
 				}	
 			}
-			this.add(new thehalfblocks(tomake));
+			halfblocks[index] = new thehalfblocks(tomake);
 		}
-
-		this.setBackground(new Color(0,0,0,0));
-		System.out.println( "end" );
-	}
-	
-	/*protected void didResize(){
-		System.out.println( "did resize" );
-		int x = (int)this.getSize().getWidth();
-		int y = (int)this.getSize().getHeight();
-		SpringLayout layout = (SpringLayout)this.getLayout();
 		
 		for( int i = 0; i < 48; i ++){
 			layout.putConstraint(SpringLayout.WEST, halfblocks[i], 0, SpringLayout.WEST, this);
 			layout.putConstraint(SpringLayout.EAST, halfblocks[i], 0, SpringLayout.EAST, this);
 			layout.putConstraint(SpringLayout.NORTH, halfblocks[i], (int)(y/48.0*i) + 1, SpringLayout.NORTH, this);
 			layout.putConstraint(SpringLayout.SOUTH, halfblocks[i], (int)(y/48.0*(i+1)) - 1, SpringLayout.NORTH, this);
+			this.add(halfblocks[i]);
 		}
 		
 		this.revalidate();
 		this.repaint();
-	}*/
+	}
 	
 	protected class thehalfblocks extends JPanel{
 		public thehalfblocks(ArrayList<Commitment> commits){
 			super();
-			if(commits.size() > 0)
-				this.setLayout(new GridLayout(1, 1, 0, 1));
+			if(commits.size() > 0){
+				this.setLayout(new GridLayout(1, commits.size(), 0, 1));
+				System.out.println(commits.size());
+			}
 			
 			Iterator<Commitment> it = commits.iterator();
 			
-			int i = 0;
-			while(it.hasNext() && i < 1){
-				i++;
-				this.add(this.getComPanel(it.next()));
+			while(it.hasNext()){
+				this.add(this.getComPanel(it.next()), SwingConstants.CENTER);
 			}
 			
 			this.setBackground(new Color(0,0,0,0));
-			
 		}
 		
 		private JComponent getComPanel(Commitment tochange){
 			JPanel apane = new JPanel();
-			apane.setBackground(new Color(0,0,0,0));
+			apane.setBackground(new Color(255,255,255));
 			//TODO add function for clicking to go to the editor
 			
 			Calendar acal = (Calendar)Calendar.getInstance().clone();
@@ -105,20 +124,21 @@ public class CommitDetailedPane extends JPanel {
 				time += " PM";
 			
 			
-			String name = "Name - " + tochange.getName();
-			String descr = "Descr - " + tochange.getDescription();
+			String name = "Name: " + tochange.getName();
+			String descr = "Descr: " + tochange.getDescription();
 			apane.setLayout(new GridLayout(2,1));
-			JLabel alab = new JLabel(time + " " + name);
+			JLabel alab = new JLabel(descr, JLabel.CENTER);
 			//alab.setSize( alab.getPreferredSize() );
 			alab.setBackground(new Color(0,0,0,0));
-			apane.add(alab);
+			apane.add(alab, SwingConstants.CENTER);
 			
-			alab = new JLabel(descr);
+			alab = new JLabel(name, JLabel.CENTER);
 			//alab.setSize( alab.getPreferredSize() );
 			alab.setBackground(new Color(0,0,0,0));
-			apane.add(alab);
+			apane.add(alab, SwingConstants.CENTER);
 
-			//apane.setPreferredSize(new Dimension(100,100));
+			LineBorder roundedLineBorder = new LineBorder(Color.black, 1, true);
+			apane.setBorder(roundedLineBorder);
 			return apane;
 		}
 		

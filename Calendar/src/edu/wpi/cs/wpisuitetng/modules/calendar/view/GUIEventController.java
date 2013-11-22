@@ -98,6 +98,7 @@ public class GUIEventController {
 	public void removeTab(CommitmentTab commTab)
 	{
 		main.remove(commTab);
+		main.setSelectedComponent(teamCalendar);
 	}
 
 	public void createCommitment() {
@@ -127,6 +128,7 @@ public class GUIEventController {
 	public void updateCalData() {
 		// TODO Auto-generated method stub
 		teamCalendar.updateCalData();
+		myCalendar.updateCalData();
 	}
 	
 }

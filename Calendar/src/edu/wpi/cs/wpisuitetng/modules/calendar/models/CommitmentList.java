@@ -150,6 +150,6 @@ public class CommitmentList {
 	 */
 	public void update (Commitment newCommitment) {
 		commitments.remove(getCommitment(newCommitment.getId()));
-		commitments.add(newCommitment);
+		addCommitment(newCommitment);
 	}
 }
