@@ -1,6 +1,6 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.Role;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 
-public class EventEntityManager implements EntityManager<Event> {
+public class CalendarDataEntityManager implements EntityManager<CalendarData> {
 
 	/** The database */
 	Data db;
@@ -30,63 +30,59 @@ public class EventEntityManager implements EntityManager<Event> {
 	 * 
 	 * @param db a reference to the persistent database
 	 */
-	public EventEntityManager(Data db) {
+	public CalendarDataEntityManager(Data db) {
 		this.db = db; 
 	}
 
 	/**
-	 * Saves a Event when it is received from a client
+	 * Saves a CalendarData when it is received from a client
 	 * 
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#makeEntity(edu.wpi.cs.wpisuitetng.Session, java.lang.String)
 	 */
 	@Override
-	public Event makeEntity(Session s, String content) throws WPISuiteException {
-		final Event newEvent = Event.fromJson(content);
-		if(!db.save(newEvent, s.getProject())) {
+	public CalendarData makeEntity(Session s, String content) throws WPISuiteException {
+		final CalendarData newCalData = CalendarData.fromJson(content);
+		if(!db.save(newCalData, s.getProject())) {
 			throw new WPISuiteException();
 		}
-		return newEvent;
+		return newCalData;
 	}
 	
 	/**
-	 * Retrieves a single event from the database
+	 * Retrieves a single CalendarData from the database
 	 * @param s the session
-	 * @param id the id number of the event to retrieve
+	 * @param id the id number of the CalendarData to retrieve
 	
 	
 	
 	
-	 * @return the event matching the given id * @throws NotFoundException * @throws NotFoundException * @throws NotFoundException
+	 * @return the CalendarData matching the given id * @throws NotFoundException * @throws NotFoundException * @throws NotFoundException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getEntity(Session, String) */
 	@Override
-	public Event[] getEntity(Session s, String id) throws NotFoundException {
-		final int intId = Integer.parseInt(id);
-		if(intId < 1) {
-			throw new NotFoundException();
-		}
-		Event[] events = null;
+	public CalendarData[] getEntity(Session s, String id) throws NotFoundException {
+		CalendarData[] calData = null;
 		try {
-			events = db.retrieve(Event.class, "id", intId, s.getProject()).toArray(new Event[0]);
+			calData = db.retrieve(CalendarData.class, "id", id, s.getProject()).toArray(new CalendarData[0]);
 		} catch (WPISuiteException e) {
 			e.printStackTrace();
 		}
-		if(events.length < 1 || events[0] == null) {
+		if(calData.length < 1 || calData[0] == null) {
 			throw new NotFoundException();
 		}
-		return events;
+		return calData;
 	}
 
 	/**
-	 * Retrieves all events from the database
+	 * Retrieves all CalendarData from the database
 	 * @param s the session
 	
 	
 	
-	 * @return array of all stored events * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session) * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session) * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session)
+	 * @return array of all stored CalendarData * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session) * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session) * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session)
 	 */
 	@Override
-	public Event[] getAll(Session s) {
-		return db.retrieveAll(new Event(), s.getProject()).toArray(new Event[0]);
+	public CalendarData[] getAll(Session s) {
+		return db.retrieveAll(new CalendarData(), s.getProject()).toArray(new CalendarData[0]);
 	}
 
 	/**
@@ -95,7 +91,7 @@ public class EventEntityManager implements EntityManager<Event> {
 	 * @param model the model to be saved
 	 */
 	@Override
-	public void save(Session s, Event model) {
+	public void save(Session s, CalendarData model) {
 		db.save(model, s.getProject());
 	}
 	
@@ -113,9 +109,9 @@ public class EventEntityManager implements EntityManager<Event> {
 	}
 	
 	/**
-	 * Deletes a event from the database
+	 * Deletes a CalendarData from the database
 	 * @param s the session
-	 * @param id the id of the event to delete
+	 * @param id the id of the CalendarData to delete
 	
 	
 	
@@ -129,7 +125,7 @@ public class EventEntityManager implements EntityManager<Event> {
 	}
 	
 	/**
-	 * Deletes all events from the database
+	 * Deletes all CalendarData from the database
 	 * @param s the session
 	
 	
@@ -138,20 +134,20 @@ public class EventEntityManager implements EntityManager<Event> {
 	@Override
 	public void deleteAll(Session s) throws WPISuiteException {
 		ensureRole(s, Role.ADMIN);
-		db.deleteAll(new Event(), s.getProject());
+		db.deleteAll(new CalendarData(), s.getProject());
 	}
 	
 	/**
-	 * Returns the number of events in the database
+	 * Returns the number of CalendarData in the database
 	
 	
 	
 	
-	 * @return number of events stored * @throws WPISuiteException * @throws WPISuiteException * @throws WPISuiteException
+	 * @return number of CalendarData stored * @throws WPISuiteException * @throws WPISuiteException * @throws WPISuiteException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#Count() */
 	@Override
 	public int Count() throws WPISuiteException {
-		return db.retrieveAll(new Event()).size();
+		return db.retrieveAll(new CalendarData()).size();
 	}
 
 	/**
@@ -161,33 +157,33 @@ public class EventEntityManager implements EntityManager<Event> {
 	
 	
 	
-	 * @return Event * @throws WPISuiteException * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#update(Session, String) * @throws WPISuiteException
+	 * @return CalendarData * @throws WPISuiteException * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#update(Session, String) * @throws WPISuiteException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#update(Session, String)
 	 */
 	@Override
-	public Event update(Session session, String content) throws WPISuiteException {
+	public CalendarData update(Session session, String content) throws WPISuiteException {
 		
-		Event updatedEvent = Event.fromJson(content);
+		CalendarData updatedCalData = CalendarData.fromJson(content);
 		/*
-		 * Because of the disconnected objects problem in db4o, we can't just save Events.
-		 * We have to get the original defect from db4o, copy properties from updatedEvent,
-		 * then save the original Event again.
+		 * Because of the disconnected objects problem in db4o, we can't just save Categorys.
+		 * We have to get the original defect from db4o, copy properties from updatedCategory,
+		 * then save the original Category again.
 		 */
-		List<Model> oldEvents = db.retrieve(Event.class, "id", updatedEvent.getId(), session.getProject());
-		if(oldEvents.size() < 1 || oldEvents.get(0) == null) {
-			throw new BadRequestException("Event with ID does not exist.");
+		List<Model> oldCalData = db.retrieve(CalendarData.class, "id", updatedCalData.getId(), session.getProject());
+		if(oldCalData.size() < 1 || oldCalData.get(0) == null) {
+			throw new BadRequestException("CalendarData with ID does not exist.");
 		}
 				
-		Event existingEvent = (Event)oldEvents.get(0);		
+		CalendarData existingCalData = (CalendarData)oldCalData.get(0);		
 
-		// copy values to old event and fill in our changeset appropriately
-		existingEvent.copyFrom(updatedEvent);
+		// copy values to old CalendarData and fill in our changeset appropriately
+		existingCalData.copyFrom(updatedCalData);
 		
-		if(!db.save(existingEvent, session.getProject())) {
+		if(!db.save(existingCalData, session.getProject())) {
 			throw new WPISuiteException();
 		}
 		
-		return existingEvent;
+		return existingCalData;
 	}
 
 	/**

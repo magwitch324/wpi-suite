@@ -10,54 +10,54 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
 
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.network.Network;
 import edu.wpi.cs.wpisuitetng.network.Request;
 import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
 
 /**
  * This controller responds when the user clicks the Update button by
- * adding the contents of the event text fields to the model as a new
- * event.
+ * adding the contents of the CalendarData text fields to the model as a new
+ * category.
  * @version $Revision: 1.0 $
  * @author justinhess
  */
-public class AddEventController{
+public class AddCalendarDataController{
 	
-	private static AddEventController instance;
-	private AddEventRequestObserver observer;
+	private static AddCalendarDataController instance;
+	private AddCalendarDataRequestObserver observer;
 	
 	/**
-	 * Construct an AddEventController for the given model, view pair
+	 * Construct an AddCalendarDataController for the given model, view pair
 	
 	
 	 */
-	private AddEventController() {
-		observer = new AddEventRequestObserver(this);
+	private AddCalendarDataController() {
+		observer = new AddCalendarDataRequestObserver(this);
 	}
 	
 	/**
 	
-	 * @return the instance of the AddEventController or creates one if it does not
+	 * @return the instance of the AddCalendarDataController or creates one if it does not
 	 * exist. */
-	public static AddEventController getInstance()
+	public static AddCalendarDataController getInstance()
 	{
 		if(instance == null)
 		{
-			instance = new AddEventController();
+			instance = new AddCalendarDataController();
 		}
 		
 		return instance;
 	}
 
 	/**
-	 * This method adds a event to the server.
-	 * @param newEvent is the event to be added to the server.
+	 * This method adds a CalendarData to the server.
+	 * @param newCalData is the CalendarData to be added to the server.
 	 */
-	public void addEvent(Event newEvent) 
+	public void addCalendarData(CalendarData newCalData) 
 	{
-		final Request request = Network.getInstance().makeRequest("calendar/event", HttpMethod.PUT); // PUT == create
-		request.setBody(newEvent.toJSON()); // put the new event in the body of the request
+		final Request request = Network.getInstance().makeRequest("calendar/calendardata", HttpMethod.PUT); // PUT == create
+		request.setBody(newCalData.toJSON()); // put the new calData in the body of the request
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); 
 	}

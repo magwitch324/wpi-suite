@@ -9,32 +9,33 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
 
 /**
  * This observer is called when a response is received from a request
- * to the server to add a event.
+ * to the server to update a CalendarData.
  *
  * @version $Revision: 1.0 $
  * @author justinhess
  */
-public class UpdateEventRequestObserver implements RequestObserver {
+public class UpdateCalendarDataRequestObserver implements RequestObserver {
 	
-	private final UpdateEventController controller;
+	private final UpdateCalendarDataController controller;
 	
 	/**
-	 * Constructs the observer given an AddEventController
+	 * Constructs the observer given an AddCalendarDataController
 	 * @param controller the controller used to add events
 	 */
-	public UpdateEventRequestObserver(UpdateEventController controller) {
+	public UpdateCalendarDataRequestObserver(UpdateCalendarDataController controller) {
 		this.controller = controller;
 	}
 	
 	/**
-	 * Parse the event that was received from the server then pass them to
+	 * Parse the CalendarData that was received from the server then pass them to
 	 * the controller.
 	 * 
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseSuccess(edu.wpi.cs.wpisuitetng.network.models.IRequest)
@@ -44,8 +45,11 @@ public class UpdateEventRequestObserver implements RequestObserver {
 		// Get the response to the given request
 		final ResponseModel response = iReq.getResponse();
 		
-		// Parse the event out of the response body
-		final Event event = Event.fromJson(response.getBody());		
+		// Parse the category out of the response body
+		final CalendarData event = CalendarData.fromJson(response.getBody());
+		//refreshes calendar GUI
+		GUIEventController.getInstance().updateCalData();
+
 	}
 	
 	/**
@@ -57,11 +61,11 @@ public class UpdateEventRequestObserver implements RequestObserver {
 	@Override
 	public void responseError(IRequest iReq) {
 		System.err.println(iReq.getResponse().getStatusMessage());
-		System.err.println("The request to update a event failed.");
+		System.err.println("The request to update a CalendarData failed.");
 	}
 
 	/**
-	 * Takes an action if the response fails.
+	 * Takes an action if thSe response fails.
 	 * Specifically, outputs that the request failed.
 	 * @param iReq IRequest
 	 * @param exception Exception
@@ -69,7 +73,7 @@ public class UpdateEventRequestObserver implements RequestObserver {
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#fail(IRequest, Exception) */
 	@Override
 	public void fail(IRequest iReq, Exception exception) {
-		System.err.println("The request to update a event failed.");
+		System.err.println("The request to update a CalendarData failed.");
 	}
 
 }

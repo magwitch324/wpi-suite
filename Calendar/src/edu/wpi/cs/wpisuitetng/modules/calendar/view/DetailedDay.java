@@ -1,0 +1,188 @@
+package edu.wpi.cs.wpisuitetng.modules.calendar.view;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.util.Calendar;
+import java.util.List;
+
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+import javax.swing.JLayeredPane;
+import javax.swing.JSeparator;
+import javax.swing.OverlayLayout;
+import javax.swing.SpringLayout;
+import javax.swing.border.LineBorder;
+
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
+
+public class DetailedDay extends JLayeredPane {
+	
+	JSeparator[] halfhourmarks= new JSeparator[48];
+	SpringLayout layout = new SpringLayout();
+	JPanel mainview = new JPanel();
+	JComponent secondview = null;
+	String dateName;
+	public DetailedDay(Calendar adate, String dateName){
+		super();	
+		this.dateName = dateName;
+		this.setMinimumSize(new Dimension(50, 800));
+		this.setPreferredSize(new Dimension(50, 800));
+		this.addComponentListener(new resizeevent());
+		//TODO add get events pane
+		//mainview = GetEventsPane();
+		layout.putConstraint(SpringLayout.WEST, mainview, 0, SpringLayout.WEST, this);
+		layout.putConstraint(SpringLayout.NORTH, mainview, 0, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.EAST, mainview, 0, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.SOUTH, mainview, 0, SpringLayout.SOUTH, this);
+		mainview.setBackground(new Color(0,0,0,0));
+	//	JLabel label = new JLabel(dateName);
+	//	mainview.add(label);
+		this.add(mainview);
+
+		
+		this.setLayout(layout);
+		this.makelines();
+		this.didResize();
+	}
+	
+	public DetailedDay(Calendar adate, JComponent secondview){
+		super();		
+		this.setMinimumSize(new Dimension(50, 800));
+		this.setPreferredSize(new Dimension(50, 800));
+		this.addComponentListener(new resizeevent());
+		this.secondview = secondview;
+		this.setLayout(layout);
+		
+		layout.putConstraint(SpringLayout.WEST, mainview, 0, SpringLayout.WEST, this);
+		layout.putConstraint(SpringLayout.NORTH, mainview, 0, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.EAST, mainview, 2, SpringLayout.HORIZONTAL_CENTER, this);
+		layout.putConstraint(SpringLayout.SOUTH, mainview, 0, SpringLayout.SOUTH, this);
+		mainview.setBackground(new Color(0,0,0,0));
+		this.add(mainview, 1);
+		
+		layout.putConstraint(SpringLayout.WEST, this.secondview, 2, SpringLayout.HORIZONTAL_CENTER, this);
+		layout.putConstraint(SpringLayout.NORTH, this.secondview, 0, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.EAST, this.secondview, -10, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.SOUTH, this.secondview, 0, SpringLayout.SOUTH, this);
+		this.secondview.setBackground(new Color(0,0,0,0));
+		this.add(this.secondview, 0);
+	
+		this.makelines();
+		this.didResize();
+	}
+	
+	protected void makelines(){
+		//half hour marks code
+
+		for(int i = 0; i < 48; i++){
+			halfhourmarks[i] = new JSeparator();
+			Color col;
+			if(i%2==0){
+				col = Color.BLACK;
+			}
+			else{
+				col = Color.GRAY;
+			}
+			halfhourmarks[i].setBackground(col);
+			halfhourmarks[i].setForeground(col);
+			this.add(halfhourmarks[i], i+5);
+		}
+		layout.putConstraint(SpringLayout.NORTH, halfhourmarks[0], 0, SpringLayout.NORTH, this);
+	}
+	
+	protected void didResize(){
+		
+		int x = (int)(((this.getSize().getWidth())*0.01)*((this.getSize().getWidth())*0.01));
+		x = x > 5 ? x : 5;
+		x = x < 15 ? x : 15;
+		layout.putConstraint(SpringLayout.WEST, halfhourmarks[0], x, SpringLayout.WEST, this);
+		layout.putConstraint(SpringLayout.EAST, halfhourmarks[0], -x, SpringLayout.EAST, this);
+		
+		for(int i = 1; i < 48; i++){
+			int val = x;
+			if(i%2==1)
+				val*=2;
+			layout.putConstraint(SpringLayout.VERTICAL_CENTER, halfhourmarks[i], 
+								(int)((this.getSize().getHeight())*i/48.0),
+								SpringLayout.NORTH, this);
+			layout.putConstraint(SpringLayout.WEST, halfhourmarks[i], val, SpringLayout.WEST, this);
+			layout.putConstraint(SpringLayout.EAST, halfhourmarks[i], -val, SpringLayout.EAST, this);
+		}
+		
+		this.revalidate();
+		this.repaint();
+		
+	}
+	
+	
+	protected class resizeevent implements ComponentListener {
+	    public void componentResized(ComponentEvent e) {
+	        // do stuff    
+	    	didResize();
+	    }
+
+		@Override
+		public void componentMoved(ComponentEvent e) {
+			// TODO Auto-generated method stub	
+		}
+
+		@Override
+		public void componentShown(ComponentEvent e) {
+		}
+
+		@Override
+		public void componentHidden(ComponentEvent e) {
+			// TODO Auto-generated method stub
+		}
+	}
+
+	/** Displays previously created commitments on DetailedDay
+	 * @param comm Commitment to be added to the display
+	 * 
+	 */
+	public void displayCommitment(Commitment comm)
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(comm.getDueDate());
+		
+		//map hour to location in terms of halfhourmarks (0 - 47)
+		int loc = cal.get(Calendar.HOUR_OF_DAY)*2;
+		if (cal.get(Calendar.MINUTE) == 30)
+			loc += 1;
+		
+		//add white panel in appropriate half hour slot
+		JPanel commPanel = new JPanel();
+		commPanel.setBackground(Color.white);
+		commPanel.add(new JLabel(comm.getName()));
+		this.add(commPanel);				
+		layout.putConstraint(SpringLayout.NORTH, commPanel, 0, SpringLayout.NORTH, halfhourmarks[loc]);
+		layout.putConstraint(SpringLayout.EAST, commPanel, 0, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.WEST, commPanel, 0, SpringLayout.WEST, this);
+		if (loc == 47)
+			layout.putConstraint(SpringLayout.SOUTH, commPanel, 0, SpringLayout.SOUTH, this);
+		else
+			layout.putConstraint(SpringLayout.SOUTH, commPanel, 0, SpringLayout.NORTH, halfhourmarks[loc+1]);
+	}
+
+	/** Displays previously created commitments on DetailedDay
+	 * @param commList CommitmentList to be added to the display
+	 * 
+	 */
+	public void displayCommitments(CommitmentList commList) {
+		// TODO Auto-generated method stub
+		for(int i = 0; i < commList.getSize(); i++)
+			displayCommitment(commList.getElementAt(i));
+	}
+}

@@ -9,31 +9,31 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
 
 /**
  * This observer is called when a response is received from a request
- * to the server to add a event.
+ * to the server to add a CalendarData.
  * @version $Revision: 1.0 $
  * @author justinhess
  */
-public class AddEventRequestObserver implements RequestObserver {
+public class AddCalendarDataRequestObserver implements RequestObserver {
 		
-	private AddEventController controller;
+	private AddCalendarDataController controller;
 	
 	/**
-	 * Constructs the observer given an AddEventController
-	 * @param controller the controller used to add events
+	 * Constructs the observer given an AddCalendarDataController
+	 * @param controller the controller used to add CalendarData
 	 */
-	public AddEventRequestObserver(AddEventController controller) {
+	public AddCalendarDataRequestObserver(AddCalendarDataController controller) {
 		this.controller = controller;
 	}
 	
 	/**
-	 * Parse the event that was received from the server then pass them to
+	 * Parse the CalendarData that was received from the server then pass them to
 	 * the controller.
 	 * 
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseSuccess(edu.wpi.cs.wpisuitetng.network.models.IRequest)
@@ -43,8 +43,8 @@ public class AddEventRequestObserver implements RequestObserver {
 		// Get the response to the given request
 		final ResponseModel response = iReq.getResponse();
 		
-		// Parse the event out of the response body
-		final Event event = Event.fromJson(response.getBody());		
+		// Parse the CalendarData out of the response body
+		final CalendarData caldata = CalendarData.fromJson(response.getBody());		
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class AddEventRequestObserver implements RequestObserver {
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseError(IRequest) */
 	@Override
 	public void responseError(IRequest iReq) {
-		System.err.println("The request to add a event failed.");
+		System.err.println("The request to add a CalendarData failed.");
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class AddEventRequestObserver implements RequestObserver {
 	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#fail(IRequest, Exception) */
 	@Override
 	public void fail(IRequest iReq, Exception exception) {
-		System.err.println("The request to add a event failed.");
+		System.err.println("The request to add a CalendarData failed.");
 	}
 
 }

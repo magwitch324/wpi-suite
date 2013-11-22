@@ -13,24 +13,23 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-
-
-
-
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarMonth;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarYear;
 import edu.wpi.cs.wpisuitetng.modules.calendar.WeekView;
-import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddEventController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.EventModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.events.EventPanel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons.ButtonsPanel_Create;
 
@@ -38,11 +37,9 @@ public class GUIEventController {
 	private static GUIEventController instance = null;
 	private MainTabView main = null;
 	private ToolbarView toolbar = null;
-	//private OverviewTable overviewTable = null;
-	//private OverviewTreePanel overviewTree = null;
-	//private ArrayList<RequirementPanel> listOfEditingPanels = new ArrayList<RequirementPanel>();
-	//private ArrayList<IterationPanel> listOfIterationPanels = new ArrayList<IterationPanel>();
-	//private IterationOverviewPanel iterationOverview;
+	private TeamCalendar teamCalendar;
+	private MyCalendar myCalendar;
+	private List<CommitmentTab> listOfCommitmentTabs;
 
 	/**
 	 * Default constructor for ViewEventController.  Is protected to prevent instantiation.
@@ -67,6 +64,10 @@ public class GUIEventController {
 	 */
 	public void setMainView(MainTabView mainview) {
 		main = mainview;
+		teamCalendar = new TeamCalendar();
+		myCalendar = new MyCalendar();
+		main.addTab("Team Calendar", new ImageIcon(), teamCalendar);
+		main.addTab("My Calendar", new ImageIcon(), myCalendar);
 	}
 
 	/**
@@ -93,74 +94,41 @@ public class GUIEventController {
 	public MainTabView getMainView() {
 		return main;
 	}
+	
+	public void removeTab(CommitmentTab commTab)
+	{
+		main.remove(commTab);
+		main.setSelectedComponent(teamCalendar);
+	}
 
 	public void createCommitment() {
-		ButtonsPanel_Create newCommit = new ButtonsPanel_Create();
-		main.addTab("newCreate.", null, newCommit, "New Commitment");
+		CommitmentTab newCommit = new CommitmentTab();
+		main.addTab("New Commitment", null, newCommit, "New Commitment");
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(newCommit);
 	}
+	
+	public void editCommitment(Commitment comm, CalendarData calData) {
+		CommitmentTab editCommit = new CommitmentTab(comm, calData);
+		main.addTab("Edit Commitment", null, editCommit, "Edit Commitment");
+		main.invalidate(); //force the tabbedpane to redraw.
+		main.repaint();
+		main.setSelectedComponent(editCommit);
+	}
 
 	public void createEvent() {
-		Date date = new Date(0);
-		AddEventController.getInstance().addEvent(new Event(3, "Sample Event", "Sample event description", date));
-		EventPanel newEvent;
-		newEvent = new EventPanel();
-//		ButtonsPanel_Create newEvent = new ButtonsPanel_Create();
-		main.addTab("newEvent.", null, newEvent, "New Event");
-		main.invalidate(); //force the tabbedpane to redraw.
-		main.repaint();
-		main.setSelectedComponent(newEvent);
+
 	}
 	
-	public void showMonthView0() {
-		//CalendarMonth monthView = new CalendarMonth(2013, 11);
-		//JPanel monthPanel = monthView.CalendarMonthBuild();
-		CalendarMonth c = new CalendarMonth("January",3,31);
-		main.addTab("MonthView", null, c.getCalPanel(), "MonthView");
-		main.invalidate(); //force the tabbedpane to redraw.
-		main.repaint();
-		main.setSelectedComponent(c.getCalPanel());
+	public void switchView(Calendar acal, TeamCalendar.types switchtype, TeamCalendar ateamcal){
+		ateamcal.setCalsetView(acal, switchtype);
 	}
 
-	public void showMonthView() {
-		//CalendarMonth monthView = new CalendarMonth(2013, 11);
-		//JPanel monthPanel = monthView.CalendarMonthBuild();
-		//CalendarMonth2 monthView2 = new CalendarMonth2();
-		DayView day = new DayView();
-		
-		//main.addTab("MonthView.", null, monthPanel, "MonthView");
-		main.addTab("DayView", null, day, "MonthView");
-		main.invalidate(); //force the tabbedpane to redraw.
-		main.repaint();
-		main.setSelectedComponent(day);
-	}
-	
-	public void showWeekView() {
-		//CalendarMonth monthView = new CalendarMonth(2013, 11);
-		//JPanel monthPanel = monthView.CalendarMonthBuild();
-		//CalendarMonth2 monthView2 = new CalendarMonth2();
-		WeekView week = new WeekView();
-		//CalendarYear year = new CalendarYear(2013);
-		//main.addTab("MonthView.", null, monthPanel, "MonthView");
-		main.addTab("WeekView", null, week, "WeekView");
-		main.invalidate(); //force the tabbedpane to redraw.
-		main.repaint();
-		main.setSelectedComponent(week);
-	}
-	
-	public void showYearView() {
-		//CalendarMonth monthView = new CalendarMonth(2013, 11);
-		//JPanel monthPanel = monthView.CalendarMonthBuild();
-		//CalendarMonth2 monthView2 = new CalendarMonth2();
-		CalendarYear year = new CalendarYear(2013);
-		//CalendarYear year = new CalendarYear(2013);
-		//main.addTab("MonthView.", null, monthPanel, "MonthView");
-		main.addTab("YearView", null, year, "YearView");
-		main.invalidate(); //force the tabbedpane to redraw.
-		main.repaint();
-		main.setSelectedComponent(year);
+	public void updateCalData() {
+		// TODO Auto-generated method stub
+		teamCalendar.updateCalData();
+		myCalendar.updateCalData();
 	}
 	
 }
