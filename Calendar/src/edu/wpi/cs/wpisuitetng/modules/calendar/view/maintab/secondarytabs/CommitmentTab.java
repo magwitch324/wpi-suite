@@ -14,6 +14,7 @@ import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultFormatter;
+import javax.swing.JCheckBox;
 
 import org.jdesktop.swingx.JXDatePicker;
 
@@ -92,7 +93,9 @@ public class CommitmentTab extends JPanel {
 	private Commitment editingCommitment;
 	private EditingMode mode = EditingMode.ADDING;
 	private JButton btnDelete;
+	private JCheckBox statusCheckBox;
 	private JPanel buttonPanel;
+	private JPanel formPanel;
 	
 	private enum EditingMode {
 		ADDING(0),
@@ -111,7 +114,7 @@ public class CommitmentTab extends JPanel {
 	public CommitmentTab() {
 		//Sets new commitment form to left of pane
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		JPanel formPanel = new JPanel();
+		formPanel = new JPanel();
 		formPanel.setPreferredSize(new Dimension(400,200));
 		
 		Component horizontalStrut = Box.createHorizontalStrut(200);
@@ -495,6 +498,8 @@ public class CommitmentTab extends JPanel {
 		
 		this.timeSpinner.setValue(editingCommitment.getDueDate());
 		this.datePicker.setDate(editingCommitment.getDueDate());
+		statusCheckBox = new JCheckBox("In Progress?", commToEdit.getStatus());
+		formPanel.add(statusCheckBox);
 		btnDelete = new JButton("Delete");
 		btnDelete.addMouseListener(new MouseAdapter() {
 			@Override
@@ -504,6 +509,9 @@ public class CommitmentTab extends JPanel {
 			
 		});
 		buttonPanel.add(btnDelete, BorderLayout.CENTER);
+		
+		
+		
 
 	}
 	
