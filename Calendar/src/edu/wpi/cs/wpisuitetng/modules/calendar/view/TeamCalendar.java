@@ -299,9 +299,15 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		return showcom.isSelected();
 	}
 	
+
 	public CalendarData getCalData(){
 		return this.calData;
 	}
+	
+	public boolean getShowTeamCommitements(){
+		return false;
+	}
+	
 	/**
 	 * Overrides the paintComponent method to retrieve the requirements on the first painting.
 	 * 

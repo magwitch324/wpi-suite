@@ -26,6 +26,7 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
@@ -44,7 +45,9 @@ public class DayPane extends JPanel implements ICalPane {
        * Create the panel.
        */
 	public DayPane(Calendar datecalendar, TeamCalendar tcalendar) {
-		if(tcalendar.getShowCommitements()){
+		final boolean showCommitements = tcalendar.getShowCommitements();
+		final boolean showTeamCommitments = tcalendar.getShowTeamCommitements();
+		if(showCommitements || showTeamCommitments){
 			setLayout(new GridLayout(1,1));
 			
 			// HOURS
@@ -75,9 +78,25 @@ public class DayPane extends JPanel implements ICalPane {
 			scrollPane.getVerticalScrollBar().setValue(800);
 			
 //<<<<<<< HEAD
+			ArrayList<Commitment> commitmentList = new ArrayList<Commitment>();
+			CalendarData teamCommitments = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName());
+			if(!showTeamCommitments&&showCommitements){
+				commitmentList = new ArrayList<Commitment>(tcalendar.getCalData().getCommitments().getCommitments());
+			}
+			if(showTeamCommitments&&!showCommitements){
+		      	List<Commitment> teamCommits = teamCommitments.getCommitments().getCommitments();
+		      	for(Commitment comm : teamCommits) {
+		      		if(!commitmentList.contains(comm)){
+		      			commitmentList.add(comm);
+		      		}
+		      	}
+			}
+			if(showTeamCommitments&&showCommitements){
+				commitmentList = new ArrayList<Commitment>(tcalendar.getCalData().getCommitments().getCommitments());
+				commitmentList.addAll(teamCommitments.getCommitments().getCommitments());
+			}
 			daypane = new DetailedDay(datecalendar, 
-										new CommitDetailedPane(datecalendar, 
-																new ArrayList<Commitment>(tcalendar.getCalData().getCommitments().getCommitments())  ));
+										new CommitDetailedPane(datecalendar, commitmentList));
 /*=======
 			daypane = new DetailedDay(datecalendar,"");
 >>>>>>> 8d54f788e1fec6a7eab547aca6afdaba2701252d*/

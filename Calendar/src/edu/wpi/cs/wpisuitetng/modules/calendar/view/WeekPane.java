@@ -47,7 +47,7 @@ public class WeekPane extends JPanel implements ICalPane {
 	   	}
 
 	   	
-	   	if(tcalendar.getShowCommitements()){
+	   	if(tcalendar.getShowCommitements()||tcalendar.getShowTeamCommitements()){
 	   		setLayout(new GridLayout(1,1));
 	   		JSplitPane splitpane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 	   		this.setMinimumSize(new Dimension(1200,1000));

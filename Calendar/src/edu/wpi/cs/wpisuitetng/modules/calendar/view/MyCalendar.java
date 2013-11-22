@@ -15,6 +15,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 
 public class MyCalendar extends TeamCalendar {
 	
+	private JCheckBox showteam;
+	
 	public MyCalendar() {
 		super();
 		this.removeAll();
@@ -50,8 +52,14 @@ public class MyCalendar extends TeamCalendar {
 		layout.putConstraint(SpringLayout.SOUTH, showcom, 0, SpringLayout.SOUTH, viewbtnpanel);
 		this.add(showcom);
 		
-		JCheckBox showteam = new JCheckBox("Show Team");
+		showteam = new JCheckBox("Show Team");
 		showteam.setFont(defualtfont);
+		showteam.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+            	setView();
+            }
+        });
 		layout.putConstraint(SpringLayout.WEST, showteam, 5, SpringLayout.EAST, showcom);
 		layout.putConstraint(SpringLayout.NORTH, showteam, 0, SpringLayout.NORTH, viewbtnpanel);
 		//layout.putConstraint(SpringLayout.EAST, showteam, -5, SpringLayout.EAST, this);
@@ -84,6 +92,11 @@ public class MyCalendar extends TeamCalendar {
 		}
 		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName());
 		calView.displayCalData(calData);
+	}
+	
+	@Override
+	public boolean getShowTeamCommitements(){
+		return showteam.isSelected();
 	}
 	
 }
