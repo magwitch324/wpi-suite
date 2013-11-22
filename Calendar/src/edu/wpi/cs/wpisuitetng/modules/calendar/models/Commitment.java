@@ -8,16 +8,19 @@ import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 
 public class Commitment extends AbstractModel {
 	// Commitment characteristics.
-	/** the ID of the category */
+	/** the ID of the commitment */
 	private int id;
-	/** the Name of the category */
+	/** the Name of the commitment */
 	private String name;
-	/** the DueDate of the category */
+	/** the DueDate of the commitment */
 	private Date dueDate;
-	/** the Description of the category */
+	/** the Description of the commitment */
 	private String description;
-	/** the CategoryID of the category */
+	/** the categoryID of the category */
 	private int categoryId;
+	/** the status of the commitment */
+	private boolean status; // true for in progress, false for completed
+	
 
 	//Getters
 	 /**Getter for the ID	
@@ -34,47 +37,55 @@ public class Commitment extends AbstractModel {
 	public String getDescription() 	{return description;}
 	 /**Getter for the categoryId	
 	 * @return the category id */
-	public int getCategoryId()	 	{return categoryId;}
+	public int getCategoryId()	{return categoryId;}
+	 /**Getter for the status	
+	 * @return the status */
+	public boolean getStatus()	 	{return status;}
 	
 	//Setters
 	/**Setter for the id
 	 * @param id the id to set*/
 	public void setId		   (int id)				{this.id = id;}
 	/**Setter for the name
-	 * @param id the name to set*/
+	 * @param name the name to set*/
 	public void setName		   (String name) 		{this.name = name;}
 	/**Setter for the dueDate
-	 * @param id the due date to set*/
+	 * @param dueDate the due date to set*/
 	public void setDueDate	   (Date dueDate) 		{this.dueDate = dueDate;}
 	/**Setter for the Description
-	 * @param id the Description to set*/
+	 * @param description the Description to set*/
 	public void setDescription (String description) {this.description = description;}
 	/**Setter for the categoryId
-	 * @param id the id to category id*/
+	 * @param categoryId the id to category id*/
 	public void setCategoryId  (int categoryId) 	{this.categoryId = categoryId;}
+	/**Setter for the status
+	 * @param status to status*/
+	public void setStatus  (boolean status) 	{this.status = status;}
 
-	/** Construct a Category with required properties provided and others set
+	/** Construct a commitment with required properties provided and others set
 	 * to default
 	 * @param id
-	 *            The ID number of the category
+	 *            The ID number of the commitment
 	 * @param name
-	 *            The name of the category*/
+	 *            The name of the commitment*/
 	public Commitment() {
 		super();
 		name = description = "";
 		dueDate = new Date();
+		status = true;
+		
 	}
 	
-	/** Construct a Category with required properties provided and others set
+	/** Construct a commitment with required properties provided and others set
 	 * to default
 	 * @param id
-	 *            The ID number of the category
+	 *            The ID number of the commitment
 	 * @param name
-	 *            The name number of the category
+	 *            The name number of the commitment
 	 * @param dueDate
-	 *            The due date number of the category
-	 * @param categoryId
-	 *            The category ID number of the category*/
+	 *            The due date number of the commitment
+	 * @param commitmentId
+	 *            The commitment ID number of the commitment*/
 
 	public Commitment(String name, Date dueDate,
 					String description, int categoryId) {
@@ -185,7 +196,7 @@ public class Commitment extends AbstractModel {
 		this.dueDate = 		toCopyFrom.getDueDate();
 		this.description =  toCopyFrom.getDescription();
 		this.categoryId = 	toCopyFrom.getCategoryId();
-
+		this.status =       toCopyFrom.getStatus();
 	}
 	
 }
