@@ -520,7 +520,7 @@ public class CommitmentTab extends JPanel {
 	 * Close this commitment tab
 	 */
 	protected void removeTab() {
-		GUIEventController.getInstance().removeTab(this);
+		GUIEventController.getInstance().removeTab(this,);
 	}
 
 
