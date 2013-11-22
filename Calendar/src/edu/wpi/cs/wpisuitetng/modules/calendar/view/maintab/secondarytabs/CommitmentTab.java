@@ -75,7 +75,7 @@ public class CommitmentTab extends JPanel {
 	private JTextField nameTextField;
 	private GridBagConstraints gbc_nameTextField;
 	private JSpinner timeSpinner;
-	
+	private boolean isTeamComm;
 	SpinnerDateModelHalfHour spinnerModel = new SpinnerDateModelHalfHour();  
 	private JButton btnAddCommitment;
 	private JComboBox<Category> categoryComboBox;
@@ -520,7 +520,7 @@ public class CommitmentTab extends JPanel {
 	 * Close this commitment tab
 	 */
 	protected void removeTab() {
-		GUIEventController.getInstance().removeTab(this,);
+		GUIEventController.getInstance().removeTab(this, isTeamComm);
 	}
 
 
@@ -575,11 +575,14 @@ public class CommitmentTab extends JPanel {
 		}
 
 		CalendarData calData;
-		if (this.rdbtnPersonal.isSelected())
+		if (this.rdbtnPersonal.isSelected()){
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
-		else
+			isTeamComm = false;
+		}
+		else{
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
-		
+			isTeamComm = true;
+		}
 		for(Commitment comm: calData.getCommitments().getCommitments())
 		{
 			System.out.println("Commitment name: " + comm.getName()+", id: "+ comm.getId());
@@ -623,11 +626,14 @@ public class CommitmentTab extends JPanel {
 	protected void deleteCommitment() {
 		// TODO Auto-generated method stub
 		CalendarData calData;
-	if (this.rdbtnPersonal.isSelected())
+	if (this.rdbtnPersonal.isSelected()){
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
-		else
+			isTeamComm = false;
+	}
+	else{
 		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
-		
+		isTeamComm = true;
+	}
 		calData.getCommitments().removeCommmitment(editingCommitment.getId());
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 		removeTab();

@@ -95,11 +95,17 @@ public class GUIEventController {
 		return main;
 	}
 	
-	public void removeTab(CommitmentTab commTab, TeamCalendar calledFrom)
+	public void removeTab(CommitmentTab commTab, boolean isTeamComm)
 	{
 		
 		main.remove(commTab);
-		main.setSelectedComponent(calledFrom);
+		if(isTeamComm){
+		main.setSelectedComponent(teamCalendar);
+		}
+		else{
+			main.setSelectedComponent(myCalendar);
+
+		}
 		
 	}
 
