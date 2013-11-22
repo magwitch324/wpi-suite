@@ -567,9 +567,9 @@ public class CommitmentTab extends JPanel {
 		}
 
 		CalendarData calData;
-//		if (this.rdbtnPersonal.isSelected())
-//			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getUserName() + "-" ConfigManager.getConfig().getUserName()); 
-//		else
+		if (this.rdbtnPersonal.isSelected())
+			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
+		else
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
 		
 		for(Commitment comm: calData.getCommitments().getCommitments())
@@ -615,9 +615,9 @@ public class CommitmentTab extends JPanel {
 	protected void deleteCommitment() {
 		// TODO Auto-generated method stub
 		CalendarData calData;
-	//	if (this.rdbtnPersonal.isSelected())
-	//		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getUserName() + "-" ConfigManager.getConfig().getUserName()); 
-	//	else
+	if (this.rdbtnPersonal.isSelected())
+			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
+		else
 		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
 		
 		calData.getCommitments().removeCommmitment(editingCommitment.getId());

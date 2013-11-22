@@ -81,6 +81,9 @@ public class CalendarDataModel extends AbstractListModel {
 			if (temp.getId().equals(id)){
 				break;
 			}
+			else{
+				temp = null;
+			}
 		}
 		return temp;
 	}

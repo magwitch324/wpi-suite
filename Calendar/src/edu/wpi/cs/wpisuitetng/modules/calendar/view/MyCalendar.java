@@ -9,6 +9,10 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.SpringLayout;
 
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
+
 public class MyCalendar extends TeamCalendar {
 	
 	public MyCalendar() {
@@ -71,6 +75,15 @@ public class MyCalendar extends TeamCalendar {
 		
 		setView();
 		
+	}
+	@Override
+	public void updateCalData() {
+		if (CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()) == null){
+			CalendarData createdCal = new CalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName());
+			CalendarDataModel.getInstance().addCalendarData(createdCal);
+		}
+		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName());
+		calView.displayCalData(calData);
 	}
 	
 }

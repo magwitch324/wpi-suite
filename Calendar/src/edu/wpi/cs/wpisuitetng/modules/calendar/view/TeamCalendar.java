@@ -333,7 +333,6 @@ public class TeamCalendar extends JPanel implements ICalendar {
 
 	public void updateCalData() {
 		if (CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()) == null){
-			System.out.println("CREATING NEW CALDATA");
 			CalendarData createdCal = new CalendarData(ConfigManager.getConfig().getProjectName());
 			CalendarDataModel.getInstance().addCalendarData(createdCal);
 		}
