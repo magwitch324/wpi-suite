@@ -38,7 +38,7 @@ public class MyCalendar extends TeamCalendar {
 		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datepanel, 0, SpringLayout.HORIZONTAL_CENTER, this);
 		this.add(datepanel);
 		
-		showcom = new JCheckBox("Show Commitments");
+		showcom = new JCheckBox("Show Personal Commitments");
 		showcom.setFont(defualtfont);
 		showcom.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
@@ -52,7 +52,7 @@ public class MyCalendar extends TeamCalendar {
 		layout.putConstraint(SpringLayout.SOUTH, showcom, 0, SpringLayout.SOUTH, viewbtnpanel);
 		this.add(showcom);
 		
-		showteam = new JCheckBox("Show Team");
+		showteam = new JCheckBox("Show Team Commitments");
 		showteam.setFont(defualtfont);
 		showteam.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
