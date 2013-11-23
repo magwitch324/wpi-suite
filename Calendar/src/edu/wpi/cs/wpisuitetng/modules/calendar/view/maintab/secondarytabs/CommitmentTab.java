@@ -96,6 +96,7 @@ public class CommitmentTab extends JPanel {
 	private JCheckBox statusCheckBox;
 	private JPanel buttonPanel;
 	private JPanel formPanel;
+	private JLabel statusLabel;
 	
 	private enum EditingMode {
 		ADDING(0),
@@ -452,7 +453,7 @@ public class CommitmentTab extends JPanel {
 		gbc_btnPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
 		gbc_btnPanel.gridx = 1;
-		gbc_btnPanel.gridy = 6;
+		gbc_btnPanel.gridy = 7;
 		
 		//Add Cancel button
 		btnCancel = new JButton("Cancel");
@@ -498,8 +499,28 @@ public class CommitmentTab extends JPanel {
 		
 		this.timeSpinner.setValue(editingCommitment.getDueDate());
 		this.datePicker.setDate(editingCommitment.getDueDate());
-		statusCheckBox = new JCheckBox("In Progress?", commToEdit.getStatus());
-		formPanel.add(statusCheckBox);
+		statusCheckBox = new JCheckBox("", commToEdit.getStatus());
+		GridBagConstraints gbc_statusCheckBox = new GridBagConstraints();
+		gbc_statusCheckBox.insets = new Insets(0, 0, 5, 0);
+		gbc_statusCheckBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_statusCheckBox.gridx = 1;
+		gbc_statusCheckBox.gridy = 6;
+		gbc_statusCheckBox.weightx = 1;
+		gbc_statusCheckBox.weighty = 3;
+
+		formPanel.add(statusCheckBox,gbc_statusCheckBox);
+		
+		statusLabel = new JLabel("Completed:");
+		GridBagConstraints gbc_statusLabel = new GridBagConstraints();
+		gbc_statusLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_statusLabel.fill = GridBagConstraints.VERTICAL;
+		gbc_statusLabel.anchor = GridBagConstraints.EAST;
+		gbc_statusLabel.gridx = 0;
+		gbc_statusLabel.gridy = 6;
+		gbc_statusLabel.weightx = 1;
+		gbc_statusLabel.weighty = 3;
+
+		formPanel.add(statusLabel,gbc_statusLabel);
 		btnDelete = new JButton("Delete");
 		btnDelete.addMouseListener(new MouseAdapter() {
 			@Override
@@ -597,6 +618,10 @@ public class CommitmentTab extends JPanel {
 			
 		newComm.setCategoryId(((Category)this.categoryComboBox.getSelectedItem()).getId());
 		newComm.setDescription(this.descriptionTextArea.getText());
+		
+		if(mode == EditingMode.EDITING) {
+			newComm.setStatus(statusCheckBox.isSelected());
+		}			
 		
 		//Parse date and time info
 		Calendar calDate = new GregorianCalendar();
