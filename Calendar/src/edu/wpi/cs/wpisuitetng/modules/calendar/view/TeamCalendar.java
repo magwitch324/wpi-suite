@@ -268,7 +268,9 @@ public class TeamCalendar extends JPanel implements ICalendar {
 			viewpanel.add(calView);
 			break;
 		case(2):
-			//TODO dayview
+			calView = (new MonthView(mycal, this));
+			calView.displayCalData(calData);
+			viewpanel.add(calView);
 			break;
 		case(3):
 			//TODO dayview
@@ -299,9 +301,15 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		return showcom.isSelected();
 	}
 	
+
 	public CalendarData getCalData(){
 		return this.calData;
 	}
+	
+	public boolean getShowTeamCommitements(){
+		return false;
+	}
+	
 	/**
 	 * Overrides the paintComponent method to retrieve the requirements on the first painting.
 	 * 

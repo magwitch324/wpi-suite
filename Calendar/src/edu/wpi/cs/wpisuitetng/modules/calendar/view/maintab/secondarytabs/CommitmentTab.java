@@ -25,6 +25,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CategoryList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment.Status;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 import java.beans.PropertyChangeListener;
@@ -75,7 +76,7 @@ public class CommitmentTab extends JPanel {
 	private JTextField nameTextField;
 	private GridBagConstraints gbc_nameTextField;
 	private JSpinner timeSpinner;
-	
+	private boolean isTeamComm;
 	SpinnerDateModelHalfHour spinnerModel = new SpinnerDateModelHalfHour();  
 	private JButton btnAddCommitment;
 	private JComboBox<Category> categoryComboBox;
@@ -93,9 +94,10 @@ public class CommitmentTab extends JPanel {
 	private Commitment editingCommitment;
 	private EditingMode mode = EditingMode.ADDING;
 	private JButton btnDelete;
-	private JCheckBox statusCheckBox;
+	private JComboBox statusComboBox;
 	private JPanel buttonPanel;
 	private JPanel formPanel;
+	private JLabel statusLabel;
 	
 	private enum EditingMode {
 		ADDING(0),
@@ -452,7 +454,7 @@ public class CommitmentTab extends JPanel {
 		gbc_btnPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
 		gbc_btnPanel.gridx = 1;
-		gbc_btnPanel.gridy = 6;
+		gbc_btnPanel.gridy = 7;
 		
 		//Add Cancel button
 		btnCancel = new JButton("Cancel");
@@ -498,8 +500,32 @@ public class CommitmentTab extends JPanel {
 		
 		this.timeSpinner.setValue(editingCommitment.getDueDate());
 		this.datePicker.setDate(editingCommitment.getDueDate());
-		statusCheckBox = new JCheckBox("In Progress?", commToEdit.getStatus());
-		formPanel.add(statusCheckBox);
+		String[] statusStrings = {"New", "In Progress", "Completed"};
+		statusComboBox = new JComboBox(statusStrings);
+		
+		
+		statusComboBox.setSelectedIndex(commToEdit.getStatus().id);
+		GridBagConstraints gbc_statusComboBox = new GridBagConstraints();
+		gbc_statusComboBox.insets = new Insets(0, 0, 5, 0);
+		gbc_statusComboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_statusComboBox.gridx = 1;
+		gbc_statusComboBox.gridy = 6;
+		gbc_statusComboBox.weightx = 1;
+		gbc_statusComboBox.weighty = 3;
+
+		formPanel.add(statusComboBox,gbc_statusComboBox);
+		
+		statusLabel = new JLabel("Status:");
+		GridBagConstraints gbc_statusLabel = new GridBagConstraints();
+		gbc_statusLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_statusLabel.fill = GridBagConstraints.VERTICAL;
+		gbc_statusLabel.anchor = GridBagConstraints.EAST;
+		gbc_statusLabel.gridx = 0;
+		gbc_statusLabel.gridy = 6;
+		gbc_statusLabel.weightx = 1;
+		gbc_statusLabel.weighty = 3;
+
+		formPanel.add(statusLabel,gbc_statusLabel);
 		btnDelete = new JButton("Delete");
 		btnDelete.addMouseListener(new MouseAdapter() {
 			@Override
@@ -520,7 +546,7 @@ public class CommitmentTab extends JPanel {
 	 * Close this commitment tab
 	 */
 	protected void removeTab() {
-		GUIEventController.getInstance().removeTab(this);
+		GUIEventController.getInstance().removeTab(this, isTeamComm);
 	}
 
 
@@ -575,11 +601,14 @@ public class CommitmentTab extends JPanel {
 		}
 
 		CalendarData calData;
-		if (this.rdbtnPersonal.isSelected())
+		if (this.rdbtnPersonal.isSelected()){
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
-		else
+			isTeamComm = false;
+		}
+		else{
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
-		
+			isTeamComm = true;
+		}
 		for(Commitment comm: calData.getCommitments().getCommitments())
 		{
 			System.out.println("Commitment name: " + comm.getName()+", id: "+ comm.getId());
@@ -594,6 +623,10 @@ public class CommitmentTab extends JPanel {
 			
 		newComm.setCategoryId(((Category)this.categoryComboBox.getSelectedItem()).getId());
 		newComm.setDescription(this.descriptionTextArea.getText());
+		
+		if(mode == EditingMode.EDITING) {
+			newComm.setStatus(Status.getStatusValue(statusComboBox.getSelectedIndex()));
+		}			
 		
 		//Parse date and time info
 		Calendar calDate = new GregorianCalendar();
@@ -623,11 +656,14 @@ public class CommitmentTab extends JPanel {
 	protected void deleteCommitment() {
 		// TODO Auto-generated method stub
 		CalendarData calData;
-	if (this.rdbtnPersonal.isSelected())
+	if (this.rdbtnPersonal.isSelected()){
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
-		else
+			isTeamComm = false;
+	}
+	else{
 		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
-		
+		isTeamComm = true;
+	}
 		calData.getCommitments().removeCommmitment(editingCommitment.getId());
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 		removeTab();
