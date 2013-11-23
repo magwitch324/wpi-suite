@@ -229,7 +229,7 @@ public class CommitmentTab extends JPanel {
 		//Create category box, add two dummy categories
 		categoryComboBox = new JComboBox<Category>();
 		categoryComboBox.addItem(new Category(4, "Cat1"));
-		categoryComboBox.addItem(new Category(4, "Cat2"));
+		categoryComboBox.addItem(new Category(5, "Cat2"));
 
 		GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
 		gbc_categoryComboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -660,11 +660,32 @@ public class CommitmentTab extends JPanel {
 		removeTab();
 	}
 
+	/**
+	 * Controls the enable state of the save button
+	 */
 	private void listenerHelper(){
-		if(nameTextField.getText().equals("") || datePicker.getDate() == null || 
+		if(nameTextField.getText().equals("") || datePicker.getDate() == null || //data validation
 				nameTextField.getText().trim().length() == 0){
 			btnAddCommitment.setEnabled(false);
 		} else {
+			if (mode == EditingMode.EDITING){
+				//get some date data
+				Calendar calDate = new GregorianCalendar();
+				Calendar calTime = new GregorianCalendar();
+				calDate.setTime(this.datePicker.getDate());
+				calTime.setTime((Date)timeSpinner.getValue());
+				calDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
+				calDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
+				//make sure something changed
+				if (this.nameTextField.getText().equals(editingCommitment.getName()) 
+						&& this.descriptionTextArea.getText().equals(editingCommitment.getDescription())
+						&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryId()
+						&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
+						&& calDate.getTime().equals(editingCommitment.getDueDate())){
+					btnAddCommitment.setEnabled(false);
+					return;
+				}
+			}
 			btnAddCommitment.setEnabled(true);
 		}
 		
