@@ -8,10 +8,7 @@ import java.util.Locale;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 
-/**
- * @author cttibbetts
- *
- */
+
 public class WeekView extends CalendarView {
 
 	private Calendar startDate;
@@ -35,9 +32,13 @@ public class WeekView extends CalendarView {
 			startDate.add(Calendar.DAY_OF_WEEK, -1);
 		}
 		
+		// Get end date by skipping to next sunday and
+		// then backing up to the saturday
 		endDate = (Calendar) startDate.clone();
 		endDate.add(Calendar.WEEK_OF_MONTH, 1);
 		endDate.add(Calendar.DAY_OF_MONTH, -1);
+		
+		
 		String startMonthName = startDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
 		String endMonthName = endDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
 		int startDayNum = startDate.get(Calendar.DAY_OF_MONTH);

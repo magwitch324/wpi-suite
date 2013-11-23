@@ -44,7 +44,9 @@ public class WeekPane extends JPanel implements ICalPane {
     /**
     * Create the panel.
     */
+
 	public WeekPane(Calendar datecalendar, AbCalendar abCalendar) {
+
 		mydate = (Calendar)datecalendar.clone();
 		calendarused = abCalendar;
 	   	while(mydate.get(Calendar.DAY_OF_WEEK) != mydate.getFirstDayOfWeek() ){
@@ -85,15 +87,12 @@ public class WeekPane extends JPanel implements ICalPane {
 			public void componentResized(ComponentEvent e){
 				
 				scrollPane.setColumnHeaderView(getHeader(0));
-				System.out.println(scrollPane.getColumnHeader().getSize().getWidth() + " : " + scrollPane.getColumnHeader().getView().getPreferredSize().getWidth());
-				
-				if(scrollPane.getColumnHeader().getSize().getWidth() <
+				System.out.println(scrollPane.getColumnHeader().getSize().getWidth() + " : " + 					scrollPane.getColumnHeader().getView().getPreferredSize().getWidth());				if(scrollPane.getColumnHeader().getSize().getWidth() <
 						scrollPane.getColumnHeader().getView().getPreferredSize().getWidth()){
 					scrollPane.setColumnHeaderView(getHeader(1));
 				}
 				
 				scrollPane.revalidate();
-				
 				if(scrollPane.getColumnHeader().getSize().getWidth() <
 						scrollPane.getColumnHeader().getView().getPreferredSize().getWidth()){
 					scrollPane.setColumnHeaderView(getHeader(2));
@@ -103,6 +102,7 @@ public class WeekPane extends JPanel implements ICalPane {
 			}
 		});
 	}
+
 
     protected JComponent getHeader(int use){
     	String[][] weekdays = {{"Sunday, ", "Monday, ", "Tuesday, ",
@@ -129,10 +129,10 @@ public class WeekPane extends JPanel implements ICalPane {
 	    	alab.setFont(new Font("SansSerif", 1, 12));
 	    	apane.add( alab );
 	    }
-	    
     
     	return apane;
     }
+
     
     protected JComponent getDays(){
     	JPanel apane = new JPanel();
@@ -151,7 +151,7 @@ public class WeekPane extends JPanel implements ICalPane {
 //<<<<<<< HEAD
 //	    	JComponent aday = new DetailedDay(acal);
 //=======
-	    	JLayeredPane aday = new DetailedDay(acal,weekdays[i]);
+	    	JLayeredPane aday = new DetailedDay(acal);
 //>>>>>>> 8d54f788e1fec6a7eab547aca6afdaba2701252d
 	    	aday.addMouseListener(new AMouseEvent(acal, calendarused));
 	    	apane.add( aday );

@@ -26,6 +26,7 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
@@ -43,8 +44,13 @@ public class DayPane extends JPanel implements ICalPane {
        /**
        * Create the panel.
        */
+
 	public DayPane(Calendar datecalendar, AbCalendar abCalendar) {
-		if(abCalendar.getShowCommitements()){
+
+		final boolean showCommitements = abCalendar.getShowCommitements();
+		final boolean showTeamCommitments = abCalendar.getShowTeamCommitements();
+		if(showCommitements || showTeamCommitments){
+
 			setLayout(new GridLayout(1,1));
 			
 			// HOURS
@@ -74,10 +80,20 @@ public class DayPane extends JPanel implements ICalPane {
 			scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
 			scrollPane.getVerticalScrollBar().setValue(800);
 			
-//<<<<<<< HEAD
+
+			ArrayList<Commitment> commitmentList = new ArrayList<Commitment>();
+			CalendarData teamCommitments = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName());
+			if(!showTeamCommitments&&showCommitements){
+				commitmentList = new ArrayList<Commitment>(abCalendar.getCalData().getCommitments().getCommitments());
+			}
+			if(showTeamCommitments&&showCommitements){
+				commitmentList = new ArrayList<Commitment>(abCalendar.getCalData().getCommitments().getCommitments());
+				commitmentList.addAll(teamCommitments.getCommitments().getCommitments());
+			}
 			daypane = new DetailedDay(datecalendar, 
-										new CommitDetailedPane(datecalendar, 
-																new ArrayList<Commitment>(abCalendar.getCalData().getCommitments().getCommitments())  ));
+
+										new CommitDetailedPane(datecalendar, commitmentList));
+
 /*=======
 			daypane = new DetailedDay(datecalendar,"");
 >>>>>>> 8d54f788e1fec6a7eab547aca6afdaba2701252d*/
@@ -105,7 +121,7 @@ public class DayPane extends JPanel implements ICalPane {
 			scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
 			scrollPane.getVerticalScrollBar().setValue(800);
 			
-			daypane = new DetailedDay(datecalendar,"");
+			daypane = new DetailedDay(datecalendar);
 			
 			layout.putConstraint(SpringLayout.WEST, daypane, 0, SpringLayout.WEST, mainPanel);
 			layout.putConstraint(SpringLayout.NORTH, daypane, 0, SpringLayout.NORTH, mainPanel);
