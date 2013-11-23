@@ -44,10 +44,14 @@ public class DayPane extends JPanel implements ICalPane {
        /**
        * Create the panel.
        */
-	public DayPane(Calendar datecalendar, TeamCalendar tcalendar) {
-		final boolean showCommitements = tcalendar.getShowCommitements();
-		final boolean showTeamCommitments = tcalendar.getShowTeamData();
+
+
+	public DayPane(Calendar datecalendar, AbCalendar abCalendar) {
+
+		final boolean showCommitements = abCalendar.getShowCommitements();
+		final boolean showTeamCommitments = abCalendar.getShowTeamData();
 		if(showCommitements){
+
 			setLayout(new GridLayout(1,1));
 			
 			// HOURS
@@ -82,14 +86,16 @@ public class DayPane extends JPanel implements ICalPane {
 			ArrayList<Commitment> commitmentList = new ArrayList<Commitment>();
 			CalendarData teamCommitments = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName());
 			if(!showTeamCommitments&&showCommitements){
-				commitmentList = new ArrayList<Commitment>(tcalendar.getCalData().getCommitments().getCommitments());
+				commitmentList = new ArrayList<Commitment>(abCalendar.getCalData().getCommitments().getCommitments());
 			}
 			if(showTeamCommitments&&showCommitements){
-				commitmentList = new ArrayList<Commitment>(tcalendar.getCalData().getCommitments().getCommitments());
+				commitmentList = new ArrayList<Commitment>(abCalendar.getCalData().getCommitments().getCommitments());
 				commitmentList.addAll(teamCommitments.getCommitments().getCommitments());
 			}
 			daypane = new DetailedDay(datecalendar, 
+
 										new CommitDetailedPane(datecalendar, commitmentList));
+
 /*=======
 			daypane = new DetailedDay(datecalendar,"");
 >>>>>>> 8d54f788e1fec6a7eab547aca6afdaba2701252d*/

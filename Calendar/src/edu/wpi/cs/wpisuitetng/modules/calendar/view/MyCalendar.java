@@ -13,7 +13,7 @@ import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 
-public class MyCalendar extends TeamCalendar {
+public class MyCalendar extends AbCalendar {
 	
 	private JCheckBox showteam;
 	

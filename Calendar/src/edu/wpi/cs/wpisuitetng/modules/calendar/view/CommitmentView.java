@@ -45,13 +45,15 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment.Status;
 public class CommitmentView extends JPanel {
 
 	JPanel commitPanel;
-	TeamCalendar tcalendar;
+	AbCalendar tcalendar;
 
 	List<Commitment> commitmentList = new ArrayList();
-	//	private List<CommitmentViewPanel> commitmentPanelList;
 
-	public CommitmentView(TeamCalendar tcalendar) {
-		this.tcalendar = tcalendar;
+//	private List<CommitmentViewPanel> commitmentPanelList;
+	
+	public CommitmentView(AbCalendar abCalendar) {
+		this.tcalendar = abCalendar;
+		
 
 
 		commitPanel = new JPanel();

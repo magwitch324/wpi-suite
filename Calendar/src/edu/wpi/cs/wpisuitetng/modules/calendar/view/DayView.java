@@ -12,11 +12,11 @@ public class DayView extends CalendarView {
 	Calendar day;
 	private DayPane dayPane;
 	
-	public DayView(Calendar datecalendar, TeamCalendar tcalendar) {
+	public DayView(Calendar datecalendar, AbCalendar abCalendar) {
 		super(datecalendar);
-		dayPane = new DayPane(datecalendar, tcalendar);
+		dayPane = new DayPane(datecalendar, abCalendar);
 		setCalPane(dayPane);
-		setCommitmentView(new CommitmentView(tcalendar));
+		setCommitmentView(new CommitmentView(abCalendar));
 		setRange(datecalendar);
 		
 	}

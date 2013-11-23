@@ -39,15 +39,16 @@ public class WeekPane extends JPanel implements ICalPane {
 			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	Calendar mydate;
-	TeamCalendar calendarused;
+	AbCalendar calendarused;
 	
     /**
     * Create the panel.
     */
 
-	public WeekPane(Calendar datecalendar, TeamCalendar tcalendar) {
+	public WeekPane(Calendar datecalendar, AbCalendar abCalendar) {
+
 		mydate = (Calendar)datecalendar.clone();
-		calendarused = tcalendar;
+		calendarused = abCalendar;
 	   	while(mydate.get(Calendar.DAY_OF_WEEK) != mydate.getFirstDayOfWeek() ){
 	   		mydate.add(Calendar.DATE, -1);
 	   	}
@@ -72,7 +73,7 @@ public class WeekPane extends JPanel implements ICalPane {
 		scrollPane.getVerticalScrollBar().setValue(800);   
 		
 		
-	   	if(tcalendar.getShowCommitements()){
+	   	if(abCalendar.getShowCommitements()){
 	   		JSplitPane splitpane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 	   		this.add(splitpane);
 			splitpane.setLeftComponent(scrollPane);
@@ -241,12 +242,12 @@ public class WeekPane extends JPanel implements ICalPane {
 
 	
 	protected class AMouseEvent implements MouseListener{
-		TeamCalendar tcalendar;
+		AbCalendar abCalendar;
 		Calendar adate;
 		
-		public AMouseEvent(Calendar adate, TeamCalendar tcalendar){
+		public AMouseEvent(Calendar adate, AbCalendar abCalendar){
 			this.adate = adate;
-			this.tcalendar = tcalendar;
+			this.abCalendar = abCalendar;
 		}
 	
 		public void mousePressed(MouseEvent e) {
@@ -266,7 +267,7 @@ public class WeekPane extends JPanel implements ICalPane {
 
 	    public void mouseClicked(MouseEvent e) {
 	    	if(e.getClickCount() > 1){
-	    		tcalendar.setCalsetView(adate, TeamCalendar.types.DAY);
+	    		abCalendar.setCalsetView(adate, TeamCalendar.types.DAY);
 	    	}
 	    }
 	}
