@@ -27,10 +27,7 @@ import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 
-/**
- * @author cttibbetts
- *
- */
+
 public class WeekPane extends JPanel implements ICalPane {
 	JPanel mainPanel = new JPanel();
 	Calendar mydate;
