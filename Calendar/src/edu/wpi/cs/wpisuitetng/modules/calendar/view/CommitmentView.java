@@ -48,7 +48,7 @@ public class CommitmentView extends JPanel {
 	List<Commitment> commitmentList = new ArrayList();
 //	private List<CommitmentViewPanel> commitmentPanelList;
 	
-	public CommitmentView(TeamCalendar tcalendar) {
+	public CommitmentView(AbCalendar abCalendar) {
 		this.tcalendar = tcalendar;
 		
 

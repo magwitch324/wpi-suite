@@ -17,10 +17,10 @@ public class WeekView extends CalendarView {
 	private Calendar startDate;
 	private Calendar endDate;
 	
-	public WeekView(Calendar datecalendar, TeamCalendar tcalendar) {
+	public WeekView(Calendar datecalendar, AbCalendar abCalendar) {
 		super(datecalendar);
-		setCalPane(new WeekPane(datecalendar, tcalendar));
-		setCommitmentView(new CommitmentView(tcalendar));
+		setCalPane(new WeekPane(datecalendar, abCalendar));
+		setCommitmentView(new CommitmentView(abCalendar));
 		setRange(datecalendar);
 	}
 	

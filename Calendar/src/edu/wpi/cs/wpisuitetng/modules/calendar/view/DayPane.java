@@ -43,8 +43,8 @@ public class DayPane extends JPanel implements ICalPane {
        /**
        * Create the panel.
        */
-	public DayPane(Calendar datecalendar, TeamCalendar tcalendar) {
-		if(tcalendar.getShowCommitements()){
+	public DayPane(Calendar datecalendar, AbCalendar abCalendar) {
+		if(abCalendar.getShowCommitements()){
 			setLayout(new GridLayout(1,1));
 			
 			// HOURS
@@ -77,7 +77,7 @@ public class DayPane extends JPanel implements ICalPane {
 //<<<<<<< HEAD
 			daypane = new DetailedDay(datecalendar, 
 										new CommitDetailedPane(datecalendar, 
-																new ArrayList<Commitment>(tcalendar.getCalData().getCommitments().getCommitments())  ));
+																new ArrayList<Commitment>(abCalendar.getCalData().getCommitments().getCommitments())  ));
 /*=======
 			daypane = new DetailedDay(datecalendar,"");
 >>>>>>> 8d54f788e1fec6a7eab547aca6afdaba2701252d*/
