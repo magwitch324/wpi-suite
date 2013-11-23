@@ -57,6 +57,7 @@ public class WeekPane extends JPanel implements ICalPane {
 		scrollPane.setMinimumSize(new Dimension(500, 300));
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane.setMinimumSize(new Dimension(500, 300));
+		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		
 		SpringLayout layout = new SpringLayout();
 		mainPanel.setLayout(layout);
@@ -198,6 +199,7 @@ public class WeekPane extends JPanel implements ICalPane {
 			JScrollPane ascrollpane = new JScrollPane(commits, 
 					ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			ascrollpane.getVerticalScrollBar().setUnitIncrement(20);
 			ascrollpane.setMinimumSize(new Dimension(10,40));
 			secondpane.add(ascrollpane);
 	    }
