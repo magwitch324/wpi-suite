@@ -46,8 +46,8 @@ public class DayPane extends JPanel implements ICalPane {
        */
 	public DayPane(Calendar datecalendar, TeamCalendar tcalendar) {
 		final boolean showCommitements = tcalendar.getShowCommitements();
-		final boolean showTeamCommitments = tcalendar.getShowTeamCommitements();
-		if(showCommitements || showTeamCommitments){
+		final boolean showTeamCommitments = tcalendar.getShowTeamData();
+		if(showCommitements){
 			setLayout(new GridLayout(1,1));
 			
 			// HOURS
