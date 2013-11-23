@@ -95,16 +95,7 @@ public class CommitmentView extends JPanel {
 			if(!tcalendar.getShowTeamCommitements()&&tcalendar.getShowCommitements()){
 				commitmentList = new ArrayList<Commitment>(tcalendar.getCalData().getCommitments().getCommitments());
 			}
-			if(tcalendar.getShowTeamCommitements()&&!tcalendar.getShowCommitements()) {
-				commitmentList = new ArrayList<Commitment>();
-				List<Commitment> teamCommits = teamCommitments.getCommitments().getCommitments();
-				for(Commitment comm : teamCommits) {
-					if(!commitmentList.contains(comm)){
-						commitmentList.add(comm);
-					}
-				}
-			}
-			if(tcalendar.getShowTeamCommitements()&&tcalendar.getShowCommitements()) {
+			if(tcalendar.getShowTeamCommitements()) {
 				commitmentList = new ArrayList<Commitment>(tcalendar.getCalData().getCommitments().getCommitments());
 				commitmentList.addAll(teamCommitments.getCommitments().getCommitments());
 			}

@@ -268,7 +268,9 @@ public class TeamCalendar extends JPanel implements ICalendar {
 			viewpanel.add(calView);
 			break;
 		case(2):
-			//TODO dayview
+			calView = (new MonthView(mycal, this));
+			calView.displayCalData(calData);
+			viewpanel.add(calView);
 			break;
 		case(3):
 			//TODO dayview

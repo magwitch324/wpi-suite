@@ -27,10 +27,7 @@ import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 
-/**
- * @author cttibbetts
- *
- */
+
 public class WeekPane extends JPanel implements ICalPane {
 	JPanel mainPanel = new JPanel();
 	Calendar mydate;
@@ -47,7 +44,7 @@ public class WeekPane extends JPanel implements ICalPane {
 	   	}
 
 	   	
-	   	if(tcalendar.getShowCommitements()||tcalendar.getShowTeamCommitements()){
+	   	if(tcalendar.getShowCommitements()){
 	   		setLayout(new GridLayout(1,1));
 	   		JSplitPane splitpane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 	   		this.setMinimumSize(new Dimension(1200,1000));
