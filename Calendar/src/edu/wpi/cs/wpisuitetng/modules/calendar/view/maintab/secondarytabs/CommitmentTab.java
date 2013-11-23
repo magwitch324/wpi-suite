@@ -620,7 +620,14 @@ public class CommitmentTab extends JPanel {
 		}
 		else
 			newComm = editingCommitment;
-			
+		
+		if(isTeamComm){
+			newComm.setIsPersonal(false);
+		}
+		else{
+			newComm.setIsPersonal(true);
+		}
+		
 		newComm.setCategoryId(((Category)this.categoryComboBox.getSelectedItem()).getId());
 		newComm.setDescription(this.descriptionTextArea.getText());
 		

@@ -18,6 +18,8 @@ public class Commitment extends AbstractModel {
 	private String description;
 	/** the categoryID of the category */
 	private int categoryId;
+	/** the flag to differentiate between personal and team commitment */
+	private boolean isPersonal;
 	/** the status of the commitment */
 	public enum Status {
 		NEW(0), IN_PROGRESS(1), COMPLETED(2);
@@ -85,6 +87,9 @@ public class Commitment extends AbstractModel {
 	 /**Getter for the status	
 	 * @return the status */
 	public Status getStatus()	 	{return status;}
+	/** Getter for personal or team commitment
+	 * @return is personal*/
+	public boolean getIsPersonal()	{return isPersonal;}
 	
 	//Setters
 	/**Setter for the id
@@ -105,7 +110,10 @@ public class Commitment extends AbstractModel {
 	/**Setter for the status
 	 * @param status to status*/
 	public void setStatus  (Status status) 	{this.status = status;}
-
+	/**Setter for personal or team commitment
+	 * @param  boolean isPersonal?*/
+	public void setIsPersonal (boolean isPersonal)	{this.isPersonal = isPersonal;}
+	
 	/** Construct a commitment with required properties provided and others set
 	 * to default
 	 * @param id
@@ -117,7 +125,7 @@ public class Commitment extends AbstractModel {
 		name = description = "";
 		dueDate = new Date();
 		status = Status.NEW;
-		
+		isPersonal = false;
 	}
 	
 	/** Construct a commitment with required properties provided and others set
@@ -132,12 +140,13 @@ public class Commitment extends AbstractModel {
 	 *            The commitment ID number of the commitment*/
 
 	public Commitment(String name, Date dueDate,
-					String description, int categoryId) {
+					String description, int categoryId, boolean isPersonal) {
 		this();
 		this.name = name;
 		this.dueDate = dueDate;
 		this.description = description;
 		this.categoryId = categoryId;
+		this.isPersonal = isPersonal;
 	}
 
 	/**
@@ -241,6 +250,7 @@ public class Commitment extends AbstractModel {
 		this.description =  toCopyFrom.getDescription();
 		this.categoryId = 	toCopyFrom.getCategoryId();
 		this.status =       toCopyFrom.getStatus();
+		this.isPersonal =   toCopyFrom.getIsPersonal();
 	}
 	
 }
