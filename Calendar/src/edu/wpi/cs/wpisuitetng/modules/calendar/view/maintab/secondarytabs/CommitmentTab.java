@@ -174,12 +174,7 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(nameTextField.getText().equals("") || datePicker.getDate() == null || 
-						nameTextField.getText().trim().length() == 0){
-					btnAddCommitment.setEnabled(false);
-				} else {
-					btnAddCommitment.setEnabled(true);
-				}
+				listenerHelper();
 			}
 			
 			
@@ -360,21 +355,13 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void focusGained(FocusEvent e) {
-				if(nameTextField.getText().equals("") || datePicker.getDate() == null){
-					btnAddCommitment.setEnabled(false);
-				} else {
-					btnAddCommitment.setEnabled(true);
-				}
+				listenerHelper();
 				
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				if(nameTextField.getText().equals("") || datePicker.getDate() == null){
-					btnAddCommitment.setEnabled(false);
-				} else {
-					btnAddCommitment.setEnabled(true);
-				}
+				listenerHelper();
 				
 			}
 
@@ -411,7 +398,8 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
-				if(nameTextField.getText().equals("") || datePicker.getDate() == null || nameTextField.getText().trim().length() > 0){
+				if(nameTextField.getText().equals("") || datePicker.getDate() == null || nameTextField.getText().trim().length() > 0  || 
+						nameTextField.getText().trim().length() == 0){
 					btnAddCommitment.setEnabled(false);
 				} else {
 					btnAddCommitment.setEnabled(true);
@@ -437,12 +425,7 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(nameTextField.getText().equals("") || datePicker.getEditor().getText().equals("") 
-						|| nameTextField.getText().trim().length() == 0){
-					btnAddCommitment.setEnabled(false);
-				} else {
-					btnAddCommitment.setEnabled(true);
-				}
+				listenerHelper();
 			}		
 			
 		});
@@ -621,7 +604,14 @@ public class CommitmentTab extends JPanel {
 		}
 		else
 			newComm = editingCommitment;
-			
+		
+		if(isTeamComm){
+			newComm.setIsPersonal(false);
+		}
+		else{
+			newComm.setIsPersonal(true);
+		}
+		
 		newComm.setCategoryId(((Category)this.categoryComboBox.getSelectedItem()).getId());
 		newComm.setDescription(this.descriptionTextArea.getText());
 		
@@ -670,6 +660,15 @@ public class CommitmentTab extends JPanel {
 		removeTab();
 	}
 
+	private void listenerHelper(){
+		if(nameTextField.getText().equals("") || datePicker.getDate() == null || 
+				nameTextField.getText().trim().length() == 0){
+			btnAddCommitment.setEnabled(false);
+		} else {
+			btnAddCommitment.setEnabled(true);
+		}
+		
+	}
 
 }
 

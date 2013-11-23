@@ -306,7 +306,7 @@ public class TeamCalendar extends JPanel implements ICalendar {
 		return this.calData;
 	}
 	
-	public boolean getShowTeamCommitements(){
+	public boolean getShowTeamData(){
 		return false;
 	}
 	

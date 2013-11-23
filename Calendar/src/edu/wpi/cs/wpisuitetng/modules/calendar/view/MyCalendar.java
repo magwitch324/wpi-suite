@@ -95,7 +95,7 @@ public class MyCalendar extends TeamCalendar {
 	}
 	
 	@Override
-	public boolean getShowTeamCommitements(){
+	public boolean getShowTeamData(){
 		return showteam.isSelected();
 	}
 	
