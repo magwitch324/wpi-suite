@@ -10,6 +10,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -128,6 +129,10 @@ public class GUIEventController {
 	// Creates new empty tab that will be used to put all commitments 
 	public void createViewCommitmentsTab() {
 		JPanel allCommitmentsTab = new JPanel();
+		allCommitmentsTab.setBackground(Color.WHITE);
+		//teamCalendar.calView.commitments.update();
+		allCommitmentsTab.add(teamCalendar.calView);
+		//teamCalendar.calView.commitments.update();
 		main.addTab("All Commitments", null, allCommitmentsTab, "New Commitment");
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
