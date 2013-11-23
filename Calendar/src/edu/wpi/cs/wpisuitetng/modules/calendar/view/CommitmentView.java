@@ -92,7 +92,7 @@ public class CommitmentView extends JPanel {
 			System.out.println("got COMMITMENTS FOR VIEW");
 			commitmentList = new ArrayList<Commitment>();
 			CalendarData teamCommitments = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName());
-			if(!tcalendar.getShowTeamCommitements()&&tcalendar.getShowCommitements()){
+			/*if(!tcalendar.getShowTeamCommitements()&&tcalendar.getShowCommitements()){
 				commitmentList = new ArrayList<Commitment>(tcalendar.getCalData().getCommitments().getCommitments());
 			}
 			if(tcalendar.getShowTeamCommitements()&&!tcalendar.getShowCommitements()) {
@@ -103,10 +103,13 @@ public class CommitmentView extends JPanel {
 						commitmentList.add(comm);
 					}
 				}
-			}
-			if(tcalendar.getShowTeamCommitements()&&tcalendar.getShowCommitements()) {
+			}*/
+			if(tcalendar.getShowTeamCommitements()/*&&tcalendar.getShowCommitements()*/) {
 				commitmentList = new ArrayList<Commitment>(tcalendar.getCalData().getCommitments().getCommitments());
 				commitmentList.addAll(teamCommitments.getCommitments().getCommitments());
+			}
+			else{
+				commitmentList = tcalendar.getCalData().getCommitments().getCommitments();
 			}
 		}
 	}
