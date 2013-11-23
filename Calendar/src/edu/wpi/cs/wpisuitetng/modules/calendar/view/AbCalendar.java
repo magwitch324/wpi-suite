@@ -267,6 +267,6 @@ public abstract class AbCalendar extends JPanel {
 	}
 	
 	abstract void updateCalData();
-	abstract public boolean getShowTeamCommitements();
+	abstract public boolean getShowTeamData();
 	
 }
