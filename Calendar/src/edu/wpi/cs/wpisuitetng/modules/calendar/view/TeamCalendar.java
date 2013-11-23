@@ -94,8 +94,8 @@ public class TeamCalendar extends AbCalendar {
 		setView();
 
 	}
-
-	public boolean getShowTeamCommitements() {
+	
+	public boolean getShowTeamData(){
 		return false;
 	}
 

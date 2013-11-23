@@ -45,11 +45,12 @@ public class DayPane extends JPanel implements ICalPane {
        * Create the panel.
        */
 
+
 	public DayPane(Calendar datecalendar, AbCalendar abCalendar) {
 
 		final boolean showCommitements = abCalendar.getShowCommitements();
-		final boolean showTeamCommitments = abCalendar.getShowTeamCommitements();
-		if(showCommitements || showTeamCommitments){
+		final boolean showTeamCommitments = abCalendar.getShowTeamData();
+		if(showCommitements){
 
 			setLayout(new GridLayout(1,1));
 			
@@ -57,6 +58,7 @@ public class DayPane extends JPanel implements ICalPane {
 			JScrollPane scrollPane = new JScrollPane(mainPanel, 
 					  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 					  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 			scrollPane.setMinimumSize(new Dimension(300, 300));
 			add(scrollPane);
 			  
@@ -111,6 +113,7 @@ public class DayPane extends JPanel implements ICalPane {
 			JScrollPane scrollPane = new JScrollPane(mainPanel, 
 					  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 					  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 			scrollPane.setMinimumSize(new Dimension(300, 300));
 			add(scrollPane);
 			  
