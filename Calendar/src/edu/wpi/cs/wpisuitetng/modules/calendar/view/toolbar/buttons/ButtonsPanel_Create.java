@@ -19,6 +19,7 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.AbstractButton;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -39,22 +40,26 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	
 	public ButtonsPanel_Create(){
 		super("");
-		createCommitButton= new JButton("<html>Create<br />Commitment</html>");
-		createEventButton= new JButton("<html>Create<br />Event</html>");
+		createCommitButton= new JButton();
+		createEventButton= new JButton();
+		
+//		createCommitButton= new JButton("<html>Create<br />Commitment</html>");
+//		createEventButton= new JButton("<html>Create<br />Event</html>");
 		JPanel contentPanel = new JPanel();
 
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
-		this.setPreferredWidth(400);
+		this.setPreferredWidth(600);
 		
-		this.createEventButton.setSize(200, 200);
-		this.createCommitButton.setPreferredSize(new Dimension(200, 200));
+		this.createEventButton.setSize(300, 800);
+		this.createCommitButton.setPreferredSize(new Dimension(300, 800));
 		this.createCommitButton.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		try {
-		    Image img = ImageIO.read(getClass().getResource("new_commit.png"));
+			Image img = ImageIO.read(getClass().getResource("Add_Commitment.png"));
+//		    Image img = ImageIO.read(getClass().getResource("new_commit.png"));
 		    this.createCommitButton.setIcon(new ImageIcon(img));
 		    
-		    img = ImageIO.read(getClass().getResource("new_event.png"));
+		    img = ImageIO.read(getClass().getResource("Add_Event.png"));
 		    this.createEventButton.setIcon(new ImageIcon(img));
 		    
 		} catch (IOException ex) {}
