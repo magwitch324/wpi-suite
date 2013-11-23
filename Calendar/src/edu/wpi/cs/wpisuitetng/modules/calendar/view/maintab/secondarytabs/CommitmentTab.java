@@ -213,6 +213,28 @@ public class CommitmentTab extends JPanel {
         gbc_descriptionTextField.gridy = 1;
 		formPanel.add(descriptionTextArea, gbc_descriptionTextField);
 		
+		descriptionTextArea.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				listenerHelper();
+			}
+			
+			
+			
+			
+		});
 		
 		//Category label
 		JLabel lblCategory = new JLabel("Category:");
@@ -239,6 +261,15 @@ public class CommitmentTab extends JPanel {
 		gbc_categoryComboBox.weightx = 10;
 		gbc_categoryComboBox.weighty = 1;
 		formPanel.add(categoryComboBox, gbc_categoryComboBox);
+		
+		categoryComboBox.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listenerHelper();
+			}
+			
+		});
 		
 		lblType = new JLabel("Type:");
 		lblType.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -299,6 +330,8 @@ public class CommitmentTab extends JPanel {
 
 		timeSpinner.setValue(Calendar.getInstance().getTime());
 		
+
+		
 		//Date label
 		JLabel lblDate_1 = new JLabel("Date:");
 		lblDate_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -338,12 +371,7 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(nameTextField.getText().equals("") || datePicker.getDate() == null || 
-						nameTextField.getText().trim().length() == 0){
-					btnAddCommitment.setEnabled(false);
-				} else {
-					btnAddCommitment.setEnabled(true);
-				}
+				listenerHelper();
 			}
 			
 			
@@ -398,16 +426,9 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
-				if(nameTextField.getText().equals("") || datePicker.getDate() == null || nameTextField.getText().trim().length() > 0  || 
-						nameTextField.getText().trim().length() == 0){
-					btnAddCommitment.setEnabled(false);
-				} else {
-					btnAddCommitment.setEnabled(true);
-				}
-				
-			}
-			
-		});
+				listenerHelper();
+			}}
+				);
 		
 		datePicker.getEditor().addKeyListener(new KeyListener(){
 
@@ -425,9 +446,32 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				listenerHelper();
+				if(nameTextField.getText().equals("") || datePicker.getEditor().getText().equals("")
+						|| nameTextField.getText().trim().length() == 0){
+					btnAddCommitment.setEnabled(false);
+				} else {
+					if (mode == EditingMode.EDITING){
+						//get some date data
+						Calendar calDate = new GregorianCalendar();
+						Calendar calTime = new GregorianCalendar();
+						calDate.setTime(datePicker.getDate());
+						calTime.setTime((Date)timeSpinner.getValue());
+						calDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
+						calDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
+						//make sure something changed
+						if (nameTextField.getText().equals(editingCommitment.getName()) 
+								&& descriptionTextArea.getText().equals(editingCommitment.getDescription())
+								&& ((Category)categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryId()
+								&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
+								&& calDate.getTime().equals(editingCommitment.getDueDate())){
+							btnAddCommitment.setEnabled(false);
+							return;
+						}
+					}
+					btnAddCommitment.setEnabled(true);
+				}
 			}		
-			
+
 		});
 		
 		btnAddCommitment.setEnabled(false);
@@ -520,8 +564,51 @@ public class CommitmentTab extends JPanel {
 		});
 		buttonPanel.add(btnDelete, BorderLayout.CENTER);
 		
+		//Some edit specific listeners
+		//These are here to avoid possible NullPointer exceptions while opening the tab 
+		timeSpinner.addChangeListener(new ChangeListener(){
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				listenerHelper();
+				
+			}
+			
+			
+		});
+		/*
+		datePicker.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listenerHelper();
+				
+			}
+			
+			
+		});
+		*/
+		datePicker.getEditor().addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listenerHelper();
+				
+			}
+			
+			
+		});
 		
-		
+		statusComboBox.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listenerHelper();
+				
+			}
+			
+			
+		});
 
 	}
 	
