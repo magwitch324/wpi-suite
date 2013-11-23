@@ -36,7 +36,7 @@ import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
-
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment.Status;
 
 /**
  * @author cttibbetts
@@ -128,6 +128,7 @@ public class CommitmentView extends JPanel {
 			JLabel name = new JLabel("Name: "+commitmentList.get(i).getName());
 			JLabel date = new JLabel("Due Date: "+ commitmentList.get(i).getDueDate());
 			JLabel description = new JLabel("<HTML>Description: "+ commitmentList.get(i).getDescription()+"</HTML>");
+			JLabel status = new JLabel("Status: " + Status.convertToString(commitmentList.get(i).getStatus().id));
 			commitmentPanel.setLayout(new GridBagLayout());
 			GridBagConstraints c = new GridBagConstraints();
 			c.anchor = GridBagConstraints.LINE_START;
@@ -137,6 +138,7 @@ public class CommitmentView extends JPanel {
 			commitmentPanel.add(name,c);
 			commitmentPanel.add(date,c);
 			commitmentPanel.add(description,c);
+			commitmentPanel.add(status,c);
 			//  description.setMaximumSize(new Dimension(285,300));
 			commitmentPanel.setBorder(new EmptyBorder(10, 5, 10 , 20));
 			// commitmentPanel.setPreferredSize(new Dimension(280,300));

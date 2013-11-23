@@ -43,8 +43,24 @@ public class Commitment extends AbstractModel {
 			}
 			
 			return result;
+		}
+		
+		public static String convertToString(int id){
+			String result;
+			result = "";
+			switch(id){
+			case 0:
+				result = "New";
+				break;
+			case 1:
+				result = "In Progress";
+				break;
+			case 2:
+				result = "Completed";
+				break;
+			}
 			
-			
+			return result;
 		}
 		
 	}; 
