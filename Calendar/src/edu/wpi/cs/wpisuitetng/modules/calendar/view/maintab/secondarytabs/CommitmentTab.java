@@ -174,7 +174,8 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(nameTextField.getText().equals("") || datePicker.getDate() == null){
+				if(nameTextField.getText().equals("") || datePicker.getDate() == null || 
+						nameTextField.getText().trim().length() == 0){
 					btnAddCommitment.setEnabled(false);
 				} else {
 					btnAddCommitment.setEnabled(true);
@@ -342,7 +343,8 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(nameTextField.getText().equals("") || datePicker.getDate() == null){
+				if(nameTextField.getText().equals("") || datePicker.getDate() == null || 
+						nameTextField.getText().trim().length() == 0){
 					btnAddCommitment.setEnabled(false);
 				} else {
 					btnAddCommitment.setEnabled(true);
@@ -409,7 +411,7 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
-				if(nameTextField.getText().equals("") || datePicker.getDate() == null){
+				if(nameTextField.getText().equals("") || datePicker.getDate() == null || nameTextField.getText().trim().length() > 0){
 					btnAddCommitment.setEnabled(false);
 				} else {
 					btnAddCommitment.setEnabled(true);
@@ -435,14 +437,13 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(nameTextField.getText().equals("") || datePicker.getEditor().getText().equals("")){
+				if(nameTextField.getText().equals("") || datePicker.getEditor().getText().equals("") 
+						|| nameTextField.getText().trim().length() == 0){
 					btnAddCommitment.setEnabled(false);
 				} else {
 					btnAddCommitment.setEnabled(true);
 				}
-			}
-			
-			
+			}		
 			
 		});
 		
