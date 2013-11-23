@@ -54,6 +54,7 @@ public class DayPane extends JPanel implements ICalPane {
 			JScrollPane scrollPane = new JScrollPane(mainPanel, 
 					  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 					  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 			scrollPane.setMinimumSize(new Dimension(300, 300));
 			add(scrollPane);
 			  
@@ -106,6 +107,7 @@ public class DayPane extends JPanel implements ICalPane {
 			JScrollPane scrollPane = new JScrollPane(mainPanel, 
 					  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 					  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 			scrollPane.setMinimumSize(new Dimension(300, 300));
 			add(scrollPane);
 			  
