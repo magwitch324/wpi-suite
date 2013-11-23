@@ -67,8 +67,9 @@ public class GUIEventController {
 		main = mainview;
 		teamCalendar = new TeamCalendar();
 		myCalendar = new MyCalendar();
-		main.addTab("Team Calendar", new ImageIcon(), teamCalendar);
 		main.addTab("My Calendar", new ImageIcon(), myCalendar);
+		main.addTab("Team Calendar", new ImageIcon(), teamCalendar);
+
 	}
 
 	/**
