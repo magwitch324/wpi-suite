@@ -121,8 +121,9 @@ public class CommitmentView extends JPanel {
 		SpringLayout commPanelLayout = new SpringLayout();
 		commitPanel.setLayout(commPanelLayout);
 		List<CommitmentViewPanel> commPanelList = new ArrayList<CommitmentViewPanel>();
+		int n = 0;//adjusted index to take hidden commitments into account
 		for(int i = 0; i < commitmentList.size(); i++){
-			if (commitmentList.get(i).getStatus().id != 2) {
+			if (commitmentList.get(i).getStatus().id != 2) {//Skips over completed commitments
 				//Commitment commit = new Commitment();
 				// commit.setName("Commitment Name");
 				// commit.setDueDate(new Date());
@@ -140,7 +141,7 @@ public class CommitmentView extends JPanel {
 				c.anchor = GridBagConstraints.LINE_START;
 				c.fill = GridBagConstraints.HORIZONTAL;
 				c.weightx = 1;
-				c.gridx = i;
+				c.gridx = n;
 				commitmentPanel.add(name,c);
 				commitmentPanel.add(date,c);
 				commitmentPanel.add(description,c);
@@ -165,10 +166,10 @@ public class CommitmentView extends JPanel {
 					}		
 				});
 
-				commPanelList.add(i, commitmentPanel);
+				commPanelList.add(n, commitmentPanel);
 				commitmentPanel.setMaximumSize(new Dimension(2000,100));
-				if(i > 0)
-					commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 1, SpringLayout.SOUTH, commPanelList.get(i-1));
+				if(n > 0)
+					commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 1, SpringLayout.SOUTH, commPanelList.get(n-1));
 				else
 					commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 0, SpringLayout.NORTH, commitPanel);
 
@@ -183,9 +184,10 @@ public class CommitmentView extends JPanel {
 				commPanelLayout.putConstraint(SpringLayout.EAST, separator, 0, SpringLayout.EAST, commitPanel);
 
 				commitPanel.add(separator);
-				if (i == commitmentList.size() - 1)
+				if (n == commitmentList.size() - 1)
 					commPanelLayout.putConstraint(SpringLayout.SOUTH, commitPanel, 0, SpringLayout.SOUTH, separator);
 
+				n++;
 			}
 		}
 

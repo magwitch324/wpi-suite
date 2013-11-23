@@ -515,7 +515,7 @@ public class CommitmentTab extends JPanel {
 
 		formPanel.add(statusComboBox,gbc_statusComboBox);
 		
-		statusLabel = new JLabel("Completed:");
+		statusLabel = new JLabel("Status:");
 		GridBagConstraints gbc_statusLabel = new GridBagConstraints();
 		gbc_statusLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_statusLabel.fill = GridBagConstraints.VERTICAL;
