@@ -66,8 +66,9 @@ public class GUIEventController {
 		main = mainview;
 		teamCalendar = new TeamCalendar();
 		myCalendar = new MyCalendar();
-		main.addTab("Team Calendar", new ImageIcon(), teamCalendar);
 		main.addTab("My Calendar", new ImageIcon(), myCalendar);
+		main.addTab("Team Calendar", new ImageIcon(), teamCalendar);
+
 	}
 
 	/**
@@ -123,6 +124,15 @@ public class GUIEventController {
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(editCommit);
+	}
+	
+	// Creates new empty tab that will be used to put all commitments 
+	public void createViewCommitmentsTab() {
+		JPanel allCommitmentsTab = new JPanel();
+		main.addTab("All Commitments", null, allCommitmentsTab, "New Commitment");
+		main.invalidate(); //force the tabbedpane to redraw.
+		main.repaint();
+		main.setSelectedComponent(allCommitmentsTab);
 	}
 
 	public void createEvent() {
