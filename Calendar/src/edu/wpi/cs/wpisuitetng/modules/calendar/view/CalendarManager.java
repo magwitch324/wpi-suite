@@ -12,18 +12,20 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 
 public class CalendarManager {
 
-	CalendarData calData;
+	private static final CalendarManager instance = new CalendarManager();
+	
+	private static CalendarData calData;
 	
 	private CalendarManager() {
 		
 	}
 	
-	public CalendarManager getInstance() {
+	public static CalendarManager getInstance() {
 		update();
-		return this;
+		return instance;
 	}
 	
-	public void update() {
+	public static void update() {
 		if (CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName()) == null) {
 			CalendarData createdCal = new CalendarData(ConfigManager
@@ -35,6 +37,13 @@ public class CalendarManager {
 		
 	}
 	
+	public CalendarData filter(Calendar start, Calendar end) {
+		return filter(start, end, calData);
+	}
+	public CalendarData filter(Calendar start, int amount) throws CalendarException {
+		return filter(start, amount, calData);
+	}
+	
 	/**
 	 * Filter the calendar data to data between 
 	 * the start and end Calendars
@@ -43,17 +52,17 @@ public class CalendarManager {
 	 * @param end
 	 * @return
 	 */
-	public CalendarData filter(Calendar start, Calendar end) {
+	public static CalendarData filter(Calendar start, Calendar end, CalendarData calendar) {
 
 		Calendar commitDate = Calendar.getInstance();
 		
 		// copy calData and clear commitment list
-		CalendarData newCal = calData;
+		CalendarData newCal = calendar;
 		newCal.getCommitments().removeAll();
 		
 		// get the list of commitments
 		List<Commitment> commits;
-		commits = calData.getCommitments().getCommitments();
+		commits = calendar.getCommitments().getCommitments();
 		
 		// move start and end to make the function inclusive
 		start.add(Calendar.DAY_OF_MONTH, -1);
@@ -80,7 +89,7 @@ public class CalendarManager {
 	 * @return
 	 * @throws CalendarException 
 	 */
-	public CalendarData filter(Calendar date, int amount) throws CalendarException {
+	public CalendarData filter(Calendar date, int amount, CalendarData calendar) throws CalendarException {
 		Calendar start = (Calendar) date.clone();
 		Calendar end   = (Calendar) start.clone();
 		
@@ -113,7 +122,7 @@ public class CalendarManager {
 			throw new CalendarException("Invalid amount! Can only filter around day, week, month, and year types");
 		}
 		
-		return filter(start, end);
+		return filter(start, end, calendar);
 	}
 	
 }
