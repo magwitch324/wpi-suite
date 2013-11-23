@@ -83,14 +83,19 @@ public class DayPane extends JPanel implements ICalPane {
 			if(!showTeamCommitments&&showCommitements){
 				commitmentList = new ArrayList<Commitment>(tcalendar.getCalData().getCommitments().getCommitments());
 			}
-			if(showTeamCommitments&&!showCommitements){
+			if(showTeamCommitments&&!showCommitements){/*
 		      	List<Commitment> teamCommits = teamCommitments.getCommitments().getCommitments();
 		      	for(Commitment comm : teamCommits) {
 		      		if(!commitmentList.contains(comm)){
 		      			commitmentList.add(comm);
 		      		}
-		      	}
+		      	}*/
+				
+				
+				commitmentList = new ArrayList<Commitment>();
+
 			}
+			
 			if(showTeamCommitments&&showCommitements){
 				commitmentList = new ArrayList<Commitment>(tcalendar.getCalData().getCommitments().getCommitments());
 				commitmentList.addAll(teamCommitments.getCommitments().getCommitments());
