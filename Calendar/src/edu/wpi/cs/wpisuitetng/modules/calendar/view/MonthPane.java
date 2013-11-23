@@ -24,9 +24,8 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		this.setViewportView(mainview);
 		
 		int month = acal.get(Calendar.MONTH);
-		Calendar itcal = (Calendar)Calendar.getInstance().clone();
+		Calendar itcal = (Calendar)acal.clone();
 		
-		itcal.set(Calendar.MONTH, month);
 		while(itcal.get(Calendar.DATE) != 1){
 			itcal.add(Calendar.DATE, -1);
 		}

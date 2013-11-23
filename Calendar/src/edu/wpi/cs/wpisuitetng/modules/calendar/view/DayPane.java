@@ -77,7 +77,7 @@ public class DayPane extends JPanel implements ICalPane {
 			scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
 			scrollPane.getVerticalScrollBar().setValue(800);
 			
-//<<<<<<< HEAD
+
 			ArrayList<Commitment> commitmentList = new ArrayList<Commitment>();
 			CalendarData teamCommitments = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName());
 			if(!showTeamCommitments&&showCommitements){

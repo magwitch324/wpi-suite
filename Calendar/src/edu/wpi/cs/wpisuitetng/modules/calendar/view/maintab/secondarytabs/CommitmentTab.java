@@ -25,6 +25,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CategoryList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment.Status;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 import java.beans.PropertyChangeListener;
@@ -93,7 +94,7 @@ public class CommitmentTab extends JPanel {
 	private Commitment editingCommitment;
 	private EditingMode mode = EditingMode.ADDING;
 	private JButton btnDelete;
-	private JCheckBox statusCheckBox;
+	private JComboBox statusComboBox;
 	private JPanel buttonPanel;
 	private JPanel formPanel;
 	private JLabel statusLabel;
@@ -499,16 +500,20 @@ public class CommitmentTab extends JPanel {
 		
 		this.timeSpinner.setValue(editingCommitment.getDueDate());
 		this.datePicker.setDate(editingCommitment.getDueDate());
-		statusCheckBox = new JCheckBox("", commToEdit.getStatus());
-		GridBagConstraints gbc_statusCheckBox = new GridBagConstraints();
-		gbc_statusCheckBox.insets = new Insets(0, 0, 5, 0);
-		gbc_statusCheckBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_statusCheckBox.gridx = 1;
-		gbc_statusCheckBox.gridy = 6;
-		gbc_statusCheckBox.weightx = 1;
-		gbc_statusCheckBox.weighty = 3;
+		String[] statusStrings = {"New", "In Progress", "Completed"};
+		statusComboBox = new JComboBox(statusStrings);
+		
+		
+		statusComboBox.setSelectedIndex(commToEdit.getStatus().id);
+		GridBagConstraints gbc_statusComboBox = new GridBagConstraints();
+		gbc_statusComboBox.insets = new Insets(0, 0, 5, 0);
+		gbc_statusComboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_statusComboBox.gridx = 1;
+		gbc_statusComboBox.gridy = 6;
+		gbc_statusComboBox.weightx = 1;
+		gbc_statusComboBox.weighty = 3;
 
-		formPanel.add(statusCheckBox,gbc_statusCheckBox);
+		formPanel.add(statusComboBox,gbc_statusComboBox);
 		
 		statusLabel = new JLabel("Completed:");
 		GridBagConstraints gbc_statusLabel = new GridBagConstraints();
@@ -620,7 +625,7 @@ public class CommitmentTab extends JPanel {
 		newComm.setDescription(this.descriptionTextArea.getText());
 		
 		if(mode == EditingMode.EDITING) {
-			newComm.setStatus(statusCheckBox.isSelected());
+			newComm.setStatus(Status.getStatusValue(statusComboBox.getSelectedIndex()));
 		}			
 		
 		//Parse date and time info

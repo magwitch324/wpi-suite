@@ -19,8 +19,52 @@ public class Commitment extends AbstractModel {
 	/** the categoryID of the category */
 	private int categoryId;
 	/** the status of the commitment */
-	private boolean status; // false for in progress, true for completed
-	
+	public enum Status {
+		NEW(0), IN_PROGRESS(1), COMPLETED(2);
+		public int id;
+
+		Status(int id) {
+			this.id = id;
+		}
+		
+		public static Status getStatusValue(int id){
+			Status result;
+			result = Status.NEW;
+			switch(id){
+			case 0:
+				result = Status.NEW;
+				break;
+			case 1:
+				result = Status.IN_PROGRESS;
+				break;
+			case 2:
+				result = Status.COMPLETED;
+				break;
+			}
+			
+			return result;
+		}
+		
+		public static String convertToString(int id){
+			String result;
+			result = "";
+			switch(id){
+			case 0:
+				result = "New";
+				break;
+			case 1:
+				result = "In Progress";
+				break;
+			case 2:
+				result = "Completed";
+				break;
+			}
+			
+			return result;
+		}
+		
+	}; 
+	private Status status;
 
 	//Getters
 	 /**Getter for the ID	
@@ -40,7 +84,7 @@ public class Commitment extends AbstractModel {
 	public int getCategoryId()	{return categoryId;}
 	 /**Getter for the status	
 	 * @return the status */
-	public boolean getStatus()	 	{return status;}
+	public Status getStatus()	 	{return status;}
 	
 	//Setters
 	/**Setter for the id
@@ -60,7 +104,7 @@ public class Commitment extends AbstractModel {
 	public void setCategoryId  (int categoryId) 	{this.categoryId = categoryId;}
 	/**Setter for the status
 	 * @param status to status*/
-	public void setStatus  (boolean status) 	{this.status = status;}
+	public void setStatus  (Status status) 	{this.status = status;}
 
 	/** Construct a commitment with required properties provided and others set
 	 * to default
@@ -72,7 +116,7 @@ public class Commitment extends AbstractModel {
 		super();
 		name = description = "";
 		dueDate = new Date();
-		status = false;
+		status = Status.NEW;
 		
 	}
 	
