@@ -137,6 +137,8 @@ public class GUIEventController {
 		// TODO Auto-generated method stub
 		teamCalendar.updateCalData();
 		myCalendar.updateCalData();
+		teamCalendar.calView.commitments.update();
+		myCalendar.calView.commitments.update();
 	}
 	
 }
