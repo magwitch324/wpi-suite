@@ -1,9 +1,12 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 //import edu.wpi.cs.wpisuitetng.modules.requirementmanager.controller.AddRequirementController;
+
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 
 public class CommitmentList {
 
@@ -151,5 +154,79 @@ public class CommitmentList {
 	public void update (Commitment newCommitment) {
 		commitments.remove(getCommitment(newCommitment.getId()));
 		addCommitment(newCommitment);
+	}
+	
+	/**
+	 * Filter the commitment list to data between 
+	 * the start and end Calendars
+	 * This is INCLUSIVE for both start and end
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public List<Commitment> filter(Calendar start, Calendar end) {
+
+		Calendar commitDate = Calendar.getInstance();
+		List<Commitment> newCommitments = new ArrayList<Commitment>();
+		
+		// move start and end to make the function inclusive
+		start.add(Calendar.DAY_OF_MONTH, -1);
+		end.add(Calendar.DAY_OF_MONTH, 1);
+		
+		// iterate and add all commitments between start and end
+		// to the commitment list
+		for (Commitment commit : commitments) {
+			commitDate.setTime(commit.getDueDate());
+			if (commitDate.after(start) && commitDate.before(end)) {
+				newCommitments.add(commit);
+			} 
+		}
+		
+		return newCommitments;
+	}
+	
+	/**
+	 * Filters the calendar data to the "amount"
+	 * around the given date
+	 * ex: 11/23/2013, Calendar.MONTH -> All of November
+	 * @param date
+	 * @param amount
+	 * @return
+	 * @throws CalendarException 
+	 */
+	public List<Commitment> filter(Calendar date, int amount) throws CalendarException {
+		Calendar start = (Calendar) date.clone();
+		Calendar end   = (Calendar) start.clone();
+		
+		
+		/* All methods here add the given amount, then roll back
+		 * one day to specify range by the first and last day 
+		 * within that range
+		 */
+		if (amount == Calendar.DAY_OF_MONTH || amount == Calendar.DAY_OF_WEEK || amount == Calendar.DAY_OF_YEAR) {
+			// Do nothing. This allows error checking at end
+		}
+		else if (amount == Calendar.WEEK_OF_MONTH || amount == Calendar.WEEK_OF_YEAR) {
+			start.set(Calendar.DAY_OF_WEEK, start.getFirstDayOfWeek());
+			end = (Calendar) start.clone();
+			end.add(Calendar.WEEK_OF_YEAR, 1);
+			end.add(Calendar.DAY_OF_YEAR, -1);
+		}
+		else if (amount == Calendar.MONTH) {
+			start.set(Calendar.DAY_OF_MONTH, 1);
+			end = (Calendar) start.clone();
+			end.add(Calendar.MONTH, 1);
+			end.add(Calendar.DAY_OF_YEAR, -1);
+		}
+		else if (amount == Calendar.YEAR) {
+			start.set(Calendar.DAY_OF_YEAR, 1);
+			end = (Calendar) start.clone();
+			end.add(Calendar.YEAR, 1);
+			end.add(Calendar.DAY_OF_YEAR, -1);
+		} else {
+			throw new CalendarException("Invalid amount! Can only filter around day, week, month, and year types");
+		}
+		
+		return filter(start, end);
 	}
 }
