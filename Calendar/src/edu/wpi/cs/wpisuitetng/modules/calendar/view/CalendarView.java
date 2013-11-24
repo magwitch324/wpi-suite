@@ -22,10 +22,7 @@ import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 
-/**
- * @author cttibbetts
- *
- */
+
 public abstract class CalendarView extends JSplitPane {
 	
 	private ICalPane calPane;
