@@ -19,8 +19,6 @@ public class MyCalendar extends AbCalendar {
 	
 	public MyCalendar() {
 		super();
-		this.removeAll();
-		this.drawThis();
 	}
 	
 	protected void drawThis(){
@@ -81,7 +79,7 @@ public class MyCalendar extends AbCalendar {
 		this.add(viewpanel);
 		viewbtns[currenttype.getCurrentType()].setSelected(true);
 		
-		setView();
+//		setView();
 		
 	}
 	@Override
@@ -90,21 +88,25 @@ public class MyCalendar extends AbCalendar {
 			CalendarData createdCal = new CalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName());
 			CalendarDataModel.getInstance().addCalendarData(createdCal);
 		}
+		if(!initialized)
+			initialized = true;
 		
 		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName());
-		displayCalData();
+		setView();
+//		displayCalData();
 		
 	}
 	
 	protected void displayCalData() {
 		// TODO Auto-generated method stub
-		CalendarData teamCalData = new CalendarData();
-		if(getShowTeamData())
-			teamCalData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName());
-		if (getShowCommitments())
-			calView.displayCalData(calData, teamCalData);
-		else
-			calView.displayCalData(null, null);
+		if(initialized)
+		{
+			CalendarData teamCalData = new CalendarData();
+			if(getShowTeamData())
+				teamCalData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName());
+			
+			calView.displayCalData(calData, teamCalData, getShowCommitments());
+		}
 	}
 
 	@Override

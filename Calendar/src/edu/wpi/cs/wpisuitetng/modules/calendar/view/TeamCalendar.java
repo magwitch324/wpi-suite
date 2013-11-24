@@ -26,8 +26,6 @@ public class TeamCalendar extends AbCalendar {
 
 	public TeamCalendar() {
 		super();
-		this.removeAll();
-		this.drawThis();
 
 	}
 
@@ -91,7 +89,7 @@ public class TeamCalendar extends AbCalendar {
 		this.add(viewpanel);
 		viewbtns[currenttype.getCurrentType()].setSelected(true);
 
-		setView();
+//		setView();
 
 	}
 	
@@ -106,18 +104,18 @@ public class TeamCalendar extends AbCalendar {
 					.getConfig().getProjectName());
 			CalendarDataModel.getInstance().addCalendarData(createdCal);
 		}
+		initialized = true;
 		
-		displayCalData();
+		calData = CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName());
+		setView();
+//		displayCalData();
 		
 	}
 
 	protected void displayCalData() {
 		// TODO Auto-generated method stub
-		calData = CalendarDataModel.getInstance().getCalendarData(
-				ConfigManager.getConfig().getProjectName());
-		if(getShowCommitments())
-			calView.displayCalData(null, calData);
-		else
-			calView.displayCalData(null, null);
+//		if(initialized)
+			calView.displayCalData(null, calData, getShowCommitments());
 	}
 }

@@ -44,6 +44,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons.ButtonsPanel
  */
 public class GUIEventController {
 	private static GUIEventController instance = null;
+	private int scrollBarValue;
 	private MainTabView main = null;
 	private ToolbarView toolbar = null;
 	private TeamCalendar teamCalendar;
@@ -193,6 +194,15 @@ public class GUIEventController {
 		myCalendar.calView.commitments.update();
 	}
 
+	public void setScrollBarValue(int value) {
+		// TODO Auto-generated method stub
+		scrollBarValue = value;
+	}
+
+	public int getScrollBarValue()
+	{
+		return scrollBarValue;
+	}
 	
 	
 }

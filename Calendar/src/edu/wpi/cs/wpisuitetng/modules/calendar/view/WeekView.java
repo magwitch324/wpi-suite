@@ -61,7 +61,7 @@ public class WeekView extends CalendarView {
 	}
 
 	@Override
-	public void displayCalData(CalendarData personalCalData, CalendarData teamCalData ) {
+	public void displayCalData(CalendarData personalCalData, CalendarData teamCalData, boolean showCommsOnCalPane) {
 		
 		CommitmentList weekPersonalCommList = new CommitmentList();		
 		CommitmentList allPersonalComms  = new CommitmentList();
@@ -89,7 +89,11 @@ public class WeekView extends CalendarView {
 				
 		}
 			
-		weekPane.displayCommitments(weekPersonalCommList, weekTeamCommList);
+		if(showCommsOnCalPane)
+			weekPane.displayCommitments(weekPersonalCommList, weekTeamCommList); //show this week's commitments on WeekPane
+		else
+			weekPane.displayCommitments(new CommitmentList(), new CommitmentList()); //show no commitments on WeekPane
+
 		commitments.setCommList(allPersonalComms, allTeamComms);
 //	    commitments.update();
 		// TODO Auto-generated method stub

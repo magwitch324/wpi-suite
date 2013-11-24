@@ -36,13 +36,14 @@ public class DayView extends CalendarView {
 	}
 
 	@Override
-	public void displayCalData(CalendarData personalCalData, CalendarData teamCalData) {
+	public void displayCalData(CalendarData personalCalData, CalendarData teamCalData, boolean showCommsOnCalPane) {
 		
 		CommitmentList dayPersonalCommList = new CommitmentList();		
 		CommitmentList allPersonalComms  = new CommitmentList();
 		CommitmentList dayTeamCommList = new CommitmentList();
 		CommitmentList allTeamComms = new CommitmentList();
-	
+		
+		//add personal cal data if given
 		if(personalCalData != null)
 		{
 			allPersonalComms = personalCalData.getCommitments(); //currently shown commitments (personal or team)
@@ -53,6 +54,7 @@ public class DayView extends CalendarView {
 					dayPersonalCommList.addCommitment(comm);
 			}
 		}
+		//add team cal data if given
 		if (teamCalData!=null)
 		{		
 			allTeamComms = teamCalData.getCommitments();
@@ -63,9 +65,12 @@ public class DayView extends CalendarView {
 				}
 				
 		}
-			
-		dayPane.displayCommitments(dayPersonalCommList, dayTeamCommList);
-		commitments.setCommList(allPersonalComms, allTeamComms);
+		if (showCommsOnCalPane)
+			dayPane.displayCommitments(dayPersonalCommList, dayTeamCommList); //add only commitments on today to DayPane
+		else
+			dayPane.displayCommitments(new CommitmentList(), new CommitmentList()); //show no commitments on DayPane
+
+		commitments.setCommList(allPersonalComms, allTeamComms); //add all commitments to CommitmentView
 	    revalidate();
 	    repaint();
 	    

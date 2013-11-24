@@ -76,13 +76,13 @@ public class CommitDetailedPane extends JPanel {
 				pos += (cal.get(Calendar.MINUTE) == 30) ? 1 : 0;
 				if (halfblocks[pos] == null)
 					halfblocks[pos] = new thehalfblocks(comm , pos);
-				halfblocks[pos].addCommitment(comm);
+				else
+					halfblocks[pos].addCommitment(comm);
 			}
 			
 		for( int i = 0; i < 48; i ++){
 			if(halfblocks[i]!=null)
 			{
-				JButton button = new JButton("Test");
 				layout.putConstraint(SpringLayout.WEST, halfblocks[i], 0, SpringLayout.WEST, this);
 				layout.putConstraint(SpringLayout.EAST, halfblocks[i], 0, SpringLayout.EAST, this);
 				layout.putConstraint(SpringLayout.NORTH, halfblocks[i], (int)(y/48.0*i) + 1, SpringLayout.NORTH, this);

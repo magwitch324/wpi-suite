@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
@@ -40,6 +42,7 @@ public class WeekPane extends JPanel implements ICalPane {
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	Calendar mydate;
 	private JComponent days;
+	private SpringLayout layout;
 	
     /**
     * Create the panel.
@@ -58,16 +61,11 @@ public class WeekPane extends JPanel implements ICalPane {
 		scrollPane.setMinimumSize(new Dimension(500, 300));
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		
-		SpringLayout layout = new SpringLayout();
+		layout = new SpringLayout();
 		mainPanel.setLayout(layout);
 		mainPanel.setPreferredSize(new Dimension(30, 2000));		
 		
-		days = getDays(new CommitmentList(), new CommitmentList());
- 		layout.putConstraint(SpringLayout.WEST, days, 0, SpringLayout.WEST, mainPanel);
- 		layout.putConstraint(SpringLayout.NORTH, days, 0, SpringLayout.NORTH, mainPanel);
- 		layout.putConstraint(SpringLayout.SOUTH, days, 0, SpringLayout.SOUTH, mainPanel);
- 		layout.putConstraint(SpringLayout.EAST, days, 0, SpringLayout.EAST, mainPanel);
- 		mainPanel.add(days);
+		
 		
 		scrollPane.setColumnHeaderView(getHeader(0));
 		scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
@@ -78,7 +76,16 @@ public class WeekPane extends JPanel implements ICalPane {
 		
 		this.add(scrollPane);
 	   	
-	   	
+		scrollPane.getVerticalScrollBar().addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				GUIEventController.getInstance().setScrollBarValue(((JScrollBar)e.getSource()).getValue());
+			}
+			
+		});
+		
+		
 	   	scrollPane.addComponentListener(new ComponentAdapter(){
 			public void componentResized(ComponentEvent e){
 				
@@ -153,7 +160,7 @@ public class WeekPane extends JPanel implements ICalPane {
     	}
     	Calendar acal = (Calendar)mydate.clone();
 	    for(int i = 0; i<7; i++){
-	    	JLayeredPane aday = new DetailedDay(acal,new CommitDetailedPane(acal, personalCommList, teamCommList));
+	    	DetailedDay aday = new DetailedDay(acal,new CommitDetailedPane(acal, personalCommList, teamCommList));
 	    	acal.add(Calendar.DATE, 1);
 	    	System.out.println(acal.getTime().toString());
 	    	aday.addMouseListener(new AMouseEvent(acal));
@@ -252,11 +259,28 @@ public class WeekPane extends JPanel implements ICalPane {
     public void displayCommitments(CommitmentList personalCommList, CommitmentList teamCommList) {
 		  
     	days = getDays(personalCommList, teamCommList);
-    	mainPanel.revalidate();
-    	mainPanel.repaint();
+    	refresh();
 	}
 
 	
+	private void refresh() {
+		mainPanel.removeAll();
+		if (days == null)
+			days = getDays(new CommitmentList(), new CommitmentList());
+		
+ 		layout.putConstraint(SpringLayout.WEST, days, 0, SpringLayout.WEST, mainPanel);
+ 		layout.putConstraint(SpringLayout.NORTH, days, 0, SpringLayout.NORTH, mainPanel);
+ 		layout.putConstraint(SpringLayout.SOUTH, days, 0, SpringLayout.SOUTH, mainPanel);
+ 		layout.putConstraint(SpringLayout.EAST, days, 0, SpringLayout.EAST, mainPanel);
+ 		mainPanel.add(days);
+    	mainPanel.revalidate();
+    	mainPanel.repaint();
+    	
+   	 	scrollPane.getVerticalScrollBar().setValue(GUIEventController.getInstance().getScrollBarValue());
+
+	}
+
+
 	protected class AMouseEvent implements MouseListener{
 		AbCalendar abCalendar;
 		Calendar adate;

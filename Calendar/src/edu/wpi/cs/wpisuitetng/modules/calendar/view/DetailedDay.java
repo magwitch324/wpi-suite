@@ -27,29 +27,34 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
-public class DetailedDay extends JLayeredPane {
+public class DetailedDay extends JPanel {
 	
 	JSeparator[] halfhourmarks= new JSeparator[48];
 	SpringLayout layout = new SpringLayout();
 	JPanel mainview = new JPanel();
-	JComponent secondview = null;
+	JComponent secondview = new JPanel();
 	
 	public DetailedDay(Calendar adate){
-		super();	
+		super();		
 		this.setMinimumSize(new Dimension(50, 800));
 		this.setPreferredSize(new Dimension(50, 800));
 		this.addComponentListener(new resizeevent());
-		//TODO add get events pane
-		//mainview = GetEventsPane();
+		this.setLayout(layout);
+		
 		layout.putConstraint(SpringLayout.WEST, mainview, 0, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.NORTH, mainview, 0, SpringLayout.NORTH, this);
-		layout.putConstraint(SpringLayout.EAST, mainview, 0, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.EAST, mainview, 2, SpringLayout.HORIZONTAL_CENTER, this);
 		layout.putConstraint(SpringLayout.SOUTH, mainview, 0, SpringLayout.SOUTH, this);
 		mainview.setBackground(new Color(0,0,0,0));
-		this.add(mainview);
-
+		this.add(mainview, JLayeredPane.DEFAULT_LAYER);
+	
+		layout.putConstraint(SpringLayout.WEST, this.secondview, 2, SpringLayout.HORIZONTAL_CENTER, this);
+		layout.putConstraint(SpringLayout.NORTH, this.secondview, 0, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.EAST, this.secondview, -10, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.SOUTH, this.secondview, 0, SpringLayout.SOUTH, this);
+		this.secondview.setBackground(new Color(0,0,0,0));
+		this.add(this.secondview, JLayeredPane.PALETTE_LAYER);
 		
-		this.setLayout(layout);
 		this.makelines();
 		this.didResize();
 	}
@@ -67,18 +72,35 @@ public class DetailedDay extends JLayeredPane {
 		layout.putConstraint(SpringLayout.EAST, mainview, 2, SpringLayout.HORIZONTAL_CENTER, this);
 		layout.putConstraint(SpringLayout.SOUTH, mainview, 0, SpringLayout.SOUTH, this);
 		mainview.setBackground(new Color(0,0,0,0));
-		this.add(mainview, 1);
+		this.add(mainview);
 		
 		layout.putConstraint(SpringLayout.WEST, this.secondview, 2, SpringLayout.HORIZONTAL_CENTER, this);
 		layout.putConstraint(SpringLayout.NORTH, this.secondview, 0, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.EAST, this.secondview, -10, SpringLayout.EAST, this);
 		layout.putConstraint(SpringLayout.SOUTH, this.secondview, 0, SpringLayout.SOUTH, this);
 		this.secondview.setBackground(new Color(0,0,0,0));
-		this.add(this.secondview, 0);
+		this.add(this.secondview);
 	
 		this.makelines();
 		this.didResize();
 	}
+	
+//	public void setSecondView(JComponent secondView)
+//	{
+//		this.secondview = secondView;
+//		layout.putConstraint(SpringLayout.WEST, this.secondview, 2, SpringLayout.HORIZONTAL_CENTER, this);
+//		layout.putConstraint(SpringLayout.NORTH, this.secondview, 0, SpringLayout.NORTH, this);
+//		layout.putConstraint(SpringLayout.EAST, this.secondview, -10, SpringLayout.EAST, this);
+//		layout.putConstraint(SpringLayout.SOUTH, this.secondview, 0, SpringLayout.SOUTH, this);
+//		this.remove(JLayeredPane.PALETTE_LAYER);
+//		this.setLayout(layout);
+//		this.add(this.secondview, JLayeredPane.PALETTE_LAYER);
+//		
+//
+//		this.makelines();
+//		this.didResize();
+//		
+//	}
 	
 	protected void makelines(){
 		//half hour marks code
@@ -94,7 +116,7 @@ public class DetailedDay extends JLayeredPane {
 			}
 			halfhourmarks[i].setBackground(col);
 			halfhourmarks[i].setForeground(col);
-			this.add(halfhourmarks[i], i+5);
+			this.add(halfhourmarks[i]);
 		}
 		layout.putConstraint(SpringLayout.NORTH, halfhourmarks[0], 0, SpringLayout.NORTH, this);
 	}
@@ -145,41 +167,41 @@ public class DetailedDay extends JLayeredPane {
 		}
 	}
 
-	/** Displays previously created commitments on DetailedDay
-	 * @param comm Commitment to be added to the display
-	 * 
-	 */
-	public void displayCommitment(Commitment comm)
-	{
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(comm.getDueDate());
-		
-		//map hour to location in terms of halfhourmarks (0 - 47)
-		int loc = cal.get(Calendar.HOUR_OF_DAY)*2;
-		if (cal.get(Calendar.MINUTE) == 30)
-			loc += 1;
-		
-		//add white panel in appropriate half hour slot
-		JPanel commPanel = new JPanel();
-		commPanel.setBackground(Color.white);
-		commPanel.add(new JLabel(comm.getName()));
-		this.add(commPanel);				
-		layout.putConstraint(SpringLayout.NORTH, commPanel, 0, SpringLayout.NORTH, halfhourmarks[loc]);
-		layout.putConstraint(SpringLayout.EAST, commPanel, 0, SpringLayout.EAST, this);
-		layout.putConstraint(SpringLayout.WEST, commPanel, 0, SpringLayout.WEST, this);
-		if (loc == 47)
-			layout.putConstraint(SpringLayout.SOUTH, commPanel, 0, SpringLayout.SOUTH, this);
-		else
-			layout.putConstraint(SpringLayout.SOUTH, commPanel, 0, SpringLayout.NORTH, halfhourmarks[loc+1]);
-	}
-
-	/** Displays previously created commitments on DetailedDay
-	 * @param commList CommitmentList to be added to the display
-	 * 
-	 */
-	public void displayCommitments(CommitmentList commList) {
-		// TODO Auto-generated method stub
-		for(int i = 0; i < commList.getSize(); i++)
-			displayCommitment(commList.getElementAt(i));
-	}
+//	/** Displays previously created commitments on DetailedDay
+//	 * @param comm Commitment to be added to the display
+//	 * 
+//	 */
+//	public void displayCommitment(Commitment comm)
+//	{
+//		Calendar cal = Calendar.getInstance();
+//		cal.setTime(comm.getDueDate());
+//		
+//		//map hour to location in terms of halfhourmarks (0 - 47)
+//		int loc = cal.get(Calendar.HOUR_OF_DAY)*2;
+//		if (cal.get(Calendar.MINUTE) == 30)
+//			loc += 1;
+//		
+//		//add white panel in appropriate half hour slot
+//		JPanel commPanel = new JPanel();
+//		commPanel.setBackground(Color.white);
+//		commPanel.add(new JLabel(comm.getName()));
+//		this.add(commPanel);				
+//		layout.putConstraint(SpringLayout.NORTH, commPanel, 0, SpringLayout.NORTH, halfhourmarks[loc]);
+//		layout.putConstraint(SpringLayout.EAST, commPanel, 0, SpringLayout.EAST, this);
+//		layout.putConstraint(SpringLayout.WEST, commPanel, 0, SpringLayout.WEST, this);
+//		if (loc == 47)
+//			layout.putConstraint(SpringLayout.SOUTH, commPanel, 0, SpringLayout.SOUTH, this);
+//		else
+//			layout.putConstraint(SpringLayout.SOUTH, commPanel, 0, SpringLayout.NORTH, halfhourmarks[loc+1]);
+//	}
+//
+//	/** Displays previously created commitments on DetailedDay
+//	 * @param commList CommitmentList to be added to the display
+//	 * 
+//	 */
+//	public void displayCommitments(CommitmentList commList) {
+//		// TODO Auto-generated method stub
+//		for(int i = 0; i < commList.getSize(); i++)
+//			displayCommitment(commList.getElementAt(i));
+//	}
 }

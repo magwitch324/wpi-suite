@@ -312,7 +312,7 @@ public abstract class AbCalendar extends JPanel {
 					CalendarData createdCal = new CalendarData(ConfigManager.getConfig().getProjectName());
 					CalendarDataModel.getInstance().addCalendarData(createdCal);
 				}*/
-				initialized = true;
+//				initialized = true; //moved to retrieveCalendarData finishes (in updateCalData)
 			}
 			catch (Exception e)
 			{

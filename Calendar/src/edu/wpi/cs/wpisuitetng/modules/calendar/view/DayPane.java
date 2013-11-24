@@ -12,13 +12,19 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
@@ -42,6 +48,8 @@ public class DayPane extends JPanel implements ICalPane {
 	Calendar day;
 	private DetailedDay daypane;
 	private SpringLayout layout;
+	private JScrollPane scrollPane;
+	private JPanel labelPane;
 	
  
        /**
@@ -93,35 +101,43 @@ public class DayPane extends JPanel implements ICalPane {
 
 			
 
-		// HOURS
-				JScrollPane scrollPane = new JScrollPane(mainPanel, 
+		scrollPane = new JScrollPane(mainPanel, 
 						  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 						  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				scrollPane.getVerticalScrollBar().setUnitIncrement(20);
-				scrollPane.setMinimumSize(new Dimension(300, 300));
+				scrollPane.setMinimumSize(new Dimension(300, 500));
 				add(scrollPane);
 				  
 				layout = new SpringLayout();
 				mainPanel.setLayout(layout);
 				mainPanel.setPreferredSize(new Dimension(30, 2000));
 				  
-				JPanel apane = new JPanel();
-		    	apane.setLayout(new GridLayout(1,2));
+				labelPane = new JPanel();
+		    	labelPane.setLayout(new GridLayout(1,2));
 
 			    JLabel eventlabel = new JLabel("Events", SwingConstants.CENTER);
 			    eventlabel.setFont(new Font("Arial", 1, 14));
-			    apane.add( eventlabel );
+			    labelPane.add( eventlabel );
 			    
 			    JLabel commitlabel = new JLabel("Commitments", SwingConstants.CENTER);
 			    commitlabel.setFont(new Font("Arial", 1, 14));
-			    apane.add( commitlabel );
+			    labelPane.add( commitlabel );
 			    
-			    scrollPane.setColumnHeaderView(apane);
 				
 				scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
-				scrollPane.getVerticalScrollBar().setValue(800);
-				
+				scrollPane.addMouseListener(new MouseAdapter(){
+					@Override
+					public void mouseExited(MouseEvent e) {
+						// TODO Auto-generated method stub
+						GUIEventController.getInstance().setScrollBarValue(((JScrollPane)e.getSource()).getVerticalScrollBar().getValue());
+					}
+					
+				});
 				refresh();
+				
+				
+				
+				
 
 		  
 	}
@@ -133,16 +149,24 @@ public class DayPane extends JPanel implements ICalPane {
     	mainPanel.removeAll();
     	setLayout(new GridLayout(1,1));
 		
-		
-		
 		if (daypane == null)
-			daypane = new DetailedDay(day);
+			daypane = new DetailedDay(day, new CommitDetailedPane(day, new CommitmentList(), new CommitmentList()));
 		
 		layout.putConstraint(SpringLayout.WEST, daypane, 0, SpringLayout.WEST, mainPanel);
 		layout.putConstraint(SpringLayout.NORTH, daypane, 0, SpringLayout.NORTH, mainPanel);
 		layout.putConstraint(SpringLayout.SOUTH, daypane, 0, SpringLayout.SOUTH, mainPanel);
 		layout.putConstraint(SpringLayout.EAST, daypane, 0, SpringLayout.EAST, mainPanel);
 		mainPanel.add(daypane);
+		
+
+	    scrollPane.setColumnHeaderView(labelPane);
+		
+   	 	mainPanel.revalidate();
+   	 	mainPanel.repaint();
+   	 	scrollPane.revalidate();
+   	 	scrollPane.repaint();
+   	 	scrollPane.getVerticalScrollBar().setValue(GUIEventController.getInstance().getScrollBarValue());
+		
 	}
 
 
@@ -172,9 +196,8 @@ public class DayPane extends JPanel implements ICalPane {
     public void displayCommitments(CommitmentList personalCommList, CommitmentList teamCommList) {
 		  	 
     	daypane = new DetailedDay(day, new CommitDetailedPane(day, personalCommList, teamCommList)); 
-    	 refresh();
-    	 revalidate();
-    	 repaint();
+    	refresh();
+
 	}
 
 	protected JComponent getTimesBar(double height){

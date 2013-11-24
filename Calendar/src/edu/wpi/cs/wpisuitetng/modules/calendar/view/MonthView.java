@@ -45,4 +45,12 @@ public class MonthView extends CalendarView {
 		
 	}
 
+
+	@Override
+	public void displayCalData(CalendarData personalCalData,
+			CalendarData teamCalData, boolean showCommsOnCalPane) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
