@@ -9,6 +9,7 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -51,7 +52,9 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		this.setPreferredWidth(600);
 		
 		this.createEventButton.setSize(300, 800);
+		this.createEventButton.setBackground(Color.WHITE);
 		this.createCommitButton.setPreferredSize(new Dimension(300, 800));
+		this.createCommitButton.setBackground(Color.WHITE);
 		this.createCommitButton.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		try {

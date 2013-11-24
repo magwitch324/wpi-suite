@@ -13,6 +13,7 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab;
 
+import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.BorderFactory;
@@ -49,6 +50,7 @@ public class MainTabView extends JTabbedPane {
 		if (!(component instanceof AbCalendar)) {
 			setTabComponentAt(index, new ClosableTabComponent(this));
 		}
+		super.setBackground(Color.WHITE);
 	}
 	
 	@Override
