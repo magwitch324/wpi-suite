@@ -39,112 +39,128 @@ public class DayPane extends JPanel implements ICalPane {
 	 */
 	private static final long serialVersionUID = 1L;
 	JPanel mainPanel = new JPanel();
+	Calendar day;
 	private DetailedDay daypane;
+	private SpringLayout layout;
+	
  
        /**
        * Create the panel.
        */
 
 
-	public DayPane(Calendar datecalendar, AbCalendar abCalendar) {
+	public DayPane(Calendar datecalendar, CalendarData calData) {
 
-		final boolean showCommitements = abCalendar.getShowCommitements();
-		final boolean showTeamCommitments = abCalendar.getShowTeamData();
-		if(showCommitements){
+		day = datecalendar;
+//			// HOURS
+//			JScrollPane scrollPane = new JScrollPane(mainPanel, 
+//					  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
+//					  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+//			scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+//			scrollPane.setMinimumSize(new Dimension(300, 300));
+//			add(scrollPane);
+//			  
+//			JPanel apane = new JPanel();
+//	    	apane.setLayout(new GridLayout(1,2));
+//
+//		    JLabel eventlabel = new JLabel("Events", SwingConstants.CENTER);
+//		    eventlabel.setFont(new Font("Arial", 1, 14));
+//		    apane.add( eventlabel );
+//		    
+//		    JLabel commitlabel = new JLabel("Commitments", SwingConstants.CENTER);
+//		    commitlabel.setFont(new Font("Arial", 1, 14));
+//		    apane.add( commitlabel );
+//		    
+//		    scrollPane.setColumnHeaderView(apane);
+//		    	
+//			SpringLayout layout = new SpringLayout();
+//			mainPanel.setLayout(layout);
+//			mainPanel.setPreferredSize(new Dimension(30, 2000));
+//			      
+//			scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
+//			scrollPane.getVerticalScrollBar().setValue(800);
+//			
+//
+//			ArrayList<Commitment> commitmentList = new ArrayList<Commitment>();
+//			CalendarData teamCommitments = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName());
+//			if(!showTeamCommitments&&showCommitments){
+//				commitmentList = new ArrayList<Commitment>(calData.getCommitments().getCommitments());
+//			}
+//			if(showTeamCommitments&&showCommitments){
+//				commitmentList = new ArrayList<Commitment>(calData.getCommitments().getCommitments());
+//				commitmentList.addAll(teamCommitments.getCommitments().getCommitments());
+//			}
+			
 
-			setLayout(new GridLayout(1,1));
-			
-			// HOURS
-			JScrollPane scrollPane = new JScrollPane(mainPanel, 
-					  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
-					  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-			scrollPane.getVerticalScrollBar().setUnitIncrement(20);
-			scrollPane.setMinimumSize(new Dimension(300, 300));
-			add(scrollPane);
-			  
-			JPanel apane = new JPanel();
-	    	apane.setLayout(new GridLayout(1,2));
+		// HOURS
+				JScrollPane scrollPane = new JScrollPane(mainPanel, 
+						  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
+						  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+				scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+				scrollPane.setMinimumSize(new Dimension(300, 300));
+				add(scrollPane);
+				  
+				layout = new SpringLayout();
+				mainPanel.setLayout(layout);
+				mainPanel.setPreferredSize(new Dimension(30, 2000));
+				      
+				scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
+				scrollPane.getVerticalScrollBar().setValue(800);
+				
+				refresh();
 
-		    JLabel eventlabel = new JLabel("Events", SwingConstants.CENTER);
-		    eventlabel.setFont(new Font("Arial", 1, 14));
-		    apane.add( eventlabel );
-		    
-		    JLabel commitlabel = new JLabel("Commitments", SwingConstants.CENTER);
-		    commitlabel.setFont(new Font("Arial", 1, 14));
-		    apane.add( commitlabel );
-		    
-		    scrollPane.setColumnHeaderView(apane);
-		    	
-			SpringLayout layout = new SpringLayout();
-			mainPanel.setLayout(layout);
-			mainPanel.setPreferredSize(new Dimension(30, 2000));
-			      
-			scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
-			scrollPane.getVerticalScrollBar().setValue(800);
-			
-
-			ArrayList<Commitment> commitmentList = new ArrayList<Commitment>();
-			CalendarData teamCommitments = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName());
-			if(!showTeamCommitments&&showCommitements){
-				commitmentList = new ArrayList<Commitment>(abCalendar.getCalData().getCommitments().getCommitments());
-			}
-			if(showTeamCommitments&&showCommitements){
-				commitmentList = new ArrayList<Commitment>(abCalendar.getCalData().getCommitments().getCommitments());
-				commitmentList.addAll(teamCommitments.getCommitments().getCommitments());
-			}
-			daypane = new DetailedDay(datecalendar, 
-
-										new CommitDetailedPane(datecalendar, commitmentList));
-
-/*=======
-			daypane = new DetailedDay(datecalendar,"");
->>>>>>> 8d54f788e1fec6a7eab547aca6afdaba2701252d*/
-			
-			layout.putConstraint(SpringLayout.WEST, daypane, 0, SpringLayout.WEST, mainPanel);
-			layout.putConstraint(SpringLayout.NORTH, daypane, 0, SpringLayout.NORTH, mainPanel);
-			layout.putConstraint(SpringLayout.SOUTH, daypane, 0, SpringLayout.SOUTH, mainPanel);
-			layout.putConstraint(SpringLayout.EAST, daypane, 0, SpringLayout.EAST, mainPanel);
-			mainPanel.add(daypane);
-	   	}
-	   	else{
-			setLayout(new GridLayout(1,1));
-			
-			// HOURS
-			JScrollPane scrollPane = new JScrollPane(mainPanel, 
-					  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
-					  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-			scrollPane.getVerticalScrollBar().setUnitIncrement(20);
-			scrollPane.setMinimumSize(new Dimension(300, 300));
-			add(scrollPane);
-			  
-			SpringLayout layout = new SpringLayout();
-			mainPanel.setLayout(layout);
-			mainPanel.setPreferredSize(new Dimension(30, 2000));
-			      
-			scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
-			scrollPane.getVerticalScrollBar().setValue(800);
-			
-			daypane = new DetailedDay(datecalendar);
-			
-			layout.putConstraint(SpringLayout.WEST, daypane, 0, SpringLayout.WEST, mainPanel);
-			layout.putConstraint(SpringLayout.NORTH, daypane, 0, SpringLayout.NORTH, mainPanel);
-			layout.putConstraint(SpringLayout.SOUTH, daypane, 0, SpringLayout.SOUTH, mainPanel);
-			layout.putConstraint(SpringLayout.EAST, daypane, 0, SpringLayout.EAST, mainPanel);
-			mainPanel.add(daypane);
-	   	}
 		  
 	}
 
     
-    /** Displays commitments on DetailedDay
+    private void refresh() {
+		// TODO Auto-generated method stub
+    	
+    	mainPanel.removeAll();
+    	setLayout(new GridLayout(1,1));
+		
+		
+		
+		if (daypane == null)
+			daypane = new DetailedDay(day);
+		
+		layout.putConstraint(SpringLayout.WEST, daypane, 0, SpringLayout.WEST, mainPanel);
+		layout.putConstraint(SpringLayout.NORTH, daypane, 0, SpringLayout.NORTH, mainPanel);
+		layout.putConstraint(SpringLayout.SOUTH, daypane, 0, SpringLayout.SOUTH, mainPanel);
+		layout.putConstraint(SpringLayout.EAST, daypane, 0, SpringLayout.EAST, mainPanel);
+		mainPanel.add(daypane);
+	}
+
+
+	private boolean getShowCommitments() {
+		
+    	AbCalendar abCalendar= GUIEventController.getInstance().getSelectedCalendar();
+    	if (abCalendar != null)
+    		return abCalendar.getShowCommitments();
+    	else
+    		return false;
+	}
+
+
+	private boolean getShowTeamData() {
+		AbCalendar abCalendar= GUIEventController.getInstance().getSelectedCalendar();
+    	if (abCalendar != null)
+    		return abCalendar.getShowTeamData();
+    	else
+    		return false;
+	}
+
+
+	/** Displays commitments on DetailedDay
      * @param commList List of commitments to be displayed
+	 * @param dayTeamCommList 
      */
-    public void displayCommitments(CommitmentList commList) {
+    public void displayCommitments(CommitmentList personalCommList, CommitmentList teamCommList) {
 		  	 
-    	 /*if(commList!=null)
-    		 daypane.displayCommitments(commList); 
-    	 daypane.revalidate();
-    	 daypane.repaint();*/
+    	daypane = new DetailedDay(day, new CommitDetailedPane(day, personalCommList, teamCommList)); 
+    	 refresh();
+    	 revalidate();
+    	 repaint();
 	}
 
 	protected JComponent getTimesBar(double height){

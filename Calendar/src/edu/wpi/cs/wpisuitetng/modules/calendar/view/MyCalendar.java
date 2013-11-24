@@ -90,10 +90,23 @@ public class MyCalendar extends AbCalendar {
 			CalendarData createdCal = new CalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName());
 			CalendarDataModel.getInstance().addCalendarData(createdCal);
 		}
+		
 		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName());
-		calView.displayCalData(calData);
+		displayCalData();
+		
 	}
 	
+	protected void displayCalData() {
+		// TODO Auto-generated method stub
+		CalendarData teamCalData = new CalendarData();
+		if(getShowTeamData())
+			teamCalData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName());
+		if (getShowCommitments())
+			calView.displayCalData(calData, teamCalData);
+		else
+			calView.displayCalData(null, null);
+	}
+
 	@Override
 	public boolean getShowTeamData(){
 		return showteam.isSelected();

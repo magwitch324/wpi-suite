@@ -37,6 +37,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment.Status;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
 /**
  * @author cttibbetts
@@ -45,14 +46,14 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment.Status;
 public class CommitmentView extends JPanel {
 
 	JPanel commitPanel;
-	AbCalendar tcalendar;
 
 	List<Commitment> commitmentList = new ArrayList();
+	private CalendarData calData;
 
 //	private List<CommitmentViewPanel> commitmentPanelList;
 	
-	public CommitmentView(AbCalendar abCalendar) {
-		this.tcalendar = abCalendar;
+	public CommitmentView(CalendarData calData) {
+		this.calData = calData;
 		
 
 
@@ -70,8 +71,8 @@ public class CommitmentView extends JPanel {
 		layout.putConstraint(SpringLayout.SOUTH, scrollPane, 0, SpringLayout.SOUTH, this);
 		scrollPane.setViewportView(commitPanel);
 
-		setCommList();      	
-		update();
+//		setCommList();      	
+//		update();
 		//test data will be where event data is handled
 
 
@@ -85,24 +86,27 @@ public class CommitmentView extends JPanel {
 		 */
 	}
 
-	public void setCommList(ArrayList<Commitment> commitments) {
-		commitmentList = commitments;
+	public void setCommList(CommitmentList commList, CommitmentList teamCommList) {
+		//@TODO add team list
+		commitmentList = teamCommList.getCommitments();
+		update();
 	}
 
-	public void setCommList() {
-		if(tcalendar.getCalData() != null){
-			System.out.println("got COMMITMENTS FOR VIEW");
-			commitmentList = new ArrayList<Commitment>();
-			CalendarData teamCommitments = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName());
-			if(tcalendar.getShowTeamData()) {
-				commitmentList = new ArrayList<Commitment>(tcalendar.getCalData().getCommitments().getCommitments());
-				commitmentList.addAll(teamCommitments.getCommitments().getCommitments());
-			}
-			else{
-				commitmentList = tcalendar.getCalData().getCommitments().getCommitments();
-			}
-		}
-	}
+// Now done in DayView, WeekView, etc.
+//	public void setCommList(boolean showTeamData) {
+//		if(calData != null){
+//			System.out.println("got COMMITMENTS FOR VIEW");
+//			commitmentList = new ArrayList<Commitment>();
+//			CalendarData teamCommitments = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName());
+//			if(GUIEventController.getInstance().getSelectedCalendar().getShowTeamData()) {
+//				commitmentList = calData.getCommitments().getCommitments();
+//				commitmentList.addAll(teamCommitments.getCommitments().getCommitments());
+//			}
+//			else{
+//				commitmentList = calData.getCommitments().getCommitments();
+//			}
+//		}
+//	}
 
 	public void update(){
 		commitPanel.removeAll();
@@ -150,7 +154,7 @@ public class CommitmentView extends JPanel {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						if (e.getClickCount() > 1)
-							GUIEventController.getInstance().editCommitment(((CommitmentViewPanel)e.getComponent()).getCommitment(), tcalendar.getCalData());
+							GUIEventController.getInstance().editCommitment(((CommitmentViewPanel)e.getComponent()).getCommitment(), calData);
 					}		
 				});
 

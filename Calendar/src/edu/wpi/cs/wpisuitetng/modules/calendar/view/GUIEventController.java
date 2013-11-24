@@ -32,11 +32,16 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.WeekView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar.types;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons.ButtonsPanel_Create;
 
+/**
+ * @author sfp
+ *
+ */
 public class GUIEventController {
 	private static GUIEventController instance = null;
 	private MainTabView main = null;
@@ -71,16 +76,35 @@ public class GUIEventController {
 		teamCalendar = new TeamCalendar();
 		myCalendar = new MyCalendar();
 		
-		try {
-		Image img = ImageIO.read(getClass().getResource("PersonalCalendar_Icon.png"));
-		main.addTab("", new ImageIcon(img), myCalendar);
+//		try {
+//		Image img = ImageIO.read(getClass().getResource("PersonalCalendar_Icon.png"));
+		main.addTab("My Calendar", null, myCalendar);
 		
-		img = ImageIO.read(getClass().getResource("TeamCalendar_Icon.png"));
-		main.addTab("", new ImageIcon(img), teamCalendar);
-		
-		} catch (IOException ex) {}
+//		img = ImageIO.read(getClass().getResource("TeamCalendar_Icon.png"));
+		main.addTab("Team Calendar", null , teamCalendar);
+	
+//		} catch (IOException ex) {}
 
 	}
+	
+	/**
+	 * Gets calendar data corresponding to currently selected tab
+	 * @return index
+	 */
+	public AbCalendar getSelectedCalendar()
+	{
+		int index = main.getSelectedIndex();
+		if (index == 0)
+			return myCalendar;
+		else if (index == 1)
+			return teamCalendar;
+		else
+		{
+			System.out.println("Error getting calendar; calendar tab not selected.");
+			return myCalendar;
+		}
+	}
+	
 
 	/**
 	 * Sets the toolbarview to the given toolbar
@@ -153,8 +177,9 @@ public class GUIEventController {
 
 	}
 	
-	public void switchView(Calendar acal, TeamCalendar.types switchtype, TeamCalendar ateamcal){
-		ateamcal.setCalsetView(acal, switchtype);
+	public void switchView(Calendar acal, TeamCalendar.types switchtype){
+		teamCalendar.setCalsetView(acal, switchtype);
+		myCalendar.setCalsetView(acal, switchtype);
 	}
 
 	public void updateCalData() {
@@ -164,5 +189,7 @@ public class GUIEventController {
 		teamCalendar.calView.commitments.update();
 		myCalendar.calView.commitments.update();
 	}
+
+	
 	
 }

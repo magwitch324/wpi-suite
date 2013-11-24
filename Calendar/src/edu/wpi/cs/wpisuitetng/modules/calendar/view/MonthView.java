@@ -11,10 +11,10 @@ public class MonthView extends CalendarView {
 	
 	private Calendar aMonth;
 	
-	public MonthView(Calendar datecalendar, TeamCalendar tcalendar) {
+	public MonthView(Calendar datecalendar, CalendarData calData) {
 		super(datecalendar);
 		setCalPane(new MonthPane(datecalendar));
-		setCommitmentView(new CommitmentView(tcalendar));
+		setCommitmentView(new CommitmentView(calData));
 		setRange(datecalendar);
 	}
 	
@@ -37,8 +37,7 @@ public class MonthView extends CalendarView {
 		refresh();
 	}
 	
-	@Override
-	public void displayCalData(CalendarData calData) {
+	public void displayCalData(CalendarData personalCalData, CalendarData teamCalData) {
 		commitments.update();
 		// TODO Auto-generated method stub
 		

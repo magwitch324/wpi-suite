@@ -118,8 +118,10 @@ public abstract class CalendarView extends JSplitPane {
 	/** Display calendar data in internal panels, decides what commitments 
 	 * fall within range
 	 * @param calData Calendar Data to be displayed
+	 * @param showTeamData 
+	 * @param showCommitments 
 	 */
-	abstract public void displayCalData(CalendarData calData);
+	abstract public void displayCalData(CalendarData personalCalData, CalendarData teamCalData);
 	
 	
 	

@@ -7,8 +7,11 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.Calendar;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -18,12 +21,15 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
 public class CommitDetailedPane extends JPanel {
 	
-	ArrayList<Commitment> commits;
 	Calendar adate;
-	public CommitDetailedPane(Calendar adate, ArrayList<Commitment> commits){
+	private List<Commitment> personalCommits;
+	private List<Commitment> teamCommits;
+	
+	public CommitDetailedPane(Calendar adate, CommitmentList personalCommList, CommitmentList teamCommList){
 		super();
 		System.out.println( "start" );
 		this.setLayout(new SpringLayout());
@@ -40,7 +46,8 @@ public class CommitDetailedPane extends JPanel {
 			public void componentHidden(ComponentEvent e) {}
 		});
 		
-		this.commits = commits;
+		this.personalCommits = personalCommList.getCommitments();
+		this.teamCommits = teamCommList.getCommitments();
 		this.adate = (Calendar)adate.clone();
 		
 		this.didResize();
@@ -51,39 +58,37 @@ public class CommitDetailedPane extends JPanel {
 	
 	protected void didResize(){
 		System.out.println( "did resize" );
-		JComponent[] halfblocks = new JComponent[48];
+		thehalfblocks[] halfblocks = new thehalfblocks[48];
 		this.removeAll();
 		
 		int x = (int)this.getSize().getWidth();
 		int y = (int)this.getSize().getHeight();
 		SpringLayout layout = (SpringLayout)this.getLayout();
 
-		for(int index = 0; index < 48; index++){
-			ArrayList<Commitment> tomake = new ArrayList<Commitment>();
-			for( int i = 0; i < commits.size(); i++){
-				Calendar acal = Calendar.getInstance();
-				acal.setTime(commits.get(i).getDueDate());
-				if(adate.get(Calendar.DATE) == acal.get(Calendar.DATE) &&
-						adate.get(Calendar.MONTH) == acal.get(Calendar.MONTH) &&
-						adate.get(Calendar.YEAR) == acal.get(Calendar.YEAR)){
-					
-					int pos = acal.get(Calendar.HOUR_OF_DAY)*2;
-					pos += acal.get(Calendar.MINUTE) == 30 ? 1 : 0;
-					
-					if (pos == index){
-						tomake.add(commits.get(i));
-					}
-				}	
-			}
-			halfblocks[index] = new thehalfblocks(tomake);
-		}
 		
+//			List<thehalfblocks> dayComms = new ArrayList<thehalfblocks>();
+			
+			for(Commitment comm : teamCommits)
+			{
+				Calendar cal = new GregorianCalendar();
+				cal.setTime(comm.getDueDate());
+				int pos = cal.get(Calendar.HOUR_OF_DAY)*2;
+				pos += (cal.get(Calendar.MINUTE) == 30) ? 1 : 0;
+				if (halfblocks[pos] == null)
+					halfblocks[pos] = new thehalfblocks(comm , pos);
+				halfblocks[pos].addCommitment(comm);
+			}
+			
 		for( int i = 0; i < 48; i ++){
-			layout.putConstraint(SpringLayout.WEST, halfblocks[i], 0, SpringLayout.WEST, this);
-			layout.putConstraint(SpringLayout.EAST, halfblocks[i], 0, SpringLayout.EAST, this);
-			layout.putConstraint(SpringLayout.NORTH, halfblocks[i], (int)(y/48.0*i) + 1, SpringLayout.NORTH, this);
-			layout.putConstraint(SpringLayout.SOUTH, halfblocks[i], (int)(y/48.0*(i+1)) - 1, SpringLayout.NORTH, this);
-			this.add(halfblocks[i]);
+			if(halfblocks[i]!=null)
+			{
+				JButton button = new JButton("Test");
+				layout.putConstraint(SpringLayout.WEST, halfblocks[i], 0, SpringLayout.WEST, this);
+				layout.putConstraint(SpringLayout.EAST, halfblocks[i], 0, SpringLayout.EAST, this);
+				layout.putConstraint(SpringLayout.NORTH, halfblocks[i], (int)(y/48.0*i) + 1, SpringLayout.NORTH, this);
+				layout.putConstraint(SpringLayout.SOUTH, halfblocks[i], (int)(y/48.0*(i+1)) - 1, SpringLayout.NORTH, this);
+				this.add(halfblocks[i]);
+			}
 		}
 		
 		this.revalidate();
@@ -91,20 +96,25 @@ public class CommitDetailedPane extends JPanel {
 	}
 	
 	protected class thehalfblocks extends JPanel{
-		public thehalfblocks(ArrayList<Commitment> commits){
+		private int size;
+		private GridLayout layout;
+		private int pos;
+		public thehalfblocks(Commitment commit, int pos){
 			super();
-			if(commits.size() > 0){
-				this.setLayout(new GridLayout(1, commits.size(), 0, 1));
-				System.out.println(commits.size());
-			}
-			
-			Iterator<Commitment> it = commits.iterator();
-			
-			while(it.hasNext()){
-				this.add(this.getComPanel(it.next()), SwingConstants.CENTER);
-			}
-			
+			this.pos = pos;
+			size = 0;
+			layout = new GridLayout(1,1,0,1);
+			this.addCommitment(commit);
+			this.setLayout(layout);
 			this.setBackground(new Color(0,0,0,0));
+		}
+		
+		public void addCommitment(Commitment newComm)
+		{
+			size++;
+			layout.setColumns(size);
+			this.add(this.getComPanel(newComm), SwingConstants.CENTER);
+			
 		}
 		
 		private JComponent getComPanel(Commitment tochange){
@@ -140,6 +150,10 @@ public class CommitDetailedPane extends JPanel {
 			LineBorder roundedLineBorder = new LineBorder(Color.black, 1, true);
 			apane.setBorder(roundedLineBorder);
 			return apane;
+		}
+
+		public int getPos() {
+			return pos;
 		}
 		
 		

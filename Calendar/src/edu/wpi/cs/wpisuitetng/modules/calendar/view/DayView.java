@@ -3,7 +3,9 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import java.util.Calendar;
 import java.util.Locale;
 
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
@@ -12,11 +14,11 @@ public class DayView extends CalendarView {
 	Calendar day;
 	private DayPane dayPane;
 	
-	public DayView(Calendar datecalendar, AbCalendar abCalendar) {
+	public DayView(Calendar datecalendar, CalendarData calData) {
 		super(datecalendar);
-		dayPane = new DayPane(datecalendar, abCalendar);
+		dayPane = new DayPane(datecalendar, calData);
 		setCalPane(dayPane);
-		setCommitmentView(new CommitmentView(abCalendar));
+		setCommitmentView(new CommitmentView(calData));
 		setRange(datecalendar);
 		
 	}
@@ -34,21 +36,40 @@ public class DayView extends CalendarView {
 	}
 
 	@Override
-	public void displayCalData(CalendarData calData) {
-		// TODO Auto-generated method stub
-		if(calData != null)
+	public void displayCalData(CalendarData personalCalData, CalendarData teamCalData) {
+		
+		CommitmentList dayPersonalCommList = new CommitmentList();		
+		CommitmentList allPersonalComms  = new CommitmentList();
+		CommitmentList dayTeamCommList = new CommitmentList();
+		CommitmentList allTeamComms = new CommitmentList();
+	
+		if(personalCalData != null)
 		{
-			CommitmentList dayCommList = new CommitmentList();
-			for(Commitment comm : calData.getCommitments().getCommitments())
+			allPersonalComms = personalCalData.getCommitments(); //currently shown commitments (personal or team)
+			for(Commitment comm : allPersonalComms.getCommitments())
 			{
+				// add to list if within bounds of day
 				if (comm.getDueDate().getDay() == day.getTime().getDay())
-					dayCommList.addCommitment(comm);
+					dayPersonalCommList.addCommitment(comm);
 			}
-			dayPane.displayCommitments(dayCommList);
-			commitments.setCommList();
-		    commitments.update();
-
 		}
+		if (teamCalData!=null)
+		{		
+			allTeamComms = teamCalData.getCommitments();
+			for(Commitment comm : allTeamComms.getCommitments())
+				{
+					if (comm.getDueDate().getDay() == day.getTime().getDay())
+						dayTeamCommList.addCommitment(comm);
+				}
+				
+		}
+			
+		dayPane.displayCommitments(dayPersonalCommList, dayTeamCommList);
+		commitments.setCommList(allPersonalComms, allTeamComms);
+	    revalidate();
+	    repaint();
+	    
+//	    refresh();
 		
 	}
 

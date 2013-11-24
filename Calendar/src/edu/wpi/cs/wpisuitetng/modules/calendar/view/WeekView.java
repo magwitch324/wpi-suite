@@ -3,21 +3,29 @@
  */
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
 
 public class WeekView extends CalendarView {
 
 	private Calendar startDate;
 	private Calendar endDate;
+	private WeekPane weekPane;
 	
-	public WeekView(Calendar datecalendar, AbCalendar abCalendar) {
+	public WeekView(Calendar datecalendar, CalendarData calData) {
 		super(datecalendar);
-		setCalPane(new WeekPane(datecalendar, abCalendar));
-		setCommitmentView(new CommitmentView(abCalendar));
+		weekPane = new WeekPane(datecalendar);
+		setCalPane(weekPane);
+		setCommitmentView(new CommitmentView(calData));
 		setRange(datecalendar);
 	}
 	
@@ -26,6 +34,8 @@ public class WeekView extends CalendarView {
 	 */
 	@Override
 	public void setRange(Calendar calendar) {
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
 		startDate = (Calendar) calendar.clone();
 
 		while (startDate.get(Calendar.DAY_OF_WEEK) != startDate.getFirstDayOfWeek()) {
@@ -37,7 +47,6 @@ public class WeekView extends CalendarView {
 		endDate = (Calendar) startDate.clone();
 		endDate.add(Calendar.WEEK_OF_MONTH, 1);
 		endDate.add(Calendar.DAY_OF_MONTH, -1);
-		
 		
 		String startMonthName = startDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
 		String endMonthName = endDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
@@ -52,8 +61,37 @@ public class WeekView extends CalendarView {
 	}
 
 	@Override
-	public void displayCalData(CalendarData calData) {
-		commitments.update();
+	public void displayCalData(CalendarData personalCalData, CalendarData teamCalData ) {
+		
+		CommitmentList weekPersonalCommList = new CommitmentList();		
+		CommitmentList allPersonalComms  = new CommitmentList();
+		CommitmentList weekTeamCommList = new CommitmentList();
+		CommitmentList allTeamComms = new CommitmentList();
+	
+		if(personalCalData != null)
+		{
+			allPersonalComms = personalCalData.getCommitments(); //currently shown commitments (personal or team)
+			for(Commitment comm : allPersonalComms.getCommitments())
+			{
+				// add to list if within bounds of week
+				if (!(comm.getDueDate().before(startDate.getTime()) || comm.getDueDate().after(endDate.getTime())))
+					weekPersonalCommList.addCommitment(comm);
+			}
+		}
+		if (teamCalData!=null)
+		{		
+			allTeamComms = teamCalData.getCommitments();
+			for(Commitment comm : allTeamComms.getCommitments())
+				{
+					if (!(comm.getDueDate().before(startDate.getTime()) || comm.getDueDate().after(endDate.getTime())))
+						weekTeamCommList.addCommitment(comm);
+				}
+				
+		}
+			
+		weekPane.displayCommitments(weekPersonalCommList, weekTeamCommList);
+		commitments.setCommList(allPersonalComms, allTeamComms);
+//	    commitments.update();
 		// TODO Auto-generated method stub
 		
 	}

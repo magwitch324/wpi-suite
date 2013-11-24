@@ -106,8 +106,18 @@ public class TeamCalendar extends AbCalendar {
 					.getConfig().getProjectName());
 			CalendarDataModel.getInstance().addCalendarData(createdCal);
 		}
+		
+		displayCalData();
+		
+	}
+
+	protected void displayCalData() {
+		// TODO Auto-generated method stub
 		calData = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName());
-		calView.displayCalData(calData);
+		if(getShowCommitments())
+			calView.displayCalData(null, calData);
+		else
+			calView.displayCalData(null, null);
 	}
 }
