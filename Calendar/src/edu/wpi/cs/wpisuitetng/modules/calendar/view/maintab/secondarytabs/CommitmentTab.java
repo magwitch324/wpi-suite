@@ -61,6 +61,7 @@ import java.awt.event.MouseEvent;
 import java.awt.Component;
 
 import javax.swing.Box;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import java.awt.Color;
@@ -412,10 +413,10 @@ public class CommitmentTab extends JPanel {
 		
 		//Add Commitment button
 		btnAddCommitment = new JButton("Save Commitment");
+		btnAddCommitment.addActionListener(new ActionListener() {
 
-		btnAddCommitment.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				addCommitment();
 			}
 			
@@ -486,21 +487,19 @@ public class CommitmentTab extends JPanel {
 		
 		//Add Cancel button
 		btnCancel = new JButton("Cancel");
-		btnCancel.addMouseListener(new MouseAdapter() {
+		btnCancel.addActionListener(new ActionListener() {
+
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				removeTab();
 			}
-
-			
-
 			
 		});
 		
 		
 		
 		buttonPanel.add(btnAddCommitment, BorderLayout.WEST);		
-		buttonPanel.add(btnCancel, BorderLayout.EAST);
+		buttonPanel.add(btnCancel, BorderLayout.CENTER);
 		formPanel.add(buttonPanel, gbc_btnPanel);
 		
 		
@@ -555,14 +554,15 @@ public class CommitmentTab extends JPanel {
 
 		formPanel.add(statusLabel,gbc_statusLabel);
 		btnDelete = new JButton("Delete");
-		btnDelete.addMouseListener(new MouseAdapter() {
+		btnDelete.addActionListener(new ActionListener() {
+
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				deleteCommitment();
 			}
 			
 		});
-		buttonPanel.add(btnDelete, BorderLayout.CENTER);
+		buttonPanel.add(btnDelete, BorderLayout.LINE_END);
 		
 		//Some edit specific listeners
 		//These are here to avoid possible NullPointer exceptions while opening the tab 

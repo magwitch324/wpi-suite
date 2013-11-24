@@ -1,3 +1,5 @@
 /bin
 /doc
 /docs
+/build/edu/wpi/cs/wpisuitetng/modules/calendar/view/*.png
+/build/edu/wpi/cs/wpisuitetng/modules/calendar/view/toolbar/buttons/*.png
