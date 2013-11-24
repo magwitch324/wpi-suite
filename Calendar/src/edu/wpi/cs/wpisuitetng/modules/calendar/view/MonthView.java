@@ -11,7 +11,7 @@ public class MonthView extends CalendarView {
 	
 	private Calendar aMonth;
 	
-	public MonthView(Calendar datecalendar, TeamCalendar tcalendar) {
+	public MonthView(Calendar datecalendar, AbCalendar tcalendar) {
 		super(datecalendar);
 		setCalPane(new MonthPane(datecalendar));
 		setCommitmentView(new CommitmentView(tcalendar));

@@ -66,6 +66,12 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		    this.createEventButton.setIcon(new ImageIcon(img));
 		    
 		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			this.createCommitButton.setIcon(new ImageIcon());
+			this.createCommitButton.setText("Create Commit");
+			this.createEventButton.setIcon(new ImageIcon());
+			this.createEventButton.setText("Create Event");
+		}
 		
 		// the action listener for the Create Requirement Button
 		createCommitButton.addActionListener(new ActionListener() {
