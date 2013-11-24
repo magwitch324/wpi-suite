@@ -1,12 +1,17 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Calendar;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -65,8 +70,14 @@ public abstract class AbCalendar extends JPanel {
 		JPanel apane = new JPanel();
 		apane.setLayout(new GridLayout(1,4));
 		
-		viewbtns[0] = new JToggleButton("Day");
-		viewbtns[0].setFont(defualtfont);
+		viewbtns[0] = new JToggleButton();
+		try {
+			Image img = ImageIO.read(getClass().getResource("Day_Icon.png"));
+		    this.viewbtns[0].setIcon(new ImageIcon(img));	    
+		} catch (IOException ex) {}
+		
+//		viewbtns[0].setFont(defualtfont);
+		viewbtns[0].setBackground(Color.WHITE);
 		viewbtns[0].addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)
@@ -77,8 +88,14 @@ public abstract class AbCalendar extends JPanel {
         });
 		
 		
-		viewbtns[1] = new JToggleButton("Week");
-		viewbtns[1].setFont(defualtfont);
+		viewbtns[1] = new JToggleButton();
+		try {
+			Image img = ImageIO.read(getClass().getResource("Week_Icon.png"));
+		    this.viewbtns[1].setIcon(new ImageIcon(img));	    
+		} catch (IOException ex) {}
+		
+//		viewbtns[1].setFont(defualtfont);
+		viewbtns[1].setBackground(Color.WHITE);
 		viewbtns[1].addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)
@@ -88,8 +105,14 @@ public abstract class AbCalendar extends JPanel {
             }
         });
 		
-		viewbtns[2] = new JToggleButton("Month");
-		viewbtns[2].setFont(defualtfont);
+		viewbtns[2] = new JToggleButton();
+		try {
+			Image img = ImageIO.read(getClass().getResource("Month_Icon.png"));
+		    this.viewbtns[2].setIcon(new ImageIcon(img));	    
+		} catch (IOException ex) {}
+		
+//		viewbtns[2].setFont(defualtfont);
+		viewbtns[2].setBackground(Color.WHITE);
 		viewbtns[2].addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)
@@ -99,8 +122,14 @@ public abstract class AbCalendar extends JPanel {
             }
         });
 		
-		viewbtns[3] = new JToggleButton("Year");
-		viewbtns[3].setFont(defualtfont);
+		viewbtns[3] = new JToggleButton();
+		try {
+			Image img = ImageIO.read(getClass().getResource("Year_Icon.png"));
+		    this.viewbtns[3].setIcon(new ImageIcon(img));	    
+		} catch (IOException ex) {}
+		
+//		viewbtns[3].setFont(defualtfont);
+		viewbtns[3].setBackground(Color.WHITE);
 		viewbtns[3].addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)
