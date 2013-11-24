@@ -79,7 +79,10 @@ public class GUIEventController {
 		main.addTab("", new ImageIcon(img), teamCalendar);
 		
 		} catch (IOException ex) {}
-
+		catch(IllegalArgumentException ex){
+			main.addTab("My Calendar", new ImageIcon(), myCalendar);
+			main.addTab("Team Calendar", new ImageIcon(), teamCalendar);
+		}
 	}
 
 	/**
