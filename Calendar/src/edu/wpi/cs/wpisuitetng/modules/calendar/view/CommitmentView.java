@@ -61,6 +61,7 @@ public class CommitmentView extends JPanel {
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(scrollPane, BorderLayout.CENTER );
+		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 
 		SpringLayout layout = new SpringLayout();
 		setLayout(layout);
