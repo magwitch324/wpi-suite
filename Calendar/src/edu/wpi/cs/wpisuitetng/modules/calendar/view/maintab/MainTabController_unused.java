@@ -20,6 +20,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab;
  * JPage
  */
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
