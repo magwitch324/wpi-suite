@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -149,6 +151,17 @@ public class CommitDetailedPane extends JPanel {
 
 			LineBorder roundedLineBorder = new LineBorder(Color.black, 1, true);
 			apane.setBorder(roundedLineBorder);
+			
+			apane.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount() > 1){
+						//TODO:FIX   GUIEventController.getInstance().editCommitment(((CommitmentViewPanel)e.getComponent()).getCommitment(), tcalendar.getCalData());
+					}
+				}		
+			});
+			
+			
 			return apane;
 		}
 
