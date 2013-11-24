@@ -174,6 +174,7 @@ public abstract class AbCalendar extends JPanel {
 		JPanel apane = new JPanel();
 		
 		JButton backwardbutton = new JButton("<<");
+		backwardbutton.setBackground(Color.WHITE);
 		backwardbutton.setFont(defualtfont);
 		backwardbutton.addActionListener(new ActionListener() {
 			 
@@ -185,6 +186,7 @@ public abstract class AbCalendar extends JPanel {
         });
 		
 		JButton todaybutton = new JButton("Today");
+		todaybutton.setBackground(Color.WHITE);
 		todaybutton.setFont(defualtfont);
 		todaybutton.addActionListener(new ActionListener() {
 			 
@@ -196,6 +198,7 @@ public abstract class AbCalendar extends JPanel {
         });
 		
 		JButton forwardbutton = new JButton(">>");
+		forwardbutton.setBackground(Color.WHITE);
 		forwardbutton.setFont(defualtfont);
 		forwardbutton.addActionListener(new ActionListener() {
 			 
