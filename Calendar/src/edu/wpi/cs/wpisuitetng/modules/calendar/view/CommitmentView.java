@@ -121,7 +121,7 @@ public class CommitmentView extends JPanel {
 				//commitmentPanel.setBorder((BorderFactory.createMatteBorder(
 				//        -2, -2, -2, -2, Color.GRAY)));
 				JLabel name = new JLabel("Name: "+commitmentList.get(i).getName());
-				JLabel date = new JLabel("Due Date: "+ commitmentList.get(i).getDueDate());
+				JLabel date = new JLabel("Due Date: "+ commitmentList.get(i).getDueDate().getTime());
 				JLabel description = new JLabel("<HTML>Description: "+ commitmentList.get(i).getDescription()+"</HTML>");
 				JLabel status = new JLabel("Status: " + Status.convertToString(commitmentList.get(i).getStatus().id));
 				commitmentPanel.setLayout(new GridBagLayout());

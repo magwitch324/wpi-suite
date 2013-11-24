@@ -16,6 +16,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -144,7 +145,7 @@ public class GUIEventController {
 
 	}
 	
-	public void switchView(Calendar acal, TeamCalendar.types switchtype, TeamCalendar ateamcal){
+	public void switchView(GregorianCalendar acal, TeamCalendar.types switchtype, TeamCalendar ateamcal){
 		ateamcal.setCalsetView(acal, switchtype);
 	}
 

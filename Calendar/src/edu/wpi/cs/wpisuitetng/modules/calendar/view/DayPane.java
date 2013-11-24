@@ -3,6 +3,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -46,7 +47,7 @@ public class DayPane extends JPanel implements ICalPane {
        */
 
 
-	public DayPane(Calendar datecalendar, AbCalendar abCalendar) {
+	public DayPane(GregorianCalendar datecalendar, AbCalendar abCalendar) {
 
 		final boolean showCommitements = abCalendar.getShowCommitements();
 		final boolean showTeamCommitments = abCalendar.getShowTeamData();

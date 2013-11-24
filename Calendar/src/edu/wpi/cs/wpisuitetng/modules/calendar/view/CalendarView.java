@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -37,7 +38,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * Constructor
 	 * Sets up the panel with the refresh function
 	 */
-	public CalendarView(Calendar calendar) {
+	public CalendarView(GregorianCalendar calendar) {
 	}
 	/**
 	 * create and display View componenets
@@ -103,7 +104,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * set the new date range for the calendar
 	 * @param calendar
 	 */
-	abstract public void setRange(Calendar calendar);
+	abstract public void setRange(GregorianCalendar calendar);
 	
 	public void setCalPane(ICalPane pane) {
 		// TODO Auto-generated method stub

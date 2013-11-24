@@ -7,6 +7,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.Calendar;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 
 import javax.swing.JComponent;
@@ -22,9 +23,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 public class CommitDetailedPane extends JPanel {
 	
 	ArrayList<Commitment> commits;
-	Calendar adate;
-	public CommitDetailedPane(Calendar adate, ArrayList<Commitment> commits){
+	GregorianCalendar adate;
+	public CommitDetailedPane(GregorianCalendar adate, ArrayList<Commitment> commits){
 		super();
+		
 		System.out.println( "start" );
 		this.setLayout(new SpringLayout());
 		this.addComponentListener(new ComponentListener() {
@@ -41,7 +43,8 @@ public class CommitDetailedPane extends JPanel {
 		});
 		
 		this.commits = commits;
-		this.adate = (Calendar)adate.clone();
+		this.adate = new GregorianCalendar();
+		this.adate.setTime(adate.getTime());
 		
 		this.didResize();
 
@@ -61,8 +64,8 @@ public class CommitDetailedPane extends JPanel {
 		for(int index = 0; index < 48; index++){
 			ArrayList<Commitment> tomake = new ArrayList<Commitment>();
 			for( int i = 0; i < commits.size(); i++){
-				Calendar acal = Calendar.getInstance();
-				acal.setTime(commits.get(i).getDueDate());
+				GregorianCalendar acal = new GregorianCalendar();
+				acal.setTime(commits.get(i).getDueDate().getTime());
 				if(adate.get(Calendar.DATE) == acal.get(Calendar.DATE) &&
 						adate.get(Calendar.MONTH) == acal.get(Calendar.MONTH) &&
 						adate.get(Calendar.YEAR) == acal.get(Calendar.YEAR)){
@@ -112,8 +115,8 @@ public class CommitDetailedPane extends JPanel {
 			apane.setBackground(new Color(255,255,255));
 			//TODO add function for clicking to go to the editor
 			
-			Calendar acal = (Calendar)Calendar.getInstance().clone();
-			acal.setTime(tochange.getDueDate());
+			GregorianCalendar acal = new GregorianCalendar();
+			acal.setTime(tochange.getDueDate().getTime());
 			String time = "Time - " + acal.get(Calendar.HOUR) + ":" + 
 						(acal.get(Calendar.MINUTE) > 10 ? 
 								acal.get(Calendar.MINUTE) :

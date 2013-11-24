@@ -3,8 +3,10 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.GregorianCalendar;
 import java.util.List;
 //import edu.wpi.cs.wpisuitetng.modules.requirementmanager.controller.AddRequirementController;
+
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 
@@ -164,9 +166,9 @@ public class CommitmentList {
 	 * @param end
 	 * @return
 	 */
-	public List<Commitment> filter(Calendar start, Calendar end) {
+	public List<Commitment> filter(GregorianCalendar start, GregorianCalendar end) {
 
-		Calendar commitDate = Calendar.getInstance();
+		GregorianCalendar commitDate = new GregorianCalendar();
 		List<Commitment> newCommitments = new ArrayList<Commitment>();
 		
 		// move start and end to make the function inclusive
@@ -176,7 +178,7 @@ public class CommitmentList {
 		// iterate and add all commitments between start and end
 		// to the commitment list
 		for (Commitment commit : commitments) {
-			commitDate.setTime(commit.getDueDate());
+			commitDate.setTime(commit.getDueDate().getTime());
 			if (commitDate.after(start) && commitDate.before(end)) {
 				newCommitments.add(commit);
 			} 
@@ -194,9 +196,11 @@ public class CommitmentList {
 	 * @return
 	 * @throws CalendarException 
 	 */
-	public List<Commitment> filter(Calendar date, int amount) throws CalendarException {
-		Calendar start = (Calendar) date.clone();
-		Calendar end   = (Calendar) start.clone();
+	public List<Commitment> filter(GregorianCalendar date, int amount) throws CalendarException {
+		GregorianCalendar start = new GregorianCalendar();
+		start.setTime(date.getTime());
+		GregorianCalendar end   = new GregorianCalendar();
+		end.setTime(date.getTime());
 		
 		
 		/* All methods here add the given amount, then roll back
@@ -208,19 +212,19 @@ public class CommitmentList {
 		}
 		else if (amount == Calendar.WEEK_OF_MONTH || amount == Calendar.WEEK_OF_YEAR) {
 			start.set(Calendar.DAY_OF_WEEK, start.getFirstDayOfWeek());
-			end = (Calendar) start.clone();
+			end.setTime(start.getTime());
 			end.add(Calendar.WEEK_OF_YEAR, 1);
 			end.add(Calendar.DAY_OF_YEAR, -1);
 		}
 		else if (amount == Calendar.MONTH) {
 			start.set(Calendar.DAY_OF_MONTH, 1);
-			end = (Calendar) start.clone();
+			end.setTime(start.getTime());
 			end.add(Calendar.MONTH, 1);
 			end.add(Calendar.DAY_OF_YEAR, -1);
 		}
 		else if (amount == Calendar.YEAR) {
 			start.set(Calendar.DAY_OF_YEAR, 1);
-			end = (Calendar) start.clone();
+			end.setTime(start.getTime());
 			end.add(Calendar.YEAR, 1);
 			end.add(Calendar.DAY_OF_YEAR, -1);
 		} else {

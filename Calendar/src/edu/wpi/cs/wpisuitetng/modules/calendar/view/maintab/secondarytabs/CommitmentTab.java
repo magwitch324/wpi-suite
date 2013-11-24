@@ -297,7 +297,7 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(timeSpinner, gbc_spinner);
 		
 
-		timeSpinner.setValue(Calendar.getInstance().getTime());
+		timeSpinner.setValue(new GregorianCalendar().getTime());
 		
 		//Date label
 		JLabel lblDate_1 = new JLabel("Date:");
@@ -373,7 +373,7 @@ public class CommitmentTab extends JPanel {
 		
 
 		
-		Calendar c = new GregorianCalendar();
+		GregorianCalendar c = new GregorianCalendar();
 	    c.set(Calendar.HOUR_OF_DAY, 0);
 	    c.set(Calendar.MINUTE, 0);
 	    c.set(Calendar.SECOND, 0);
@@ -482,8 +482,8 @@ public class CommitmentTab extends JPanel {
 		this.rdbtnTeam.setEnabled(false);
 		this.rdbtnPersonal.setEnabled(false);
 		
-		this.timeSpinner.setValue(editingCommitment.getDueDate());
-		this.datePicker.setDate(editingCommitment.getDueDate());
+		this.timeSpinner.setValue(editingCommitment.getDueDate().getTime());
+		this.datePicker.setDate(editingCommitment.getDueDate().getTime());
 		String[] statusStrings = {"New", "In Progress", "Completed"};
 		statusComboBox = new JComboBox(statusStrings);
 		
@@ -542,7 +542,7 @@ public class CommitmentTab extends JPanel {
 	private void addTimeRoundingEvent() {
 		timeSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				Calendar c = new GregorianCalendar();
+				GregorianCalendar c = new GregorianCalendar();
 				//get time value from spinner
 				c.setTime((Date)timeSpinner.getValue());
 				int minutesVal = c.get(Calendar.MINUTE);
@@ -620,15 +620,15 @@ public class CommitmentTab extends JPanel {
 		}			
 		
 		//Parse date and time info
-		Calendar calDate = new GregorianCalendar();
-		Calendar calTime = new GregorianCalendar();
+		GregorianCalendar calDate = new GregorianCalendar();
+		GregorianCalendar calTime = new GregorianCalendar();
 		calDate.setTime(this.datePicker.getDate());
 		calTime.setTime((Date)timeSpinner.getValue());
 		calDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
 		calDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
 		
 		//set due date
-		newComm.setDueDate(calDate.getTime());
+		newComm.setDueDate(calDate);
 		newComm.setName(this.nameTextField.getText());
 		
 		if (mode == EditingMode.ADDING)

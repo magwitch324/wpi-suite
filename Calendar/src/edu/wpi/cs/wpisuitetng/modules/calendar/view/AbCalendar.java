@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -39,7 +40,7 @@ public abstract class AbCalendar extends JPanel {
 	}
 	
 	protected types currenttype = types.DAY;
-	protected Calendar mycal;;
+	protected GregorianCalendar mycal;
 	
 	protected JPanel viewpanel = new JPanel(); 
 	protected JToggleButton[] viewbtns = new JToggleButton[4];
@@ -51,7 +52,7 @@ public abstract class AbCalendar extends JPanel {
 	
 	public AbCalendar(){
 		super();
-		mycal = Calendar.getInstance();
+		mycal = new GregorianCalendar();
 
 		// Draws GUI
 		drawThis();
@@ -119,7 +120,7 @@ public abstract class AbCalendar extends JPanel {
 	
 	protected void stepCalendar(int step){
 		if(step == 0){
-			mycal = Calendar.getInstance();
+			mycal = new GregorianCalendar();
 		}
 		else{
 			mycal.add(viewsizeval[currenttype.getCurrentType()], step);
@@ -218,14 +219,14 @@ public abstract class AbCalendar extends JPanel {
 		
 	}
 	
-	public void setCal(Calendar changeto){
-		mycal = (Calendar)changeto.clone();
+	public void setCal(GregorianCalendar changeto){
+		mycal.setTime(changeto.getTime());
 		setView();
 	}
 	
-	public void setCalsetView(Calendar acal, TeamCalendar.types switchtype)
+	public void setCalsetView(GregorianCalendar acal, TeamCalendar.types switchtype)
 	{
-		mycal = (Calendar)acal.clone();
+		mycal.setTime(acal.getTime());
 		switchview(switchtype);
 		setView();
 	}

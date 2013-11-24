@@ -24,7 +24,7 @@ public class CommitmentListTest {
 	CommitmentList commitments;
 	Calendar start = (Calendar) Calendar.getInstance().clone();
 	Calendar end   = (Calendar) Calendar.getInstance().clone();
-	
+	/*
 	@SuppressWarnings("deprecation")
 	@Before
 	public void setup() {
@@ -75,6 +75,6 @@ public class CommitmentListTest {
 		String monthName = cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
 		int year = cal.get(cal.YEAR);
 		System.out.println(dayName + ", " + monthName + " " + dayNum + ", " + year);
-	}
+	}*/
 	
 }
