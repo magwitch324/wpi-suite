@@ -111,10 +111,11 @@ public class WeekPane extends JPanel implements ICalPane {
     						{"Sun, ", "Mon, ", "Tue, ","Wed, ", "Thu, ", "Fri, ", "Sat, " },
     						{"Sun", "Mon", "Tue","Wed", "Thu", "Fri", "Sat" }};
     	
-    	int initial = mydate.get(Calendar.DATE);
+    	Calendar acal = (Calendar)mydate.clone();
     	if(use < 2){
     		for(int i=0; i < 7; i++) {
-    			weekdays[use][i] += (initial + i);
+    			weekdays[use][i] += acal.get(Calendar.DATE);
+    			acal.add(Calendar.DATE, 1);
     		}
     	}
     	
