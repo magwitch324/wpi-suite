@@ -76,15 +76,18 @@ public class GUIEventController {
 		teamCalendar = new TeamCalendar();
 		myCalendar = new MyCalendar();
 		
-//		try {
-//		Image img = ImageIO.read(getClass().getResource("PersonalCalendar_Icon.png"));
-		main.addTab("My Calendar", null, myCalendar);
-		
-//		img = ImageIO.read(getClass().getResource("TeamCalendar_Icon.png"));
-		main.addTab("Team Calendar", null , teamCalendar);
-	
-//		} catch (IOException ex) {}
-
+		try {
+            Image img = ImageIO.read(getClass().getResource("PersonalCalendar_Icon.png"));
+            main.addTab("", new ImageIcon(img), myCalendar);
+            
+            img = ImageIO.read(getClass().getResource("TeamCalendar_Icon.png"));
+            main.addTab("", new ImageIcon(img), teamCalendar);
+            
+            } catch (IOException ex) {}
+            catch(IllegalArgumentException ex){
+                    main.addTab("My Calendar", new ImageIcon(), myCalendar);
+                    main.addTab("Team Calendar", new ImageIcon(), teamCalendar);
+            }
 	}
 	
 	/**

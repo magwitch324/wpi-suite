@@ -90,6 +90,7 @@ public class DayPane extends JPanel implements ICalPane {
 //				commitmentList = new ArrayList<Commitment>(calData.getCommitments().getCommitments());
 //				commitmentList.addAll(teamCommitments.getCommitments().getCommitments());
 //			}
+
 			
 
 		// HOURS
@@ -103,7 +104,20 @@ public class DayPane extends JPanel implements ICalPane {
 				layout = new SpringLayout();
 				mainPanel.setLayout(layout);
 				mainPanel.setPreferredSize(new Dimension(30, 2000));
-				      
+				  
+				JPanel apane = new JPanel();
+		    	apane.setLayout(new GridLayout(1,2));
+
+			    JLabel eventlabel = new JLabel("Events", SwingConstants.CENTER);
+			    eventlabel.setFont(new Font("Arial", 1, 14));
+			    apane.add( eventlabel );
+			    
+			    JLabel commitlabel = new JLabel("Commitments", SwingConstants.CENTER);
+			    commitlabel.setFont(new Font("Arial", 1, 14));
+			    apane.add( commitlabel );
+			    
+			    scrollPane.setColumnHeaderView(apane);
+				
 				scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
 				scrollPane.getVerticalScrollBar().setValue(800);
 				
@@ -165,6 +179,7 @@ public class DayPane extends JPanel implements ICalPane {
 
 	protected JComponent getTimesBar(double height){
     	 JPanel apane = new JPanel();
+    	 apane.setBackground(Color.RED);
     	 SpringLayout layout = new SpringLayout();
     	 apane.setLayout(layout);
     	 

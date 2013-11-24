@@ -71,10 +71,15 @@ public abstract class AbCalendar extends JPanel {
 		apane.setLayout(new GridLayout(1,4));
 		
 		viewbtns[0] = new JToggleButton();
-//		try {
-//			Image img = ImageIO.read(getClass().getResource("Day_Icon.png"));
-//		    this.viewbtns[0].setIcon(new ImageIcon(img));	    
-//		} catch (IOException ex) {}
+
+		try {
+			Image img = ImageIO.read(getClass().getResource("Day_Icon.png"));
+		    this.viewbtns[0].setIcon(new ImageIcon(img));	    
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			this.viewbtns[0].setIcon(new ImageIcon());
+			this.viewbtns[0].setText("Day");
+		} 
 		
 //		viewbtns[0].setFont(defualtfont);
 		viewbtns[0].setBackground(Color.WHITE);
@@ -89,10 +94,16 @@ public abstract class AbCalendar extends JPanel {
 		
 		
 		viewbtns[1] = new JToggleButton();
-//		try {
-//			Image img = ImageIO.read(getClass().getResource("Week_Icon.png"));
-//		    this.viewbtns[1].setIcon(new ImageIcon(img));	    
-//		} catch (IOException ex) {}
+
+		try {
+			Image img = ImageIO.read(getClass().getResource("Week_Icon.png"));
+		    this.viewbtns[1].setIcon(new ImageIcon(img));	    
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			this.viewbtns[1].setIcon(new ImageIcon());
+			this.viewbtns[1].setText("Week");
+		}
+
 		
 //		viewbtns[1].setFont(defualtfont);
 		viewbtns[1].setBackground(Color.WHITE);
@@ -106,10 +117,16 @@ public abstract class AbCalendar extends JPanel {
         });
 		
 		viewbtns[2] = new JToggleButton();
-//		try {
-//			Image img = ImageIO.read(getClass().getResource("Month_Icon.png"));
-//		    this.viewbtns[2].setIcon(new ImageIcon(img));	    
-//		} catch (IOException ex) {}
+
+		try {
+			Image img = ImageIO.read(getClass().getResource("Month_Icon.png"));
+		    this.viewbtns[2].setIcon(new ImageIcon(img));	    
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			this.viewbtns[2].setIcon(new ImageIcon());
+			this.viewbtns[2].setText("Month");
+		}
+
 		
 //		viewbtns[2].setFont(defualtfont);
 		viewbtns[2].setBackground(Color.WHITE);
@@ -123,10 +140,15 @@ public abstract class AbCalendar extends JPanel {
         });
 		
 		viewbtns[3] = new JToggleButton();
-//		try {
-//			Image img = ImageIO.read(getClass().getResource("Year_Icon.png"));
-//		    this.viewbtns[3].setIcon(new ImageIcon(img));	    
-//		} catch (IOException ex) {}
+
+		try {
+			Image img = ImageIO.read(getClass().getResource("Year_Icon.png"));
+		    this.viewbtns[3].setIcon(new ImageIcon(img));	    
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			this.viewbtns[3].setIcon(new ImageIcon());
+			this.viewbtns[3].setText("Year");
+		}
 		
 //		viewbtns[3].setFont(defualtfont);
 		viewbtns[3].setBackground(Color.WHITE);
@@ -174,6 +196,7 @@ public abstract class AbCalendar extends JPanel {
 		JPanel apane = new JPanel();
 		
 		JButton backwardbutton = new JButton("<<");
+		backwardbutton.setBackground(Color.WHITE);
 		backwardbutton.setFont(defualtfont);
 		backwardbutton.addActionListener(new ActionListener() {
 			 
@@ -185,6 +208,7 @@ public abstract class AbCalendar extends JPanel {
         });
 		
 		JButton todaybutton = new JButton("Today");
+		todaybutton.setBackground(Color.WHITE);
 		todaybutton.setFont(defualtfont);
 		todaybutton.addActionListener(new ActionListener() {
 			 
@@ -196,6 +220,7 @@ public abstract class AbCalendar extends JPanel {
         });
 		
 		JButton forwardbutton = new JButton(">>");
+		forwardbutton.setBackground(Color.WHITE);
 		forwardbutton.setFont(defualtfont);
 		forwardbutton.addActionListener(new ActionListener() {
 			 
@@ -232,10 +257,12 @@ public abstract class AbCalendar extends JPanel {
 			viewpanel.add(calView);
 			break;
 		case(2):
-			//TODO dayview
+			calView = (new MonthView(mycal, calData));
+			displayCalData();
+			viewpanel.add(calView);			
 			break;
 		case(3):
-			//TODO dayview
+			//TODO YearView
 			break;
 		default:
 			//TODO error
