@@ -61,6 +61,7 @@ import java.awt.event.MouseEvent;
 import java.awt.Component;
 
 import javax.swing.Box;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import java.awt.Color;
@@ -412,7 +413,6 @@ public class CommitmentTab extends JPanel {
 		
 		//Add Commitment button
 		btnAddCommitment = new JButton("Save Commitment");
-
 		btnAddCommitment.addActionListener(new ActionListener() {
 
 			@Override
@@ -499,7 +499,7 @@ public class CommitmentTab extends JPanel {
 		
 		
 		buttonPanel.add(btnAddCommitment, BorderLayout.WEST);		
-		buttonPanel.add(btnCancel, BorderLayout.EAST);
+		buttonPanel.add(btnCancel, BorderLayout.CENTER);
 		formPanel.add(buttonPanel, gbc_btnPanel);
 		
 		
@@ -562,7 +562,7 @@ public class CommitmentTab extends JPanel {
 			}
 			
 		});
-		buttonPanel.add(btnDelete, BorderLayout.CENTER);
+		buttonPanel.add(btnDelete, BorderLayout.LINE_END);
 		
 		//Some edit specific listeners
 		//These are here to avoid possible NullPointer exceptions while opening the tab 
