@@ -10,6 +10,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar;
 
 
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
@@ -41,6 +42,7 @@ public class ToolbarView  extends DefaultToolbarView {
 	 * @param visible boolean
 	 */
 	public ToolbarView(boolean visible) {
+		super.setBackground(Color.WHITE);
 		createButtons = new ButtonsPanel_Create();
 		this.addGroup(createButtons);
 		/*

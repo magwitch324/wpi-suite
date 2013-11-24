@@ -48,18 +48,23 @@ public class TeamCalendarTab extends JSplitPane {
 		JPanel buttonPanel = new JPanel();
 		
 		nextYear = new JButton(">>");
+		nextYear.setBackground(Color.WHITE);
 		nextYear.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		nextMonth = new JButton(">");
+		nextMonth.setBackground(Color.WHITE);
 		nextMonth.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		today = new JButton ("Today");
+		today.setBackground(Color.WHITE);
 		today.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		prevMonth = new JButton("<");
+		prevMonth.setBackground(Color.WHITE);
 		prevMonth.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		prevYear = new JButton("<<");
+		prevYear.setBackground(Color.WHITE);
 		prevYear.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		//setupButtonListeners();
