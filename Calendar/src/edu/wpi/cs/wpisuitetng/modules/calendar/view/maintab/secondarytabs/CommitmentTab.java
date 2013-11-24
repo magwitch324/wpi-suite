@@ -413,9 +413,10 @@ public class CommitmentTab extends JPanel {
 		//Add Commitment button
 		btnAddCommitment = new JButton("Save Commitment");
 
-		btnAddCommitment.addMouseListener(new MouseAdapter() {
+		btnAddCommitment.addActionListener(new ActionListener() {
+
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				addCommitment();
 			}
 			
@@ -486,14 +487,12 @@ public class CommitmentTab extends JPanel {
 		
 		//Add Cancel button
 		btnCancel = new JButton("Cancel");
-		btnCancel.addMouseListener(new MouseAdapter() {
+		btnCancel.addActionListener(new ActionListener() {
+
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				removeTab();
 			}
-
-			
-
 			
 		});
 		
@@ -555,9 +554,10 @@ public class CommitmentTab extends JPanel {
 
 		formPanel.add(statusLabel,gbc_statusLabel);
 		btnDelete = new JButton("Delete");
-		btnDelete.addMouseListener(new MouseAdapter() {
+		btnDelete.addActionListener(new ActionListener() {
+
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				deleteCommitment();
 			}
 			
