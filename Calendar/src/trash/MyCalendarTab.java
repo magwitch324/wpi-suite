@@ -10,7 +10,8 @@
  *    Andrew Hurle
  ******************************************************************************/
 
-package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
+package trash;
+
 
 /**
  * This panel will show notifications, search widgets.
