@@ -505,6 +505,33 @@ public class CommitmentTab extends JPanel {
 		buttonPanel.add(btnCancel, BorderLayout.CENTER);
 		formPanel.add(buttonPanel, gbc_btnPanel);
 		
+		String[] statusStrings = {"New", "In Progress", "Completed"};
+		statusComboBox = new JComboBox(statusStrings);
+		
+		
+		statusComboBox.setSelectedIndex(0);
+		GridBagConstraints gbc_statusComboBox = new GridBagConstraints();
+		gbc_statusComboBox.insets = new Insets(0, 0, 5, 0);
+		gbc_statusComboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_statusComboBox.gridx = 1;
+		gbc_statusComboBox.gridy = 6;
+		gbc_statusComboBox.weightx = 1;
+		gbc_statusComboBox.weighty = 3;
+
+		formPanel.add(statusComboBox,gbc_statusComboBox);
+		
+		statusLabel = new JLabel("Status:");
+		GridBagConstraints gbc_statusLabel = new GridBagConstraints();
+		gbc_statusLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_statusLabel.fill = GridBagConstraints.VERTICAL;
+		gbc_statusLabel.anchor = GridBagConstraints.EAST;
+		gbc_statusLabel.gridx = 0;
+		gbc_statusLabel.gridy = 6;
+		gbc_statusLabel.weightx = 1;
+		gbc_statusLabel.weighty = 3;
+
+		formPanel.add(statusLabel,gbc_statusLabel);
+		
 		this.initFlag = true;
 	}
 
@@ -533,32 +560,11 @@ public class CommitmentTab extends JPanel {
 		
 		this.timeSpinner.setValue(editingCommitment.getDueDate());
 		this.datePicker.setDate(editingCommitment.getDueDate());
-		String[] statusStrings = {"New", "In Progress", "Completed"};
-		statusComboBox = new JComboBox(statusStrings);
+
 		
 		
 		statusComboBox.setSelectedIndex(commToEdit.getStatus().id);
-		GridBagConstraints gbc_statusComboBox = new GridBagConstraints();
-		gbc_statusComboBox.insets = new Insets(0, 0, 5, 0);
-		gbc_statusComboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_statusComboBox.gridx = 1;
-		gbc_statusComboBox.gridy = 6;
-		gbc_statusComboBox.weightx = 1;
-		gbc_statusComboBox.weighty = 3;
-
-		formPanel.add(statusComboBox,gbc_statusComboBox);
 		
-		statusLabel = new JLabel("Status:");
-		GridBagConstraints gbc_statusLabel = new GridBagConstraints();
-		gbc_statusLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_statusLabel.fill = GridBagConstraints.VERTICAL;
-		gbc_statusLabel.anchor = GridBagConstraints.EAST;
-		gbc_statusLabel.gridx = 0;
-		gbc_statusLabel.gridy = 6;
-		gbc_statusLabel.weightx = 1;
-		gbc_statusLabel.weighty = 3;
-
-		formPanel.add(statusLabel,gbc_statusLabel);
 		btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
 
@@ -710,9 +716,9 @@ public class CommitmentTab extends JPanel {
 		newComm.setCategoryId(((Category)this.categoryComboBox.getSelectedItem()).getId());
 		newComm.setDescription(this.descriptionTextArea.getText());
 		
-		if(mode == EditingMode.EDITING) {
-			newComm.setStatus(Status.getStatusValue(statusComboBox.getSelectedIndex()));
-		}			
+
+		newComm.setStatus(Status.getStatusValue(statusComboBox.getSelectedIndex()));
+		
 		
 		//Parse date and time info
 		Calendar calDate = new GregorianCalendar();
