@@ -12,7 +12,9 @@ public class MonthView extends CalendarView {
 	
 	private Calendar aMonth;
 	
-	public MonthView(GregorianCalendar datecalendar, TeamCalendar tcalendar) {
+
+	public MonthView(GregorianCalendar datecalendar, AbCalendar tcalendar) {
+
 		super(datecalendar);
 		setCalPane(new MonthPane(datecalendar));
 		setCommitmentView(new CommitmentView(tcalendar));
@@ -33,7 +35,7 @@ public class MonthView extends CalendarView {
 		int startYear = aMonth.get(Calendar.YEAR);
 		int endYear = aMonth.get(Calendar.YEAR);
 		
-		setLabel(monthName + " ");
+		setLabel(monthName + " " + aMonth.get(Calendar.YEAR));
 				
 		refresh();
 	}

@@ -3,6 +3,7 @@
  */
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -30,10 +31,7 @@ import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 
-/**
- * @author cttibbetts
- *
- */
+
 public class WeekPane extends JPanel implements ICalPane {
 	JPanel mainPanel = new JPanel();
 	JScrollPane scrollPane = new JScrollPane(mainPanel, 
@@ -46,9 +44,11 @@ public class WeekPane extends JPanel implements ICalPane {
     * Create the panel.
     */
 
+
 	public WeekPane(GregorianCalendar datecalendar, AbCalendar abCalendar) {
 		mydate = new GregorianCalendar();
 		mydate.setTime(datecalendar.getTime());
+
 		calendarused = abCalendar;
 	   	while(mydate.get(Calendar.DAY_OF_WEEK) != mydate.getFirstDayOfWeek() ){
 	   		mydate.add(Calendar.DATE, -1);
@@ -58,6 +58,7 @@ public class WeekPane extends JPanel implements ICalPane {
 		scrollPane.setMinimumSize(new Dimension(500, 300));
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane.setMinimumSize(new Dimension(500, 300));
+		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		
 		SpringLayout layout = new SpringLayout();
 		mainPanel.setLayout(layout);
@@ -111,14 +112,16 @@ public class WeekPane extends JPanel implements ICalPane {
     						{"Sun, ", "Mon, ", "Tue, ","Wed, ", "Thu, ", "Fri, ", "Sat, " },
     						{"Sun", "Mon", "Tue","Wed", "Thu", "Fri", "Sat" }};
     	
-    	int initial = mydate.get(Calendar.DATE);
+    	Calendar acal = (Calendar)mydate.clone();
     	if(use < 2){
     		for(int i=0; i < 7; i++) {
-    			weekdays[use][i] += (initial + i);
+    			weekdays[use][i] += acal.get(Calendar.DATE);
+    			acal.add(Calendar.DATE, 1);
     		}
     	}
     	
     	JPanel apane = new JPanel();
+    	apane.setBackground(Color.RED);
     	SpringLayout layout = new SpringLayout();
     	GridLayout g = new GridLayout(1,7);
     	
@@ -137,6 +140,7 @@ public class WeekPane extends JPanel implements ICalPane {
     
     protected JComponent getDays(){
     	JPanel apane = new JPanel();
+    	apane.setBackground(Color.WHITE);
 	    apane.setLayout(new GridLayout(1,7));
     	String[] weekdays = {"Sunday, ", "Monday, ", "Tuesday, ",
 				"Wednesday, ", "Thursday, ", "Friday, ", "Saturday, " };
@@ -201,6 +205,7 @@ public class WeekPane extends JPanel implements ICalPane {
 			JScrollPane ascrollpane = new JScrollPane(commits, 
 					ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			ascrollpane.getVerticalScrollBar().setUnitIncrement(20);
 			ascrollpane.setMinimumSize(new Dimension(10,40));
 			secondpane.add(ascrollpane);
 	    }
@@ -211,6 +216,7 @@ public class WeekPane extends JPanel implements ICalPane {
     
 	protected JComponent getTimesBar(double height){
 		JPanel apane = new JPanel();
+		apane.setBackground(Color.RED);
 		SpringLayout layout = new SpringLayout();
 		apane.setLayout(layout);
 		 

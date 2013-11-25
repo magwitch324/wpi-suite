@@ -61,6 +61,7 @@ import java.awt.event.MouseEvent;
 import java.awt.Component;
 
 import javax.swing.Box;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import java.awt.Color;
@@ -213,6 +214,28 @@ public class CommitmentTab extends JPanel {
         gbc_descriptionTextField.gridy = 1;
 		formPanel.add(descriptionTextArea, gbc_descriptionTextField);
 		
+		descriptionTextArea.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				listenerHelper();
+			}
+			
+			
+			
+			
+		});
 		
 		//Category label
 		JLabel lblCategory = new JLabel("Category:");
@@ -229,7 +252,7 @@ public class CommitmentTab extends JPanel {
 		//Create category box, add two dummy categories
 		categoryComboBox = new JComboBox<Category>();
 		categoryComboBox.addItem(new Category(4, "Cat1"));
-		categoryComboBox.addItem(new Category(4, "Cat2"));
+		categoryComboBox.addItem(new Category(5, "Cat2"));
 
 		GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
 		gbc_categoryComboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -239,6 +262,15 @@ public class CommitmentTab extends JPanel {
 		gbc_categoryComboBox.weightx = 10;
 		gbc_categoryComboBox.weighty = 1;
 		formPanel.add(categoryComboBox, gbc_categoryComboBox);
+		
+		categoryComboBox.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listenerHelper();
+			}
+			
+		});
 		
 		lblType = new JLabel("Type:");
 		lblType.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -299,6 +331,8 @@ public class CommitmentTab extends JPanel {
 
 		timeSpinner.setValue(new GregorianCalendar().getTime());
 		
+
+		
 		//Date label
 		JLabel lblDate_1 = new JLabel("Date:");
 		lblDate_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -338,12 +372,7 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(nameTextField.getText().equals("") || datePicker.getDate() == null || 
-						nameTextField.getText().trim().length() == 0){
-					btnAddCommitment.setEnabled(false);
-				} else {
-					btnAddCommitment.setEnabled(true);
-				}
+				listenerHelper();
 			}
 			
 			
@@ -384,10 +413,10 @@ public class CommitmentTab extends JPanel {
 		
 		//Add Commitment button
 		btnAddCommitment = new JButton("Save Commitment");
+		btnAddCommitment.addActionListener(new ActionListener() {
 
-		btnAddCommitment.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				addCommitment();
 			}
 			
@@ -398,16 +427,9 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
-				if(nameTextField.getText().equals("") || datePicker.getDate() == null || nameTextField.getText().trim().length() > 0  || 
-						nameTextField.getText().trim().length() == 0){
-					btnAddCommitment.setEnabled(false);
-				} else {
-					btnAddCommitment.setEnabled(true);
-				}
-				
-			}
-			
-		});
+				listenerHelper();
+			}}
+				);
 		
 		datePicker.getEditor().addKeyListener(new KeyListener(){
 
@@ -425,9 +447,32 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				listenerHelper();
+				if(nameTextField.getText().equals("") || datePicker.getEditor().getText().equals("")
+						|| nameTextField.getText().trim().length() == 0){
+					btnAddCommitment.setEnabled(false);
+				} else {
+					if (mode == EditingMode.EDITING){
+						//get some date data
+						Calendar calDate = new GregorianCalendar();
+						Calendar calTime = new GregorianCalendar();
+						calDate.setTime(datePicker.getDate());
+						calTime.setTime((Date)timeSpinner.getValue());
+						calDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
+						calDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
+						//make sure something changed
+						if (nameTextField.getText().equals(editingCommitment.getName()) 
+								&& descriptionTextArea.getText().equals(editingCommitment.getDescription())
+								&& ((Category)categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryId()
+								&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
+								&& calDate.getTime().equals(editingCommitment.getDueDate())){
+							btnAddCommitment.setEnabled(false);
+							return;
+						}
+					}
+					btnAddCommitment.setEnabled(true);
+				}
 			}		
-			
+
 		});
 		
 		btnAddCommitment.setEnabled(false);
@@ -442,21 +487,19 @@ public class CommitmentTab extends JPanel {
 		
 		//Add Cancel button
 		btnCancel = new JButton("Cancel");
-		btnCancel.addMouseListener(new MouseAdapter() {
+		btnCancel.addActionListener(new ActionListener() {
+
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				removeTab();
 			}
-
-			
-
 			
 		});
 		
 		
 		
 		buttonPanel.add(btnAddCommitment, BorderLayout.WEST);		
-		buttonPanel.add(btnCancel, BorderLayout.EAST);
+		buttonPanel.add(btnCancel, BorderLayout.CENTER);
 		formPanel.add(buttonPanel, gbc_btnPanel);
 		
 		
@@ -511,17 +554,61 @@ public class CommitmentTab extends JPanel {
 
 		formPanel.add(statusLabel,gbc_statusLabel);
 		btnDelete = new JButton("Delete");
-		btnDelete.addMouseListener(new MouseAdapter() {
+		btnDelete.addActionListener(new ActionListener() {
+
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				deleteCommitment();
 			}
 			
 		});
-		buttonPanel.add(btnDelete, BorderLayout.CENTER);
+		buttonPanel.add(btnDelete, BorderLayout.LINE_END);
 		
+		//Some edit specific listeners
+		//These are here to avoid possible NullPointer exceptions while opening the tab 
+		timeSpinner.addChangeListener(new ChangeListener(){
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				listenerHelper();
+				
+			}
+			
+			
+		});
+		/*
+		datePicker.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listenerHelper();
+				
+			}
+			
+			
+		});
+		*/
+		datePicker.getEditor().addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listenerHelper();
+				
+			}
+			
+			
+		});
 		
-		
+		statusComboBox.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listenerHelper();
+				
+			}
+			
+			
+		});
 
 	}
 	
@@ -660,11 +747,32 @@ public class CommitmentTab extends JPanel {
 		removeTab();
 	}
 
+	/**
+	 * Controls the enable state of the save button
+	 */
 	private void listenerHelper(){
-		if(nameTextField.getText().equals("") || datePicker.getDate() == null || 
+		if(nameTextField.getText().equals("") || datePicker.getDate() == null || //data validation
 				nameTextField.getText().trim().length() == 0){
 			btnAddCommitment.setEnabled(false);
 		} else {
+			if (mode == EditingMode.EDITING){
+				//get some date data
+				Calendar calDate = new GregorianCalendar();
+				Calendar calTime = new GregorianCalendar();
+				calDate.setTime(this.datePicker.getDate());
+				calTime.setTime((Date)timeSpinner.getValue());
+				calDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
+				calDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
+				//make sure something changed
+				if (this.nameTextField.getText().equals(editingCommitment.getName()) 
+						&& this.descriptionTextArea.getText().equals(editingCommitment.getDescription())
+						&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryId()
+						&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
+						&& calDate.getTime().equals(editingCommitment.getDueDate())){
+					btnAddCommitment.setEnabled(false);
+					return;
+				}
+			}
 			btnAddCommitment.setEnabled(true);
 		}
 		

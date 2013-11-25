@@ -13,6 +13,7 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab;
 
+import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.BorderFactory;
@@ -24,8 +25,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataControl
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.MyCalendar;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.TeamCalendar;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.MyCalendarTab;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.TeamCalendarTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.tab.ClosableTabComponent;
 
 /**
@@ -49,6 +48,7 @@ public class MainTabView extends JTabbedPane {
 		if (!(component instanceof AbCalendar)) {
 			setTabComponentAt(index, new ClosableTabComponent(this));
 		}
+		super.setBackground(Color.WHITE);
 	}
 	
 	@Override

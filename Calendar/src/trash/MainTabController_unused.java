@@ -12,7 +12,7 @@
  *    JPage
  ******************************************************************************/
 
-package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab;
+package trash;
 
 /**
  * Contributors:
@@ -20,6 +20,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab;
  * JPage
  */
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -27,6 +28,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.Icon;
 import javax.swing.event.ChangeListener;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.tab.Tab;
 
 
