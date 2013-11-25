@@ -26,9 +26,6 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarMonth;
-import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarYear;
-import edu.wpi.cs.wpisuitetng.modules.calendar.WeekView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.Event;
