@@ -57,7 +57,7 @@ public class DayPane extends JPanel implements ICalPane {
        */
 
 
-	public DayPane(Calendar datecalendar, CalendarData calData) {
+	public DayPane(Calendar datecalendar) {
 
 		day = datecalendar;
 //			// HOURS

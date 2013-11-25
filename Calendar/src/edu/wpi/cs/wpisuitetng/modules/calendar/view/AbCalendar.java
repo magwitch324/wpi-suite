@@ -247,17 +247,17 @@ public abstract class AbCalendar extends JPanel {
 		//TODO do views
 		switch(currenttype.getCurrentType()){
 		case(0):
-			calView = (new DayView(mycal, calData));
+			calView = (new DayView(mycal));
 			displayCalData();
 			viewpanel.add(calView);
 			break;
 		case(1):
-			calView = (new WeekView(mycal, calData));
+			calView = (new WeekView(mycal));
 			displayCalData();
 			viewpanel.add(calView);
 			break;
 		case(2):
-			calView = (new MonthView(mycal, calData));
+			calView = (new MonthView(mycal));
 			displayCalData();
 			viewpanel.add(calView);			
 			break;

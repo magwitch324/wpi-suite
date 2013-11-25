@@ -147,7 +147,8 @@ public class WeekPane extends JPanel implements ICalPane {
 
     
     /** Creates JPanel of commitment boxes for overlaying on detailed day
-     * @param calData
+     * @param personalCommList
+     * @param teamCommList
      * @return
      */
     protected JComponent getDays(CommitmentList personalCommList, CommitmentList teamCommList){

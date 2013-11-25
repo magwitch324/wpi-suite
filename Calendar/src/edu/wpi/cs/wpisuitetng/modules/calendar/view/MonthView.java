@@ -12,7 +12,7 @@ public class MonthView extends CalendarView {
 	private Calendar aMonth;
 	private MonthPane monthPane;
 	
-	public MonthView(Calendar datecalendar, CalendarData calData) {
+	public MonthView(Calendar datecalendar) {
 		super(datecalendar);
 		monthPane = new MonthPane(datecalendar);
 		setCalPane(monthPane);

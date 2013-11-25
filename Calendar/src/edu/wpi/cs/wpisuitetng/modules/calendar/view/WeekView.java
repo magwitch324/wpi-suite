@@ -21,7 +21,7 @@ public class WeekView extends CalendarView {
 	private Calendar endDate;
 	private WeekPane weekPane;
 	
-	public WeekView(Calendar datecalendar, CalendarData calData) {
+	public WeekView(Calendar datecalendar) {
 		super(datecalendar);
 		weekPane = new WeekPane(datecalendar);
 		setCalPane(weekPane);

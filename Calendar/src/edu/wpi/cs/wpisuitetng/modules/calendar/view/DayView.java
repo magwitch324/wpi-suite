@@ -15,9 +15,9 @@ public class DayView extends CalendarView {
 	Calendar endOfDay;
 	private DayPane dayPane;
 	
-	public DayView(Calendar datecalendar, CalendarData calData) {
+	public DayView(Calendar datecalendar) {
 		super(datecalendar);
-		dayPane = new DayPane(datecalendar, calData);
+		dayPane = new DayPane(datecalendar);
 		setCalPane(dayPane);
 		setCommitmentView(new CommitmentView());
 		setRange(datecalendar);
