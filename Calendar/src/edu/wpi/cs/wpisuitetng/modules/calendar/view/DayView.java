@@ -12,13 +12,14 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 public class DayView extends CalendarView {
 
 	Calendar day;
+	Calendar endOfDay;
 	private DayPane dayPane;
 	
 	public DayView(Calendar datecalendar, CalendarData calData) {
 		super(datecalendar);
 		dayPane = new DayPane(datecalendar, calData);
 		setCalPane(dayPane);
-		setCommitmentView(new CommitmentView(calData));
+		setCommitmentView(new CommitmentView());
 		setRange(datecalendar);
 		
 	}
@@ -26,6 +27,16 @@ public class DayView extends CalendarView {
 	@Override
 	public void setRange(Calendar calendar) {
 		day = (Calendar) calendar.clone();
+		//set day to 0:00:00.000
+		day.set(Calendar.HOUR_OF_DAY, 0);
+		day.set(Calendar.MINUTE, 0);
+		day.set(Calendar.SECOND, 0);
+		day.set(Calendar.MILLISECOND, 0);
+		
+		//set endOfDay to 23:59:59.999
+		endOfDay = (Calendar) day.clone();
+		endOfDay.add(Calendar.DATE, 1);
+		endOfDay.add(Calendar.MILLISECOND, -1);
 		
 		String dayName = day.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
 		int dayNum = day.get(day.DAY_OF_MONTH);
@@ -50,7 +61,7 @@ public class DayView extends CalendarView {
 			for(Commitment comm : allPersonalComms.getCommitments())
 			{
 				// add to list if within bounds of day
-				if (comm.getDueDate().getDay() == day.getTime().getDay())
+				if (!(comm.getDueDate().after(endOfDay.getTime()) || comm.getDueDate().before(day.getTime())))
 					dayPersonalCommList.addCommitment(comm);
 			}
 		}
@@ -60,7 +71,7 @@ public class DayView extends CalendarView {
 			allTeamComms = teamCalData.getCommitments();
 			for(Commitment comm : allTeamComms.getCommitments())
 				{
-					if (comm.getDueDate().getDay() == day.getTime().getDay())
+					if (!(comm.getDueDate().after(endOfDay.getTime()) || comm.getDueDate().before(day.getTime())))
 						dayTeamCommList.addCommitment(comm);
 				}
 				

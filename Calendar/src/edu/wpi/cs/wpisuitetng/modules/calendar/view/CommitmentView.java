@@ -47,13 +47,14 @@ public class CommitmentView extends JPanel {
 
 	JPanel commitPanel;
 
-	List<Commitment> commitmentList = new ArrayList();
+	private List<Commitment> teamCommitmentList = new ArrayList<Commitment>();
+	private List<Commitment> personalCommitmentList = new ArrayList<Commitment>();
 	private CalendarData calData;
+
 
 //	private List<CommitmentViewPanel> commitmentPanelList;
 	
-	public CommitmentView(CalendarData calData) {
-		this.calData = calData;
+	public CommitmentView() {
 		
 
 
@@ -87,9 +88,10 @@ public class CommitmentView extends JPanel {
 		 */
 	}
 
-	public void setCommList(CommitmentList commList, CommitmentList teamCommList) {
+	public void setCommList(CommitmentList personalCommList, CommitmentList teamCommList) {
 		//@TODO add team list
-		commitmentList = teamCommList.getCommitments();
+		teamCommitmentList = teamCommList.getCommitments();
+		personalCommitmentList = personalCommList.getCommitments();
 		update();
 	}
 
@@ -115,20 +117,21 @@ public class CommitmentView extends JPanel {
 		commitPanel.setLayout(commPanelLayout);
 		List<CommitmentViewPanel> commPanelList = new ArrayList<CommitmentViewPanel>();
 		int n = 0;//adjusted index to take hidden commitments into account
-		for(int i = 0; i < commitmentList.size(); i++){
-			if (commitmentList.get(i).getStatus().id != 2) {//Skips over completed commitments
+		//TODO implement personal commitment displaying
+		for(int i = 0; i < teamCommitmentList.size(); i++){
+			if (teamCommitmentList.get(i).getStatus().id != 2) {//Skips over completed commitments
 				//Commitment commit = new Commitment();
 				// commit.setName("Commitment Name");
 				// commit.setDueDate(new Date());
 				// commit.setDescription("The description of this commitment is right here. This will be shown as the description.");
-				CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
+				CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(teamCommitmentList.get(i));
 				commitmentPanel.setBackground(Color.LIGHT_GRAY);
 				//commitmentPanel.setBorder((BorderFactory.createMatteBorder(
 				//        -2, -2, -2, -2, Color.GRAY)));
-				JLabel name = new JLabel("Name: "+commitmentList.get(i).getName());
-				JLabel date = new JLabel("Due Date: "+ commitmentList.get(i).getDueDate());
-				JLabel description = new JLabel("<HTML>Description: "+ commitmentList.get(i).getDescription()+"</HTML>");
-				JLabel status = new JLabel("Status: " + Status.convertToString(commitmentList.get(i).getStatus().id));
+				JLabel name = new JLabel("Name: "+teamCommitmentList.get(i).getName());
+				JLabel date = new JLabel("Due Date: "+ teamCommitmentList.get(i).getDueDate());
+				JLabel description = new JLabel("<HTML>Description: "+ teamCommitmentList.get(i).getDescription()+"</HTML>");
+				JLabel status = new JLabel("Status: " + Status.convertToString(teamCommitmentList.get(i).getStatus().id));
 				commitmentPanel.setLayout(new GridBagLayout());
 				GridBagConstraints c = new GridBagConstraints();
 				c.anchor = GridBagConstraints.LINE_START;
@@ -155,7 +158,7 @@ public class CommitmentView extends JPanel {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						if (e.getClickCount() > 1)
-							GUIEventController.getInstance().editCommitment(((CommitmentViewPanel)e.getComponent()).getCommitment(), calData);
+							GUIEventController.getInstance().editTeamCommitment(((CommitmentViewPanel)e.getComponent()).getCommitment());
 					}		
 				});
 
@@ -177,7 +180,7 @@ public class CommitmentView extends JPanel {
 				commPanelLayout.putConstraint(SpringLayout.EAST, separator, 0, SpringLayout.EAST, commitPanel);
 
 				commitPanel.add(separator);
-				if (n == commitmentList.size() - 1)
+				if (n == teamCommitmentList.size() - 1)
 					commPanelLayout.putConstraint(SpringLayout.SOUTH, commitPanel, 0, SpringLayout.SOUTH, separator);
 
 				n++;

@@ -25,7 +25,7 @@ public class WeekView extends CalendarView {
 		super(datecalendar);
 		weekPane = new WeekPane(datecalendar);
 		setCalPane(weekPane);
-		setCommitmentView(new CommitmentView(calData));
+		setCommitmentView(new CommitmentView());
 		setRange(datecalendar);
 	}
 	
@@ -36,17 +36,22 @@ public class WeekView extends CalendarView {
 	public void setRange(Calendar calendar) {
 		calendar.set(Calendar.HOUR_OF_DAY, 0);
 		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+		//set startDate to 0:00:00.000 Sunday
 		startDate = (Calendar) calendar.clone();
 
-		while (startDate.get(Calendar.DAY_OF_WEEK) != startDate.getFirstDayOfWeek()) {
-			startDate.add(Calendar.DAY_OF_WEEK, -1);
-		}
+//		while (startDate.get(Calendar.DAY_OF_WEEK) != startDate.getFirstDayOfWeek()) {
+//			startDate.add(Calendar.DAY_OF_WEEK, -1);
+//		}
 		
-		// Get end date by skipping to next sunday and
-		// then backing up to the saturday
+		// Set endDate to 23:59:59.999 Saturday
 		endDate = (Calendar) startDate.clone();
 		endDate.add(Calendar.WEEK_OF_MONTH, 1);
 		endDate.add(Calendar.DAY_OF_MONTH, -1);
+		endDate.add(Calendar.MILLISECOND, -1);
+
 		
 		String startMonthName = startDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
 		String endMonthName = endDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);

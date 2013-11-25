@@ -76,7 +76,6 @@ public class GUIEventController {
 		main = mainview;
 		teamCalendar = new TeamCalendar();
 		myCalendar = new MyCalendar();
-		
 		try {
             Image img = ImageIO.read(getClass().getResource("PersonalCalendar_Icon.png"));
             main.addTab("", new ImageIcon(img), myCalendar);
@@ -157,6 +156,10 @@ public class GUIEventController {
 		main.setSelectedComponent(newCommit);
 	}
 	
+	/** Edit a commitment in a new tab
+	 * @param comm Commitment to edit
+	 * @param calData CalendarData where commitment is located
+	 */
 	public void editCommitment(Commitment comm, CalendarData calData) {
 		CommitmentTab editCommit = new CommitmentTab(comm, calData);
 		main.addTab("Edit Commitment", null, editCommit, "Edit Commitment");
@@ -202,6 +205,20 @@ public class GUIEventController {
 	public int getScrollBarValue()
 	{
 		return scrollBarValue;
+	}
+
+	/** Edit a team commitment
+	 * @param comm Team commitment to edit
+	 */
+	public void editTeamCommitment(Commitment comm) {
+		editCommitment(comm, teamCalendar.getCalData());
+	}
+	
+	/** Edit a personal commitment
+	 * @param comm Personal commitment to edit
+	 */
+	public void editPersonalCommitment(Commitment comm) {
+		editCommitment(comm, myCalendar.getCalData());
 	}
 	
 	

@@ -16,7 +16,7 @@ public class MonthView extends CalendarView {
 		super(datecalendar);
 		monthPane = new MonthPane(datecalendar);
 		setCalPane(monthPane);
-		setCommitmentView(new CommitmentView(calData));
+		setCommitmentView(new CommitmentView());
 		setRange(datecalendar);
 	}
 	

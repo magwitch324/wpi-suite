@@ -14,6 +14,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -51,9 +53,10 @@ public class WeekPane extends JPanel implements ICalPane {
 	public WeekPane(Calendar datecalendar) {
 
 		mydate = (Calendar)datecalendar.clone();
-	   	while(mydate.get(Calendar.DAY_OF_WEEK) != mydate.getFirstDayOfWeek() ){
-	   		mydate.add(Calendar.DATE, -1);
-	   	}
+		mydate.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+//	   	while(mydate.get(Calendar.DAY_OF_WEEK) != mydate.getFirstDayOfWeek() ){
+//	   		mydate.add(Calendar.DATE, -1);
+//	   	}
 	   	
 	   	setLayout(new GridLayout(1,1));
 		scrollPane.setMinimumSize(new Dimension(500, 300));
@@ -76,11 +79,11 @@ public class WeekPane extends JPanel implements ICalPane {
 		
 		this.add(scrollPane);
 	   	
-		scrollPane.getVerticalScrollBar().addMouseListener(new MouseAdapter(){
+		scrollPane.addMouseListener(new MouseAdapter(){
 			@Override
-			public void mouseReleased(MouseEvent e) {
+			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
-				GUIEventController.getInstance().setScrollBarValue(((JScrollBar)e.getSource()).getValue());
+				GUIEventController.getInstance().setScrollBarValue(((JScrollPane)e.getSource()).getVerticalScrollBar().getValue());
 			}
 			
 		});
@@ -158,13 +161,37 @@ public class WeekPane extends JPanel implements ICalPane {
        	for(int i=0; i < 7; i++) {
     		weekdays[i] += (initial + i);
     	}
-    	Calendar acal = (Calendar)mydate.clone();
+       	
+       	//Initialize variables for placing each commitment on correct day
+       	CommitmentList[] personal = new CommitmentList[7];
+       	CommitmentList[] team = new CommitmentList[7];
+       	for(int i = 0; i<7; i++)
+       	{
+       		personal[i] = new CommitmentList();
+       		team[i] = new CommitmentList();
+       	}
+       	Calendar cal = new GregorianCalendar();
+       	
+       	//Place each commitment on its right day
+       	for(Commitment comm: personalCommList.getCommitments())
+       	{
+       		cal.setTime(comm.getDueDate());
+       		personal[cal.get(Calendar.DAY_OF_WEEK) - 1].addCommitment(comm); //day of week is 1 - 7
+
+       	}
+       	for(Commitment comm: teamCommList.getCommitments())
+       	{
+       		cal.setTime(comm.getDueDate());
+       		team[cal.get(Calendar.DAY_OF_WEEK) - 1].addCommitment(comm);
+       	}
+       	
+    	cal.setTime(mydate.getTime());
 	    for(int i = 0; i<7; i++){
-	    	DetailedDay aday = new DetailedDay(acal,new CommitDetailedPane(acal, personalCommList, teamCommList));
-	    	acal.add(Calendar.DATE, 1);
-	    	System.out.println(acal.getTime().toString());
-	    	aday.addMouseListener(new AMouseEvent(acal));
+	    	DetailedDay aday = new DetailedDay(cal,new CommitDetailedPane(cal, personal[i], team[i]));
+	    	System.out.println(cal.getTime().toString());
+	    	aday.addMouseListener(new AMouseEvent(cal.getTime()));
 	    	apane.add( aday );
+	    	cal.add(Calendar.DATE, 1);
 	    }
     	return apane;
     }
@@ -282,12 +309,10 @@ public class WeekPane extends JPanel implements ICalPane {
 
 
 	protected class AMouseEvent implements MouseListener{
-		AbCalendar abCalendar;
-		Calendar adate;
+		Calendar adate = new GregorianCalendar();
 		
-		public AMouseEvent(Calendar adate){
-			this.adate = adate;
-			this.abCalendar = abCalendar;
+		public AMouseEvent(Date adate){
+			this.adate.setTime(adate);
 		}
 	
 		public void mousePressed(MouseEvent e) {
@@ -307,6 +332,9 @@ public class WeekPane extends JPanel implements ICalPane {
 
 	    public void mouseClicked(MouseEvent e) {
 	    	if(e.getClickCount() > 1){
+	    		//save scroll bar location
+	    		GUIEventController.getInstance().setScrollBarValue(scrollPane.getVerticalScrollBar().getValue());
+	    		//switch to day view
 	    		GUIEventController.getInstance().switchView(adate, AbCalendar.types.DAY);
 	    	}
 	    }
