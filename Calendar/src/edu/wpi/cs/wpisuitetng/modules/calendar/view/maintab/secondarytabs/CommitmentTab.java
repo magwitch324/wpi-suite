@@ -99,6 +99,7 @@ public class CommitmentTab extends JPanel {
 	private JPanel buttonPanel;
 	private JPanel formPanel;
 	private JLabel statusLabel;
+	private boolean initFlag; //to keep things from running before we fully intialize
 	
 	private enum EditingMode {
 		ADDING(0),
@@ -115,6 +116,8 @@ public class CommitmentTab extends JPanel {
 	 * Create the panel.
 	 */
 	public CommitmentTab() {
+		this.initFlag = false;
+		
 		//Sets new commitment form to left of pane
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		formPanel = new JPanel();
@@ -502,7 +505,7 @@ public class CommitmentTab extends JPanel {
 		buttonPanel.add(btnCancel, BorderLayout.CENTER);
 		formPanel.add(buttonPanel, gbc_btnPanel);
 		
-		
+		this.initFlag = true;
 	}
 
 	/**
@@ -510,6 +513,9 @@ public class CommitmentTab extends JPanel {
 	 */
 	public CommitmentTab(Commitment commToEdit, CalendarData calData) {
 		this();
+		
+		this.initFlag = false; //We need this to deal with the nested constructors
+		
 		editingCommitment = commToEdit;
 		this.mode = EditingMode.EDITING;
 		
@@ -609,6 +615,8 @@ public class CommitmentTab extends JPanel {
 			
 			
 		});
+		
+		this.initFlag = true;
 
 	}
 	
@@ -751,31 +759,33 @@ public class CommitmentTab extends JPanel {
 	 * Controls the enable state of the save button
 	 */
 	private void listenerHelper(){
-		if(nameTextField.getText().equals("") || datePicker.getDate() == null || //data validation
-				nameTextField.getText().trim().length() == 0){
-			btnAddCommitment.setEnabled(false);
-		} else {
-			if (mode == EditingMode.EDITING){
-				//get some date data
-				Calendar calDate = new GregorianCalendar();
-				Calendar calTime = new GregorianCalendar();
-				calDate.setTime(this.datePicker.getDate());
-				calTime.setTime((Date)timeSpinner.getValue());
-				calDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
-				calDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
-				//make sure something changed
-				if (this.nameTextField.getText().equals(editingCommitment.getName()) 
-						&& this.descriptionTextArea.getText().equals(editingCommitment.getDescription())
-						&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryId()
-						&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
-						&& calDate.getTime().equals(editingCommitment.getDueDate())){
-					btnAddCommitment.setEnabled(false);
-					return;
+		if (initFlag){
+			if(nameTextField.getText().equals("") || datePicker.getDate() == null || //data validation
+					nameTextField.getText().trim().length() == 0){
+				btnAddCommitment.setEnabled(false);
+			} else {
+				if (mode == EditingMode.EDITING){
+					//get some date data
+					Calendar calDate = new GregorianCalendar();
+					Calendar calTime = new GregorianCalendar();
+					calDate.setTime(this.datePicker.getDate());
+					calTime.setTime((Date)timeSpinner.getValue());
+					calDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
+					calDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
+					//make sure something changed
+					if (this.nameTextField.getText().equals(editingCommitment.getName()) 
+							&& this.descriptionTextArea.getText().equals(editingCommitment.getDescription())
+							&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryId()
+							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
+							&& calDate.getTime().equals(editingCommitment.getDueDate())){
+						btnAddCommitment.setEnabled(false);
+						return;
+					}
 				}
+				btnAddCommitment.setEnabled(true);
 			}
-			btnAddCommitment.setEnabled(true);
+
 		}
-		
 	}
 
 }

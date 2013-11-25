@@ -10,7 +10,7 @@
  *    Andrew Hurle
  ******************************************************************************/
 
-package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
+package trash;
 
 import java.awt.Color;
 
