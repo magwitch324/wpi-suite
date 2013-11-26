@@ -31,7 +31,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 public abstract class CalendarView extends JSplitPane {
 	
 	private ICalPane calPane;
-	protected CommitmentView commitments;
+	protected CommitmentView commitmentView;
 	private String dateRange;
 	
 	
@@ -88,7 +88,7 @@ public abstract class CalendarView extends JSplitPane {
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(VERTICAL_SPLIT);
 		panel.add(separator);
-		panel.add(commitments, BorderLayout.CENTER);
+		panel.add(commitmentView, BorderLayout.CENTER);
 		
 		return panel;
 		
@@ -115,7 +115,7 @@ public abstract class CalendarView extends JSplitPane {
 	
 	public void setCommitmentView(CommitmentView comm) {
 		// TODO Auto-generated method stub
-		this.commitments = comm;
+		this.commitmentView = comm;
 	}
 	
 	/** Display calendar data in internal panels, decides what commitments 

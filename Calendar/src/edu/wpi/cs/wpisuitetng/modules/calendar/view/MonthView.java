@@ -48,7 +48,7 @@ public class MonthView extends CalendarView {
 	}
 	
 	public void displayCalData(CalendarData personalCalData, CalendarData teamCalData) {
-		commitments.update();
+		commitmentView.update();
 		// TODO Auto-generated method stub
 		
 	}

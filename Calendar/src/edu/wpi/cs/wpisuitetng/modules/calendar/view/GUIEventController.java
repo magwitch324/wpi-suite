@@ -194,8 +194,8 @@ public class GUIEventController {
 		// TODO Auto-generated method stub
 		teamCalendar.updateCalData();
 		myCalendar.updateCalData();
-		teamCalendar.calView.commitments.update();
-		myCalendar.calView.commitments.update();
+		teamCalendar.calView.commitmentView.update();
+		myCalendar.calView.commitmentView.update();
 	}
 
 	public void setScrollBarValue(int value) {

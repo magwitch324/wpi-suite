@@ -25,6 +25,7 @@ import javax.swing.border.EmptyBorder;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar.types;
 
 /*
@@ -65,6 +66,7 @@ public abstract class AbCalendar extends JPanel {
 	
 	protected int[] viewsizeval = {Calendar.DATE, Calendar.WEEK_OF_YEAR, Calendar.MONTH, Calendar.YEAR};
 	protected CalendarView calView;
+	protected CommitmentList commitments;
 	
 	public AbCalendar(){
 		super();
@@ -329,12 +331,6 @@ public abstract class AbCalendar extends JPanel {
 			{
 				GetCalendarDataController.getInstance().retrieveCalendarData();
 				System.out.println("retrieved on initialization2");
-				/*if (CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()) == null){
-					System.out.println("CREATING NEW CALDATA");
-					CalendarData createdCal = new CalendarData(ConfigManager.getConfig().getProjectName());
-					CalendarDataModel.getInstance().addCalendarData(createdCal);
-				}*/
-//				initialized = true; //moved to retrieveCalendarData finishes (in updateCalData)
 			}
 			catch (Exception e)
 			{
