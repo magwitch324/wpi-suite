@@ -125,7 +125,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * @param showTeamData 
 	 * @param showCommitments 
 	 */
-	abstract public void displayCalData(CommitmentList commList);
+	abstract public void displayCalData(CommitmentList commList, boolean showCommOnCal);
 	
 	
 	

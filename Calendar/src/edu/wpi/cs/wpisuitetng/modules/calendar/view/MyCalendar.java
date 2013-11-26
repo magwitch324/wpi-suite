@@ -72,6 +72,8 @@ public class MyCalendar extends AbCalendar {
 		showteam.setBackground(Color.WHITE);
 		showteam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//update the commitments to either include or not include team data
+				updateCalData();
 				setView();
 			}
 		});
@@ -142,12 +144,7 @@ public class MyCalendar extends AbCalendar {
 	protected void displayCalData() {
 		// TODO Auto-generated method stub
 		if (initialized) {
-			if(getShowCommitments()){
-			calView.displayCalData(this.commitments);
-			}
-			else{
-				calView.displayCalData(null);
-			}
+			calView.displayCalData(this.commitments, this.getShowCommitments());
 		}
 	}
 
@@ -164,7 +161,7 @@ public class MyCalendar extends AbCalendar {
 	 */
 	public void setCommList() {
 		//if we dont have the caldata dont do anything
-		if (getCalData() != null) {
+		if (initialized && getCalData() != null) {
 			System.out.println("got COMMITMENTS FOR VIEW");
 			CombinedCommitmentList combinedList = new CombinedCommitmentList(
 					new ArrayList<Commitment>(getCalData()

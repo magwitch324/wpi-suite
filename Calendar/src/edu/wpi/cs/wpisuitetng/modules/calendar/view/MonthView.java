@@ -55,7 +55,7 @@ public class MonthView extends CalendarView {
 
 
 	@Override
-	public void displayCalData(CommitmentList commList) {
+	public void displayCalData(CommitmentList commList, boolean showCommOnCal) {
 		// TODO Auto-generated method stub
 		
 	}

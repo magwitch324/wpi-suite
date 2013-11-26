@@ -72,7 +72,7 @@ public class WeekView extends CalendarView {
 	}
 
 	@Override
-	public void displayCalData(CommitmentList commList) {
+	public void displayCalData(CommitmentList commList, boolean showCommOnCal) {
 		
 		
 //	

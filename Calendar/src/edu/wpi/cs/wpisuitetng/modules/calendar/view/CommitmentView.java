@@ -90,40 +90,10 @@ public class CommitmentView extends JPanel {
 		 */
 	}
 
-	public void setCommList(List<Commitment> commitmentList) {
-		//@TODO add team list
+	public void updateCommData(List<Commitment> commitmentList) {
 		this.commitmentList = commitmentList;
 		update();
 	}
-
-
-//	Implement in DayView, WeekView etc.
-//	public void setCommList() {
-//		if(tcalendar.getCalData() != null){
-//			System.out.println("got COMMITMENTS FOR VIEW");
-//			commitmentList = new ArrayList<Commitment>();
-//			CombinedCommitmentList combinedList = new CombinedCommitmentList(new ArrayList<Commitment>(tcalendar.getCalData().getCommitments().getCommitments()));
-//			CalendarData teamCommitments = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName());
-//			
-//			if(tcalendar.getShowTeamData()) {
-//				//Iterate through team commitments and add each element to combinedList
-//				
-//				for(int i = 0; i < teamCommitments.getCommitments().getCommitments().size(); i++) {
-//					combinedList.addCommitment(teamCommitments.getCommitments().getCommitments().get(i));
-//				}
-//				
-//				//Set result to the container list
-//				commitmentList = combinedList.getCommitments();
-//				//commitmentList = new ArrayList<Commitment>(tcalendar.getCalData().getCommitments().getCommitments());
-//				//commitmentList.addAll(teamCommitments.getCommitments().getCommitments());
-//			}
-//				
-//			else{
-//				commitmentList = tcalendar.getCalData().getCommitments().getCommitments();
-//			}
-//		}
-//	}
-//>>>>>>> dev
 
 	public void update(){
 		 

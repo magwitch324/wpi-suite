@@ -139,32 +139,19 @@ public class DayPane extends JPanel implements ICalPane {
 	}
 
 
-	private boolean getShowCommitments() {
-		
-    	AbCalendar abCalendar= GUIEventController.getInstance().getSelectedCalendar();
-    	if (abCalendar != null)
-    		return abCalendar.getShowCommitments();
-    	else
-    		return false;
-	}
-
-
-	private boolean getShowTeamData() {
-		AbCalendar abCalendar= GUIEventController.getInstance().getSelectedCalendar();
-    	if (abCalendar != null)
-    		return abCalendar.getShowTeamData();
-    	else
-    		return false;
-	}
-
-
 	/** Displays commitments on DetailedDay
      * @param commList List of commitments to be displayed
 	 * @param dayTeamCommList 
      */
     public void displayCommitments(List<Commitment> commList) {
-		  	 
-    	daypane = new DetailedDay(day, new CommitDetailedPane(day, commList)); 
+    	System.out.println("comms: " + commList);
+    	//if we are supposed to display commitments
+		if(commList != null){
+    	daypane = new DetailedDay(day, new CommitDetailedPane(day, commList));
+		}
+		else{
+			daypane = new DetailedDay(day);
+		}
     	refresh();
 
 	}

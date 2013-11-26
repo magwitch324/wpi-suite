@@ -50,16 +50,15 @@ public class DayView extends CalendarView {
 	}
 
 	@Override
-	public void displayCalData(CommitmentList commList) {
+	public void displayCalData(CommitmentList commList, boolean showCommOnCal) {
 		
-		
+		commitmentView.updateCommData(commList.getCommitments());
 		// TODO filter commitments
-//		if (showCommsOnCalPane)
-//			dayPane.displayCommitments(dayPersonalCommList, dayTeamCommList); //add only commitments on today to DayPane
-//		else
-//			dayPane.displayCommitments(new CommitmentList(), new CommitmentList()); //show no commitments on DayPane
-//
-//		commitments.setCommList(allPersonalComms, allTeamComms); //add all commitments to CommitmentView
+		if (showCommOnCal)
+			dayPane.displayCommitments(commList.filter(day, day)); //add only commitments on today to DayPane
+		else
+			dayPane.displayCommitments(null); //show no commitments on DayPane
+
 	    revalidate();
 	    repaint();
 	    

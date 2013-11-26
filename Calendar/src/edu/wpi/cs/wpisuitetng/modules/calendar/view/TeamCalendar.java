@@ -92,10 +92,10 @@ public class TeamCalendar extends AbCalendar {
 		this.add(viewpanel);
 		viewbtns[currenttype.getCurrentType()].setSelected(true);
 
-//		setView();
+		//		setView();
 
 	}
-	
+
 	public boolean getShowTeamData(){
 		return false;
 	}
@@ -108,18 +108,18 @@ public class TeamCalendar extends AbCalendar {
 			CalendarDataModel.getInstance().addCalendarData(createdCal);
 		}
 		initialized = true;
-		
+
 		calData = CalendarDataModel.getInstance().getCalendarData(
-					ConfigManager.getConfig().getProjectName());
+				ConfigManager.getConfig().getProjectName());
 		setView();
-//		displayCalData();
-		
+		//		displayCalData();
+
 	}
 
 	protected void displayCalData() {
 		// TODO Auto-generated method stub
-//		if(initialized)
-			//TODO team data shown / commitments shown
-			calView.displayCalData(calData.getCommitments());
+		if(initialized){
+				calView.displayCalData(calData.getCommitments(), getShowCommitments());
+		}
 	}
 }

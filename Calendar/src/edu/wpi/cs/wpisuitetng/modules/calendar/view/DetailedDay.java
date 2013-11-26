@@ -169,15 +169,15 @@ public class DetailedDay extends JPanel {
 		}
 	}
 
-
+//
 //	/** Displays previously created commitments on DetailedDay
 //	 * @param comm Commitment to be added to the display
 //	 * 
 //	 */
 //	public void displayCommitment(Commitment comm)
 //	{
-//		Calendar cal = Calendar.getInstance();
-//		cal.setTime(comm.getDueDate());
+//		GregorianCalendar cal = new GregorianCalendar();
+//		cal.setTime(comm.getDueDate().getTime());
 //		
 //		//map hour to location in terms of halfhourmarks (0 - 47)
 //		int loc = cal.get(Calendar.HOUR_OF_DAY)*2;
@@ -202,9 +202,9 @@ public class DetailedDay extends JPanel {
 //	 * @param commList CommitmentList to be added to the display
 //	 * 
 //	 */
-//	public void displayCommitments(CommitmentList commList) {
+//	public void displayCommitments(List<Commitment> commList) {
 //		// TODO Auto-generated method stub
-//		for(int i = 0; i < commList.getSize(); i++)
-//			displayCommitment(commList.getElementAt(i));
+//		for(int i = 0; i < commList.size(); i++)
+//			displayCommitment(commList.get(i));
 //	}
 }
