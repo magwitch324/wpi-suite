@@ -10,7 +10,7 @@
  *    Andrew Hurle
  ******************************************************************************/
 
-package edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar;
+package trash;
 
 import java.awt.Component;
 
@@ -21,7 +21,6 @@ import edu.wpi.cs.wpisuitetng.janeway.gui.container.toolbar.DefaultToolbarContro
 import edu.wpi.cs.wpisuitetng.janeway.gui.container.toolbar.DefaultToolbarView;
 import edu.wpi.cs.wpisuitetng.janeway.gui.container.toolbar.IToolbarGroupProvider;
 import edu.wpi.cs.wpisuitetng.janeway.gui.container.toolbar.ToolbarGroupView;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabController_unused;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
 
 

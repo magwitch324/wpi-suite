@@ -18,6 +18,7 @@
 	</path>
 	<path id="test-classpath">
 		<path refid="classpath" />
+		<pathelement path="build" />
 		<pathelement path="build-test" />
 		<pathelement path="${junit-jar}" />
 	</path>

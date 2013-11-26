@@ -150,7 +150,7 @@ public class DayPane extends JPanel implements ICalPane {
 
 	protected JComponent getTimesBar(double height){
     	 JPanel apane = new JPanel();
-    	 apane.setBackground(Color.RED);
+    	 apane.setBackground(Color.WHITE);
     	 SpringLayout layout = new SpringLayout();
     	 apane.setLayout(layout);
     	 

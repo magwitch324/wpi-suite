@@ -9,7 +9,7 @@
  * Contributors:
  *    geierqi
  *********************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.calendar.monthtab;
+package trash;
 
 import java.awt.Dimension;
 import java.awt.Font;

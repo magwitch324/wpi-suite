@@ -1,4 +1,4 @@
-package edu.wpi.cs.wpisuitetng.modules.calendar.view;
+package trash;
 
 import javax.swing.JComponent;
 
