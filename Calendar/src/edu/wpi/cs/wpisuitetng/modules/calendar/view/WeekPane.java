@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -42,7 +43,8 @@ public class WeekPane extends JPanel implements ICalPane {
 	JScrollPane scrollPane = new JScrollPane(mainPanel, 
 			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-	Calendar mydate;
+
+	GregorianCalendar mydate;
 	private JComponent days;
 	private SpringLayout layout;
 	
@@ -50,10 +52,11 @@ public class WeekPane extends JPanel implements ICalPane {
     * Create the panel.
     */
 
-	public WeekPane(Calendar datecalendar) {
 
-		mydate = (Calendar)datecalendar.clone();
-		mydate.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+	public WeekPane(GregorianCalendar datecalendar) {
+		mydate = new GregorianCalendar();
+		mydate.setTime(datecalendar.getTime());
+
 //	   	while(mydate.get(Calendar.DAY_OF_WEEK) != mydate.getFirstDayOfWeek() ){
 //	   		mydate.add(Calendar.DATE, -1);
 //	   	}
@@ -63,12 +66,18 @@ public class WeekPane extends JPanel implements ICalPane {
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane.setMinimumSize(new Dimension(500, 300));
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+		scrollPane.setBackground(Color.WHITE);
 		
 		layout = new SpringLayout();
 		mainPanel.setLayout(layout);
-		mainPanel.setPreferredSize(new Dimension(30, 2000));		
 		
-		
+		mainPanel.setPreferredSize(new Dimension(30, 2000));
+//		JComponent days = getDays();
+//		layout.putConstraint(SpringLayout.WEST, days, 0, SpringLayout.WEST, mainPanel);
+//		layout.putConstraint(SpringLayout.NORTH, days, 0, SpringLayout.NORTH, mainPanel);
+//		layout.putConstraint(SpringLayout.SOUTH, days, 0, SpringLayout.SOUTH, mainPanel);
+//		layout.putConstraint(SpringLayout.EAST, days, 0, SpringLayout.EAST, mainPanel);
+//		mainPanel.add(days);
 		
 		scrollPane.setColumnHeaderView(getHeader(0));
 		scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
@@ -93,7 +102,7 @@ public class WeekPane extends JPanel implements ICalPane {
 			public void componentResized(ComponentEvent e){
 				
 				scrollPane.setColumnHeaderView(getHeader(0));
-				System.out.println(scrollPane.getColumnHeader().getSize().getWidth() + " : " + 					scrollPane.getColumnHeader().getView().getPreferredSize().getWidth());				if(scrollPane.getColumnHeader().getSize().getWidth() <
+				System.out.println(scrollPane.getColumnHeader().getSize().getWidth() + " : " + scrollPane.getColumnHeader().getView().getPreferredSize().getWidth());				if(scrollPane.getColumnHeader().getSize().getWidth() <
 						scrollPane.getColumnHeader().getView().getPreferredSize().getWidth()){
 					scrollPane.setColumnHeaderView(getHeader(1));
 				}
@@ -151,7 +160,7 @@ public class WeekPane extends JPanel implements ICalPane {
      * @param teamCommList
      * @return
      */
-    protected JComponent getDays(CommitmentList personalCommList, CommitmentList teamCommList){
+    protected JComponent getDays(List<Commitment> commList){
     	JPanel apane = new JPanel();
     	apane.setBackground(Color.WHITE);
 	    apane.setLayout(new GridLayout(1,7));
@@ -164,40 +173,35 @@ public class WeekPane extends JPanel implements ICalPane {
     	}
        	
        	//Initialize variables for placing each commitment on correct day
-       	CommitmentList[] personal = new CommitmentList[7];
-       	CommitmentList[] team = new CommitmentList[7];
+       	List<List<Commitment>> comms = new ArrayList<List<Commitment>>();
        	for(int i = 0; i<7; i++)
        	{
-       		personal[i] = new CommitmentList();
-       		team[i] = new CommitmentList();
+       		comms.add(new ArrayList<Commitment>());
        	}
-       	Calendar cal = new GregorianCalendar();
+       	GregorianCalendar cal = new GregorianCalendar();
        	
        	//Place each commitment on its right day
-       	for(Commitment comm: personalCommList.getCommitments())
+       	for(Commitment comm: commList)
        	{
-       		cal.setTime(comm.getDueDate());
-       		personal[cal.get(Calendar.DAY_OF_WEEK) - 1].addCommitment(comm); //day of week is 1 - 7
+       		cal.setTime(comm.getDueDate().getTime());
+       		comms.get(cal.get(Calendar.DAY_OF_WEEK) - 1).add(comm); //day of week is 1 - 7
 
-       	}
-       	for(Commitment comm: teamCommList.getCommitments())
-       	{
-       		cal.setTime(comm.getDueDate());
-       		team[cal.get(Calendar.DAY_OF_WEEK) - 1].addCommitment(comm);
        	}
        	
     	cal.setTime(mydate.getTime());
 	    for(int i = 0; i<7; i++){
-	    	DetailedDay aday = new DetailedDay(cal,new CommitDetailedPane(cal, personal[i], team[i]));
+	    	DetailedDay aday = new DetailedDay(cal,new CommitDetailedPane(cal, comms.get(i)));
 	    	System.out.println(cal.getTime().toString());
-	    	aday.addMouseListener(new AMouseEvent(cal.getTime()));
+	    	aday.addMouseListener(new AMouseEvent(cal));
+
 	    	apane.add( aday );
 	    	cal.add(Calendar.DATE, 1);
 	    }
     	return apane;
     }
     
-//    protected JComponent getCommits(CalendarData calData){
+
+//    protected JComponent getCommits(){
 //    	JPanel firstpane = new JPanel();
 //    	JPanel secondpane = new JPanel();
 //    	SpringLayout layout = new SpringLayout();
@@ -214,19 +218,20 @@ public class WeekPane extends JPanel implements ICalPane {
 //		secondpane.setLayout(new GridLayout(1, 7, 0, 5));
 //    	
 //	    for(int i = 0; i<7; i++){
-//	    	Calendar acal = (Calendar)mydate.clone();
+//	    	GregorianCalendar acal = new GregorianCalendar();
+//	    	acal.setTime(mydate.getTime());
 //	    	acal.add(Calendar.DAY_OF_MONTH, 1);
 //	    	//TODO add function
 //	    	//JPanel viewpane = getWeekCommitPaneforDate( acal );
 //	    	
-//	    	CommitmentView commits = new CommitmentView(calData);
+//	    	CommitmentView commits = new CommitmentView(calendarused);
 //	    	
-//	    	ArrayList<Commitment> comList = new ArrayList<Commitment>(calData.getCommitments().getCommitments());
+//	    	ArrayList<Commitment> comList = new ArrayList<Commitment>(calendarused.getCalData().getCommitments().getCommitments());
 //	    	ArrayList<Commitment> newList = new ArrayList<Commitment>();
 //	    	for (Commitment c : comList) {
-//	    		if ((c.getDueDate().getDate()  == acal.get(Calendar.DAY_OF_MONTH) ||
-//	    			 c.getDueDate().getMonth() == acal.get(Calendar.MONTH)) ||
-//	    			 c.getDueDate().getYear()  == acal.get(Calendar.YEAR)) {
+//	    		if ((c.getDueDate().get(Calendar.DAY_OF_MONTH)  == acal.get(Calendar.DAY_OF_MONTH) ||
+//	    			 c.getDueDate().get(Calendar.MONTH) == acal.get(Calendar.MONTH)) ||
+//	    			 c.getDueDate().get(Calendar.YEAR)  == acal.get(Calendar.YEAR)) {
 //	    			newList.add(c);
 //	    		}
 //	    	}
@@ -247,7 +252,7 @@ public class WeekPane extends JPanel implements ICalPane {
     
 	protected JComponent getTimesBar(double height){
 		JPanel apane = new JPanel();
-		apane.setBackground(Color.RED);
+		apane.setBackground(Color.WHITE);
 		SpringLayout layout = new SpringLayout();
 		apane.setLayout(layout);
 		 
@@ -284,9 +289,9 @@ public class WeekPane extends JPanel implements ICalPane {
      * @param commList List of commitments to be displayed
 	 * @param dayTeamCommList 
      */
-    public void displayCommitments(CommitmentList personalCommList, CommitmentList teamCommList) {
+    public void displayCommitments(List<Commitment> commList) {
 		  
-    	days = getDays(personalCommList, teamCommList);
+    	days = getDays(commList);
     	refresh();
 	}
 
@@ -294,7 +299,7 @@ public class WeekPane extends JPanel implements ICalPane {
 	private void refresh() {
 		mainPanel.removeAll();
 		if (days == null)
-			days = getDays(new CommitmentList(), new CommitmentList());
+			days = getDays(new ArrayList<Commitment>());
 		
  		layout.putConstraint(SpringLayout.WEST, days, 0, SpringLayout.WEST, mainPanel);
  		layout.putConstraint(SpringLayout.NORTH, days, 0, SpringLayout.NORTH, mainPanel);
@@ -310,10 +315,11 @@ public class WeekPane extends JPanel implements ICalPane {
 
 
 	protected class AMouseEvent implements MouseListener{
-		Calendar adate = new GregorianCalendar();
+		GregorianCalendar adate = new GregorianCalendar();
 		
-		public AMouseEvent(Date adate){
-			this.adate.setTime(adate);
+		public AMouseEvent(GregorianCalendar adate){
+			this.adate.setTime(adate.getTime());
+
 		}
 	
 		public void mousePressed(MouseEvent e) {

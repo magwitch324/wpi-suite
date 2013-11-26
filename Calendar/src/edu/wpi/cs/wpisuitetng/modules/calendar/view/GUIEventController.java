@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -25,6 +26,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.BorderFactory;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
@@ -102,6 +104,7 @@ public class GUIEventController {
 		{
 			System.out.println("Error getting calendar; calendar tab not selected.");
 			return myCalendar;
+
 		}
 	}
 	
@@ -181,9 +184,10 @@ public class GUIEventController {
 
 	}
 	
-	public void switchView(Calendar acal, TeamCalendar.types switchtype){
+	public void switchView(GregorianCalendar acal, TeamCalendar.types switchtype){
 		teamCalendar.setCalsetView(acal, switchtype);
 		myCalendar.setCalsetView(acal, switchtype);
+
 	}
 
 	public void updateCalData() {

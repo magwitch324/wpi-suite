@@ -33,12 +33,12 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
  */
 public class CommitDetailedPane extends JPanel {
 	
-	Calendar adate;
-	private List<Commitment> personalCommits;
-	private List<Commitment> teamCommits;
-	
-	public CommitDetailedPane(Calendar adate, CommitmentList personalCommList, CommitmentList teamCommList){
+	List<Commitment> commits;
+	GregorianCalendar adate;
+	public CommitDetailedPane(GregorianCalendar adate, List<Commitment> commits){
+
 		super();
+		
 		System.out.println( "start" );
 		this.setLayout(new SpringLayout());
 		this.addComponentListener(new ComponentListener() {
@@ -54,9 +54,9 @@ public class CommitDetailedPane extends JPanel {
 			public void componentHidden(ComponentEvent e) {}
 		});
 		
-		this.personalCommits = personalCommList.getCommitments();
-		this.teamCommits = teamCommList.getCommitments();
-		this.adate = (Calendar)adate.clone();
+		this.commits = commits;
+		this.adate = new GregorianCalendar();
+		this.adate.setTime(adate.getTime());
 		
 		this.didResize();
 
@@ -73,13 +73,34 @@ public class CommitDetailedPane extends JPanel {
 		int y = (int)this.getSize().getHeight();
 		SpringLayout layout = (SpringLayout)this.getLayout();
 
+//		Old code 
+//		
+//		for(int index = 0; index < 48; index++){
+//			ArrayList<Commitment> tomake = new ArrayList<Commitment>();
+//			for( int i = 0; i < commits.size(); i++){
+//				GregorianCalendar acal = new GregorianCalendar();
+//				acal.setTime(commits.get(i).getDueDate().getTime());
+//				if(adate.get(Calendar.DATE) == acal.get(Calendar.DATE) &&
+//						adate.get(Calendar.MONTH) == acal.get(Calendar.MONTH) &&
+//						adate.get(Calendar.YEAR) == acal.get(Calendar.YEAR)){
+//					
+//					int pos = acal.get(Calendar.HOUR_OF_DAY)*2;
+//					pos += acal.get(Calendar.MINUTE) == 30 ? 1 : 0;
+//					
+//					if (pos == index){
+//						tomake.add(commits.get(i));
+//					}
+//				}	
+//			}
+//			halfblocks[index] = new thehalfblocks(tomake);
+//		}
 		
 //			List<thehalfblocks> dayComms = new ArrayList<thehalfblocks>();
 			
-			for(Commitment comm : teamCommits)
+			for(Commitment comm : commits)
 			{
 				Calendar cal = new GregorianCalendar();
-				cal.setTime(comm.getDueDate());
+				cal.setTime(comm.getDueDate().getTime());
 				int pos = cal.get(Calendar.HOUR_OF_DAY)*2;
 				pos += (cal.get(Calendar.MINUTE) == 30) ? 1 : 0;
 				if (halfBlocks[pos] == null)
@@ -101,6 +122,5 @@ public class CommitDetailedPane extends JPanel {
 		this.revalidate();
 		this.repaint();
 	}
-	
 	
 }

@@ -3,6 +3,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -45,7 +46,7 @@ public class DayPane extends JPanel implements ICalPane {
 	 */
 	private static final long serialVersionUID = 1L;
 	JPanel mainPanel = new JPanel();
-	Calendar day;
+	GregorianCalendar day;
 	private DetailedDay daypane;
 	private SpringLayout layout;
 	private JScrollPane scrollPane;
@@ -57,7 +58,8 @@ public class DayPane extends JPanel implements ICalPane {
        */
 
 
-	public DayPane(Calendar datecalendar) {
+
+	public DayPane(GregorianCalendar datecalendar) {
 
 		day = datecalendar;
 //			// HOURS
@@ -150,7 +152,7 @@ public class DayPane extends JPanel implements ICalPane {
     	setLayout(new GridLayout(1,1));
 		
 		if (daypane == null)
-			daypane = new DetailedDay(day, new CommitDetailedPane(day, new CommitmentList(), new CommitmentList()));
+			daypane = new DetailedDay(day, new CommitDetailedPane(day, new ArrayList<Commitment>()));
 		
 		layout.putConstraint(SpringLayout.WEST, daypane, 0, SpringLayout.WEST, mainPanel);
 		layout.putConstraint(SpringLayout.NORTH, daypane, 0, SpringLayout.NORTH, mainPanel);
@@ -193,16 +195,16 @@ public class DayPane extends JPanel implements ICalPane {
      * @param commList List of commitments to be displayed
 	 * @param dayTeamCommList 
      */
-    public void displayCommitments(CommitmentList personalCommList, CommitmentList teamCommList) {
+    public void displayCommitments(List<Commitment> commList) {
 		  	 
-    	daypane = new DetailedDay(day, new CommitDetailedPane(day, personalCommList, teamCommList)); 
+    	daypane = new DetailedDay(day, new CommitDetailedPane(day, commList)); 
     	refresh();
 
 	}
 
 	protected JComponent getTimesBar(double height){
     	 JPanel apane = new JPanel();
-    	 apane.setBackground(Color.RED);
+    	 apane.setBackground(Color.WHITE);
     	 SpringLayout layout = new SpringLayout();
     	 apane.setLayout(layout);
     	 

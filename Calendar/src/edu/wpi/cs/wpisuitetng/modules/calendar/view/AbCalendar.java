@@ -5,22 +5,34 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar.types;
+
+/*
+ * Sources:
+ * Icons were developed using images obtained at: 
+ * [1] http://changepointnea.com/~changepo/cms-assets/images/161361.calendar-icon.png
+ * [2] http://pixabay.com/p-37197/?no_redirect
+ */
+
 
 public abstract class AbCalendar extends JPanel {
 	protected boolean initialized;
@@ -44,7 +56,7 @@ public abstract class AbCalendar extends JPanel {
 	}
 	
 	protected types currenttype = types.DAY;
-	protected Calendar mycal;;
+	protected GregorianCalendar mycal;
 	
 	protected JPanel viewpanel = new JPanel(); 
 	protected JToggleButton[] viewbtns = new JToggleButton[4];
@@ -56,7 +68,10 @@ public abstract class AbCalendar extends JPanel {
 	
 	public AbCalendar(){
 		super();
-		mycal = Calendar.getInstance();
+
+		mycal = new GregorianCalendar();
+
+		super.setBackground(Color.WHITE);
 
 		// Draws GUI
 		drawThis();
@@ -74,7 +89,9 @@ public abstract class AbCalendar extends JPanel {
 
 		try {
 			Image img = ImageIO.read(getClass().getResource("Day_Icon.png"));
-		    this.viewbtns[0].setIcon(new ImageIcon(img));	    
+		    this.viewbtns[0].setIcon(new ImageIcon(img));
+		    this.viewbtns[0].setBorder(BorderFactory.createEmptyBorder());
+		    viewbtns[0].setContentAreaFilled(false);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
 			this.viewbtns[0].setIcon(new ImageIcon());
@@ -97,7 +114,9 @@ public abstract class AbCalendar extends JPanel {
 
 		try {
 			Image img = ImageIO.read(getClass().getResource("Week_Icon.png"));
-		    this.viewbtns[1].setIcon(new ImageIcon(img));	    
+		    this.viewbtns[1].setIcon(new ImageIcon(img));
+		    this.viewbtns[1].setBorder(BorderFactory.createEmptyBorder());
+		    viewbtns[1].setContentAreaFilled(false);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
 			this.viewbtns[1].setIcon(new ImageIcon());
@@ -120,7 +139,9 @@ public abstract class AbCalendar extends JPanel {
 
 		try {
 			Image img = ImageIO.read(getClass().getResource("Month_Icon.png"));
-		    this.viewbtns[2].setIcon(new ImageIcon(img));	    
+		    this.viewbtns[2].setIcon(new ImageIcon(img));	
+		    this.viewbtns[2].setBorder(BorderFactory.createEmptyBorder());
+		    viewbtns[2].setContentAreaFilled(false);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
 			this.viewbtns[2].setIcon(new ImageIcon());
@@ -143,7 +164,9 @@ public abstract class AbCalendar extends JPanel {
 
 		try {
 			Image img = ImageIO.read(getClass().getResource("Year_Icon.png"));
-		    this.viewbtns[3].setIcon(new ImageIcon(img));	    
+		    this.viewbtns[3].setIcon(new ImageIcon(img));
+		    this.viewbtns[3].setBorder(BorderFactory.createEmptyBorder());
+		    viewbtns[3].setContentAreaFilled(false);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
 			this.viewbtns[3].setIcon(new ImageIcon());
@@ -161,16 +184,18 @@ public abstract class AbCalendar extends JPanel {
             }
         });
 		
-		apane.add(viewbtns[0]);
-		apane.add(viewbtns[1]);
-		apane.add(viewbtns[2]);
-		apane.add(viewbtns[3]);
+		for (JToggleButton btn : viewbtns) {
+			btn.setBorder(new EmptyBorder(0, 0, 0, 15));
+			apane.add(btn);
+			apane.setBackground(Color.WHITE);
+		}
+	
 		return apane;
 	}
 	
 	protected void stepCalendar(int step){
 		if(step == 0){
-			mycal = Calendar.getInstance();
+			mycal = new GregorianCalendar();
 		}
 		else{
 			mycal.add(viewsizeval[currenttype.getCurrentType()], step);
@@ -194,6 +219,7 @@ public abstract class AbCalendar extends JPanel {
 	
 	protected JComponent getDatePanel(){
 		JPanel apane = new JPanel();
+		apane.setBackground(Color.WHITE);
 		
 		JButton backwardbutton = new JButton("<<");
 		backwardbutton.setBackground(Color.WHITE);
@@ -274,14 +300,14 @@ public abstract class AbCalendar extends JPanel {
 		
 	}
 	
-	public void setCal(Calendar changeto){
-		mycal = (Calendar)changeto.clone();
+	public void setCal(GregorianCalendar changeto){
+		mycal.setTime(changeto.getTime());
 		setView();
 	}
 	
-	public void setCalsetView(Calendar acal, TeamCalendar.types switchtype)
+	public void setCalsetView(GregorianCalendar acal, TeamCalendar.types switchtype)
 	{
-		mycal = (Calendar)acal.clone();
+		mycal.setTime(acal.getTime());
 		switchview(switchtype);
 		setView();
 	}

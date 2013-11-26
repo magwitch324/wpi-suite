@@ -10,6 +10,7 @@ import java.awt.Insets;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -34,8 +35,9 @@ public class DetailedDay extends JPanel {
 	JPanel mainview = new JPanel();
 	JComponent secondview = new JPanel();
 	
-	public DetailedDay(Calendar adate){
-		super();		
+
+	public DetailedDay(GregorianCalendar adate){
+		super();	
 		this.setMinimumSize(new Dimension(50, 800));
 		this.setPreferredSize(new Dimension(50, 800));
 		this.addComponentListener(new resizeevent());
@@ -59,7 +61,7 @@ public class DetailedDay extends JPanel {
 		this.didResize();
 	}
 	
-	public DetailedDay(Calendar adate, JComponent secondview){
+	public DetailedDay(GregorianCalendar adate, JComponent secondview){
 		super();		
 		this.setMinimumSize(new Dimension(50, 800));
 		this.setPreferredSize(new Dimension(50, 800));
@@ -166,6 +168,7 @@ public class DetailedDay extends JPanel {
 			// TODO Auto-generated method stub
 		}
 	}
+
 
 //	/** Displays previously created commitments on DetailedDay
 //	 * @param comm Commitment to be added to the display

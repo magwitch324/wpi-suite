@@ -1,6 +1,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import com.google.gson.Gson;
 
@@ -13,7 +14,7 @@ public class Commitment extends AbstractModel {
 	/** the Name of the commitment */
 	private String name;
 	/** the DueDate of the commitment */
-	private Date dueDate;
+	private GregorianCalendar dueDate;
 	/** the Description of the commitment */
 	private String description;
 	/** the categoryID of the category */
@@ -77,7 +78,7 @@ public class Commitment extends AbstractModel {
 	public String getName() 		{return name;}
 	 /**Getter for the DueDate	
 	 * @return the due date */
-	public Date getDueDate() 		{return dueDate;}
+	public GregorianCalendar getDueDate() 		{return dueDate;}
 	 /**Getter for the Description	
 	 * @return the description */
 	public String getDescription() 	{return description;}
@@ -100,7 +101,7 @@ public class Commitment extends AbstractModel {
 	public void setName		   (String name) 		{this.name = name;}
 	/**Setter for the dueDate
 	 * @param dueDate the due date to set*/
-	public void setDueDate	   (Date dueDate) 		{this.dueDate = dueDate;}
+	public void setDueDate	   (GregorianCalendar dueDate) 		{this.dueDate = dueDate;}
 	/**Setter for the Description
 	 * @param description the Description to set*/
 	public void setDescription (String description) {this.description = description;}
@@ -123,7 +124,7 @@ public class Commitment extends AbstractModel {
 	public Commitment() {
 		super();
 		name = description = "";
-		dueDate = new Date();
+		dueDate = new GregorianCalendar();
 		status = Status.NEW;
 		isPersonal = false;
 	}
@@ -139,7 +140,7 @@ public class Commitment extends AbstractModel {
 	 * @param commitmentId
 	 *            The commitment ID number of the commitment*/
 
-	public Commitment(String name, Date dueDate,
+	public Commitment(String name, GregorianCalendar dueDate,
 					String description, int categoryId, boolean isPersonal) {
 		this();
 		this.name = name;

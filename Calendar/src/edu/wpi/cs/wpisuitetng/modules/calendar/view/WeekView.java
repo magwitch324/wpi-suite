@@ -6,6 +6,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
@@ -21,7 +22,8 @@ public class WeekView extends CalendarView {
 	private Calendar endDate;
 	private WeekPane weekPane;
 	
-	public WeekView(Calendar datecalendar) {
+
+	public WeekView(GregorianCalendar datecalendar) {
 		super(datecalendar);
 		weekPane = new WeekPane(datecalendar);
 		setCalPane(weekPane);
@@ -33,21 +35,25 @@ public class WeekView extends CalendarView {
 	 * @see edu.wpi.cs.wpisuitetng.modules.calendar.view.CalendarView#setRange(java.util.Calendar)
 	 */
 	@Override
-	public void setRange(Calendar calendar) {
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-		calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+	public void setRange(GregorianCalendar calendar) {
+		
+		startDate = new GregorianCalendar();
+		endDate = new GregorianCalendar();
 		//set startDate to 0:00:00.000 Sunday
-		startDate = (Calendar) calendar.clone();
+		startDate.setTime(calendar.getTime());
+		startDate.set(Calendar.HOUR_OF_DAY, 0);
+		startDate.set(Calendar.MINUTE, 0);
+		startDate.set(Calendar.SECOND, 0);
+		startDate.set(Calendar.MILLISECOND, 0);
+		startDate.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 
 //		while (startDate.get(Calendar.DAY_OF_WEEK) != startDate.getFirstDayOfWeek()) {
 //			startDate.add(Calendar.DAY_OF_WEEK, -1);
 //		}
 		
-		// Set endDate to 23:59:59.999 Saturday
-		endDate = (Calendar) startDate.clone();
+		// Get end date by skipping to next sunday and
+		// then backing up to the saturday
+		endDate.setTime(startDate.getTime());
 		endDate.add(Calendar.WEEK_OF_MONTH, 1);
 		endDate.add(Calendar.DAY_OF_MONTH, -1);
 		endDate.add(Calendar.MILLISECOND, -1);
@@ -66,41 +72,39 @@ public class WeekView extends CalendarView {
 	}
 
 	@Override
-	public void displayCalData(CalendarData personalCalData, CalendarData teamCalData, boolean showCommsOnCalPane) {
+	public void displayCalData(CommitmentList commList) {
 		
-		CommitmentList weekPersonalCommList = new CommitmentList();		
-		CommitmentList allPersonalComms  = new CommitmentList();
-		CommitmentList weekTeamCommList = new CommitmentList();
-		CommitmentList allTeamComms = new CommitmentList();
-	
-		if(personalCalData != null)
-		{
-			allPersonalComms = personalCalData.getCommitments(); //currently shown commitments (personal or team)
-			for(Commitment comm : allPersonalComms.getCommitments())
-			{
-				// add to list if within bounds of week
-				if (!(comm.getDueDate().before(startDate.getTime()) || comm.getDueDate().after(endDate.getTime())))
-					weekPersonalCommList.addCommitment(comm);
-			}
-		}
-		if (teamCalData!=null)
-		{		
-			allTeamComms = teamCalData.getCommitments();
-			for(Commitment comm : allTeamComms.getCommitments())
-				{
-					if (!(comm.getDueDate().before(startDate.getTime()) || comm.getDueDate().after(endDate.getTime())))
-						weekTeamCommList.addCommitment(comm);
-				}
-				
-		}
-			
-		if(showCommsOnCalPane)
-			weekPane.displayCommitments(weekPersonalCommList, weekTeamCommList); //show this week's commitments on WeekPane
-		else
-			weekPane.displayCommitments(new CommitmentList(), new CommitmentList()); //show no commitments on WeekPane
-
-		commitments.setCommList(allPersonalComms, allTeamComms);
+		
+//	
+//		if(personalCalData != null)
+//		{
+//			allPersonalComms = personalCalData.getCommitments(); //currently shown commitments (personal or team)
+//			for(Commitment comm : allPersonalComms.getCommitments())
+//			{
+//				// add to list if within bounds of week
+//				if (!(comm.getDueDate().before(startDate.getTime()) || comm.getDueDate().after(endDate.getTime())))
+//					weekPersonalCommList.addCommitment(comm);
+//			}
+//		}
+//		if (teamCalData!=null)
+//		{		
+//			allTeamComms = teamCalData.getCommitments();
+//			for(Commitment comm : allTeamComms.getCommitments())
+//				{
+//					if (!(comm.getDueDate().before(startDate.getTime()) || comm.getDueDate().after(endDate.getTime())))
+//						weekTeamCommList.addCommitment(comm);
+//				}
+//				
+//		}
+//			
+//		if(showCommsOnCalPane)
+//			weekPane.displayCommitments(weekPersonalCommList, weekTeamCommList); //show this week's commitments on WeekPane
+//		else
+//			weekPane.displayCommitments(new CommitmentList(), new CommitmentList()); //show no commitments on WeekPane
+//
+//		commitments.setCommList(allPersonalComms, allTeamComms);
 //	    commitments.update();
+		weekPane.displayCommitments(new ArrayList<Commitment>());
 		// TODO Auto-generated method stub
 		
 	}

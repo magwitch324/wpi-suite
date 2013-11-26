@@ -10,6 +10,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -21,11 +23,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
-/**
- * @author cttibbetts
- *
- */
+
 public abstract class CalendarView extends JSplitPane {
 	
 	private ICalPane calPane;
@@ -37,7 +38,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * Constructor
 	 * Sets up the panel with the refresh function
 	 */
-	public CalendarView(Calendar calendar) {
+	public CalendarView(GregorianCalendar calendar) {
 	}
 	/**
 	 * create and display View componenets
@@ -103,7 +104,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * set the new date range for the calendar
 	 * @param calendar
 	 */
-	abstract public void setRange(Calendar calendar);
+	abstract public void setRange(GregorianCalendar calendar);
 	
 	public void setCalPane(ICalPane pane) {
 		// TODO Auto-generated method stub
@@ -122,7 +123,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * @param showTeamData 
 	 * @param showCommitments 
 	 */
-	abstract public void displayCalData(CalendarData personalCalData, CalendarData teamCalData, boolean showCommsOnCalPane);
+	abstract public void displayCalData(CommitmentList commList);
 	
 	
 	

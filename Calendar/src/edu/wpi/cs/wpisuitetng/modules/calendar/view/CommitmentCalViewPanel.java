@@ -3,6 +3,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,8 +20,8 @@ public class CommitmentCalViewPanel extends JPanel {
 		//TODO add function for clicking to go to the editor
 		this.comm = comm;
 		
-		Calendar acal = (Calendar)Calendar.getInstance().clone();
-		acal.setTime(comm.getDueDate());
+		GregorianCalendar acal = new GregorianCalendar();
+		acal.setTime(comm.getDueDate().getTime());
 		String time = "Time - " + acal.get(Calendar.HOUR) + ":" + 
 					(acal.get(Calendar.MINUTE) > 10 ? 
 							acal.get(Calendar.MINUTE) :
