@@ -412,7 +412,7 @@ public class CommitmentTab extends JPanel {
 		datePicker.setDate(c.getTime());
 		
 		
-		buttonPanel = new JPanel(new BorderLayout());
+		buttonPanel = new JPanel(new BorderLayout(30,0));
 		
 		//Add Commitment button
 		btnAddCommitment = new JButton("Save Commitment");
@@ -491,7 +491,8 @@ public class CommitmentTab extends JPanel {
 		//Add Cancel button
 		btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
-
+		
+		
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				removeTab();
@@ -503,6 +504,7 @@ public class CommitmentTab extends JPanel {
 		
 		buttonPanel.add(btnAddCommitment, BorderLayout.WEST);		
 		buttonPanel.add(btnCancel, BorderLayout.CENTER);
+	                    				// Set the horizontal gap
 		formPanel.add(buttonPanel, gbc_btnPanel);
 		
 		String[] statusStrings = {"New", "In Progress", "Completed"};
@@ -575,7 +577,7 @@ public class CommitmentTab extends JPanel {
 			
 		});
 		buttonPanel.add(btnDelete, BorderLayout.LINE_END);
-		
+	
 		//Some edit specific listeners
 		//These are here to avoid possible NullPointer exceptions while opening the tab 
 		timeSpinner.addChangeListener(new ChangeListener(){
