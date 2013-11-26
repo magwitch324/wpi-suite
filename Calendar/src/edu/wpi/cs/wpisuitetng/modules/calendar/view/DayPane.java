@@ -71,13 +71,20 @@ public class DayPane extends JPanel implements ICalPane {
 		
 		if (showCommitements) {
 
-			// Sets the UPPER LEFT corner box that is hard to edit.
-			JPanel cornerBox = new JPanel();
-			cornerBox.setBackground(CalendarStandard.CalendarRed);
-			cornerBox.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.BLACK));
+			// Sets the UPPER LEFT corner box
+			JPanel cornerBoxUL = new JPanel();
+			cornerBoxUL.setBackground(CalendarStandard.CalendarRed);
+			cornerBoxUL.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.BLACK));
 			scrollPane.setCorner(ScrollPaneConstants.UPPER_LEFT_CORNER,
-					cornerBox);
-
+					cornerBoxUL);
+			
+			// Sets the UPPER RIGHT corner box
+			JPanel cornerBoxUR = new JPanel();
+			cornerBoxUR.setBackground(CalendarStandard.CalendarRed);
+			cornerBoxUR.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.BLACK));
+			scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
+					cornerBoxUR);
+			
 			// Create the header panel
 			JPanel header = new JPanel();
 			header.setLayout(new GridLayout(1, 2));
@@ -88,7 +95,7 @@ public class DayPane extends JPanel implements ICalPane {
 			// checked
 			JLabel eventlabel = new JLabel("<html><font color='white'><b>"
 					+ "Events" + "</b></font></html>", SwingConstants.CENTER);
-			eventlabel.setFont(CalendarStandard.CalendarFont);
+			eventlabel.setFont(CalendarStandard.CalendarFont.deriveFont(14));
 			header.add(eventlabel);
 
 			// Create and set the label "Commitments" for when ShowCommitments
@@ -96,7 +103,7 @@ public class DayPane extends JPanel implements ICalPane {
 			JLabel commitlabel = new JLabel("<html><font color='white'><b>"
 					+ "Commitments" + "</b></font></html>",
 					SwingConstants.CENTER);
-			commitlabel.setFont(CalendarStandard.CalendarFont);
+			commitlabel.setFont(CalendarStandard.CalendarFont.deriveFont(14));
 			header.add(commitlabel);
 
 			// add apane to the header of the scrollpane
@@ -117,6 +124,7 @@ public class DayPane extends JPanel implements ICalPane {
 				commitmentList.addAll(teamCommitments.getCommitments()
 						.getCommitments());
 			}
+			
 			daypane = new DetailedDay(datecalendar, new CommitDetailedPane(datecalendar, commitmentList));
 
 		} else {
