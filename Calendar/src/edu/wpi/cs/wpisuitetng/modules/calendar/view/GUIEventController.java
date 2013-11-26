@@ -25,6 +25,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.BorderFactory;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
@@ -70,10 +71,11 @@ public class GUIEventController {
 		
 		try {
 		Image img = ImageIO.read(getClass().getResource("PersonalCalendar_Icon.png"));
-		main.addTab("", new ImageIcon(img), myCalendar);
+		main.addTab("My Calendar", new ImageIcon(img), myCalendar);
+		main.setBorder(BorderFactory.createEmptyBorder());
 		
 		img = ImageIO.read(getClass().getResource("TeamCalendar_Icon.png"));
-		main.addTab("", new ImageIcon(img), teamCalendar);
+		main.addTab("Team Calendar", new ImageIcon(img), teamCalendar);
 		
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
