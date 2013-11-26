@@ -94,7 +94,7 @@ public class CommitmentView extends JPanel {
 		if(tcalendar.getCalData() != null){
 			System.out.println("got COMMITMENTS FOR VIEW");
 			commitmentList = new ArrayList<Commitment>();
-			CombinedCommitmentList combinedList = new CombinedCommitmentList(tcalendar.getCalData().getCommitments().getCommitments());
+			CombinedCommitmentList combinedList = new CombinedCommitmentList(new ArrayList<Commitment>(tcalendar.getCalData().getCommitments().getCommitments()));
 			CalendarData teamCommitments = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName());
 			
 			if(tcalendar.getShowTeamData()) {
