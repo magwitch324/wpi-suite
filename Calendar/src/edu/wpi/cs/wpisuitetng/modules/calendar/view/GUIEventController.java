@@ -71,12 +71,13 @@ public class GUIEventController {
 		myCalendar = new MyCalendar();
 		
 		try {
-		Image img = ImageIO.read(getClass().getResource("PersonalCalendar_Icon.png"));
+		Image img = ImageIO.read(getClass().getResource("Personal_Icon.png"));
 		main.addTab("My Calendar", new ImageIcon(img), myCalendar);
-		main.setBorder(BorderFactory.createEmptyBorder());
 		
-		img = ImageIO.read(getClass().getResource("TeamCalendar_Icon.png"));
+		img = ImageIO.read(getClass().getResource("Team_Icon.png"));
 		main.addTab("Team Calendar", new ImageIcon(img), teamCalendar);
+		
+		main.setBorder(BorderFactory.createEmptyBorder());
 		
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){

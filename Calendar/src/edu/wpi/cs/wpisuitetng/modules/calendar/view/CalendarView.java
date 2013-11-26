@@ -4,6 +4,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -71,6 +72,7 @@ public abstract class CalendarView extends JSplitPane {
 		// View All Commitments Button - NOT SURE HOW TO CENTER???
 		JButton viewAllCommitmentsButton = new JButton("View All Commitments");
 		panel.add(viewAllCommitmentsButton);
+		viewAllCommitmentsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		// the action listener for the Create View All Commitments Button
 		viewAllCommitmentsButton.addActionListener(new ActionListener() {
