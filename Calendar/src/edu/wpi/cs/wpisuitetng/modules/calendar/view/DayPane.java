@@ -51,6 +51,7 @@ public class DayPane extends JPanel implements ICalPane {
 
 		final boolean showCommitements = abCalendar.getShowCommitements();
 		final boolean showTeamCommitments = abCalendar.getShowTeamData();
+		mainPanel.setBackground(Color.WHITE);
 		if(showCommitements){
 
 			setLayout(new GridLayout(1,1));
@@ -150,6 +151,7 @@ public class DayPane extends JPanel implements ICalPane {
 
 	protected JComponent getTimesBar(double height){
     	 JPanel apane = new JPanel();
+    	 apane.setBackground(Color.WHITE);
     	 SpringLayout layout = new SpringLayout();
     	 apane.setLayout(layout);
     	 

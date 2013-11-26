@@ -21,7 +21,7 @@ public class CommitmentList {
 	/**
 	 * The list in which all the commitment for a single project are contained
 	 */
-	private List<Commitment> commitments;
+	protected List<Commitment> commitments;
 	private int nextId;
 
 

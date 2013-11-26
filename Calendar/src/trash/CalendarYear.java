@@ -1,10 +1,8 @@
-package edu.wpi.cs.wpisuitetng.modules.calendar;
+package trash;
 
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
-
-import edu.wpi.cs.wpisuitetng.modules.calendar.monthtab.CalendarMonth;
 
 public class CalendarYear extends JPanel {
 	

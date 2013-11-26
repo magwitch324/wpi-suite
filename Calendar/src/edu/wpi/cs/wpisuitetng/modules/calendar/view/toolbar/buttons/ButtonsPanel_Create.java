@@ -9,6 +9,7 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -19,6 +20,7 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.AbstractButton;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -39,25 +41,37 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	
 	public ButtonsPanel_Create(){
 		super("");
-		createCommitButton= new JButton("<html>Create<br />Commitment</html>");
-		createEventButton= new JButton("<html>Create<br />Event</html>");
-		JPanel contentPanel = new JPanel();
-
-		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
-		this.setPreferredWidth(400);
+		createCommitButton= new JButton();
+		createEventButton= new JButton();
 		
-		this.createEventButton.setSize(200, 200);
-		this.createCommitButton.setPreferredSize(new Dimension(200, 200));
+//		createCommitButton= new JButton("<html>Create<br />Commitment</html>");
+//		createEventButton= new JButton("<html>Create<br />Event</html>");
+		JPanel contentPanel = new JPanel();
+		contentPanel.setBackground(Color.WHITE);
+		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
+		this.setPreferredWidth(600);
+		
+		this.createEventButton.setSize(300, 800);
+		this.createEventButton.setBackground(Color.WHITE);
+		this.createCommitButton.setPreferredSize(new Dimension(300, 800));
+		this.createCommitButton.setBackground(Color.WHITE);
 		this.createCommitButton.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		try {
-		    Image img = ImageIO.read(getClass().getResource("new_commit.png"));
+			Image img = ImageIO.read(getClass().getResource("Add_Commitment.png"));
+//		    Image img = ImageIO.read(getClass().getResource("new_commit.png"));
 		    this.createCommitButton.setIcon(new ImageIcon(img));
 		    
-		    img = ImageIO.read(getClass().getResource("new_event.png"));
+		    img = ImageIO.read(getClass().getResource("Add_Event.png"));
 		    this.createEventButton.setIcon(new ImageIcon(img));
 		    
 		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			this.createCommitButton.setIcon(new ImageIcon());
+			this.createCommitButton.setText("Create Commit");
+			this.createEventButton.setIcon(new ImageIcon());
+			this.createEventButton.setText("Create Event");
+		}
 		
 		// the action listener for the Create Requirement Button
 		createCommitButton.addActionListener(new ActionListener() {
