@@ -12,6 +12,11 @@ package edu.wpi.cs.wpisuitetng.modules.calendar;
 import java.awt.Color;
 import java.awt.Font;
 
+
+/**
+ * CalendarStandard sets standards in the calendar
+ * module such as colors and fonts. 
+ */
 @SuppressWarnings("serial")
 public abstract class CalendarStandard {
 	
