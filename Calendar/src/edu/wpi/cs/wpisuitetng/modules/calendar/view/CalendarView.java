@@ -4,12 +4,12 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -22,6 +22,7 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
@@ -65,7 +66,7 @@ public abstract class CalendarView extends JSplitPane {
 		labelPanel.setMinimumSize(new Dimension(330, 50));
 		
 		JLabel dateLabel = new JLabel("<html><body style='width: 100%'><center>" + dateRange + "</center></html>", SwingConstants.CENTER);
-		dateLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+		dateLabel.setFont(CalendarStandard.CalendarFontBold.deriveFont(Font.BOLD, 20));
 		
 		labelPanel.add(dateLabel);
 		
@@ -74,6 +75,7 @@ public abstract class CalendarView extends JSplitPane {
 		// View All Commitments Button - NOT SURE HOW TO CENTER???
 		JButton viewAllCommitmentsButton = new JButton("View All Commitments");
 		panel.add(viewAllCommitmentsButton);
+		viewAllCommitmentsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		// the action listener for the Create View All Commitments Button
 		viewAllCommitmentsButton.addActionListener(new ActionListener() {

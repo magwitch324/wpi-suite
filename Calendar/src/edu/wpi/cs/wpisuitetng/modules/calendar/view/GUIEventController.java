@@ -76,10 +76,10 @@ public class GUIEventController {
 		teamCalendar = new TeamCalendar();
 		myCalendar = new MyCalendar();
 		try {
-            Image img = ImageIO.read(getClass().getResource("PersonalCalendar_Icon.png"));
+            Image img = ImageIO.read(getClass().getResource("Personal_Icon.png"));
             main.addTab("", new ImageIcon(img), myCalendar);
             
-            img = ImageIO.read(getClass().getResource("TeamCalendar_Icon.png"));
+            img = ImageIO.read(getClass().getResource("Team_Icon.png"));
             main.addTab("", new ImageIcon(img), teamCalendar);
             
             } catch (IOException ex) {}

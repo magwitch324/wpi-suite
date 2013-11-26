@@ -34,6 +34,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
@@ -61,73 +62,39 @@ public class DayPane extends JPanel implements ICalPane {
 
 	public DayPane(GregorianCalendar datecalendar) {
 
-		day = datecalendar;
-//			// HOURS
-//			JScrollPane scrollPane = new JScrollPane(mainPanel, 
-//					  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
-//					  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-//			scrollPane.getVerticalScrollBar().setUnitIncrement(20);
-//			scrollPane.setMinimumSize(new Dimension(300, 300));
-//			add(scrollPane);
-//			  
-//			JPanel apane = new JPanel();
-//	    	apane.setLayout(new GridLayout(1,2));
-//
-//		    JLabel eventlabel = new JLabel("Events", SwingConstants.CENTER);
-//		    eventlabel.setFont(new Font("Arial", 1, 14));
-//		    apane.add( eventlabel );
-//		    
-//		    JLabel commitlabel = new JLabel("Commitments", SwingConstants.CENTER);
-//		    commitlabel.setFont(new Font("Arial", 1, 14));
-//		    apane.add( commitlabel );
-//		    
-//		    scrollPane.setColumnHeaderView(apane);
-//		    	
-//			SpringLayout layout = new SpringLayout();
-//			mainPanel.setLayout(layout);
-//			mainPanel.setPreferredSize(new Dimension(30, 2000));
-//			      
-//			scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
-//			scrollPane.getVerticalScrollBar().setValue(800);
-//			
-//
-//			ArrayList<Commitment> commitmentList = new ArrayList<Commitment>();
-//			CalendarData teamCommitments = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName());
-//			if(!showTeamCommitments&&showCommitments){
-//				commitmentList = new ArrayList<Commitment>(calData.getCommitments().getCommitments());
-//			}
-//			if(showTeamCommitments&&showCommitments){
-//				commitmentList = new ArrayList<Commitment>(calData.getCommitments().getCommitments());
-//				commitmentList.addAll(teamCommitments.getCommitments().getCommitments());
-//			}
+		day = new GregorianCalendar();
+		day.setTime(datecalendar.getTime());
 
+			setLayout(new GridLayout(1,1));
 			
+			// HOURS
+			scrollPane = new JScrollPane(mainPanel, 
+					  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
+					  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+			scrollPane.setMinimumSize(new Dimension(300, 300));
+			add(scrollPane);
+			  
+			labelPane = new JPanel();
+	    	labelPane.setLayout(new GridLayout(1,2));
 
-		scrollPane = new JScrollPane(mainPanel, 
-						  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
-						  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-				scrollPane.getVerticalScrollBar().setUnitIncrement(20);
-				scrollPane.setMinimumSize(new Dimension(300, 500));
-				add(scrollPane);
-				  
-				layout = new SpringLayout();
-				mainPanel.setLayout(layout);
-				mainPanel.setPreferredSize(new Dimension(30, 2000));
-				  
-				labelPane = new JPanel();
-		    	labelPane.setLayout(new GridLayout(1,2));
-
-			    JLabel eventlabel = new JLabel("Events", SwingConstants.CENTER);
-			    eventlabel.setFont(new Font("Arial", 1, 14));
-			    labelPane.add( eventlabel );
-			    
-			    JLabel commitlabel = new JLabel("Commitments", SwingConstants.CENTER);
-			    commitlabel.setFont(new Font("Arial", 1, 14));
-			    labelPane.add( commitlabel );
-			    
-				
-				scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
-				scrollPane.addMouseListener(new MouseAdapter(){
+		    JLabel eventlabel = new JLabel("Events", SwingConstants.CENTER);
+		    eventlabel.setFont(CalendarStandard.CalendarFont);
+		    labelPane.add( eventlabel );
+		    
+		    JLabel commitlabel = new JLabel("Commitments", SwingConstants.CENTER);
+		    commitlabel.setFont(CalendarStandard.CalendarFont);
+		    labelPane.add( commitlabel );
+		    
+		    scrollPane.setColumnHeaderView(labelPane);
+		    	
+			layout = new SpringLayout();
+			mainPanel.setLayout(layout);
+			mainPanel.setPreferredSize(new Dimension(30, 2000));
+			      
+			scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
+			
+			scrollPane.addMouseListener(new MouseAdapter(){
 					@Override
 					public void mouseExited(MouseEvent e) {
 						// TODO Auto-generated method stub
@@ -217,7 +184,7 @@ public class DayPane extends JPanel implements ICalPane {
 	    
     	 for(int i = 1; i < 24; i++){
 			    JLabel alab = new JLabel(times[i]);
-			    alab.setFont(new Font("Arial", 1, 14));
+			    alab.setFont(CalendarStandard.CalendarFont);
 			    layout.putConstraint(SpringLayout.VERTICAL_CENTER, alab, (int)(height*i/24.0), SpringLayout.NORTH, apane);
 			    layout.putConstraint(SpringLayout.EAST, alab, 0, SpringLayout.EAST, apane);
 			    max = alab.getPreferredSize().width > max ? alab.getPreferredSize().width : max;

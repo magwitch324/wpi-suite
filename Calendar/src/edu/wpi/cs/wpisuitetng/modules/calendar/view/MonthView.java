@@ -10,7 +10,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
 public class MonthView extends CalendarView {
 	
-	private Calendar aMonth;
+
+	private GregorianCalendar aMonth;
 	private MonthPane monthPane;
 	
 
@@ -18,9 +19,12 @@ public class MonthView extends CalendarView {
 	public MonthView(GregorianCalendar datecalendar) {
 
 		super(datecalendar);
+		aMonth = new GregorianCalendar();
+
 		monthPane = new MonthPane(datecalendar);
 		setCalPane(monthPane);
 		setCommitmentView(new CommitmentView());
+
 		setRange(datecalendar);
 	}
 	
