@@ -11,7 +11,6 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -22,7 +21,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -32,18 +30,24 @@ import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
+
+import org.jdesktop.swingx.border.MatteBorderExt;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 
+@SuppressWarnings("serial")
 public class WeekPane extends JPanel implements ICalPane {
 	JPanel mainPanel = new JPanel();
+	
 	JScrollPane scrollPane = new JScrollPane(mainPanel,
 			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+	
 	GregorianCalendar mydate;
+	
 	AbCalendar calendarused;
 
 	/**
@@ -51,24 +55,55 @@ public class WeekPane extends JPanel implements ICalPane {
 	 */
 
 	public WeekPane(GregorianCalendar datecalendar, AbCalendar abCalendar) {
+		
+		setLayout(new GridLayout(1, 1));
+		
 		mydate = new GregorianCalendar();
 		mydate.setTime(datecalendar.getTime());
+		
+		SpringLayout layout = new SpringLayout();
+		
+		mainPanel.setLayout(layout);
+		mainPanel.setPreferredSize(new Dimension(30, 2000));
 
 		calendarused = abCalendar;
+
+		// set mydate to the first day of the week
 		while (mydate.get(Calendar.DAY_OF_WEEK) != mydate.getFirstDayOfWeek()) {
 			mydate.add(Calendar.DATE, -1);
 		}
-
-		setLayout(new GridLayout(1, 1));
-		scrollPane.setMinimumSize(new Dimension(500, 300));
+		
+		/*
+		 * Setting up the ScrollPane
+		 */
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
-		scrollPane.setMinimumSize(new Dimension(500, 300));
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+		scrollPane.setMinimumSize(new Dimension(500, 300));
+		scrollPane.setColumnHeaderView(getHeader(0));
+		scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize()
+				.getHeight()));
+		scrollPane.getVerticalScrollBar().setValue(800);
+		
+		// Set color within the scrollbar
+		scrollPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
+		
 		scrollPane.setBackground(CalendarStandard.CalendarRed);
 
-		SpringLayout layout = new SpringLayout();
-		mainPanel.setLayout(layout);
-		mainPanel.setPreferredSize(new Dimension(30, 2000));
+		// Sets the UPPER LEFT corner box
+		JPanel cornerBoxUL = new JPanel();
+		cornerBoxUL.setBackground(CalendarStandard.CalendarRed);
+		cornerBoxUL.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.BLACK));
+		scrollPane.setCorner(ScrollPaneConstants.UPPER_LEFT_CORNER,
+				cornerBoxUL);
+		
+		// Sets the UPPER RIGHT corner box
+		JPanel cornerBoxUR = new JPanel();
+		cornerBoxUR.setBackground(CalendarStandard.CalendarRed);
+		cornerBoxUR.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.BLACK));
+		scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
+				cornerBoxUR);
+		
+		// Get and add the panel that lists the days along the top
 		JComponent days = getDays();
 		layout.putConstraint(SpringLayout.WEST, days, 0, SpringLayout.WEST,
 				mainPanel);
@@ -79,12 +114,9 @@ public class WeekPane extends JPanel implements ICalPane {
 		layout.putConstraint(SpringLayout.EAST, days, 0, SpringLayout.EAST,
 				mainPanel);
 		mainPanel.add(days);
-
-		scrollPane.setColumnHeaderView(getHeader(0));
-		scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize()
-				.getHeight()));
-		scrollPane.getVerticalScrollBar().setValue(800);
-
+		
+		// If showing the commitments, open a vertical split
+		// then set the components. (Will be changed)
 		if (abCalendar.getShowCommitements()) {
 			JSplitPane splitpane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 			this.add(splitpane);
@@ -94,6 +126,7 @@ public class WeekPane extends JPanel implements ICalPane {
 			this.add(scrollPane);
 		}
 
+		// WHAT IS THIS? Someone please comment!
 		scrollPane.addComponentListener(new ComponentAdapter() {
 			public void componentResized(ComponentEvent e) {
 
@@ -145,12 +178,9 @@ public class WeekPane extends JPanel implements ICalPane {
 		JPanel apane = new JPanel();
 		apane.setBackground(CalendarStandard.CalendarRed);
 		apane.setBorder(new EmptyBorder(5, 0, 10, 0));
-		SpringLayout layout = new SpringLayout();
 		GridLayout g = new GridLayout(1, 7);
 
 		apane.setLayout(g);
-		int height = 0;
-
 		for (int i = 0; i < 7; i++) {
 			JLabel alab = new JLabel("<html><font color='white'><b>"
 					+ weekdays[use][i] + "</b></font></html>",
@@ -159,6 +189,9 @@ public class WeekPane extends JPanel implements ICalPane {
 			apane.add(alab);
 		}
 
+
+		apane.setBorder(new MatteBorder(0, 0, 2, 0, Color.BLACK));
+		
 		return apane;
 	}
 
@@ -240,7 +273,7 @@ public class WeekPane extends JPanel implements ICalPane {
 	protected JComponent getTimesBar(double height) {
 		JPanel apane = new JPanel();
 		apane.setBackground(CalendarStandard.CalendarRed);
-		apane.setBorder(new EmptyBorder(0, 0, 0, 5));
+		apane.setBorder(new EmptyBorder(0, 5, 0, 5));
 		SpringLayout layout = new SpringLayout();
 		apane.setLayout(layout);
 
@@ -272,7 +305,6 @@ public class WeekPane extends JPanel implements ICalPane {
 
 	@Override
 	public JPanel getPane() {
-		// TODO Auto-generated method stub
 		return this;
 	}
 

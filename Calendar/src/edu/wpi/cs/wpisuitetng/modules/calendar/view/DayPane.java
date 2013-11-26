@@ -36,11 +36,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
 public class DayPane extends JPanel implements ICalPane {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	JPanel mainPanel = new JPanel();
+	
 	private DetailedDay daypane;
 
 	/**
@@ -60,7 +58,10 @@ public class DayPane extends JPanel implements ICalPane {
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+		
+		// Set color within the scrollbar
 		scrollPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
+		
 		scrollPane.setMinimumSize(new Dimension(300, 300));
 		scrollPane.setBackground(CalendarStandard.CalendarRed);
 
