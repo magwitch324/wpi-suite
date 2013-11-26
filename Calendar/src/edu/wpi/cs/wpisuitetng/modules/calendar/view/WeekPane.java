@@ -29,6 +29,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 
 
@@ -59,7 +60,7 @@ public class WeekPane extends JPanel implements ICalPane {
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane.setMinimumSize(new Dimension(500, 300));
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
-		scrollPane.setBackground(Color.WHITE);
+		scrollPane.setBackground(CalendarStandard.CalendarRed);
 		
 		SpringLayout layout = new SpringLayout();
 		mainPanel.setLayout(layout);
@@ -107,6 +108,11 @@ public class WeekPane extends JPanel implements ICalPane {
 	}
 
 
+	/**
+	 * Set up header section for the week pane
+	 * @param use
+	 * @return
+	 */
     protected JComponent getHeader(int use){
     	String[][] weekdays = {{"Sunday, ", "Monday, ", "Tuesday, ",
     						"Wednesday, ", "Thursday, ", "Friday, ", "Saturday, " },
@@ -121,8 +127,10 @@ public class WeekPane extends JPanel implements ICalPane {
     		}
     	}
     	
+    	
     	JPanel apane = new JPanel();
-    	apane.setBackground(Color.RED);
+    	apane.setBackground(CalendarStandard.CalendarRed);
+	    apane.setBorder(new EmptyBorder(5,0,10,0));
     	SpringLayout layout = new SpringLayout();
     	GridLayout g = new GridLayout(1,7);
     	
@@ -130,18 +138,18 @@ public class WeekPane extends JPanel implements ICalPane {
     	int height = 0;
     	
 	    for(int i = 0; i<7; i++){
-	    	JLabel alab = new JLabel(weekdays[use][i], SwingConstants.CENTER);
-	    	alab.setFont(new Font("SansSerif", 1, 12));
+	    	JLabel alab = new JLabel("<html><font color='white'><b>" + weekdays[use][i] + "</b></font></html>", SwingConstants.CENTER);
+	    	alab.setFont(CalendarStandard.CalendarFontBold);
 	    	apane.add( alab );
 	    }
-    
+	    
     	return apane;
     }
 
     
     protected JComponent getDays(){
     	JPanel apane = new JPanel();
-    	apane.setBackground(Color.WHITE);
+    	apane.setBackground(CalendarStandard.CalendarYellow);
 	    apane.setLayout(new GridLayout(1,7));
     	String[] weekdays = {"Sunday, ", "Monday, ", "Tuesday, ",
 				"Wednesday, ", "Thursday, ", "Friday, ", "Saturday, " };
@@ -155,11 +163,8 @@ public class WeekPane extends JPanel implements ICalPane {
 	    	GregorianCalendar acal = new GregorianCalendar();
 	    	acal.setTime(mydate.getTime());
 	    	acal.add(Calendar.DATE, i);
-//<<<<<<< HEAD
-//	    	JComponent aday = new DetailedDay(acal);
-//=======
+	    	
 	    	JLayeredPane aday = new DetailedDay(acal);
-//>>>>>>> 8d54f788e1fec6a7eab547aca6afdaba2701252d
 	    	aday.addMouseListener(new AMouseEvent(acal, calendarused));
 	    	apane.add( aday );
 	    }
@@ -186,8 +191,6 @@ public class WeekPane extends JPanel implements ICalPane {
 	    	GregorianCalendar acal = new GregorianCalendar();
 	    	acal.setTime(mydate.getTime());
 	    	acal.add(Calendar.DAY_OF_MONTH, 1);
-	    	//TODO add function
-	    	//JPanel viewpane = getWeekCommitPaneforDate( acal );
 	    	
 	    	CommitmentView commits = new CommitmentView(calendarused);
 	    	
@@ -217,7 +220,8 @@ public class WeekPane extends JPanel implements ICalPane {
     
 	protected JComponent getTimesBar(double height){
 		JPanel apane = new JPanel();
-		apane.setBackground(Color.WHITE);
+		apane.setBackground(CalendarStandard.CalendarRed);
+		apane.setBorder(new EmptyBorder(0,0,0,5));
 		SpringLayout layout = new SpringLayout();
 		apane.setLayout(layout);
 		 
@@ -229,8 +233,8 @@ public class WeekPane extends JPanel implements ICalPane {
 		int max = 0;
 		    
 		for(int i = 1; i < 24; i++){
-			JLabel alab = new JLabel(times[i]);
-			alab.setFont(new Font("Arial", 1, 12));
+			JLabel alab = new JLabel("<html><font color='white'><b>" + times[i] + "</b></font></html>");
+			alab.setFont(CalendarStandard.CalendarFontBold);
 			layout.putConstraint(SpringLayout.VERTICAL_CENTER, alab, (int)(height*i/24.0), SpringLayout.NORTH, apane);
 			layout.putConstraint(SpringLayout.EAST, alab, 0, SpringLayout.EAST, apane);
 			max = alab.getPreferredSize().width > max ? alab.getPreferredSize().width : max;

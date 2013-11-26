@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+
 public class MonthPane extends JScrollPane implements ICalPane {
 	JPanel mainview;
 	
@@ -43,7 +45,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			else
 				aday.setBackground(Color.GRAY);
 			JLabel alab = new JLabel("" + itcal.get(Calendar.DATE));
-			alab.setFont(new Font("Arial", 1, 14));
+			alab.setFont(CalendarStandard.CalendarFont);
 			alab.setBackground(new Color(0,0,0,0));
 			aday.add(alab);
 			aday.addMouseListener(new AMouseEvent(acal, null));

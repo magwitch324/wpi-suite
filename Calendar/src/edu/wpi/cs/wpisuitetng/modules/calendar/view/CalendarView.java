@@ -9,7 +9,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.swing.BoxLayout;
@@ -21,6 +20,7 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 
 
@@ -62,7 +62,7 @@ public abstract class CalendarView extends JSplitPane {
 		labelPanel.setMinimumSize(new Dimension(330, 50));
 		
 		JLabel dateLabel = new JLabel("<html><body style='width: 100%'><center>" + dateRange + "</center></html>", SwingConstants.CENTER);
-		dateLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+		dateLabel.setFont(CalendarStandard.CalendarFontBold.deriveFont(Font.BOLD, 20));
 		
 		labelPanel.add(dateLabel);
 		

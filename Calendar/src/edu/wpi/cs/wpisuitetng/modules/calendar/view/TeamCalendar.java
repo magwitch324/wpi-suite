@@ -18,6 +18,7 @@ import javax.swing.JToggleButton;
 import javax.swing.SpringLayout;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.config.CalendarConfManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
@@ -53,7 +54,7 @@ public class TeamCalendar extends AbCalendar {
 		this.add(datepanel);
 
 		showcom = new JCheckBox("Show Commitments");
-		showcom.setFont(defualtfont);
+		showcom.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14));
 		showcom.setBackground(Color.WHITE);
 		showcom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

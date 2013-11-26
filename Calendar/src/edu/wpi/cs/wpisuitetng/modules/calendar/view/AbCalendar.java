@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar.types;
@@ -63,7 +64,6 @@ public abstract class AbCalendar extends JPanel {
 	protected JCheckBox showcom;
 	
 	protected int[] viewsizeval = {Calendar.DATE, Calendar.WEEK_OF_YEAR, Calendar.MONTH, Calendar.YEAR};
-	protected Font defualtfont = new Font("Arial", 1, 14);
 	protected CalendarView calView;
 	
 	public AbCalendar(){
@@ -97,7 +97,6 @@ public abstract class AbCalendar extends JPanel {
 			this.viewbtns[0].setText("Day");
 		} 
 		
-//		viewbtns[0].setFont(defualtfont);
 		viewbtns[0].setBackground(Color.WHITE);
 		viewbtns[0].addActionListener(new ActionListener() {
 			 
@@ -121,7 +120,6 @@ public abstract class AbCalendar extends JPanel {
 			this.viewbtns[1].setText("Week");
 		}
 		
-//		viewbtns[1].setFont(defualtfont);
 		viewbtns[1].setBackground(Color.WHITE);
 		viewbtns[1].addActionListener(new ActionListener() {
 			 
@@ -144,7 +142,6 @@ public abstract class AbCalendar extends JPanel {
 			this.viewbtns[2].setText("Month");
 		}
 		
-//		viewbtns[2].setFont(defualtfont);
 		viewbtns[2].setBackground(Color.WHITE);
 		viewbtns[2].addActionListener(new ActionListener() {
 			 
@@ -167,7 +164,6 @@ public abstract class AbCalendar extends JPanel {
 			this.viewbtns[3].setText("Year");
 		}
 		
-//		viewbtns[3].setFont(defualtfont);
 		viewbtns[3].setBackground(Color.WHITE);
 		viewbtns[3].addActionListener(new ActionListener() {
 			 
@@ -217,7 +213,7 @@ public abstract class AbCalendar extends JPanel {
 		
 		JButton backwardbutton = new JButton("<<");
 		backwardbutton.setBackground(Color.WHITE);
-		backwardbutton.setFont(defualtfont);
+		backwardbutton.setFont(CalendarStandard.CalendarFont);
 		backwardbutton.addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)
@@ -229,7 +225,7 @@ public abstract class AbCalendar extends JPanel {
 		
 		JButton todaybutton = new JButton("Today");
 		todaybutton.setBackground(Color.WHITE);
-		todaybutton.setFont(defualtfont);
+		todaybutton.setFont(CalendarStandard.CalendarFont);
 		todaybutton.addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)
@@ -241,7 +237,7 @@ public abstract class AbCalendar extends JPanel {
 		
 		JButton forwardbutton = new JButton(">>");
 		forwardbutton.setBackground(Color.WHITE);
-		forwardbutton.setFont(defualtfont);
+		forwardbutton.setFont(CalendarStandard.CalendarFont);
 		forwardbutton.addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)

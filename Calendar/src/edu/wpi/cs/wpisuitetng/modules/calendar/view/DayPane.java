@@ -28,6 +28,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
@@ -68,11 +69,11 @@ public class DayPane extends JPanel implements ICalPane {
 	    	apane.setLayout(new GridLayout(1,2));
 
 		    JLabel eventlabel = new JLabel("Events", SwingConstants.CENTER);
-		    eventlabel.setFont(new Font("Arial", 1, 14));
+		    eventlabel.setFont(CalendarStandard.CalendarFont);
 		    apane.add( eventlabel );
 		    
 		    JLabel commitlabel = new JLabel("Commitments", SwingConstants.CENTER);
-		    commitlabel.setFont(new Font("Arial", 1, 14));
+		    commitlabel.setFont(CalendarStandard.CalendarFont);
 		    apane.add( commitlabel );
 		    
 		    scrollPane.setColumnHeaderView(apane);
@@ -164,7 +165,7 @@ public class DayPane extends JPanel implements ICalPane {
 	    
     	 for(int i = 1; i < 24; i++){
 			    JLabel alab = new JLabel(times[i]);
-			    alab.setFont(new Font("Arial", 1, 14));
+			    alab.setFont(CalendarStandard.CalendarFont);
 			    layout.putConstraint(SpringLayout.VERTICAL_CENTER, alab, (int)(height*i/24.0), SpringLayout.NORTH, apane);
 			    layout.putConstraint(SpringLayout.EAST, alab, 0, SpringLayout.EAST, apane);
 			    max = alab.getPreferredSize().width > max ? alab.getPreferredSize().width : max;
