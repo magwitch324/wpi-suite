@@ -44,6 +44,7 @@ public class WeekPane extends JPanel implements ICalPane {
     * Create the panel.
     */
 
+
 	public WeekPane(GregorianCalendar datecalendar, AbCalendar abCalendar) {
 		mydate = new GregorianCalendar();
 		mydate.setTime(datecalendar.getTime());
