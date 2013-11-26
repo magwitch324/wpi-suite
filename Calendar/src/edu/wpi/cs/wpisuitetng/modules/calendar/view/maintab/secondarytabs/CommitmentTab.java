@@ -61,6 +61,7 @@ import java.awt.event.MouseEvent;
 import java.awt.Component;
 
 import javax.swing.Box;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import java.awt.Color;
@@ -98,6 +99,7 @@ public class CommitmentTab extends JPanel {
 	private JPanel buttonPanel;
 	private JPanel formPanel;
 	private JLabel statusLabel;
+	private boolean initFlag; //to keep things from running before we fully intialize
 	
 	private enum EditingMode {
 		ADDING(0),
@@ -114,6 +116,8 @@ public class CommitmentTab extends JPanel {
 	 * Create the panel.
 	 */
 	public CommitmentTab() {
+		this.initFlag = false;
+		
 		//Sets new commitment form to left of pane
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		formPanel = new JPanel();
@@ -412,7 +416,6 @@ public class CommitmentTab extends JPanel {
 		
 		//Add Commitment button
 		btnAddCommitment = new JButton("Save Commitment");
-
 		btnAddCommitment.addActionListener(new ActionListener() {
 
 			@Override
@@ -499,39 +502,14 @@ public class CommitmentTab extends JPanel {
 		
 		
 		buttonPanel.add(btnAddCommitment, BorderLayout.WEST);		
-		buttonPanel.add(btnCancel, BorderLayout.EAST);
+		buttonPanel.add(btnCancel, BorderLayout.CENTER);
 		formPanel.add(buttonPanel, gbc_btnPanel);
 		
-		
-	}
-
-	/**
-	 * Create a commitment tab in editing mode.
-	 */
-	public CommitmentTab(Commitment commToEdit, CalendarData calData) {
-		this();
-		editingCommitment = commToEdit;
-		this.mode = EditingMode.EDITING;
-		
-		this.nameTextField.setText(editingCommitment.getName());
-		this.descriptionTextArea.setText(editingCommitment.getDescription());
-		this.categoryComboBox.setSelectedItem(editingCommitment.getCategoryId());
-		
-		if(calData.getId().equals(ConfigManager.getConfig().getProjectName()))
-			this.rdbtnTeam.setSelected(true);
-		else
-			this.rdbtnPersonal.setSelected(true);
-		
-		this.rdbtnTeam.setEnabled(false);
-		this.rdbtnPersonal.setEnabled(false);
-		
-		this.timeSpinner.setValue(editingCommitment.getDueDate());
-		this.datePicker.setDate(editingCommitment.getDueDate());
 		String[] statusStrings = {"New", "In Progress", "Completed"};
 		statusComboBox = new JComboBox(statusStrings);
 		
 		
-		statusComboBox.setSelectedIndex(commToEdit.getStatus().id);
+		statusComboBox.setSelectedIndex(0);
 		GridBagConstraints gbc_statusComboBox = new GridBagConstraints();
 		gbc_statusComboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_statusComboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -553,6 +531,40 @@ public class CommitmentTab extends JPanel {
 		gbc_statusLabel.weighty = 3;
 
 		formPanel.add(statusLabel,gbc_statusLabel);
+		
+		this.initFlag = true;
+	}
+
+	/**
+	 * Create a commitment tab in editing mode.
+	 */
+	public CommitmentTab(Commitment commToEdit, CalendarData calData) {
+		this();
+		
+		this.initFlag = false; //We need this to deal with the nested constructors
+		
+		editingCommitment = commToEdit;
+		this.mode = EditingMode.EDITING;
+		
+		this.nameTextField.setText(editingCommitment.getName());
+		this.descriptionTextArea.setText(editingCommitment.getDescription());
+		this.categoryComboBox.setSelectedItem(editingCommitment.getCategoryId());
+		
+		if(calData.getId().equals(ConfigManager.getConfig().getProjectName()))
+			this.rdbtnTeam.setSelected(true);
+		else
+			this.rdbtnPersonal.setSelected(true);
+		
+		this.rdbtnTeam.setEnabled(false);
+		this.rdbtnPersonal.setEnabled(false);
+		
+		this.timeSpinner.setValue(editingCommitment.getDueDate());
+		this.datePicker.setDate(editingCommitment.getDueDate());
+
+		
+		
+		statusComboBox.setSelectedIndex(commToEdit.getStatus().id);
+		
 		btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
 
@@ -562,7 +574,7 @@ public class CommitmentTab extends JPanel {
 			}
 			
 		});
-		buttonPanel.add(btnDelete, BorderLayout.CENTER);
+		buttonPanel.add(btnDelete, BorderLayout.LINE_END);
 		
 		//Some edit specific listeners
 		//These are here to avoid possible NullPointer exceptions while opening the tab 
@@ -609,6 +621,8 @@ public class CommitmentTab extends JPanel {
 			
 			
 		});
+		
+		this.initFlag = true;
 
 	}
 	
@@ -702,9 +716,9 @@ public class CommitmentTab extends JPanel {
 		newComm.setCategoryId(((Category)this.categoryComboBox.getSelectedItem()).getId());
 		newComm.setDescription(this.descriptionTextArea.getText());
 		
-		if(mode == EditingMode.EDITING) {
-			newComm.setStatus(Status.getStatusValue(statusComboBox.getSelectedIndex()));
-		}			
+
+		newComm.setStatus(Status.getStatusValue(statusComboBox.getSelectedIndex()));
+		
 		
 		//Parse date and time info
 		Calendar calDate = new GregorianCalendar();
@@ -751,31 +765,33 @@ public class CommitmentTab extends JPanel {
 	 * Controls the enable state of the save button
 	 */
 	private void listenerHelper(){
-		if(nameTextField.getText().equals("") || datePicker.getDate() == null || //data validation
-				nameTextField.getText().trim().length() == 0){
-			btnAddCommitment.setEnabled(false);
-		} else {
-			if (mode == EditingMode.EDITING){
-				//get some date data
-				Calendar calDate = new GregorianCalendar();
-				Calendar calTime = new GregorianCalendar();
-				calDate.setTime(this.datePicker.getDate());
-				calTime.setTime((Date)timeSpinner.getValue());
-				calDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
-				calDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
-				//make sure something changed
-				if (this.nameTextField.getText().equals(editingCommitment.getName()) 
-						&& this.descriptionTextArea.getText().equals(editingCommitment.getDescription())
-						&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryId()
-						&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
-						&& calDate.getTime().equals(editingCommitment.getDueDate())){
-					btnAddCommitment.setEnabled(false);
-					return;
+		if (initFlag){
+			if(nameTextField.getText().equals("") || datePicker.getDate() == null || //data validation
+					nameTextField.getText().trim().length() == 0){
+				btnAddCommitment.setEnabled(false);
+			} else {
+				if (mode == EditingMode.EDITING){
+					//get some date data
+					Calendar calDate = new GregorianCalendar();
+					Calendar calTime = new GregorianCalendar();
+					calDate.setTime(this.datePicker.getDate());
+					calTime.setTime((Date)timeSpinner.getValue());
+					calDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
+					calDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
+					//make sure something changed
+					if (this.nameTextField.getText().equals(editingCommitment.getName()) 
+							&& this.descriptionTextArea.getText().equals(editingCommitment.getDescription())
+							&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryId()
+							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
+							&& calDate.getTime().equals(editingCommitment.getDueDate())){
+						btnAddCommitment.setEnabled(false);
+						return;
+					}
 				}
+				btnAddCommitment.setEnabled(true);
 			}
-			btnAddCommitment.setEnabled(true);
+
 		}
-		
 	}
 
 }

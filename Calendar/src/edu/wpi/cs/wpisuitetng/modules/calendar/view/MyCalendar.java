@@ -1,5 +1,6 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
@@ -40,6 +41,7 @@ public class MyCalendar extends AbCalendar {
 		
 		showcom = new JCheckBox("Show Commitments");
 		showcom.setFont(defualtfont);
+		showcom.setBackground(Color.WHITE);
 		showcom.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
@@ -54,6 +56,7 @@ public class MyCalendar extends AbCalendar {
 		
 		showteam = new JCheckBox("Show Team Data");
 		showteam.setFont(defualtfont);
+		showteam.setBackground(Color.WHITE);
 		showteam.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {

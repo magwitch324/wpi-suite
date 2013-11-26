@@ -25,8 +25,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataControl
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.MyCalendar;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.TeamCalendar;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.MyCalendarTab;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.TeamCalendarTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.tab.ClosableTabComponent;
 
 /**

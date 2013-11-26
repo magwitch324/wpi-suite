@@ -32,7 +32,7 @@ public class MonthView extends CalendarView {
 		int startYear = aMonth.get(Calendar.YEAR);
 		int endYear = aMonth.get(Calendar.YEAR);
 		
-		setLabel(monthName + " ");
+		setLabel(monthName + " " + aMonth.get(Calendar.YEAR));
 				
 		refresh();
 	}

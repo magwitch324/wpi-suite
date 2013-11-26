@@ -15,9 +15,7 @@ import javax.swing.JToolBar;
 import edu.wpi.cs.wpisuitetng.janeway.modules.IJanewayModule;
 import edu.wpi.cs.wpisuitetng.janeway.modules.JanewayTabModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabController_unused;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarController_unused;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 
 

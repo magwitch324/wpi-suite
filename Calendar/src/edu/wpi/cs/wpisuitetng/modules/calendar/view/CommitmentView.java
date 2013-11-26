@@ -59,9 +59,10 @@ public class CommitmentView extends JPanel {
 
 		commitPanel = new JPanel();
 		JScrollPane scrollPane = new JScrollPane(commitPanel, 
-				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, 
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(scrollPane, BorderLayout.CENTER );
+		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 
 		SpringLayout layout = new SpringLayout();
 		setLayout(layout);

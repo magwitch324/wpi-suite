@@ -1,4 +1,4 @@
-package edu.wpi.cs.wpisuitetng.modules.calendar;
+package trash;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,7 +18,7 @@ import javax.swing.SwingConstants;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import net.miginfocom.swing.MigLayout;
 
-public class CalendarMonth implements ICalenderView{
+public class CalendarMonth2 implements ICalenderView{
 
 	private JPanel monthPanel;
 	private JPanel2[] dayPanels;
@@ -28,7 +28,7 @@ public class CalendarMonth implements ICalenderView{
 	private int currentDay = 1;
 	private int maxMonthDays;
 	
-	public CalendarMonth(String month, int startDay, int maxMonthDays) {
+	public CalendarMonth2(String month, int startDay, int maxMonthDays) {
 		
 		this.startDay = startDay;
 		this.maxMonthDays = maxMonthDays;

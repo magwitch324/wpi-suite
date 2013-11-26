@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Calendar;
 
 import javax.swing.JLabel;
@@ -44,6 +46,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			alab.setFont(new Font("Arial", 1, 14));
 			alab.setBackground(new Color(0,0,0,0));
 			aday.add(alab);
+			aday.addMouseListener(new AMouseEvent(acal, null));
 			mainview.add(aday);
 			
 			itcal.add(Calendar.DATE, 1);
@@ -54,5 +57,35 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		apanel.setLayout(new GridLayout(1,1));
 		apanel.add(this);
 		return apanel;
+	}
+	protected class AMouseEvent implements MouseListener{
+		AbCalendar abCalendar;
+		Calendar adate;
+		
+		public AMouseEvent(Calendar adate, AbCalendar abCalendar){
+			this.adate = adate;
+			this.abCalendar = abCalendar;
+		}
+	
+		public void mousePressed(MouseEvent e) {
+
+	    }
+
+	    public void mouseReleased(MouseEvent e) {
+
+	    }
+
+	    public void mouseEntered(MouseEvent e) {
+	    }
+
+	    public void mouseExited(MouseEvent e) {
+
+	    }
+
+	    public void mouseClicked(MouseEvent e) {
+	    	if(e.getClickCount() > 1){
+	    		//abCalendar.setCalsetView(adate, TeamCalendar.types.DAY);
+	    	}
+	    }
 	}
 }

@@ -1,5 +1,6 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -53,6 +54,7 @@ public class TeamCalendar extends AbCalendar {
 
 		showcom = new JCheckBox("Show Commitments");
 		showcom.setFont(defualtfont);
+		showcom.setBackground(Color.WHITE);
 		showcom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setView();
