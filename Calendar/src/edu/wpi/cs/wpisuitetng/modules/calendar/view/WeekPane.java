@@ -43,7 +43,7 @@ public class WeekPane extends JPanel implements ICalPane {
     * Create the panel.
     */
 
-	public WeekPane(Calendar datecalendar, AbCalendar abCalendar) {
+	public WeekPane(Calendar datecalendar, AbCalendar abCalendar) {		
 		mydate = (Calendar)datecalendar.clone();
 		calendarused = abCalendar;
 	   	while(mydate.get(Calendar.DAY_OF_WEEK) != mydate.getFirstDayOfWeek() ){
@@ -55,10 +55,11 @@ public class WeekPane extends JPanel implements ICalPane {
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane.setMinimumSize(new Dimension(500, 300));
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+		scrollPane.setBackground(Color.WHITE);
 		
 		SpringLayout layout = new SpringLayout();
 		mainPanel.setLayout(layout);
-		mainPanel.setPreferredSize(new Dimension(30, 2000));		
+		mainPanel.setPreferredSize(new Dimension(30, 2000));
 		JComponent days = getDays();
 		layout.putConstraint(SpringLayout.WEST, days, 0, SpringLayout.WEST, mainPanel);
 		layout.putConstraint(SpringLayout.NORTH, days, 0, SpringLayout.NORTH, mainPanel);
@@ -85,7 +86,7 @@ public class WeekPane extends JPanel implements ICalPane {
 			public void componentResized(ComponentEvent e){
 				
 				scrollPane.setColumnHeaderView(getHeader(0));
-				System.out.println(scrollPane.getColumnHeader().getSize().getWidth() + " : " + 					scrollPane.getColumnHeader().getView().getPreferredSize().getWidth());				if(scrollPane.getColumnHeader().getSize().getWidth() <
+				System.out.println(scrollPane.getColumnHeader().getSize().getWidth() + " : " + scrollPane.getColumnHeader().getView().getPreferredSize().getWidth());				if(scrollPane.getColumnHeader().getSize().getWidth() <
 						scrollPane.getColumnHeader().getView().getPreferredSize().getWidth()){
 					scrollPane.setColumnHeaderView(getHeader(1));
 				}
