@@ -26,6 +26,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
 import edu.wpi.cs.wpisuitetng.janeway.gui.container.toolbar.ToolbarGroupView;
@@ -49,21 +50,24 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		JPanel contentPanel = new JPanel();
 		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
-		this.setPreferredWidth(600);
+		this.setPreferredWidth(800);
 		
-		this.createEventButton.setSize(300, 800);
+		this.createEventButton.setSize(400, 800);
 		this.createEventButton.setBackground(Color.WHITE);
-		this.createCommitButton.setPreferredSize(new Dimension(300, 800));
+		this.createCommitButton.setPreferredSize(new Dimension(400, 800));
 		this.createCommitButton.setBackground(Color.WHITE);
 		this.createCommitButton.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		try {
-			Image img = ImageIO.read(getClass().getResource("Add_Commitment.png"));
-//		    Image img = ImageIO.read(getClass().getResource("new_commit.png"));
+			Image img = ImageIO.read(getClass().getResource("AddCommitment_Icon.png"));
 		    this.createCommitButton.setIcon(new ImageIcon(img));
+		    this.createCommitButton.setBorder(BorderFactory.createEmptyBorder());
+		    this.createCommitButton.setContentAreaFilled(false);
 		    
-		    img = ImageIO.read(getClass().getResource("Add_Event.png"));
+		    img = ImageIO.read(getClass().getResource("AddEvent_Icon.png"));
 		    this.createEventButton.setIcon(new ImageIcon(img));
+		    this.createEventButton.setBorder(BorderFactory.createEmptyBorder());
+		    this.createEventButton.setContentAreaFilled(false);
 		    
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
@@ -95,7 +99,9 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		});
 		
 			
+		this.createCommitButton.setBorder(new EmptyBorder(0, 0, 0, 15));
 		contentPanel.add(createCommitButton);
+		this.createEventButton.setBorder(new EmptyBorder(0, 0, 0, 15));
 		contentPanel.add(createEventButton);
 		contentPanel.setOpaque(false);
 		
