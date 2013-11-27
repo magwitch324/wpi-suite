@@ -54,8 +54,7 @@ public class WeekView extends CalendarView {
 		// Get end date by skipping to next sunday and
 		// then backing up to the saturday
 		endDate.setTime(startDate.getTime());
-		endDate.add(Calendar.WEEK_OF_MONTH, 1);
-		endDate.add(Calendar.DAY_OF_MONTH, -1);
+		endDate.add(Calendar.DAY_OF_YEAR, 7);
 		endDate.add(Calendar.MILLISECOND, -1);
 
 		

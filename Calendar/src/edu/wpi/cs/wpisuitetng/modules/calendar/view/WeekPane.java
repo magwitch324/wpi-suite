@@ -59,6 +59,7 @@ public class WeekPane extends JPanel implements ICalPane {
 	public WeekPane(GregorianCalendar datecalendar) {
 		mydate = new GregorianCalendar();
 		mydate.setTime(datecalendar.getTime());
+		mydate.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 
 //	   	while(mydate.get(Calendar.DAY_OF_WEEK) != mydate.getFirstDayOfWeek() ){
 //	   		mydate.add(Calendar.DATE, -1);
