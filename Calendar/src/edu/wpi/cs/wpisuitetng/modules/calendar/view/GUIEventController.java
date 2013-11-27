@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
- * Contributors: Team Rolling Thunder
+ * Contributors: CS Anonymous
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
@@ -170,14 +170,13 @@ public class GUIEventController {
 	
 	// Creates new empty tab that will be used to put all commitments 
 	public void createViewCommitmentsTab() {
-		JPanel allCommitmentsTab = new JPanel();
-		allCommitmentsTab.setBackground(Color.WHITE);
+		CommitmentFullView commitFullView = new CommitmentFullView(teamCalendar);
 
 //		allCommitmentsTab.add(teamCalendar.calView);
-		main.addTab("All Commitments", null, allCommitmentsTab, "New Commitment");
+		main.addTab("All Commitments", null, commitFullView, "New Commitment");
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
-		main.setSelectedComponent(allCommitmentsTab);
+		main.setSelectedComponent(commitFullView);
 	}
 
 	public void createEvent() {
