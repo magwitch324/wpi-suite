@@ -67,46 +67,24 @@ public class WeekView extends CalendarView {
 		int endYear = endDate.get(Calendar.YEAR);
 		
 		setLabel(startMonthName + " " + startDayNum + ", " + startYear + "<br>---<br>" + endMonthName + " " + endDayNum + ", " + endYear);
-				
+
 		refresh();
 	}
 
 	@Override
 	public void displayCalData(CommitmentList commList, boolean showCommOnCal) {
-		
-		
-//	
-//		if(personalCalData != null)
-//		{
-//			allPersonalComms = personalCalData.getCommitments(); //currently shown commitments (personal or team)
-//			for(Commitment comm : allPersonalComms.getCommitments())
-//			{
-//				// add to list if within bounds of week
-//				if (!(comm.getDueDate().before(startDate.getTime()) || comm.getDueDate().after(endDate.getTime())))
-//					weekPersonalCommList.addCommitment(comm);
-//			}
-//		}
-//		if (teamCalData!=null)
-//		{		
-//			allTeamComms = teamCalData.getCommitments();
-//			for(Commitment comm : allTeamComms.getCommitments())
-//				{
-//					if (!(comm.getDueDate().before(startDate.getTime()) || comm.getDueDate().after(endDate.getTime())))
-//						weekTeamCommList.addCommitment(comm);
-//				}
-//				
-//		}
-//			
-//		if(showCommsOnCalPane)
-//			weekPane.displayCommitments(weekPersonalCommList, weekTeamCommList); //show this week's commitments on WeekPane
-//		else
-//			weekPane.displayCommitments(new CommitmentList(), new CommitmentList()); //show no commitments on WeekPane
-//
-//		commitments.setCommList(allPersonalComms, allTeamComms);
-//	    commitments.update();
-		weekPane.displayCommitments(new ArrayList<Commitment>());
-		// TODO Auto-generated method stub
-		
+
+
+		commitmentView.updateCommData(commList.getCommitments());
+		// TODO filter commitments
+		if (showCommOnCal)
+			weekPane.displayCommitments(commList.filter(startDate, endDate)); //add only commitments on today to DayPane
+		else
+			weekPane.displayCommitments(null); //show no commitments on DayPane
+
+		revalidate();
+		repaint();
+
 	}
 
 }

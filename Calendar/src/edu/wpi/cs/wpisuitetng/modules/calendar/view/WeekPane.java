@@ -298,8 +298,9 @@ public class WeekPane extends JPanel implements ICalPane {
 	 * @param dayTeamCommList 
      */
     public void displayCommitments(List<Commitment> commList) {
-		  
+		if(commList != null){
     	days = getDays(commList);
+		}
     	refresh();
 	}
 

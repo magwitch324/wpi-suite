@@ -55,7 +55,7 @@ public class DayView extends CalendarView {
 		commitmentView.updateCommData(commList.getCommitments());
 		// TODO filter commitments
 		if (showCommOnCal)
-			dayPane.displayCommitments(commList.filter(day, day)); //add only commitments on today to DayPane
+			dayPane.displayCommitments(commList.filter(day)); //add only commitments on today to DayPane
 		else
 			dayPane.displayCommitments(null); //show no commitments on DayPane
 

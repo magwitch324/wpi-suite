@@ -193,6 +193,30 @@ public class CommitmentList {
 		return newCommitments;
 	}
 	
+	
+	
+	/**
+	 * Filter the commitment list to data on a specific date
+	 * @param date
+	 * @return ArrayList of commitments on date
+	 */
+	public List<Commitment> filter(GregorianCalendar date) {
+
+		GregorianCalendar commitDate = new GregorianCalendar();
+		List<Commitment> newCommitments = new ArrayList<Commitment>();
+		
+		for (Commitment commit : commitments) {
+			commitDate.setTime(commit.getDueDate().getTime());
+			if (commitDate.get(Calendar.YEAR) == date.get(Calendar.YEAR)
+					&& commitDate.get(Calendar.MONTH) == date.get(Calendar.MONTH)
+					&& commitDate.get(Calendar.DAY_OF_MONTH) == date.get(Calendar.DAY_OF_MONTH)) {
+				newCommitments.add(commit);
+			} 
+		}
+		
+		return newCommitments;
+	}
+	
 	/**
 	 * Filters the calendar data to the "amount"
 	 * around the given date
