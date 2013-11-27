@@ -85,13 +85,15 @@ public class CommitmentFullView extends JPanel{
 			commitmentPanel.add(date,c);
 			commitmentPanel.add(description,c);
 			commitmentPanel.add(status,c);
-			commitmentPanel.setBackground(Color.CYAN);
+			commitmentPanel.setBackground(new Color(222,184,135));
 			//  description.setMaximumSize(new Dimension(285,300));
 			//Border raisedetched = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
-			Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+			//Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+			Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 			//commitmentPanel.setBorder(new EmptyBorder(10, 5, 10 , 20));
 			//commitmentPanel.setBorder(raisedetched);
-			commitmentPanel.setBorder(raisedbevel);
+			//commitmentPanel.setBorder(raisedbevel);
+			commitmentPanel.setBorder(loweredbevel);
 			commitmentPanel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
