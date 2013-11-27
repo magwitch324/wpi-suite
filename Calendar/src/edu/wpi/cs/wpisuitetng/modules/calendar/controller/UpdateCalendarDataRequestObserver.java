@@ -47,8 +47,7 @@ public class UpdateCalendarDataRequestObserver implements RequestObserver {
 		
 		// Parse the category out of the response body
 		final CalendarData event = CalendarData.fromJson(response.getBody());
-		//refreshes calendar GUI
-		GUIEventController.getInstance().updateCalData();
+
 
 	}
 	

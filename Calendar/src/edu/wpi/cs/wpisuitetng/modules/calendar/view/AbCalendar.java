@@ -34,6 +34,7 @@ import javax.swing.border.EmptyBorder;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar.types;
 
 /*
@@ -74,6 +75,7 @@ public abstract class AbCalendar extends JPanel {
 	
 	protected int[] viewsizeval = {Calendar.DATE, Calendar.WEEK_OF_YEAR, Calendar.MONTH, Calendar.YEAR};
 	protected CalendarView calView;
+	protected CommitmentList commitments;
 	
 	public AbCalendar(){
 		super();
@@ -95,6 +97,7 @@ public abstract class AbCalendar extends JPanel {
 		apane.setLayout(new GridLayout(1,4));
 		
 		viewbtns[0] = new JToggleButton();
+
 		try {
 			Image img = ImageIO.read(getClass().getResource("Day_Icon.png"));
 		    this.viewbtns[0].setIcon(new ImageIcon(img));
@@ -118,6 +121,7 @@ public abstract class AbCalendar extends JPanel {
 		
 		
 		viewbtns[1] = new JToggleButton();
+
 		try {
 			Image img = ImageIO.read(getClass().getResource("Week_Icon.png"));
 		    this.viewbtns[1].setIcon(new ImageIcon(img));
@@ -128,6 +132,7 @@ public abstract class AbCalendar extends JPanel {
 			this.viewbtns[1].setIcon(new ImageIcon());
 			this.viewbtns[1].setText("Week");
 		}
+
 		
 		viewbtns[1].setBackground(Color.WHITE);
 		viewbtns[1].addActionListener(new ActionListener() {
@@ -140,6 +145,7 @@ public abstract class AbCalendar extends JPanel {
         });
 		
 		viewbtns[2] = new JToggleButton();
+
 		try {
 			Image img = ImageIO.read(getClass().getResource("Month_Icon.png"));
 		    this.viewbtns[2].setIcon(new ImageIcon(img));	
@@ -150,6 +156,7 @@ public abstract class AbCalendar extends JPanel {
 			this.viewbtns[2].setIcon(new ImageIcon());
 			this.viewbtns[2].setText("Month");
 		}
+
 		
 		viewbtns[2].setBackground(Color.WHITE);
 		viewbtns[2].addActionListener(new ActionListener() {
@@ -162,6 +169,7 @@ public abstract class AbCalendar extends JPanel {
         });
 		
 		viewbtns[3] = new JToggleButton();
+
 		try {
 			Image img = ImageIO.read(getClass().getResource("Year_Icon.png"));
 		    this.viewbtns[3].setIcon(new ImageIcon(img));
@@ -272,18 +280,18 @@ public abstract class AbCalendar extends JPanel {
 		//TODO do views
 		switch(currenttype.getCurrentType()){
 		case(0):
-			calView = (new DayView(mycal, this));
-			calView.displayCalData(calData);
+			calView = (new DayView(mycal));
+			displayCalData();
 			viewpanel.add(calView);
 			break;
 		case(1):
-			calView = (new WeekView(mycal, this));
-			calView.displayCalData(calData);
+			calView = (new WeekView(mycal));
+			displayCalData();
 			viewpanel.add(calView);
 			break;
 		case(2):
-			calView = (new MonthView(mycal, this));
-			calView.displayCalData(calData);
+			calView = (new MonthView(mycal));
+			displayCalData();
 			viewpanel.add(calView);			
 			break;
 		case(3):
@@ -311,7 +319,7 @@ public abstract class AbCalendar extends JPanel {
 		setView();
 	}
 	
-	public boolean getShowCommitements(){
+	public boolean getShowCommitments(){
 		return showcom.isSelected();
 	}
 	
@@ -332,12 +340,6 @@ public abstract class AbCalendar extends JPanel {
 			{
 				GetCalendarDataController.getInstance().retrieveCalendarData();
 				System.out.println("retrieved on initialization2");
-				/*if (CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()) == null){
-					System.out.println("CREATING NEW CALDATA");
-					CalendarData createdCal = new CalendarData(ConfigManager.getConfig().getProjectName());
-					CalendarDataModel.getInstance().addCalendarData(createdCal);
-				}*/
-				initialized = true;
 			}
 			catch (Exception e)
 			{
@@ -348,6 +350,9 @@ public abstract class AbCalendar extends JPanel {
 	}
 	
 	abstract void updateCalData();
+	abstract protected void displayCalData();
 	abstract public boolean getShowTeamData();
+
+
 	
 }

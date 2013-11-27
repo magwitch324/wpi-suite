@@ -19,15 +19,21 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
 public class MonthView extends CalendarView {
 	
+
 	private GregorianCalendar aMonth;
+	private MonthPane monthPane;
 	
 
-	public MonthView(GregorianCalendar datecalendar, AbCalendar tcalendar) {
+
+	public MonthView(GregorianCalendar datecalendar) {
 
 		super(datecalendar);
 		aMonth = new GregorianCalendar();
-		setCalPane(new MonthPane(datecalendar));
-		setCommitmentView(new CommitmentView(tcalendar));
+
+		monthPane = new MonthPane(datecalendar);
+		setCalPane(monthPane);
+		setCommitmentView(new CommitmentView());
+
 		setRange(datecalendar);
 	}
 	
@@ -50,9 +56,15 @@ public class MonthView extends CalendarView {
 		refresh();
 	}
 	
+	public void displayCalData(CalendarData personalCalData, CalendarData teamCalData) {
+		commitmentView.update();
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	@Override
-	public void displayCalData(CalendarData calData) {
-		commitments.update();
+	public void displayCalData(CommitmentList commList, boolean showCommOnCal) {
 		// TODO Auto-generated method stub
 		
 	}

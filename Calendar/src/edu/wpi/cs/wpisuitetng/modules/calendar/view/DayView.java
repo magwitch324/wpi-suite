@@ -11,22 +11,27 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
 
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
 public class DayView extends CalendarView {
 
+
 	GregorianCalendar day;
 	private DayPane dayPane;
+	private GregorianCalendar endOfDay;
 	
-	public DayView(GregorianCalendar datecalendar, AbCalendar abCalendar) {
+	public DayView(GregorianCalendar datecalendar) {
 		super(datecalendar);
-		dayPane = new DayPane(datecalendar, abCalendar);
+		dayPane = new DayPane(datecalendar);
 		setCalPane(dayPane);
-		setCommitmentView(new CommitmentView(abCalendar));
+		setCommitmentView(new CommitmentView());
 		setRange(datecalendar);
 		
 	}
@@ -35,6 +40,15 @@ public class DayView extends CalendarView {
 	public void setRange(GregorianCalendar calendar) {
 		day = new GregorianCalendar();
 		day.setTime(calendar.getTime());
+		day.set(Calendar.HOUR_OF_DAY, 0);
+		day.set(Calendar.MINUTE, 0);
+		day.set(Calendar.SECOND, 0);
+		day.set(Calendar.MILLISECOND, 0);
+		
+		//set endOfDay to 23:59:59.999
+		endOfDay = day;
+		endOfDay.add(Calendar.DATE, 1);
+		endOfDay.add(Calendar.MILLISECOND, -1);
 		
 		String dayName = day.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
 		int dayNum = day.get(day.DAY_OF_MONTH);
@@ -45,21 +59,19 @@ public class DayView extends CalendarView {
 	}
 
 	@Override
-	public void displayCalData(CalendarData calData) {
-		// TODO Auto-generated method stub
-		if(calData != null)
-		{
-			CommitmentList dayCommList = new CommitmentList();
-			for(Commitment comm : calData.getCommitments().getCommitments())
-			{
-				if (comm.getDueDate().get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH))
-					dayCommList.addCommitment(comm);
-			}
-			dayPane.displayCommitments(dayCommList);
-			commitments.setCommList();
-		    commitments.update();
+	public void displayCalData(CommitmentList commList, boolean showCommOnCal) {
+		
+		commitmentView.updateCommData(commList.getCommitments());
+		// TODO filter commitments
+		if (showCommOnCal)
+			dayPane.displayCommitments(commList.filter(day)); //add only commitments on today to DayPane
+		else
+			dayPane.displayCommitments(null); //show no commitments on DayPane
 
-		}
+	    revalidate();
+	    repaint();
+	    
+//	    refresh();
 		
 	}
 
