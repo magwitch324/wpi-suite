@@ -10,6 +10,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,6 +30,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -55,6 +63,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
 public class DayPane extends JPanel implements ICalPane {
 
+
 	/**
 	 * 
 	 */
@@ -70,12 +79,17 @@ public class DayPane extends JPanel implements ICalPane {
 	/**
 	 * Create the panel.
 	 */
+
+	/**
+	 * Create the panel.
+	 */
 	public DayPane(GregorianCalendar datecalendar) {
 		
 		day = new GregorianCalendar();
 		day.setTime(datecalendar.getTime());
 		
 		setLayout(new GridLayout(1,1));
+
 
 		// HOURS
 		scrollPane = new JScrollPane(mainPanel, 
@@ -231,6 +245,7 @@ public class DayPane extends JPanel implements ICalPane {
 
 		return apane;
 	}
+
 
 	@Override
 	public JPanel getPane() {

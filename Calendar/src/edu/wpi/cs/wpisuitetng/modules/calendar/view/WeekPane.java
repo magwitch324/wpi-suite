@@ -41,7 +41,9 @@ import org.jdesktop.swingx.border.MatteBorderExt;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 
+
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
@@ -53,6 +55,7 @@ public class WeekPane extends JPanel implements ICalPane {
 	JScrollPane scrollPane = new JScrollPane(mainPanel,
 			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
 
 
 	GregorianCalendar mydate;
@@ -77,6 +80,7 @@ public class WeekPane extends JPanel implements ICalPane {
 	   	
 	   	setLayout(new GridLayout(1,1));
 		scrollPane.setMinimumSize(new Dimension(500, 300));
+
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		scrollPane.setMinimumSize(new Dimension(500, 300));
@@ -97,6 +101,7 @@ public class WeekPane extends JPanel implements ICalPane {
 		scrollPane.setCorner(ScrollPaneConstants.UPPER_LEFT_CORNER,
 				cornerBoxUL);
 		
+
 
 
 // Sets the UPPER RIGHT corner box
@@ -138,6 +143,7 @@ scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
 	   	scrollPane.addComponentListener(new ComponentAdapter(){
 			public void componentResized(ComponentEvent e){
 
+
 				scrollPane.setColumnHeaderView(getHeader(0));
 				System.out.println(scrollPane.getColumnHeader().getSize()
 						.getWidth()
@@ -168,6 +174,7 @@ scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
 	 * @param use
 	 * @return
 	 */
+
 
     protected JComponent getHeader(int use){
     	String[][] weekdays = {{"Sunday, ", "Monday, ", "Tuesday, ",
@@ -252,6 +259,7 @@ scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
     }
     
 	protected JComponent getTimesBar(double height){
+
 		JPanel apane = new JPanel();
 		apane.setBackground(CalendarStandard.CalendarRed);
 		apane.setBorder(new EmptyBorder(0, 5, 0, 5));
@@ -342,6 +350,7 @@ scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
 		public void mouseExited(MouseEvent e) {
 
 		}
+
 
 	    public void mouseClicked(MouseEvent e) {
 	    	if(e.getClickCount() > 1){
