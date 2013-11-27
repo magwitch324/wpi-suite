@@ -214,7 +214,6 @@ scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
      */
     protected JComponent getDays(List<Commitment> commList){
     	JPanel apane = new JPanel();
-    	apane.setBackground(CalendarStandard.CalendarYellow);
 	    apane.setLayout(new GridLayout(1,7));
     	String[] weekdays = {"Sunday, ", "Monday, ", "Tuesday, ",
 				"Wednesday, ", "Thursday, ", "Friday, ", "Saturday, " };
@@ -243,6 +242,7 @@ scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
     	cal.setTime(mydate.getTime());
 	    for(int i = 0; i<7; i++){
 	    	DetailedDay aday = new DetailedDay(cal,new CommitDetailedPane(cal, comms.get(i)));
+	    	aday.setBackground(CalendarStandard.CalendarYellow);
 	    	System.out.println(cal.getTime().toString());
 	    	aday.addMouseListener(new AMouseEvent(cal));
 	    	apane.add( aday );
@@ -303,7 +303,7 @@ scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
 
 	
 	private void refresh() {
-		mainPanel.removeAll();
+		//mainPanel.removeAll();
 		if (days == null)
 			days = getDays(new ArrayList<Commitment>());
 		

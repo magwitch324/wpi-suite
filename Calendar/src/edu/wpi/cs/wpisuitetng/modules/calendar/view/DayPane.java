@@ -71,7 +71,7 @@ public class DayPane extends JPanel implements ICalPane {
 	 * Create the panel.
 	 */
 	public DayPane(GregorianCalendar datecalendar) {
-		mainPanel.setBackground(CalendarStandard.CalendarYellow);
+		
 		day = new GregorianCalendar();
 		day.setTime(datecalendar.getTime());
 		
@@ -136,7 +136,7 @@ public class DayPane extends JPanel implements ICalPane {
 
 		if (daypane == null)
 			daypane = new DetailedDay(day, new CommitDetailedPane(day, new ArrayList<Commitment>()));
-
+		daypane.setBackground(CalendarStandard.CalendarYellow);
 		layout.putConstraint(SpringLayout.WEST, daypane, 0, SpringLayout.WEST, mainPanel);
 		layout.putConstraint(SpringLayout.NORTH, daypane, 0, SpringLayout.NORTH, mainPanel);
 		layout.putConstraint(SpringLayout.SOUTH, daypane, 0, SpringLayout.SOUTH, mainPanel);
