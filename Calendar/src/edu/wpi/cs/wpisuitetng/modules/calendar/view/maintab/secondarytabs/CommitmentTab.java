@@ -9,7 +9,10 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
@@ -39,6 +42,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,6 +52,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -109,6 +114,17 @@ public class CommitmentTab extends JPanel {
 	private JPanel formPanel;
 	private JLabel statusLabel;
 	private boolean initFlag; //to keep things from running before we fully intialize
+	
+	
+	/*
+	 * Sources:
+	 * Icons were developed using images obtained at: 
+	 * [1] https://svn.apache.org/repos/asf/openoffice/symphony/trunk/main/extras/source/gallery/symbols/
+	 * [2] http://www.clker.com/clipart-red-round.html
+	 * [3] http://www.iconsdb.com/red-icons/delete-icon.html
+	 */
+	
+	
 	
 	private enum EditingMode {
 		ADDING(0),
@@ -424,7 +440,15 @@ public class CommitmentTab extends JPanel {
 		buttonPanel = new JPanel(new BorderLayout(30,0));
 		
 		//Add Commitment button
-		btnAddCommitment = new JButton("Save Commitment");
+		
+		try {
+			Image img = ImageIO.read(getClass().getResource("Save_Icon.png"));
+			btnAddCommitment = new JButton("Save Commitment", new ImageIcon(img));
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			btnCancel.setText("Save Commitment");
+		}
+
 		btnAddCommitment.addActionListener(new ActionListener() {
 
 			@Override
@@ -498,7 +522,14 @@ public class CommitmentTab extends JPanel {
 		gbc_btnPanel.gridy = 7;
 		
 		//Add Cancel button
-		btnCancel = new JButton("Cancel");
+
+		try {
+			Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
+			btnCancel = new JButton("Cancel", new ImageIcon(img));
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			btnCancel.setText("Cancel");
+		}
 		btnCancel.addActionListener(new ActionListener() {
 		
 		
@@ -576,7 +607,15 @@ public class CommitmentTab extends JPanel {
 		
 		statusComboBox.setSelectedIndex(commToEdit.getStatus().id);
 		
-		btnDelete = new JButton("Delete");
+		// Add Delete Button
+		try {
+			Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
+			btnDelete = new JButton("Delete", new ImageIcon(img));
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			btnDelete.setText("Delete");
+		}
+		
 		btnDelete.addActionListener(new ActionListener() {
 
 			@Override

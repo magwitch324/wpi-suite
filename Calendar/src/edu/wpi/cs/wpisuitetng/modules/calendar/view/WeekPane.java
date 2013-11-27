@@ -39,11 +39,8 @@ import javax.swing.border.MatteBorder;
 
 import org.jdesktop.swingx.border.MatteBorderExt;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
-
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
-
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
@@ -58,11 +55,14 @@ public class WeekPane extends JPanel implements ICalPane {
 
 
 
+
 	GregorianCalendar mydate;
 	private JComponent days;
 	private SpringLayout layout;
 	
 	AbCalendar calendarused;
+
+
 
 	/**
 	 * Create the panel.
@@ -101,6 +101,7 @@ public class WeekPane extends JPanel implements ICalPane {
 		scrollPane.setCorner(ScrollPaneConstants.UPPER_LEFT_CORNER,
 				cornerBoxUL);
 		
+
 
 
 
@@ -174,6 +175,7 @@ scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
 	 * @param use
 	 * @return
 	 */
+
 
 
     protected JComponent getHeader(int use){
@@ -295,6 +297,7 @@ scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
 	@Override
 	public JPanel getPane() {
 		return this;
+
 	}
 	
 	/** Displays commitments on DetailedDays
