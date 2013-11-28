@@ -353,7 +353,7 @@ public abstract class AbCalendar extends JPanel {
 			}
 		}
 		else{
-			calView.refresh();
+			//calView.refresh();
 		}
 		System.out.println("repainting!!!!!!!!!!!!!!!");
 		super.paintComponent(g);

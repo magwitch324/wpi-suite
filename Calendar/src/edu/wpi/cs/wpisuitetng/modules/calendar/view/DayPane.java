@@ -256,4 +256,8 @@ public class DayPane extends JPanel implements ICalPane {
 		// TODO Auto-generated method stub
 		return this;
 	}
+	
+	public void updateScrollPosition(int value){
+		scrollPane.getVerticalScrollBar().setValue(value);
+	}
 }

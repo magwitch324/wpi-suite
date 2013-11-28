@@ -202,6 +202,8 @@ public class GUIEventController {
 	public void setScrollBarValue(int value) {
 		// TODO Auto-generated method stub
 		scrollBarValue = value;
+		teamCalendar.calView.updateScrollPosition(value);
+		myCalendar.calView.updateScrollPosition(value);
 	}
 
 	public int getScrollBarValue()
