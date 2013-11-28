@@ -1,5 +1,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
@@ -10,6 +12,7 @@ import javax.swing.JComponent;
 import javax.swing.SpringLayout;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 
@@ -39,7 +42,8 @@ public class MyCalendar extends AbCalendar {
 		this.add(datepanel);
 		
 		showcom = new JCheckBox("Show Commitments");
-		showcom.setFont(defualtfont);
+		showcom.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14));
+		showcom.setBackground(Color.WHITE);
 		showcom.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
@@ -53,7 +57,8 @@ public class MyCalendar extends AbCalendar {
 		this.add(showcom);
 		
 		showteam = new JCheckBox("Show Team Data");
-		showteam.setFont(defualtfont);
+		showteam.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14));
+		showteam.setBackground(Color.WHITE);
 		showteam.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {

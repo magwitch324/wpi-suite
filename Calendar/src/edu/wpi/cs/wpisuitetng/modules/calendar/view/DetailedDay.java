@@ -10,6 +10,7 @@ import java.awt.Insets;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -34,7 +35,7 @@ public class DetailedDay extends JLayeredPane {
 	JPanel mainview = new JPanel();
 	JComponent secondview = null;
 	
-	public DetailedDay(Calendar adate){
+	public DetailedDay(GregorianCalendar adate){
 		super();	
 		this.setMinimumSize(new Dimension(50, 800));
 		this.setPreferredSize(new Dimension(50, 800));
@@ -54,7 +55,7 @@ public class DetailedDay extends JLayeredPane {
 		this.didResize();
 	}
 	
-	public DetailedDay(Calendar adate, JComponent secondview){
+	public DetailedDay(GregorianCalendar adate, JComponent secondview){
 		super();		
 		this.setMinimumSize(new Dimension(50, 800));
 		this.setPreferredSize(new Dimension(50, 800));
@@ -151,8 +152,8 @@ public class DetailedDay extends JLayeredPane {
 	 */
 	public void displayCommitment(Commitment comm)
 	{
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(comm.getDueDate());
+		GregorianCalendar cal = new GregorianCalendar();
+		cal.setTime(comm.getDueDate().getTime());
 		
 		//map hour to location in terms of halfhourmarks (0 - 47)
 		int loc = cal.get(Calendar.HOUR_OF_DAY)*2;

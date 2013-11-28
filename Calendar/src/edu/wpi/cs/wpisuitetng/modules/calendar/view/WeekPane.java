@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -28,6 +29,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 
 
@@ -36,15 +38,18 @@ public class WeekPane extends JPanel implements ICalPane {
 	JScrollPane scrollPane = new JScrollPane(mainPanel, 
 			ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-	Calendar mydate;
+	GregorianCalendar mydate;
 	AbCalendar calendarused;
 	
     /**
     * Create the panel.
     */
 
-	public WeekPane(Calendar datecalendar, AbCalendar abCalendar) {
-		mydate = (Calendar)datecalendar.clone();
+
+	public WeekPane(GregorianCalendar datecalendar, AbCalendar abCalendar) {
+		mydate = new GregorianCalendar();
+		mydate.setTime(datecalendar.getTime());
+
 		calendarused = abCalendar;
 	   	while(mydate.get(Calendar.DAY_OF_WEEK) != mydate.getFirstDayOfWeek() ){
 	   		mydate.add(Calendar.DATE, -1);
@@ -55,10 +60,11 @@ public class WeekPane extends JPanel implements ICalPane {
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane.setMinimumSize(new Dimension(500, 300));
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+		scrollPane.setBackground(CalendarStandard.CalendarRed);
 		
 		SpringLayout layout = new SpringLayout();
 		mainPanel.setLayout(layout);
-		mainPanel.setPreferredSize(new Dimension(30, 2000));		
+		mainPanel.setPreferredSize(new Dimension(30, 2000));
 		JComponent days = getDays();
 		layout.putConstraint(SpringLayout.WEST, days, 0, SpringLayout.WEST, mainPanel);
 		layout.putConstraint(SpringLayout.NORTH, days, 0, SpringLayout.NORTH, mainPanel);
@@ -85,7 +91,7 @@ public class WeekPane extends JPanel implements ICalPane {
 			public void componentResized(ComponentEvent e){
 				
 				scrollPane.setColumnHeaderView(getHeader(0));
-				System.out.println(scrollPane.getColumnHeader().getSize().getWidth() + " : " + 					scrollPane.getColumnHeader().getView().getPreferredSize().getWidth());				if(scrollPane.getColumnHeader().getSize().getWidth() <
+				System.out.println(scrollPane.getColumnHeader().getSize().getWidth() + " : " + scrollPane.getColumnHeader().getView().getPreferredSize().getWidth());				if(scrollPane.getColumnHeader().getSize().getWidth() <
 						scrollPane.getColumnHeader().getView().getPreferredSize().getWidth()){
 					scrollPane.setColumnHeaderView(getHeader(1));
 				}
@@ -102,6 +108,11 @@ public class WeekPane extends JPanel implements ICalPane {
 	}
 
 
+	/**
+	 * Set up header section for the week pane
+	 * @param use
+	 * @return
+	 */
     protected JComponent getHeader(int use){
     	String[][] weekdays = {{"Sunday, ", "Monday, ", "Tuesday, ",
     						"Wednesday, ", "Thursday, ", "Friday, ", "Saturday, " },
@@ -116,8 +127,10 @@ public class WeekPane extends JPanel implements ICalPane {
     		}
     	}
     	
+    	
     	JPanel apane = new JPanel();
-    	apane.setBackground(Color.RED);
+    	apane.setBackground(CalendarStandard.CalendarRed);
+	    apane.setBorder(new EmptyBorder(5,0,10,0));
     	SpringLayout layout = new SpringLayout();
     	GridLayout g = new GridLayout(1,7);
     	
@@ -125,18 +138,18 @@ public class WeekPane extends JPanel implements ICalPane {
     	int height = 0;
     	
 	    for(int i = 0; i<7; i++){
-	    	JLabel alab = new JLabel(weekdays[use][i], SwingConstants.CENTER);
-	    	alab.setFont(new Font("SansSerif", 1, 12));
+	    	JLabel alab = new JLabel("<html><font color='white'><b>" + weekdays[use][i] + "</b></font></html>", SwingConstants.CENTER);
+	    	alab.setFont(CalendarStandard.CalendarFontBold);
 	    	apane.add( alab );
 	    }
-    
+	    
     	return apane;
     }
 
     
     protected JComponent getDays(){
     	JPanel apane = new JPanel();
-    	apane.setBackground(Color.WHITE);
+    	apane.setBackground(CalendarStandard.CalendarYellow);
 	    apane.setLayout(new GridLayout(1,7));
     	String[] weekdays = {"Sunday, ", "Monday, ", "Tuesday, ",
 				"Wednesday, ", "Thursday, ", "Friday, ", "Saturday, " };
@@ -147,13 +160,11 @@ public class WeekPane extends JPanel implements ICalPane {
     	}
     	
 	    for(int i = 0; i<7; i++){
-	    	Calendar acal = (Calendar)mydate.clone();
+	    	GregorianCalendar acal = new GregorianCalendar();
+	    	acal.setTime(mydate.getTime());
 	    	acal.add(Calendar.DATE, i);
-//<<<<<<< HEAD
-//	    	JComponent aday = new DetailedDay(acal);
-//=======
+	    	
 	    	JLayeredPane aday = new DetailedDay(acal);
-//>>>>>>> 8d54f788e1fec6a7eab547aca6afdaba2701252d
 	    	aday.addMouseListener(new AMouseEvent(acal, calendarused));
 	    	apane.add( aday );
 	    }
@@ -177,19 +188,18 @@ public class WeekPane extends JPanel implements ICalPane {
 		secondpane.setLayout(new GridLayout(1, 7, 0, 5));
     	
 	    for(int i = 0; i<7; i++){
-	    	Calendar acal = (Calendar)mydate.clone();
+	    	GregorianCalendar acal = new GregorianCalendar();
+	    	acal.setTime(mydate.getTime());
 	    	acal.add(Calendar.DAY_OF_MONTH, 1);
-	    	//TODO add function
-	    	//JPanel viewpane = getWeekCommitPaneforDate( acal );
 	    	
 	    	CommitmentView commits = new CommitmentView(calendarused);
 	    	
 	    	ArrayList<Commitment> comList = new ArrayList<Commitment>(calendarused.getCalData().getCommitments().getCommitments());
 	    	ArrayList<Commitment> newList = new ArrayList<Commitment>();
 	    	for (Commitment c : comList) {
-	    		if ((c.getDueDate().getDate()  == acal.get(Calendar.DAY_OF_MONTH) ||
-	    			 c.getDueDate().getMonth() == acal.get(Calendar.MONTH)) ||
-	    			 c.getDueDate().getYear()  == acal.get(Calendar.YEAR)) {
+	    		if ((c.getDueDate().get(Calendar.DAY_OF_MONTH)  == acal.get(Calendar.DAY_OF_MONTH) ||
+	    			 c.getDueDate().get(Calendar.MONTH) == acal.get(Calendar.MONTH)) ||
+	    			 c.getDueDate().get(Calendar.YEAR)  == acal.get(Calendar.YEAR)) {
 	    			newList.add(c);
 	    		}
 	    	}
@@ -210,7 +220,8 @@ public class WeekPane extends JPanel implements ICalPane {
     
 	protected JComponent getTimesBar(double height){
 		JPanel apane = new JPanel();
-		apane.setBackground(Color.RED);
+		apane.setBackground(CalendarStandard.CalendarRed);
+		apane.setBorder(new EmptyBorder(0,0,0,5));
 		SpringLayout layout = new SpringLayout();
 		apane.setLayout(layout);
 		 
@@ -222,8 +233,8 @@ public class WeekPane extends JPanel implements ICalPane {
 		int max = 0;
 		    
 		for(int i = 1; i < 24; i++){
-			JLabel alab = new JLabel(times[i]);
-			alab.setFont(new Font("Arial", 1, 12));
+			JLabel alab = new JLabel("<html><font color='white'><b>" + times[i] + "</b></font></html>");
+			alab.setFont(CalendarStandard.CalendarFontBold);
 			layout.putConstraint(SpringLayout.VERTICAL_CENTER, alab, (int)(height*i/24.0), SpringLayout.NORTH, apane);
 			layout.putConstraint(SpringLayout.EAST, alab, 0, SpringLayout.EAST, apane);
 			max = alab.getPreferredSize().width > max ? alab.getPreferredSize().width : max;
@@ -246,10 +257,11 @@ public class WeekPane extends JPanel implements ICalPane {
 	
 	protected class AMouseEvent implements MouseListener{
 		AbCalendar abCalendar;
-		Calendar adate;
+		GregorianCalendar adate;
 		
-		public AMouseEvent(Calendar adate, AbCalendar abCalendar){
-			this.adate = adate;
+		public AMouseEvent(GregorianCalendar adate, AbCalendar abCalendar){
+			this.adate = new GregorianCalendar();
+			this.adate.setTime(adate.getTime());
 			this.abCalendar = abCalendar;
 		}
 	

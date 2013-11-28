@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -25,6 +26,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.BorderFactory;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
@@ -69,11 +71,13 @@ public class GUIEventController {
 		myCalendar = new MyCalendar();
 		
 		try {
-		Image img = ImageIO.read(getClass().getResource("PersonalCalendar_Icon.png"));
-		main.addTab("", new ImageIcon(img), myCalendar);
+		Image img = ImageIO.read(getClass().getResource("Personal_Icon.png"));
+		main.addTab("My Calendar", new ImageIcon(img), myCalendar);
 		
-		img = ImageIO.read(getClass().getResource("TeamCalendar_Icon.png"));
-		main.addTab("", new ImageIcon(img), teamCalendar);
+		img = ImageIO.read(getClass().getResource("Team_Icon.png"));
+		main.addTab("Team Calendar", new ImageIcon(img), teamCalendar);
+		
+		main.setBorder(BorderFactory.createEmptyBorder());
 		
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
@@ -153,7 +157,7 @@ public class GUIEventController {
 
 	}
 	
-	public void switchView(Calendar acal, TeamCalendar.types switchtype, TeamCalendar ateamcal){
+	public void switchView(GregorianCalendar acal, TeamCalendar.types switchtype, TeamCalendar ateamcal){
 		ateamcal.setCalsetView(acal, switchtype);
 	}
 

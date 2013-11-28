@@ -1,6 +1,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
@@ -9,10 +10,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
 public class DayView extends CalendarView {
 
-	Calendar day;
+	GregorianCalendar day;
 	private DayPane dayPane;
 	
-	public DayView(Calendar datecalendar, AbCalendar abCalendar) {
+	public DayView(GregorianCalendar datecalendar, AbCalendar abCalendar) {
 		super(datecalendar);
 		dayPane = new DayPane(datecalendar, abCalendar);
 		setCalPane(dayPane);
@@ -22,8 +23,9 @@ public class DayView extends CalendarView {
 	}
 
 	@Override
-	public void setRange(Calendar calendar) {
-		day = (Calendar) calendar.clone();
+	public void setRange(GregorianCalendar calendar) {
+		day = new GregorianCalendar();
+		day.setTime(calendar.getTime());
 		
 		String dayName = day.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
 		int dayNum = day.get(day.DAY_OF_MONTH);
@@ -41,7 +43,7 @@ public class DayView extends CalendarView {
 			CommitmentList dayCommList = new CommitmentList();
 			for(Commitment comm : calData.getCommitments().getCommitments())
 			{
-				if (comm.getDueDate().getDay() == day.getTime().getDay())
+				if (comm.getDueDate().get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH))
 					dayCommList.addCommitment(comm);
 			}
 			dayPane.displayCommitments(dayCommList);

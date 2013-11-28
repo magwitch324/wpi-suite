@@ -1,6 +1,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
@@ -9,19 +10,21 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
 public class MonthView extends CalendarView {
 	
-	private Calendar aMonth;
 	private AbCalendar tcalendar;
+	private GregorianCalendar aMonth;
 	
-	public MonthView(Calendar datecalendar, AbCalendar tcalendar) {
+
+	public MonthView(GregorianCalendar datecalendar, AbCalendar tcalendar) {
 		super(datecalendar);
 		setCalPane(new MonthPane(datecalendar, tcalendar));
+		aMonth = (GregorianCalendar)datecalendar.clone();
 		setCommitmentView(new CommitmentView(tcalendar));
 		setRange(datecalendar);
 	}
 	
 	
-	public void setRange(Calendar calendar) {
-		aMonth = (Calendar) calendar.clone();
+	public void setRange(GregorianCalendar calendar) {
+		aMonth.setTime(calendar.getTime());
 
 		while (aMonth.get(Calendar.DAY_OF_MONTH) != aMonth.DAY_OF_MONTH) {
 			aMonth.add(Calendar.DAY_OF_MONTH, -1);
@@ -33,7 +36,7 @@ public class MonthView extends CalendarView {
 		int startYear = aMonth.get(Calendar.YEAR);
 		int endYear = aMonth.get(Calendar.YEAR);
 		
-		setLabel(monthName + " ");
+		setLabel(monthName + " " + aMonth.get(Calendar.YEAR));
 				
 		refresh();
 	}

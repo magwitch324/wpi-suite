@@ -4,6 +4,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
@@ -14,7 +15,7 @@ public class WeekView extends CalendarView {
 	private Calendar startDate;
 	private Calendar endDate;
 	
-	public WeekView(Calendar datecalendar, AbCalendar abCalendar) {
+	public WeekView(GregorianCalendar datecalendar, AbCalendar abCalendar) {
 		super(datecalendar);
 		setCalPane(new WeekPane(datecalendar, abCalendar));
 		setCommitmentView(new CommitmentView(abCalendar));
@@ -25,8 +26,10 @@ public class WeekView extends CalendarView {
 	 * @see edu.wpi.cs.wpisuitetng.modules.calendar.view.CalendarView#setRange(java.util.Calendar)
 	 */
 	@Override
-	public void setRange(Calendar calendar) {
-		startDate = (Calendar) calendar.clone();
+	public void setRange(GregorianCalendar calendar) {
+		startDate = new GregorianCalendar();
+		endDate = new GregorianCalendar();
+		startDate.setTime(calendar.getTime());
 
 		while (startDate.get(Calendar.DAY_OF_WEEK) != startDate.getFirstDayOfWeek()) {
 			startDate.add(Calendar.DAY_OF_WEEK, -1);
@@ -34,7 +37,7 @@ public class WeekView extends CalendarView {
 		
 		// Get end date by skipping to next sunday and
 		// then backing up to the saturday
-		endDate = (Calendar) startDate.clone();
+		endDate.setTime(startDate.getTime());
 		endDate.add(Calendar.WEEK_OF_MONTH, 1);
 		endDate.add(Calendar.DAY_OF_MONTH, -1);
 		

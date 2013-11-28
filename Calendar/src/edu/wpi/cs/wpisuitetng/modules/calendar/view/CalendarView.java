@@ -4,12 +4,13 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -20,12 +21,10 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 
-/**
- * @author cttibbetts
- *
- */
+
 public abstract class CalendarView extends JSplitPane {
 	
 	private ICalPane calPane;
@@ -37,7 +36,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * Constructor
 	 * Sets up the panel with the refresh function
 	 */
-	public CalendarView(Calendar calendar) {
+	public CalendarView(GregorianCalendar calendar) {
 	}
 	/**
 	 * create and display View componenets
@@ -61,10 +60,10 @@ public abstract class CalendarView extends JSplitPane {
 		JPanel labelPanel = new JPanel();
 		labelPanel.setLayout(new GridLayout(1,1,0,0));
 		labelPanel.setBorder(new EmptyBorder(0, 10, 0 , 10));
-		labelPanel.setMinimumSize(new Dimension(300, 50));
+		labelPanel.setMinimumSize(new Dimension(330, 50));
 		
 		JLabel dateLabel = new JLabel("<html><body style='width: 100%'><center>" + dateRange + "</center></html>", SwingConstants.CENTER);
-		dateLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+		dateLabel.setFont(CalendarStandard.CalendarFontBold.deriveFont(Font.BOLD, 20));
 		
 		labelPanel.add(dateLabel);
 		
@@ -73,6 +72,7 @@ public abstract class CalendarView extends JSplitPane {
 		// View All Commitments Button - NOT SURE HOW TO CENTER???
 		JButton viewAllCommitmentsButton = new JButton("View All Commitments");
 		panel.add(viewAllCommitmentsButton);
+		viewAllCommitmentsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		// the action listener for the Create View All Commitments Button
 		viewAllCommitmentsButton.addActionListener(new ActionListener() {
@@ -103,7 +103,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * set the new date range for the calendar
 	 * @param calendar
 	 */
-	abstract public void setRange(Calendar calendar);
+	abstract public void setRange(GregorianCalendar calendar);
 	
 	public void setCalPane(ICalPane pane) {
 		// TODO Auto-generated method stub

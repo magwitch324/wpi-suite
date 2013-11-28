@@ -5,9 +5,13 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
@@ -21,6 +25,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 
 public class MonthPane extends JScrollPane implements ICalPane {
 	JPanel mainview;
@@ -46,7 +51,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 
 		while (it.hasNext()) {
 			Commitment temp = it.next();
-			if (temp.getDueDate().getMonth() == month)
+			if (temp.getDueDate().get(Calendar.MONTH) == month)
 				uselist.add(temp);
 		}
 
@@ -64,7 +69,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			
 			while (it2.hasNext()) {
 				Commitment temp = it2.next();
-				if (temp.getDueDate().getDate() == itcal.get(Calendar.DATE))
+				if (temp.getDueDate().get(Calendar.DATE) == itcal.get(Calendar.DATE))
 					todaylist.add(temp);
 			}
 			
@@ -73,6 +78,8 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				aday.setBackground(Color.WHITE);
 			else
 				aday.setBackground(Color.GRAY);
+			
+			aday.addMouseListener(new AMouseEvent(acal, null));
 			mainview.add(aday);
 
 			itcal.add(Calendar.DATE, 1);
@@ -99,8 +106,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 
 		while (it.hasNext()) {
 			Commitment acom = it.next();
-			GregorianCalendar tempcal = new GregorianCalendar();
-			tempcal.setTime(acom.getDueDate());
+			GregorianCalendar tempcal = (GregorianCalendar) acom.getDueDate().clone();
 			int pos = tempcal.get(Calendar.HOUR_OF_DAY);
 			hits[pos]++;
 		}
@@ -140,5 +146,35 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		apanel.setLayout(new GridLayout(1, 1));
 		apanel.add(this);
 		return apanel;
+	}
+	protected class AMouseEvent implements MouseListener{
+		AbCalendar abCalendar;
+		Calendar adate;
+		
+		public AMouseEvent(Calendar adate, AbCalendar abCalendar){
+			this.adate = adate;
+			this.abCalendar = abCalendar;
+		}
+	
+		public void mousePressed(MouseEvent e) {
+
+	    }
+
+	    public void mouseReleased(MouseEvent e) {
+
+	    }
+
+	    public void mouseEntered(MouseEvent e) {
+	    }
+
+	    public void mouseExited(MouseEvent e) {
+
+	    }
+
+	    public void mouseClicked(MouseEvent e) {
+	    	if(e.getClickCount() > 1){
+	    		//abCalendar.setCalsetView(adate, TeamCalendar.types.DAY);
+	    	}
+	    }
 	}
 }
