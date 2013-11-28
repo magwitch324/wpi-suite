@@ -48,6 +48,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -449,6 +450,7 @@ public class CommitmentTab extends JPanel {
 			btnCancel.setText("Save Commitment");
 		}
 
+		btnAddCommitment.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		btnAddCommitment.addActionListener(new ActionListener() {
 
 			@Override
@@ -530,6 +532,8 @@ public class CommitmentTab extends JPanel {
 		catch(IllegalArgumentException ex){
 			btnCancel.setText("Cancel");
 		}
+		
+		btnCancel.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		btnCancel.addActionListener(new ActionListener() {
 		
 		
@@ -616,6 +620,7 @@ public class CommitmentTab extends JPanel {
 			btnDelete.setText("Delete");
 		}
 		
+		btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		btnDelete.addActionListener(new ActionListener() {
 
 			@Override

@@ -12,6 +12,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.io.IOException;
@@ -77,16 +78,17 @@ public class GUIEventController {
 		myCalendar = new MyCalendar();
 		try {
             Image img = ImageIO.read(getClass().getResource("Personal_Icon.png"));
-            main.addTab("", new ImageIcon(img), myCalendar);
+            main.addTab("My Calendar", new ImageIcon(img), myCalendar);
             
             img = ImageIO.read(getClass().getResource("Team_Icon.png"));
-            main.addTab("", new ImageIcon(img), teamCalendar);
+            main.addTab("Team Calendar", new ImageIcon(img), teamCalendar);
             
             } catch (IOException ex) {}
             catch(IllegalArgumentException ex){
                     main.addTab("My Calendar", new ImageIcon(), myCalendar);
                     main.addTab("Team Calendar", new ImageIcon(), teamCalendar);
             }
+
 	}
 	
 	/**
@@ -151,6 +153,7 @@ public class GUIEventController {
 	public void createCommitment() {
 		CommitmentTab newCommit = new CommitmentTab();
 		main.addTab("New Commitment", null, newCommit, "New Commitment");
+//		newCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(newCommit);
@@ -163,6 +166,7 @@ public class GUIEventController {
 	public void editCommitment(Commitment comm, CalendarData calData) {
 		CommitmentTab editCommit = new CommitmentTab(comm, calData);
 		main.addTab("Edit Commitment", null, editCommit, "Edit Commitment");
+//		editCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(editCommit);
@@ -171,8 +175,6 @@ public class GUIEventController {
 	// Creates new empty tab that will be used to put all commitments 
 	public void createViewCommitmentsTab() {
 		CommitmentFullView commitFullView = new CommitmentFullView(teamCalendar);
-
-//		allCommitmentsTab.add(teamCalendar.calView);
 		main.addTab("All Commitments", null, commitFullView, "New Commitment");
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();

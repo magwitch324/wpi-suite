@@ -50,9 +50,9 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		for(int i = 0; i < 42; i++){
 			JPanel aday = new JPanel();
 			if(month == itcal.get(Calendar.MONTH))
-				aday.setBackground(Color.WHITE);
+				aday.setBackground(CalendarStandard.CalendarYellow);
 			else
-				aday.setBackground(Color.GRAY);
+				aday.setBackground(Color.LIGHT_GRAY);
 			JLabel alab = new JLabel("" + itcal.get(Calendar.DATE));
 			alab.setFont(CalendarStandard.CalendarFont);
 			alab.setBackground(new Color(0,0,0,0));

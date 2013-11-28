@@ -11,15 +11,21 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -72,14 +78,28 @@ public abstract class CalendarView extends JSplitPane {
 		labelPanel.setMinimumSize(new Dimension(330, 50));
 		
 		JLabel dateLabel = new JLabel("<html><body style='width: 100%'><center>" + dateRange + "</center></html>", SwingConstants.CENTER);
-		dateLabel.setFont(CalendarStandard.CalendarFontBold.deriveFont(Font.BOLD, 20));
+		dateLabel.setFont(CalendarStandard.CalendarFontBold.deriveFont(Font.BOLD, 16));
 		
 		labelPanel.add(dateLabel);
 		
 		panel.add(labelPanel);
 		
 		// View All Commitments Button - NOT SURE HOW TO CENTER???
-		JButton viewAllCommitmentsButton = new JButton("View All Commitments");
+		JButton viewAllCommitmentsButton = new JButton();
+		
+		try {
+			Image img = ImageIO.read(getClass().getResource("All_Icon.png"));
+		    viewAllCommitmentsButton.setIcon(new ImageIcon(img));
+		    viewAllCommitmentsButton.setText("View All Commitments");
+		    viewAllCommitmentsButton.setBorder(BorderFactory.createEmptyBorder());
+		    viewAllCommitmentsButton.setContentAreaFilled(false);
+		    viewAllCommitmentsButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			viewAllCommitmentsButton.setIcon(new ImageIcon());
+			viewAllCommitmentsButton.setText("View All Commitments");
+		} 
+		
 		panel.add(viewAllCommitmentsButton);
 		viewAllCommitmentsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
