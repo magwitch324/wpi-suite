@@ -10,6 +10,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -39,24 +40,26 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	// initialize the main view toolbar buttons
 		private JButton createCommitButton;
 		private final JButton createEventButton;
+		private final JButton createCategoryButton;
 	
 	public ButtonsPanel_Create(){
 		super("");
 		createCommitButton= new JButton();
 		createEventButton= new JButton();
+		createCategoryButton = new JButton();
 		
 //		createCommitButton= new JButton("<html>Create<br />Commitment</html>");
 //		createEventButton= new JButton("<html>Create<br />Event</html>");
 		JPanel contentPanel = new JPanel();
 		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
-		this.setPreferredWidth(800);
+		this.setPreferredWidth(1200);
 		
 		this.createEventButton.setSize(400, 800);
-		this.createEventButton.setBackground(Color.WHITE);
 		this.createCommitButton.setPreferredSize(new Dimension(400, 800));
-		this.createCommitButton.setBackground(Color.WHITE);
 		this.createCommitButton.setHorizontalAlignment(SwingConstants.CENTER);
+		this.createCategoryButton.setPreferredSize(new Dimension(400, 800));
+		this.createCategoryButton.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		try {
 			Image img = ImageIO.read(getClass().getResource("AddCommitment_Icon.png"));
@@ -69,14 +72,22 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		    this.createEventButton.setBorder(BorderFactory.createEmptyBorder());
 		    this.createEventButton.setContentAreaFilled(false);
 		    
+		    img = ImageIO.read(getClass().getResource("AddCategory_Icon.png"));
+		    this.createCategoryButton.setIcon(new ImageIcon(img));
+		    this.createCategoryButton.setBorder(BorderFactory.createEmptyBorder());
+		    this.createCategoryButton.setContentAreaFilled(false);
+		    
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
 			this.createCommitButton.setIcon(new ImageIcon());
 			this.createCommitButton.setText("Create Commit");
 			this.createEventButton.setIcon(new ImageIcon());
 			this.createEventButton.setText("Create Event");
+			this.createCategoryButton.setIcon(new ImageIcon());
+			this.createCategoryButton.setText("Create Category");
 		}
 		
+		createCommitButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		// the action listener for the Create Requirement Button
 		createCommitButton.addActionListener(new ActionListener() {
 			@Override
@@ -88,6 +99,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 			}
 		});		
 		
+		createEventButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		//action listener for the Create Event Button
 		createEventButton.addActionListener(new ActionListener() {
 			@Override
@@ -98,11 +110,21 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		//	}
 		});
 		
-			
+		
+		createCategoryButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
+		//action listener for the Create Event Button
+		// TODO
+		
+		
+		
+		
 		this.createCommitButton.setBorder(new EmptyBorder(0, 0, 0, 15));
 		contentPanel.add(createCommitButton);
 		this.createEventButton.setBorder(new EmptyBorder(0, 0, 0, 15));
 		contentPanel.add(createEventButton);
+		this.createCategoryButton.setBorder(new EmptyBorder(0, 0, 0, 15));
+		contentPanel.add(createCategoryButton);
+		
 		contentPanel.setOpaque(false);
 		
 		this.add(contentPanel);

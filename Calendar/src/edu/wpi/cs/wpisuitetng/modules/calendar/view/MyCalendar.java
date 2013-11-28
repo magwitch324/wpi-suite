@@ -10,6 +10,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,6 +58,7 @@ public class MyCalendar extends AbCalendar {
 		this.add(datepanel);
 
 		showcom = new JCheckBox("Show Commitments");
+		showcom.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		showcom.setFont(CalendarStandard.CalendarFont
 				.deriveFont(Font.PLAIN, 14));
 		showcom.setBackground(Color.WHITE);
@@ -76,6 +78,7 @@ public class MyCalendar extends AbCalendar {
 		this.add(showcom);
 
 		showteam = new JCheckBox("Show Team Data");
+		showteam.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		showteam.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN,
 				14));
 		showteam.setBackground(Color.WHITE);

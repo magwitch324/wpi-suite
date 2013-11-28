@@ -11,6 +11,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -109,6 +110,7 @@ public abstract class AbCalendar extends JPanel {
 			this.viewbtns[0].setText("Day");
 		} 
 		
+		viewbtns[0].setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		viewbtns[0].setBackground(Color.WHITE);
 		viewbtns[0].addActionListener(new ActionListener() {
 			 
@@ -133,7 +135,7 @@ public abstract class AbCalendar extends JPanel {
 			this.viewbtns[1].setText("Week");
 		}
 
-		
+		viewbtns[1].setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		viewbtns[1].setBackground(Color.WHITE);
 		viewbtns[1].addActionListener(new ActionListener() {
 			 
@@ -157,7 +159,7 @@ public abstract class AbCalendar extends JPanel {
 			this.viewbtns[2].setText("Month");
 		}
 
-		
+		viewbtns[2].setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		viewbtns[2].setBackground(Color.WHITE);
 		viewbtns[2].addActionListener(new ActionListener() {
 			 
@@ -181,6 +183,7 @@ public abstract class AbCalendar extends JPanel {
 			this.viewbtns[3].setText("Year");
 		}
 		
+		viewbtns[3].setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		viewbtns[3].setBackground(Color.WHITE);
 		viewbtns[3].addActionListener(new ActionListener() {
 			 
@@ -231,6 +234,7 @@ public abstract class AbCalendar extends JPanel {
 		JButton backwardbutton = new JButton("<<");
 		backwardbutton.setBackground(Color.WHITE);
 		backwardbutton.setFont(CalendarStandard.CalendarFont);
+		backwardbutton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		backwardbutton.addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)
@@ -243,6 +247,7 @@ public abstract class AbCalendar extends JPanel {
 		JButton todaybutton = new JButton("Today");
 		todaybutton.setBackground(Color.WHITE);
 		todaybutton.setFont(CalendarStandard.CalendarFont);
+		todaybutton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		todaybutton.addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)
@@ -255,6 +260,7 @@ public abstract class AbCalendar extends JPanel {
 		JButton forwardbutton = new JButton(">>");
 		forwardbutton.setBackground(Color.WHITE);
 		forwardbutton.setFont(CalendarStandard.CalendarFont);
+		forwardbutton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		forwardbutton.addActionListener(new ActionListener() {
 			 
             public void actionPerformed(ActionEvent e)

@@ -93,11 +93,11 @@ public class WeekPane extends JPanel implements ICalPane {
 		scrollPane.setCorner(ScrollPaneConstants.UPPER_LEFT_CORNER,
 				cornerBoxUL);
 		
-// Sets the UPPER RIGHT corner box
-JPanel cornerBoxUR = new JPanel();
-cornerBoxUR.setBackground(CalendarStandard.CalendarRed);
-cornerBoxUR.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.BLACK));
-scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
+		// Sets the UPPER RIGHT corner box
+		JPanel cornerBoxUR = new JPanel();
+		cornerBoxUR.setBackground(CalendarStandard.CalendarRed);
+		cornerBoxUR.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.BLACK));
+		scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
 		cornerBoxUR);
 		layout = new SpringLayout();
 		mainPanel.setLayout(layout);
@@ -196,6 +196,7 @@ scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
 	    }
 	    
 	    apane.setBorder(new MatteBorder(0, 0, 2, 0, Color.BLACK));
+	    apane.setPreferredSize(new Dimension(500, 40));
 	    
     	return apane;
     }
