@@ -26,9 +26,11 @@ import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultFormatter;
+import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.JCheckBox;
 
 import org.jdesktop.swingx.JXDatePicker;
+import org.jdesktop.swingx.calendar.DatePickerFormatter;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
@@ -43,6 +45,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -106,6 +111,10 @@ public class CommitmentTab extends JPanel {
 	private JLabel lblType;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JButton btnCancel;
+	private Date tmpDate = new Date(); //user for convert the date to default format
+	private String inputDate = (new SimpleDateFormat("EEE MM/dd/yyyy").format(tmpDate)); //the date user input
+	private boolean badInput;
+	private boolean badDate;
 	private Commitment editingCommitment;
 	private EditingMode mode = EditingMode.ADDING;
 	private JButton btnDelete;
@@ -114,6 +123,8 @@ public class CommitmentTab extends JPanel {
 	private JPanel formPanel;
 	private JLabel statusLabel;
 	private boolean initFlag; //to keep things from running before we fully intialize
+	
+	
 	
 	
 	/*
@@ -384,12 +395,19 @@ public class CommitmentTab extends JPanel {
 		gbc_jdp.weightx = 1;
 		gbc_jdp.weighty = 3;
 		formPanel.add(datePicker, gbc_jdp);
-		
+		Calendar calendar = datePicker.getMonthView().getCalendar();
+		calendar.setTime(new Date());
+		datePicker.getMonthView().setLowerBound(calendar.getTime());
+		SimpleDateFormat format1 = new SimpleDateFormat( "EEE MM/dd/yyyy" );
+		SimpleDateFormat format2 = new SimpleDateFormat( "MM/dd/yyyy" );
+		SimpleDateFormat format3 = new SimpleDateFormat( "MM.dd.yyyy" );
+		SimpleDateFormat format4 = new SimpleDateFormat( "EEE MM.dd.yyyy" );
+		datePicker.setFormats(new DateFormat[] {format1, format2, format3, format4});
 		datePicker.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyTyped(KeyEvent e) {
-
+				
 			}
 
 			@Override
@@ -408,16 +426,85 @@ public class CommitmentTab extends JPanel {
 			
 		});
 		
-		datePicker.addFocusListener(new FocusListener() {
+		datePicker.addActionListener(new ActionListener() {
 
 			@Override
+			public void actionPerformed(ActionEvent e) {
+				datePicker.getEditor().setBackground(Color.WHITE);
+				inputDate = datePicker.getEditor().getText().trim();
+			}
+			
+		});
+		
+		datePicker.getEditor().addFocusListener(new FocusListener() {
+			@Override
 			public void focusGained(FocusEvent e) {
-				listenerHelper();
-				
+				if(badInput) {
+					datePicker.getEditor().setText(">> " + inputDate + " <<" + "is not a valid date format(MM/dd/YYYY)." );
+					datePicker.getEditor().setBackground(Color.red);
+					datePicker.getEditor().selectAll();
+					badInput = false;
+				}
+				/**
+				else if(badDate){
+					datePicker.getEditor().setText("The date is not valid");
+					datePicker.getEditor().setBackground(Color.red);
+					badDate = false;
+				}
+				*/
+				else{
+					try {
+						SimpleDateFormat dt = new SimpleDateFormat("EEE MM/dd/yyyy"); 
+						datePicker.getEditor().setBackground(Color.WHITE);
+						datePicker.getEditor().setText(dt.format(datePicker.getDate()));
+						datePicker.getEditor().selectAll();
+						listenerHelper();
+					}catch(NullPointerException ne) {
+						datePicker.getEditor().setText("The date is not valid");
+						datePicker.getEditor().setBackground(Color.red);
+					}
+				}
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
+				if(isBadInputDate()){
+					badInput = true;
+					datePicker.requestFocus();
+				}
+				/**
+				else{
+					Date date = null;
+					for(DateFormat formatter : datePicker.getFormats()) {
+						try {
+							date = formatter.parse(inputDate);
+						} catch (ParseException e1) {
+
+						}
+					}
+					if(date.compareTo(new Date()) < 0) {
+						badDate = true;
+						datePicker.requestFocus();
+					}
+				}
+				*/
+				else{
+					datePicker.getEditor().setBackground(Color.WHITE);
+				}
+				listenerHelper();
+			}
+		});
+		datePicker.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				datePicker.getEditor().setBackground(Color.WHITE);
+				listenerHelper();
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				datePicker.getEditor().setBackground(Color.WHITE);
 				listenerHelper();
 				
 			}
@@ -471,43 +558,24 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
+				datePicker.getEditor().setBackground(Color.WHITE);
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					checkBadDate();
+				}
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(nameTextField.getText().equals("") || datePicker.getEditor().getText().equals("")
-						|| nameTextField.getText().trim().length() == 0){
-					btnAddCommitment.setEnabled(false);
-				} else {
-					if (mode == EditingMode.EDITING){
-						//get some date data
-						Calendar calDate = new GregorianCalendar();
-						Calendar calTime = new GregorianCalendar();
-						calDate.setTime(datePicker.getDate());
-						calTime.setTime((Date)timeSpinner.getValue());
-						calDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
-						calDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
-						//make sure something changed
-						if (nameTextField.getText().equals(editingCommitment.getName()) 
-								&& descriptionTextArea.getText().equals(editingCommitment.getDescription())
-								&& ((Category)categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryId()
-								&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
-								&& calDate.getTime().equals(editingCommitment.getDueDate())){
-							btnAddCommitment.setEnabled(false);
-							return;
-						}
-					}
-					btnAddCommitment.setEnabled(true);
-				}
-			}		
+				inputDate = datePicker.getEditor().getText().trim();
+				boolean orignValue = initFlag;
+				initFlag = true;
+				listenerHelper();
+				initFlag = orignValue;
+			}
 
 		});
 		
@@ -842,6 +910,74 @@ public class CommitmentTab extends JPanel {
 			}
 
 		}
+	}
+	
+	/**
+	 * check if the user enters a bad date
+	 */
+	private void checkBadDate() {
+		boolean isABadDate = isABadDate();
+		if(isABadDate) {
+			datePicker.getEditor().setText(">> " + inputDate + " <<" + "is not a valid date format(MM/dd/YYYY)." );
+			datePicker.getEditor().setBackground(Color.red);
+			datePicker.getEditor().selectAll();
+		}
+		else{
+			Date currentDate = new Date();
+			if(tmpDate.compareTo(currentDate) >= 0) {
+				String showDate = datePicker.getFormats()[0].format(tmpDate);
+				datePicker.getEditor().setText(showDate);
+			}
+			else{
+				datePicker.getEditor().setText("The date is not valid");
+				datePicker.getEditor().setBackground(Color.red);
+			}
+		}
+	}
+	
+	private boolean isABadDate() {
+		boolean result;
+		datePicker.getEditor().setBackground(Color.WHITE);
+		tmpDate = null;
+		inputDate = datePicker.getEditor().getText().trim();
+		for(DateFormat formatter : datePicker.getFormats()) {
+			try{
+				formatter.setLenient(false);
+				tmpDate = formatter.parse(inputDate);
+			}catch(ParseException pe){
+				//try next formatter
+			}
+		}
+		if(tmpDate == null) {
+			result = true;
+		}
+		else{
+			result = false;
+		}
+		return result;
+	}
+	
+	private boolean isBadInputDate() {
+		boolean result;
+		Date date = null;
+		for(DateFormat formatter : datePicker.getFormats()) {
+			try{
+				formatter.setLenient(false);
+				date = formatter.parse(inputDate);
+			}catch(ParseException pe){
+				//try next formatter
+			}
+			catch(NullPointerException ne){
+				result = false;
+			}
+		}
+		if(date == null) {
+			result = true;
+		}
+		else{
+			result = false;
+		}
+		return result;
 	}
 
 }
