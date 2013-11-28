@@ -18,4 +18,6 @@ public interface ICalPane {
 
 	public JPanel getPane();
 	
+	public void refresh();
+	
 }

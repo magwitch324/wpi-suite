@@ -144,7 +144,7 @@ public class DayPane extends JPanel implements ICalPane {
 	}
 
 
-	private void refresh() {
+	public void refresh() {
 		// TODO Auto-generated method stub
 		
 		mainPanel.removeAll();
