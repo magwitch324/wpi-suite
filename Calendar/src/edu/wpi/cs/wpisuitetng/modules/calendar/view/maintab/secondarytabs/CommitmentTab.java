@@ -652,7 +652,7 @@ public class CommitmentTab extends JPanel {
 	/**
 	 * Create a commitment tab in editing mode.
 	 */
-	public CommitmentTab(Commitment commToEdit, CalendarData calData) {
+	public CommitmentTab(Commitment commToEdit) {
 		this();
 		
 		this.initFlag = false; //We need this to deal with the nested constructors
@@ -664,7 +664,7 @@ public class CommitmentTab extends JPanel {
 		this.descriptionTextArea.setText(editingCommitment.getDescription());
 		this.categoryComboBox.setSelectedItem(editingCommitment.getCategoryId());
 		
-		if(calData.getId().equals(ConfigManager.getConfig().getProjectName()))
+		if(!editingCommitment.getIsPersonal())
 			this.rdbtnTeam.setSelected(true);
 		else
 			this.rdbtnPersonal.setSelected(true);

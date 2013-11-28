@@ -164,7 +164,7 @@ public class GUIEventController {
 	 * @param calData CalendarData where commitment is located
 	 */
 	public void editCommitment(Commitment comm, CalendarData calData) {
-		CommitmentTab editCommit = new CommitmentTab(comm, calData);
+		CommitmentTab editCommit = new CommitmentTab(comm);
 		main.addTab("Edit Commitment", null, editCommit, "Edit Commitment");
 //		editCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		main.invalidate(); //force the tabbedpane to redraw.
