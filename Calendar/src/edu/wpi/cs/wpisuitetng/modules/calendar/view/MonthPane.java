@@ -99,4 +99,10 @@ public class MonthPane extends JScrollPane implements ICalPane {
 	    	}
 	    }
 	}
+	public void updateScrollPosition(int value){
+		
+	}
+	public void refresh(){
+		
+	}
 }

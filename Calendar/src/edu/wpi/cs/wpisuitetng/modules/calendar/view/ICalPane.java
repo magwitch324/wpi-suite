@@ -18,4 +18,8 @@ public interface ICalPane {
 
 	public JPanel getPane();
 	
+	public void updateScrollPosition(int value);
+	
+	public void refresh();
+	
 }

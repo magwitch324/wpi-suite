@@ -61,6 +61,7 @@ public abstract class CalendarView extends JSplitPane {
 		setLeftComponent(calPane.getPane());
 		setRightComponent(makeRightView());
 		setResizeWeight(1.0);
+		calPane.refresh();
 		
 	}
 	
@@ -152,6 +153,10 @@ public abstract class CalendarView extends JSplitPane {
 	 * @param showCommitments 
 	 */
 	abstract public void displayCalData(CommitmentList commList, boolean showCommOnCal);
+	
+	public void updateScrollPosition(int value){
+		this.calPane.updateScrollPosition(value);
+	}
 	
 	
 	
