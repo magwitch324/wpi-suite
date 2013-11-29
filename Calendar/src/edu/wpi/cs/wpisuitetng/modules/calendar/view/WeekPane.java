@@ -85,7 +85,7 @@ public class WeekPane extends JPanel implements ICalPane {
 		// Sets the UPPER LEFT corner box
 		JPanel cornerBoxUL = new JPanel();
 		cornerBoxUL.setBackground(CalendarStandard.CalendarRed);
-		cornerBoxUL.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.BLACK));
+//		cornerBoxUL.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.BLACK));
 		scrollPane.setCorner(ScrollPaneConstants.UPPER_LEFT_CORNER,
 				cornerBoxUL);
 		

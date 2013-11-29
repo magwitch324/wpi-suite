@@ -106,6 +106,7 @@ public class CommitmentView extends JPanel {
 		commitPanel.removeAll();
 		SpringLayout commPanelLayout = new SpringLayout();
 		commitPanel.setLayout(commPanelLayout);
+		commitPanel.setBackground(Color.WHITE);
 		List<CommitmentViewPanel> commPanelList = new ArrayList<CommitmentViewPanel>();
 		int n = 0;//adjusted index to take hidden commitments into account
 		//TODO implement personal commitment displaying

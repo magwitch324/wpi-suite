@@ -682,10 +682,10 @@ public class CommitmentTab extends JPanel {
 		// Add Delete Button
 		try {
 			Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
-			btnDelete = new JButton("Delete", new ImageIcon(img));
+			btnDelete = new JButton("Delete Commitment", new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			btnDelete.setText("Delete");
+			btnDelete.setText("Delete Commitment");
 		}
 		
 		btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
