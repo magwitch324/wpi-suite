@@ -98,7 +98,7 @@ public class CommitmentFullView extends JPanel{
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					if (e.getClickCount() > 1)
-						GUIEventController.getInstance().editCommitment(((CommitmentViewPanel)e.getComponent()).getCommitment(), tcalendar.getCalData());
+						GUIEventController.getInstance().editCommitment(((CommitmentViewPanel)e.getComponent()).getCommitment());
 				}		
 			});
 			

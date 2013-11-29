@@ -120,6 +120,7 @@ public class CommitmentView extends JPanel {
 				//commitmentPanel.setBorder((BorderFactory.createMatteBorder(
 				//        -2, -2, -2, -2, Color.GRAY)));
 
+				JLabel tag = new JLabel(commitmentList.get(i).getIsPersonal() ? "[Personal]" : "[Team]");
 				JLabel name = new JLabel("Name: "+commitmentList.get(i).getName());
 				JLabel date = new JLabel("Due Date: "+ commitmentList.get(i).getDueDate().getTime());
 				JLabel description = new JLabel("<HTML>Description: "+ commitmentList.get(i).getDescription()+"</HTML>");
@@ -132,6 +133,7 @@ public class CommitmentView extends JPanel {
 				c.fill = GridBagConstraints.HORIZONTAL;
 				c.weightx = 1;
 				c.gridx = n;
+				commitmentPanel.add(tag, c);
 				commitmentPanel.add(name,c);
 				commitmentPanel.add(date,c);
 				commitmentPanel.add(description,c);
@@ -153,7 +155,7 @@ public class CommitmentView extends JPanel {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						if (e.getClickCount() >= 1)
-							GUIEventController.getInstance().editTeamCommitment(((CommitmentViewPanel)e.getComponent()).getCommitment());
+							GUIEventController.getInstance().editCommitment(((CommitmentViewPanel)e.getComponent()).getCommitment());
 					}		
 				});
 
