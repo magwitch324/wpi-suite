@@ -72,52 +72,40 @@ public class WeekPane extends JPanel implements ICalPane {
 //	   	}
 	   	
 	   	setLayout(new GridLayout(1,1));
-		scrollPane.setMinimumSize(new Dimension(500, 300));
-		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+	   	scrollPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		scrollPane.setMinimumSize(new Dimension(500, 300));
-		scrollPane.setColumnHeaderView(getHeader(0));
-		scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize()
-				.getHeight()));
-		scrollPane.getVerticalScrollBar().setValue(800);
+		scrollPane.setBackground(CalendarStandard.CalendarRed);
 		
 		// Set color within the scrollbar
-		scrollPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
 		
-		scrollPane.setBackground(CalendarStandard.CalendarRed);
+		
+		
 
 		// Sets the UPPER LEFT corner box
 		JPanel cornerBoxUL = new JPanel();
 		cornerBoxUL.setBackground(CalendarStandard.CalendarRed);
-		cornerBoxUL.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.BLACK));
+//		cornerBoxUL.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.BLACK));
 		scrollPane.setCorner(ScrollPaneConstants.UPPER_LEFT_CORNER,
 				cornerBoxUL);
 		
-// Sets the UPPER RIGHT corner box
-JPanel cornerBoxUR = new JPanel();
-cornerBoxUR.setBackground(CalendarStandard.CalendarRed);
-cornerBoxUR.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.BLACK));
-scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
+		// Sets the UPPER RIGHT corner box
+		JPanel cornerBoxUR = new JPanel();
+		cornerBoxUR.setBackground(CalendarStandard.CalendarRed);
+		cornerBoxUR.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.BLACK));
+		scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
 		cornerBoxUR);
+
+		this.add(scrollPane);
+		
+		mainPanel.setPreferredSize(new Dimension(30, 2000));
+		
 		layout = new SpringLayout();
 		mainPanel.setLayout(layout);
 		
-		mainPanel.setPreferredSize(new Dimension(30, 2000));
-//		JComponent days = getDays();
-//		layout.putConstraint(SpringLayout.WEST, days, 0, SpringLayout.WEST, mainPanel);
-//		layout.putConstraint(SpringLayout.NORTH, days, 0, SpringLayout.NORTH, mainPanel);
-//		layout.putConstraint(SpringLayout.SOUTH, days, 0, SpringLayout.SOUTH, mainPanel);
-//		layout.putConstraint(SpringLayout.EAST, days, 0, SpringLayout.EAST, mainPanel);
-//		mainPanel.add(days);
-		
 		scrollPane.setColumnHeaderView(getHeader(0));
-		scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));
-		scrollPane.getVerticalScrollBar().setValue(800);   
+		scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));  
 		
-		
-//	   	if(abCalendar.getShowCommitements()){
-		
-		this.add(scrollPane);
 	   	
 		scrollPane.addMouseListener(new MouseAdapter(){
 			@Override
@@ -155,6 +143,8 @@ scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
 				scrollPane.revalidate();
 			}
 		});
+	   	
+	   	refresh();
 	}
 
 	/**
@@ -196,6 +186,7 @@ scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
 	    }
 	    
 	    apane.setBorder(new MatteBorder(0, 0, 2, 0, Color.BLACK));
+	    apane.setPreferredSize(new Dimension(500, 40));
 	    
     	return apane;
     }
@@ -294,11 +285,11 @@ scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
     	refresh();
 	}
 	
-	private void refresh() {
-		//mainPanel.removeAll();
+	public void refresh() {
+		mainPanel.removeAll();
 		if (days == null)
 			days = getDays(new ArrayList<Commitment>());
-		
+		setLayout(new GridLayout(1,1));
  		layout.putConstraint(SpringLayout.WEST, days, 0, SpringLayout.WEST, mainPanel);
  		layout.putConstraint(SpringLayout.NORTH, days, 0, SpringLayout.NORTH, mainPanel);
  		layout.putConstraint(SpringLayout.SOUTH, days, 0, SpringLayout.SOUTH, mainPanel);
@@ -306,7 +297,8 @@ scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
  		mainPanel.add(days);
     	mainPanel.revalidate();
     	mainPanel.repaint();
-    	
+    	scrollPane.revalidate();
+		scrollPane.repaint();
    	 	scrollPane.getVerticalScrollBar().setValue(GUIEventController.getInstance().getScrollBarValue());
 
 	}
@@ -345,6 +337,8 @@ scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
 	    }
 	}
 
-
+	public void updateScrollPosition(int value){
+		scrollPane.getVerticalScrollBar().setValue(value);
+	}
 	
 }

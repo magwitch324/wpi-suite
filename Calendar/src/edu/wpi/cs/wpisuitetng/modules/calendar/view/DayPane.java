@@ -105,7 +105,7 @@ public class DayPane extends JPanel implements ICalPane {
 		// Sets the UPPER LEFT corner box
 		JPanel cornerBoxUL = new JPanel();
 		cornerBoxUL.setBackground(CalendarStandard.CalendarRed);
-		cornerBoxUL.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.BLACK));
+//		cornerBoxUL.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.BLACK));
 		scrollPane.setCorner(ScrollPaneConstants.UPPER_LEFT_CORNER,
 				cornerBoxUL);
 		
@@ -144,7 +144,7 @@ public class DayPane extends JPanel implements ICalPane {
 	}
 
 
-	private void refresh() {
+	public void refresh() {
 		// TODO Auto-generated method stub
 		
 		mainPanel.removeAll();
@@ -187,7 +187,8 @@ public class DayPane extends JPanel implements ICalPane {
 						JPanel header = new JPanel();
 						header.setLayout(new GridLayout(1, 2));
 						header.setBackground(CalendarStandard.CalendarRed);
-						header.setBorder(new MatteBorder(0, 0, 2, 0, Color.BLACK));
+//						header.setBorder(new MatteBorder(0, 0, 2, 0, Color.BLACK));
+						header.setPreferredSize(new Dimension(500, 40));
 
 						// Create and set the label "Events" for when ShowCommitments is
 						// checked
@@ -253,5 +254,9 @@ public class DayPane extends JPanel implements ICalPane {
 	public JPanel getPane() {
 		// TODO Auto-generated method stub
 		return this;
+	}
+	
+	public void updateScrollPosition(int value){
+		scrollPane.getVerticalScrollBar().setValue(value);
 	}
 }

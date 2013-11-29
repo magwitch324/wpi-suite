@@ -66,11 +66,10 @@ public class MonthPane extends JScrollPane implements ICalPane {
 
 		for (int i = 0; i < 42; i++) {
 			JPanel aday = makeDay(itcal, i);
-			if (month == itcal.get(Calendar.MONTH))
-				aday.setBackground(Color.WHITE);
+			if(month == itcal.get(Calendar.MONTH))
+				aday.setBackground(CalendarStandard.CalendarYellow);
 			else
-				aday.setBackground(Color.GRAY);
-			
+				aday.setBackground(Color.LIGHT_GRAY);
 			aday.addMouseListener(new AMouseEvent(acal, null));
 			mainview.add(aday);
 			
@@ -111,7 +110,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				aday);
 		layout.putConstraint(SpringLayout.WEST, daylab, 0, SpringLayout.WEST,
 				aday);
-		daylab.setFont(new Font("Arial", 1, 18));
+		daylab.setFont(CalendarStandard.CalendarFont);
 		daylab.setBackground(new Color(0, 0, 0, 0));
 		aday.add(daylab);
 		
@@ -125,7 +124,6 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		layout.putConstraint(SpringLayout.EAST, compane[offset], 0, SpringLayout.HORIZONTAL_CENTER,
 				aday);
 		compane[offset].setBackground(new Color(0, 0, 0, 0));
-		//compane[offset].setBackground(Color.YELLOW);
 		aday.add(compane[offset]);
 		
 		eventpane[offset] = new JPanel();
@@ -230,7 +228,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				int i;
 				for(i = 0; i < comsize; i++){
 					comlabs[i] = new JLabel("-" + commList.get(i).getName());
-					comlabs[i].setFont(new Font("Arial", 1, 14));
+					comlabs[i].setFont(CalendarStandard.CalendarFont);
 					if(height + comlabs[i].getPreferredSize().getHeight() > boxheight){
 						break;
 					}
@@ -281,5 +279,11 @@ public class MonthPane extends JScrollPane implements ICalPane {
 	    		//abCalendar.setCalsetView(adate, TeamCalendar.types.DAY);
 	    	}
 	    }
+	}
+	public void updateScrollPosition(int value){
+		
+	}
+	public void refresh(){
+		
 	}
 }

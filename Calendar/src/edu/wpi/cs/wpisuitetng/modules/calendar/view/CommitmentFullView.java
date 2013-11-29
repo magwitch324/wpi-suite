@@ -21,6 +21,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment.Status;
 
@@ -70,6 +71,7 @@ public class CommitmentFullView extends JPanel{
 	private void setupPanels() {
 		commitPanel.setLayout(new BoxLayout(commitPanel, BoxLayout.Y_AXIS));
 		commitPanel.setBorder(new EmptyBorder(10, 5, 10 , 20));
+		commitPanel.setBackground(Color.WHITE);
 		for(int i = 0; i < commitmentList.size(); i++){
 			CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
 			JLabel name = new JLabel("Name: "+commitmentList.get(i).getName());
@@ -85,20 +87,16 @@ public class CommitmentFullView extends JPanel{
 			commitmentPanel.add(date,c);
 			commitmentPanel.add(description,c);
 			commitmentPanel.add(status,c);
-			commitmentPanel.setBackground(new Color(222,184,135));
-			//  description.setMaximumSize(new Dimension(285,300));
-			//Border raisedetched = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
-			//Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+			commitmentPanel.setBackground(CalendarStandard.CalendarYellow);
+//			commitmentPanel.setBackground(new Color(222,184,135));
+
 			Border loweredbevel = BorderFactory.createLoweredBevelBorder();
-			//commitmentPanel.setBorder(new EmptyBorder(10, 5, 10 , 20));
-			//commitmentPanel.setBorder(raisedetched);
-			//commitmentPanel.setBorder(raisedbevel);
 			commitmentPanel.setBorder(loweredbevel);
 			commitmentPanel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					if (e.getClickCount() > 1)
-						GUIEventController.getInstance().editCommitment(((CommitmentViewPanel)e.getComponent()).getCommitment(), tcalendar.getCalData());
+						GUIEventController.getInstance().editCommitment(((CommitmentViewPanel)e.getComponent()).getCommitment());
 				}		
 			});
 			

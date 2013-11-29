@@ -12,18 +12,23 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -101,6 +106,7 @@ public class CommitmentView extends JPanel {
 		commitPanel.removeAll();
 		SpringLayout commPanelLayout = new SpringLayout();
 		commitPanel.setLayout(commPanelLayout);
+		commitPanel.setBackground(Color.WHITE);
 		List<CommitmentViewPanel> commPanelList = new ArrayList<CommitmentViewPanel>();
 		int n = 0;//adjusted index to take hidden commitments into account
 		//TODO implement personal commitment displaying
@@ -115,23 +121,27 @@ public class CommitmentView extends JPanel {
 				//commitmentPanel.setBorder((BorderFactory.createMatteBorder(
 				//        -2, -2, -2, -2, Color.GRAY)));
 
+				JLabel tag = new JLabel(commitmentList.get(i).getIsPersonal() ? "[Personal]" : "[Team]");
 				JLabel name = new JLabel("Name: "+commitmentList.get(i).getName());
 				JLabel date = new JLabel("Due Date: "+ commitmentList.get(i).getDueDate().getTime());
 				JLabel description = new JLabel("<HTML>Description: "+ commitmentList.get(i).getDescription()+"</HTML>");
 				JLabel status = new JLabel("Status: " + Status.convertToString(commitmentList.get(i).getStatus().id));
 				
+
 				commitmentPanel.setLayout(new GridBagLayout());
 				GridBagConstraints c = new GridBagConstraints();
 				c.anchor = GridBagConstraints.LINE_START;
 				c.fill = GridBagConstraints.HORIZONTAL;
 				c.weightx = 1;
 				c.gridx = n;
+				commitmentPanel.add(tag, c);
 				commitmentPanel.add(name,c);
 				commitmentPanel.add(date,c);
 				commitmentPanel.add(description,c);
 				commitmentPanel.add(status,c);
 				//  description.setMaximumSize(new Dimension(285,300));
 				commitmentPanel.setBorder(new EmptyBorder(10, 5, 10 , 20));
+				commitmentPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over the commitment
 				// commitmentPanel.setPreferredSize(new Dimension(280,300));
 				// commitmentPanel.setMinimumSize(new Dimension(290, 400));
 				// commitmentPanel.setMaximumSize(new Dimension(3000,1000));
@@ -145,8 +155,8 @@ public class CommitmentView extends JPanel {
 				commitmentPanel.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						if (e.getClickCount() > 1)
-							GUIEventController.getInstance().editTeamCommitment(((CommitmentViewPanel)e.getComponent()).getCommitment());
+						if (e.getClickCount() >= 1)
+							GUIEventController.getInstance().editCommitment(((CommitmentViewPanel)e.getComponent()).getCommitment());
 					}		
 				});
 

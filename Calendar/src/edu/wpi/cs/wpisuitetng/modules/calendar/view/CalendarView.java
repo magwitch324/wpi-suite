@@ -10,16 +10,23 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -55,6 +62,7 @@ public abstract class CalendarView extends JSplitPane {
 		setLeftComponent(calPane.getPane());
 		setRightComponent(makeRightView());
 		setResizeWeight(1.0);
+		calPane.refresh();
 		
 	}
 	
@@ -70,16 +78,31 @@ public abstract class CalendarView extends JSplitPane {
 		labelPanel.setLayout(new GridLayout(1,1,0,0));
 		labelPanel.setBorder(new EmptyBorder(0, 10, 0 , 10));
 		labelPanel.setMinimumSize(new Dimension(330, 50));
+		labelPanel.setBackground(Color.WHITE);
 		
 		JLabel dateLabel = new JLabel("<html><body style='width: 100%'><center>" + dateRange + "</center></html>", SwingConstants.CENTER);
-		dateLabel.setFont(CalendarStandard.CalendarFontBold.deriveFont(Font.BOLD, 20));
+		dateLabel.setFont(CalendarStandard.CalendarFontBold.deriveFont(Font.BOLD, 16));
+		dateLabel.setBorder(new EmptyBorder(0, 0, 15, 0));
 		
 		labelPanel.add(dateLabel);
 		
 		panel.add(labelPanel);
 		
 		// View All Commitments Button - NOT SURE HOW TO CENTER???
-		JButton viewAllCommitmentsButton = new JButton("View All Commitments");
+		JButton viewAllCommitmentsButton = new JButton();
+		
+		try {
+			Image img = ImageIO.read(getClass().getResource("All_Icon.png"));
+		    viewAllCommitmentsButton.setIcon(new ImageIcon(img));
+		    viewAllCommitmentsButton.setText("View All Commitments");
+		    viewAllCommitmentsButton.setBackground(Color.WHITE);
+		    viewAllCommitmentsButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			viewAllCommitmentsButton.setIcon(new ImageIcon());
+			viewAllCommitmentsButton.setText("View All Commitments");
+		} 
+		
 		panel.add(viewAllCommitmentsButton);
 		viewAllCommitmentsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
@@ -95,6 +118,7 @@ public abstract class CalendarView extends JSplitPane {
 		separator.setOrientation(VERTICAL_SPLIT);
 		panel.add(separator);
 		panel.add(commitmentView, BorderLayout.CENTER);
+		panel.setBackground(Color.WHITE);
 		
 		return panel;
 		
@@ -132,6 +156,10 @@ public abstract class CalendarView extends JSplitPane {
 	 * @param showCommitments 
 	 */
 	abstract public void displayCalData(CommitmentList commList, boolean showCommOnCal);
+	
+	public void updateScrollPosition(int value){
+		this.calPane.updateScrollPosition(value);
+	}
 	
 	
 	
