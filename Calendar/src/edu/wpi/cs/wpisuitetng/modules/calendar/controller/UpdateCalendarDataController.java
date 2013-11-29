@@ -5,12 +5,13 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
- * Contributors: Team Rolling Thunder
+ * Contributors: CS Anonymous
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
 
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import edu.wpi.cs.wpisuitetng.network.Network;
 import edu.wpi.cs.wpisuitetng.network.Request;
 import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
@@ -56,6 +57,9 @@ public class UpdateCalendarDataController{
 	 */
 	public void updateCalendarData(CalendarData newCalData) 
 	{
+		//refreshes calendar GUI
+		GUIEventController.getInstance().updateCalData();
+		System.out.println("Updating caldata");
 		Request request = Network.getInstance().makeRequest("calendar/calendardata", HttpMethod.POST); // POST == update
 		request.setBody(newCalData.toJSON()); // put the updated CalendarData in the body of the request
 		request.addObserver(observer); // add an observer to process the response

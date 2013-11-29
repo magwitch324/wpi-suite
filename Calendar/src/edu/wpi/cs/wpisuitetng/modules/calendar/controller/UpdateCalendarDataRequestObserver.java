@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
- * Contributors: Team Rolling Thunder
+ * Contributors: CS Anonymous
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
 
@@ -47,8 +47,7 @@ public class UpdateCalendarDataRequestObserver implements RequestObserver {
 		
 		// Parse the category out of the response body
 		final CalendarData event = CalendarData.fromJson(response.getBody());
-		//refreshes calendar GUI
-		GUIEventController.getInstance().updateCalData();
+
 
 	}
 	

@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * Copyright (c) 2013 WPI-Suite
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: CS Anonymous
+ ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import java.util.Date;
@@ -14,7 +23,7 @@ public class Commitment extends AbstractModel {
 	/** the Name of the commitment */
 	private String name;
 	/** the DueDate of the commitment */
-	private GregorianCalendar dueDate;
+	private Date dueDate;
 	/** the Description of the commitment */
 	private String description;
 	/** the categoryID of the category */
@@ -78,7 +87,11 @@ public class Commitment extends AbstractModel {
 	public String getName() 		{return name;}
 	 /**Getter for the DueDate	
 	 * @return the due date */
-	public GregorianCalendar getDueDate() 		{return dueDate;}
+	public GregorianCalendar getDueDate() 		{
+		GregorianCalendar tmp = new GregorianCalendar();
+		tmp.setTime(dueDate);
+		return tmp;
+	}
 	 /**Getter for the Description	
 	 * @return the description */
 	public String getDescription() 	{return description;}
@@ -101,7 +114,7 @@ public class Commitment extends AbstractModel {
 	public void setName		   (String name) 		{this.name = name;}
 	/**Setter for the dueDate
 	 * @param dueDate the due date to set*/
-	public void setDueDate	   (GregorianCalendar dueDate) 		{this.dueDate = dueDate;}
+	public void setDueDate	   (GregorianCalendar dueDate) 		{this.dueDate = dueDate.getTime();}
 	/**Setter for the Description
 	 * @param description the Description to set*/
 	public void setDescription (String description) {this.description = description;}
@@ -124,7 +137,7 @@ public class Commitment extends AbstractModel {
 	public Commitment() {
 		super();
 		name = description = "";
-		dueDate = new GregorianCalendar();
+		dueDate = new Date();
 		status = Status.NEW;
 		isPersonal = false;
 	}
@@ -144,7 +157,7 @@ public class Commitment extends AbstractModel {
 					String description, int categoryId, boolean isPersonal) {
 		this();
 		this.name = name;
-		this.dueDate = dueDate;
+		this.dueDate = dueDate.getTime();
 		this.description = description;
 		this.categoryId = categoryId;
 		this.isPersonal = isPersonal;
@@ -247,7 +260,7 @@ public class Commitment extends AbstractModel {
 	public void copyFrom(Commitment toCopyFrom) {
 		this.id = 			toCopyFrom.getId();
 		this.name = 		toCopyFrom.getName();
-		this.dueDate = 		toCopyFrom.getDueDate();
+		this.dueDate = 		toCopyFrom.getDueDate().getTime();
 		this.description =  toCopyFrom.getDescription();
 		this.categoryId = 	toCopyFrom.getCategoryId();
 		this.status =       toCopyFrom.getStatus();

@@ -1,7 +1,12 @@
-
-/**
+/*******************************************************************************
+ * Copyright (c) 2013 WPI-Suite
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
- */
+ * Contributors: CS Anonymous
+ ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.BorderLayout;
@@ -38,22 +43,20 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CombinedCommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment.Status;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
-/**
- * @author cttibbetts
- *
- */
 public class CommitmentView extends JPanel {
 
 	JPanel commitPanel;
-	AbCalendar tcalendar;
 
-	List<Commitment> commitmentList = new ArrayList();
+	private CalendarData calData;
+
+	private List<Commitment> commitmentList = new ArrayList<Commitment>();
+
 
 //	private List<CommitmentViewPanel> commitmentPanelList;
 	
-	public CommitmentView(AbCalendar abCalendar) {
-		this.tcalendar = abCalendar;
+	public CommitmentView() {
 		
 
 
@@ -73,7 +76,8 @@ public class CommitmentView extends JPanel {
 		scrollPane.setViewportView(commitPanel);
 
 		    	
-		update();
+//		update();
+		
 		//test data will be where event data is handled
 
 
@@ -87,43 +91,19 @@ public class CommitmentView extends JPanel {
 		 */
 	}
 
-	public void setCommList(ArrayList<Commitment> commitments) {
-		commitmentList = commitments;
-	}
-
-	public void setCommList() {
-		if(tcalendar.getCalData() != null){
-			System.out.println("got COMMITMENTS FOR VIEW");
-			commitmentList = new ArrayList<Commitment>();
-			CombinedCommitmentList combinedList = new CombinedCommitmentList(new ArrayList<Commitment>(tcalendar.getCalData().getCommitments().getCommitments()));
-			CalendarData teamCommitments = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName());
-			
-			if(tcalendar.getShowTeamData()) {
-				//Iterate through team commitments and add each element to combinedList
-				
-				for(int i = 0; i < teamCommitments.getCommitments().getCommitments().size(); i++) {
-					combinedList.addCommitment(teamCommitments.getCommitments().getCommitments().get(i));
-				}
-				
-				//Set result to the container list
-				commitmentList = combinedList.getCommitments();
-				//commitmentList = new ArrayList<Commitment>(tcalendar.getCalData().getCommitments().getCommitments());
-				//commitmentList.addAll(teamCommitments.getCommitments().getCommitments());
-			}
-				
-			else{
-				commitmentList = tcalendar.getCalData().getCommitments().getCommitments();
-			}
-		}
+	public void updateCommData(List<Commitment> commitmentList) {
+		this.commitmentList = commitmentList;
+		update();
 	}
 
 	public void update(){
-		setCommList();  
+		 
 		commitPanel.removeAll();
 		SpringLayout commPanelLayout = new SpringLayout();
 		commitPanel.setLayout(commPanelLayout);
 		List<CommitmentViewPanel> commPanelList = new ArrayList<CommitmentViewPanel>();
 		int n = 0;//adjusted index to take hidden commitments into account
+		//TODO implement personal commitment displaying
 		for(int i = 0; i < commitmentList.size(); i++){
 			if (commitmentList.get(i).getStatus().id != 2) {//Skips over completed commitments
 				//Commitment commit = new Commitment();
@@ -134,10 +114,12 @@ public class CommitmentView extends JPanel {
 				commitmentPanel.setBackground(Color.LIGHT_GRAY);
 				//commitmentPanel.setBorder((BorderFactory.createMatteBorder(
 				//        -2, -2, -2, -2, Color.GRAY)));
+
 				JLabel name = new JLabel("Name: "+commitmentList.get(i).getName());
 				JLabel date = new JLabel("Due Date: "+ commitmentList.get(i).getDueDate().getTime());
 				JLabel description = new JLabel("<HTML>Description: "+ commitmentList.get(i).getDescription()+"</HTML>");
 				JLabel status = new JLabel("Status: " + Status.convertToString(commitmentList.get(i).getStatus().id));
+				
 				commitmentPanel.setLayout(new GridBagLayout());
 				GridBagConstraints c = new GridBagConstraints();
 				c.anchor = GridBagConstraints.LINE_START;
@@ -164,7 +146,7 @@ public class CommitmentView extends JPanel {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						if (e.getClickCount() > 1)
-							GUIEventController.getInstance().editCommitment(((CommitmentViewPanel)e.getComponent()).getCommitment(), tcalendar.getCalData());
+							GUIEventController.getInstance().editTeamCommitment(((CommitmentViewPanel)e.getComponent()).getCommitment());
 					}		
 				});
 

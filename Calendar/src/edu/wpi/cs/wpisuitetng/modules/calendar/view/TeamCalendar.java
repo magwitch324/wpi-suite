@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * Copyright (c) 2013 WPI-Suite
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: CS Anonymous
+ ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Color;
@@ -19,7 +28,6 @@ import javax.swing.SpringLayout;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
-import edu.wpi.cs.wpisuitetng.modules.calendar.config.CalendarConfManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
@@ -28,8 +36,6 @@ public class TeamCalendar extends AbCalendar {
 
 	public TeamCalendar() {
 		super();
-		this.removeAll();
-		this.drawThis();
 
 	}
 
@@ -94,10 +100,10 @@ public class TeamCalendar extends AbCalendar {
 		this.add(viewpanel);
 		viewbtns[currenttype.getCurrentType()].setSelected(true);
 
-		setView();
+		//		setView();
 
 	}
-	
+
 	public boolean getShowTeamData(){
 		return false;
 	}
@@ -109,8 +115,19 @@ public class TeamCalendar extends AbCalendar {
 					.getConfig().getProjectName());
 			CalendarDataModel.getInstance().addCalendarData(createdCal);
 		}
+		initialized = true;
+
 		calData = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName());
-		calView.displayCalData(calData);
+		setView();
+		//		displayCalData();
+
+	}
+
+	protected void displayCalData() {
+		// TODO Auto-generated method stub
+		if(initialized){
+				calView.displayCalData(calData.getCommitments(), getShowCommitments());
+		}
 	}
 }

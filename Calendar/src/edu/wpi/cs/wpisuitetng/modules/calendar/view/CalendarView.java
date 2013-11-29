@@ -1,6 +1,12 @@
-/**
+/*******************************************************************************
+ * Copyright (c) 2013 WPI-Suite
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
- */
+ * Contributors: CS Anonymous
+ ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.BorderLayout;
@@ -11,6 +17,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -23,12 +30,14 @@ import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
 
 public abstract class CalendarView extends JSplitPane {
 	
 	private ICalPane calPane;
-	protected CommitmentView commitments;
+	protected CommitmentView commitmentView;
 	private String dateRange;
 	
 	
@@ -85,7 +94,7 @@ public abstract class CalendarView extends JSplitPane {
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(VERTICAL_SPLIT);
 		panel.add(separator);
-		panel.add(commitments, BorderLayout.CENTER);
+		panel.add(commitmentView, BorderLayout.CENTER);
 		
 		return panel;
 		
@@ -112,14 +121,17 @@ public abstract class CalendarView extends JSplitPane {
 	
 	public void setCommitmentView(CommitmentView comm) {
 		// TODO Auto-generated method stub
-		this.commitments = comm;
+		this.commitmentView = comm;
 	}
 	
 	/** Display calendar data in internal panels, decides what commitments 
 	 * fall within range
+	 * @param showCommsOnCalPane 
 	 * @param calData Calendar Data to be displayed
+	 * @param showTeamData 
+	 * @param showCommitments 
 	 */
-	abstract public void displayCalData(CalendarData calData);
+	abstract public void displayCalData(CommitmentList commList, boolean showCommOnCal);
 	
 	
 	

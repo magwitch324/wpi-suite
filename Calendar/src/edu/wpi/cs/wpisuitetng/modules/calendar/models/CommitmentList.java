@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * Copyright (c) 2013 WPI-Suite
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: CS Anonymous
+ ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import static java.util.Calendar.DAY_OF_MONTH;
@@ -186,6 +195,30 @@ public class CommitmentList {
 		for (Commitment commit : commitments) {
 			commitDate.setTime(commit.getDueDate().getTime());
 			if (commitDate.after(start) && commitDate.before(end)) {
+				newCommitments.add(commit);
+			} 
+		}
+		
+		return newCommitments;
+	}
+	
+	
+	
+	/**
+	 * Filter the commitment list to data on a specific date
+	 * @param date
+	 * @return ArrayList of commitments on date
+	 */
+	public List<Commitment> filter(GregorianCalendar date) {
+
+		GregorianCalendar commitDate = new GregorianCalendar();
+		List<Commitment> newCommitments = new ArrayList<Commitment>();
+		
+		for (Commitment commit : commitments) {
+			commitDate.setTime(commit.getDueDate().getTime());
+			if (commitDate.get(Calendar.YEAR) == date.get(Calendar.YEAR)
+					&& commitDate.get(Calendar.MONTH) == date.get(Calendar.MONTH)
+					&& commitDate.get(Calendar.DAY_OF_MONTH) == date.get(Calendar.DAY_OF_MONTH)) {
 				newCommitments.add(commit);
 			} 
 		}

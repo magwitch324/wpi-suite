@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
- * Contributors: Team Rolling Thunder
+ * Contributors: CS Anonymous
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
@@ -31,13 +31,19 @@ import javax.swing.BorderFactory;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar.types;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons.ButtonsPanel_Create;
 
+/**
+ * @author sfp
+ *
+ */
 public class GUIEventController {
 	private static GUIEventController instance = null;
+	private int scrollBarValue;
 	private MainTabView main = null;
 	private ToolbarView toolbar = null;
 	private TeamCalendar teamCalendar;
@@ -69,22 +75,39 @@ public class GUIEventController {
 		main = mainview;
 		teamCalendar = new TeamCalendar();
 		myCalendar = new MyCalendar();
-		
 		try {
-		Image img = ImageIO.read(getClass().getResource("Personal_Icon.png"));
-		main.addTab("My Calendar", new ImageIcon(img), myCalendar);
-		
-		img = ImageIO.read(getClass().getResource("Team_Icon.png"));
-		main.addTab("Team Calendar", new ImageIcon(img), teamCalendar);
-		
-		main.setBorder(BorderFactory.createEmptyBorder());
-		
-		} catch (IOException ex) {}
-		catch(IllegalArgumentException ex){
-			main.addTab("My Calendar", new ImageIcon(), myCalendar);
-			main.addTab("Team Calendar", new ImageIcon(), teamCalendar);
+            Image img = ImageIO.read(getClass().getResource("Personal_Icon.png"));
+            main.addTab("", new ImageIcon(img), myCalendar);
+            
+            img = ImageIO.read(getClass().getResource("Team_Icon.png"));
+            main.addTab("", new ImageIcon(img), teamCalendar);
+            
+            } catch (IOException ex) {}
+            catch(IllegalArgumentException ex){
+                    main.addTab("My Calendar", new ImageIcon(), myCalendar);
+                    main.addTab("Team Calendar", new ImageIcon(), teamCalendar);
+            }
+	}
+	
+	/**
+	 * Gets calendar data corresponding to currently selected tab
+	 * @return index
+	 */
+	public AbCalendar getSelectedCalendar()
+	{
+		int index = main.getSelectedIndex();
+		if (index == 0)
+			return myCalendar;
+		else if (index == 1)
+			return teamCalendar;
+		else
+		{
+			System.out.println("Error getting calendar; calendar tab not selected.");
+			return myCalendar;
+
 		}
 	}
+	
 
 	/**
 	 * Sets the toolbarview to the given toolbar
@@ -133,6 +156,10 @@ public class GUIEventController {
 		main.setSelectedComponent(newCommit);
 	}
 	
+	/** Edit a commitment in a new tab
+	 * @param comm Commitment to edit
+	 * @param calData CalendarData where commitment is located
+	 */
 	public void editCommitment(Commitment comm, CalendarData calData) {
 		CommitmentTab editCommit = new CommitmentTab(comm, calData);
 		main.addTab("Edit Commitment", null, editCommit, "Edit Commitment");
@@ -143,30 +170,56 @@ public class GUIEventController {
 	
 	// Creates new empty tab that will be used to put all commitments 
 	public void createViewCommitmentsTab() {
-		JPanel allCommitmentsTab = new JPanel();
-		allCommitmentsTab.setBackground(Color.WHITE);
+		CommitmentFullView commitFullView = new CommitmentFullView(teamCalendar);
 
 //		allCommitmentsTab.add(teamCalendar.calView);
-		main.addTab("All Commitments", null, allCommitmentsTab, "New Commitment");
+		main.addTab("All Commitments", null, commitFullView, "New Commitment");
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
-		main.setSelectedComponent(allCommitmentsTab);
+		main.setSelectedComponent(commitFullView);
 	}
 
 	public void createEvent() {
 
 	}
 	
-	public void switchView(GregorianCalendar acal, TeamCalendar.types switchtype, TeamCalendar ateamcal){
-		ateamcal.setCalsetView(acal, switchtype);
+	public void switchView(GregorianCalendar acal, TeamCalendar.types switchtype){
+		teamCalendar.setCalsetView(acal, switchtype);
+		myCalendar.setCalsetView(acal, switchtype);
+
 	}
 
 	public void updateCalData() {
 		// TODO Auto-generated method stub
 		teamCalendar.updateCalData();
 		myCalendar.updateCalData();
-		teamCalendar.calView.commitments.update();
-		myCalendar.calView.commitments.update();
+		teamCalendar.calView.commitmentView.update();
+		myCalendar.calView.commitmentView.update();
 	}
+
+	public void setScrollBarValue(int value) {
+		// TODO Auto-generated method stub
+		scrollBarValue = value;
+	}
+
+	public int getScrollBarValue()
+	{
+		return scrollBarValue;
+	}
+
+	/** Edit a team commitment
+	 * @param comm Team commitment to edit
+	 */
+	public void editTeamCommitment(Commitment comm) {
+		editCommitment(comm, teamCalendar.getCalData());
+	}
+	
+	/** Edit a personal commitment
+	 * @param comm Personal commitment to edit
+	 */
+	public void editPersonalCommitment(Commitment comm) {
+		editCommitment(comm, myCalendar.getCalData());
+	}
+	
 	
 }

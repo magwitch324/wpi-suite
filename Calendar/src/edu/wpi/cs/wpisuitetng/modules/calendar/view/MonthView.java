@@ -1,24 +1,39 @@
+/*******************************************************************************
+ * Copyright (c) 2013 WPI-Suite
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: CS Anonymous
+ ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
 public class MonthView extends CalendarView {
 	
-	private AbCalendar tcalendar;
 	private GregorianCalendar aMonth;
+	private MonthPane monthPane;
 	
 
-	public MonthView(GregorianCalendar datecalendar, AbCalendar tcalendar) {
+
+	public MonthView(GregorianCalendar datecalendar) {
+
 		super(datecalendar);
-		setCalPane(new MonthPane(datecalendar, tcalendar));
-		aMonth = (GregorianCalendar)datecalendar.clone();
-		setCommitmentView(new CommitmentView(tcalendar));
+		aMonth = new GregorianCalendar();
+
+		monthPane = new MonthPane(datecalendar);
+		setCalPane(monthPane);
+		setCommitmentView(new CommitmentView());
+
 		setRange(datecalendar);
 	}
 	
@@ -41,10 +56,31 @@ public class MonthView extends CalendarView {
 		refresh();
 	}
 	
-	@Override
-	public void displayCalData(CalendarData calData) {
-		commitments.update();
+	public void displayCalData(CalendarData personalCalData, CalendarData teamCalData) {
+		commitmentView.update();
 		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void displayCalData(CommitmentList commList, boolean showCommOnCal) {
+		commitmentView.updateCommData(commList.getCommitments());
+		// TODO filter commitments
+		if (showCommOnCal){
+			try{
+				monthPane.displayCommitments(commList.filter(aMonth, Calendar.MONTH)); //add only commitments on today to DayPane
+			}
+			catch(CalendarException e){
+				monthPane.displayCommitments(null);
+			}
+		}
+		else{
+			monthPane.displayCommitments(null); //show no commitments on DayPane
+		}
+
+	    revalidate();
+	    repaint();
 		
 	}
 
