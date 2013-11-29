@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CombinedCommitmentList extends CommitmentList{
+	
+	/**
+	 * This class is for dealing with combining the list of personal and team commitments without overriding the ids of the commitments
+	 */
 
 	public CombinedCommitmentList() {
 		super();
@@ -25,7 +29,7 @@ public class CombinedCommitmentList extends CommitmentList{
 	
 	@Override
 	/**
-	 * Adds a single commitment to the commitment of the project
+	 * Adds a single commitment to the commitment of the project, while sorting them into the right order by date
 	 * 
 	 * @param newReq The commitment to be added to the list of commitments in the project
 	 */
