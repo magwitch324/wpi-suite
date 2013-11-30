@@ -396,9 +396,9 @@ public class CommitmentTab extends JPanel {
 		gbc_jdp.weightx = 1;
 		gbc_jdp.weighty = 3;
 		formPanel.add(datePicker, gbc_jdp);
-		Calendar calendar = datePicker.getMonthView().getCalendar();
-		calendar.setTime(new Date());
-		datePicker.getMonthView().setLowerBound(calendar.getTime());
+		//Calendar calendar = datePicker.getMonthView().getCalendar();
+		//calendar.setTime(new Date());
+		//datePicker.getMonthView().setLowerBound(calendar.getTime());
 		SimpleDateFormat format1 = new SimpleDateFormat( "EEE MM/dd/yyyy" );
 		SimpleDateFormat format2 = new SimpleDateFormat( "MM/dd/yyyy" );
 		SimpleDateFormat format3 = new SimpleDateFormat( "MM.dd.yyyy" );
@@ -454,16 +454,16 @@ public class CommitmentTab extends JPanel {
 				}
 				*/
 				else{
-					try {
+					//try {
 						SimpleDateFormat dt = new SimpleDateFormat("EEE MM/dd/yyyy"); 
 						datePicker.getEditor().setBackground(Color.WHITE);
 						datePicker.getEditor().setText(dt.format(datePicker.getDate()));
 						datePicker.getEditor().selectAll();
 						listenerHelper();
-					}catch(NullPointerException ne) {
-						datePicker.getEditor().setText("The date is not valid");
-						datePicker.getEditor().setBackground(Color.red);
-					}
+					//}catch(NullPointerException ne) {
+					//	datePicker.getEditor().setText("The date is not valid");
+					//	datePicker.getEditor().setBackground(Color.red);
+					//}
 				}
 			}
 
@@ -711,6 +711,7 @@ public class CommitmentTab extends JPanel {
 			
 			
 		});
+		
 		/*
 		datePicker.addActionListener(new ActionListener(){
 
@@ -928,15 +929,15 @@ public class CommitmentTab extends JPanel {
 			datePicker.getEditor().selectAll();
 		}
 		else{
-			Date currentDate = new Date();
-			if(tmpDate.compareTo(currentDate) >= 0) {
+			//Date currentDate = new Date();
+			//if(tmpDate.compareTo(currentDate) >= 0) {
 				String showDate = datePicker.getFormats()[0].format(tmpDate);
 				datePicker.getEditor().setText(showDate);
-			}
-			else{
-				datePicker.getEditor().setText("The date is not valid");
-				datePicker.getEditor().setBackground(Color.red);
-			}
+			//}
+			//else{
+			//	datePicker.getEditor().setText("The date is not valid");
+			//	datePicker.getEditor().setBackground(Color.red);
+			//}
 		}
 	}
 	
