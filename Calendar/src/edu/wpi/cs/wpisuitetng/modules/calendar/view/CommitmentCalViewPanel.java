@@ -33,16 +33,17 @@ public class CommitmentCalViewPanel extends JPanel {
 			time += " PM";
 		
 		
-		String name = "Name: " + comm.getName();
-		String descr = "Descr: " + comm.getDescription();
+		String name = comm.getName();
+		//String descr = "Descr: " + comm.getDescription();
+		String tag = comm.getIsPersonal() ? "[Personal]" : "[Team]";
 		setLayout(new GridLayout(2,1));
 		setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this text
-		JLabel alab = new JLabel(descr, JLabel.CENTER);
+		JLabel alab = new JLabel(name, JLabel.CENTER);
 		//alab.setSize( alab.getPreferredSize() );
 		alab.setBackground(new Color(0,0,0,0));
 		add(alab, SwingConstants.CENTER);
 		
-		alab = new JLabel(name, JLabel.CENTER);
+		alab = new JLabel(tag, JLabel.CENTER);
 		//alab.setSize( alab.getPreferredSize() );
 		alab.setBackground(new Color(0,0,0,0));
 		add(alab, SwingConstants.CENTER);

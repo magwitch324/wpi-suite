@@ -10,6 +10,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -77,9 +78,11 @@ public abstract class CalendarView extends JSplitPane {
 		labelPanel.setLayout(new GridLayout(1,1,0,0));
 		labelPanel.setBorder(new EmptyBorder(0, 10, 0 , 10));
 		labelPanel.setMinimumSize(new Dimension(330, 50));
+		labelPanel.setBackground(Color.WHITE);
 		
 		JLabel dateLabel = new JLabel("<html><body style='width: 100%'><center>" + dateRange + "</center></html>", SwingConstants.CENTER);
 		dateLabel.setFont(CalendarStandard.CalendarFontBold.deriveFont(Font.BOLD, 16));
+		dateLabel.setBorder(new EmptyBorder(0, 0, 15, 0));
 		
 		labelPanel.add(dateLabel);
 		
@@ -92,8 +95,7 @@ public abstract class CalendarView extends JSplitPane {
 			Image img = ImageIO.read(getClass().getResource("All_Icon.png"));
 		    viewAllCommitmentsButton.setIcon(new ImageIcon(img));
 		    viewAllCommitmentsButton.setText("View All Commitments");
-		    viewAllCommitmentsButton.setBorder(BorderFactory.createEmptyBorder());
-		    viewAllCommitmentsButton.setContentAreaFilled(false);
+		    viewAllCommitmentsButton.setBackground(Color.WHITE);
 		    viewAllCommitmentsButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
@@ -116,6 +118,7 @@ public abstract class CalendarView extends JSplitPane {
 		separator.setOrientation(VERTICAL_SPLIT);
 		panel.add(separator);
 		panel.add(commitmentView, BorderLayout.CENTER);
+		panel.setBackground(Color.WHITE);
 		
 		return panel;
 		

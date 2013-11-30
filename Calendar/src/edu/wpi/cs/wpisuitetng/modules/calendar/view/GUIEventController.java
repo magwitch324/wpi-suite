@@ -163,8 +163,8 @@ public class GUIEventController {
 	 * @param comm Commitment to edit
 	 * @param calData CalendarData where commitment is located
 	 */
-	public void editCommitment(Commitment comm, CalendarData calData) {
-		CommitmentTab editCommit = new CommitmentTab(comm, calData);
+	public void editCommitment(Commitment comm) {
+		CommitmentTab editCommit = new CommitmentTab(comm);
 		main.addTab("Edit Commitment", null, editCommit, "Edit Commitment");
 //		editCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		main.invalidate(); //force the tabbedpane to redraw.
@@ -209,20 +209,6 @@ public class GUIEventController {
 	public int getScrollBarValue()
 	{
 		return scrollBarValue;
-	}
-
-	/** Edit a team commitment
-	 * @param comm Team commitment to edit
-	 */
-	public void editTeamCommitment(Commitment comm) {
-		editCommitment(comm, teamCalendar.getCalData());
-	}
-	
-	/** Edit a personal commitment
-	 * @param comm Personal commitment to edit
-	 */
-	public void editPersonalCommitment(Commitment comm) {
-		editCommitment(comm, myCalendar.getCalData());
 	}
 	
 	

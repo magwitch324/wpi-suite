@@ -13,13 +13,13 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
 public class MonthView extends CalendarView {
 	
-
 	private GregorianCalendar aMonth;
 	private MonthPane monthPane;
 	
@@ -65,7 +65,22 @@ public class MonthView extends CalendarView {
 
 	@Override
 	public void displayCalData(CommitmentList commList, boolean showCommOnCal) {
-		// TODO Auto-generated method stub
+		commitmentView.updateCommData(commList.getCommitments());
+		// TODO filter commitments
+		if (showCommOnCal){
+			try{
+				monthPane.displayCommitments(commList.filter(aMonth, Calendar.MONTH)); //add only commitments on today to DayPane
+			}
+			catch(CalendarException e){
+				monthPane.displayCommitments(null);
+			}
+		}
+		else{
+			monthPane.displayCommitments(null); //show no commitments on DayPane
+		}
+
+	    revalidate();
+	    repaint();
 		
 	}
 
