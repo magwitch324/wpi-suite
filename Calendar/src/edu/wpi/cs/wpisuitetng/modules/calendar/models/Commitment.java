@@ -182,7 +182,6 @@ public class Commitment extends AbstractModel {
 	 */
 	@Override
 	public void save() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -192,7 +191,6 @@ public class Commitment extends AbstractModel {
 	 */
 	@Override
 	public void delete() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -234,7 +232,6 @@ public class Commitment extends AbstractModel {
 	 */
 	@Override
 	public Boolean identify(Object o) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
