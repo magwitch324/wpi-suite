@@ -41,7 +41,7 @@ public class MonthView extends CalendarView {
 	public void setRange(GregorianCalendar calendar) {
 		aMonth.setTime(calendar.getTime());
 
-		while (aMonth.get(Calendar.DAY_OF_MONTH) != aMonth.DAY_OF_MONTH) {
+		while (aMonth.get(Calendar.DAY_OF_MONTH) != 1) {
 			aMonth.add(Calendar.DAY_OF_MONTH, -1);
 		}
 		
