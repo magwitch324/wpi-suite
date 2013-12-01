@@ -174,7 +174,7 @@ public class GUIEventController {
 	
 	// Creates new empty tab that will be used to put all commitments 
 	public void createViewCommitmentsTab() {
-		CommitmentFullView commitFullView = new CommitmentFullView(teamCalendar);
+		CommitmentFullView commitFullView = new CommitmentFullView(getSelectedCalendar());
 		main.addTab("All Commitments", null, commitFullView, "New Commitment");
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
