@@ -65,7 +65,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 
 		for (int i = 0; i < 42; i++) {
 			days[i] = makeDay(itcal, i, month);
-			days[i].addMouseListener(new AMouseEvent(acal, null));
+			days[i].addMouseListener(new AMouseEvent(itcal));
 			mainview.add(days[i]);
 			
 			itcal.add(Calendar.DATE, 1);
@@ -484,17 +484,17 @@ public class MonthPane extends JScrollPane implements ICalPane {
 	 * that specific day in the day pane.
 	 */
 	protected class AMouseEvent extends MouseAdapter{
-		AbCalendar abCalendar;
-		Calendar adate;
+		GregorianCalendar adate;
 		
-		public AMouseEvent(Calendar adate, AbCalendar abCalendar){
-			this.adate = adate;
-			this.abCalendar = abCalendar;
+		public AMouseEvent(GregorianCalendar adate){
+			this.adate = (GregorianCalendar)adate.clone();
 		}
 
 	    public void mouseClicked(MouseEvent e) {
 	    	if(e.getClickCount() > 1){
-	    		//abCalendar.setCalsetView(adate, TeamCalendar.types.DAY);
+	    		//switch to day view
+	    		System.out.println(adate.get(Calendar.DATE));
+	    		GUIEventController.getInstance().switchView(adate, AbCalendar.types.DAY);
 	    	}
 	    }
 	}
