@@ -11,16 +11,25 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
@@ -77,6 +86,7 @@ public class MyCalendar extends AbCalendar {
 				SpringLayout.SOUTH, viewbtnpanel);
 		this.add(showcom);
 
+		
 		showteam = new JCheckBox("Show Team Data");
 		showteam.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		showteam.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN,
@@ -98,8 +108,11 @@ public class MyCalendar extends AbCalendar {
 		layout.putConstraint(SpringLayout.SOUTH, showteam, 0,
 				SpringLayout.SOUTH, viewbtnpanel);
 		this.add(showteam);
-
-		JComboBox filter = new JComboBox();
+	
+		
+	
+		// COMMENTED THIS FILTER MENU OUT FOR THE TIME BEING
+		/*JComboBox filter = new JComboBox();
 		layout.putConstraint(SpringLayout.WEST, filter, 30, SpringLayout.EAST,
 				showteam);
 		layout.putConstraint(SpringLayout.NORTH, filter, 0, SpringLayout.NORTH,
@@ -109,7 +122,10 @@ public class MyCalendar extends AbCalendar {
 		layout.putConstraint(SpringLayout.SOUTH, showcom, 0,
 				SpringLayout.SOUTH, viewbtnpanel);
 		this.add(filter);
-
+*/
+		
+		
+		
 		layout.putConstraint(SpringLayout.WEST, viewpanel, 5,
 				SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.NORTH, viewpanel, 5,
