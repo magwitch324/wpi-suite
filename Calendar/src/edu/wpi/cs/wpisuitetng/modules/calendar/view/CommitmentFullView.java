@@ -48,6 +48,7 @@ public class CommitmentFullView extends JPanel{
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(scrollPane, BorderLayout.CENTER );
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+		scrollPane.getHorizontalScrollBar().setUnitIncrement(20);
 		/*spring layout to allow adjustments to size of screen without messing up panels*/
 		SpringLayout layout = new SpringLayout();
 		setLayout(layout);
