@@ -49,6 +49,7 @@ public class GUIEventController {
 	private ToolbarView toolbar = null;
 	private TeamCalendar teamCalendar;
 	private MyCalendar myCalendar;
+	private CommitmentFullView commitFullView;
 	private List<CommitmentTab> listOfCommitmentTabs;
 
 	/**
@@ -76,6 +77,8 @@ public class GUIEventController {
 		main = mainview;
 		teamCalendar = new TeamCalendar();
 		myCalendar = new MyCalendar();
+		commitFullView = new CommitmentFullView(teamCalendar);
+		
 		try {
             Image img = ImageIO.read(getClass().getResource("Personal_Icon.png"));
             main.addTab("My Calendar", new ImageIcon(img), myCalendar);
@@ -88,7 +91,7 @@ public class GUIEventController {
                     main.addTab("My Calendar", new ImageIcon(), myCalendar);
                     main.addTab("Team Calendar", new ImageIcon(), teamCalendar);
             }
-
+		main.addTab("All Commitments", commitFullView);
 	}
 	
 	/**

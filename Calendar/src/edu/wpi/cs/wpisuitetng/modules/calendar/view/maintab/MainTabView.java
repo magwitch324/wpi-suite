@@ -23,6 +23,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.MyCalendar;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.TeamCalendar;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.tab.ClosableTabComponent;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentFullView;
 
 /**
  * This tabbed pane will appear as the main content of the Calendar tab.
@@ -42,7 +43,7 @@ public class MainTabView extends JTabbedPane {
 	public void insertTab(String title, Icon icon, Component component,
 			String tip, int index) {
 		super.insertTab(title, icon, component, tip, index);
-		if (!(component instanceof AbCalendar)) {
+		if (!((component instanceof AbCalendar) || (component instanceof CommitmentFullView))) {
 			setTabComponentAt(index, new ClosableTabComponent(this));
 		}
 		super.setBackground(Color.WHITE);
