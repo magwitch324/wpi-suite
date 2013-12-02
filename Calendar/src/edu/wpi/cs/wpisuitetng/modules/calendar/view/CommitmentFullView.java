@@ -105,7 +105,7 @@ public class CommitmentFullView extends JPanel{
 			JLabel date = new JLabel("Due Date: "+ commitmentList.get(i).getDueDate().getTime());
 			JLabel description = new JLabel("<HTML>Description: "+ commitmentList.get(i).getDescription()+"</HTML>");
 			JLabel status = new JLabel("Status: " + Status.convertToString(commitmentList.get(i).getStatus().id));
-			//commitmentPanel.setLayout(new BoxLayout(commitmentPanel, BoxLayout.X_AXIS));
+			commitmentPanel.setLayout(experimentLayout);
 			//GridBagConstraints c = new GridBagConstraints();
 			c.anchor = GridBagConstraints.LINE_START;
 			c.fill = GridBagConstraints.HORIZONTAL;
