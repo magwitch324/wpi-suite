@@ -78,6 +78,8 @@ public class TeamCalendar extends AbCalendar {
 		layout.putConstraint(SpringLayout.SOUTH, showcom, 0,
 				SpringLayout.SOUTH, viewbtnpanel);
 		this.add(showcom);
+		
+		//COMENTED OUT FILTER DROP DOWN MENU BECAUSE IT DOESN'T DO ANYTHING AT THE MOMENT
 
 		JComboBox filter = new JComboBox();
 		layout.putConstraint(SpringLayout.WEST, filter, 30, SpringLayout.EAST,
@@ -88,7 +90,7 @@ public class TeamCalendar extends AbCalendar {
 				this);
 		layout.putConstraint(SpringLayout.SOUTH, showcom, 0,
 				SpringLayout.SOUTH, viewbtnpanel);
-		this.add(filter);
+//		this.add(filter);
 
 		layout.putConstraint(SpringLayout.WEST, viewpanel, 5,
 				SpringLayout.WEST, this);
@@ -103,6 +105,7 @@ public class TeamCalendar extends AbCalendar {
 		viewbtns[currenttype.getCurrentType()].setSelected(true);
 
 		//		setView();
+
 
 	}
 
