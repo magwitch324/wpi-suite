@@ -100,11 +100,13 @@ public class CommitmentFullView extends JPanel{
 		topButtons.add(jDueDate,c);
 		topButtons.add(jDescription,c);
 		topButtons.add(jStatus,c);
+		topButtons.setPreferredSize(new Dimension(300,75));
+		topButtons.setMaximumSize(new Dimension(20000, 75));
 		Border loweredbevel1 = BorderFactory.createLoweredBevelBorder();
 		topButtons.setBorder(loweredbevel1);
 		commitPanel.add(topButtons);
-		JSeparator sep = new JSeparator();
-		commitPanel.add(sep);
+		//JSeparator sep = new JSeparator();
+		//commitPanel.add(sep);
 		for(int i = 0; i < commitmentList.size(); i++){
 			CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
 			JLabel name = new JLabel("Name: "+commitmentList.get(i).getName(),JLabel.CENTER);
