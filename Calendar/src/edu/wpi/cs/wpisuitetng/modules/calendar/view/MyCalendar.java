@@ -72,12 +72,12 @@ public class MyCalendar extends AbCalendar {
 		this.add(datepanel);
 		
 		// Displays Commitment Button
-		JComponent commitmentPanel = ButtonsPanelCreate();
-		layout.putConstraint(SpringLayout.NORTH, commitmentPanel, 5,
-				SpringLayout.NORTH, viewbtnpanel);
-		layout.putConstraint(SpringLayout.EAST, commitmentPanel, 0,
-				SpringLayout.EAST, this);
-		this.add(commitmentPanel);
+//		JComponent commitmentPanel = ButtonsPanelCreate();
+//		layout.putConstraint(SpringLayout.NORTH, commitmentPanel, 5,
+//				SpringLayout.NORTH, viewbtnpanel);
+//		layout.putConstraint(SpringLayout.EAST, commitmentPanel, 0,
+//				SpringLayout.EAST, this);
+//		this.add(commitmentPanel);
 
 		showcom = new JCheckBox("Show Commitments");
 		showcom.setCursor(new Cursor(Cursor.HAND_CURSOR));
