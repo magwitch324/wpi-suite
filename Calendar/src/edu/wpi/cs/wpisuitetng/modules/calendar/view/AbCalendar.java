@@ -82,15 +82,16 @@ public abstract class AbCalendar extends JPanel {
 	protected CommitmentList commitments;
 
 	public AbCalendar(){
+		
 		super();
-
+		initialized = false;
 		mycal = new GregorianCalendar();
 
 		super.setBackground(Color.WHITE);
 
 		// Draws GUI
 		drawThis();
-		initialized = false;
+		
 	}
 
 
