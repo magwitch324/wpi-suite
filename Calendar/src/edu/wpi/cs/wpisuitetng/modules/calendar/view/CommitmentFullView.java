@@ -123,6 +123,7 @@ public class CommitmentFullView extends JPanel{
 			commitmentPanel.setBackground(CalendarStandard.CalendarYellow);
 //			commitmentPanel.setBackground(new Color(222,184,135));
 			commitmentPanel.setPreferredSize(new Dimension(300,75));
+			commitmentPanel.setMaximumSize(new Dimension(20000,75));
 			Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 			commitmentPanel.setBorder(loweredbevel);
 			commitmentPanel.addMouseListener(new MouseAdapter() {
