@@ -3,6 +3,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -115,14 +116,13 @@ public class CommitmentFullView extends JPanel{
 			c.anchor = GridBagConstraints.CENTER;
 			c.fill = GridBagConstraints.HORIZONTAL;
 			c.weightx = 1;
-		
 			commitmentPanel.add(name,c);
 			commitmentPanel.add(date,c);
 			commitmentPanel.add(description,c);
 			commitmentPanel.add(status,c);
 			commitmentPanel.setBackground(CalendarStandard.CalendarYellow);
 //			commitmentPanel.setBackground(new Color(222,184,135));
-
+			commitmentPanel.setPreferredSize(new Dimension(300,75));
 			Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 			commitmentPanel.setBorder(loweredbevel);
 			commitmentPanel.addMouseListener(new MouseAdapter() {
