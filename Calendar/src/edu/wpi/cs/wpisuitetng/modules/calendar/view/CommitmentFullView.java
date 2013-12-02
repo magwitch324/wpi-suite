@@ -82,9 +82,13 @@ public class CommitmentFullView extends JPanel{
 		topButtons.setLayout(experimentLayout);
 		//topButtons.setLayout(new BoxLayout(topButtons, BoxLayout.X_AXIS));
 		JButton jName = new JButton("Name");
+		jName.setContentAreaFilled(false);
 		JButton jDueDate = new JButton("Due Date");
+		jDueDate.setContentAreaFilled(false);
 		JButton jDescription = new JButton("Description");
+		jDescription.setContentAreaFilled(false);
 		JButton jStatus = new JButton("Status");
+		jStatus.setContentAreaFilled(false);
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.LINE_START;
 		c.fill = GridBagConstraints.BOTH;
