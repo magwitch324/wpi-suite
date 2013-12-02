@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -76,6 +77,7 @@ public class CommitmentFullView extends JPanel{
 		commitPanel.setLayout(new BoxLayout(commitPanel, BoxLayout.Y_AXIS));
 		commitPanel.setBorder(new EmptyBorder(10, 5, 10 , 20));
 		commitPanel.setBackground(Color.WHITE);
+
 		JPanel topButtons = new JPanel();
 		
 		GridLayout experimentLayout = new GridLayout(0,4);
@@ -102,7 +104,6 @@ public class CommitmentFullView extends JPanel{
 		commitPanel.add(topButtons);
 		JSeparator sep = new JSeparator();
 		commitPanel.add(sep);
-		
 		for(int i = 0; i < commitmentList.size(); i++){
 			CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
 			JLabel name = new JLabel("Name: "+commitmentList.get(i).getName(),JLabel.CENTER);

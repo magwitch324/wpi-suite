@@ -54,7 +54,7 @@ public class Calendar implements IJanewayModule {
 		*/
 		
 		
-		ToolbarView toolbarPanel = new ToolbarView(true);
+		ToolbarView toolbarPanel = new ToolbarView(false);
 		//toolbarPanel.setLayout(new FlowLayout());
 		//toolbarPanel.add(new JButton("<html>Create<br />Commitment</html>"));
 		//toolbarPanel.add(new JButton("<html>Create<br />Event</html>"));
@@ -63,7 +63,8 @@ public class Calendar implements IJanewayModule {
 		
 		//Instantiate event controller
 		GUIEventController.getInstance().setMainView(mainPanel);
-		GUIEventController.getInstance().setToolBar(toolbarPanel);
+		//GUIEventController.getInstance().setToolBar(toolbarPanel);
+		//GUIEventController.getInstance().getToolbar().setSize(1, 1);
 
 		
 		tabs = new ArrayList<JanewayTabModel>();

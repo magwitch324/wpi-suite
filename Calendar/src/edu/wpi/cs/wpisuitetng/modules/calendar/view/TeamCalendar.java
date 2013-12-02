@@ -72,6 +72,7 @@ public class TeamCalendar extends AbCalendar {
 				setView();
 			}
 		});
+		
 		layout.putConstraint(SpringLayout.WEST, showcom, 30, SpringLayout.EAST,
 				viewbtnpanel);
 		layout.putConstraint(SpringLayout.NORTH, showcom, 0,
@@ -81,6 +82,14 @@ public class TeamCalendar extends AbCalendar {
 		layout.putConstraint(SpringLayout.SOUTH, showcom, 0,
 				SpringLayout.SOUTH, viewbtnpanel);
 		this.add(showcom);
+		
+		// Displays Commitment Button
+		JComponent commitmentPanel = ButtonsPanelCreate();
+		layout.putConstraint(SpringLayout.NORTH, commitmentPanel, 5,
+				SpringLayout.NORTH, viewbtnpanel);
+		layout.putConstraint(SpringLayout.EAST, commitmentPanel, 0,
+				SpringLayout.EAST, this);
+		this.add(commitmentPanel);
 		
 		//COMENTED OUT FILTER DROP DOWN MENU BECAUSE IT DOESN'T DO ANYTHING AT THE MOMENT
 

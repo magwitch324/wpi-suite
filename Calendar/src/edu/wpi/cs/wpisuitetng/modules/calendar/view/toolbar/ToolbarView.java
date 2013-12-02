@@ -42,9 +42,12 @@ public class ToolbarView  extends DefaultToolbarView {
 	 * @param visible boolean
 	 */
 	public ToolbarView(boolean visible) {
-		super.setBackground(Color.WHITE);
-		createButtons = new ButtonsPanel_Create();
-		this.addGroup(createButtons);
+		super.setBackground(Color.LIGHT_GRAY);
+		
+		// REMOVE BUTTONS FOR NOW BECAUSE THEY NEED TO BE MOVED DOWN
+		//createButtons = new ButtonsPanel_Create();
+		//this.addGroup(createButtons);
+		
 		/*
 		JPanel contentPanel = new JPanel();
 		SpringLayout layout  = new SpringLayout();
