@@ -572,31 +572,15 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
+				inputDate = datePicker.getEditor().getText().trim();
+				listenerHelper();
+				
+				// This next line checks for a blank date field, DO NOT REMOVE
 				if(nameTextField.getText().equals("") || datePicker.getEditor().getText().equals("")
                         || nameTextField.getText().trim().length() == 0){
                 btnAddCommitment.setEnabled(false);
-				} else {
-					if (mode == EditingMode.EDITING){
-						//get some date data
-						Calendar calDate = new GregorianCalendar();
-						Calendar calTime = new GregorianCalendar();
-						calDate.setTime(datePicker.getDate());
-						calTime.setTime((Date)timeSpinner.getValue());
-						calDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
-						calDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
-						//make sure something changed
-						if (nameTextField.getText().equals(editingCommitment.getName())
-								&& descriptionTextArea.getText().equals(editingCommitment.getDescription())
-								&& ((Category)categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryId()
-								&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
-								&& calDate.getTime().equals(editingCommitment.getDueDate().getTime())){
-							btnAddCommitment.setEnabled(false);
-							return;
-						}
-					}
-					btnAddCommitment.setEnabled(true);
 				}
-				inputDate = datePicker.getEditor().getText().trim();
+
 				//boolean orignValue = initFlag;
 				//initFlag = true;
 				//listenerHelper();
