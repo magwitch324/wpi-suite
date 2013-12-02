@@ -88,6 +88,9 @@ public abstract class CalendarView extends JSplitPane {
 		
 		panel.add(labelPanel);
 		
+		//View all Commitments Button is no longer necessary, but I'm leaving this code here
+		//  in case the changes need to be reverted
+		/*
 		// View All Commitments Button - NOT SURE HOW TO CENTER???
 		JButton viewAllCommitmentsButton = new JButton();
 		
@@ -106,6 +109,7 @@ public abstract class CalendarView extends JSplitPane {
 		panel.add(viewAllCommitmentsButton);
 		viewAllCommitmentsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
+		
 		// the action listener for the Create View All Commitments Button
 		viewAllCommitmentsButton.addActionListener(new ActionListener() {
 			@Override
@@ -113,7 +117,7 @@ public abstract class CalendarView extends JSplitPane {
 				GUIEventController.getInstance().createViewCommitmentsTab();
 			}	
 		});		
-		
+		*/
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(VERTICAL_SPLIT);
 		panel.add(separator);
