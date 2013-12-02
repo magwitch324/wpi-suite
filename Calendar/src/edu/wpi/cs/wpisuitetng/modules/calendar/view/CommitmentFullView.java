@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -77,7 +78,8 @@ public class CommitmentFullView extends JPanel{
 		commitPanel.setBackground(Color.WHITE);
 		JPanel topButtons = new JPanel();
 		
-		
+		GridLayout experimentLayout = new GridLayout(0,4);
+		topButtons.setLayout(experimentLayout);
 		//topButtons.setLayout(new BoxLayout(topButtons, BoxLayout.X_AXIS));
 		JButton jName = new JButton("Name");
 		JButton jDueDate = new JButton("Due Date");
@@ -85,8 +87,8 @@ public class CommitmentFullView extends JPanel{
 		JButton jStatus = new JButton("Status");
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.LINE_START;
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1;
+		c.fill = GridBagConstraints.BOTH;
+		c.gridx = 0;
 		topButtons.add(jName,c);
 		topButtons.add(jDueDate,c);
 		topButtons.add(jDescription,c);
@@ -103,11 +105,12 @@ public class CommitmentFullView extends JPanel{
 			JLabel date = new JLabel("Due Date: "+ commitmentList.get(i).getDueDate().getTime());
 			JLabel description = new JLabel("<HTML>Description: "+ commitmentList.get(i).getDescription()+"</HTML>");
 			JLabel status = new JLabel("Status: " + Status.convertToString(commitmentList.get(i).getStatus().id));
-			//commitmentPanel.setLayout(new BoxLayout(commitmentPanel, BoxLayout.Y_AXIS));
+			//commitmentPanel.setLayout(new BoxLayout(commitmentPanel, BoxLayout.X_AXIS));
 			//GridBagConstraints c = new GridBagConstraints();
 			c.anchor = GridBagConstraints.LINE_START;
 			c.fill = GridBagConstraints.HORIZONTAL;
-			c.weightx = 1;
+			c.weightx = 0;
+		
 			commitmentPanel.add(name,c);
 			commitmentPanel.add(date,c);
 			commitmentPanel.add(description,c);
