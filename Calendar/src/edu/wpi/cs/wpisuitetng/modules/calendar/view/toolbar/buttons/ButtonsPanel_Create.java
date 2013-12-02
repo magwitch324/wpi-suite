@@ -117,13 +117,13 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		
 		
 		
-		
+		// COMMENTED OUT CREATE EVENT AND CATEGORY BUTTONS BECAUSE THEY DON'T WORK AT THE MOMENT 
 		this.createCommitButton.setBorder(new EmptyBorder(0, 0, 0, 15));
 		contentPanel.add(createCommitButton);
-		this.createEventButton.setBorder(new EmptyBorder(0, 0, 0, 15));
-		contentPanel.add(createEventButton);
-		this.createCategoryButton.setBorder(new EmptyBorder(0, 0, 0, 15));
-		contentPanel.add(createCategoryButton);
+		//this.createEventButton.setBorder(new EmptyBorder(0, 0, 0, 15));
+		//contentPanel.add(createEventButton);
+		//this.createCategoryButton.setBorder(new EmptyBorder(0, 0, 0, 15));
+		//contentPanel.add(createCategoryButton);
 		
 		contentPanel.setOpaque(false);
 		

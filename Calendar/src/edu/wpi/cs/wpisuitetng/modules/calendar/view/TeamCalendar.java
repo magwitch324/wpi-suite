@@ -30,6 +30,7 @@ import javax.swing.SpringLayout;
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 
@@ -66,6 +67,8 @@ public class TeamCalendar extends AbCalendar {
 		showcom.setBackground(Color.WHITE);
 		showcom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				calData.setShowComm(showcom.isSelected());
+				UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 				setView();
 			}
 		});
@@ -78,6 +81,8 @@ public class TeamCalendar extends AbCalendar {
 		layout.putConstraint(SpringLayout.SOUTH, showcom, 0,
 				SpringLayout.SOUTH, viewbtnpanel);
 		this.add(showcom);
+		
+		//COMENTED OUT FILTER DROP DOWN MENU BECAUSE IT DOESN'T DO ANYTHING AT THE MOMENT
 
 		JComboBox filter = new JComboBox();
 		layout.putConstraint(SpringLayout.WEST, filter, 30, SpringLayout.EAST,
@@ -88,7 +93,7 @@ public class TeamCalendar extends AbCalendar {
 				this);
 		layout.putConstraint(SpringLayout.SOUTH, showcom, 0,
 				SpringLayout.SOUTH, viewbtnpanel);
-		this.add(filter);
+//		this.add(filter);
 
 		layout.putConstraint(SpringLayout.WEST, viewpanel, 5,
 				SpringLayout.WEST, this);
@@ -104,6 +109,7 @@ public class TeamCalendar extends AbCalendar {
 
 		//		setView();
 
+
 	}
 
 	public boolean getShowTeamData(){
@@ -111,16 +117,18 @@ public class TeamCalendar extends AbCalendar {
 	}
 
 	public void updateCalData() {
-		if (CalendarDataModel.getInstance().getCalendarData(
-				ConfigManager.getConfig().getProjectName()) == null) {
-			CalendarData createdCal = new CalendarData(ConfigManager
-					.getConfig().getProjectName());
-			CalendarDataModel.getInstance().addCalendarData(createdCal);
+		if(!initialized){
+			if (CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName()) == null) {
+				CalendarData createdCal = new CalendarData(ConfigManager
+						.getConfig().getProjectName());
+				CalendarDataModel.getInstance().addCalendarData(createdCal);
+			}
+			initialized = true;
 		}
-		initialized = true;
-
 		calData = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName());
+		showcom.setSelected(calData.getShowComm());
 		setView();
 		//		displayCalData();
 
@@ -129,7 +137,7 @@ public class TeamCalendar extends AbCalendar {
 	protected void displayCalData() {
 		// TODO Auto-generated method stub
 		if(initialized){
-				calView.displayCalData(calData.getCommitments(), getShowCommitments());
+			calView.displayCalData(calData.getCommitments(), getShowCommitments());
 		}
 	}
 }

@@ -24,6 +24,8 @@ public class CalendarData extends AbstractModel {
 	private String id;
 	private CategoryList categories;
 	private CommitmentList commitments;
+	private boolean showComm;
+	private boolean showTeamData;
 
 	/**
 	 * Constructs a CalendarData with default characteristics
@@ -33,6 +35,8 @@ public class CalendarData extends AbstractModel {
 		id = "";
 		this.categories = new CategoryList();
 		this.commitments = new CommitmentList(); 
+		this.showComm = false;
+		this.showTeamData = false;
 	}
 
 	/**
@@ -88,6 +92,41 @@ public class CalendarData extends AbstractModel {
 		//TODO add correct call
 	}
 
+	/**
+	 * setter for persisting whether commitments should be shown on the calendar
+	 * 
+	 * @param showComm
+	 */
+	public void setShowComm(boolean showComm){
+		this.showComm = showComm;
+	}
+	
+	/**
+	 * getter for setting whether show comm is selected at startup
+	 * 
+	 */
+	public boolean getShowComm(){
+		return this.showComm;
+	}
+
+	
+	/**
+	 * setter for persisting whether team data should be shown on the personal calendar
+	 * 
+	 * @param showComm
+	 */
+	public void setShowTeamData(boolean showTeam){
+		this.showTeamData = showTeam;
+	}
+	
+	/**
+	 * getter for setting whether show team data is selected at startup
+	 * 
+	 */
+	public boolean getShowTeamData(){
+		return this.showTeamData;
+	}
+	
 	/**
 	 * Returns an instance of CalendarData constructed using the given
 	 * CalendarData encoded as a JSON string.
@@ -200,6 +239,8 @@ public class CalendarData extends AbstractModel {
 		this.id = toCopyFrom.getId();
 		this.categories = toCopyFrom.getCategories();
 		this.commitments = toCopyFrom.getCommitments();
+		this.showComm = toCopyFrom.getShowComm();
+		this.showTeamData = toCopyFrom.getShowTeamData();
 	}
 
 	
