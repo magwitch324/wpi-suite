@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -72,6 +73,14 @@ public class CommitmentFullView extends JPanel{
 		commitPanel.setLayout(new BoxLayout(commitPanel, BoxLayout.Y_AXIS));
 		commitPanel.setBorder(new EmptyBorder(10, 5, 10 , 20));
 		commitPanel.setBackground(Color.WHITE);
+
+		// print something when we do not  have any commitments
+		if(commitmentList.size() == 0) {			
+			JLabel message = new JLabel("<html><body style='width: 100%'><center>There are no commitments to display</center></html>", SwingConstants.CENTER);
+			message.setBorder(new EmptyBorder(0, 0, 15, 0));
+			commitPanel.add(message, BorderLayout.CENTER);
+		}
+		
 		for(int i = 0; i < commitmentList.size(); i++){
 			CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
 			JLabel name = new JLabel("Name: "+commitmentList.get(i).getName());
