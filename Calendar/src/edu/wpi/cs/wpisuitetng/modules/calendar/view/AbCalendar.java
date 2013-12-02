@@ -356,7 +356,7 @@ public abstract class AbCalendar extends JPanel {
 
 	protected void setView(){
 		viewpanel.removeAll();
-		System.out.println("Cal COUNT start: " + viewpanel.getComponentCount());
+		//System.out.println("Cal COUNT start: " + viewpanel.getComponentCount());
 		viewpanel.setLayout(new GridLayout(1,1));
 		//TODO do views
 		switch(currenttype.getCurrentType()){
@@ -385,7 +385,7 @@ public abstract class AbCalendar extends JPanel {
 
 		viewpanel.revalidate();
 		viewpanel.repaint();
-		System.out.println("Cal COUNT end: " + viewpanel.getComponentCount());
+		//System.out.println("Cal COUNT end: " + viewpanel.getComponentCount());
 
 	}
 

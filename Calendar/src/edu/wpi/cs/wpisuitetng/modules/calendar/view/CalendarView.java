@@ -58,7 +58,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * create and display View componenets
 	 */
 	public void refresh() {
-		System.out.println("NUM OF VIEW COMPS: " + this.getComponentCount());
+		//System.out.println("NUM OF VIEW COMPS: " + this.getComponentCount());
 		setLeftComponent(calPane.getPane());
 		setRightComponent(makeRightView());
 		setResizeWeight(1.0);

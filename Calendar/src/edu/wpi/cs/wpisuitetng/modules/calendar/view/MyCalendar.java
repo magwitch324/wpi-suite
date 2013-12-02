@@ -109,7 +109,7 @@ public class MyCalendar extends AbCalendar {
 		showteam.setBackground(Color.WHITE);
 		showteam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				calData.setShowTeamData(showcom.isSelected());
+				calData.setShowTeamData(showteam.isSelected());
 				UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 				//update the commitments to either include or not include team data
 				updateCalData();
@@ -209,7 +209,7 @@ public class MyCalendar extends AbCalendar {
 	public void setCommList() {
 		//if we dont have the caldata dont do anything
 		if (initialized && getCalData() != null) {
-			System.out.println("got COMMITMENTS FOR VIEW");
+			//System.out.println("got COMMITMENTS FOR VIEW");
 			CombinedCommitmentList combinedList = new CombinedCommitmentList(
 					new ArrayList<Commitment>(getCalData()
 							.getCommitments().getCommitments()));
@@ -260,7 +260,7 @@ public class MyCalendar extends AbCalendar {
 		else{
 			//calView.refresh();
 		}
-		System.out.println("repainting!!!!!!!!!!!!!!!");
+		//System.out.println("repainting!!!!!!!!!!!!!!!");
 		super.paintComponent(g);
 	}
 
