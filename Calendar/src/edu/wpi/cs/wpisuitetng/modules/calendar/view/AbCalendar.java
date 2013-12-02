@@ -419,6 +419,7 @@ public abstract class AbCalendar extends JPanel {
 			try 
 			{
 				GetCalendarDataController.getInstance().retrieveCalendarData();
+				initialized = true;
 				System.out.println("retrieved on initialization2");
 			}
 			catch (Exception e)
