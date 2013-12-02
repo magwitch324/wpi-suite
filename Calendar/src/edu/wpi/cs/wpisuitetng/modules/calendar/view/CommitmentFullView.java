@@ -102,15 +102,15 @@ public class CommitmentFullView extends JPanel{
 		commitPanel.add(sep);
 		for(int i = 0; i < commitmentList.size(); i++){
 			CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
-			JLabel name = new JLabel("Name: "+commitmentList.get(i).getName());
-			JLabel date = new JLabel("Due Date: "+ commitmentList.get(i).getDueDate().getTime());
-			JLabel description = new JLabel("<HTML>Description: "+ commitmentList.get(i).getDescription()+"</HTML>");
-			JLabel status = new JLabel("Status: " + Status.convertToString(commitmentList.get(i).getStatus().id));
+			JLabel name = new JLabel("Name: "+commitmentList.get(i).getName(),JLabel.CENTER);
+			JLabel date = new JLabel("Due Date: "+ commitmentList.get(i).getDueDate().getTime(),JLabel.CENTER);
+			JLabel description = new JLabel("<HTML>Description: "+ commitmentList.get(i).getDescription()+"</HTML>",JLabel.CENTER);
+			JLabel status = new JLabel("Status: " + Status.convertToString(commitmentList.get(i).getStatus().id),JLabel.CENTER);
 			commitmentPanel.setLayout(experimentLayout);
 			//GridBagConstraints c = new GridBagConstraints();
-			c.anchor = GridBagConstraints.LINE_START;
+			c.anchor = GridBagConstraints.CENTER;
 			c.fill = GridBagConstraints.HORIZONTAL;
-			c.weightx = 0;
+			c.weightx = 1;
 		
 			commitmentPanel.add(name,c);
 			commitmentPanel.add(date,c);
