@@ -446,7 +446,7 @@ public class CommitmentTab extends JPanel {
 					datePicker.getEditor().selectAll();
 					badInput = false;
 				}
-				/**
+				/*
 				else if(badDate){
 					datePicker.getEditor().setText("The date is not valid");
 					datePicker.getEditor().setBackground(Color.red);
@@ -473,7 +473,7 @@ public class CommitmentTab extends JPanel {
 					badInput = true;
 					datePicker.requestFocus();
 				}
-				/**
+				/*
 				else{
 					Date date = null;
 					for(DateFormat formatter : datePicker.getFormats()) {
@@ -572,11 +572,35 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
+				if(nameTextField.getText().equals("") || datePicker.getEditor().getText().equals("")
+                        || nameTextField.getText().trim().length() == 0){
+                btnAddCommitment.setEnabled(false);
+				} else {
+					if (mode == EditingMode.EDITING){
+						//get some date data
+						Calendar calDate = new GregorianCalendar();
+						Calendar calTime = new GregorianCalendar();
+						calDate.setTime(datePicker.getDate());
+						calTime.setTime((Date)timeSpinner.getValue());
+						calDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
+						calDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
+						//make sure something changed
+						if (nameTextField.getText().equals(editingCommitment.getName())
+								&& descriptionTextArea.getText().equals(editingCommitment.getDescription())
+								&& ((Category)categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryId()
+								&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
+								&& calDate.getTime().equals(editingCommitment.getDueDate().getTime())){
+							btnAddCommitment.setEnabled(false);
+							return;
+						}
+					}
+					btnAddCommitment.setEnabled(true);
+				}
 				inputDate = datePicker.getEditor().getText().trim();
-				boolean orignValue = initFlag;
-				initFlag = true;
-				listenerHelper();
-				initFlag = orignValue;
+				//boolean orignValue = initFlag;
+				//initFlag = true;
+				//listenerHelper();
+				//initFlag = orignValue;
 			}
 
 		});
@@ -889,6 +913,7 @@ public class CommitmentTab extends JPanel {
 	 * Controls the enable state of the save button
 	 */
 	private void listenerHelper(){
+		
 		if (initFlag){
 			if(nameTextField.getText().equals("") || datePicker.getDate() == null || //data validation
 					nameTextField.getText().trim().length() == 0){
@@ -907,7 +932,7 @@ public class CommitmentTab extends JPanel {
 							&& this.descriptionTextArea.getText().equals(editingCommitment.getDescription())
 							&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryId()
 							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
-							&& calDate.getTime().equals(editingCommitment.getDueDate())){
+							&& calDate.getTime().equals(editingCommitment.getDueDate().getTime())){
 						btnAddCommitment.setEnabled(false);
 						return;
 					}
