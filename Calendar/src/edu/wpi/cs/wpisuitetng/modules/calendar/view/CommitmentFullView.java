@@ -12,9 +12,11 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.border.Border;
@@ -48,6 +50,7 @@ public class CommitmentFullView extends JPanel{
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(scrollPane, BorderLayout.CENTER );
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+		scrollPane.getHorizontalScrollBar().setUnitIncrement(20);
 		/*spring layout to allow adjustments to size of screen without messing up panels*/
 		SpringLayout layout = new SpringLayout();
 		setLayout(layout);
@@ -72,14 +75,36 @@ public class CommitmentFullView extends JPanel{
 		commitPanel.setLayout(new BoxLayout(commitPanel, BoxLayout.Y_AXIS));
 		commitPanel.setBorder(new EmptyBorder(10, 5, 10 , 20));
 		commitPanel.setBackground(Color.WHITE);
+		JPanel topButtons = new JPanel();
+		
+		
+		//topButtons.setLayout(new BoxLayout(topButtons, BoxLayout.X_AXIS));
+		JButton jName = new JButton("Name");
+		JButton jDueDate = new JButton("Due Date");
+		JButton jDescription = new JButton("Description");
+		JButton jStatus = new JButton("Status");
+		GridBagConstraints c = new GridBagConstraints();
+		c.anchor = GridBagConstraints.LINE_START;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 1;
+		topButtons.add(jName,c);
+		topButtons.add(jDueDate,c);
+		topButtons.add(jDescription,c);
+		topButtons.add(jStatus,c);
+		Border loweredbevel1 = BorderFactory.createLoweredBevelBorder();
+		topButtons.setBorder(loweredbevel1);
+		commitPanel.add(topButtons);
+		JSeparator sep = new JSeparator();
+		commitPanel.add(sep);
+		
 		for(int i = 0; i < commitmentList.size(); i++){
 			CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
 			JLabel name = new JLabel("Name: "+commitmentList.get(i).getName());
 			JLabel date = new JLabel("Due Date: "+ commitmentList.get(i).getDueDate().getTime());
 			JLabel description = new JLabel("<HTML>Description: "+ commitmentList.get(i).getDescription()+"</HTML>");
 			JLabel status = new JLabel("Status: " + Status.convertToString(commitmentList.get(i).getStatus().id));
-			commitmentPanel.setLayout(new BoxLayout(commitmentPanel, BoxLayout.Y_AXIS));
-			GridBagConstraints c = new GridBagConstraints();
+			//commitmentPanel.setLayout(new BoxLayout(commitmentPanel, BoxLayout.Y_AXIS));
+			//GridBagConstraints c = new GridBagConstraints();
 			c.anchor = GridBagConstraints.LINE_START;
 			c.fill = GridBagConstraints.HORIZONTAL;
 			c.weightx = 1;
