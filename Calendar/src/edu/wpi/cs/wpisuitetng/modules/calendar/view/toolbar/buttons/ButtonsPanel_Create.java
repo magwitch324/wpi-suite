@@ -42,6 +42,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		private final JButton createEventButton;
 		private final JButton createCategoryButton;
 	
+	
 	public ButtonsPanel_Create(){
 		super("");
 		createCommitButton= new JButton();
@@ -129,6 +130,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		
 		this.add(contentPanel);
 	}
+	
 	/**
 	 * Method getCreateCommitButton.
 	
