@@ -188,7 +188,7 @@ public class DayPane extends JPanel implements ICalPane {
 						header.setLayout(new GridLayout(1, 2));
 						header.setBackground(CalendarStandard.CalendarRed);
 						header.setBorder(new MatteBorder(0, 0, 2, 0, Color.GRAY));
-						header.setPreferredSize(new Dimension(500, 40));
+						header.setPreferredSize(new Dimension(10, 40));
 
 						// Create and set the label "Events" for when ShowCommitments is
 						// checked

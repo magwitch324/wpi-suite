@@ -96,39 +96,39 @@ public class MonthPane extends JScrollPane implements ICalPane {
 	 * Sets the column header with the day of the week for that column
 	 */
 	protected void setColumnHeader(){
-		final JViewport port = new JViewport();
-		final JPanel panel = new JPanel();
+		JViewport port = new JViewport();
+		JPanel panel = new JPanel();
 		final String[][] text = {{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"},
 								{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}};
 		final JLabel[] label = new JLabel[7];
 		
+		panel.setPreferredSize(new Dimension(10,40));
 		panel.setLayout(new GridLayout(1,7,1,1));
 		for(int i = 0; i < 7; i++){
+			JPanel wrapper = new JPanel();
+			wrapper.setLayout(new GridLayout(1,1));
+			wrapper.setBackground(CalendarStandard.CalendarRed);
 			label[i] = new JLabel("", SwingConstants.CENTER);
 			label[i].setFont(CalendarStandard.CalendarFontBold);
 			label[i].setForeground(Color.WHITE);
-			label[i].setBackground(CalendarStandard.CalendarRed);
-			panel.add(label[i]);
+			wrapper.add(label[i]);
+			panel.add(wrapper);
 		}
-		panel.setBackground(CalendarStandard.CalendarRed);
 		port.setView(panel);
 		
 		port.addComponentListener(new ComponentAdapter(){
 		    public void componentResized(ComponentEvent e) {
-		    	double portx = port.getSize().getWidth();
-		    	double viewx = panel.getSize().getWidth();
-		    	
+		    	boolean toobig = false;
 				for(int i = 0; i < 7; i++){
 					label[i].setText(text[0][i]);
+					if(label[i].getPreferredSize().getWidth() > label[i].getParent().getSize().getWidth())
+						toobig = true;
 				}
-				
-				viewx = panel.getPreferredSize().getWidth();
-				if(viewx > portx){
+				if(toobig){
 					for(int i = 0; i < 7; i++){
 						label[i].setText(text[1][i]);
-						viewx += label[i].getPreferredSize().getWidth();
 					}
-				}	
+				}
 		    }
 		});
 		
@@ -162,14 +162,15 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		daylab.setBackground(new Color(0, 0, 0, 0));
 		aday.add(daylab);
 		seperator[offset] = new JSeparator(SwingConstants.VERTICAL);	
-		layout.putConstraint(SpringLayout.NORTH, seperator[offset], 10, SpringLayout.SOUTH,
+		layout.putConstraint(SpringLayout.NORTH, seperator[offset], 5, SpringLayout.SOUTH,
 				daylab);
-		layout.putConstraint(SpringLayout.SOUTH, seperator[offset], -10, SpringLayout.SOUTH,
+		layout.putConstraint(SpringLayout.SOUTH, seperator[offset], -5, SpringLayout.SOUTH,
 				aday);
 		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, seperator[offset], -2, SpringLayout.EAST,
 				aday);
 		seperator[offset].setBackground(CalendarStandard.CalendarRed);
 		seperator[offset].setForeground(CalendarStandard.CalendarRed);
+		seperator[offset].setVisible(false);
 		if(acal.get(Calendar.MONTH) == month){
 		aday.add(seperator[offset]);	
 		}
@@ -442,7 +443,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			this.index = index;
 		}
 		
-		public void mouseEntered(MouseEvent e){
+		public void mouseClicked(MouseEvent e){
 			if(flag){
 				if(iscom){
 					SpringLayout layout = (SpringLayout)days[index].getLayout();
