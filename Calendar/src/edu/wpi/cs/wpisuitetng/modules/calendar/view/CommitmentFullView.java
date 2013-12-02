@@ -3,6 +3,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -99,11 +100,13 @@ public class CommitmentFullView extends JPanel{
 		topButtons.add(jDueDate,c);
 		topButtons.add(jDescription,c);
 		topButtons.add(jStatus,c);
+		topButtons.setPreferredSize(new Dimension(300,75));
+		topButtons.setMaximumSize(new Dimension(20000, 75));
 		Border loweredbevel1 = BorderFactory.createLoweredBevelBorder();
 		topButtons.setBorder(loweredbevel1);
 		commitPanel.add(topButtons);
-		JSeparator sep = new JSeparator();
-		commitPanel.add(sep);
+		//JSeparator sep = new JSeparator();
+		//commitPanel.add(sep);
 		for(int i = 0; i < commitmentList.size(); i++){
 			CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
 			JLabel name = new JLabel("Name: "+commitmentList.get(i).getName(),JLabel.CENTER);
@@ -115,14 +118,14 @@ public class CommitmentFullView extends JPanel{
 			c.anchor = GridBagConstraints.CENTER;
 			c.fill = GridBagConstraints.HORIZONTAL;
 			c.weightx = 1;
-		
 			commitmentPanel.add(name,c);
 			commitmentPanel.add(date,c);
 			commitmentPanel.add(description,c);
 			commitmentPanel.add(status,c);
 			commitmentPanel.setBackground(CalendarStandard.CalendarYellow);
 //			commitmentPanel.setBackground(new Color(222,184,135));
-
+			commitmentPanel.setPreferredSize(new Dimension(300,75));
+			commitmentPanel.setMaximumSize(new Dimension(20000,75));
 			Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 			commitmentPanel.setBorder(loweredbevel);
 			commitmentPanel.addMouseListener(new MouseAdapter() {
