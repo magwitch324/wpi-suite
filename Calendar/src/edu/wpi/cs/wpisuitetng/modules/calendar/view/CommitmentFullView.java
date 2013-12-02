@@ -140,5 +140,10 @@ public class CommitmentFullView extends JPanel{
 		}
 	}
 	
+	public void update(){
+		commitPanel.removeAll();
+		setCommitlist();
+		setupPanels();
+	}
 	
 }

@@ -200,6 +200,7 @@ public class GUIEventController {
 		myCalendar.updateCalData();
 		teamCalendar.calView.commitmentView.update();
 		myCalendar.calView.commitmentView.update();
+		commitFullView.update();
 	}
 
 	public void setScrollBarValue(int value) {
