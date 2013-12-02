@@ -277,8 +277,8 @@ public class CommitmentList {
 			throw new CalendarException("Invalid amount! Can only filter around day, week, month, and year types");
 		}
 		
-		System.out.println("Start: " + printcalendar(start));
-		System.out.println("End:   " + printcalendar(end));		
+		//System.out.println("Start: " + printcalendar(start));
+		//System.out.println("End:   " + printcalendar(end));		
 		
 		return filter(start, end);
 	}
