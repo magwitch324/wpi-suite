@@ -30,6 +30,7 @@ import javax.swing.SpringLayout;
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 
@@ -66,6 +67,8 @@ public class TeamCalendar extends AbCalendar {
 		showcom.setBackground(Color.WHITE);
 		showcom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				calData.setShowComm(showcom.isSelected());
+				UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 				setView();
 			}
 		});
@@ -114,16 +117,18 @@ public class TeamCalendar extends AbCalendar {
 	}
 
 	public void updateCalData() {
-		if (CalendarDataModel.getInstance().getCalendarData(
-				ConfigManager.getConfig().getProjectName()) == null) {
-			CalendarData createdCal = new CalendarData(ConfigManager
-					.getConfig().getProjectName());
-			CalendarDataModel.getInstance().addCalendarData(createdCal);
+		if(!initialized){
+			if (CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName()) == null) {
+				CalendarData createdCal = new CalendarData(ConfigManager
+						.getConfig().getProjectName());
+				CalendarDataModel.getInstance().addCalendarData(createdCal);
+			}
+			initialized = true;
 		}
-		initialized = true;
-
 		calData = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName());
+		showcom.setSelected(calData.getShowComm());
 		setView();
 		//		displayCalData();
 
@@ -132,7 +137,7 @@ public class TeamCalendar extends AbCalendar {
 	protected void displayCalData() {
 		// TODO Auto-generated method stub
 		if(initialized){
-				calView.displayCalData(calData.getCommitments(), getShowCommitments());
+			calView.displayCalData(calData.getCommitments(), getShowCommitments());
 		}
 	}
 }

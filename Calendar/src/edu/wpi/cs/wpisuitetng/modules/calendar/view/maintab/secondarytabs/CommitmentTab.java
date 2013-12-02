@@ -446,7 +446,7 @@ public class CommitmentTab extends JPanel {
 					datePicker.getEditor().selectAll();
 					badInput = false;
 				}
-				/**
+				/*
 				else if(badDate){
 					datePicker.getEditor().setText("The date is not valid");
 					datePicker.getEditor().setBackground(Color.red);
@@ -473,7 +473,7 @@ public class CommitmentTab extends JPanel {
 					badInput = true;
 					datePicker.requestFocus();
 				}
-				/**
+				/*
 				else{
 					Date date = null;
 					for(DateFormat formatter : datePicker.getFormats()) {
@@ -573,10 +573,18 @@ public class CommitmentTab extends JPanel {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				inputDate = datePicker.getEditor().getText().trim();
-				boolean orignValue = initFlag;
-				initFlag = true;
 				listenerHelper();
-				initFlag = orignValue;
+				
+				// This next line checks for a blank date field, DO NOT REMOVE
+				if(nameTextField.getText().equals("") || datePicker.getEditor().getText().equals("")
+                        || nameTextField.getText().trim().length() == 0){
+                btnAddCommitment.setEnabled(false);
+				}
+
+				//boolean orignValue = initFlag;
+				//initFlag = true;
+				//listenerHelper();
+				//initFlag = orignValue;
 			}
 
 		});
@@ -889,6 +897,7 @@ public class CommitmentTab extends JPanel {
 	 * Controls the enable state of the save button
 	 */
 	private void listenerHelper(){
+		
 		if (initFlag){
 			if(nameTextField.getText().equals("") || datePicker.getDate() == null || //data validation
 					nameTextField.getText().trim().length() == 0){
@@ -907,7 +916,7 @@ public class CommitmentTab extends JPanel {
 							&& this.descriptionTextArea.getText().equals(editingCommitment.getDescription())
 							&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryId()
 							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
-							&& calDate.getTime().equals(editingCommitment.getDueDate())){
+							&& calDate.getTime().equals(editingCommitment.getDueDate().getTime())){
 						btnAddCommitment.setEnabled(false);
 						return;
 					}

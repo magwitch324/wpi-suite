@@ -33,6 +33,7 @@ import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CombinedCommitmentList;
@@ -81,6 +82,8 @@ public class MyCalendar extends AbCalendar {
 		showcom.setBackground(Color.WHITE);
 		showcom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				calData.setShowComm(showcom.isSelected());
+				UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 				setView();
 			}
 		});
@@ -102,6 +105,8 @@ public class MyCalendar extends AbCalendar {
 		showteam.setBackground(Color.WHITE);
 		showteam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				calData.setShowTeamData(showcom.isSelected());
+				UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 				//update the commitments to either include or not include team data
 				updateCalData();
 				setView();
@@ -172,6 +177,8 @@ public class MyCalendar extends AbCalendar {
 				ConfigManager.getConfig().getProjectName() + "-"
 						+ ConfigManager.getConfig().getUserName());
 		//set the comm list to the new data
+		showcom.setSelected(calData.getShowComm());
+		showteam.setSelected(calData.getShowTeamData());
 		setCommList();
 		setView();
 
