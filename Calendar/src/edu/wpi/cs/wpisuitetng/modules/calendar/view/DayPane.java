@@ -105,14 +105,14 @@ public class DayPane extends JPanel implements ICalPane {
 		// Sets the UPPER LEFT corner box
 		JPanel cornerBoxUL = new JPanel();
 		cornerBoxUL.setBackground(CalendarStandard.CalendarRed);
-//		cornerBoxUL.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.BLACK));
+		cornerBoxUL.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.GRAY));
 		scrollPane.setCorner(ScrollPaneConstants.UPPER_LEFT_CORNER,
 				cornerBoxUL);
 		
 		// Sets the UPPER RIGHT corner box
 		JPanel cornerBoxUR = new JPanel();
 		cornerBoxUR.setBackground(CalendarStandard.CalendarRed);
-		cornerBoxUR.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.BLACK));
+		cornerBoxUR.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.GRAY));
 		scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
 				cornerBoxUR);
 		add(scrollPane);
@@ -187,7 +187,7 @@ public class DayPane extends JPanel implements ICalPane {
 						JPanel header = new JPanel();
 						header.setLayout(new GridLayout(1, 2));
 						header.setBackground(CalendarStandard.CalendarRed);
-//						header.setBorder(new MatteBorder(0, 0, 2, 0, Color.BLACK));
+						header.setBorder(new MatteBorder(0, 0, 2, 0, Color.GRAY));
 						header.setPreferredSize(new Dimension(500, 40));
 
 						// Create and set the label "Events" for when ShowCommitments is
@@ -221,6 +221,7 @@ public class DayPane extends JPanel implements ICalPane {
 	protected JComponent getTimesBar(double height){
 		JPanel apane = new JPanel();
 		apane.setBackground(CalendarStandard.CalendarRed);
+		apane.setBorder(new MatteBorder(0, 0, 0, 2, Color.GRAY));
 		SpringLayout layout = new SpringLayout();
 		apane.setLayout(layout);
 
@@ -233,11 +234,11 @@ public class DayPane extends JPanel implements ICalPane {
 
 		for(int i = 1; i < 24; i++){
 			JLabel alab = new JLabel("<html><font color='white'><b>" + times[i]
-					+ "</b></font></html>");
+					+ "</b></font></html>", SwingConstants.CENTER);
 			alab.setFont(CalendarStandard.CalendarFontBold);
 			layout.putConstraint(SpringLayout.VERTICAL_CENTER, alab,
 					(int) (height * i / 24.0), SpringLayout.NORTH, apane);
-			layout.putConstraint(SpringLayout.EAST, alab, 0, SpringLayout.EAST,
+			layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, alab, 0, SpringLayout.HORIZONTAL_CENTER,
 					apane);
 			max = alab.getPreferredSize().width > max ? alab.getPreferredSize().width
 					: max;

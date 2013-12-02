@@ -10,6 +10,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ComponentAdapter;

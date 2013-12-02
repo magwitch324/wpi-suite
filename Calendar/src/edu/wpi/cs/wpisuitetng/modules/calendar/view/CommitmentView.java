@@ -11,6 +11,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -27,6 +28,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -40,6 +42,7 @@ import javax.swing.JSplitPane;
 
 
 
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
@@ -110,6 +113,14 @@ public class CommitmentView extends JPanel {
 		List<CommitmentViewPanel> commPanelList = new ArrayList<CommitmentViewPanel>();
 		int n = 0;//adjusted index to take hidden commitments into account
 		//TODO implement personal commitment displaying
+		
+		// print something when we do not  have any commitments
+		if(commitmentList.size() == 0) {			
+			JLabel message = new JLabel("<html><body style='width: 100%'><center>There are no commitments to display</center></html>", SwingConstants.CENTER);
+			message.setBorder(new EmptyBorder(0, 0, 15, 0));
+			commitPanel.add(message, BorderLayout.CENTER);
+		}
+		
 		for(int i = 0; i < commitmentList.size(); i++){
 			if (commitmentList.get(i).getStatus().id != 2) {//Skips over completed commitments
 				//Commitment commit = new Commitment();
