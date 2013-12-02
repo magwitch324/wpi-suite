@@ -356,6 +356,7 @@ public abstract class AbCalendar extends JPanel {
 
 	protected void setView(){
 		viewpanel.removeAll();
+		System.out.println("Cal COUNT start: " + viewpanel.getComponentCount());
 		viewpanel.setLayout(new GridLayout(1,1));
 		//TODO do views
 		switch(currenttype.getCurrentType()){
@@ -384,6 +385,7 @@ public abstract class AbCalendar extends JPanel {
 
 		viewpanel.revalidate();
 		viewpanel.repaint();
+		System.out.println("Cal COUNT end: " + viewpanel.getComponentCount());
 
 	}
 
@@ -406,32 +408,7 @@ public abstract class AbCalendar extends JPanel {
 	public CalendarData getCalData(){
 		return this.calData;
 	}
-	/**
-	 * Overrides the paintComponent method to retrieve the requirements on the first painting.
-	 * 
-	 * @param g	The component object to paint
-	 */
-	@Override
-	public void paintComponent(Graphics g)
-	{
-		if(!initialized)
-		{
-			try 
-			{
-				GetCalendarDataController.getInstance().retrieveCalendarData();
-				System.out.println("retrieved on initialization2");
-			}
-			catch (Exception e)
-			{
 
-			}
-		}
-		else{
-			//calView.refresh();
-		}
-		System.out.println("repainting!!!!!!!!!!!!!!!");
-		super.paintComponent(g);
-	}
 
 	abstract void updateCalData();
 	abstract protected void displayCalData();

@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,6 +34,7 @@ import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
@@ -41,10 +43,12 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 
 public class MyCalendar extends AbCalendar {
 
+	private boolean preInitialized;
 	private JCheckBox showteam;
 
 	public MyCalendar() {
 		super();
+		preInitialized = false;
 	}
 
 	protected void drawThis() {
@@ -230,6 +234,34 @@ public class MyCalendar extends AbCalendar {
 				commitments = getCalData().getCommitments();
 			}
 		}
+	}
+	
+	/**
+	 * Overrides the paintComponent method to retrieve the requirements on the first painting.
+	 * 
+	 * @param g	The component object to paint
+	 */
+	@Override
+	public void paintComponent(Graphics g)
+	{
+		if(!preInitialized)
+		{
+			try 
+			{
+				GetCalendarDataController.getInstance().retrieveCalendarData();
+				preInitialized = true;
+				System.out.println("retrieved on initialization2");
+			}
+			catch (Exception e)
+			{
+
+			}
+		}
+		else{
+			//calView.refresh();
+		}
+		System.out.println("repainting!!!!!!!!!!!!!!!");
+		super.paintComponent(g);
 	}
 
 }
