@@ -155,17 +155,21 @@ public class CommitmentTab extends JPanel {
 	public CommitmentTab() {
 		this.initFlag = false;
 		
-		//Sets new commitment form to left of pane
-		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		setLayout(gridBagLayout);
+		JPanel spacePanel1 = new JPanel();
+		JPanel spacePanel2 = new JPanel();
 		formPanel = new JPanel();
 		formPanel.setPreferredSize(new Dimension(400,200));
-		
-		Component horizontalStrut = Box.createHorizontalStrut(200);
-		add(horizontalStrut);
-		add(formPanel, 0.5);
-		
-		Component horizontalStrut_1 = Box.createHorizontalStrut(200);
-		add(horizontalStrut_1);
+		spacePanel1.setMinimumSize(formPanel.getSize());
+		spacePanel2.setMinimumSize(formPanel.getSize());
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.weightx = 1;
+		constraints.weighty = 1;
+		constraints.fill = GridBagConstraints.BOTH;
+		add(spacePanel1, constraints);
+		add(formPanel, constraints);
+		add(spacePanel2, constraints);
 		
 		// form uses GridBagLayout w/ two columns
 		GridBagLayout gbl = new GridBagLayout();
