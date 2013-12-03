@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -14,9 +16,11 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.ScrollPaneConstants;
@@ -26,9 +30,13 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment.Status;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CombinedCommitmentList;
 
 /*
  * This class is used for creating the commitment View 
@@ -40,12 +48,20 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment.Status;
 public class CommitmentFullView extends JPanel{
 
 	AbCalendar tcalendar;
+	AbCalendar pcalendar;
 	JPanel commitPanel;
-	List<Commitment> commitmentList = new ArrayList();
+	List<Commitment> commitmentList = new ArrayList<Commitment>();
+	public enum ViewingMode {
+		TEAM, PERSONAL, BOTH;		
+	};
+	ViewingMode mode;
 	
 	/*Constructor creates main scrolling Panel and sets tcalendar which will grab teams commitments*/
-	public CommitmentFullView(AbCalendar abCalendar) {
-		this.tcalendar = abCalendar;
+	public CommitmentFullView(AbCalendar teamCalendar, AbCalendar personalCalendar) {
+		this.tcalendar = teamCalendar;
+		this.pcalendar = personalCalendar;
+		
+		this.mode = ViewingMode.TEAM;
 		
 		commitPanel = new JPanel();
 		JScrollPane scrollPane = new JScrollPane(commitPanel, 
@@ -68,8 +84,26 @@ public class CommitmentFullView extends JPanel{
 	}
 	/*Sets the calendars commitments to the commitmentList array to populate panel*/
 	private void setCommitlist() {
-		if(tcalendar.getCalData() != null){
-			commitmentList = tcalendar.getCalData().getCommitments().getCommitments();
+
+		if (mode == ViewingMode.TEAM){
+			if(tcalendar.getCalData() != null){
+				commitmentList = tcalendar.getCalData().getCommitments().getCommitments();
+			}
+		} else if (mode == ViewingMode.PERSONAL){
+			commitmentList = pcalendar.getCalData().getCommitments().getCommitments();
+		} else { // here mode == ViewingMode.BOTH
+			CombinedCommitmentList combinedList = new CombinedCommitmentList(
+					new ArrayList<Commitment>(pcalendar.getCalData().getCommitments().getCommitments()));
+			CalendarData teamData = CalendarDataModel.getInstance()
+					.getCalendarData(ConfigManager.getConfig().getProjectName());
+
+			//if we are supposed to show team data, we need to put the team commitments into the list in the right order
+			for (int i = 0; i < teamData.getCommitments()
+					.getCommitments().size(); i++) {
+				combinedList.addCommitment(teamData.getCommitments()
+						.getCommitments().get(i));
+			}
+			commitmentList = combinedList.getCommitments();
 		}
 	}
 	
@@ -78,7 +112,52 @@ public class CommitmentFullView extends JPanel{
 		commitPanel.setLayout(new BoxLayout(commitPanel, BoxLayout.Y_AXIS));
 		commitPanel.setBorder(new EmptyBorder(10, 5, 10 , 20));
 		commitPanel.setBackground(Color.WHITE);
+		
+		JPanel viewSwitcher = new JPanel();
+		viewSwitcher.setLayout(new GridLayout(0,3));
+		JRadioButton teamRadioButton = new JRadioButton("Team");
+		teamRadioButton.addActionListener(new ActionListener(){
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				switchView(ViewingMode.TEAM);
+				
+			}
+			
+		});
+		viewSwitcher.add(teamRadioButton);
+		
+		JRadioButton personalRadioButton = new JRadioButton("Personal");
+		personalRadioButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				switchView(ViewingMode.PERSONAL);
+				
+			}
+			
+		});
+		viewSwitcher.add(personalRadioButton);
+		
+		JRadioButton bothRadioButton = new JRadioButton("Both");
+		bothRadioButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				switchView(ViewingMode.BOTH);
+				
+			}
+			
+		});
+		viewSwitcher.add(bothRadioButton);
+		
+		ButtonGroup viewSwitchGroup = new ButtonGroup();
+		viewSwitchGroup.add(teamRadioButton);
+		viewSwitchGroup.add(personalRadioButton);
+		viewSwitchGroup.add(bothRadioButton);
+		
+		commitPanel.add(viewSwitcher);
+		
 		JPanel topButtons = new JPanel();
 		
 		GridLayout experimentLayout = new GridLayout(0,4);
@@ -144,6 +223,11 @@ public class CommitmentFullView extends JPanel{
 		commitPanel.removeAll();
 		setCommitlist();
 		setupPanels();
+	}
+	
+	private void switchView(ViewingMode newMode){
+		this.mode = newMode;
+		this.update();
 	}
 	
 }
