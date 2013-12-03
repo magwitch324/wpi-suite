@@ -66,7 +66,6 @@ public class MonthPane extends JScrollPane implements ICalPane {
 
 		for (int i = 0; i < 42; i++) {
 			days[i] = makeDay(itcal, i, month);
-			days[i].addMouseListener(new AMouseEvent(itcal));
 			mainview.add(days[i]);
 			
 			itcal.add(Calendar.DATE, 1);
@@ -147,6 +146,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		JPanel aday = new JPanel();
 		SpringLayout layout = new SpringLayout();
 		aday.setLayout(layout);
+		aday.addMouseListener(new AMouseEvent(acal));
 		
 		if(month == acal.get(Calendar.MONTH))
 			aday.setBackground(CalendarStandard.CalendarYellow);
@@ -171,8 +171,9 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		seperator[offset].setBackground(CalendarStandard.CalendarRed);
 		seperator[offset].setForeground(CalendarStandard.CalendarRed);
 		seperator[offset].setVisible(false);
+		seperator[offset].addMouseListener(new AMouseEvent(acal));
 		if(acal.get(Calendar.MONTH) == month){
-		aday.add(seperator[offset]);	
+			aday.add(seperator[offset]);	
 		}
 		
 		compane[offset] = new CommitmentPane();
@@ -186,6 +187,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				aday);
 		compane[offset].setBackground(new Color(0, 0, 0, 0));
 		compane[offset].addMouseListener(new PaneHover(offset, true));
+		compane[offset].addMouseListener(new AMouseEvent(acal));
 		if(acal.get(Calendar.MONTH) == month){
 			aday.add(compane[offset]);
 		}
@@ -201,6 +203,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				seperator[offset]);
 		eventpane[offset].setBackground(new Color(0, 0, 0, 0));
 		eventpane[offset].addMouseListener(new PaneHover(offset, false));
+		eventpane[offset].addMouseListener(new AMouseEvent(acal));
 		if(acal.get(Calendar.MONTH) == month){
 			aday.add(eventpane[offset]);
 		}
@@ -223,7 +226,6 @@ public class MonthPane extends JScrollPane implements ICalPane {
 	 * @param commList List of commitments to be displayed
 	 */
 	public void displayCommitments(List<Commitment> commList) {
-		System.out.println("comms: " + commList);
 		for(int i = 0; i < 42; i++){
 			compane[i].removeAll();
 		}
@@ -237,7 +239,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				MouseListener[] lists = compane[i].getMouseListeners();
 				((PaneHover)lists[0]).setEnabled(true);
 				lists = eventpane[i].getMouseListeners();
-				((PaneHover)lists[0]).setEnabled(true);
+				((PaneHover)lists[0]).setEnabled(false);
 			}
 			
 			CommitmentList alist = new CommitmentList();
@@ -303,6 +305,10 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			this.goSmall();
 			this.setBackground(CalendarStandard.CalendarYellow);	
 			this.setBorder(BorderFactory.createEmptyBorder());
+			JPanel view = new JPanel();
+			view.setBackground(CalendarStandard.CalendarYellow);
+			view.setPreferredSize(new Dimension(1,1));
+			this.setColumnHeaderView(view);
 			
 			this.addComponentListener(new ComponentAdapter(){
 			    public void componentResized(ComponentEvent e) {  
@@ -310,7 +316,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			    }
 			});
 			
-			didResize();
+			//didResize();
 		}
 		
 		/**
@@ -336,21 +342,36 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				double boxwidth = this.getSize().getWidth();
 				double height = 0.0;
 				
+				class editClicker extends MouseAdapter{
+					Commitment comm = null;
+					public editClicker(Commitment comm){
+						this.comm = comm;
+					}
+					
+					public void mouseClicked(MouseEvent e) {
+						if (e.getClickCount() > 1){
+							GUIEventController.getInstance().editCommitment(comm);
+							resetPanes();
+						}		
+					}
+				};
+				
 				SpringLayout layout = (SpringLayout)big.getLayout();
 				JLabel curlab = null, lastlab = null;
 				
 				for(int i = 0; i < comsize; i++){
 					curlab = new JLabel("-" + commList.get(i).getName());
+					curlab.addMouseListener(new editClicker(commList.get(i)));
 					curlab.setFont(CalendarStandard.CalendarFont);
 					height += curlab.getPreferredSize().getHeight();
 					if(lastlab == null ){
-						layout.putConstraint(SpringLayout.NORTH, curlab, 0, SpringLayout.NORTH, big);
+						layout.putConstraint(SpringLayout.NORTH, curlab, 1, SpringLayout.NORTH, big);
 					}
 					else{
 						layout.putConstraint(SpringLayout.NORTH, curlab, 0, SpringLayout.SOUTH, lastlab);
 					}
-					layout.putConstraint(SpringLayout.WEST, curlab, 0, SpringLayout.WEST, big);
-					layout.putConstraint(SpringLayout.EAST, curlab, 0, SpringLayout.EAST, big);
+					layout.putConstraint(SpringLayout.WEST, curlab, 1, SpringLayout.WEST, big);
+					layout.putConstraint(SpringLayout.EAST, curlab, -1, SpringLayout.EAST, big);
 					
 					curlab.setBackground(new Color(0,0,0,0));
 					big.add(curlab);
@@ -363,7 +384,6 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				layout = (SpringLayout)small.getLayout();
 				curlab = lastlab = null;
 				height = 0;
-				
 				for(int i = 0; i < comsize; i ++){
 					curlab = new JLabel("-" + commList.get(i).getName());
 					if(height + curlab.getPreferredSize().getHeight() > boxheight){
@@ -371,23 +391,29 @@ public class MonthPane extends JScrollPane implements ICalPane {
 							lastlab.setText("+" + (comsize - i + 1) + " more");
 						break;
 					}
+					else{
+						if(lastlab != null){
+							lastlab.addMouseListener(new editClicker(commList.get(i-1)));
+						}
+					}
 					
 					height += curlab.getPreferredSize().getHeight();
 					
 					curlab.setFont(CalendarStandard.CalendarFont);
 					if(lastlab == null ){
-						layout.putConstraint(SpringLayout.NORTH, curlab, 0, SpringLayout.NORTH, small);
+						layout.putConstraint(SpringLayout.NORTH, curlab, 1, SpringLayout.NORTH, small);
 					}
 					else{
 						layout.putConstraint(SpringLayout.NORTH, curlab, 0, SpringLayout.SOUTH, lastlab);
 					}
-					layout.putConstraint(SpringLayout.WEST, curlab, 0, SpringLayout.WEST, small);
-					layout.putConstraint(SpringLayout.EAST, curlab, 0, SpringLayout.EAST, small);
+					layout.putConstraint(SpringLayout.WEST, curlab, 1, SpringLayout.WEST, small);
+					layout.putConstraint(SpringLayout.EAST, curlab, -1, SpringLayout.EAST, small);
 					
 					curlab.setBackground(new Color(0,0,0,0));
 					small.add(curlab);
 					lastlab = curlab;
 				}
+				
 				small.setPreferredSize(new Dimension( (int)boxwidth, (int)height));
 				small.setSize(new Dimension( (int)boxwidth, (int)height));
 			}
@@ -418,7 +444,16 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			this.setViewportView(big);
 			this.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			this.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		}		
+		}	
+		
+		public void addMouseListener(MouseListener l){
+			super.addMouseListener(l);
+			this.getVerticalScrollBar().addMouseListener(l);
+			this.getHorizontalScrollBar().addMouseListener(l);
+			this.small.addMouseListener(l);
+			this.big.addMouseListener(l);
+			this.getColumnHeader().addMouseListener(l);
+		}
 	}
 
 	/**
@@ -427,6 +462,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 	protected class EventPane extends JPanel{
 		
 	}
+	
 	
 	/**
 	 * Mouse listener class that is used to determine if the mouse is hovering over an 
@@ -443,20 +479,26 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			this.index = index;
 		}
 		
+		public void mouseEntered(MouseEvent e){
+			resetPanes();
+		}
+		
 		public void mouseClicked(MouseEvent e){
-			if(flag){
-				if(iscom){
-					SpringLayout layout = (SpringLayout)days[index].getLayout();
-					layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, seperator[index], 2, SpringLayout.WEST, days[index]);
-					compane[index].goBig();
-		    	}
-		    	else{
-		    		SpringLayout layout = (SpringLayout)days[index].getLayout();
-					layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, seperator[index], -2, SpringLayout.EAST, days[index]);
-		    	}
-				
-				days[index].revalidate();
-	    		days[index].repaint();
+			if(e.getClickCount() == 1){
+				if(flag){
+					if(iscom){
+						SpringLayout layout = (SpringLayout)days[index].getLayout();
+						layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, seperator[index], 2, SpringLayout.WEST, days[index]);
+						compane[index].goBig();
+			    	}
+			    	else{
+			    		SpringLayout layout = (SpringLayout)days[index].getLayout();
+						layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, seperator[index], -2, SpringLayout.EAST, days[index]);
+			    	}
+					
+					days[index].revalidate();
+		    		days[index].repaint();
+				}
 			}
 		}
 		
@@ -481,6 +523,16 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		}
 	}
 	
+	protected void resetPanes(){
+		for( int i = 0; i < 42; i ++){
+    		SpringLayout layout = (SpringLayout)days[i].getLayout();
+			layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, seperator[i], 0, SpringLayout.HORIZONTAL_CENTER, days[i]);
+    		compane[i].goSmall();
+			days[i].revalidate();
+    		days[i].repaint();
+		}
+	}
+	
 	/**
 	 * Mouse listener class that will listen for double clicking on a day then go to the
 	 * that specific day in the day pane.
@@ -495,11 +547,11 @@ public class MonthPane extends JScrollPane implements ICalPane {
 	    public void mouseClicked(MouseEvent e) {
 	    	if(e.getClickCount() > 1){
 	    		//switch to day view
-	    		System.out.println(adate.get(Calendar.DATE));
 	    		GUIEventController.getInstance().switchView(adate, AbCalendar.types.DAY);
 	    	}
 	    }
 	}
+	
 	
 	/**
 	 * A do nothing function because there are no scroll bars used 
@@ -507,6 +559,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 	public void updateScrollPosition(int value){
 		
 	}
+	
 	
 	/**
 	 * A do nothing function that should eventually refresh the page.
