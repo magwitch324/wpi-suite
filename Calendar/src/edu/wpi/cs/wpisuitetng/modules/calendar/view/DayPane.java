@@ -83,6 +83,8 @@ public class DayPane extends JPanel implements ICalPane {
 	private SpringLayout layout;
 	private JScrollPane scrollPane;
 	private JPanel labelPane;
+	private JPanel header = new JPanel();
+	
 	/**
 	 * Create the panel.
 	 */
@@ -118,6 +120,21 @@ public class DayPane extends JPanel implements ICalPane {
 		add(scrollPane);
 
 
+		// Create the header panel
+		header.setLayout(new GridLayout(1, 2));
+		header.setBackground(CalendarStandard.CalendarRed);
+		header.setBorder(new MatteBorder(0, 0, 2, 0, Color.GRAY));
+		header.setPreferredSize(new Dimension(10, 40));
+
+		// Create and set the label "Events"
+		JLabel eventlabel = new JLabel("<html><font color='white'><b>"
+				+ "Events" + "</b></font></html>", SwingConstants.CENTER);
+		eventlabel.setFont(CalendarStandard.CalendarFont.deriveFont(14));
+		header.add(eventlabel);
+
+		// add apane to the header of the scrollpane
+		scrollPane.setColumnHeaderView(header);
+		
 		
 		layout = new SpringLayout();
 		mainPanel.setLayout(layout);
@@ -180,35 +197,15 @@ public class DayPane extends JPanel implements ICalPane {
 		System.out.println("comms: " + commList);
 		//if we are supposed to display commitments
 		if(commList != null){
-
 			
-						
-						// Create the header panel
-						JPanel header = new JPanel();
-						header.setLayout(new GridLayout(1, 2));
-						header.setBackground(CalendarStandard.CalendarRed);
-						header.setBorder(new MatteBorder(0, 0, 2, 0, Color.GRAY));
-						header.setPreferredSize(new Dimension(10, 40));
-
-						// Create and set the label "Events" for when ShowCommitments is
-						// checked
-						JLabel eventlabel = new JLabel("<html><font color='white'><b>"
-								+ "Events" + "</b></font></html>", SwingConstants.CENTER);
-						eventlabel.setFont(CalendarStandard.CalendarFont.deriveFont(14));
-						header.add(eventlabel);
-
-						// Create and set the label "Commitments" for when ShowCommitments
-						// is checked
-						JLabel commitlabel = new JLabel("<html><font color='white'><b>"
-								+ "Commitments" + "</b></font></html>",
-								SwingConstants.CENTER);
-						commitlabel.setFont(CalendarStandard.CalendarFont.deriveFont(14));
-						header.add(commitlabel);
-
-						// add apane to the header of the scrollpane
-						scrollPane.setColumnHeaderView(header);
-
-
+			// Create and set the label "Commitments" for when ShowCommitments
+			// is checked
+			JLabel commitlabel = new JLabel("<html><font color='white'><b>"
+					+ "Commitments" + "</b></font></html>",
+					SwingConstants.CENTER);
+			commitlabel.setFont(CalendarStandard.CalendarFont.deriveFont(14));
+			header.add(commitlabel);
+			
 			daypane = new DetailedDay(day, new CommitDetailedPane(day, commList));
 		}
 		else{

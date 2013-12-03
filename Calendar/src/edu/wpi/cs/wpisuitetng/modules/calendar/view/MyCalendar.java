@@ -201,7 +201,7 @@ public class MyCalendar extends AbCalendar {
 	}
 
 	/*
-	 * Called when we need to update the list of commitments to be displayed for a celandar
+	 * Called when we need to update the list of commitments to be displayed for a calendar
 	 * This happens at 2 different times:
 	 * 		Initialization
 	 *		Checking of show team data

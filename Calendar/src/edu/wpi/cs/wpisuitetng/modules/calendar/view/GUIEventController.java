@@ -139,7 +139,7 @@ public class GUIEventController {
 		return main;
 	}
 	
-	public void removeTab(CommitmentTab commTab, boolean isTeamComm)
+	public void removeCommTab(CommitmentTab commTab, boolean isTeamComm)
 	{
 		
 		main.remove(commTab);
