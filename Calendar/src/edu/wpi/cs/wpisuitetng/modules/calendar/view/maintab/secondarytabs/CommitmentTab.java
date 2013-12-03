@@ -442,7 +442,7 @@ public class CommitmentTab extends JPanel {
 			public void focusGained(FocusEvent e) {
 				if(badInput) {
 					datePicker.getEditor().setText(">> " + inputDate + " <<" + "is not a valid date format(MM/dd/YYYY)." );
-					datePicker.getEditor().setBackground(Color.red);
+					datePicker.getEditor().setBackground(Color.YELLOW);
 					datePicker.getEditor().selectAll();
 					badInput = false;
 				}
@@ -763,7 +763,7 @@ public class CommitmentTab extends JPanel {
 	 * Close this commitment tab
 	 */
 	protected void removeTab() {
-		GUIEventController.getInstance().removeTab(this, isTeamComm);
+		GUIEventController.getInstance().removeCommTab(this, isTeamComm);
 	}
 
 

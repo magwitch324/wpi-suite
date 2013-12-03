@@ -77,7 +77,7 @@ public class GUIEventController {
 		main = mainview;
 		teamCalendar = new TeamCalendar();
 		myCalendar = new MyCalendar();
-		commitFullView = new CommitmentFullView(teamCalendar);
+		commitFullView = new CommitmentFullView(teamCalendar, myCalendar);
 		
 		try {
             Image img = ImageIO.read(getClass().getResource("Personal_Icon.png"));
@@ -139,7 +139,7 @@ public class GUIEventController {
 		return main;
 	}
 	
-	public void removeTab(CommitmentTab commTab, boolean isTeamComm)
+	public void removeCommTab(CommitmentTab commTab, boolean isTeamComm)
 	{
 		
 		main.remove(commTab);
@@ -175,6 +175,9 @@ public class GUIEventController {
 		main.setSelectedComponent(editCommit);
 	}
 	
+	
+	//No longer necessary
+	/*
 	// Creates new empty tab that will be used to put all commitments 
 	public void createViewCommitmentsTab() {
 		CommitmentFullView commitFullView = new CommitmentFullView(getSelectedCalendar());
@@ -183,7 +186,8 @@ public class GUIEventController {
 		main.repaint();
 		main.setSelectedComponent(commitFullView);
 	}
-
+	 */
+	
 	public void createEvent() {
 
 	}
