@@ -30,9 +30,13 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment.Status;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CombinedCommitmentList;
 
 /*
  * This class is used for creating the commitment View 
@@ -80,14 +84,26 @@ public class CommitmentFullView extends JPanel{
 	}
 	/*Sets the calendars commitments to the commitmentList array to populate panel*/
 	private void setCommitlist() {
+
 		if (mode == ViewingMode.TEAM){
 			if(tcalendar.getCalData() != null){
 				commitmentList = tcalendar.getCalData().getCommitments().getCommitments();
 			}
 		} else if (mode == ViewingMode.PERSONAL){
 			commitmentList = pcalendar.getCalData().getCommitments().getCommitments();
-		} else {
-			commitmentList = tcalendar.getCalData().getCommitments().getCommitments();
+		} else { // here mode == ViewingMode.BOTH
+			CombinedCommitmentList combinedList = new CombinedCommitmentList(
+					new ArrayList<Commitment>(pcalendar.getCalData().getCommitments().getCommitments()));
+			CalendarData teamData = CalendarDataModel.getInstance()
+					.getCalendarData(ConfigManager.getConfig().getProjectName());
+
+			//if we are supposed to show team data, we need to put the team commitments into the list in the right order
+			for (int i = 0; i < teamData.getCommitments()
+					.getCommitments().size(); i++) {
+				combinedList.addCommitment(teamData.getCommitments()
+						.getCommitments().get(i));
+			}
+			commitmentList = combinedList.getCommitments();
 		}
 	}
 	
