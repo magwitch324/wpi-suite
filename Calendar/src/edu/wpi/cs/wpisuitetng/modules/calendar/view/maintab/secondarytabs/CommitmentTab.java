@@ -763,7 +763,7 @@ public class CommitmentTab extends JPanel {
 	 * Close this commitment tab
 	 */
 	protected void removeTab() {
-		GUIEventController.getInstance().removeTab(this, isTeamComm);
+		GUIEventController.getInstance().removeCommTab(this, isTeamComm);
 	}
 
 
