@@ -35,9 +35,13 @@ import javax.swing.border.EmptyBorder;
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetPropsController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdatePropsController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CombinedCommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 
@@ -86,8 +90,8 @@ public class MyCalendar extends AbCalendar {
 		showcom.setBackground(Color.WHITE);
 		showcom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				calData.setShowComm(showcom.isSelected());
-				UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+				calProps.setMyShowComm(showcom.isSelected());
+				UpdatePropsController.getInstance().updateCalendarProps(calProps);
 				setView();
 			}
 		});
@@ -109,8 +113,8 @@ public class MyCalendar extends AbCalendar {
 		showteam.setBackground(Color.WHITE);
 		showteam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				calData.setShowTeamData(showteam.isSelected());
-				UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+				calProps.setShowTeamData(showteam.isSelected());
+				UpdatePropsController.getInstance().updateCalendarProps(calProps);
 				//update the commitments to either include or not include team data
 				updateCalData();
 				setView();
@@ -175,14 +179,13 @@ public class MyCalendar extends AbCalendar {
 			}
 
 
+
 			initialized = true;
 		}
 		calData = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName() + "-"
 						+ ConfigManager.getConfig().getUserName());
-		//set the comm list to the new data
-		showcom.setSelected(calData.getShowComm());
-		showteam.setSelected(calData.getShowTeamData());
+
 		setCommList();
 		setView();
 
@@ -248,6 +251,7 @@ public class MyCalendar extends AbCalendar {
 		{
 			try 
 			{
+				GetPropsController.getInstance().retrieveCalendarProps();
 				GetCalendarDataController.getInstance().retrieveCalendarData();
 				preInitialized = true;
 				System.out.println("retrieved on initialization2");
@@ -262,6 +266,32 @@ public class MyCalendar extends AbCalendar {
 		}
 		//System.out.println("repainting!!!!!!!!!!!!!!!");
 		super.paintComponent(g);
+	}
+	
+	/**
+	 * Used after cal props has been fetched from the server.
+	 */
+	protected void applyCalProps(){
+		
+		//check if the personal cal props exists, if not create it
+		if (CalendarPropsModel.getInstance().getCalendarProps(
+				ConfigManager.getConfig().getProjectName() + "-"
+						+ ConfigManager.getConfig().getUserName() + "-PROPS") == null) {
+			CalendarProps createdProps = new CalendarProps(ConfigManager
+					.getConfig().getProjectName()
+					+ "-"
+					+ ConfigManager.getConfig().getUserName() + "-PROPS");
+			CalendarPropsModel.getInstance().addCalendarProps(createdProps);
+		}
+		
+		
+		calProps = CalendarPropsModel.getInstance().getCalendarProps(
+				ConfigManager.getConfig().getProjectName() + "-"
+						+ ConfigManager.getConfig().getUserName() + "-PROPS");
+		//set the comm list to the new data
+		showcom.setSelected(calProps.getMyShowComm());
+		showteam.setSelected(calProps.getShowTeamData());
+		
 	}
 
 }

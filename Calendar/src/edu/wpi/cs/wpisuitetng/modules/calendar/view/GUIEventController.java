@@ -215,5 +215,10 @@ public class GUIEventController {
 		return scrollBarValue;
 	}
 	
+	public void applyCalProps(){
+		myCalendar.applyCalProps();
+		teamCalendar.applyCalProps();
+	}
+	
 	
 }
