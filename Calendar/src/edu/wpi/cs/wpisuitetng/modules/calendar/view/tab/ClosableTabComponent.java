@@ -27,7 +27,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import com.sun.medialib.mlib.Image;
+//import com.sun.medialib.mlib.Image;
 
 /**
  * This provides a tab component with a close button to the left of the title.
