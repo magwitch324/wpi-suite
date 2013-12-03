@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 
-public class Commitment extends AbstractModel {
+public class Commitment extends AbstractModel implements Comparable<Commitment>{
 	// Commitment characteristics.
 	/** the ID of the commitment */
 	private int id;
@@ -263,5 +263,14 @@ public class Commitment extends AbstractModel {
 		this.status =       toCopyFrom.getStatus();
 		this.isPersonal =   toCopyFrom.getIsPersonal();
 	}
+	
+	public int compareTo(Commitment person) {
+		  if(this.name != null && person.name != null){
+		   return this.name.compareToIgnoreCase(person.name);
+		  }
+		  return 0;
+		 }
+
+		
 	
 }

@@ -11,7 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -165,6 +167,17 @@ public class CommitmentFullView extends JPanel{
 		//topButtons.setLayout(new BoxLayout(topButtons, BoxLayout.X_AXIS));
 		JButton jName = new JButton("Name");
 		jName.setContentAreaFilled(false);
+		jName.addMouseListener(new MouseAdapter() {
+			@Override
+		public void mouseClicked(MouseEvent e) {
+				//commitmentList = bubbleSort(commitmentList);
+				Collections.sort(commitmentList);
+				update2();
+			}
+			
+		});
+		
+		
 		JButton jDueDate = new JButton("Due Date");
 		jDueDate.setContentAreaFilled(false);
 		JButton jDescription = new JButton("Description");
@@ -188,10 +201,10 @@ public class CommitmentFullView extends JPanel{
 		//commitPanel.add(sep);
 		for(int i = 0; i < commitmentList.size(); i++){
 			CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
-			JLabel name = new JLabel("Name: "+commitmentList.get(i).getName(),JLabel.CENTER);
-			JLabel date = new JLabel("Due Date: "+ commitmentList.get(i).getDueDate().getTime(),JLabel.CENTER);
-			JLabel description = new JLabel("<HTML>Description: "+ commitmentList.get(i).getDescription()+"</HTML>",JLabel.CENTER);
-			JLabel status = new JLabel("Status: " + Status.convertToString(commitmentList.get(i).getStatus().id),JLabel.CENTER);
+			JLabel name = new JLabel(commitmentList.get(i).getName(),JLabel.CENTER);
+			JLabel date = new JLabel(""+commitmentList.get(i).getDueDate().getTime(),JLabel.CENTER);
+			JLabel description = new JLabel("<HTML>"+ commitmentList.get(i).getDescription()+"</HTML>",JLabel.CENTER);
+			JLabel status = new JLabel(Status.convertToString(commitmentList.get(i).getStatus().id),JLabel.CENTER);
 			commitmentPanel.setLayout(experimentLayout);
 			//GridBagConstraints c = new GridBagConstraints();
 			c.anchor = GridBagConstraints.CENTER;
@@ -225,9 +238,36 @@ public class CommitmentFullView extends JPanel{
 		setupPanels();
 	}
 	
+	public void update2(){
+		commitPanel.removeAll();
+		setupPanels();
+	}
+	
 	private void switchView(ViewingMode newMode){
 		this.mode = newMode;
 		this.update();
 	}
+	
+	
+	private List<Commitment> bubbleSort(List<Commitment> commitments){
+	    int n = 5;
+	    Commitment temp = null;
+	   
+	    for(int i=0; i < n; i++){
+	            for(int j=1; j < (n-i); j++){   
+
+	            		if(commitments.get(j-1).getName().compareToIgnoreCase(commitments.get(j).getName()) > 0 ){
+	                            //swap the elements!
+	                            temp = commitments.get(j-1);
+	                            commitments.set(j-1, commitments.get(j)); 
+	                            commitments.set(j, temp);
+	                    }
+	                   
+	            	}
+	    		}
+	    		return commitments;
+			}
+	
+	
 	
 }
