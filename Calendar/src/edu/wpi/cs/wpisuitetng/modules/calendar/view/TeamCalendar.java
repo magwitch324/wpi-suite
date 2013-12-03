@@ -31,8 +31,11 @@ import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdatePropsController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 
 public class TeamCalendar extends AbCalendar {
 
@@ -67,12 +70,12 @@ public class TeamCalendar extends AbCalendar {
 		showcom.setBackground(Color.WHITE);
 		showcom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				calData.setShowComm(showcom.isSelected());
-				UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+				calProps.setTeamShowComm(showcom.isSelected());
+				UpdatePropsController.getInstance().updateCalendarProps(calProps);
 				setView();
 			}
 		});
-		
+
 		layout.putConstraint(SpringLayout.WEST, showcom, 30, SpringLayout.EAST,
 				viewbtnpanel);
 		layout.putConstraint(SpringLayout.NORTH, showcom, 0,
@@ -82,7 +85,7 @@ public class TeamCalendar extends AbCalendar {
 		layout.putConstraint(SpringLayout.SOUTH, showcom, 0,
 				SpringLayout.SOUTH, viewbtnpanel);
 		this.add(showcom);
-		
+
 		// Displays Commitment Button
 //		JComponent commitmentPanel = ButtonsPanelCreate();
 //		layout.putConstraint(SpringLayout.NORTH, commitmentPanel, 5,
@@ -91,6 +94,7 @@ public class TeamCalendar extends AbCalendar {
 //				SpringLayout.EAST, this);
 //		this.add(commitmentPanel);
 //		
+
 		//COMENTED OUT FILTER DROP DOWN MENU BECAUSE IT DOESN'T DO ANYTHING AT THE MOMENT
 
 		JComboBox filter = new JComboBox();
@@ -102,7 +106,7 @@ public class TeamCalendar extends AbCalendar {
 				this);
 		layout.putConstraint(SpringLayout.SOUTH, showcom, 0,
 				SpringLayout.SOUTH, viewbtnpanel);
-//		this.add(filter);
+		//		this.add(filter);
 
 		layout.putConstraint(SpringLayout.WEST, viewpanel, 5,
 				SpringLayout.WEST, this);
@@ -133,11 +137,12 @@ public class TeamCalendar extends AbCalendar {
 						.getConfig().getProjectName());
 				CalendarDataModel.getInstance().addCalendarData(createdCal);
 			}
+			
 			initialized = true;
 		}
 		calData = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName());
-		showcom.setSelected(calData.getShowComm());
+
 		setView();
 		//		displayCalData();
 
@@ -148,5 +153,18 @@ public class TeamCalendar extends AbCalendar {
 		if(initialized){
 			calView.displayCalData(calData.getCommitments(), getShowCommitments());
 		}
+	}
+	
+	
+
+	/**
+	 * Used after cal props has been fetched from the server.
+	 */
+	protected void applyCalProps(){
+		
+		calProps = CalendarPropsModel.getInstance().getCalendarProps(
+				ConfigManager.getConfig().getProjectName() + "-"
+						+ ConfigManager.getConfig().getUserName() + "-PROPS");
+		showcom.setSelected(calProps.getTeamShowComm());
 	}
 }

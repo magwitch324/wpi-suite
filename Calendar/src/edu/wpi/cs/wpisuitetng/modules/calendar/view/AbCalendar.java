@@ -38,6 +38,7 @@ import javax.swing.border.EmptyBorder;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar.types;
 
@@ -52,6 +53,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar.types;
 public abstract class AbCalendar extends JPanel {
 	protected boolean initialized;
 	protected CalendarData calData;
+	protected CalendarProps calProps;
 
 	protected enum types {
 		DAY(0),
@@ -413,6 +415,7 @@ public abstract class AbCalendar extends JPanel {
 	abstract void updateCalData();
 	abstract protected void displayCalData();
 	abstract public boolean getShowTeamData();
+	abstract void applyCalProps();
 
 
 

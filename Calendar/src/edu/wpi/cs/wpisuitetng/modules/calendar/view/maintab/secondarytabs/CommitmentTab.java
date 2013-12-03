@@ -113,9 +113,9 @@ public class CommitmentTab extends JPanel {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JButton btnCancel;
 	private Date tmpDate = new Date(); //user for convert the date to default format
-	private String inputDate = (new SimpleDateFormat("EEE MM/dd/yyyy").format(tmpDate)); //the date user input
-	private boolean badInput;
+	private String inputDate = (new SimpleDateFormat("MM/dd/yyyy EEE").format(tmpDate)); //the date user input
 	private boolean badDate;
+	private boolean badTime;
 	private Commitment editingCommitment;
 	private EditingMode mode = EditingMode.ADDING;
 	private JButton btnDelete;
@@ -169,9 +169,9 @@ public class CommitmentTab extends JPanel {
 		
 		// form uses GridBagLayout w/ two columns
 		GridBagLayout gbl = new GridBagLayout();
-		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0};
+		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		gbl.columnWeights = new double[]{0.0, 1.0};
-		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0};
+		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl.columnWidths = new int[] {0, 0};
 		formPanel.setLayout(gbl);
 		
@@ -339,6 +339,19 @@ public class CommitmentTab extends JPanel {
 		
 		rdbtnTeam.setSelected(true);
 		
+		//Invalid Time label
+		final JLabel lblTimeError = new JLabel("Please enter a valid time.");
+		lblTimeError.setVisible(false);
+		lblTimeError.setHorizontalAlignment(SwingConstants.LEFT);
+		GridBagConstraints gbc_lblTimeError = new GridBagConstraints();
+		gbc_lblTimeError.insets = new Insets(0, 0, 5, 0);
+		gbc_lblTimeError.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblTimeError.gridx = 1;
+		gbc_lblTimeError.gridy = 5;
+		gbc_lblTimeError.weightx = 1;
+		gbc_lblTimeError.weighty = 1;		
+		formPanel.add(lblTimeError, gbc_lblTimeError);
+		
 		//Time label
 		JLabel lblTime = new JLabel("Time:");
 		lblTime.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -371,7 +384,18 @@ public class CommitmentTab extends JPanel {
 
 		timeSpinner.setValue(new GregorianCalendar().getTime());
 		
-
+		//Invalid Date label
+		final JLabel lblDateError = new JLabel("<html><font color='red'>Please enter a valid date (MM/DD/YYYY).</font></html>");
+		lblDateError.setVisible(false);
+		lblDateError.setHorizontalAlignment(SwingConstants.LEFT);
+		GridBagConstraints gbc_lblDateError = new GridBagConstraints();
+		gbc_lblDateError.insets = new Insets(0, 0, 5, 0);
+		gbc_lblDateError.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblDateError.gridx = 1;
+		gbc_lblDateError.gridy = 7;
+		gbc_lblDateError.weightx = 1;
+		gbc_lblDateError.weighty = 1;		
+		formPanel.add(lblDateError, gbc_lblDateError);
 		
 		//Date label
 		JLabel lblDate_1 = new JLabel("Date:");
@@ -381,7 +405,7 @@ public class CommitmentTab extends JPanel {
 		gbc_lblDate_1.anchor = GridBagConstraints.EAST;
 		gbc_lblDate_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDate_1.gridx = 0;
-		gbc_lblDate_1.gridy = 5;
+		gbc_lblDate_1.gridy = 6;
 		gbc_lblDate_1.weightx = 1;
 		gbc_lblDate_1.weighty = 1;
 		formPanel.add(lblDate_1, gbc_lblDate_1);
@@ -392,17 +416,17 @@ public class CommitmentTab extends JPanel {
 		gbc_jdp.insets = new Insets(0, 0, 5, 0);
 		gbc_jdp.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jdp.gridx = 1;
-		gbc_jdp.gridy = 5;
+		gbc_jdp.gridy = 6;
 		gbc_jdp.weightx = 1;
 		gbc_jdp.weighty = 3;
 		formPanel.add(datePicker, gbc_jdp);
 		//Calendar calendar = datePicker.getMonthView().getCalendar();
 		//calendar.setTime(new Date());
 		//datePicker.getMonthView().setLowerBound(calendar.getTime());
-		SimpleDateFormat format1 = new SimpleDateFormat( "EEE MM/dd/yyyy" );
+		SimpleDateFormat format1 = new SimpleDateFormat( "MM/dd/yyyy EEE" );
 		SimpleDateFormat format2 = new SimpleDateFormat( "MM/dd/yyyy" );
 		SimpleDateFormat format3 = new SimpleDateFormat( "MM.dd.yyyy" );
-		SimpleDateFormat format4 = new SimpleDateFormat( "EEE MM.dd.yyyy" );
+		SimpleDateFormat format4 = new SimpleDateFormat( "MM.dd.yyyy EEE" );
 		datePicker.setFormats(new DateFormat[] {format1, format2, format3, format4});
 		datePicker.addKeyListener(new KeyListener() {
 
@@ -440,11 +464,11 @@ public class CommitmentTab extends JPanel {
 		datePicker.getEditor().addFocusListener(new FocusListener() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if(badInput) {
-					datePicker.getEditor().setText(">> " + inputDate + " <<" + "is not a valid date format(MM/dd/YYYY)." );
-					datePicker.getEditor().setBackground(Color.YELLOW);
+				if(badDate) {
+					datePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 					datePicker.getEditor().selectAll();
-					badInput = false;
+					lblDateError.setVisible(true);
+					badDate = false;
 				}
 				/*
 				else if(badDate){
@@ -455,7 +479,7 @@ public class CommitmentTab extends JPanel {
 				*/
 				else{
 					//try {
-						SimpleDateFormat dt = new SimpleDateFormat("EEE MM/dd/yyyy"); 
+						SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy EEE"); 
 						datePicker.getEditor().setBackground(Color.WHITE);
 						datePicker.getEditor().setText(dt.format(datePicker.getDate()));
 						datePicker.getEditor().selectAll();
@@ -470,7 +494,7 @@ public class CommitmentTab extends JPanel {
 			@Override
 			public void focusLost(FocusEvent e) {
 				if(isBadInputDate()){
-					badInput = true;
+					badDate = true;
 					datePicker.requestFocus();
 				}
 				/*
@@ -491,6 +515,7 @@ public class CommitmentTab extends JPanel {
 				*/
 				else{
 					datePicker.getEditor().setBackground(Color.WHITE);
+					lblDateError.setVisible(false);
 				}
 				listenerHelper();
 			}
@@ -594,10 +619,9 @@ public class CommitmentTab extends JPanel {
 		
 		
 		GridBagConstraints gbc_btnPanel = new GridBagConstraints();
-		gbc_btnPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
 		gbc_btnPanel.gridx = 1;
-		gbc_btnPanel.gridy = 7;
+		gbc_btnPanel.gridy = 9;
 		
 		//Add Cancel button
 
@@ -636,7 +660,7 @@ public class CommitmentTab extends JPanel {
 		gbc_statusComboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_statusComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_statusComboBox.gridx = 1;
-		gbc_statusComboBox.gridy = 6;
+		gbc_statusComboBox.gridy = 8;
 		gbc_statusComboBox.weightx = 1;
 		gbc_statusComboBox.weighty = 3;
 
@@ -648,7 +672,7 @@ public class CommitmentTab extends JPanel {
 		gbc_statusLabel.fill = GridBagConstraints.VERTICAL;
 		gbc_statusLabel.anchor = GridBagConstraints.EAST;
 		gbc_statusLabel.gridx = 0;
-		gbc_statusLabel.gridy = 6;
+		gbc_statusLabel.gridy = 8;
 		gbc_statusLabel.weightx = 1;
 		gbc_statusLabel.weighty = 3;
 

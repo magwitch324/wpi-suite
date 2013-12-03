@@ -115,48 +115,79 @@ public class CommitmentFullView extends JPanel{
 		commitPanel.setBorder(new EmptyBorder(10, 5, 10 , 20));
 		commitPanel.setBackground(Color.WHITE);
 		
+		
 		JPanel viewSwitcher = new JPanel();
-		viewSwitcher.setLayout(new GridLayout(0,3));
-		JRadioButton teamRadioButton = new JRadioButton("Team");
+
+		SpringLayout switcherLayout = new SpringLayout();
+
+		viewSwitcher.setLayout(switcherLayout);
+
+		
+		final JRadioButton teamRadioButton = new JRadioButton("Team");
 		teamRadioButton.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				switchView(ViewingMode.TEAM);
-				
 			}
 			
 		});
-		viewSwitcher.add(teamRadioButton);
+		viewSwitcher.add(teamRadioButton, SpringLayout.WEST);
+		if (mode == ViewingMode.TEAM){
+			teamRadioButton.setSelected(true);
+		}
 		
-		JRadioButton personalRadioButton = new JRadioButton("Personal");
+		
+		final JRadioButton personalRadioButton = new JRadioButton("Personal");
 		personalRadioButton.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				switchView(ViewingMode.PERSONAL);
-				
 			}
 			
 		});
-		viewSwitcher.add(personalRadioButton);
+		viewSwitcher.add(personalRadioButton, SpringLayout.HORIZONTAL_CENTER);
+		if (mode == ViewingMode.PERSONAL){
+			personalRadioButton.setSelected(true);
+		}
+
 		
-		JRadioButton bothRadioButton = new JRadioButton("Both");
+		switcherLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, personalRadioButton, 0, SpringLayout.HORIZONTAL_CENTER, viewSwitcher);
+		switcherLayout.putConstraint(SpringLayout.VERTICAL_CENTER, personalRadioButton, 0, SpringLayout.VERTICAL_CENTER, viewSwitcher);
+		
+		final JRadioButton bothRadioButton = new JRadioButton("Both");
 		bothRadioButton.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				switchView(ViewingMode.BOTH);
-				
 			}
 			
 		});
-		viewSwitcher.add(bothRadioButton);
+		viewSwitcher.add(bothRadioButton, SpringLayout.EAST);
+		if (mode == ViewingMode.BOTH){
+			bothRadioButton.setSelected(true);
+		}
+		bothRadioButton.setMinimumSize(new Dimension(100,50));
+		bothRadioButton.setMaximumSize(new Dimension(100,50));
+		bothRadioButton.setAlignmentX(CENTER_ALIGNMENT);
 		
 		ButtonGroup viewSwitchGroup = new ButtonGroup();
 		viewSwitchGroup.add(teamRadioButton);
 		viewSwitchGroup.add(personalRadioButton);
 		viewSwitchGroup.add(bothRadioButton);
+		
+		
+		switcherLayout.putConstraint(SpringLayout.EAST, teamRadioButton, 0, SpringLayout.WEST, personalRadioButton);
+		switcherLayout.putConstraint(SpringLayout.VERTICAL_CENTER, teamRadioButton, 0, SpringLayout.VERTICAL_CENTER, viewSwitcher);
+		switcherLayout.putConstraint(SpringLayout.WEST, bothRadioButton, 0, SpringLayout.EAST, personalRadioButton);
+		switcherLayout.putConstraint(SpringLayout.VERTICAL_CENTER, bothRadioButton, 0, SpringLayout.VERTICAL_CENTER, viewSwitcher);
+
+		
+		
+		viewSwitcher.setPreferredSize(new Dimension(300,50));
+		viewSwitcher.setMaximumSize(new Dimension(20000, 50));
 		
 		commitPanel.add(viewSwitcher);
 		
