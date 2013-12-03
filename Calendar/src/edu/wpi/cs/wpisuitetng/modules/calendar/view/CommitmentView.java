@@ -128,11 +128,43 @@ public class CommitmentView extends JPanel {
 				// commit.setDueDate(new Date());
 				// commit.setDescription("The description of this commitment is right here. This will be shown as the description.");
 				CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
-				commitmentPanel.setBackground(Color.LIGHT_GRAY);
+				commitmentPanel.setBackground(Color.LIGHT_GRAY.brighter());
 				//commitmentPanel.setBorder((BorderFactory.createMatteBorder(
 				//        -2, -2, -2, -2, Color.GRAY)));
 
-				JLabel tag = new JLabel(commitmentList.get(i).getIsPersonal() ? "[Personal]" : "[Team]");
+				Image nameImg;
+				Image scaleImg;
+				JLabel tag = new JLabel();
+				try {
+						if (commitmentList.get(i).getIsPersonal())
+						{	
+							nameImg = ImageIO.read(getClass().getResource("Personal_Icon.png"));
+							scaleImg = nameImg.getScaledInstance(15,18, Image.SCALE_SMOOTH);
+							tag.setText("[Personal]");
+							tag.setIcon(new ImageIcon(scaleImg));
+						}
+						else
+						{
+							nameImg = ImageIO.read(getClass().getResource("Team_Icon.png"));
+							scaleImg = nameImg.getScaledInstance(15,18, Image.SCALE_SMOOTH);
+							tag.setText("[Team]");
+							tag.setIcon(new ImageIcon(scaleImg));
+						}
+				} catch (IOException e) {
+					if (commitmentList.get(i).getIsPersonal())
+					{
+						tag.setText("[Personal]");
+					}
+					else
+					{
+						tag.setText("[Team]");
+					}
+
+				}
+				
+				
+				
+//				JLabel tag = new JLabel(commitmentList.get(i).getIsPersonal() ? "[Personal]" : "[Team]");
 				JLabel name = new JLabel("Name: "+commitmentList.get(i).getName());
 				JLabel date = new JLabel("Due Date: "+ commitmentList.get(i).getDueDate().getTime());
 				JLabel description = new JLabel("<HTML>Description: "+ commitmentList.get(i).getDescription()+"</HTML>");

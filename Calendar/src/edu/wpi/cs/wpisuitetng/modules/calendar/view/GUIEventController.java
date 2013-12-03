@@ -159,7 +159,14 @@ public class GUIEventController {
 
 	public void createCommitment() {
 		CommitmentTab newCommit = new CommitmentTab();
-		main.addTab("New Commitment", null, newCommit, "New Commitment");
+		try {
+            Image img = ImageIO.read(getClass().getResource("New_Icon.png"));
+            main.addTab("New Commitment", new ImageIcon(img), newCommit);
+            } catch (IOException ex) {}
+            catch(IllegalArgumentException ex){
+                    main.addTab("New Commitment", new ImageIcon(), newCommit);
+            }
+//		main.addTab("New Commitment", null, newCommit, "New Commitment");
 //		newCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
@@ -172,7 +179,14 @@ public class GUIEventController {
 	 */
 	public void editCommitment(Commitment comm) {
 		CommitmentTab editCommit = new CommitmentTab(comm);
-		main.addTab("Edit Commitment", null, editCommit, "Edit Commitment");
+		try {
+            Image img = ImageIO.read(getClass().getResource("Edit_Icon.png"));
+            main.addTab("Edit Commitment", new ImageIcon(img), editCommit);
+            } catch (IOException ex) {}
+            catch(IllegalArgumentException ex){
+                    main.addTab("Edit Commitment", new ImageIcon(), editCommit);
+            }
+//		main.addTab("Edit Commitment", null, editCommit, "Edit Commitment");
 //		editCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
