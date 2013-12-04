@@ -593,10 +593,6 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				datePicker.getEditor().setBackground(Color.WHITE);
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					checkBadDate();
-				}
 			}
 
 			@Override
@@ -955,28 +951,7 @@ public class CommitmentTab extends JPanel {
 		}
 	}
 	
-	/**
-	 * check if the user enters a bad date
-	 */
-	private void checkBadDate() {
-		boolean isABadDate = isABadDate();
-		if(isABadDate) {
-			datePicker.getEditor().setText(">> " + inputDate + " <<" + "is not a valid date format(MM/dd/YYYY)." );
-			datePicker.getEditor().setBackground(Color.red);
-			datePicker.getEditor().selectAll();
-		}
-		else{
-			//Date currentDate = new Date();
-			//if(tmpDate.compareTo(currentDate) >= 0) {
-				String showDate = datePicker.getFormats()[0].format(tmpDate);
-				datePicker.getEditor().setText(showDate);
-			//}
-			//else{
-			//	datePicker.getEditor().setText("The date is not valid");
-			//	datePicker.getEditor().setBackground(Color.red);
-			//}
-		}
-	}
+	
 	
 	private boolean isABadDate() {
 		boolean result;
