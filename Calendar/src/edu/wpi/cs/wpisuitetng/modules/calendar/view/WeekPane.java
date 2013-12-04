@@ -31,6 +31,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
@@ -40,7 +41,6 @@ import javax.swing.border.MatteBorder;
 import org.jdesktop.swingx.border.MatteBorderExt;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
-
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
@@ -103,7 +103,7 @@ public class WeekPane extends JPanel implements ICalPane {
 		layout = new SpringLayout();
 		mainPanel.setLayout(layout);
 		
-		scrollPane.setColumnHeaderView(getHeader(0));
+		scrollPane.setColumnHeader(getColumnheader());
 		scrollPane.setRowHeaderView(getTimesBar(mainPanel.getPreferredSize().getHeight()));  
 		
 	   	
@@ -116,79 +116,59 @@ public class WeekPane extends JPanel implements ICalPane {
 			
 		});
 		
-		
-	   	scrollPane.addComponentListener(new ComponentAdapter(){
-			public void componentResized(ComponentEvent e){
-
-
-				scrollPane.setColumnHeaderView(getHeader(0));
-				System.out.println(scrollPane.getColumnHeader().getSize()
-						.getWidth()
-						+ " : "
-						+ scrollPane.getColumnHeader().getView()
-								.getPreferredSize().getWidth());
-				if (scrollPane.getColumnHeader().getSize().getWidth() < scrollPane
-						.getColumnHeader().getView().getPreferredSize()
-						.getWidth()) {
-					scrollPane.setColumnHeaderView(getHeader(1));
-				}
-
-				scrollPane.revalidate();
-				if (scrollPane.getColumnHeader().getSize().getWidth() < scrollPane
-						.getColumnHeader().getView().getPreferredSize()
-						.getWidth()) {
-					scrollPane.setColumnHeaderView(getHeader(2));
-				}
-
-				scrollPane.revalidate();
-			}
-		});
 	   	
 	   	refresh();
 	}
 
 	/**
 	 * Set up header section for the week pane
-	 * 
-	 * @param use
 	 * @return
 	 */
-    protected JComponent getHeader(int use){
-    	String[][] weekdays = {{"Sunday, ", "Monday, ", "Tuesday, ",
+    protected JViewport getColumnheader(){
+    	final JViewport port = new JViewport();
+    	final JLabel[] labels = new JLabel[7];
+    	final JPanel apane = new JPanel();
+    	port.setView(apane);
+    	apane.setBackground(CalendarStandard.CalendarRed);
+	    apane.setBorder(new EmptyBorder(5,0,10,0));
+    	apane.setLayout(new GridLayout(1,7));
+    	
+    	final String[][] weekdays = {{"Sunday, ", "Monday, ", "Tuesday, ",
     						"Wednesday, ", "Thursday, ", "Friday, ", "Saturday, " },
     						{"Sun, ", "Mon, ", "Tue, ","Wed, ", "Thu, ", "Fri, ", "Sat, " },
     						{"Sun", "Mon", "Tue","Wed", "Thu", "Fri", "Sat" }};
     	
     	Calendar acal = (Calendar)mydate.clone();
-    	if(use < 2){
-    		for(int i=0; i < 7; i++) {
-    			weekdays[use][i] += acal.get(Calendar.DATE);
-    			acal.add(Calendar.DATE, 1);
+		for(int i=0; i < 7; i++) {
+			weekdays[0][i] += acal.get(Calendar.DATE);
+			weekdays[1][i] += acal.get(Calendar.DATE);
+			acal.add(Calendar.DATE, 1);
+			labels[i] = new JLabel(weekdays[0][i], SwingConstants.CENTER);
+			labels[i].setFont(CalendarStandard.CalendarFontBold);
+			labels[i].setForeground(Color.WHITE);
+			apane.add(labels[i]);
+		}
+    	
+
+    	port.addComponentListener(new ComponentAdapter(){
+    		public void componentResized(ComponentEvent e){
+    			int touse = 0;
+    			do{
+				    for(int i = 0; i<7; i++){
+				    	labels[i].setText(weekdays[touse][i]);
+				    }
+				    touse++;
+    			}while(apane.getPreferredSize().width > port.getSize().getWidth());
+    			
     		}
-    	}
-    	
-    	
-    	JPanel apane = new JPanel();
-    	apane.setBackground(CalendarStandard.CalendarRed);
-	    apane.setBorder(new EmptyBorder(5,0,10,0));
-    	SpringLayout layout = new SpringLayout();
-    	GridLayout g = new GridLayout(1,7);
-    	
-    	apane.setLayout(g);
-    	int height = 0;
-    	
-	    for(int i = 0; i<7; i++){
-	    	JLabel alab = new JLabel("<html><font color='white'><b>"
-					+ weekdays[use][i] + "</b></font></html>",
-					SwingConstants.CENTER);
-			alab.setFont(CalendarStandard.CalendarFontBold);
-			apane.add(alab);
-	    }
+    	});
+
 	    
 	    apane.setBorder(new MatteBorder(0, 0, 2, 0, Color.GRAY));
-	    apane.setPreferredSize(new Dimension(500, 40));
+	    //apane.setPreferredSize(new Dimension(10, 40));
+	    port.setPreferredSize(new Dimension(10, 40));
 	    
-    	return apane;
+    	return port;
     }
 
     
@@ -305,28 +285,13 @@ public class WeekPane extends JPanel implements ICalPane {
 	}
 
 
-	protected class AMouseEvent implements MouseListener{
+	protected class AMouseEvent extends MouseAdapter{
 		GregorianCalendar adate = new GregorianCalendar();
 		
 		public AMouseEvent(GregorianCalendar adate){
 			this.adate.setTime(adate.getTime());
 
 		}
-
-		public void mousePressed(MouseEvent e) {
-
-		}
-
-		public void mouseReleased(MouseEvent e) {
-
-		}
-
-		public void mouseEntered(MouseEvent e) {
-		}
-
-		public void mouseExited(MouseEvent e) {
-		}
-
 
 	    public void mouseClicked(MouseEvent e) {
 	    	if(e.getClickCount() > 1){
