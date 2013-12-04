@@ -71,7 +71,6 @@ public class TeamCalendar extends AbCalendar {
 		showcom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				calProps.setTeamShowComm(showcom.isSelected());
-				UpdatePropsController.getInstance().updateCalendarProps(calProps);
 				setView();
 			}
 		});

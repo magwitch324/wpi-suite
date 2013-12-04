@@ -37,6 +37,7 @@ import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdatePropsController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
@@ -417,6 +418,12 @@ public abstract class AbCalendar extends JPanel {
 	abstract public boolean getShowTeamData();
 	abstract void applyCalProps();
 
-
+	
+	/**
+	 * This function is called on Janeway shutdown to save the calendar props.
+	 */
+	public void saveProps(){
+		UpdatePropsController.getInstance().updateCalendarProps(calProps);
+	}
 
 }

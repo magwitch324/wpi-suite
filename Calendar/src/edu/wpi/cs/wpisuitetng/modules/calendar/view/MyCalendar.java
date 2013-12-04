@@ -91,7 +91,6 @@ public class MyCalendar extends AbCalendar {
 		showcom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				calProps.setMyShowComm(showcom.isSelected());
-				UpdatePropsController.getInstance().updateCalendarProps(calProps);
 				setView();
 			}
 		});
@@ -114,7 +113,6 @@ public class MyCalendar extends AbCalendar {
 		showteam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				calProps.setShowTeamData(showteam.isSelected());
-				UpdatePropsController.getInstance().updateCalendarProps(calProps);
 				//update the commitments to either include or not include team data
 				updateCalData();
 				setView();

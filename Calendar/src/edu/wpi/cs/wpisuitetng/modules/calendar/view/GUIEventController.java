@@ -59,18 +59,37 @@ public class GUIEventController {
 
 	/**
 	 * Returns the singleton instance of the vieweventcontroller.
-	
+
 	 * @return The instance of this controller. */
 	public static GUIEventController getInstance() {
 		if (instance == null) {
 			instance = new GUIEventController();
+
+			/**
+			 * we add this shutdown hook in order to avoid server communication every time someone clicks a checkbox
+			 */
+			Runtime.getRuntime().addShutdownHook(new Thread() {
+				@Override
+				public void run() {
+					GUIEventController.getInstance().saveProps();
+				}
+			});
+
 		}
 		return instance;
+	}
+	
+	/**
+	 * Called on Janeway shutdown to save props
+	 */
+	public void saveProps(){
+		teamCalendar.saveProps();
+		myCalendar.saveProps();
 	}
 
 	/**
 	 * Sets the main view to the given view.
-	
+
 	 * @param mainview MainView
 	 */
 	public void setMainView(MainTabView mainview) {
@@ -78,26 +97,26 @@ public class GUIEventController {
 		teamCalendar = new TeamCalendar();
 		myCalendar = new MyCalendar();
 		commitFullView = new CommitmentFullView(teamCalendar, myCalendar);
-		
+
 		try {
-            Image img = ImageIO.read(getClass().getResource("Personal_Icon.png"));
-            main.addTab("My Calendar", new ImageIcon(img), myCalendar);
-            
-            img = ImageIO.read(getClass().getResource("Team_Icon.png"));
-            main.addTab("Team Calendar", new ImageIcon(img), teamCalendar);
-            
-            img = ImageIO.read(getClass().getResource("All_Icon.png"));
-    		main.addTab("All Commitments", new ImageIcon(img),commitFullView);
-            
-            } catch (IOException ex) {}
-            catch(IllegalArgumentException ex){
-                    main.addTab("My Calendar", new ImageIcon(), myCalendar);
-                    main.addTab("Team Calendar", new ImageIcon(), teamCalendar);
-            		main.addTab("All Commitments", new ImageIcon(),commitFullView);
-            }
+			Image img = ImageIO.read(getClass().getResource("Personal_Icon.png"));
+			main.addTab("My Calendar", new ImageIcon(img), myCalendar);
+
+			img = ImageIO.read(getClass().getResource("Team_Icon.png"));
+			main.addTab("Team Calendar", new ImageIcon(img), teamCalendar);
+
+			img = ImageIO.read(getClass().getResource("All_Icon.png"));
+			main.addTab("All Commitments", new ImageIcon(img),commitFullView);
+
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			main.addTab("My Calendar", new ImageIcon(), myCalendar);
+			main.addTab("Team Calendar", new ImageIcon(), teamCalendar);
+			main.addTab("All Commitments", new ImageIcon(),commitFullView);
+		}
 
 	}
-	
+
 	/**
 	 * Gets calendar data corresponding to currently selected tab
 	 * @return index
@@ -116,7 +135,7 @@ public class GUIEventController {
 
 		}
 	}
-	
+
 
 	/**
 	 * Sets the toolbarview to the given toolbar
@@ -128,51 +147,51 @@ public class GUIEventController {
 	}
 
 	/**
-	
+
 	 * @return toolBar */
 	public ToolbarView getToolbar() {
 		return toolbar;
 	}
 
-	
+
 	/**
 	 * Returns the main view
-	
+
 	 * @return the main view */
 	public MainTabView getMainView() {
 		return main;
 	}
-	
+
 	public void removeCommTab(CommitmentTab commTab, boolean isTeamComm)
 	{
-		
+
 		main.remove(commTab);
 		if(isTeamComm){
-		main.setSelectedComponent(teamCalendar);
+			main.setSelectedComponent(teamCalendar);
 		}
 		else{
 			main.setSelectedComponent(myCalendar);
 
 		}
-		
+
 	}
 
 	public void createCommitment() {
 		CommitmentTab newCommit = new CommitmentTab();
 		try {
-            Image img = ImageIO.read(getClass().getResource("New_Icon.png"));
-            main.addTab("New Commitment", new ImageIcon(img), newCommit);
-            } catch (IOException ex) {}
-            catch(IllegalArgumentException ex){
-                    main.addTab("New Commitment", new ImageIcon(), newCommit);
-            }
-//		main.addTab("New Commitment", null, newCommit, "New Commitment");
-//		newCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			Image img = ImageIO.read(getClass().getResource("New_Icon.png"));
+			main.addTab("New Commitment", new ImageIcon(img), newCommit);
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			main.addTab("New Commitment", new ImageIcon(), newCommit);
+		}
+		//		main.addTab("New Commitment", null, newCommit, "New Commitment");
+		//		newCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(newCommit);
 	}
-	
+
 	/** Edit a commitment in a new tab
 	 * @param comm Commitment to edit
 	 * @param calData CalendarData where commitment is located
@@ -180,20 +199,20 @@ public class GUIEventController {
 	public void editCommitment(Commitment comm) {
 		CommitmentTab editCommit = new CommitmentTab(comm);
 		try {
-            Image img = ImageIO.read(getClass().getResource("Edit_Icon.png"));
-            main.addTab("Edit Commitment", new ImageIcon(img), editCommit);
-            } catch (IOException ex) {}
-            catch(IllegalArgumentException ex){
-                    main.addTab("Edit Commitment", new ImageIcon(), editCommit);
-            }
-//		main.addTab("Edit Commitment", null, editCommit, "Edit Commitment");
-//		editCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			Image img = ImageIO.read(getClass().getResource("Edit_Icon.png"));
+			main.addTab("Edit Commitment", new ImageIcon(img), editCommit);
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			main.addTab("Edit Commitment", new ImageIcon(), editCommit);
+		}
+		//		main.addTab("Edit Commitment", null, editCommit, "Edit Commitment");
+		//		editCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(editCommit);
 	}
-	
-	
+
+
 	//No longer necessary
 	/*
 	// Creates new empty tab that will be used to put all commitments 
@@ -205,11 +224,11 @@ public class GUIEventController {
 		main.setSelectedComponent(commitFullView);
 	}
 	 */
-	
+
 	public void createEvent() {
 
 	}
-	
+
 	public void switchView(GregorianCalendar acal, TeamCalendar.types switchtype){
 		teamCalendar.setCalsetView(acal, switchtype);
 		myCalendar.setCalsetView(acal, switchtype);
@@ -236,11 +255,11 @@ public class GUIEventController {
 	{
 		return scrollBarValue;
 	}
-	
+
 	public void applyCalProps(){
 		myCalendar.applyCalProps();
 		teamCalendar.applyCalProps();
 	}
-	
-	
+
+
 }
