@@ -10,13 +10,9 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Cursor;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -25,23 +21,18 @@ import java.util.GregorianCalendar;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
-import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdatePropsController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar.types;
 
 /*
  * Sources:
@@ -102,7 +93,8 @@ public abstract class AbCalendar extends JPanel {
 
 	protected JComponent getViewButtonPanel(){
 		JPanel apane = new JPanel();
-		apane.setLayout(new GridLayout(1,4));
+		apane.setBackground(Color.WHITE);
+		apane.setLayout(new GridLayout(1,4,15,0));
 
 		viewbtns[0] = new JToggleButton();
 
@@ -125,9 +117,16 @@ public abstract class AbCalendar extends JPanel {
 			{
 				//Execute when button is pressed
 				switchview(types.DAY);
+				viewbtns[0].setBorder(BorderFactory.createDashedBorder(CalendarStandard.CalendarRed, 2, 2, 1, true));
+				viewbtns[1].setBorder(BorderFactory.createEmptyBorder());
+				viewbtns[2].setBorder(BorderFactory.createEmptyBorder());
+				viewbtns[3].setBorder(BorderFactory.createEmptyBorder());
 			}
 		});
 
+		viewbtns[0].setBorder(BorderFactory.createDashedBorder(CalendarStandard.CalendarRed, 2, 2, 1, true));
+		apane.add(viewbtns[0]);		
+		
 
 		viewbtns[1] = new JToggleButton();
 
@@ -150,8 +149,15 @@ public abstract class AbCalendar extends JPanel {
 			{
 				//Execute when button is pressed
 				switchview(types.WEEK);
+				viewbtns[1].setBorder(BorderFactory.createDashedBorder(CalendarStandard.CalendarRed, 2, 2, 1, true));
+				viewbtns[0].setBorder(BorderFactory.createEmptyBorder());
+				viewbtns[2].setBorder(BorderFactory.createEmptyBorder());
+				viewbtns[3].setBorder(BorderFactory.createEmptyBorder());
 			}
 		});
+		
+		apane.add(viewbtns[1]);
+		
 
 		viewbtns[2] = new JToggleButton();
 
@@ -174,8 +180,15 @@ public abstract class AbCalendar extends JPanel {
 			{
 				//Execute when button is pressed
 				switchview(types.MONTH);
+				viewbtns[2].setBorder(BorderFactory.createDashedBorder(CalendarStandard.CalendarRed, 2, 2, 1, true));
+				viewbtns[0].setBorder(BorderFactory.createEmptyBorder());
+				viewbtns[1].setBorder(BorderFactory.createEmptyBorder());
+				viewbtns[3].setBorder(BorderFactory.createEmptyBorder());
 			}
 		});
+		
+		apane.add(viewbtns[2]);
+		
 
 		viewbtns[3] = new JToggleButton();
 
@@ -198,38 +211,14 @@ public abstract class AbCalendar extends JPanel {
 			{
 				//Execute when button is pressed
 				switchview(types.YEAR);
+				viewbtns[3].setBorder(BorderFactory.createDashedBorder(CalendarStandard.CalendarRed, 2, 2, 1, true));
+				viewbtns[0].setBorder(BorderFactory.createEmptyBorder());
+				viewbtns[1].setBorder(BorderFactory.createEmptyBorder());
+				viewbtns[2].setBorder(BorderFactory.createEmptyBorder());
 			}
 		});
 		
-		viewbtns[3] = new JToggleButton();
-
-		try {
-			Image img = ImageIO.read(getClass().getResource("Year_Icon.png"));
-			this.viewbtns[3].setIcon(new ImageIcon(img));
-			this.viewbtns[3].setBorder(BorderFactory.createEmptyBorder());
-			viewbtns[3].setContentAreaFilled(false);
-		} catch (IOException ex) {}
-		catch(IllegalArgumentException ex){
-			this.viewbtns[3].setIcon(new ImageIcon());
-			this.viewbtns[3].setText("Year");
-		}
-
-		viewbtns[3].setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
-		viewbtns[3].setBackground(Color.WHITE);
-		viewbtns[3].addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e)
-			{
-				//Execute when button is pressed
-				switchview(types.YEAR);
-			}
-		});
-		
-		for (JToggleButton btn : viewbtns) {
-			btn.setBorder(new EmptyBorder(0, 0, 0, 15));
-			apane.add(btn);
-			apane.setBackground(Color.WHITE);
-		}
+		apane.add(viewbtns[3]);
 		
 		return apane;
 	}
