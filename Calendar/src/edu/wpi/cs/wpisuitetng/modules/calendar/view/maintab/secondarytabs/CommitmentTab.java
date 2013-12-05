@@ -10,34 +10,22 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.JComponent;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
-import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeListener;
-import javax.swing.text.DefaultFormatter;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.JCheckBox;
-
 import org.jdesktop.swingx.JXDatePicker;
-import org.jdesktop.swingx.calendar.DatePickerFormatter;
-
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Category;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CategoryList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment.Status;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
@@ -48,7 +36,6 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -57,32 +44,17 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.Insets;
 
-import javax.swing.JTextPane;
-
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
-
 import javax.swing.event.ChangeEvent;
 import javax.swing.JButton;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.Component;
-
-import javax.swing.Box;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 
 import java.awt.Color;
 
@@ -160,7 +132,8 @@ public class CommitmentTab extends JPanel {
 		JPanel spacePanel1 = new JPanel();
 		JPanel spacePanel2 = new JPanel();
 		formPanel = new JPanel();
-		formPanel.setPreferredSize(new Dimension(400,200));
+		formPanel.setPreferredSize(new Dimension(500,600));
+		formPanel.setMinimumSize(new Dimension(500, 600));
 		spacePanel1.setMinimumSize(formPanel.getSize());
 		spacePanel2.setMinimumSize(formPanel.getSize());
 		GridBagConstraints constraints = new GridBagConstraints();
@@ -555,7 +528,6 @@ public class CommitmentTab extends JPanel {
 		
 		
 		buttonPanel = new JPanel(new BorderLayout(30,0));
-		
 		//Add Commitment button
 		
 		try {
@@ -646,11 +618,9 @@ public class CommitmentTab extends JPanel {
 				removeTab();
 			}
 			
-		});
+		});		
 		
-		
-		
-		buttonPanel.add(btnAddCommitment, BorderLayout.WEST);		
+		buttonPanel.add(btnAddCommitment, BorderLayout.WEST);
 		buttonPanel.add(btnCancel, BorderLayout.CENTER);
 	                    				// Set the horizontal gap
 		formPanel.add(buttonPanel, gbc_btnPanel);
