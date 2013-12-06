@@ -11,21 +11,14 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.AbstractListModel;
-import javax.swing.DefaultListModel;
-import javax.swing.ListModel;
 
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddPropsController;
-//import edu.wpi.cs.wpisuitetng.modules.requirementmanager.controller.AddRequirementController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
-//import edu.wpi.cs.wpisuitetng.modules.requirementmanager.models.characteristics.RequirementStatus;
-//import edu.wpi.cs.wpisuitetng.modules.requirementmanager.models.iterations.Iteration;
-//import edu.wpi.cs.wpisuitetng.modules.requirementmanager.view.ViewEventController;
 
 public class CalendarPropsModel extends AbstractListModel {
 

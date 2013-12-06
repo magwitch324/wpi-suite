@@ -9,7 +9,6 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CombinedCommitmentList extends CommitmentList{

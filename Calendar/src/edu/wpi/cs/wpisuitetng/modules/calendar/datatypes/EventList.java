@@ -9,16 +9,10 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
-import static java.util.Calendar.DAY_OF_MONTH;
-import static java.util.Calendar.LONG;
-import static java.util.Calendar.YEAR;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 
@@ -152,6 +146,7 @@ public class EventList {
         	int i = 0;
     		while(i < array.length){
     			events.add(array[i]);
+    			i++;
     		}
         }
 

@@ -11,24 +11,14 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar;
 
 
 import java.awt.Color;
-import java.awt.GridLayout;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.SpringLayout;
-import javax.swing.border.EtchedBorder;
 
 import edu.wpi.cs.wpisuitetng.janeway.gui.container.toolbar.DefaultToolbarView;
-import edu.wpi.cs.wpisuitetng.janeway.gui.container.toolbar.ToolbarGroupView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons.ButtonsPanel_Create;
 
 /**
  * Sets up upper toolbar of RequirementManager tab
- * 
- *
- * @version $Revision: 1.0 $
- * @author justinhess
  */
 @SuppressWarnings("serial")
 public class ToolbarView  extends DefaultToolbarView {

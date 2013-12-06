@@ -67,10 +67,6 @@ import javax.swing.SpinnerModel;
 import java.awt.GridLayout;
 import java.awt.Font;
 
-/**
- * @author sfp
- *
- */
 public class CommitmentTab extends JPanel {
 	private JTextField nameTextField;
 	private GridBagConstraints gbc_nameTextField;
