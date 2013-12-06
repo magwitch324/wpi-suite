@@ -7,7 +7,7 @@
  * 
  * Contributors: CS Anonymous
  ******************************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.calendar.models;
+package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
 import java.util.ArrayList;
 import java.util.List;

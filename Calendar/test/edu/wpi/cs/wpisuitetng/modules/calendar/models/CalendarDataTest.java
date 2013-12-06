@@ -6,6 +6,9 @@ import java.util.GregorianCalendar;
 
 import org.junit.Test;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
+
 public class CalendarDataTest {
 
 	@Test

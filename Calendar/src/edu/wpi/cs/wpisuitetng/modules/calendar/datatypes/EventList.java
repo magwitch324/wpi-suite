@@ -7,11 +7,17 @@
  * 
  * Contributors: CS Anonymous
  ******************************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.calendar.models;
+package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
+
+import static java.util.Calendar.DAY_OF_MONTH;
+import static java.util.Calendar.LONG;
+import static java.util.Calendar.YEAR;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 public class EventList {
 
@@ -19,12 +25,14 @@ public class EventList {
          * The list in which all the events for a single project are contained
          */
         private List<Event> events;
+        private int nextId;
 
         /**
          * Constructs an empty list of events for the project
          */
         public EventList (){
                 events = new ArrayList<Event>();
+                nextId = 0;
         }
 
 
@@ -34,10 +42,20 @@ public class EventList {
          * 
          * @param newEve The event to be added to the list of events in the project
          */
-        public void addEvent(Event newEve){
-                // add the event
-                events.add(newEve);
-                sortByStartTime();
+        public void addEvent(Event newEvent){
+        	int i = 0;
+    		newEvent.setId(nextId);
+    		nextId++;
+    		if(events.size() != 0){
+    			while (i < events.size()){
+    				if(newEvent.getStartTime().before(events.get(i).getEndTime())){
+    					break;
+    				}
+    				i++;
+    			}
+    		}
+    		// add the Event
+    		events.add(i, newEvent);
 
         }
         /**
@@ -82,6 +100,18 @@ public class EventList {
         public int getSize() {
                 return events.size();
         }
+        
+        /**
+    	 * 
+    	 * Provides the next ID number that should be used for a new event that is created.
+    	 * 
+
+    	 * @return the next open id number */
+    	public int getNextID()
+    	{
+
+    		return this.nextId++;
+    	}
 
 
         /**
@@ -116,8 +146,10 @@ public class EventList {
          * @param events the array of events to add
          */
         public void addEvents(Event[] array) {
-                Collections.addAll(events, array);
-                sortByStartTime();
+        	int i = 0;
+    		while(i < array.length){
+    			events.add(array[i]);
+    		}
         }
 
         /**
@@ -136,13 +168,6 @@ public class EventList {
         public void update (Event newEvent) {
                 events.remove(getEvent(newEvent.getId()));
                 events.add(newEvent);
-                sortByStartTime();
         }
 
-        /**
-         * Sort the elements in the events according to the alphabet
-         */
-        public void sortByStartTime() {
-                Collections.sort(events, new Event());
-        }
 }

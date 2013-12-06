@@ -16,7 +16,10 @@ import java.util.Date;
 import com.google.gson.Gson;
 
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Category;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 
 public class CalendarData extends AbstractModel {
 

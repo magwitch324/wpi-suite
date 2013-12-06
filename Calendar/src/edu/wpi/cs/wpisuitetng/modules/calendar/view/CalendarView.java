@@ -36,9 +36,9 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
 
 public abstract class CalendarView extends JSplitPane {

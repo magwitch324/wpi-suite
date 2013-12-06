@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 
 public class CommitmentCalViewPanel extends JPanel {
 

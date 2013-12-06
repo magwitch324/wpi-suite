@@ -41,8 +41,8 @@ import javax.swing.border.MatteBorder;
 import org.jdesktop.swingx.border.MatteBorderExt;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 
 @SuppressWarnings("serial")
 public class WeekPane extends JPanel implements ICalPane {

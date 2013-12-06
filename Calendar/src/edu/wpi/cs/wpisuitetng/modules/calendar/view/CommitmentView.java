@@ -46,12 +46,12 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment.Status;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CombinedCommitmentList;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment.Status;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
 public class CommitmentView extends JPanel {
 

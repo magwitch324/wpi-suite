@@ -36,6 +36,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.*;
 
 public class TeamCalendar extends AbCalendar {
 
