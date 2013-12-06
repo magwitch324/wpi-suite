@@ -65,6 +65,7 @@ import javax.swing.ButtonGroup;
 import java.awt.FlowLayout;
 import javax.swing.SpinnerModel;
 import java.awt.GridLayout;
+import java.awt.Font;
 
 /**
  * @author sfp
@@ -77,7 +78,6 @@ public class CommitmentTab extends JPanel {
 	private JSpinner minuteSpinner;
 	private JSpinner AMPMSpinner;
 	private boolean isTeamComm;
-	SpinnerDateModelMinute spinnerModel = new SpinnerDateModelMinute();  
 	private JButton btnAddCommitment;
 	private JComboBox<Category> categoryComboBox;
 	private JTextArea descriptionTextArea;
@@ -325,10 +325,7 @@ public class CommitmentTab extends JPanel {
 		panel_1.add(rdbtnTeam);
 		
 		rdbtnTeam.setSelected(true);
-		
-		//Invalid Time label
-		final JLabel lblTimeError = new JLabel("Please enter a valid time.");
-		lblTimeError.setVisible(false);
+
 		
 		spinnerPanel = new JPanel();
 		GridBagConstraints gbc_spinnerPanel = new GridBagConstraints();
@@ -341,33 +338,29 @@ public class CommitmentTab extends JPanel {
 		
 		//Time spinner, half hour resolution
 		hourSpinner = new JSpinner( new SpinnerDateModelHour());
+		hourSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		spinnerPanel.add(hourSpinner);
 		hourEditor = new JSpinner.DateEditor(hourSpinner, "hh");
 		hourSpinner.setEditor(hourEditor);
 		
-		minuteSpinner = new JSpinner( new SpinnerDateModelMinute());
+		minuteSpinner = new JSpinner( new SpinnerDateModelHalfHour());
+		minuteSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		spinnerPanel.add(minuteSpinner);
 		minuteEditor = new JSpinner.DateEditor(minuteSpinner, "mm");
 		minuteSpinner.setEditor(minuteEditor);
 		
 		AMPMSpinner = new JSpinner(new SpinnerDateModelAMPM());
+		AMPMSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		spinnerPanel.add(AMPMSpinner);
 		AMPMEditor = new JSpinner.DateEditor(AMPMSpinner, "a");
 		AMPMSpinner.setEditor(AMPMEditor);
 		
+		//Rounds the spinner to 30 or 00
+		addTimeRoundingEvent();
+		
 		hourSpinner.setValue(new GregorianCalendar().getTime());
 		minuteSpinner.setValue(new GregorianCalendar().getTime());
 		AMPMSpinner.setValue(new GregorianCalendar().getTime());
-		
-		lblTimeError.setHorizontalAlignment(SwingConstants.LEFT);
-		GridBagConstraints gbc_lblTimeError = new GridBagConstraints();
-		gbc_lblTimeError.insets = new Insets(0, 0, 5, 0);
-		gbc_lblTimeError.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblTimeError.gridx = 1;
-		gbc_lblTimeError.gridy = 6;
-		gbc_lblTimeError.weightx = 1;
-		gbc_lblTimeError.weighty = 1;		
-		formPanel.add(lblTimeError, gbc_lblTimeError);
 		
 		//Time label
 		JLabel lblTime = new JLabel("Time:");
@@ -381,8 +374,7 @@ public class CommitmentTab extends JPanel {
 		gbc_lblTime.weightx = 1;
 		gbc_lblTime.weighty = 1;
 		formPanel.add(lblTime, gbc_lblTime);
-		//Rounds the spinner to 30 or 00
-		addTimeRoundingEvent();
+
 		
 		//Invalid Date label
 		final JLabel lblDateError = new JLabel("<html><font color='red'>Please enter a valid date (MM/DD/YYYY).</font></html>");
@@ -412,6 +404,7 @@ public class CommitmentTab extends JPanel {
 		
 		//DatePicker box
 		datePicker = new JXDatePicker();
+		datePicker.getEditor().setFont(new Font("Tahoma", Font.PLAIN, 13));
 		GridBagConstraints gbc_jdp = new GridBagConstraints();
 		gbc_jdp.insets = new Insets(0, 0, 5, 0);
 		gbc_jdp.fill = GridBagConstraints.HORIZONTAL;
@@ -997,6 +990,7 @@ public class CommitmentTab extends JPanel {
 				result = false;
 			}
 		}
+		
 		if(date == null) {
 			result = true;
 		}
