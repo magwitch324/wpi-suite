@@ -12,7 +12,6 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import java.awt.Image;
 import java.io.IOException;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -36,8 +35,6 @@ public class GUIEventController {
 	private TeamCalendar teamCalendar;
 	private MyCalendar myCalendar;
 	private CommitmentFullView commitFullView;
-	private List<CommitmentTab> listOfCommitmentTabs;
-
 	/**
 	 * Default constructor for ViewEventController.  Is protected to prevent instantiation.
 	 */

@@ -10,36 +10,23 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.Calendar;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
-import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 
 /** 
  * JPanel overlayed on the left side of the DetailedDay view, used to display commitments
  * @author 
  *
  */
+@SuppressWarnings("serial")
 public class CommitDetailedPane extends JPanel {
 	
 	List<Commitment> commits;
@@ -78,7 +65,6 @@ public class CommitDetailedPane extends JPanel {
 		HalfHourBlock[] halfBlocks = new HalfHourBlock[48];
 		this.removeAll();
 		
-		int x = (int)this.getSize().getWidth();
 		int y = (int)this.getSize().getHeight();
 		SpringLayout layout = (SpringLayout)this.getLayout();
 
