@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner.DateEditor;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -61,18 +62,22 @@ import java.awt.Color;
 
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import javax.swing.SpinnerModel;
 
 /**
  * @author sfp
  *
  */
 public class EventTab extends JPanel {
+	private GregorianCalendar startDate;
+	private GregorianCalendar startTime;
 	private JTextField nameTextField;
 	private GridBagConstraints gbc_nameTextField;
 	private JSpinner startTimeSpinner;
 	private JSpinner endTimeSpinner;
 	private boolean isTeamEvent;
-	SpinnerDateModelHalfHour spinnerModel = new SpinnerDateModelHalfHour();  
+	SpinnerDateModelHalfHour startSpinnerModel = new SpinnerDateModelHalfHour();  
+	SpinnerDateModelHalfHour endSpinnerModel = new SpinnerDateModelHalfHour();  
 	private JButton btnAddEvent;
 	private JComboBox<Category> categoryComboBox;
 	private JTextArea descriptionTextArea;
@@ -80,7 +85,7 @@ public class EventTab extends JPanel {
 	private JXDatePicker endDatePicker;
 	private JScrollPane descPane;
 	private JPanel panel;
-	private JSpinner.DateEditor timeEditor;
+	private JSpinner.DateEditor endTimeEditor;
 	private JPanel panel_1;
 	private JRadioButton rdbtnPersonal;
 	private JRadioButton rdbtnTeam;
@@ -97,6 +102,7 @@ public class EventTab extends JPanel {
 	private JPanel buttonPanel;
 	private JPanel formPanel;
 	private boolean initFlag; //to keep things from running before we fully intialize
+	private JSpinner.DateEditor startTimeEditor;
 	
 	
 	
@@ -114,7 +120,6 @@ public class EventTab extends JPanel {
 	private enum EditingMode {
 		ADDING(0),
 		EDITING(1);
-		
 		private int currentMode;
 		
 		private EditingMode(int currentMode) {
@@ -139,20 +144,30 @@ public class EventTab extends JPanel {
 		spacePanel2.setMinimumSize(formPanel.getSize());
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.weightx = 1;
+		constraints.gridx = 0;
 		constraints.weighty = 1;
 		constraints.fill = GridBagConstraints.BOTH;
 		add(spacePanel1, constraints);
+		constraints = new GridBagConstraints();
+		constraints.weightx = 1;
+		constraints.gridx = 1;
+		constraints.weighty = 1;
+		constraints.fill = GridBagConstraints.BOTH;
 		add(formPanel, constraints);
+		constraints = new GridBagConstraints();
+		constraints.weightx = 1;
+		constraints.gridx = 2;
+		constraints.weighty = 1;
+		constraints.fill = GridBagConstraints.BOTH;
 		add(spacePanel2, constraints);
 		
 		// form uses GridBagLayout w/ two columns
 		GridBagLayout gbl = new GridBagLayout();
 		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-		gbl.columnWeights = new double[]{0.0, 1.0};
+		gbl.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0};
 		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl.columnWidths = new int[] {0, 0};
+		gbl.columnWidths = new int[] {0, 0, 0, 0};
 		formPanel.setLayout(gbl);
-		
 		
 		//Name label
 		JLabel lblName = new JLabel("Name:");
@@ -170,12 +185,14 @@ public class EventTab extends JPanel {
 		//Name text field
 		nameTextField = new JTextField();
 		gbc_nameTextField = new GridBagConstraints();
+		gbc_nameTextField.gridwidth = 3;
 		gbc_nameTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_nameTextField.fill = GridBagConstraints.HORIZONTAL;
         gbc_nameTextField.weightx = 10;
         gbc_nameTextField.weighty = 1;
         gbc_nameTextField.gridx = 1;
         gbc_nameTextField.gridy = 0;
+        gbc.gridwidth = 3;
 		formPanel.add(nameTextField, gbc_nameTextField);
 		
 		nameTextField.addKeyListener(new KeyListener() {
@@ -224,12 +241,14 @@ public class EventTab extends JPanel {
 //		descPane.setViewportView(descriptionTextArea);
 		descriptionTextArea.setLineWrap(true);
 		GridBagConstraints gbc_descriptionTextField = new GridBagConstraints();
+		gbc_descriptionTextField.gridwidth = 3;
 		gbc_descriptionTextField.fill = GridBagConstraints.BOTH;
 		gbc_descriptionTextField.insets = new Insets(0, 0, 5, 0);
         gbc_descriptionTextField.weightx = 10;
         gbc_descriptionTextField.weighty = 5;
         gbc_descriptionTextField.gridx = 1;
         gbc_descriptionTextField.gridy = 1;
+        gbc.gridwidth = 3;
 		formPanel.add(descriptionTextArea, gbc_descriptionTextField);
 		
 		descriptionTextArea.addKeyListener(new KeyListener() {
@@ -273,12 +292,14 @@ public class EventTab extends JPanel {
 		categoryComboBox.addItem(new Category(5, "Cat2"));
 
 		GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
+		gbc_categoryComboBox.gridwidth = 3;
 		gbc_categoryComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_categoryComboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_categoryComboBox.gridx = 1;
 		gbc_categoryComboBox.gridy = 2;
 		gbc_categoryComboBox.weightx = 10;
 		gbc_categoryComboBox.weighty = 1;
+        gbc.gridwidth = 3;
 		formPanel.add(categoryComboBox, gbc_categoryComboBox);
 		
 		categoryComboBox.addActionListener(new ActionListener(){
@@ -301,6 +322,7 @@ public class EventTab extends JPanel {
 		
 		panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.gridwidth = 3;
 		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 1;
@@ -317,84 +339,84 @@ public class EventTab extends JPanel {
 		
 		rdbtnTeam.setSelected(true);
 		
-		//Invalid Time label
-		final JLabel lblTimeError = new JLabel("Please enter a valid time.");
-		lblTimeError.setVisible(false);
-		lblTimeError.setHorizontalAlignment(SwingConstants.LEFT);
-		GridBagConstraints gbc_lblTimeError = new GridBagConstraints();
-		gbc_lblTimeError.insets = new Insets(0, 0, 5, 0);
-		gbc_lblTimeError.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblTimeError.gridx = 1;
-		gbc_lblTimeError.gridy = 5;
-		gbc_lblTimeError.weightx = 1;
-		gbc_lblTimeError.weighty = 1;		
-		formPanel.add(lblTimeError, gbc_lblTimeError);
-		
-		//Time label
-		JLabel lblTime = new JLabel("Time:");
-		lblTime.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblTime = new GridBagConstraints();
-		gbc_lblTime.anchor = GridBagConstraints.EAST;
-		gbc_lblTime.fill = GridBagConstraints.VERTICAL;
-		gbc_lblTime.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTime.gridx = 0;
-		gbc_lblTime.gridy = 4;
-		gbc_lblTime.weightx = 1;
-		gbc_lblTime.weighty = 1;
-		formPanel.add(lblTime, gbc_lblTime);
-		
-		//Time spinner, half hour resolution
-		startTimeSpinner = new JSpinner( new SpinnerDateModelHalfHour());
-	    startTimeSpinner.setModel(spinnerModel);
-		timeEditor = new JSpinner.DateEditor(startTimeSpinner, "hh:mm a");
-		startTimeSpinner.setEditor(timeEditor);
-		//Rounds the spinner to 30 or 00
-		addTimeRoundingEvent();
-		GridBagConstraints gbc_spinner = new GridBagConstraints();
-		gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
-		gbc_spinner.insets = new Insets(0, 0, 5, 0);
-		gbc_spinner.gridx = 1;
-		gbc_spinner.gridy = 4;
-		gbc_spinner.weightx = 1;
-		gbc_spinner.weighty = 3;
-		formPanel.add(startTimeSpinner, gbc_spinner);
-		
-
-		startTimeSpinner.setValue(new GregorianCalendar().getTime());
-		
-		//Invalid Date label
-		final JLabel lblDateError = new JLabel("<html><font color='red'>Please enter a valid date (MM/DD/YYYY).</font></html>");
-		lblDateError.setVisible(false);
-		lblDateError.setHorizontalAlignment(SwingConstants.LEFT);
-		GridBagConstraints gbc_lblDateError = new GridBagConstraints();
-		gbc_lblDateError.insets = new Insets(0, 0, 5, 0);
-		gbc_lblDateError.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblDateError.gridx = 1;
-		gbc_lblDateError.gridy = 7;
-		gbc_lblDateError.weightx = 1;
-		gbc_lblDateError.weighty = 1;		
-		formPanel.add(lblDateError, gbc_lblDateError);
-		
 		//Date label
-		JLabel lblDate_1 = new JLabel("Date:");
+		JLabel lblDate_1 = new JLabel("Start Date:");
 		lblDate_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblDate_1 = new GridBagConstraints();
 		gbc_lblDate_1.fill = GridBagConstraints.VERTICAL;
 		gbc_lblDate_1.anchor = GridBagConstraints.EAST;
 		gbc_lblDate_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDate_1.gridx = 0;
-		gbc_lblDate_1.gridy = 6;
+		gbc_lblDate_1.gridy = 4;
 		gbc_lblDate_1.weightx = 1;
 		gbc_lblDate_1.weighty = 1;
 		formPanel.add(lblDate_1, gbc_lblDate_1);
 		
+		//Time label
+		JLabel lblTime = new JLabel("Start Time:");
+		lblTime.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblTime = new GridBagConstraints();
+		gbc_lblTime.anchor = GridBagConstraints.EAST;
+		gbc_lblTime.fill = GridBagConstraints.VERTICAL;
+		gbc_lblTime.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTime.gridx = 2;
+		gbc_lblTime.gridy = 4;
+		gbc_lblTime.weighty = 1;
+		formPanel.add(lblTime, gbc_lblTime);
+		
+		//Time spinner, half hour resolution
+		startTimeSpinner = new JSpinner( new SpinnerDateModelHalfHour());
+		startTimeSpinner.setModel(startSpinnerModel);
+		startTimeEditor = new JSpinner.DateEditor(startTimeSpinner, "hh:mm a");
+		startTimeSpinner.setEditor(startTimeEditor);
+		GridBagConstraints gbc_spinner = new GridBagConstraints();
+		gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
+		gbc_spinner.insets = new Insets(0, 0, 5, 0);
+		gbc_spinner.gridx = 3;
+		gbc_spinner.gridy = 4;
+		gbc_spinner.weightx = 1;
+		gbc_spinner.weighty = 3;
+		formPanel.add(startTimeSpinner, gbc_spinner);
+		
+		
+	
+		
+		//Invalid Time label
+		final JLabel lblTimeError = new JLabel("Please enter a valid time.");
+		lblTimeError.setVisible(false);
+		
+		//Invalid Date label
+		final JLabel lblDateError = new JLabel("<html><font color='red'>Please enter a valid date (MM/DD/YYYY).</font></html>");
+		lblDateError.setVisible(false);
+		lblDateError.setHorizontalAlignment(SwingConstants.LEFT);
+		GridBagConstraints gbc_lblDateError = new GridBagConstraints();
+		gbc_lblDateError.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDateError.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblDateError.gridx = 1;
+		gbc_lblDateError.gridy = 5;
+		gbc_lblDateError.weightx = 1;
+		gbc_lblDateError.weighty = 1;		
+		formPanel.add(lblDateError, gbc_lblDateError);
+		lblTimeError.setHorizontalAlignment(SwingConstants.LEFT);
+		GridBagConstraints gbc_lblTimeError = new GridBagConstraints();
+		gbc_lblTimeError.insets = new Insets(0, 0, 5, 0);
+		gbc_lblTimeError.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblTimeError.gridx = 3;
+		gbc_lblTimeError.gridy = 5;
+		gbc_lblTimeError.weightx = 1;
+		gbc_lblTimeError.weighty = 1;		
+		formPanel.add(lblTimeError, gbc_lblTimeError);
+		
+		
+		
+		
 		//DatePicker box
 		startDatePicker = new JXDatePicker();
 		GridBagConstraints gbc_jdp = new GridBagConstraints();
-		gbc_jdp.insets = new Insets(0, 0, 5, 0);
+		gbc_jdp.insets = new Insets(0, 0, 5, 5);
 		gbc_jdp.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jdp.gridx = 1;
-		gbc_jdp.gridy = 6;
+		gbc_jdp.gridy = 4;
 		gbc_jdp.weightx = 1;
 		gbc_jdp.weighty = 3;
 		formPanel.add(startDatePicker, gbc_jdp);
@@ -406,126 +428,380 @@ public class EventTab extends JPanel {
 		SimpleDateFormat format3 = new SimpleDateFormat( "MM.dd.yyyy" );
 		SimpleDateFormat format4 = new SimpleDateFormat( "MM.dd.yyyy EEE" );
 		startDatePicker.setFormats(new DateFormat[] {format1, format2, format3, format4});
-		startDatePicker.addKeyListener(new KeyListener() {
-
+		startDatePicker.addPropertyChangeListener(new PropertyChangeListener(){
 			@Override
-			public void keyTyped(KeyEvent e) {
-				
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				listenerHelper();
-			}
-			
-			
-			
-			
-		});
-		
-		startDatePicker.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				startDatePicker.getEditor().setBackground(Color.WHITE);
-				inputDate = startDatePicker.getEditor().getText().trim();
-			}
-			
-		});
-		
-		startDatePicker.getEditor().addFocusListener(new FocusListener() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				if(badDate) {
-					startDatePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
-					startDatePicker.getEditor().selectAll();
-					lblDateError.setVisible(true);
-					badDate = false;
-				}
-				/*
-				else if(badDate){
-					datePicker.getEditor().setText("The date is not valid");
-					datePicker.getEditor().setBackground(Color.red);
-					badDate = false;
-				}
-				*/
-				else{
-					//try {
-						SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy EEE"); 
-						startDatePicker.getEditor().setBackground(Color.WHITE);
-						startDatePicker.getEditor().setText(dt.format(startDatePicker.getDate()));
-						startDatePicker.getEditor().selectAll();
-						listenerHelper();
-					//}catch(NullPointerException ne) {
-					//	datePicker.getEditor().setText("The date is not valid");
-					//	datePicker.getEditor().setBackground(Color.red);
-					//}
-				}
-			}
-
-			@Override
-			public void focusLost(FocusEvent e) {
-				if(isBadInputDate()){
-					badDate = true;
-					startDatePicker.requestFocus();
-				}
-				/*
-				else{
-					Date date = null;
-					for(DateFormat formatter : datePicker.getFormats()) {
-						try {
-							date = formatter.parse(inputDate);
-						} catch (ParseException e1) {
-
-						}
-					}
-					if(date.compareTo(new Date()) < 0) {
-						badDate = true;
-						datePicker.requestFocus();
-					}
-				}
-				*/
-				else{
-					startDatePicker.getEditor().setBackground(Color.WHITE);
-					lblDateError.setVisible(false);
-				}
-				listenerHelper();
-			}
-		});
-		startDatePicker.addFocusListener(new FocusListener() {
-
-			@Override
-			public void focusGained(FocusEvent e) {
-				startDatePicker.getEditor().setBackground(Color.WHITE);
-				listenerHelper();
-			}
-
-			@Override
-			public void focusLost(FocusEvent e) {
-				startDatePicker.getEditor().setBackground(Color.WHITE);
+			public void propertyChange(PropertyChangeEvent evt) {
 				listenerHelper();
 				
-			}
+				long diffDate = startDatePicker.getDate().getTime() - startDate.getTime().getTime();
+				endDatePicker.setDate(new Date(endDatePicker.getDate().getTime() + diffDate));
+				startDate.setTime(startDatePicker.getDate());
+			}}
+		);
+		
+//		startDatePicker.getEditor().addKeyListener(new KeyListener(){
+//
+//			@Override
+//			public void keyTyped(KeyEvent e) {
+//			}
+//
+//			@Override
+//			public void keyPressed(KeyEvent e) {
+//				startDatePicker.getEditor().setBackground(Color.WHITE);
+//				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+//					checkBadDate();
+//				}
+//			}
+//
+//			@Override
+//			public void keyReleased(KeyEvent e) {
+//				inputDate = startDatePicker.getEditor().getText().trim();
+//				listenerHelper();
+//				
+//				// This next line checks for a blank date field, DO NOT REMOVE
+//				if(nameTextField.getText().equals("") || startDatePicker.getEditor().getText().equals("")
+//                        || nameTextField.getText().trim().length() == 0){
+//                btnAddEvent.setEnabled(false);
+//				}
+//
+//				//boolean orignValue = initFlag;
+//				//initFlag = true;
+//				//listenerHelper();
+//				//initFlag = orignValue;
+//			}
+//
+//		});
+//		
+//		startDatePicker.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				startDatePicker.getEditor().setBackground(Color.WHITE);
+//				inputDate = startDatePicker.getEditor().getText().trim();
+//			}
+//			
+//		});
+//		
+//		startDatePicker.getEditor().addFocusListener(new FocusListener() {
+//			@Override
+//			public void focusGained(FocusEvent e) {
+//				if(badDate) {
+//					startDatePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
+//					startDatePicker.getEditor().selectAll();
+//					lblDateError.setVisible(true);
+//					badDate = false;
+//				}
+//				/*
+//				else if(badDate){
+//					datePicker.getEditor().setText("The date is not valid");
+//					datePicker.getEditor().setBackground(Color.red);
+//					badDate = false;
+//				}
+//				*/
+//				else{
+//					//try {
+//						SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy EEE"); 
+//						startDatePicker.getEditor().setBackground(Color.WHITE);
+//						startDatePicker.getEditor().setText(dt.format(startDatePicker.getDate()));
+//						startDatePicker.getEditor().selectAll();
+//						listenerHelper();
+//					//}catch(NullPointerException ne) {
+//					//	datePicker.getEditor().setText("The date is not valid");
+//					//	datePicker.getEditor().setBackground(Color.red);
+//					//}
+//				}
+//			}
+//
+//			@Override
+//			public void focusLost(FocusEvent e) {
+//				if(isBadInputDate()){
+//					badDate = true;
+//					startDatePicker.requestFocus();
+//				}
+//				/*
+//				else{
+//					Date date = null;
+//					for(DateFormat formatter : datePicker.getFormats()) {
+//						try {
+//							date = formatter.parse(inputDate);
+//						} catch (ParseException e1) {
+//
+//						}
+//					}
+//					if(date.compareTo(new Date()) < 0) {
+//						badDate = true;
+//						datePicker.requestFocus();
+//					}
+//				}
+//				*/
+//				else{
+//					startDatePicker.getEditor().setBackground(Color.WHITE);
+//					lblDateError.setVisible(false);
+//				}
+//				listenerHelper();
+//			}
+//		});
+//		startDatePicker.addFocusListener(new FocusListener() {
+//
+//			@Override
+//			public void focusGained(FocusEvent e) {
+//				startDatePicker.getEditor().setBackground(Color.WHITE);
+//				listenerHelper();
+//			}
+//
+//			@Override
+//			public void focusLost(FocusEvent e) {
+//				startDatePicker.getEditor().setBackground(Color.WHITE);
+//				listenerHelper();
+//				
+//			}
+//
+//			
+//			
+//			
+//			
+//		});
+//		
 
-			
-			
-			
-			
-		});
+		
 		
 
 		
+		//End Date/Time Forms
+		
+		//Date label
+		JLabel lblDate_2 = new JLabel("End Date:");
+		lblDate_2.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblDate_2 = new GridBagConstraints();
+		gbc_lblDate_2.fill = GridBagConstraints.VERTICAL;
+		gbc_lblDate_2.anchor = GridBagConstraints.EAST;
+		gbc_lblDate_2.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDate_2.gridx = 0;
+		gbc_lblDate_2.gridy = 6;
+		gbc_lblDate_2.weightx = 1;
+		gbc_lblDate_2.weighty = 1;
+		formPanel.add(lblDate_2, gbc_lblDate_2);
+		
+		//Time2 label
+		JLabel lblTime2 = new JLabel("End Time:");
+		lblTime2.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblTime2 = new GridBagConstraints();
+		gbc_lblTime2.anchor = GridBagConstraints.EAST;
+		gbc_lblTime2.fill = GridBagConstraints.VERTICAL;
+		gbc_lblTime2.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTime2.gridx = 2;
+		gbc_lblTime2.gridy = 6;
+		gbc_lblTime2.weighty = 1;
+		formPanel.add(lblTime2, gbc_lblTime2);
+		
+		//Time spinner, half hour resolution
+		endTimeSpinner = new JSpinner( new SpinnerDateModelHalfHour());
+		endTimeSpinner.setModel(endSpinnerModel);
+		endTimeEditor = new JSpinner.DateEditor(endTimeSpinner, "hh:mm a");
+		endTimeSpinner.setEditor(endTimeEditor);
+		GridBagConstraints gbc_spinner2 = new GridBagConstraints();
+		gbc_spinner2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_spinner2.insets = new Insets(0, 0, 5, 0);
+		gbc_spinner2.gridx = 3;
+		gbc_spinner2.gridy = 6;
+		gbc_spinner2.weightx = 1.0;
+		gbc_spinner2.weighty = 3;
+		formPanel.add(endTimeSpinner, gbc_spinner2);
+		
+		//adds handler to set both start and end spinners to nearest 30 or 00
+		addTimeRoundingEvent();
+		startTime = new GregorianCalendar();
+		//Sets time value of end and start spinners
+		endTimeSpinner.setValue(startTime.getTime());
+		startTimeSpinner.setValue(startTime.getTime());
+		
+		
+		
+		//Invalid Time label
+		final JLabel lblTimeError2 = new JLabel("Please enter a valid time.");
+		lblTimeError2.setVisible(false);
+		
+		//Invalid Date label
+		final JLabel lblDateError2 = new JLabel("<html><font color='red'>Please enter a valid date (MM/DD/YYYY).</font></html>");
+		lblDateError2.setVisible(false);
+		lblDateError2.setHorizontalAlignment(SwingConstants.LEFT);
+		GridBagConstraints gbc_lblDateError2 = new GridBagConstraints();
+		gbc_lblDateError2.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDateError2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblDateError2.gridx = 1;
+		gbc_lblDateError2.gridy = 7;
+		gbc_lblDateError2.weightx = 1;
+		gbc_lblDateError2.weighty = 1;		
+		formPanel.add(lblDateError2, gbc_lblDateError2);
+		lblTimeError2.setHorizontalAlignment(SwingConstants.LEFT);
+		GridBagConstraints gbc_lblTimeError2 = new GridBagConstraints();
+		gbc_lblTimeError2.insets = new Insets(0, 0, 5, 0);
+		gbc_lblTimeError2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblTimeError2.gridx = 3;
+		gbc_lblTimeError2.gridy = 7;
+		gbc_lblTimeError2.weightx = 1;
+		gbc_lblTimeError2.weighty = 1;		
+		formPanel.add(lblTimeError2, gbc_lblTimeError2);
+		
+		
+		
+		
+		//DatePicker box
+		endDatePicker = new JXDatePicker();
+		GridBagConstraints gbc_jdp2 = new GridBagConstraints();
+		gbc_jdp2.insets = new Insets(0, 0, 5, 5);
+		gbc_jdp2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_jdp2.gridx = 1;
+		gbc_jdp2.gridy = 6;
+		gbc_jdp2.weightx = 1;
+		gbc_jdp2.weighty = 3;
+		formPanel.add(endDatePicker, gbc_jdp2);
+		//Calendar calendar = datePicker.getMonthView().getCalendar();
+		//calendar.setTime(new Date());
+		//datePicker.getMonthView().setLowerBound(calendar.getTime());
+		endDatePicker.setFormats(new DateFormat[] {format1, format2, format3, format4});
+		
+		endDatePicker.addPropertyChangeListener(new PropertyChangeListener(){
+
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				listenerHelper();
+			}}
+				);
+		
+//		endDatePicker.getEditor().addKeyListener(new KeyListener(){
+//
+//			@Override
+//			public void keyTyped(KeyEvent e) {
+//			}
+//
+//			@Override
+//			public void keyPressed(KeyEvent e) {
+//				endDatePicker.getEditor().setBackground(Color.WHITE);
+//				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+//					checkBadDate();
+//				}
+//			}
+//
+//			@Override
+//			public void keyReleased(KeyEvent e) {
+//				inputDate = endDatePicker.getEditor().getText().trim();
+//				listenerHelper();
+//				
+//				// This next line checks for a blank date field, DO NOT REMOVE
+//				if(nameTextField.getText().equals("") || endDatePicker.getEditor().getText().equals("")
+//                        || nameTextField.getText().trim().length() == 0){
+//                btnAddEvent.setEnabled(false);
+//				}
+//
+//				//boolean orignValue = initFlag;
+//				//initFlag = true;
+//				//listenerHelper();
+//				//initFlag = orignValue;
+//			}
+//
+//		});
+//		endDatePicker.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				endDatePicker.getEditor().setBackground(Color.WHITE);
+//				inputDate = endDatePicker.getEditor().getText().trim();
+//			}
+//			
+//		});
+//		
+//		endDatePicker.getEditor().addFocusListener(new FocusListener() {
+//			@Override
+//			public void focusGained(FocusEvent e) {
+//				if(badDate) {
+//					endDatePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
+//					endDatePicker.getEditor().selectAll();
+//					lblDateError.setVisible(true);
+//					badDate = false;
+//				}
+//				/*
+//				else if(badDate){
+//					datePicker.getEditor().setText("The date is not valid");
+//					datePicker.getEditor().setBackground(Color.red);
+//					badDate = false;
+//				}
+//				*/
+//				else{
+//					//try {
+//						SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy EEE"); 
+//						endDatePicker.getEditor().setBackground(Color.WHITE);
+//						endDatePicker.getEditor().setText(dt.format(endDatePicker.getDate()));
+//						endDatePicker.getEditor().selectAll();
+//						listenerHelper();
+//					//}catch(NullPointerException ne) {
+//					//	datePicker.getEditor().setText("The date is not valid");
+//					//	datePicker.getEditor().setBackground(Color.red);
+//					//}
+//				}
+//			}
+//
+//			@Override
+//			public void focusLost(FocusEvent e) {
+//				if(isBadInputDate()){
+//					badDate = true;
+//					endDatePicker.requestFocus();
+//				}
+//				/*
+//				else{
+//					Date date = null;
+//					for(DateFormat formatter : datePicker.getFormats()) {
+//						try {
+//							date = formatter.parse(inputDate);
+//						} catch (ParseException e1) {
+//
+//						}
+//					}
+//					if(date.compareTo(new Date()) < 0) {
+//						badDate = true;
+//						datePicker.requestFocus();
+//					}
+//				}
+//				*/
+//				else{
+//					endDatePicker.getEditor().setBackground(Color.WHITE);
+//					lblDateError.setVisible(false);
+//				}
+//				listenerHelper();
+//			}
+//		});
+//		endDatePicker.addFocusListener(new FocusListener() {
+//
+//			@Override
+//			public void focusGained(FocusEvent e) {
+//				endDatePicker.getEditor().setBackground(Color.WHITE);
+//				listenerHelper();
+//			}
+//
+//			@Override
+//			public void focusLost(FocusEvent e) {
+//				endDatePicker.getEditor().setBackground(Color.WHITE);
+//				listenerHelper();
+//				
+//			}
+//
+//			
+//			
+//			
+//			
+//		});
+		
+
 		GregorianCalendar c = new GregorianCalendar();
 	    c.set(Calendar.HOUR_OF_DAY, 0);
 	    c.set(Calendar.MINUTE, 0);
 	    c.set(Calendar.SECOND, 0);
+		endDatePicker.setDate(c.getTime());
+	    startDate = c;
 		startDatePicker.setDate(c.getTime());
+		
+		
+		
 		
 		
 		buttonPanel = new JPanel(new BorderLayout(30,0));
@@ -550,52 +826,15 @@ public class EventTab extends JPanel {
 			
 		});
 		
-		startDatePicker.addPropertyChangeListener(new PropertyChangeListener(){
-
-			@Override
-			public void propertyChange(PropertyChangeEvent evt) {
-				listenerHelper();
-			}}
-				);
 		
-		startDatePicker.getEditor().addKeyListener(new KeyListener(){
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				startDatePicker.getEditor().setBackground(Color.WHITE);
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					checkBadDate();
-				}
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				inputDate = startDatePicker.getEditor().getText().trim();
-				listenerHelper();
-				
-				// This next line checks for a blank date field, DO NOT REMOVE
-				if(nameTextField.getText().equals("") || startDatePicker.getEditor().getText().equals("")
-                        || nameTextField.getText().trim().length() == 0){
-                btnAddEvent.setEnabled(false);
-				}
-
-				//boolean orignValue = initFlag;
-				//initFlag = true;
-				//listenerHelper();
-				//initFlag = orignValue;
-			}
-
-		});
 		
 		btnAddEvent.setEnabled(false);
 		
 		
 		
 		GridBagConstraints gbc_btnPanel = new GridBagConstraints();
+		gbc_btnPanel.gridwidth = 3;
+		gbc_btnPanel.insets = new Insets(0, 0, 0, 5);
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
 		gbc_btnPanel.gridx = 1;
 		gbc_btnPanel.gridy = 9;
@@ -619,7 +858,7 @@ public class EventTab extends JPanel {
 				removeTab();
 			}
 			
-		});		
+		});
 		
 		buttonPanel.add(btnAddEvent, BorderLayout.WEST);
 		buttonPanel.add(btnCancel, BorderLayout.CENTER);
@@ -762,7 +1001,44 @@ public class EventTab extends JPanel {
 					c.set(Calendar.MINUTE, newMinutesVal);
 					c.set(Calendar.HOUR, newHourVal);
 					//set spinner time value
-					spinnerModel.setValue(c.getTime());
+					startSpinnerModel.setValue(c.getTime());
+					
+				}
+				
+				//increment end time appropriately to keep same event duration
+				long timeDiff = c.getTime().getTime() - startTime.getTime().getTime();
+				startTime.setTime(c.getTime());
+				c.setTime((Date)endTimeSpinner.getValue());
+				c.setTime(new Date(c.getTime().getTime() + timeDiff));
+				endTimeSpinner.setValue(c.getTime());
+			}
+		});
+		endTimeSpinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				GregorianCalendar c = new GregorianCalendar();
+				//get time value from spinner
+				c.setTime((Date)endTimeSpinner.getValue());
+				int minutesVal = c.get(Calendar.MINUTE);
+				int hourVal = c.get(Calendar.HOUR);
+				int newMinutesVal;
+				int newHourVal = hourVal;
+				
+				//round value if not 0 or 30 mins
+				if(minutesVal != 0 && minutesVal != 30)
+				{	
+					if (minutesVal < 15)
+						newMinutesVal = 0;
+					else if (minutesVal > 15 && minutesVal < 45)
+						newMinutesVal = 30;
+					else
+					{
+						newMinutesVal = 0;
+						newHourVal += 1;
+					}
+					c.set(Calendar.MINUTE, newMinutesVal);
+					c.set(Calendar.HOUR, newHourVal);
+					//set spinner time value
+					endSpinnerModel.setValue(c.getTime());
 					
 				}
 			}
@@ -861,22 +1137,31 @@ public class EventTab extends JPanel {
 		
 		if (initFlag){
 			if(nameTextField.getText().equals("") || startDatePicker.getDate() == null || //data validation
-					nameTextField.getText().trim().length() == 0){
+					endDatePicker.getDate() == null || nameTextField.getText().trim().length() == 0){
 				btnAddEvent.setEnabled(false);
 			} else {
 				if (mode == EditingMode.EDITING){
 					//get some date data
-					Calendar calDate = new GregorianCalendar();
+					Calendar calStartDate = new GregorianCalendar();
+					Calendar calEndDate = new GregorianCalendar();
 					Calendar calTime = new GregorianCalendar();
-					calDate.setTime(this.startDatePicker.getDate());
+					calStartDate.setTime(this.startDatePicker.getDate());
 					calTime.setTime((Date)startTimeSpinner.getValue());
-					calDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
-					calDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
+					calStartDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
+					calStartDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
+					
+					calEndDate.setTime(this.endDatePicker.getDate());
+					calTime.setTime((Date)endTimeSpinner.getValue());
+					calEndDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
+					calEndDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
+					
 					//make sure something changed
 					if (this.nameTextField.getText().equals(editingEvent.getName()) 
 							&& this.descriptionTextArea.getText().equals(editingEvent.getDescription())){
 							//&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingEvent.getCategoryId()
-							//&& calDate.getTime().equals(editingEvent.getStartDate().getTime()))
+							//&& calStartDate.getTime().equals(editingEvent.getStartDate().getTime())
+							//&& calEndDate.getTime().equals(editingEvent.getEndDate().getTime()))
+
 							
 						btnAddEvent.setEnabled(false);
 						return;
