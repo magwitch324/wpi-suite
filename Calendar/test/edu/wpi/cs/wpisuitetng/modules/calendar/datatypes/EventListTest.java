@@ -43,24 +43,24 @@ public class EventListTest {
 	private final static String[] people2 = new String[]{"John", "Mary", "Jack", "Lucy"};
 	private final static String[] people3 = new String[]{"Jack", "Lucy"};
 	
-	Event lastYear = new Event(1, "Last Year", "A Event from last year", _20120130, _20120520, people1 , 1);
-	Event lastMonth = new Event(2, "Last Month","A Event from last month", _20131111, _20131130, people2, 1);
-	Event lastWeek = new Event(3, "Last Week", "A Event for a week ago",_20131126, _20131130, people1, 2);
-	Event todayEvent = new Event(4, "Today","A Event from today",today, today, people3, 2);
-	Event nextWeek = new Event(5, "Next Week","A Event for next week", _20131209, _20131214, people1, 3);
-	Event nextMonth = new Event(6, "Next Month","A Event for next month", _20140101, _20140110, people3, 2);
-	Event nnextYear = new Event(7, "Next Next Year", "A Event for the year after next year", _20150130, _20150320 , people1, 3);
+	Event lastYear = new Event("Last Year", "A Event from last year", _20120130, _20120520, people1 , 1);
+	Event lastMonth = new Event("Last Month","A Event from last month", _20131111, _20131130, people2, 1);
+	Event lastWeek = new Event("Last Week", "A Event for a week ago",_20131126, _20131130, people1, 2);
+	Event todayEvent = new Event("Today","A Event from today",today, today, people3, 2);
+	Event nextWeek = new Event("Next Week","A Event for next week", _20131209, _20131214, people1, 3);
+	Event nextMonth = new Event("Next Month","A Event for next month", _20140101, _20140110, people3, 2);
+	Event nnextYear = new Event("Next Next Year", "A Event for the year after next year", _20150130, _20150320 , people1, 3);
 	@Before
 	public void setup() {
 		Events = new EventList();
 		eventList1 = new EventList();
-		Events.addEvent(new Event(1, "Last Year", "A Event from last year", _20120130, _20120520, people1 , 1));
-		Events.addEvent(new Event(2, "Last Month","A Event from last month", _20131111, _20131130, people2, 1));
-		Events.addEvent(new Event(3, "Last Week", "A Event for a week ago",_20131126, _20131130, people1, 2));
-		Events.addEvent(new Event(4, "Today","A Event from today",today, today, people3, 2));
-		Events.addEvent(new Event(5, "Next Week","A Event for next week", _20131209, _20131214, people1, 3));
-		Events.addEvent(new Event(6, "Next Month","A Event for next month", _20140101, _20140110, people3, 2));
-		Events.addEvent(new Event(7, "Next Next Year", "A Event for the year after next year", _20150130, _20150320 , people1, 3));
+		Events.addEvent(new Event("Last Year", "A Event from last year", _20120130, _20120520, people1 , 1));
+		Events.addEvent(new Event("Last Month","A Event from last month", _20131111, _20131130, people2, 1));
+		Events.addEvent(new Event("Last Week", "A Event for a week ago",_20131126, _20131130, people1, 2));
+		Events.addEvent(new Event("Today","A Event from today",today, today, people3, 2));
+		Events.addEvent(new Event("Next Week","A Event for next week", _20131209, _20131214, people1, 3));
+		Events.addEvent(new Event("Next Month","A Event for next month", _20140101, _20140110, people3, 2));
+		Events.addEvent(new Event("Next Next Year", "A Event for the year after next year", _20150130, _20150320 , people1, 3));
 		
 		printlist(Events.getEvents());
 		
