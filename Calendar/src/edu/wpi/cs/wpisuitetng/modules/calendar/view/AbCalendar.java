@@ -368,7 +368,9 @@ public abstract class AbCalendar extends JPanel {
 		viewpanel.add(calView);			
 		break;
 		case(3):
-			//TODO YearView
+			calView = (new YearView(mycal));
+			displayCalData();
+			viewpanel.add(calView);		
 			break;
 		default:
 			//TODO error

@@ -205,6 +205,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		JPanel small = null, big= null;
 		JScrollPane scroll = null;
 		boolean enabled;
+		GregorianCalendar acal = null;
 		/**
 		 * 
 		 * @param acal
@@ -212,12 +213,13 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		 */
 		public MonthDayPane(GregorianCalendar acal, int month){
 			super();
+			this.acal = acal;
 			SpringLayout layout = new SpringLayout();
 			this.setLayout(layout);
 			this.setPreferredSize(new Dimension(50, 20));
 			this.setBackground(CalendarStandard.CalendarYellow);
 			this.setBorder(BorderFactory.createEmptyBorder());
-			
+			this.addMouseListener(new wholecheck());
 			scroll = new JScrollPane();
 			small = new JPanel();
 			big = new JPanel();
@@ -244,6 +246,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				layout.putConstraint(SpringLayout.EAST, scroll, 0, SpringLayout.EAST, this);
 				scroll.setPreferredSize(new Dimension(10,10));
 				scroll.setBorder(BorderFactory.createEmptyBorder());
+				scroll.addMouseListener(new scrollcheck());
 				this.add(scroll);
 				
 				small.setLayout(new SpringLayout());
@@ -255,7 +258,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				
 				this.goSmall();
 				
-				scroll.addComponentListener(new ComponentAdapter() {
+				scroll.getViewport().addComponentListener(new ComponentAdapter() {
 					public void componentResized(ComponentEvent e) {
 						didResize();
 					}
@@ -395,7 +398,6 @@ public class MonthPane extends JScrollPane implements ICalPane {
 						}
 						layout.putConstraint(SpringLayout.WEST, curlab, 1, SpringLayout.WEST, small);
 						
-						layout.putConstraint(SpringLayout.EAST, curlab, 0, SpringLayout.EAST, small);
 						if (curlab.getPreferredSize().getWidth() > boxwidth) {
 							layout.putConstraint(SpringLayout.EAST, curlab, 0, SpringLayout.EAST, small);
 						}
@@ -489,7 +491,55 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				this.event = event;
 			}
 			
+			public void edit(){
+				if(comm != null){
+					GUIEventController.getInstance().editCommitment(comm);
+				}
+				else{
+					//GUIEventController.getInstance().editEvent(event);
+				}
+			}
 			
+		}
+	
+		protected class wholecheck extends MouseAdapter{
+			public void mouseClicked(MouseEvent e){
+				if(e.getClickCount() > 1){
+					GUIEventController.getInstance().switchView(acal, AbCalendar.types.DAY);
+				}
+			}
+			
+			public void mouseExited(MouseEvent e){
+				goSmall();
+			}
+		}
+
+		protected class scrollcheck extends MouseAdapter{
+			
+			public void mouseClicked(MouseEvent e){
+				if(e.getClickCount() == 1){
+					goBig();
+				}
+				else if(e.getClickCount() > 1){
+					try{
+						LabelWrapper lw = null;
+						if(scroll.getViewport().getView() == small){
+							lw = (LabelWrapper)small.getComponentAt(e.getPoint());
+						}
+						else if(scroll.getViewport().getView() == big){
+							lw = (LabelWrapper)big.getComponentAt(e.getPoint());
+						}
+						lw.edit();
+					}
+					catch(Exception exp){
+						GUIEventController.getInstance().switchView(acal, AbCalendar.types.DAY);
+					}
+				}
+			}
+			
+			public void mouseExited(MouseEvent e){
+				goSmall();
+			}
 		}
 	}
 
