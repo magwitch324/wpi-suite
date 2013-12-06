@@ -10,7 +10,6 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
@@ -18,9 +17,6 @@ import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
 /**
  * This observer is called when a response is received from a request
  * to the server to update a CalendarData.
- *
- * @version $Revision: 1.0 $
- * @author justinhess
  */
 public class UpdateCalendarDataRequestObserver implements RequestObserver {
 	

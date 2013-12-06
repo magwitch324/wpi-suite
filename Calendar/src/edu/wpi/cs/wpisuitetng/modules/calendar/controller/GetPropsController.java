@@ -23,8 +23,6 @@ import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
  * This controller coordinates retrieving all of the categories
  * from the server.
  *
- * @version $Revision: 1.0 $
- * @author justinhess
  */
 public class GetPropsController implements ActionListener {
 
