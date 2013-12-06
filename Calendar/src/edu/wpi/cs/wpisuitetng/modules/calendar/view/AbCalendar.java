@@ -30,9 +30,9 @@ import javax.swing.JToggleButton;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdatePropsController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
 /*
  * Sources:
@@ -42,6 +42,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
  */
 
 
+@SuppressWarnings("serial")
 public abstract class AbCalendar extends JPanel {
 	protected boolean initialized;
 	protected CalendarData calData;
@@ -368,7 +369,9 @@ public abstract class AbCalendar extends JPanel {
 		viewpanel.add(calView);			
 		break;
 		case(3):
-			//TODO YearView
+			calView = (new YearView(mycal));
+			displayCalData();
+			viewpanel.add(calView);		
 			break;
 		default:
 			//TODO error
