@@ -109,15 +109,15 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	    this.createEventButton.setBackground(CalendarStandard.CalendarYellow);
 		createEventButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		// the action listener for the Create Event Button
-//		createEventButton.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// bring up a create requirement pane if not in Multiple Requirement Editing Mode
-//				//if (!ViewEventController.getInstance().getOverviewTable().getEditFlag()) {
-//					GUIEventController.getInstance().createEvent();
-//			//	}
-//			}
-//		});	
+		createEventButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// bring up a create requirement pane if not in Multiple Requirement Editing Mode
+				//if (!ViewEventController.getInstance().getOverviewTable().getEditFlag()) {
+					GUIEventController.getInstance().createEvent();
+			//	}
+			}
+		});	
 		
 		
 	    this.manageCategoryButton.setText("Manage Categories");
