@@ -7,15 +7,16 @@
  * 
  * Contributors: CS Anonymous
  ******************************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.calendar.models;
+package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 //import edu.wpi.cs.wpisuitetng.modules.requirementmanager.controller.AddRequirementController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Category;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CategoryList;
+
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
 
 public class CategoryList {
 

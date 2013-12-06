@@ -14,10 +14,10 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
+@SuppressWarnings("serial")
 public class MonthView extends CalendarView {
 	
 	private GregorianCalendar aMonth;
@@ -46,10 +46,6 @@ public class MonthView extends CalendarView {
 		}
 		
 		String monthName = aMonth.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
-		int startDayNum = aMonth.get(Calendar.DAY_OF_MONTH);
-		int endDayNum = aMonth.get(Calendar.DAY_OF_MONTH);
-		int startYear = aMonth.get(Calendar.YEAR);
-		int endYear = aMonth.get(Calendar.YEAR);
 		
 		setLabel(monthName + " " + aMonth.get(Calendar.YEAR));
 				
