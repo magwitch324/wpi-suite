@@ -14,8 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 
+@SuppressWarnings("serial")
 public class CommitmentCalViewPanel extends JPanel {
 
 	private Commitment comm;
@@ -27,14 +28,9 @@ public class CommitmentCalViewPanel extends JPanel {
 		
 		GregorianCalendar acal = new GregorianCalendar();
 		acal.setTime(comm.getDueDate().getTime());
-		String time = "Time - " + acal.get(Calendar.HOUR) + ":" + 
-					(acal.get(Calendar.MINUTE) > 10 ? 
-							acal.get(Calendar.MINUTE) :
-							("0" + acal.get(Calendar.MINUTE)));
-		if(acal.get(Calendar.HOUR_OF_DAY) < 24)
-			time += " AM";
-		else
-			time += " PM";
+		if(acal.get(Calendar.HOUR_OF_DAY) < 24) {
+		} else {
+		}
 		
 		
 		String name = comm.getName();

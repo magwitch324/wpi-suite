@@ -13,8 +13,9 @@ import java.awt.LayoutManager;
 
 import javax.swing.JPanel;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 
+@SuppressWarnings("serial")
 public class CommitmentViewPanel extends JPanel {
 
 	private Commitment comm;

@@ -25,11 +25,10 @@ import org.jdesktop.swingx.JXDatePicker;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment.Status;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 import java.beans.PropertyChangeListener;
@@ -67,16 +66,18 @@ import javax.swing.ButtonGroup;
  * @author sfp
  *
  */
-public class CommitmentTab extends JPanel {
+public class EventTab extends JPanel {
 	private JTextField nameTextField;
 	private GridBagConstraints gbc_nameTextField;
-	private JSpinner timeSpinner;
-	private boolean isTeamComm;
+	private JSpinner startTimeSpinner;
+	private JSpinner endTimeSpinner;
+	private boolean isTeamEvent;
 	SpinnerDateModelHalfHour spinnerModel = new SpinnerDateModelHalfHour();  
-	private JButton btnAddCommitment;
+	private JButton btnAddEvent;
 	private JComboBox<Category> categoryComboBox;
 	private JTextArea descriptionTextArea;
-	private JXDatePicker datePicker;
+	private JXDatePicker startDatePicker;
+	private JXDatePicker endDatePicker;
 	private JScrollPane descPane;
 	private JPanel panel;
 	private JSpinner.DateEditor timeEditor;
@@ -90,13 +91,11 @@ public class CommitmentTab extends JPanel {
 	private String inputDate = (new SimpleDateFormat("MM/dd/yyyy EEE").format(tmpDate)); //the date user input
 	private boolean badDate;
 	private boolean badTime;
-	private Commitment editingCommitment;
+	private Event editingEvent;
 	private EditingMode mode = EditingMode.ADDING;
 	private JButton btnDelete;
-	private JComboBox statusComboBox;
 	private JPanel buttonPanel;
 	private JPanel formPanel;
-	private JLabel statusLabel;
 	private boolean initFlag; //to keep things from running before we fully intialize
 	
 	
@@ -126,7 +125,7 @@ public class CommitmentTab extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public CommitmentTab() {
+	public EventTab() {
 		this.initFlag = false;
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -345,10 +344,10 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(lblTime, gbc_lblTime);
 		
 		//Time spinner, half hour resolution
-		timeSpinner = new JSpinner( new SpinnerDateModelHalfHour());
-	    timeSpinner.setModel(spinnerModel);
-		timeEditor = new JSpinner.DateEditor(timeSpinner, "hh:mm a");
-		timeSpinner.setEditor(timeEditor);
+		startTimeSpinner = new JSpinner( new SpinnerDateModelHalfHour());
+	    startTimeSpinner.setModel(spinnerModel);
+		timeEditor = new JSpinner.DateEditor(startTimeSpinner, "hh:mm a");
+		startTimeSpinner.setEditor(timeEditor);
 		//Rounds the spinner to 30 or 00
 		addTimeRoundingEvent();
 		GridBagConstraints gbc_spinner = new GridBagConstraints();
@@ -358,10 +357,10 @@ public class CommitmentTab extends JPanel {
 		gbc_spinner.gridy = 4;
 		gbc_spinner.weightx = 1;
 		gbc_spinner.weighty = 3;
-		formPanel.add(timeSpinner, gbc_spinner);
+		formPanel.add(startTimeSpinner, gbc_spinner);
 		
 
-		timeSpinner.setValue(new GregorianCalendar().getTime());
+		startTimeSpinner.setValue(new GregorianCalendar().getTime());
 		
 		//Invalid Date label
 		final JLabel lblDateError = new JLabel("<html><font color='red'>Please enter a valid date (MM/DD/YYYY).</font></html>");
@@ -390,7 +389,7 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(lblDate_1, gbc_lblDate_1);
 		
 		//DatePicker box
-		datePicker = new JXDatePicker();
+		startDatePicker = new JXDatePicker();
 		GridBagConstraints gbc_jdp = new GridBagConstraints();
 		gbc_jdp.insets = new Insets(0, 0, 5, 0);
 		gbc_jdp.fill = GridBagConstraints.HORIZONTAL;
@@ -398,7 +397,7 @@ public class CommitmentTab extends JPanel {
 		gbc_jdp.gridy = 6;
 		gbc_jdp.weightx = 1;
 		gbc_jdp.weighty = 3;
-		formPanel.add(datePicker, gbc_jdp);
+		formPanel.add(startDatePicker, gbc_jdp);
 		//Calendar calendar = datePicker.getMonthView().getCalendar();
 		//calendar.setTime(new Date());
 		//datePicker.getMonthView().setLowerBound(calendar.getTime());
@@ -406,8 +405,8 @@ public class CommitmentTab extends JPanel {
 		SimpleDateFormat format2 = new SimpleDateFormat( "MM/dd/yyyy" );
 		SimpleDateFormat format3 = new SimpleDateFormat( "MM.dd.yyyy" );
 		SimpleDateFormat format4 = new SimpleDateFormat( "MM.dd.yyyy EEE" );
-		datePicker.setFormats(new DateFormat[] {format1, format2, format3, format4});
-		datePicker.addKeyListener(new KeyListener() {
+		startDatePicker.setFormats(new DateFormat[] {format1, format2, format3, format4});
+		startDatePicker.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -430,22 +429,22 @@ public class CommitmentTab extends JPanel {
 			
 		});
 		
-		datePicker.addActionListener(new ActionListener() {
+		startDatePicker.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				datePicker.getEditor().setBackground(Color.WHITE);
-				inputDate = datePicker.getEditor().getText().trim();
+				startDatePicker.getEditor().setBackground(Color.WHITE);
+				inputDate = startDatePicker.getEditor().getText().trim();
 			}
 			
 		});
 		
-		datePicker.getEditor().addFocusListener(new FocusListener() {
+		startDatePicker.getEditor().addFocusListener(new FocusListener() {
 			@Override
 			public void focusGained(FocusEvent e) {
 				if(badDate) {
-					datePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
-					datePicker.getEditor().selectAll();
+					startDatePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
+					startDatePicker.getEditor().selectAll();
 					lblDateError.setVisible(true);
 					badDate = false;
 				}
@@ -459,9 +458,9 @@ public class CommitmentTab extends JPanel {
 				else{
 					//try {
 						SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy EEE"); 
-						datePicker.getEditor().setBackground(Color.WHITE);
-						datePicker.getEditor().setText(dt.format(datePicker.getDate()));
-						datePicker.getEditor().selectAll();
+						startDatePicker.getEditor().setBackground(Color.WHITE);
+						startDatePicker.getEditor().setText(dt.format(startDatePicker.getDate()));
+						startDatePicker.getEditor().selectAll();
 						listenerHelper();
 					//}catch(NullPointerException ne) {
 					//	datePicker.getEditor().setText("The date is not valid");
@@ -474,7 +473,7 @@ public class CommitmentTab extends JPanel {
 			public void focusLost(FocusEvent e) {
 				if(isBadInputDate()){
 					badDate = true;
-					datePicker.requestFocus();
+					startDatePicker.requestFocus();
 				}
 				/*
 				else{
@@ -493,23 +492,23 @@ public class CommitmentTab extends JPanel {
 				}
 				*/
 				else{
-					datePicker.getEditor().setBackground(Color.WHITE);
+					startDatePicker.getEditor().setBackground(Color.WHITE);
 					lblDateError.setVisible(false);
 				}
 				listenerHelper();
 			}
 		});
-		datePicker.addFocusListener(new FocusListener() {
+		startDatePicker.addFocusListener(new FocusListener() {
 
 			@Override
 			public void focusGained(FocusEvent e) {
-				datePicker.getEditor().setBackground(Color.WHITE);
+				startDatePicker.getEditor().setBackground(Color.WHITE);
 				listenerHelper();
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				datePicker.getEditor().setBackground(Color.WHITE);
+				startDatePicker.getEditor().setBackground(Color.WHITE);
 				listenerHelper();
 				
 			}
@@ -526,32 +525,32 @@ public class CommitmentTab extends JPanel {
 	    c.set(Calendar.HOUR_OF_DAY, 0);
 	    c.set(Calendar.MINUTE, 0);
 	    c.set(Calendar.SECOND, 0);
-		datePicker.setDate(c.getTime());
+		startDatePicker.setDate(c.getTime());
 		
 		
 		buttonPanel = new JPanel(new BorderLayout(30,0));
-		//Add Commitment button
+		//Add Event button
 		
 		try {
 			Image img = ImageIO.read(getClass().getResource("Save_Icon.png"));
-			btnAddCommitment = new JButton("Save Commitment", new ImageIcon(img));
+			btnAddEvent = new JButton("Save Event", new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			btnCancel.setText("Save Commitment");
+			btnCancel.setText("Save Event");
 		}
 
-		btnAddCommitment.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
-		btnAddCommitment.addActionListener(new ActionListener() {
+		btnAddEvent.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
+		btnAddEvent.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				addCommitment();
+				addEvent();
 			}
 			
 			
 		});
 		
-		datePicker.addPropertyChangeListener(new PropertyChangeListener(){
+		startDatePicker.addPropertyChangeListener(new PropertyChangeListener(){
 
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
@@ -559,7 +558,7 @@ public class CommitmentTab extends JPanel {
 			}}
 				);
 		
-		datePicker.getEditor().addKeyListener(new KeyListener(){
+		startDatePicker.getEditor().addKeyListener(new KeyListener(){
 
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -567,7 +566,7 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				datePicker.getEditor().setBackground(Color.WHITE);
+				startDatePicker.getEditor().setBackground(Color.WHITE);
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 					checkBadDate();
 				}
@@ -575,13 +574,13 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				inputDate = datePicker.getEditor().getText().trim();
+				inputDate = startDatePicker.getEditor().getText().trim();
 				listenerHelper();
 				
 				// This next line checks for a blank date field, DO NOT REMOVE
-				if(nameTextField.getText().equals("") || datePicker.getEditor().getText().equals("")
+				if(nameTextField.getText().equals("") || startDatePicker.getEditor().getText().equals("")
                         || nameTextField.getText().trim().length() == 0){
-                btnAddCommitment.setEnabled(false);
+                btnAddEvent.setEnabled(false);
 				}
 
 				//boolean orignValue = initFlag;
@@ -592,7 +591,7 @@ public class CommitmentTab extends JPanel {
 
 		});
 		
-		btnAddCommitment.setEnabled(false);
+		btnAddEvent.setEnabled(false);
 		
 		
 		
@@ -622,78 +621,53 @@ public class CommitmentTab extends JPanel {
 			
 		});		
 		
-		buttonPanel.add(btnAddCommitment, BorderLayout.WEST);
+		buttonPanel.add(btnAddEvent, BorderLayout.WEST);
 		buttonPanel.add(btnCancel, BorderLayout.CENTER);
 	                    				// Set the horizontal gap
 		formPanel.add(buttonPanel, gbc_btnPanel);
-		
-		String[] statusStrings = {"New", "In Progress", "Completed"};
-		statusComboBox = new JComboBox(statusStrings);
-		
-		
-		statusComboBox.setSelectedIndex(0);
-		GridBagConstraints gbc_statusComboBox = new GridBagConstraints();
-		gbc_statusComboBox.insets = new Insets(0, 0, 5, 0);
-		gbc_statusComboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_statusComboBox.gridx = 1;
-		gbc_statusComboBox.gridy = 8;
-		gbc_statusComboBox.weightx = 1;
-		gbc_statusComboBox.weighty = 3;
-
-		formPanel.add(statusComboBox,gbc_statusComboBox);
-		
-		statusLabel = new JLabel("Status:");
-		GridBagConstraints gbc_statusLabel = new GridBagConstraints();
-		gbc_statusLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_statusLabel.fill = GridBagConstraints.VERTICAL;
-		gbc_statusLabel.anchor = GridBagConstraints.EAST;
-		gbc_statusLabel.gridx = 0;
-		gbc_statusLabel.gridy = 8;
-		gbc_statusLabel.weightx = 1;
-		gbc_statusLabel.weighty = 3;
-
-		formPanel.add(statusLabel,gbc_statusLabel);
 		
 		this.initFlag = true;
 	}
 
 	/**
-	 * Create a commitment tab in editing mode.
+	 * Create a event tab in editing mode.
 	 */
-	public CommitmentTab(Commitment commToEdit) {
+	public EventTab(Event event) {
 		this();
 		
 		this.initFlag = false; //We need this to deal with the nested constructors
 		
-		editingCommitment = commToEdit;
+		editingEvent = event;
 		this.mode = EditingMode.EDITING;
 		
-		this.nameTextField.setText(editingCommitment.getName());
-		this.descriptionTextArea.setText(editingCommitment.getDescription());
-		this.categoryComboBox.setSelectedItem(editingCommitment.getCategoryId());
+		this.nameTextField.setText(editingEvent.getName());
+		this.descriptionTextArea.setText(editingEvent.getDescription());
 		
-		if(!editingCommitment.getIsPersonal())
+		// ADD LATER!
+		//this.categoryComboBox.setSelectedItem(editingEvent.getCategoryId());
+		
+		/*
+		if(!editingEvent.getIsPersonal())
 			this.rdbtnTeam.setSelected(true);
 		else
 			this.rdbtnPersonal.setSelected(true);
+		*/
 		
 		this.rdbtnTeam.setEnabled(false);
 		this.rdbtnPersonal.setEnabled(false);
 		
 
-		this.timeSpinner.setValue(editingCommitment.getDueDate().getTime());
-		this.datePicker.setDate(editingCommitment.getDueDate().getTime());
+		//this.startTimeSpinner.setValue(editingEvent.getDueDate().getTime());
+		//this.startDatePicker.setDate(editingEvent.getDueDate().getTime());
 
-		
-		statusComboBox.setSelectedIndex(commToEdit.getStatus().id);
 		
 		// Add Delete Button
 		try {
 			Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
-			btnDelete = new JButton("Delete Commitment", new ImageIcon(img));
+			btnDelete = new JButton("Delete Event", new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			btnDelete.setText("Delete Commitment");
+			btnDelete.setText("Delete Event");
 		}
 		
 		btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
@@ -701,7 +675,7 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				deleteCommitment();
+				deleteEvent();
 			}
 			
 		});
@@ -709,7 +683,7 @@ public class CommitmentTab extends JPanel {
 	
 		//Some edit specific listeners
 		//These are here to avoid possible NullPointer exceptions while opening the tab 
-		timeSpinner.addChangeListener(new ChangeListener(){
+		startTimeSpinner.addChangeListener(new ChangeListener(){
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -732,7 +706,7 @@ public class CommitmentTab extends JPanel {
 			
 		});
 		*/
-		datePicker.getEditor().addActionListener(new ActionListener(){
+		startDatePicker.getEditor().addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -743,16 +717,6 @@ public class CommitmentTab extends JPanel {
 			
 		});
 		
-		statusComboBox.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				listenerHelper();
-				
-			}
-			
-			
-		});
 		
 		this.initFlag = true;
 
@@ -760,10 +724,10 @@ public class CommitmentTab extends JPanel {
 	
 
 	/**
-	 * Close this commitment tab
+	 * Close this event tab
 	 */
 	protected void removeTab() {
-		GUIEventController.getInstance().removeCommTab(this, isTeamComm);
+		GUIEventController.getInstance().removeEventTab(this, isTeamEvent);
 	}
 
 
@@ -773,11 +737,11 @@ public class CommitmentTab extends JPanel {
 	 * Add an event handler to round the spinner minute value when not 0 or 30
 	 */
 	private void addTimeRoundingEvent() {
-		timeSpinner.addChangeListener(new ChangeListener() {
+		startTimeSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				GregorianCalendar c = new GregorianCalendar();
 				//get time value from spinner
-				c.setTime((Date)timeSpinner.getValue());
+				c.setTime((Date)startTimeSpinner.getValue());
 				int minutesVal = c.get(Calendar.MINUTE);
 				int hourVal = c.get(Calendar.HOUR);
 				int newMinutesVal;
@@ -807,67 +771,64 @@ public class CommitmentTab extends JPanel {
 
 
 	/**
-	 * Adds new commitment with information contained in fields
+	 * Adds new event with information contained in fields
 	 */
-	private void addCommitment() {
+	private void addEvent() {
 		// TODO Auto-generated method stub
 
 		
-		if(nameTextField.getText().equals("") || datePicker.getDate() == null){
+		if(nameTextField.getText().equals("") || startDatePicker.getDate() == null){
 			return;
 		}
 
 		CalendarData calData;
 		if (this.rdbtnPersonal.isSelected()){
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
-			isTeamComm = false;
+			isTeamEvent = false;
 		}
 		else{
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
-			isTeamComm = true;
+			isTeamEvent = true;
 		}
-		for(Commitment comm: calData.getCommitments().getCommitments())
-		{
-			System.out.println("Commitment name: " + comm.getName()+", id: "+ comm.getId());
-		}
-		Commitment newComm;
+//		for(Event event: calData.getEvents().getEvents())
+//		{
+//			System.out.println("Event name: " + event.getName()+", id: "+ event.getId());
+//		}
+		Event newEvent;
 		if(mode == EditingMode.ADDING)
 		{
-			newComm = new Commitment();
+			newEvent = new Event();
 		}
 		else
-			newComm = editingCommitment;
+			newEvent = editingEvent;
 		
-		if(isTeamComm){
-			newComm.setIsPersonal(false);
-		}
-		else{
-			newComm.setIsPersonal(true);
-		}
+//		if(isTeamEvent){
+//			newEvent.setIsPersonal(false);
+//		}
+//		else{
+//			newEvent.setIsPersonal(true);
+//		}
 		
-		newComm.setCategoryId(((Category)this.categoryComboBox.getSelectedItem()).getId());
-		newComm.setDescription(this.descriptionTextArea.getText());
-		
-
-		newComm.setStatus(Status.getStatusValue(statusComboBox.getSelectedIndex()));
+//		newEvent.setCategoryId(((Category)this.categoryComboBox.getSelectedItem()).getId());
+		newEvent.setDescription(this.descriptionTextArea.getText());
 		
 		
 		//Parse date and time info
 		GregorianCalendar calDate = new GregorianCalendar();
 		GregorianCalendar calTime = new GregorianCalendar();
-		calDate.setTime(this.datePicker.getDate());
-		calTime.setTime((Date)timeSpinner.getValue());
+		calDate.setTime(this.startDatePicker.getDate());
+		calTime.setTime((Date)startTimeSpinner.getValue());
 		calDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
 		calDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
 		
 		//set due date
-		newComm.setDueDate(calDate);
-		newComm.setName(this.nameTextField.getText());
+		//newEvent.setDueDate(calDate);
+		newEvent.setName(this.nameTextField.getText());
 		
-		if (mode == EditingMode.ADDING)
-			calData.addCommitment(newComm);
-		else
-			calData.getCommitments().update(newComm);
+//		if (mode == EditingMode.ADDING)
+//			calData.addEvent(newEvent);
+//		else
+//			calData.getEvents().update(newEvent);
 
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 
@@ -877,18 +838,18 @@ public class CommitmentTab extends JPanel {
 	}
 	
 
-	protected void deleteCommitment() {
+	protected void deleteEvent() {
 		// TODO Auto-generated method stub
 		CalendarData calData;
 	if (this.rdbtnPersonal.isSelected()){
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
-			isTeamComm = false;
+			isTeamEvent = false;
 	}
 	else{
 		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
-		isTeamComm = true;
+		isTeamEvent = true;
 	}
-		calData.getCommitments().removeCommmitment(editingCommitment.getId());
+//		calData.getEvents().removeEvent(editingEvent.getId());
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 		removeTab();
 	}
@@ -899,29 +860,29 @@ public class CommitmentTab extends JPanel {
 	private void listenerHelper(){
 		
 		if (initFlag){
-			if(nameTextField.getText().equals("") || datePicker.getDate() == null || //data validation
+			if(nameTextField.getText().equals("") || startDatePicker.getDate() == null || //data validation
 					nameTextField.getText().trim().length() == 0){
-				btnAddCommitment.setEnabled(false);
+				btnAddEvent.setEnabled(false);
 			} else {
 				if (mode == EditingMode.EDITING){
 					//get some date data
 					Calendar calDate = new GregorianCalendar();
 					Calendar calTime = new GregorianCalendar();
-					calDate.setTime(this.datePicker.getDate());
-					calTime.setTime((Date)timeSpinner.getValue());
+					calDate.setTime(this.startDatePicker.getDate());
+					calTime.setTime((Date)startTimeSpinner.getValue());
 					calDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
 					calDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
 					//make sure something changed
-					if (this.nameTextField.getText().equals(editingCommitment.getName()) 
-							&& this.descriptionTextArea.getText().equals(editingCommitment.getDescription())
-							&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryId()
-							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
-							&& calDate.getTime().equals(editingCommitment.getDueDate().getTime())){
-						btnAddCommitment.setEnabled(false);
+					if (this.nameTextField.getText().equals(editingEvent.getName()) 
+							&& this.descriptionTextArea.getText().equals(editingEvent.getDescription())){
+							//&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingEvent.getCategoryId()
+							//&& calDate.getTime().equals(editingEvent.getStartDate().getTime()))
+							
+						btnAddEvent.setEnabled(false);
 						return;
 					}
 				}
-				btnAddCommitment.setEnabled(true);
+				btnAddEvent.setEnabled(true);
 			}
 
 		}
@@ -933,15 +894,15 @@ public class CommitmentTab extends JPanel {
 	private void checkBadDate() {
 		boolean isABadDate = isABadDate();
 		if(isABadDate) {
-			datePicker.getEditor().setText(">> " + inputDate + " <<" + "is not a valid date format(MM/dd/YYYY)." );
-			datePicker.getEditor().setBackground(Color.red);
-			datePicker.getEditor().selectAll();
+			startDatePicker.getEditor().setText(">> " + inputDate + " <<" + "is not a valid date format(MM/dd/YYYY)." );
+			startDatePicker.getEditor().setBackground(Color.red);
+			startDatePicker.getEditor().selectAll();
 		}
 		else{
 			//Date currentDate = new Date();
 			//if(tmpDate.compareTo(currentDate) >= 0) {
-				String showDate = datePicker.getFormats()[0].format(tmpDate);
-				datePicker.getEditor().setText(showDate);
+				String showDate = startDatePicker.getFormats()[0].format(tmpDate);
+				startDatePicker.getEditor().setText(showDate);
 			//}
 			//else{
 			//	datePicker.getEditor().setText("The date is not valid");
@@ -952,10 +913,10 @@ public class CommitmentTab extends JPanel {
 	
 	private boolean isABadDate() {
 		boolean result;
-		datePicker.getEditor().setBackground(Color.WHITE);
+		startDatePicker.getEditor().setBackground(Color.WHITE);
 		tmpDate = null;
-		inputDate = datePicker.getEditor().getText().trim();
-		for(DateFormat formatter : datePicker.getFormats()) {
+		inputDate = startDatePicker.getEditor().getText().trim();
+		for(DateFormat formatter : startDatePicker.getFormats()) {
 			try{
 				formatter.setLenient(false);
 				tmpDate = formatter.parse(inputDate);
@@ -975,7 +936,7 @@ public class CommitmentTab extends JPanel {
 	private boolean isBadInputDate() {
 		boolean result;
 		Date date = null;
-		for(DateFormat formatter : datePicker.getFormats()) {
+		for(DateFormat formatter : startDatePicker.getFormats()) {
 			try{
 				formatter.setLenient(false);
 				date = formatter.parse(inputDate);

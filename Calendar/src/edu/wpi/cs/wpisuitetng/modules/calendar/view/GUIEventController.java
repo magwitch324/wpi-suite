@@ -9,34 +9,19 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.BorderFactory;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.event.Event;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar.types;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.EventTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons.ButtonsPanel_Create;
 
 /**
  * @author sfp
@@ -50,8 +35,6 @@ public class GUIEventController {
 	private TeamCalendar teamCalendar;
 	private MyCalendar myCalendar;
 	private CommitmentFullView commitFullView;
-	private List<CommitmentTab> listOfCommitmentTabs;
-
 	/**
 	 * Default constructor for ViewEventController.  Is protected to prevent instantiation.
 	 */
@@ -226,8 +209,41 @@ public class GUIEventController {
 	 */
 
 	public void createEvent() {
-
+		EventTab newEvent = new EventTab();
+		try {
+			Image img = ImageIO.read(getClass().getResource("New_Icon.png"));
+			main.addTab("New Event", new ImageIcon(img), newEvent);
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			main.addTab("New Event", new ImageIcon(), newEvent);
+		}
+		//		main.addTab("New Commitment", null, newCommit, "New Commitment");
+		//		newCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		main.invalidate(); //force the tabbedpane to redraw.
+		main.repaint();
+		main.setSelectedComponent(newEvent);
 	}
+
+	/** Edit a commitment in a new tab
+	 * @param comm Commitment to edit
+	 * @param calData CalendarData where commitment is located
+	 */
+	public void editEvent(Event event) {
+		EventTab editEvent = new EventTab(event);
+		try {
+			Image img = ImageIO.read(getClass().getResource("Edit_Icon.png"));
+			main.addTab("Edit Commitment", new ImageIcon(img), editEvent);
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			main.addTab("Edit Commitment", new ImageIcon(), editEvent);
+		}
+		//		main.addTab("Edit Commitment", null, editCommit, "Edit Commitment");
+		//		editCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		main.invalidate(); //force the tabbedpane to redraw.
+		main.repaint();
+		main.setSelectedComponent(editEvent);
+	}
+
 
 	public void switchView(GregorianCalendar acal, TeamCalendar.types switchtype){
 		teamCalendar.setCalsetView(acal, switchtype);
@@ -259,6 +275,18 @@ public class GUIEventController {
 	public void applyCalProps(){
 		myCalendar.applyCalProps();
 		teamCalendar.applyCalProps();
+	}
+
+	public void removeEventTab(EventTab eventTab, boolean isTeamEvent) {
+		main.remove(eventTab);
+		if(isTeamEvent){
+			main.setSelectedComponent(teamCalendar);
+		}
+		else{
+			main.setSelectedComponent(myCalendar);
+
+		}
+		
 	}
 
 

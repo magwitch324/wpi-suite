@@ -16,7 +16,12 @@ import java.util.Date;
 import com.google.gson.Gson;
 
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Category;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 
 public class CalendarData extends AbstractModel {
 
@@ -24,8 +29,7 @@ public class CalendarData extends AbstractModel {
 	private String id;
 	private CategoryList categories;
 	private CommitmentList commitments;
-	private boolean showComm;
-	private boolean showTeamData;
+	private EventList events;
 
 	/**
 	 * Constructs a CalendarData with default characteristics
@@ -35,8 +39,7 @@ public class CalendarData extends AbstractModel {
 		id = "";
 		this.categories = new CategoryList();
 		this.commitments = new CommitmentList(); 
-		this.showComm = false;
-		this.showTeamData = false;
+		this.events = new EventList();
 	}
 
 	/**
@@ -66,12 +69,30 @@ public class CalendarData extends AbstractModel {
 	}
 	
 	/**
+	 * Returns the list of events in this calendar
+	 * 
+	 * @return the list of events
+	 */
+	public EventList getEvents(){
+		return events;
+	}
+	
+	/**
 	 * Returns the list of categories in this calendar
 	 * 
 	 * @return the list of categories
 	 */
 	public CategoryList getCategories(){
 		return categories;
+	}
+	
+	/**
+	 * Adds a event to the calendar
+	 * 
+	 * @param event
+	 */
+	public void addEvent(Event newEvent){
+		events.addEvent(newEvent);
 	}
 	
 	/**
@@ -90,41 +111,6 @@ public class CalendarData extends AbstractModel {
 	 */
 	public void addCategory(Category newCategory){
 		//TODO add correct call
-	}
-
-	/**
-	 * setter for persisting whether commitments should be shown on the calendar
-	 * 
-	 * @param showComm
-	 */
-	public void setShowComm(boolean showComm){
-		this.showComm = showComm;
-	}
-	
-	/**
-	 * getter for setting whether show comm is selected at startup
-	 * 
-	 */
-	public boolean getShowComm(){
-		return this.showComm;
-	}
-
-	
-	/**
-	 * setter for persisting whether team data should be shown on the personal calendar
-	 * 
-	 * @param showComm
-	 */
-	public void setShowTeamData(boolean showTeam){
-		this.showTeamData = showTeam;
-	}
-	
-	/**
-	 * getter for setting whether show team data is selected at startup
-	 * 
-	 */
-	public boolean getShowTeamData(){
-		return this.showTeamData;
 	}
 	
 	/**
@@ -239,8 +225,7 @@ public class CalendarData extends AbstractModel {
 		this.id = toCopyFrom.getId();
 		this.categories = toCopyFrom.getCategories();
 		this.commitments = toCopyFrom.getCommitments();
-		this.showComm = toCopyFrom.getShowComm();
-		this.showTeamData = toCopyFrom.getShowTeamData();
+		this.events = toCopyFrom.getEvents();
 	}
 
 	

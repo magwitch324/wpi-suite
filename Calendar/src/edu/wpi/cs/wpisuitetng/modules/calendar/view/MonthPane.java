@@ -10,8 +10,6 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ComponentAdapter;
@@ -25,21 +23,20 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
+@SuppressWarnings("serial")
 public class MonthPane extends JScrollPane implements ICalPane {
 	JPanel mainview;
 	MonthDayPane[] days = new MonthDayPane[42];
@@ -319,11 +316,11 @@ public class MonthPane extends JScrollPane implements ICalPane {
 					}
 					
 					if(eindex == eventlist.size()){
-						ecal.setTime(eventlist.get(eindex).getStartTime());
+						ecal.setTime(eventlist.get(eindex).getStartTime().getTime());
 						ecal.add(Calendar.DATE, 1);
 					}
 					else{
-						ecal.setTime(eventlist.get(eindex).getStartTime());
+						ecal.setTime(eventlist.get(eindex).getStartTime().getTime());
 					}
 					
 					if(ccal.before(ecal)){
@@ -460,7 +457,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				}
 				else{
 					GregorianCalendar acal = new GregorianCalendar();
-					acal.setTime(event.getStartTime());
+					acal.setTime(event.getStartTime().getTime());
 					return acal;
 				}
 			}

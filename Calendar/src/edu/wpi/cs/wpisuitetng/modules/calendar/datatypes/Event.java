@@ -7,40 +7,39 @@
  * 
  * Contributors: CS Anonymous
  ******************************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.calendar.models;
+package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Date;
 
 import com.google.gson.Gson;
 
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
 
-public class Event extends AbstractModel implements Comparator<Event>{
+public class Event extends AbstractModel{
 
         /** the ID of the event */
         private int id; // TODO: move ID stuff to server side?
-
         /** the name of the event */
         private String name;
-
         /** the start date of the event */
         private Date startTime;
-        
         /** the end date of the event */
         private Date endTime;
-
         /** a short description of the event */
         private String description;
-        
         /** a list of participants of the event */
         private List<String> participants;
-
+        
+        //Category id
+        private int categoryID;
+        
         /**
          * Constructs a Event with default characteristics
          */
@@ -50,6 +49,7 @@ public class Event extends AbstractModel implements Comparator<Event>{
                 startTime = new Date(0);
                 endTime = new Date(0);
                 participants = new ArrayList<String>();
+                categoryID = 0;
         }
 
         /**
@@ -66,13 +66,14 @@ public class Event extends AbstractModel implements Comparator<Event>{
          *                           An array of names of participants
          */
         // need to phase out supplying the ID
-        public Event(int id, String name, String description, Date startTime, Date endTime, String[] people) {
+        public Event(int id, String name, String description, GregorianCalendar startTime, GregorianCalendar endTime, String[] people, int categoryID) {
                 this();
                 this.id = id;
                 this.name = name;
                 this.description = description;
-                this.startTime = startTime;
-                this.endTime = endTime;
+                this.startTime = startTime.getTime();
+                this.endTime = endTime.getTime();
+                this.categoryID = categoryID;
                 Collections.addAll(this.participants, people);
         }
 
@@ -184,25 +185,7 @@ public class Event extends AbstractModel implements Comparator<Event>{
                 this.participants = participants;
         }
 
-        /**
-         * Method save.
-         * @see edu.wpi.cs.wpisuitetng.modules.Model#save()
-         */
-        @Override
-        public void save() {
-                // TODO Auto-generated method stub
-
-        }
-
-        /**
-         * Method delete.
-         * @see edu.wpi.cs.wpisuitetng.modules.Model#delete()
-         */
-        @Override
-        public void delete() {
-                // TODO Auto-generated method stub
-
-        }
+        
 
         /**
          * Method toJSON.
@@ -266,25 +249,49 @@ public class Event extends AbstractModel implements Comparator<Event>{
          *            the event to copy from.
          */
         public void copyFrom(Event toCopyFrom) {
-                this.description = toCopyFrom.description;
-                this.name = toCopyFrom.name;
-                this.startTime = toCopyFrom.startTime;
-                this.endTime = toCopyFrom.endTime;
+                this.description = toCopyFrom.getDescription();
+                this.name = toCopyFrom.getName();
+                this.startTime = toCopyFrom.getStartTime().getTime();
+                this.endTime = toCopyFrom.getEndTime().getTime();
+                this.id = toCopyFrom.getId();
+                this.participants = toCopyFrom.getParticipants();
+                this.categoryID = toCopyFrom.getCategoryID();
         }
 
-        public Date getStartTime() {
+        public int getCategoryID() {
+			return categoryID;
+		}
+
+		public GregorianCalendar getStartTime() {
                 
-                return this.startTime;
+                GregorianCalendar tmp = new GregorianCalendar();
+                tmp.setTime(this.startTime);
+                return tmp;
         }
 
-        public Date getEndTime() {
+        public GregorianCalendar getEndTime() {
                 
-                return this.endTime;
+        	GregorianCalendar tmp = new GregorianCalendar();
+            tmp.setTime(this.endTime);
+            return tmp;
         }
+        
+        /**
+    	 * Method save.
+    	 * @see edu.wpi.cs.wpisuitetng.modules.Model#save()
+    	 */
+    	@Override
+    	public void save() {
 
-        @Override
-        public int compare(Event o1, Event o2) {
-                return o1.startTime.compareTo(o2.getStartTime());
-        }
+    	}
+
+    	/**
+    	 * Method delete.
+    	 * @see edu.wpi.cs.wpisuitetng.modules.Model#delete()
+    	 */
+    	@Override
+    	public void delete() {
+
+    	}
         
 }
