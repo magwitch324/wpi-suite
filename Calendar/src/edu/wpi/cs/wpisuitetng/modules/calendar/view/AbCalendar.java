@@ -42,6 +42,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
  */
 
 
+@SuppressWarnings("serial")
 public abstract class AbCalendar extends JPanel {
 	protected boolean initialized;
 	protected CalendarData calData;

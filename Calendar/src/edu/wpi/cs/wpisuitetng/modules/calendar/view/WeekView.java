@@ -9,19 +9,14 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 
 
+@SuppressWarnings("serial")
 public class WeekView extends CalendarView {
 
 	private Calendar startDate;

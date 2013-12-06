@@ -11,15 +11,11 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.Locale;
 
-import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 
+@SuppressWarnings("serial")
 public class DayView extends CalendarView {
 
 
@@ -52,9 +48,9 @@ public class DayView extends CalendarView {
 		endOfDay.add(Calendar.MILLISECOND, -1);
 		
 		String dayName = day.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
-		int dayNum = day.get(day.DAY_OF_MONTH);
+		int dayNum = day.get(Calendar.DAY_OF_MONTH);
 		String monthName = day.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
-		int year = day.get(day.YEAR);
+		int year = day.get(Calendar.YEAR);
 		setLabel(dayName + ", " + monthName + " " + dayNum + "<br>" + year);
 		refresh();
 	}

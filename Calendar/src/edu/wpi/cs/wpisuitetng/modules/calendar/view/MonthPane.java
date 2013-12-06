@@ -36,6 +36,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
+@SuppressWarnings("serial")
 public class MonthPane extends JScrollPane implements ICalPane {
 	JPanel mainview;
 	MonthDayPane[] days = new MonthDayPane[42];

@@ -19,6 +19,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
  * @author sfp
  *
  */
+@SuppressWarnings("serial")
 public class HalfHourBlock extends JPanel{
 	private int size;
 	private GridLayout layout;

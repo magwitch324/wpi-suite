@@ -10,33 +10,18 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import javax.swing.JLayeredPane;
 import javax.swing.JSeparator;
-import javax.swing.OverlayLayout;
 import javax.swing.SpringLayout;
-import javax.swing.border.LineBorder;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
-
+@SuppressWarnings("serial")
 public class DetailedDay extends JPanel {
 	
 	JSeparator[] halfhourmarks= new JSeparator[48];
