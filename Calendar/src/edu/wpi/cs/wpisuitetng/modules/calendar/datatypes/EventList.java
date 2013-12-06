@@ -14,10 +14,13 @@ import static java.util.Calendar.LONG;
 import static java.util.Calendar.YEAR;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 
 public class EventList {
 
@@ -169,5 +172,109 @@ public class EventList {
                 events.remove(getEvent(newEvent.getId()));
                 events.add(newEvent);
         }
+        
+        /**
+    	 * Filter the event list to data between 
+    	 * the start and end Calendars
+    	 * This is INCLUSIVE for both start and end
+    	 * @param start
+    	 * @param end
+    	 * @return
+    	 */
+    	public List<Event> filter(Calendar start, Calendar end) {
+    		//TODO Change filter to appropriately filter things
+
+    		GregorianCalendar eventStart = new GregorianCalendar();
+    		GregorianCalendar eventEnd = new GregorianCalendar();
+    		List<Event> newEvents = new ArrayList<Event>();
+    		
+    		// iterate and add all commitments between start and end
+    		// to the commitment list
+    		for (Event event : events) {
+    			eventStart.setTime(event.getStartTime().getTime());
+    			eventEnd.setTime(event.getEndTime().getTime());
+    			if (
+					//Event start or Event end is within filter times
+    				((eventStart.after(start)  && eventStart.before(end)) ||
+    				 (eventEnd.after(start)    && eventEnd.before(end))) 
+    				 
+    				|| 
+    				
+    				// Event start is before, Event end is after
+    				 (eventStart.before(start) && eventEnd.after(end))) {
+    				
+    				newEvents.add(event);
+    			} 
+    		}
+    		
+    		return newEvents;
+    	}
+    	
+    	
+    	
+    	/**
+    	 * Filter the commitment list to data on a specific date
+    	 * @param date
+    	 * @return ArrayList of commitments on date
+    	 */
+    	public List<Event> filter(GregorianCalendar date) throws CalendarException {
+
+    		return filter(date, Calendar.DAY_OF_MONTH);
+    		
+    	}
+    	
+    	/**
+    	 * Filters the calendar data to the "amount"
+    	 * around the given date
+    	 * ex: 11/23/2013, Calendar.MONTH -> All of November
+    	 * @param date
+    	 * @param amount
+    	 * @return
+    	 * @throws CalendarException 
+    	 */
+    	public List<Event> filter(GregorianCalendar date, int amount) throws CalendarException {
+    		GregorianCalendar start = new GregorianCalendar();
+    		start.setTime(date.getTime());
+    		start.set(Calendar.HOUR_OF_DAY, 0);
+    		start.set(Calendar.MINUTE, 0);
+    		start.set(Calendar.SECOND, 0);
+    		
+    		GregorianCalendar end   = new GregorianCalendar();
+    		end.setTime(start.getTime());
+    		end.set(Calendar.HOUR_OF_DAY, 23);
+    		end.set(Calendar.MINUTE, 59);
+    		end.set(Calendar.SECOND, 59);
+    		
+    		
+    		/* All methods here add the given amount, then roll back
+    		 * one day to specify range by the first and last day 
+    		 * within that range
+    		 */
+    		if (amount == Calendar.DAY_OF_MONTH || amount == Calendar.DAY_OF_WEEK || amount == Calendar.DAY_OF_YEAR) {
+    			// Do nothing. This allows error checking at end
+    		}
+    		else if (amount == Calendar.WEEK_OF_MONTH || amount == Calendar.WEEK_OF_YEAR) {
+    			start.set(Calendar.DAY_OF_WEEK, start.getFirstDayOfWeek());
+    			end.add(Calendar.WEEK_OF_YEAR, 1);
+    			end.add(Calendar.DAY_OF_YEAR, -1);
+    		}
+    		else if (amount == Calendar.MONTH) {
+    			start.set(Calendar.DATE, 1);
+    			end.add(Calendar.MONTH, 1);
+    			end.add(Calendar.DAY_OF_YEAR, -1);
+    		}
+    		else if (amount == Calendar.YEAR) {
+    			start.set(Calendar.DAY_OF_YEAR, 1);
+    			end.add(Calendar.YEAR, 1);
+    			end.add(Calendar.DAY_OF_YEAR, -1);
+    		} else {
+    			throw new CalendarException("Invalid amount! Can only filter around day, week, month, and year types");
+    		}
+    		
+    		//System.out.println("Start: " + printcalendar(start));
+    		//System.out.println("End:   " + printcalendar(end));		
+    		
+    		return filter(start, end);
+    	}
 
 }
