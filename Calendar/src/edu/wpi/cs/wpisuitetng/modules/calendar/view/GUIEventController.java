@@ -162,7 +162,7 @@ public class GUIEventController {
 	public void createCommitment() {
 		CommitmentTab newCommit = new CommitmentTab();
 		try {
-			Image img = ImageIO.read(getClass().getResource("New_Icon.png"));
+			Image img = ImageIO.read(getClass().getResource("NewCommitment_Icon.png"));
 			main.addTab("New Commitment", new ImageIcon(img), newCommit);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
@@ -182,7 +182,7 @@ public class GUIEventController {
 	public void editCommitment(Commitment comm) {
 		CommitmentTab editCommit = new CommitmentTab(comm);
 		try {
-			Image img = ImageIO.read(getClass().getResource("Edit_Icon.png"));
+			Image img = ImageIO.read(getClass().getResource("EditCommitment_Icon.png"));
 			main.addTab("Edit Commitment", new ImageIcon(img), editCommit);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
@@ -211,7 +211,7 @@ public class GUIEventController {
 	public void createEvent() {
 		EventTab newEvent = new EventTab();
 		try {
-			Image img = ImageIO.read(getClass().getResource("New_Icon.png"));
+			Image img = ImageIO.read(getClass().getResource("NewEvent_Icon.png"));
 			main.addTab("New Event", new ImageIcon(img), newEvent);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
@@ -231,7 +231,7 @@ public class GUIEventController {
 	public void editEvent(Event event) {
 		EventTab editEvent = new EventTab(event);
 		try {
-			Image img = ImageIO.read(getClass().getResource("Edit_Icon.png"));
+			Image img = ImageIO.read(getClass().getResource("EditEvent_Icon.png"));
 			main.addTab("Edit Commitment", new ImageIcon(img), editEvent);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
