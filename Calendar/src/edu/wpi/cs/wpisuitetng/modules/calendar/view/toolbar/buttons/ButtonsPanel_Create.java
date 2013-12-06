@@ -10,6 +10,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons;
 
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -18,6 +19,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -51,19 +53,19 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 //		createEventButton= new JButton("<html>Create<br />Event</html>");
 		JPanel contentPanel = new JPanel();
 //		contentPanel.setBackground(Color.WHITE);
-		contentPanel.setLayout(new GridLayout(1,5,10,10));
-//		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
-////		this.setPreferredWidth(1200);
+//		contentPanel.setLayout(new GridLayout(1,5,10,10));
+		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
+		this.setPreferredWidth(1200);
 		
-//		this.createCommitButton.setSize(800, 800);
+		this.createCommitButton.setPreferredSize(new Dimension(240, 250));
 		this.createCommitButton.setHorizontalAlignment(SwingConstants.CENTER);
-//		this.createEventButton.setSize(400, 200);
+		this.createEventButton.setPreferredSize(new Dimension(240, 250));
 		this.createEventButton.setHorizontalAlignment(SwingConstants.CENTER);
-//		this.manageCategoryButton.setSize(400, 200);
+		this.manageCategoryButton.setPreferredSize(new Dimension(240, 250));
 		this.manageCategoryButton.setHorizontalAlignment(SwingConstants.CENTER);
-//		this.manageFilterButton.setSize(400, 200);
+		this.manageFilterButton.setPreferredSize(new Dimension(240, 250));
 		this.manageFilterButton.setHorizontalAlignment(SwingConstants.CENTER);
-//		this.helpButton.setSize(400, 200);
+		this.helpButton.setSize(240, 250);
 		this.helpButton.setHorizontalAlignment(SwingConstants.CENTER);
 
 		
@@ -93,8 +95,9 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 			this.helpButton.setText("Help");
 		}
 		
-	    this.createCommitButton.setText("Create Commitment");
+	    this.createCommitButton.setText("<html>Create<br />Commitment</html>");
 	    this.createCommitButton.setFont(CalendarStandard.CalendarFontBold);
+	    this.createCommitButton.setHorizontalAlignment(SwingConstants.CENTER);
 //	    this.createCommitButton.setForeground(CalendarStandard.CalendarRed);
 //	    this.createCommitButton.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, CalendarStandard.CalendarRed));
 //	    this.createCommitButton.setBackground(CalendarStandard.CalendarYellow);
@@ -114,8 +117,9 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		
 		
 		
-	    this.createEventButton.setText("Create Event");
+	    this.createEventButton.setText("<html>Create<br />Event</html>");
 	    this.createEventButton.setFont(CalendarStandard.CalendarFontBold);
+	    this.createEventButton.setHorizontalAlignment(SwingConstants.CENTER);
 //	    this.createEventButton.setForeground(CalendarStandard.CalendarRed);
 //	    this.createEventButton.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, CalendarStandard.CalendarRed));
 //	    this.createEventButton.setBackground(CalendarStandard.CalendarYellow);
@@ -134,8 +138,9 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		});	
 		
 		
-	    this.manageCategoryButton.setText("Manage Categories");
+	    this.manageCategoryButton.setText("<html>Manage<br />Categories</html>");
 	    this.manageCategoryButton.setFont(CalendarStandard.CalendarFontBold);
+	    this.manageCategoryButton.setHorizontalAlignment(SwingConstants.CENTER);
 //	    this.manageCategoryButton.setForeground(CalendarStandard.CalendarRed);
 //	    this.manageCategoryButton.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, CalendarStandard.CalendarRed));
 //	    this.manageCategoryButton.setBackground(CalendarStandard.CalendarYellow);
@@ -155,8 +160,9 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		
 		
 		
-	    this.manageFilterButton.setText("Manage Filters");
+	    this.manageFilterButton.setText("<html>Manage<br />Filters</html>");
 	    this.manageFilterButton.setFont(CalendarStandard.CalendarFontBold);
+	    this.manageFilterButton.setHorizontalAlignment(SwingConstants.CENTER);
 //	    this.manageFilterButton.setForeground(CalendarStandard.CalendarRed);
 //	    this.manageFilterButton.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, CalendarStandard.CalendarRed));
 //	    this.manageFilterButton.setBackground(CalendarStandard.CalendarYellow);
