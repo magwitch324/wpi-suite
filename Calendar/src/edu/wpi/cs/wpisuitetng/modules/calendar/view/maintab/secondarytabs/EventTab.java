@@ -428,16 +428,7 @@ public class EventTab extends JPanel {
 		SimpleDateFormat format3 = new SimpleDateFormat( "MM.dd.yyyy" );
 		SimpleDateFormat format4 = new SimpleDateFormat( "MM.dd.yyyy EEE" );
 		startDatePicker.setFormats(new DateFormat[] {format1, format2, format3, format4});
-		startDatePicker.addPropertyChangeListener(new PropertyChangeListener(){
-			@Override
-			public void propertyChange(PropertyChangeEvent evt) {
-				listenerHelper();
-				
-				long diffDate = startDatePicker.getDate().getTime() - startDate.getTime().getTime();
-				endDatePicker.setDate(new Date(endDatePicker.getDate().getTime() + diffDate));
-				startDate.setTime(startDatePicker.getDate());
-			}}
-		);
+		
 		
 //		startDatePicker.getEditor().addKeyListener(new KeyListener(){
 //
@@ -608,12 +599,7 @@ public class EventTab extends JPanel {
 		gbc_spinner2.weighty = 3;
 		formPanel.add(endTimeSpinner, gbc_spinner2);
 		
-		//adds handler to set both start and end spinners to nearest 30 or 00
-		addTimeRoundingEvent();
-		startTime = new GregorianCalendar();
-		//Sets time value of end and start spinners
-		endTimeSpinner.setValue(startTime.getTime());
-		startTimeSpinner.setValue(startTime.getTime());
+		
 		
 		
 		
@@ -661,10 +647,32 @@ public class EventTab extends JPanel {
 		//datePicker.getMonthView().setLowerBound(calendar.getTime());
 		endDatePicker.setFormats(new DateFormat[] {format1, format2, format3, format4});
 		
+		GregorianCalendar c = new GregorianCalendar();
+	    c.set(Calendar.HOUR_OF_DAY, 0);
+	    c.set(Calendar.MINUTE, 0);
+	    c.set(Calendar.SECOND, 0);
+		endDatePicker.setDate(c.getTime());
+	    startDate = c;
+		startDatePicker.setDate(c.getTime());
+		
+		
+		startDatePicker.addPropertyChangeListener(new PropertyChangeListener(){
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				listenerHelper();
+				
+				long diffDate = startDatePicker.getDate().getTime() - startDate.getTime().getTime();
+				endDatePicker.setDate(new Date(endDatePicker.getDate().getTime() + diffDate));
+				startDate.setTime(startDatePicker.getDate());
+			}}
+		);
+		
+		
 		endDatePicker.addPropertyChangeListener(new PropertyChangeListener(){
 
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
+				checkStartEnd();
 				listenerHelper();
 			}}
 				);
@@ -792,15 +800,13 @@ public class EventTab extends JPanel {
 //		});
 		
 
-		GregorianCalendar c = new GregorianCalendar();
-	    c.set(Calendar.HOUR_OF_DAY, 0);
-	    c.set(Calendar.MINUTE, 0);
-	    c.set(Calendar.SECOND, 0);
-		endDatePicker.setDate(c.getTime());
-	    startDate = c;
-		startDatePicker.setDate(c.getTime());
 		
-		
+		//adds handler to set both start and end spinners to nearest 30 or 00
+		addTimeRoundingEvent();
+		//Sets time value of end and start spinners
+		startTime = new GregorianCalendar();
+		endTimeSpinner.setValue(startTime.getTime());
+		startTimeSpinner.setValue(startTime.getTime());
 		
 		
 		
@@ -1041,11 +1047,41 @@ public class EventTab extends JPanel {
 					endSpinnerModel.setValue(c.getTime());
 					
 				}
+				checkStartEnd();
 			}
+
+			
 		});
 	}
 
 
+	private void checkStartEnd() {
+		// TODO Auto-generated method stub
+		GregorianCalendar endingDate = new GregorianCalendar();
+		endingDate.setTime(endDatePicker.getDate());
+		endingDate.set(Calendar.HOUR_OF_DAY, 0);
+		endingDate.set(Calendar.MINUTE, 0);
+		endingDate.set(Calendar.SECOND, 0);
+		endingDate.set(Calendar.MILLISECOND, 0);
+
+		GregorianCalendar startingDate = new GregorianCalendar();
+		startingDate.setTime(startDatePicker.getDate());
+		startingDate.set(Calendar.HOUR_OF_DAY, 0);
+		startingDate.set(Calendar.MINUTE, 0);
+		startingDate.set(Calendar.SECOND, 0);
+		startingDate.set(Calendar.MILLISECOND, 0);
+		if(endingDate.getTime().before(startingDate.getTime()))
+			endDatePicker.setDate(startDatePicker.getDate());
+		System.out.println(endTimeSpinner.getValue());
+		System.out.println(startTimeSpinner.getValue());
+
+		if(((Date)endTimeSpinner.getValue()).before((Date)startTimeSpinner.getValue()))
+		{
+			if(!endingDate.getTime().after(startingDate.getTime()))
+				endTimeSpinner.setValue((Date)startTimeSpinner.getValue());
+		}
+	}
+	
 	/**
 	 * Adds new event with information contained in fields
 	 */
