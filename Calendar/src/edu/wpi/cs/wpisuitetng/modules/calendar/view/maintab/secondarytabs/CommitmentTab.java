@@ -63,10 +63,6 @@ import java.awt.Color;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
-/**
- * @author sfp
- *
- */
 public class CommitmentTab extends JPanel {
 	private JTextField nameTextField;
 	private GridBagConstraints gbc_nameTextField;

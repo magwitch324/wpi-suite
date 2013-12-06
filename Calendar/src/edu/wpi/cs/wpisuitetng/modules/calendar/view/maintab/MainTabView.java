@@ -15,13 +15,9 @@ import java.awt.Component;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JTabbedPane;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.MyCalendar;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.TeamCalendar;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.tab.ClosableTabComponent;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentFullView;
 

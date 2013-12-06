@@ -9,7 +9,6 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
 
-import java.util.Date;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
@@ -18,8 +17,6 @@ import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 /**
  * This observer handles responses to requests for all categories
  *
- * @version $Revision: 1.0 $
- * @author justinhess
  */
 public class GetPropsRequestObserver implements RequestObserver {
 	
