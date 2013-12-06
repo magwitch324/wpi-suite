@@ -16,7 +16,6 @@ import java.util.GregorianCalendar;
 import javax.swing.SpinnerDateModel;
 
 /**
- * @author sfp
  * SpinnerDateModel Increments time value by 30 minutes
  */
 public class SpinnerDateModelHour extends SpinnerDateModel {
