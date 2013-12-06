@@ -14,9 +14,9 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
 
 public class MonthView extends CalendarView {
 	

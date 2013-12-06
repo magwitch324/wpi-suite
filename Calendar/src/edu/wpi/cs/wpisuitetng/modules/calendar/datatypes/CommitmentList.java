@@ -7,7 +7,7 @@
  * 
  * Contributors: CS Anonymous
  ******************************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.calendar.models;
+package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
 import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.LONG;
@@ -278,14 +278,5 @@ public class CommitmentList {
 		//System.out.println("End:   " + printcalendar(end));		
 		
 		return filter(start, end);
-	}
-	
-	// Helper function to print a calendar - used for testing
-	public String printcalendar(GregorianCalendar cal) {
-		String dayName = cal.getDisplayName(GregorianCalendar.DAY_OF_WEEK, LONG, Locale.ENGLISH);
-		int dayNum = cal.get(DAY_OF_MONTH);
-		String monthName = cal.getDisplayName(GregorianCalendar.MONTH, LONG, Locale.ENGLISH);
-		int year = cal.get(YEAR);
-		return (dayName + ", " + monthName + " " + dayNum + ", " + year);
 	}
 }

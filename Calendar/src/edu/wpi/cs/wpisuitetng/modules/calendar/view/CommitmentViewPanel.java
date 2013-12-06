@@ -13,7 +13,7 @@ import java.awt.LayoutManager;
 
 import javax.swing.JPanel;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 
 public class CommitmentViewPanel extends JPanel {
 

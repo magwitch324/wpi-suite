@@ -1,8 +1,8 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar;
 
 import static org.junit.Assert.assertEquals;
-
 import static java.util.Calendar.*;
+
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -12,8 +12,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 
 public class CommitmentListTest {
 
