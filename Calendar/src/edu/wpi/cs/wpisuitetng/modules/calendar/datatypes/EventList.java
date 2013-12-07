@@ -177,7 +177,7 @@ public class EventList {
     	 * @param end
     	 * @return
     	 */
-    	public List<Event> filter(Calendar start, Calendar end) {
+    	public List<Event> filter(GregorianCalendar start, GregorianCalendar end) {
     		//TODO Change filter to appropriately filter things
 
     		GregorianCalendar eventStart = new GregorianCalendar();
@@ -236,10 +236,6 @@ public class EventList {
     		start.set(Calendar.SECOND, 0);
     		
     		GregorianCalendar end   = new GregorianCalendar();
-    		end.setTime(start.getTime());
-    		end.set(Calendar.HOUR_OF_DAY, 23);
-    		end.set(Calendar.MINUTE, 59);
-    		end.set(Calendar.SECOND, 59);
     		
     		
     		/* All methods here add the given amount, then roll back
@@ -251,16 +247,28 @@ public class EventList {
     		}
     		else if (amount == Calendar.WEEK_OF_MONTH || amount == Calendar.WEEK_OF_YEAR) {
     			start.set(Calendar.DAY_OF_WEEK, start.getFirstDayOfWeek());
+        		end.setTime(start.getTime());
+        		end.set(Calendar.HOUR_OF_DAY, 23);
+        		end.set(Calendar.MINUTE, 59);
+        		end.set(Calendar.SECOND, 59);
     			end.add(Calendar.WEEK_OF_YEAR, 1);
     			end.add(Calendar.DAY_OF_YEAR, -1);
     		}
     		else if (amount == Calendar.MONTH) {
     			start.set(Calendar.DATE, 1);
+        		end.setTime(start.getTime());
+        		end.set(Calendar.HOUR_OF_DAY, 23);
+        		end.set(Calendar.MINUTE, 59);
+        		end.set(Calendar.SECOND, 59);
     			end.add(Calendar.MONTH, 1);
     			end.add(Calendar.DAY_OF_YEAR, -1);
     		}
     		else if (amount == Calendar.YEAR) {
     			start.set(Calendar.DAY_OF_YEAR, 1);
+        		end.setTime(start.getTime());
+        		end.set(Calendar.HOUR_OF_DAY, 23);
+        		end.set(Calendar.MINUTE, 59);
+        		end.set(Calendar.SECOND, 59);
     			end.add(Calendar.YEAR, 1);
     			end.add(Calendar.DAY_OF_YEAR, -1);
     		} else {
