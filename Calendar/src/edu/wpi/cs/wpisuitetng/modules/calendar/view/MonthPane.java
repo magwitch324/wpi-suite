@@ -217,8 +217,8 @@ public class MonthPane extends JScrollPane implements ICalPane {
 	 * 
 	 */
 	protected class MonthDayPane extends JPanel {
-		List<Commitment> commlist = null;
-		List<Event> eventlist = null;
+		List<Commitment> commlist = new ArrayList<Commitment>();
+		List<Event> eventlist = new ArrayList<Event>();
 		List<wrapper> wraps = null;
 		JLabel datelabel = null;
 		List<MouseListener> listeners = null;
@@ -293,6 +293,9 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		public void addCommitments(List<Commitment> commlist) {
 			if(enabled){
 				this.commlist = commlist;
+				if(this.commlist == null){
+					this.commlist = new ArrayList<Commitment>();
+				}
 				merge();
 				didResize();
 			}
@@ -306,6 +309,9 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		public void addEvents(List<Event> eventlist) {
 			if(enabled){
 				this.eventlist = eventlist;
+				if(this.eventlist == null){
+					this.eventlist = new ArrayList<Event>();
+				}
 				merge();
 				didResize();
 			}
@@ -313,16 +319,19 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		
 		protected void merge(){
 			wraps = new ArrayList<wrapper>();
-			if(commlist == null && eventlist != null){
+			//if we only have events
+			if(commlist.isEmpty() && !eventlist.isEmpty()){
 				for(Event event : eventlist){
 					wraps.add(new wrapper(event));
 				}
 			}
-			else if(commlist != null && eventlist == null){
+			//if we only have commitments
+			else if(!commlist.isEmpty() && eventlist.isEmpty()){
 				for(Commitment comm : commlist){
 					wraps.add(new wrapper(comm));
 				}
 			}
+			//if we have both
 			else if(commlist != null && eventlist != null){
 				int eindex = 0;
 				int cindex = 0;
@@ -353,6 +362,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 						cindex++;
 					}
 					else{
+						System.out.println("DEBUG!!!!: " + eventlist.size() + " " + eindex);
 						wraps.add( new wrapper(eventlist.get(eindex)));
 						eindex++;
 					}
