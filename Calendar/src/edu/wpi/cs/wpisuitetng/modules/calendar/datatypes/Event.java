@@ -65,9 +65,8 @@ public class Event extends AbstractModel{
          *                           An array of names of participants
          */
         // need to phase out supplying the ID
-        public Event(int id, String name, String description, GregorianCalendar startTime, GregorianCalendar endTime, String[] people, int categoryID) {
+        public Event(String name, String description, GregorianCalendar startTime, GregorianCalendar endTime, String[] people, int categoryID) {
                 this();
-                this.id = id;
                 this.name = name;
                 this.description = description;
                 this.startTime = startTime.getTime();

@@ -146,6 +146,7 @@ public class EventList {
         	int i = 0;
     		while(i < array.length){
     			events.add(array[i]);
+    			i++;
     		}
         }
 
