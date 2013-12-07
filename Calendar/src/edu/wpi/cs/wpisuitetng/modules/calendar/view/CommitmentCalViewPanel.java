@@ -46,7 +46,7 @@ public class CommitmentCalViewPanel extends JPanel {
 		String name = comm.getName();
 		//String descr = "Descr: " + comm.getDescription();
 //		String tag = comm.getIsPersonal() ? "[Personal]" : "[Team]";
-		setLayout(new GridLayout(2,1));
+//		setLayout(new GridLayout(2,1));
 		setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this text
 
 		JLabel alab = new JLabel(comm.getDescription(), JLabel.CENTER);
@@ -59,14 +59,14 @@ public class CommitmentCalViewPanel extends JPanel {
 		try {
 			if (comm.getIsPersonal())
 			{	
-				nameImg = ImageIO.read(getClass().getResource("Personal_Icon.png"));
+				nameImg = ImageIO.read(getClass().getResource("PersonalCommitment_Icon.png"));
 				
 			}
 			else
 			{
-				nameImg = ImageIO.read(getClass().getResource("Team_Icon.png"));
+				nameImg = ImageIO.read(getClass().getResource("TeamCommitment_Icon.png"));
 			}
-			scaleImg = nameImg.getScaledInstance(15,18, Image.SCALE_SMOOTH);
+			scaleImg = nameImg.getScaledInstance(20,20, Image.SCALE_SMOOTH);
 			alab = new JLabel(name, new ImageIcon(scaleImg), JLabel.CENTER);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
