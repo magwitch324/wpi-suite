@@ -9,6 +9,11 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
+import static java.util.Calendar.DAY_OF_YEAR;
+import static java.util.Calendar.DECEMBER;
+import static java.util.Calendar.JANUARY;
+import static java.util.Calendar.YEAR;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -24,6 +29,7 @@ import javax.swing.event.ChangeListener;
 import org.jdesktop.swingx.JXDatePicker;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
@@ -62,8 +68,11 @@ import java.awt.Color;
 
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+
 import java.awt.FlowLayout;
+
 import javax.swing.SpinnerModel;
+
 import java.awt.GridLayout;
 import java.awt.Font;
 
@@ -894,8 +903,28 @@ public class CommitmentTab extends JPanel {
 		newComm.setDueDate(calDate);
 		newComm.setName(this.nameTextField.getText());
 		
-		if (mode == EditingMode.ADDING)
+		if (mode == EditingMode.ADDING) {
 			calData.addCommitment(newComm);
+			
+			/**
+			 * COMMENT THIS OUT TO NOT ADD A LOT OF COMMITMENTS
+			 */
+			// The script to add a bunch of commitments
+//			GregorianCalendar day = new GregorianCalendar(2013, JANUARY, 1, 12, 00, 00);
+//			GregorianCalendar lastDay = new GregorianCalendar();
+//			lastDay.setTime(day.getTime());
+//			lastDay.add(YEAR, 1);
+//			
+//			while (day.before(lastDay)) {
+//				CalendarStandard.printcalendar(lastDay);
+//				GregorianCalendar set = new GregorianCalendar();
+//				set.setTime(day.getTime());
+//				Commitment newCommitment = new Commitment("Test", set, "Test Description", 0, false);
+//				calData.addCommitment(newCommitment);
+//				day.add(Calendar.DAY_OF_YEAR, 1);
+//			}
+			
+		}
 		else
 			calData.getCommitments().update(newComm);
 

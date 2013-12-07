@@ -31,6 +31,7 @@ import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 
 
 @SuppressWarnings("serial")
@@ -195,7 +196,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * @param showTeamData 
 	 * @param showCommitments 
 	 */
-	abstract public void displayCalData(CommitmentList commList, boolean showCommOnCal);
+	abstract public void displayCalData(EventList eventList, CommitmentList commList, boolean showCommOnCal);
 	
 	public void updateScrollPosition(int value){
 		this.calPane.updateScrollPosition(value);

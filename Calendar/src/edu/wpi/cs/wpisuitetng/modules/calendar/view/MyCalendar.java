@@ -26,7 +26,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetPropsController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
@@ -172,7 +174,7 @@ public class MyCalendar extends AbCalendar {
 				ConfigManager.getConfig().getProjectName() + "-"
 						+ ConfigManager.getConfig().getUserName());
 
-		setCommList();
+		setCommEventList();
 		setView();
 
 	}
@@ -180,7 +182,7 @@ public class MyCalendar extends AbCalendar {
 	protected void displayCalData() {
 		// TODO Auto-generated method stub
 		if (initialized) {
-			calView.displayCalData(this.commitments, this.getShowCommitments());
+			calView.displayCalData(this.events, this.commitments, this.getShowCommitments());
 		}
 	}
 
@@ -195,13 +197,18 @@ public class MyCalendar extends AbCalendar {
 	 * 		Initialization
 	 *		Checking of show team data
 	 */
-	public void setCommList() {
+	public void setCommEventList() {
 		//if we dont have the caldata dont do anything
 		if (initialized && getCalData() != null) {
-			//System.out.println("got COMMITMENTS FOR VIEW");
-			CombinedCommitmentList combinedList = new CombinedCommitmentList(
+			//create a combined Commitment list
+			CombinedCommitmentList combinedCommList = new CombinedCommitmentList(
 					new ArrayList<Commitment>(getCalData()
 							.getCommitments().getCommitments()));
+			//create a combined event list
+			CombinedEventList combinedEventList = new CombinedEventList(
+					new ArrayList<Event>(getCalData()
+							.getEvents().getEvents()));
+			//get the team data
 			CalendarData teamData = CalendarDataModel.getInstance()
 					.getCalendarData(ConfigManager.getConfig().getProjectName());
 
@@ -212,15 +219,26 @@ public class MyCalendar extends AbCalendar {
 
 				for (int i = 0; i < teamData.getCommitments()
 						.getCommitments().size(); i++) {
-					combinedList.add(teamData.getCommitments()
+					combinedCommList.add(teamData.getCommitments()
 							.getCommitments().get(i));
 				}
-				commitments = combinedList;
+				commitments = combinedCommList;
+				
+				// Iterate through team events and add each element to
+				// combinedEventList
+				for (int i = 0; i < teamData.getEvents()
+						.getEvents().size(); i++) {
+					combinedEventList.add(teamData.getEvents()
+							.getEvents().get(i));
+				}
+				events = combinedEventList;
+				
 			}
 
 			//if we are not supposed to show team data the CommitmentList should just be straight from the personal data
 			else {
 				commitments = getCalData().getCommitments();
+				events = getCalData().getEvents();
 			}
 		}
 	}
