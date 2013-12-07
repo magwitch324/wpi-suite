@@ -243,8 +243,7 @@ public class GUIEventController {
 
 
 	public void switchView(GregorianCalendar acal, TeamCalendar.types switchtype){
-		teamCalendar.setCalsetView(acal, switchtype);
-		myCalendar.setCalsetView(acal, switchtype);
+		getSelectedCalendar().setCalsetView(acal, switchtype);
 
 	}
 
