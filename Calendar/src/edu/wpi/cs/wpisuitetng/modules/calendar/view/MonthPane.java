@@ -31,10 +31,10 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
 @SuppressWarnings("serial")
@@ -164,19 +164,22 @@ public class MonthPane extends JScrollPane implements ICalPane {
 
 			CombinedCommitmentList alist = new CombinedCommitmentList();
 			for(Commitment comm: commList){
-				alist.addCommitment(comm);
+				alist.add(comm);
 			}
 
 			int index = 0;
 			GregorianCalendar ret = (GregorianCalendar) startdate.clone();
-
 			ret.set(ret.get(Calendar.YEAR), curmonth, 1);
-			
-			do{
-				days[index].addCommitments(alist.filter(ret));
-				index++;
+
+			for (int i = 0; i < 42; i++) {
+				try {
+					days[i].addCommitments(alist.filter(ret));
+				} catch (CalendarException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				ret.add(Calendar.DATE, 1);
-			}while(ret.get(Calendar.DATE) != 1);
+			}
 
 		} else {
 			for (int i = 0; i < 42; i++) {
@@ -204,7 +207,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		 */
 		public MonthDayPane(GregorianCalendar acal, int month){
 			super();
-			this.acal = acal;
+			this.acal = (GregorianCalendar)acal.clone();
 			SpringLayout layout = new SpringLayout();
 			this.setLayout(layout);
 			this.setPreferredSize(new Dimension(50, 20));
@@ -262,9 +265,11 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		 *            the list to change to
 		 */
 		public void addCommitments(List<Commitment> commlist) {
-			this.commlist = commlist;
-			merge();
-			didResize();
+			if(enabled){
+				this.commlist = commlist;
+				merge();
+				didResize();
+			}
 		}
 		
 		/**
@@ -273,9 +278,11 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		 *            the list to change to
 		 */
 		public void addEvents(List<Event> eventlist) {
-			this.eventlist = eventlist;
-			merge();
-			didResize();
+			if(enabled){
+				this.eventlist = eventlist;
+				merge();
+				didResize();
+			}
 		}
 		
 		protected void merge(){

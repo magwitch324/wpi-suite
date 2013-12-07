@@ -212,7 +212,7 @@ public class MyCalendar extends AbCalendar {
 
 				for (int i = 0; i < teamData.getCommitments()
 						.getCommitments().size(); i++) {
-					combinedList.addCommitment(teamData.getCommitments()
+					combinedList.add(teamData.getCommitments()
 							.getCommitments().get(i));
 				}
 				commitments = combinedList;

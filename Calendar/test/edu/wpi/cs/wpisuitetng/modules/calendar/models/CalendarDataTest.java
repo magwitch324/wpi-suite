@@ -22,12 +22,12 @@ public class CalendarDataTest {
 		data.addCommitment(com3);
 		
 		CommitmentList list = data.getCommitments();
-		System.out.println(list.getCommitments().get(1).getDescription() + data.getCommitments().getCommitments().get(1).getId());
+		System.out.println(list.getCommitments().get(1).getDescription() + data.getCommitments().getCommitments().get(1).getID());
 		helper(list);
 		//System.out.println(data.getCommitments().getCommitments().get(0).getDescription());
-		System.out.println(data.getCommitments().getCommitments().get(1).getDescription() + data.getCommitments().getCommitments().get(1).getId());
+		System.out.println(data.getCommitments().getCommitments().get(1).getDescription() + data.getCommitments().getCommitments().get(1).getID());
 		helper2(data.getCommitments().getCommitments().get(1));
-		System.out.println(data.getCommitments().getCommitments().get(1).getDescription() + data.getCommitments().getCommitments().get(1).getId());
+		System.out.println(data.getCommitments().getCommitments().get(1).getDescription() + data.getCommitments().getCommitments().get(1).getID());
 	}
 	
 	public void helper(CommitmentList list){

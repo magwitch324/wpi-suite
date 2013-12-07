@@ -35,7 +35,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment.Status;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 
 @SuppressWarnings("serial")
 public class CommitmentView extends JPanel {

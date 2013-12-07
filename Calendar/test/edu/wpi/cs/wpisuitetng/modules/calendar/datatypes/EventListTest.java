@@ -33,24 +33,24 @@ public class EventListTest {
 	private final static GregorianCalendar today = new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00);
 	private final static GregorianCalendar today13 = new GregorianCalendar(2013, NOVEMBER, 23, 13, 00, 00);
 	
-	Event lastYear   = new Event("Last Year",  "A Event from last year",  new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00),  new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), people , 1);
-	Event lastMonth  = new Event("Last Month", "A Event from last month", new GregorianCalendar(2013, OCTOBER, 12, 12, 00, 00),  new GregorianCalendar(2013, OCTOBER, 12, 13, 00, 00), people, 1);
-	Event lastWeek   = new Event("Last Week",  "A Event for a week ago",  new GregorianCalendar(2013, NOVEMBER, 16, 12, 00, 00), new GregorianCalendar(2013, NOVEMBER, 16, 13, 00, 00), people, 1);
-	Event todayEvent = new Event("Today",      "A Event from today", today, today13, people, 2);
-	Event nextWeek   = new Event("Next Week",  "A Event for next week",   new GregorianCalendar(2013, NOVEMBER, 24, 12, 00, 00), new GregorianCalendar(2013, NOVEMBER, 24, 13, 00, 00), people, 1);
-	Event nextMonth  = new Event("Next Month", "A Event for next month",  new GregorianCalendar(2013, DECEMBER, 23, 12, 00, 00), new GregorianCalendar(2013, DECEMBER, 23, 13, 00, 00), people, 1);
-	Event nextYear   = new Event("Next Year",  "A Event for next year",   new GregorianCalendar(2014, JANUARY, 1, 12, 00, 00),   new GregorianCalendar(2014, JANUARY, 1, 13, 00, 00) , people, 3);
+	Event lastYear   = new Event("Last Year",  "A Event from last year",  new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00),  new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), people , 1, true);
+	Event lastMonth  = new Event("Last Month", "A Event from last month", new GregorianCalendar(2013, OCTOBER, 12, 12, 00, 00),  new GregorianCalendar(2013, OCTOBER, 12, 13, 00, 00), people, 1, true);
+	Event lastWeek   = new Event("Last Week",  "A Event for a week ago",  new GregorianCalendar(2013, NOVEMBER, 16, 12, 00, 00), new GregorianCalendar(2013, NOVEMBER, 16, 13, 00, 00), people, 1, true);
+	Event todayEvent = new Event("Today",      "A Event from today", today, today13, people, 2, true);
+	Event nextWeek   = new Event("Next Week",  "A Event for next week",   new GregorianCalendar(2013, NOVEMBER, 24, 12, 00, 00), new GregorianCalendar(2013, NOVEMBER, 24, 13, 00, 00), people, 1, true);
+	Event nextMonth  = new Event("Next Month", "A Event for next month",  new GregorianCalendar(2013, DECEMBER, 23, 12, 00, 00), new GregorianCalendar(2013, DECEMBER, 23, 13, 00, 00), people, 1, true);
+	Event nextYear   = new Event("Next Year",  "A Event for next year",   new GregorianCalendar(2014, JANUARY, 1, 12, 00, 00),   new GregorianCalendar(2014, JANUARY, 1, 13, 00, 00) , people, 3, true);
 	@Before
 	public void setup() {
 		Events = new EventList();
 		eventList1 = new EventList();
-		Events.addEvent(lastYear);
-		Events.addEvent(lastMonth);
-		Events.addEvent(lastWeek);
-		Events.addEvent(todayEvent);
-		Events.addEvent(nextWeek);
-		Events.addEvent(nextMonth);
-		Events.addEvent(nextYear);
+		Events.add(lastYear);
+		Events.add(lastMonth);
+		Events.add(lastWeek);
+		Events.add(todayEvent);
+		Events.add(nextWeek);
+		Events.add(nextMonth);
+		Events.add(nextYear);
 		
 		printlist(Events.getEvents());
 		
@@ -58,8 +58,8 @@ public class EventListTest {
 	
 	@Test
 	public void addOneEventTest() {
-		eventList1.addEvent(nextMonth);
-		eventList1.addEvent(lastYear);
+		eventList1.add(nextMonth);
+		eventList1.add(lastYear);
 		List<String> peopletest = new ArrayList<String>();
 		peopletest.add("John");
 		peopletest.add("Mary");
@@ -77,7 +77,7 @@ public class EventListTest {
 	
 	@Test
 	public void addTwoEventTest() {
-		eventList1.addEvent(lastYear);
+		eventList1.add(lastYear);
 		List<String> people = new ArrayList<String>();
 		people.add("John");
 		people.add("Mary");
@@ -88,21 +88,21 @@ public class EventListTest {
 		assertEquals(new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), events.get(0).getEndTime());
 		assertEquals(new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00), events.get(0).getStartTime());
 		assertEquals(people, events.get(0).getParticipants());
-		assertEquals(0, events.get(0).getId());
+		assertEquals(0, events.get(0).getID());
 	}
 	
 	@Test
 	public void getEventTest() {
-		eventList1.addEvent(nextMonth);
-		eventList1.addEvent(lastYear);
+		eventList1.add(nextMonth);
+		eventList1.add(lastYear);
 		assertNotNull(eventList1.getEvent(0));
 		assertNotNull(eventList1.getEvent(1));
 	}
 	
 	@Test
 	public void removeEventTest1() {
-		eventList1.addEvent(nextMonth);
-		eventList1.addEvent(lastYear);
+		eventList1.add(nextMonth);
+		eventList1.add(lastYear);
 		eventList1.removeEvent(0);
 		assertEquals(1, eventList1.getSize());
 		assertEquals("Last Year", eventList1.getEvent(0).getName());
@@ -110,31 +110,31 @@ public class EventListTest {
 
 	@Test
 	public void removeAllEventTest() {
-		eventList1.addEvent(nextMonth);
-		eventList1.addEvent(lastYear);
+		eventList1.add(nextMonth);
+		eventList1.add(lastYear);
 		eventList1.removeAll();
 		assertEquals(0, eventList1.getSize());
 	}
 	
 	@Test
 	public void getElementAtTest() {
-		eventList1.addEvent(nextMonth);
-		eventList1.addEvent(nextYear);
-		eventList1.addEvent(lastYear);
+		eventList1.add(nextMonth);
+		eventList1.add(nextYear);
+		eventList1.add(lastYear);
 		assertEquals("Next Year", eventList1.getElementAt(0).getName());
 	}
 	
 	
 	@Test
 	public void getNextIDTest() {
-		eventList1.addEvent(nextMonth);
-		eventList1.addEvent(nextYear);
-		eventList1.addEvent(lastYear);
+		eventList1.add(nextMonth);
+		eventList1.add(nextYear);
+		eventList1.add(lastYear);
 		assertEquals(3, eventList1.getNextID());
 	}
 	
 	@Test
-	public void addEventsTest() {
+	public void addsTest() {
 		Event[] events = new Event[]{nextMonth, nextYear, lastYear};
 		eventList1.addEvents(events);
 		assertEquals(3, eventList1.getSize());
@@ -142,12 +142,28 @@ public class EventListTest {
 	
 	@Test
 	public void updateTest() {
-		eventList1.addEvent(nextMonth);
-		eventList1.addEvent(nextYear);
-		eventList1.addEvent(lastYear);
+		eventList1.add(nextMonth);
+		eventList1.add(nextYear);
+		eventList1.add(lastYear);
 		lastYear.setName("Changed Last Year");
 		eventList1.update(lastYear);
 		assertEquals("Changed Last Year", eventList1.getElementAt(0).getName());
+	}
+	
+	@Test
+	public void filterEventHalfInRange() {
+		EventList events = new EventList();
+		events.add(new Event("Test", "Bug", new GregorianCalendar(2013, NOVEMBER, 23, 10, 00, 00), new GregorianCalendar(2013, NOVEMBER, 23, 23, 00, 00), people, 1, true));
+		List<Event> newData = events.filter(new GregorianCalendar(2013, NOVEMBER, 23, 1, 00, 00), new GregorianCalendar(2013, NOVEMBER, 23, 13, 00, 00));
+		assertEquals(1, newData.size());
+	}
+	
+	@Test
+	public void filterEventAroundRange() {
+		EventList events = new EventList();
+		events.add(new Event("Test", "Bug", new GregorianCalendar(2013, NOVEMBER, 23, 10, 00, 00), new GregorianCalendar(2013, NOVEMBER, 23, 23, 00, 00), people, 1, true));
+		List<Event> newData = events.filter(new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00), new GregorianCalendar(2013, NOVEMBER, 23, 13, 00, 00));
+		assertEquals(1, newData.size());
 	}
 
 	// Helper function
