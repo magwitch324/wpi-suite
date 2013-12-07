@@ -58,8 +58,12 @@ public class DayView extends CalendarView {
 
 	@Override
 	public void displayCalData(CommitmentList commList, boolean showCommOnCal) {
-		
-		commitmentView.updateCommData(commList.getCommitments());
+
+		if (super.showAllCommFlag){
+			commitmentView.updateCommData(commList.getCommitments());
+		} else {
+			commitmentView.updateCommData(commList.filter(day));
+		}
 		// TODO filter commitments
 		if (showCommOnCal)
 			try {
