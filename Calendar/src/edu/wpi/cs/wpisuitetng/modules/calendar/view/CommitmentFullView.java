@@ -112,7 +112,7 @@ public class CommitmentFullView extends JPanel{
 			//if we are supposed to show team data, we need to put the team commitments into the list in the right order
 			for (int i = 0; i < teamData.getCommitments()
 					.getCommitments().size(); i++) {
-				combinedList.addCommitment(teamData.getCommitments()
+				combinedList.add(teamData.getCommitments()
 						.getCommitments().get(i));
 			}
 			commitmentList = combinedList.getCommitments();

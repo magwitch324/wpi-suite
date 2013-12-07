@@ -111,7 +111,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 
 			CombinedCommitmentList alist = new CombinedCommitmentList();
 			for(Commitment comm: commList){
-				alist.addCommitment(comm);
+				alist.add(comm);
 			}
 
 			int index = 0;
@@ -243,7 +243,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 
 				CombinedCommitmentList alist = new CombinedCommitmentList();
 				for(Commitment comm: commList){
-					alist.addCommitment(comm);
+					alist.add(comm);
 				}
 
 				int index = 0;
@@ -252,7 +252,12 @@ public class YearPane extends JScrollPane implements ICalPane{
 				ret.set(ret.get(Calendar.YEAR), this.acal.get(Calendar.MONTH), 1);
 				
 				do{
-					daypanes[index].displayCommitments(alist.filter(ret));
+					try {
+						daypanes[index].displayCommitments(alist.filter(ret));
+					} catch (CalendarException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					index++;
 					ret.add(Calendar.DATE, 1);
 					}

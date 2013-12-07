@@ -31,6 +31,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
@@ -164,7 +165,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 
 			CombinedCommitmentList alist = new CombinedCommitmentList();
 			for(Commitment comm: commList){
-				alist.addCommitment(comm);
+				alist.add(comm);
 			}
 
 			int index = 0;
@@ -173,7 +174,12 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			ret.set(ret.get(Calendar.YEAR), curmonth, 1);
 			
 			do{
-				days[index].addCommitments(alist.filter(ret));
+				try {
+					days[index].addCommitments(alist.filter(ret));
+				} catch (CalendarException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				index++;
 				ret.add(Calendar.DATE, 1);
 			}while(ret.get(Calendar.DATE) != 1);

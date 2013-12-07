@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 
 @SuppressWarnings("serial")
@@ -61,7 +62,12 @@ public class DayView extends CalendarView {
 		commitmentView.updateCommData(commList.getCommitments());
 		// TODO filter commitments
 		if (showCommOnCal)
-			dayPane.displayCommitments(commList.filter(day)); //add only commitments on today to DayPane
+			try {
+				dayPane.displayCommitments(commList.filter(day));
+			} catch (CalendarException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		else
 			dayPane.displayCommitments(null); //show no commitments on DayPane
 

@@ -89,7 +89,7 @@ public class CalendarData extends AbstractModel {
 	 * @param event
 	 */
 	public void addEvent(Event newEvent){
-		events.addEvent(newEvent);
+		events.add(newEvent);
 	}
 	
 	/**
@@ -98,7 +98,7 @@ public class CalendarData extends AbstractModel {
 	 * @param commitment
 	 */
 	public void addCommitment(Commitment newCommitment){
-		commitments.addCommitment(newCommitment);
+		commitments.add(newCommitment);
 	}
 	
 	/**
