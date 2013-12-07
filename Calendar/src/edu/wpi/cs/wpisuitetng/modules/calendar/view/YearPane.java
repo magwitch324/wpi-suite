@@ -33,6 +33,7 @@ import javax.swing.SwingConstants;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
@@ -108,10 +109,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 	public void displayCommitments(List<Commitment> commList) {
 		// if we are supposed to display commitments
 		if (commList != null) {
-			CombinedCommitmentList alist = new CombinedCommitmentList();
-			for(Commitment comm: commList){
-				alist.add(comm);
-			}
+			CombinedCommitmentList alist = new CombinedCommitmentList(commList);
 
 			GregorianCalendar ret = (GregorianCalendar) supcal.clone();
 
@@ -138,12 +136,8 @@ public class YearPane extends JScrollPane implements ICalPane{
 	public void displayEvents(List<Event> eventList) {
 		// if we are supposed to display commitments
 		if (eventList != null) {
-			//TODO implement the combinedEventList
-			/*CombinedEventList alist = new CombinedEventList();
-			for(Event event: eventList){
-				alist.add(event);
-			}
-
+			CombinedEventList alist = new CombinedEventList(eventList);
+			
 			GregorianCalendar ret = (GregorianCalendar) supcal.clone();
 
 			for(int i = 0; i < 12; i++){
@@ -154,7 +148,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 				catch(CalendarException e){
 					
 				}
-			}*/
+			}
 		} else {
 			for (int i = 0; i < 12; i++) {
 				monthpanes[i].displayEvents(null);
@@ -275,10 +269,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 			// if we are supposed to display commitments
 			if (commList != null) {
 
-				CombinedCommitmentList alist = new CombinedCommitmentList();
-				for(Commitment comm: commList){
-					alist.add(comm);
-				}
+				CombinedCommitmentList alist = new CombinedCommitmentList(commList);
 
 				GregorianCalendar ret = (GregorianCalendar) this.monthpanestart.clone();
 				
@@ -304,11 +295,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 		public void displayEvents(List<Event> eventList) {
 			// if we are supposed to display commitments
 			if (eventList != null) {
-				//TODO implement the combinedEventList
-				/*CombinedEventList alist = new CombinedEventList();
-				for(Event event: eventList){
-					alist.add(event);
-				}
+				CombinedEventList alist = new CombinedEventList(eventList);
 
 				GregorianCalendar ret = (GregorianCalendar) this.monthpanestart.clone();
 				
@@ -320,7 +307,6 @@ public class YearPane extends JScrollPane implements ICalPane{
 					}
 					ret.add(Calendar.DATE, 1);
 				}
-				*/
 			} else {
 				for (int i = 0; i < 42; i++) {
 					daypanes[i].displayEvents(null);
