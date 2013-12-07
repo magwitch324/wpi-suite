@@ -170,19 +170,17 @@ public class MonthPane extends JScrollPane implements ICalPane {
 
 			int index = 0;
 			GregorianCalendar ret = (GregorianCalendar) startdate.clone();
-
 			ret.set(ret.get(Calendar.YEAR), curmonth, 1);
-			
-			do{
+
+			for (int i = 0; i < 42; i++) {
 				try {
-					days[index].addCommitments(alist.filter(ret));
+					days[i].addCommitments(alist.filter(ret));
 				} catch (CalendarException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				index++;
 				ret.add(Calendar.DATE, 1);
-			}while(ret.get(Calendar.DATE) != 1);
+			}
 
 		} else {
 			for (int i = 0; i < 42; i++) {
@@ -210,7 +208,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		 */
 		public MonthDayPane(GregorianCalendar acal, int month){
 			super();
-			this.acal = acal;
+			this.acal = (GregorianCalendar)acal.clone();
 			SpringLayout layout = new SpringLayout();
 			this.setLayout(layout);
 			this.setPreferredSize(new Dimension(50, 20));
@@ -268,9 +266,11 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		 *            the list to change to
 		 */
 		public void addCommitments(List<Commitment> commlist) {
-			this.commlist = commlist;
-			merge();
-			didResize();
+			if(enabled){
+				this.commlist = commlist;
+				merge();
+				didResize();
+			}
 		}
 		
 		/**
@@ -279,9 +279,11 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		 *            the list to change to
 		 */
 		public void addEvents(List<Event> eventlist) {
-			this.eventlist = eventlist;
-			merge();
-			didResize();
+			if(enabled){
+				this.eventlist = eventlist;
+				merge();
+				didResize();
+			}
 		}
 		
 		protected void merge(){

@@ -139,7 +139,8 @@ public class YearPane extends JScrollPane implements ICalPane{
 	 * 42 individual days.
 	 */
 	protected class YearMonthPane extends JPanel{
-		GregorianCalendar acal;
+		GregorianCalendar monthpanestart;
+		GregorianCalendar monthstart;
 		YearDayPane[] daypanes = new YearDayPane[42];
 		List<Commitment> commlist = null;
 		static final int extra_height = 20;//extra padding given to proffered size
@@ -150,7 +151,11 @@ public class YearPane extends JScrollPane implements ICalPane{
 		 */
 		public YearMonthPane(GregorianCalendar acal){
 			super();
-			this.acal = (GregorianCalendar)acal.clone();
+			this.monthstart = (GregorianCalendar)acal.clone();
+			this.monthstart.set(Calendar.DATE, 1);
+			
+			this.monthpanestart = (GregorianCalendar)this.monthstart.clone();
+			this.monthpanestart.set(Calendar.DAY_OF_WEEK, this.monthstart.getFirstDayOfWeek());
 			
 			SpringLayout layout = new SpringLayout();
 			this.setLayout(layout);
@@ -184,12 +189,11 @@ public class YearPane extends JScrollPane implements ICalPane{
 			JPanel days = new JPanel();
 			days.setLayout(new GridLayout(6,7,1,1));
 			
-			GregorianCalendar temp = (GregorianCalendar)acal.clone();
-			temp.set(Calendar.DAY_OF_WEEK, temp.getFirstDayOfWeek());
+			GregorianCalendar temp = (GregorianCalendar)this.monthpanestart.clone();
 			
 			//add the individual days to the view
 			for(int i = 0; i < 42; i++){
-				daypanes[i] = new YearDayPane(temp, this.acal.get(Calendar.MONTH));
+				daypanes[i] = new YearDayPane(temp, this.monthstart.get(Calendar.MONTH));
 				days.add(daypanes[i]);
 				temp.add(Calendar.DATE, 1);
 			}
@@ -246,22 +250,17 @@ public class YearPane extends JScrollPane implements ICalPane{
 					alist.add(comm);
 				}
 
-				int index = 0;
-				GregorianCalendar ret = (GregorianCalendar) acal.clone();
-
-				ret.set(ret.get(Calendar.YEAR), this.acal.get(Calendar.MONTH), 1);
+				GregorianCalendar ret = (GregorianCalendar) this.monthpanestart.clone();
 				
-				do{
+				for (int i = 0; i < 42; i++) {
 					try {
-						daypanes[index].displayCommitments(alist.filter(ret));
+						daypanes[i].displayCommitments(alist.filter(ret));
 					} catch (CalendarException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					index++;
 					ret.add(Calendar.DATE, 1);
-					}
-				while (ret.get(Calendar.DATE) != 1);
+				}
 				
 			} else {
 				for (int i = 0; i < 42; i++) {
@@ -278,8 +277,10 @@ public class YearPane extends JScrollPane implements ICalPane{
 		GregorianCalendar scal;
 		boolean active = false;
 		List<Commitment> commlist = null;
-		int numcomm = 0;
+		int numcomm = -1;
 		int numevent = 0;
+		Color[][] colors = {{new Color(0,0,0),new Color(50,50,50),new Color(150,150,150),new Color(250,250,250)},
+											{CalendarStandard.CalendarYellow ,new Color(50,0,0),new Color(150,0,0),new Color(250,0,0)}};
 		/**
 		 * The constructor for year day pane
 		 * @param acal the current day to display
@@ -312,8 +313,33 @@ public class YearPane extends JScrollPane implements ICalPane{
 			this.setPreferredSize(lbl.getPreferredSize());
 			this.setBorder(BorderFactory.createRaisedSoftBevelBorder());
 		}
+		
 		public void displayCommitments(List<Commitment> commList) {
-			// TODO display comm
+			if(commList == null){
+				numcomm = -1;
+			}
+			else{
+				numcomm = commList.size();
+				for(Commitment comm : commList){
+					System.out.println(scal.get(Calendar.DAY_OF_YEAR) + " : " + comm.getName() + " : " + comm.getDueDate().get(Calendar.DAY_OF_YEAR));
+				}
+			}
+			this.changeBackground();
+		}
+		
+		protected void changeBackground(){
+			if(active){
+				if(numcomm < 0){
+					this.setBackground(colors[1][numevent]);
+				}
+				else if(numcomm < colors[0].length){
+					this.setBackground(colors[0][numcomm + numevent]);
+				}
+				else{
+					this.setBackground(colors[0][colors[0].length-1]);
+				}
+			}
+
 		}
 	}
 
