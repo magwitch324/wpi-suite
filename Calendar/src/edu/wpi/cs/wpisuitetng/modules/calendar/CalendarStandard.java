@@ -28,6 +28,7 @@ public abstract class CalendarStandard {
 	
 	public static final Color CalendarRed = new Color(196,0,14);
 	public static final Color CalendarYellow = new Color(255, 255, 220);
+	public static final Color HeatMapRed = new Color(255, 70, 70);
 	public static final Font  CalendarFont = new Font("SansSerif", 1, 12);
 	public static final Font  CalendarFontBold = new Font("SansSerif", Font.BOLD, 12);
 	
