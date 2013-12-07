@@ -94,12 +94,7 @@ public class EventTest {
 	 */
 	@Test
 	public void setterConstructorTest(){
-		
-<<<<<<< HEAD
 		Event testEvent = new Event("test","test description",_20120129,_20120130,people1,1, true);
-=======
-		Event testEvent = new Event("test","test description",_20120129,_20120130,people1,1,true);
->>>>>>> 2caa1de0cfe1560f245aa6a9bc416f94fddf303b
 		testEvent.setName("setter testing");
 		testEvent.setDescription("setter test description");
 		testEvent.setStartTime(_20131209);
@@ -125,11 +120,7 @@ public class EventTest {
 	 */
 	@Test
 	public void copyFromTest(){
-<<<<<<< HEAD
 		Event testEvent2 = new Event ("test","test description",_20120129,_20120130,people1,1, true);
-=======
-		Event testEvent2 = new Event ("test","test description",_20120129,_20120130,people1,1,true);
->>>>>>> 2caa1de0cfe1560f245aa6a9bc416f94fddf303b
 		testEvent2.setCategoryID(2);
 		List<String> people = new ArrayList<String>();
 		people.add("John");
