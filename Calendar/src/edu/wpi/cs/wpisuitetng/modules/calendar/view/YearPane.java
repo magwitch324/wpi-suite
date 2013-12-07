@@ -115,7 +115,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 
 			for(int i = 0; i < 12; i++){
 				try{
-					monthpanes[i].displayCommitments(alist.filter(ret, Calendar.YEAR));
+					monthpanes[i].displayCommitments(alist.filter(ret, Calendar.MONTH));
 					ret.add(Calendar.MONTH, 1);
 				}
 				catch(CalendarException e){
@@ -138,12 +138,12 @@ public class YearPane extends JScrollPane implements ICalPane{
 		if (eventList != null) {
 			CombinedEventList alist = new CombinedEventList(eventList);
 			
-			GregorianCalendar ret = (GregorianCalendar) supcal.clone();
+			GregorianCalendar tmpCal = (GregorianCalendar) supcal.clone();
 
 			for(int i = 0; i < 12; i++){
 				try{
-					monthpanes[i].displayEvents(alist.filter(ret, Calendar.YEAR));
-					ret.add(Calendar.MONTH, 1);
+					monthpanes[i].displayEvents(alist.filter(tmpCal, Calendar.MONTH));
+					tmpCal.add(Calendar.MONTH, 1);
 				}
 				catch(CalendarException e){
 					
@@ -301,6 +301,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 				
 				for (int i = 0; i < 42; i++) {
 					try {
+						System.out.println("about to pass to day");
 						daypanes[i].displayEvents(alist.filter(ret));
 					} catch (CalendarException e) {
 						e.printStackTrace();
@@ -390,7 +391,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 					numevent = 0;
 				}
 				else{
-					numcomm = eventList.size();	
+					numevent = eventList.size();	
 				}
 				
 				if(numcomm == -1){

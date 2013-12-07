@@ -54,7 +54,18 @@ public class YearView extends CalendarView {
 				commitmentView.updateCommData(commList.getCommitments());
 			}
 		}
-		// TODO filter commitments
+		
+		//Add the events
+		try{
+			yearpane.displayEvents(eventList.filter(ayear, Calendar.YEAR));
+		}
+		 catch (CalendarException e) {
+			yearpane.displayEvents(eventList.getEvents());
+		}
+		
+		
+		
+		
 		if (showCommOnCal){
 			try{
 				yearpane.displayCommitments(commList.filter(ayear, Calendar.YEAR)); //add only commitments on today to DayPane
