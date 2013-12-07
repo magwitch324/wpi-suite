@@ -131,9 +131,10 @@ public class CommitmentFullView extends JPanel{
 		SpringLayout switcherLayout = new SpringLayout();
 
 		viewSwitcher.setLayout(switcherLayout);
-
+		viewSwitcher.setBackground(Color.WHITE);
 		
 		final JRadioButton teamRadioButton = new JRadioButton("Team");
+		teamRadioButton.setBackground(Color.WHITE);
 		teamRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -149,6 +150,7 @@ public class CommitmentFullView extends JPanel{
 		
 		
 		final JRadioButton personalRadioButton = new JRadioButton("Personal");
+		personalRadioButton.setBackground(Color.WHITE);
 		personalRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -167,6 +169,7 @@ public class CommitmentFullView extends JPanel{
 		switcherLayout.putConstraint(SpringLayout.VERTICAL_CENTER, personalRadioButton, 0, SpringLayout.VERTICAL_CENTER, viewSwitcher);
 		
 		final JRadioButton bothRadioButton = new JRadioButton("Both");
+		bothRadioButton.setBackground(Color.WHITE);
 		bothRadioButton.addActionListener(new ActionListener(){
 
 			@Override

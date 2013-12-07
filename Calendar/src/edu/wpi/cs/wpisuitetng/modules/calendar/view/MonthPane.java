@@ -35,7 +35,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
 @SuppressWarnings("serial")
