@@ -62,7 +62,12 @@ public class DayView extends CalendarView {
 		if (super.showAllCommFlag){
 			commitmentView.updateCommData(commList.getCommitments());
 		} else {
-			commitmentView.updateCommData(commList.filter(day));
+			try {
+				commitmentView.updateCommData(commList.filter(day));
+			} catch (CalendarException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		// TODO filter commitments
 		if (showCommOnCal)
