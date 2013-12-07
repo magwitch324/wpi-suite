@@ -22,7 +22,7 @@ public class Event extends CalendarObject {
 	/** the end date of the event */
 	private Date endTime;
 	/** a list of participants of the event */
-	private List<String> participants;
+	private List<String> participants = new ArrayList<String>();
 
 	/**
 	 * Constructs a Event with default characteristics
@@ -31,7 +31,6 @@ public class Event extends CalendarObject {
 		super();
 		startTime = new Date(0);
 		endTime = new Date(0);
-		participants = new ArrayList<String>();
 	}
 
 	/**
