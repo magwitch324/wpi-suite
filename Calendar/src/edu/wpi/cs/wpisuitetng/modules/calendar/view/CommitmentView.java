@@ -122,14 +122,14 @@ public class CommitmentView extends JPanel {
 						if (commitmentList.get(i).getIsPersonal())
 						{	
 							nameImg = ImageIO.read(getClass().getResource("PersonalCommitment_Icon.png"));
-							scaleImg = nameImg.getScaledInstance(20,20, Image.SCALE_SMOOTH);
+							scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
 							tag.setText("[Personal]");
 							tag.setIcon(new ImageIcon(scaleImg));
 						}
 						else
 						{
 							nameImg = ImageIO.read(getClass().getResource("TeamCommitment_Icon.png"));
-							scaleImg = nameImg.getScaledInstance(20,20, Image.SCALE_SMOOTH);
+							scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
 							tag.setText("[Team]");
 							tag.setIcon(new ImageIcon(scaleImg));
 						}
