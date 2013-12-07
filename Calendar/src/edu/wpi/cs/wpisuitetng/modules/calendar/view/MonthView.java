@@ -72,7 +72,12 @@ public class MonthView extends CalendarView {
 			}
 		}
 		
-		monthPane.displayEvents(eventList.filter(aMonth, Calendar.MONTH));
+		try {
+			monthPane.displayEvents(eventList.filter(aMonth, Calendar.MONTH));
+		} catch (CalendarException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		
 		if (showCommOnCal){

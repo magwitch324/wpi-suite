@@ -14,6 +14,7 @@ import java.util.GregorianCalendar;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 
 public class YearView extends CalendarView {
 
@@ -43,7 +44,7 @@ public class YearView extends CalendarView {
 	}
 
 	@Override
-	public void displayCalData(CommitmentList commList, boolean showCommOnCal) {
+	public void displayCalData(EventList eventList, CommitmentList commList, boolean showCommOnCal) {
 		if (super.showAllCommFlag){
 			commitmentView.updateCommData(commList.getCommitments());
 		} else {
