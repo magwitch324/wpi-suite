@@ -244,6 +244,7 @@ public class GUIEventController {
 
 	public void switchView(GregorianCalendar acal, TeamCalendar.types switchtype){
 		getSelectedCalendar().setCalsetView(acal, switchtype);
+		getSelectedCalendar().setDayViewButtonToActive();
 
 	}
 
