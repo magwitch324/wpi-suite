@@ -259,6 +259,10 @@ public class Event extends AbstractModel{
         public int getCategoryID() {
 			return categoryID;
 		}
+        
+        public void setCategoryID (int cateID){
+        	this.categoryID = cateID;
+        }
 
 		public GregorianCalendar getStartTime() {
                 
@@ -266,13 +270,23 @@ public class Event extends AbstractModel{
                 tmp.setTime(this.startTime);
                 return tmp;
         }
-
+		
+		public void setStartTime(GregorianCalendar startTime) {
+			this.startTime = startTime.getTime();
+			
+		}
+		
         public GregorianCalendar getEndTime() {
                 
         	GregorianCalendar tmp = new GregorianCalendar();
             tmp.setTime(this.endTime);
             return tmp;
         }
+        
+        public void setEndTime(GregorianCalendar endTime) {
+			this.endTime = endTime.getTime();
+			
+		}
         
         /**
     	 * Method save.
