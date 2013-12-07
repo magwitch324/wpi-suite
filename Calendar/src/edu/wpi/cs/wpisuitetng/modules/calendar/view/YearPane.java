@@ -301,7 +301,6 @@ public class YearPane extends JScrollPane implements ICalPane{
 				
 				for (int i = 0; i < 42; i++) {
 					try {
-						System.out.println("about to pass to day");
 						daypanes[i].displayEvents(alist.filter(ret));
 					} catch (CalendarException e) {
 						e.printStackTrace();
