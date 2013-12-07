@@ -38,6 +38,7 @@ public class Event extends AbstractModel{
         
         //Category id
         private int categoryID;
+		private boolean isPersonal;
         
         /**
          * Constructs a Event with default characteristics
@@ -159,6 +160,20 @@ public class Event extends AbstractModel{
 //                }
                 this.description = desc;
         }
+        
+    	/**Setter for personal or team commitment
+    	 * @param  boolean isPersonal?*/
+    	public void setIsPersonal (boolean isPersonal)	{this.isPersonal = isPersonal;}
+    	/** Getter for personal or team commitment
+    	 * @return is personal*/
+    	public boolean getIsPersonal()	{return isPersonal;}
+
+    	/**Setter for the categoryId
+    	 * @param categoryId the id to category id*/
+    	public void setCategoryId  (int categoryId) 	{this.categoryID = categoryId;}
+   	 /**Getter for the categoryId	
+    	 * @return the category id */
+    	public int getCategoryId()	{return categoryID;}
 
 
 

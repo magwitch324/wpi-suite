@@ -148,6 +148,7 @@ public class CommitmentList {
 		int i = 0;
 		while(i < array.length){
 			commitments.add(array[i]);
+			i++;
 		}
 	}
 

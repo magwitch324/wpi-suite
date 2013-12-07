@@ -1110,33 +1110,41 @@ public class EventTab extends JPanel {
 		else
 			newEvent = editingEvent;
 		
-//		if(isTeamEvent){
-//			newEvent.setIsPersonal(false);
-//		}
-//		else{
-//			newEvent.setIsPersonal(true);
-//		}
+		if(isTeamEvent){
+			newEvent.setIsPersonal(false);
+		}
+		else{
+			newEvent.setIsPersonal(true);
+		}
 		
-//		newEvent.setCategoryId(((Category)this.categoryComboBox.getSelectedItem()).getId());
+		newEvent.setCategoryId(((Category)this.categoryComboBox.getSelectedItem()).getId());
 		newEvent.setDescription(this.descriptionTextArea.getText());
 		
 		
 		//Parse date and time info
-		GregorianCalendar calDate = new GregorianCalendar();
-		GregorianCalendar calTime = new GregorianCalendar();
-		calDate.setTime(this.startDatePicker.getDate());
-		calTime.setTime((Date)startTimeSpinner.getValue());
-		calDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
-		calDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
+		GregorianCalendar calStartDate = new GregorianCalendar();
+		GregorianCalendar calStartTime = new GregorianCalendar();
+		calStartDate.setTime(this.startDatePicker.getDate());
+		calStartTime.setTime((Date)startTimeSpinner.getValue());
+		calStartDate.set(Calendar.HOUR_OF_DAY, calStartTime.get(Calendar.HOUR_OF_DAY));
+		calStartDate.set(Calendar.MINUTE, calStartTime.get(Calendar.MINUTE));
+		
+		GregorianCalendar calEndDate = new GregorianCalendar();
+		GregorianCalendar calEndTime = new GregorianCalendar();
+		calEndDate.setTime(this.startDatePicker.getDate());
+		calEndTime.setTime((Date)startTimeSpinner.getValue());
+		calEndDate.set(Calendar.HOUR_OF_DAY, calEndTime.get(Calendar.HOUR_OF_DAY));
+		calEndDate.set(Calendar.MINUTE, calEndTime.get(Calendar.MINUTE));
 		
 		//set due date
-		//newEvent.setDueDate(calDate);
+		newEvent.setStartTime(calStartDate);
+		newEvent.setEndTime(calStartDate);
 		newEvent.setName(this.nameTextField.getText());
 		
-//		if (mode == EditingMode.ADDING)
-//			calData.addEvent(newEvent);
-//		else
-//			calData.getEvents().update(newEvent);
+		if (mode == EditingMode.ADDING)
+			calData.addEvent(newEvent);
+		else
+			calData.getEvents().update(newEvent);
 
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 

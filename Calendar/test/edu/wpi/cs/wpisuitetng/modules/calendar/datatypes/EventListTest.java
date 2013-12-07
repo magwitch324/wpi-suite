@@ -149,6 +149,22 @@ public class EventListTest {
 		eventList1.update(lastYear);
 		assertEquals("Changed Last Year", eventList1.getElementAt(0).getName());
 	}
+	
+	@Test
+	public void filterEventHalfInRange() {
+		EventList events = new EventList();
+		events.addEvent(new Event("Test", "Bug", new GregorianCalendar(2013, NOVEMBER, 23, 10, 00, 00), new GregorianCalendar(2013, NOVEMBER, 23, 23, 00, 00), people, 1));
+		List<Event> newData = events.filter(new GregorianCalendar(2013, NOVEMBER, 23, 1, 00, 00), new GregorianCalendar(2013, NOVEMBER, 23, 13, 00, 00));
+		assertEquals(1, newData.size());
+	}
+	
+	@Test
+	public void filterEventAroundRange() {
+		EventList events = new EventList();
+		events.addEvent(new Event("Test", "Bug", new GregorianCalendar(2013, NOVEMBER, 23, 10, 00, 00), new GregorianCalendar(2013, NOVEMBER, 23, 23, 00, 00), people, 1));
+		List<Event> newData = events.filter(new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00), new GregorianCalendar(2013, NOVEMBER, 23, 13, 00, 00));
+		assertEquals(1, newData.size());
+	}
 
 	// Helper function
 	private static void printlist(List<Event> events) {
