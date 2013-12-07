@@ -28,18 +28,18 @@ public class CommitmentListTest {
 	private GregorianCalendar start = new GregorianCalendar();
 	private GregorianCalendar end   = new GregorianCalendar();
 	
-	private final static GregorianCalendar today = new GregorianCalendar(2013, NOVEMBER, 23);
+	private final static GregorianCalendar today = new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00);
 	
 	@BeforeClass
 	public static void setup() {
 		commitments = new CommitmentList();
-		commitments.addCommitment(new Commitment("Last Year", new GregorianCalendar(2012, JANUARY, 30), "A commitment from last year", 1, true));
-		commitments.addCommitment(new Commitment("Last Month", new GregorianCalendar(2013, OCTOBER, 12), "A commitment from last month", 1, true));
-		commitments.addCommitment(new Commitment("Last Week", new GregorianCalendar(2013, NOVEMBER, 16), "A commitment for a week ago", 1, true));
+		commitments.addCommitment(new Commitment("Last Year", new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00), "A commitment from last year", 1, true));
+		commitments.addCommitment(new Commitment("Last Month", new GregorianCalendar(2013, OCTOBER, 12, 12, 00, 00), "A commitment from last month", 1, true));
+		commitments.addCommitment(new Commitment("Last Week", new GregorianCalendar(2013, NOVEMBER, 16, 12, 00, 00), "A commitment for a week ago", 1, true));
 		commitments.addCommitment(new Commitment("Today", today, "A commitment from today", 1, true));
-		commitments.addCommitment(new Commitment("Next Week", new GregorianCalendar(2013, NOVEMBER, 24), "A commitment for next week (tomorrow)", 1, true));
-		commitments.addCommitment(new Commitment("Next Month", new GregorianCalendar(2013, DECEMBER, 23), "A commitment for next month", 1, true));
-		commitments.addCommitment(new Commitment("Next Year", new GregorianCalendar(2014, JANUARY, 1), "A commitment for next year", 1, true));
+		commitments.addCommitment(new Commitment("Next Week", new GregorianCalendar(2013, NOVEMBER, 24, 12, 00, 00), "A commitment for next week (tomorrow)", 1, true));
+		commitments.addCommitment(new Commitment("Next Month", new GregorianCalendar(2013, DECEMBER, 23, 12, 00, 00), "A commitment for next month", 1, true));
+		commitments.addCommitment(new Commitment("Next Year", new GregorianCalendar(2014, JANUARY, 1, 12, 00, 00), "A commitment for next year", 1, true));
 		
 		printlist(commitments.getCommitments());
 		
@@ -67,6 +67,7 @@ public class CommitmentListTest {
 	public void filterAroundWeek() throws CalendarException {
 		System.out.println("Filter around week...");
 		List<Commitment> newData = commitments.filter(today, WEEK_OF_YEAR);
+		printlist(newData);
 		assertEquals(1, newData.size());
 	}
 	

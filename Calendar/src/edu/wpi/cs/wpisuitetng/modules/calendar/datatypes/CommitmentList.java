@@ -9,10 +9,16 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
+import static java.util.Calendar.DAY_OF_MONTH;
+import static java.util.Calendar.LONG;
+import static java.util.Calendar.YEAR;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
+
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 
 public class CommitmentList {
@@ -171,7 +177,7 @@ public class CommitmentList {
 	 * @param end
 	 * @return
 	 */
-	public List<Commitment> filter(Calendar start, Calendar end) {
+	public List<Commitment> filter(GregorianCalendar start, GregorianCalendar end) {
 
 		GregorianCalendar commitDate = new GregorianCalendar();
 		List<Commitment> newCommitments = new ArrayList<Commitment>();
@@ -232,12 +238,7 @@ public class CommitmentList {
 		start.set(Calendar.MINUTE, 0);
 		start.set(Calendar.SECOND, 0);
 		
-		GregorianCalendar end   = new GregorianCalendar();
-		end.setTime(start.getTime());
-		end.set(Calendar.HOUR_OF_DAY, 23);
-		end.set(Calendar.MINUTE, 59);
-		end.set(Calendar.SECOND, 59);
-		
+		GregorianCalendar end   = new GregorianCalendar();		
 		
 		/* All methods here add the given amount, then roll back
 		 * one day to specify range by the first and last day 
@@ -248,16 +249,29 @@ public class CommitmentList {
 		}
 		else if (amount == Calendar.WEEK_OF_MONTH || amount == Calendar.WEEK_OF_YEAR) {
 			start.set(Calendar.DAY_OF_WEEK, start.getFirstDayOfWeek());
+			end.setTime(start.getTime());
+			end.set(Calendar.HOUR_OF_DAY, 23);
+			end.set(Calendar.MINUTE, 59);
+			end.set(Calendar.SECOND, 59);
 			end.add(Calendar.WEEK_OF_YEAR, 1);
 			end.add(Calendar.DAY_OF_YEAR, -1);
+			
 		}
 		else if (amount == Calendar.MONTH) {
 			start.set(Calendar.DATE, 1);
+			end.setTime(start.getTime());
+			end.set(Calendar.HOUR_OF_DAY, 23);
+			end.set(Calendar.MINUTE, 59);
+			end.set(Calendar.SECOND, 59);
 			end.add(Calendar.MONTH, 1);
 			end.add(Calendar.DAY_OF_YEAR, -1);
 		}
 		else if (amount == Calendar.YEAR) {
 			start.set(Calendar.DAY_OF_YEAR, 1);
+			end.setTime(start.getTime());
+			end.set(Calendar.HOUR_OF_DAY, 23);
+			end.set(Calendar.MINUTE, 59);
+			end.set(Calendar.SECOND, 59);
 			end.add(Calendar.YEAR, 1);
 			end.add(Calendar.DAY_OF_YEAR, -1);
 		} else {
@@ -268,5 +282,13 @@ public class CommitmentList {
 		//System.out.println("End:   " + printcalendar(end));		
 		
 		return filter(start, end);
+	}
+	
+	public void printcalendar(GregorianCalendar cal) {
+		String dayName = cal.getDisplayName(GregorianCalendar.DAY_OF_WEEK, LONG, Locale.ENGLISH);
+		int dayNum = cal.get(DAY_OF_MONTH);
+		String monthName = cal.getDisplayName(GregorianCalendar.MONTH, LONG, Locale.ENGLISH);
+		int year = cal.get(YEAR);
+		System.out.println(dayName + ", " + monthName + " " + dayNum + ", " + year);
 	}
 }

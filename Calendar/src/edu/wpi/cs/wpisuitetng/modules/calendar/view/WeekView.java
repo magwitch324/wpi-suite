@@ -19,8 +19,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 @SuppressWarnings("serial")
 public class WeekView extends CalendarView {
 
-	private Calendar startDate;
-	private Calendar endDate;
+	private GregorianCalendar startDate;
+	private GregorianCalendar endDate;
 	private WeekPane weekPane;
 	
 

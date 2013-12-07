@@ -19,6 +19,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
 
 import javax.swing.BorderFactory;
@@ -29,7 +30,11 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 
 public class YearPane extends JScrollPane implements ICalPane{
 	GregorianCalendar supcal = null;
@@ -96,6 +101,37 @@ public class YearPane extends JScrollPane implements ICalPane{
 		    }
 		});
 	}
+	/**
+	 * Sends proper commitments down to the months
+	 * @param commList
+	 */
+	public void displayCommitments(List<Commitment> commList) {
+		// if we are supposed to display commitments
+		if (commList != null) {
+
+			CombinedCommitmentList alist = new CombinedCommitmentList();
+			for(Commitment comm: commList){
+				alist.addCommitment(comm);
+			}
+
+			int index = 0;
+			GregorianCalendar ret = (GregorianCalendar) supcal.clone();
+
+			for(int i = 0; i < 12; i++){
+				try{
+					monthpanes[i].displayCommitments(alist.filter(ret, Calendar.YEAR));
+					ret.add(Calendar.MONTH, 1);
+				}
+				catch(CalendarException e){
+					
+				}
+			}
+		} else {
+			for (int i = 0; i < 12; i++) {
+				monthpanes[i].displayCommitments(null);
+			}
+		}
+	}
 	
 	/**
 	 * The inner class for a month representation on the year view.
@@ -105,6 +141,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 	protected class YearMonthPane extends JPanel{
 		GregorianCalendar acal;
 		YearDayPane[] daypanes = new YearDayPane[42];
+		List<Commitment> commlist = null;
 		static final int extra_height = 20;//extra padding given to proffered size
 		static final int extra_width = 20;//extra padding given to proffered size
 		/**
@@ -174,6 +211,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 			width += extra_width;
 			this.setPreferredSize(new Dimension(width, height));
 		}
+		
 		/**
 		 * Creates and returns the weekday names to be used by the constructor
 		 * @return the panel with the weekday names
@@ -195,6 +233,37 @@ public class YearPane extends JScrollPane implements ICalPane{
 			apane.setBackground(defaultbackground);
 			return apane;
 		}
+		/**
+		 * Sends proper commitments down to the days
+		 * @param commList
+		 */
+		public void displayCommitments(List<Commitment> commList) {
+			// if we are supposed to display commitments
+			if (commList != null) {
+
+				CombinedCommitmentList alist = new CombinedCommitmentList();
+				for(Commitment comm: commList){
+					alist.addCommitment(comm);
+				}
+
+				int index = 0;
+				GregorianCalendar ret = (GregorianCalendar) acal.clone();
+
+				ret.set(ret.get(Calendar.YEAR), this.acal.get(Calendar.MONTH), 1);
+				
+				do{
+					daypanes[index].displayCommitments(alist.filter(ret));
+					index++;
+					ret.add(Calendar.DATE, 1);
+					}
+				while (ret.get(Calendar.DATE) != 1);
+				
+			} else {
+				for (int i = 0; i < 42; i++) {
+					daypanes[i].displayCommitments(null);
+				}
+			}
+		}
 	}
 	
 	/**
@@ -203,6 +272,9 @@ public class YearPane extends JScrollPane implements ICalPane{
 	protected class YearDayPane extends JPanel{
 		GregorianCalendar scal;
 		boolean active = false;
+		List<Commitment> commlist = null;
+		int numcomm = 0;
+		int numevent = 0;
 		/**
 		 * The constructor for year day pane
 		 * @param acal the current day to display
@@ -235,6 +307,9 @@ public class YearPane extends JScrollPane implements ICalPane{
 			this.setPreferredSize(lbl.getPreferredSize());
 			this.setBorder(BorderFactory.createRaisedSoftBevelBorder());
 		}
+		public void displayCommitments(List<Commitment> commList) {
+			// TODO display comm
+		}
 	}
 
 	/**
@@ -260,4 +335,5 @@ public class YearPane extends JScrollPane implements ICalPane{
 	@Override
 	public void refresh() {
 	}
+	
 }
