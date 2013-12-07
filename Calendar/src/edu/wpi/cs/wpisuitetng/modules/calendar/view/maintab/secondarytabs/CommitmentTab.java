@@ -90,7 +90,6 @@ public class CommitmentTab extends JPanel {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JButton btnCancel;
 	private Date tmpDate = new Date(); //user for convert the date to default format
-	private String inputDate = (new SimpleDateFormat("MM/dd/yyyy EEE").format(tmpDate)); //the date user input
 	private boolean badDate;
 	private boolean badTime;
 	private Commitment editingCommitment;
@@ -200,10 +199,7 @@ public class CommitmentTab extends JPanel {
 			public void keyReleased(KeyEvent e) {
 				listenerHelper();
 			}
-			
-			
-			
-			
+	
 		});
 		
 		
@@ -409,9 +405,7 @@ public class CommitmentTab extends JPanel {
 		gbc_jdp.weightx = 1;
 		gbc_jdp.weighty = 3;
 		formPanel.add(datePicker, gbc_jdp);
-		//Calendar calendar = datePicker.getMonthView().getCalendar();
-		//calendar.setTime(new Date());
-		//datePicker.getMonthView().setLowerBound(calendar.getTime());
+
 		SimpleDateFormat format1 = new SimpleDateFormat( "MM/dd/yyyy EEE" );
 		SimpleDateFormat format2 = new SimpleDateFormat( "MM/dd/yyyy" );
 		SimpleDateFormat format3 = new SimpleDateFormat( "MM.dd.yyyy" );
@@ -434,10 +428,7 @@ public class CommitmentTab extends JPanel {
 			public void keyReleased(KeyEvent e) {
 				listenerHelper();
 			}
-			
-			
-			
-			
+				
 		});
 		
 		datePicker.addActionListener(new ActionListener() {
@@ -445,7 +436,6 @@ public class CommitmentTab extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				datePicker.getEditor().setBackground(Color.WHITE);
-				inputDate = datePicker.getEditor().getText().trim();
 			}
 			
 		});
@@ -459,49 +449,23 @@ public class CommitmentTab extends JPanel {
 					lblDateError.setVisible(true);
 					badDate = false;
 				}
-				/*
-				else if(badDate){
-					datePicker.getEditor().setText("The date is not valid");
-					datePicker.getEditor().setBackground(Color.red);
-					badDate = false;
-				}
-				*/
+
 				else{
-					//try {
 						SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy EEE"); 
 						datePicker.getEditor().setBackground(Color.WHITE);
 						datePicker.getEditor().setText(dt.format(datePicker.getDate()));
 						datePicker.getEditor().selectAll();
 						listenerHelper();
-					//}catch(NullPointerException ne) {
-					//	datePicker.getEditor().setText("The date is not valid");
-					//	datePicker.getEditor().setBackground(Color.red);
-					//}
 				}
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
+				
 				if(isBadInputDate()){
 					badDate = true;
 					datePicker.requestFocus();
 				}
-				/*
-				else{
-					Date date = null;
-					for(DateFormat formatter : datePicker.getFormats()) {
-						try {
-							date = formatter.parse(inputDate);
-						} catch (ParseException e1) {
-
-						}
-					}
-					if(date.compareTo(new Date()) < 0) {
-						badDate = true;
-						datePicker.requestFocus();
-					}
-				}
-				*/
 				else{
 					datePicker.getEditor().setBackground(Color.WHITE);
 					lblDateError.setVisible(false);
@@ -581,7 +545,6 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				inputDate = datePicker.getEditor().getText().trim();
 				listenerHelper();
 				
 				// This next line checks for a blank date field, DO NOT REMOVE
@@ -978,12 +941,16 @@ public class CommitmentTab extends JPanel {
 		for(DateFormat formatter : datePicker.getFormats()) {
 			try{
 				formatter.setLenient(false);
-				date = formatter.parse(inputDate);
+				date = formatter.parse(datePicker.getEditor().getText().trim());
 			}catch(ParseException pe){
 				//try next formatter
 			}
 			catch(NullPointerException ne){
 				result = false;
+			}
+			
+			if(date != null) {
+				break;
 			}
 		}
 		
