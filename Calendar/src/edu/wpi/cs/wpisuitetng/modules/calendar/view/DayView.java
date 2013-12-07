@@ -27,7 +27,6 @@ public class DayView extends CalendarView {
 	
 	public DayView(GregorianCalendar datecalendar) {
 		super(datecalendar);
-		//System.out.println("CREATING DAY");
 		dayPane = new DayPane(datecalendar);
 		setCalPane(dayPane);
 		setCommitmentView(new CommitmentView());

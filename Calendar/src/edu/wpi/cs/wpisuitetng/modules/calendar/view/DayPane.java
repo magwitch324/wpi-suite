@@ -153,7 +153,6 @@ public class DayPane extends JPanel implements ICalPane {
 	 * @param dayTeamCommList 
 	 */
 	public void displayCommitments(List<Commitment> commList) {
-		System.out.println("comms: " + commList);
 		//if we are supposed to display commitments
 		if(commList != null){
 			
