@@ -356,8 +356,8 @@ public class YearPane extends JScrollPane implements ICalPane{
 				lbl.setForeground(new Color(0,0,0));
 				this.setBackground(CalendarStandard.CalendarYellow);
 				
-				bgc_withcomm = new BackgroundColor(CalendarStandard.CalendarYellow, CalendarStandard.CalendarRed, 10);
-				bgc = new BackgroundColor(CalendarStandard.CalendarYellow, CalendarStandard.CalendarRed, 5);
+				bgc_withcomm = new BackgroundColor(CalendarStandard.CalendarYellow, CalendarStandard.HeatMapRed, 10);
+				bgc = new BackgroundColor(CalendarStandard.CalendarYellow, CalendarStandard.HeatMapRed, 5);
 				
 				//adds double click feature to the days
 				this.addMouseListener(new MouseAdapter(){
@@ -389,7 +389,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 				}
 				else{
 					numcomm = commList.size();
-					this.setBackground(bgc.getColoratStep(numevent + numcomm));
+					this.setBackground(bgc_withcomm.getColoratStep(numevent + numcomm));
 				}
 			}
 		}
@@ -411,7 +411,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 					this.setBackground(bgc.getColoratStep(numevent));
 				}
 				else{
-					this.setBackground(bgc.getColoratStep(numevent + numcomm));
+					this.setBackground(bgc_withcomm.getColoratStep(numevent + numcomm));
 				}
 			}
 		}
