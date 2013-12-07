@@ -61,7 +61,15 @@ public class MonthView extends CalendarView {
 
 	@Override
 	public void displayCalData(CommitmentList commList, boolean showCommOnCal) {
-		commitmentView.updateCommData(commList.getCommitments());
+		if (super.showAllCommFlag){
+			commitmentView.updateCommData(commList.getCommitments());
+		} else {
+			try {
+				commitmentView.updateCommData(commList.filter(aMonth, Calendar.MONTH));
+			} catch (CalendarException e) {
+				commitmentView.updateCommData(commList.getCommitments());
+			}
+		}
 		// TODO filter commitments
 		if (showCommOnCal){
 			try{
