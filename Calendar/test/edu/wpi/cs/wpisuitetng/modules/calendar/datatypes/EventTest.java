@@ -21,7 +21,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment.Status;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 
 public class EventTest {
 	
@@ -65,7 +65,7 @@ public class EventTest {
 	public void mainConstructorTest(){
 		GregorianCalendar tmpCal = new GregorianCalendar(1, DECEMBER, 2011);
 		//tmpCal.setTime(new Date());
-		Event testEvent = new Event ("test","test description",_20120129,_20120130,people1,1);
+		Event testEvent = new Event ("test","test description",_20120129,_20120130,people1,1, true);
 		//add Participants 
 		List<String> people = new ArrayList<String>();
 		//testing

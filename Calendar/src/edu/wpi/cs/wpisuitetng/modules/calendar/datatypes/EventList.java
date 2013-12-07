@@ -42,7 +42,7 @@ public class EventList {
          */
         public void addEvent(Event newEvent){
         	int i = 0;
-    		newEvent.setId(nextId);
+    		newEvent.setID(nextId);
     		nextId++;
     		if(events.size() != 0){
     			while (i < events.size()){
@@ -68,7 +68,7 @@ public class EventList {
                 // iterate through list of events until id is found
                 for (int i=0; i < this.events.size(); i++){
                         temp = events.get(i);
-                        if (temp.getId() == id){
+                        if (temp.getID() == id){
                                 break;
                         }
                 }
@@ -82,7 +82,7 @@ public class EventList {
         public void removeEvent(int removeId){
                 // iterate through list of events until id of project is found
                 for (int i=0; i < this.events.size(); i++){
-                        if (events.get(i).getId() == removeId){
+                        if (events.get(i).getID() == removeId){
                                 // remove the id
                                 events.remove(i);
                                 break;
@@ -165,7 +165,7 @@ public class EventList {
          * @param the event to be update
          */
         public void update (Event newEvent) {
-                events.remove(getEvent(newEvent.getId()));
+                events.remove(getEvent(newEvent.getID()));
                 events.add(newEvent);
         }
         

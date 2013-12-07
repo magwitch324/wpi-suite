@@ -13,7 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment.Status;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 
 public class CommitmentTest {
 	// did not test save(),delete(),toJSON(),fromJsonArray(String),identify(Object)
@@ -28,14 +28,14 @@ public class CommitmentTest {
 		GregorianCalendar tmpCal = new GregorianCalendar();
 		tmpCal.setTime(new Date());
 		Commitment testComm = new Commitment();
-		assertEquals(0, testComm.getId());
+		assertEquals(0, testComm.getID());
 		assertEquals("", testComm.getName());
 		assertEquals("", testComm.getDescription());
 		//TODO: see if this line can be reworked somehow //assertEquals(tmpCal.getTime(), testComm.getDueDate().getTime());
 		//It should test that the dueDate field got initialized properly
 		assertEquals(Status.NEW, testComm.getStatus());
 		assertEquals(false, testComm.getIsPersonal());
-		assertEquals(0, testComm.getCategoryId());
+		assertEquals(0, testComm.getCategoryID());
 	}
 	
 	/**
@@ -46,13 +46,13 @@ public class CommitmentTest {
 		GregorianCalendar tmpCal = new GregorianCalendar(1, DECEMBER, 2013);
 		//tmpCal.setTime(new Date());
 		Commitment testComm = new Commitment("test",tmpCal,"test description",2,true);
-		assertEquals(0, testComm.getId());
+		assertEquals(0, testComm.getID());
 		assertEquals("test", testComm.getName());
 		assertEquals("test description", testComm.getDescription());
 		assertEquals(tmpCal.getTime(), testComm.getDueDate().getTime());
 		assertEquals(Status.NEW, testComm.getStatus());
 		assertEquals(true, testComm.getIsPersonal());
-		assertEquals(2, testComm.getCategoryId());
+		assertEquals(2, testComm.getCategoryID());
 	}
 	
 	/**
@@ -63,20 +63,20 @@ public class CommitmentTest {
 		GregorianCalendar tmpCal = new GregorianCalendar(1, DECEMBER, 2013);
 		GregorianCalendar tmpCal2 = new GregorianCalendar(2, DECEMBER, 2013);
 		Commitment testComm = new Commitment("test",tmpCal,"test description",2,true);
-		testComm.setId(2);
+		testComm.setID(2);
 		testComm.setName("such testing");
 		testComm.setDueDate(tmpCal2);
 		testComm.setDescription("rain and thunder");
 		testComm.setIsPersonal(false);
-		testComm.setCategoryId(3);
+		testComm.setCategoryID(3);
 		testComm.setStatus(Status.COMPLETED);
-		assertEquals(2, testComm.getId());
+		assertEquals(2, testComm.getID());
 		assertEquals("such testing", testComm.getName());
 		assertEquals("rain and thunder", testComm.getDescription());
 		assertEquals(tmpCal2.getTime(), testComm.getDueDate().getTime());
 		assertEquals(Status.COMPLETED, testComm.getStatus());
 		assertEquals(false, testComm.getIsPersonal());
-		assertEquals(3, testComm.getCategoryId());
+		assertEquals(3, testComm.getCategoryID());
 	}
 	
 	/**
@@ -86,17 +86,17 @@ public class CommitmentTest {
 	public void copyFromTest(){
 		GregorianCalendar tmpCal = new GregorianCalendar(1, DECEMBER, 2013);
 		Commitment testComm2 = new Commitment("test",tmpCal,"test description",2,true);
-		testComm2.setId(2);
+		testComm2.setID(2);
 		testComm2.setStatus(Status.COMPLETED);
 		Commitment testComm = new Commitment();
 		testComm.copyFrom(testComm2);
-		assertEquals(2, testComm.getId());
+		assertEquals(2, testComm.getID());
 		assertEquals("test", testComm.getName());
 		assertEquals("test description", testComm.getDescription());
 		assertEquals(tmpCal.getTime(), testComm.getDueDate().getTime());
 		assertEquals(Status.COMPLETED, testComm.getStatus());
 		assertEquals(true, testComm.getIsPersonal());
-		assertEquals(2, testComm.getCategoryId());
+		assertEquals(2, testComm.getCategoryID());
 	}
 	
 	/**

@@ -1117,7 +1117,7 @@ public class EventTab extends JPanel {
 			newEvent.setIsPersonal(true);
 		}
 		
-		newEvent.setCategoryId(((Category)this.categoryComboBox.getSelectedItem()).getId());
+		newEvent.setCategoryID(((Category)this.categoryComboBox.getSelectedItem()).getId());
 		newEvent.setDescription(this.descriptionTextArea.getText());
 		
 		

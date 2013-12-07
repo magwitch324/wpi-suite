@@ -45,7 +45,7 @@ public class CommitmentList {
 	 */
 	public void addCommitment(Commitment newCommitment){
 		int i = 0;
-		newCommitment.setId(nextId);
+		newCommitment.setID(nextId);
 		nextId++;
 		if(commitments.size() != 0){
 			while (i < commitments.size()){
@@ -70,7 +70,7 @@ public class CommitmentList {
 		// iterate through list of categories until id is found
 		for (int i=0; i < this.commitments.size(); i++){
 			temp = commitments.get(i);
-			if (temp.getId() == id){
+			if (temp.getID() == id){
 				break;
 			}
 		}
@@ -84,7 +84,7 @@ public class CommitmentList {
 	public void removeCommmitment(int removeId){
 		// iterate through list of categories until id of project is found
 		for (int i=0; i < this.commitments.size(); i++){
-			if (commitments.get(i).getId() == removeId){
+			if (commitments.get(i).getID() == removeId){
 				// remove the id
 				commitments.remove(i);
 				break;
@@ -166,7 +166,7 @@ public class CommitmentList {
 	 * @param the commitment to be update
 	 */
 	public void update (Commitment newCommitment) {
-		commitments.remove(getCommitment(newCommitment.getId()));
+		commitments.remove(getCommitment(newCommitment.getID()));
 		addCommitment(newCommitment);
 	}
 	
