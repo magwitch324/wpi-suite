@@ -72,7 +72,6 @@ public class GetPropsController implements ActionListener {
 		final Request request = Network.getInstance().makeRequest("calendar/calendarprops", HttpMethod.GET); // GET == read
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); // send the request
-		System.out.println("Retrieve caldata Sent");
 	}
 
 	/**
@@ -84,7 +83,7 @@ public class GetPropsController implements ActionListener {
 	public void receivedCalendarProps(CalendarProps[] calData) {
 		// Empty the local model to eliminate duplications
 		CalendarPropsModel.getInstance().emptyModel();
-		System.out.println("Received CalData");
+		System.out.println("Received CalProps");
 		// Make sure the response was not null
 		if (calData != null) {
 			

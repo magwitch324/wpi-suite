@@ -153,18 +153,19 @@ public class DayPane extends JPanel implements ICalPane {
 	 * @param dayTeamCommList 
 	 */
 	public void displayCommitments(List<Commitment> commList) {
-		System.out.println("comms: " + commList);
 		//if we are supposed to display commitments
 		if(commList != null){
 			
 			// Create and set the label "Commitments" for when ShowCommitments
 			// is checked
-			JLabel commitlabel = new JLabel("<html><font color='white'><b>"
-					+ "Commitments" + "</b></font></html>",
-					SwingConstants.CENTER);
-			commitlabel.setFont(CalendarStandard.CalendarFont.deriveFont(14));
-			header.add(commitlabel);
-			
+			if (header.getComponentCount() < 2){//Checks to make sure that the label doesn't already exist
+				JLabel commitlabel = new JLabel("<html><font color='white'><b>"
+						+ "Commitments" + "</b></font></html>",
+						SwingConstants.CENTER);
+				commitlabel.setFont(CalendarStandard.CalendarFont.deriveFont(14));
+				header.add(commitlabel);
+			}
+
 			daypane = new DetailedDay(day, new CommitDetailedPane(day, commList));
 		}
 		else{

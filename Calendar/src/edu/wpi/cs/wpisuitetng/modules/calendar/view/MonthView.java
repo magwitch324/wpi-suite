@@ -15,6 +15,7 @@ import java.util.Locale;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 
 @SuppressWarnings("serial")
@@ -60,7 +61,7 @@ public class MonthView extends CalendarView {
 
 
 	@Override
-	public void displayCalData(CommitmentList commList, boolean showCommOnCal) {
+	public void displayCalData(EventList eventList, CommitmentList commList, boolean showCommOnCal) {
 		if (super.showAllCommFlag){
 			commitmentView.updateCommData(commList.getCommitments());
 		} else {
@@ -70,7 +71,15 @@ public class MonthView extends CalendarView {
 				commitmentView.updateCommData(commList.getCommitments());
 			}
 		}
-		// TODO filter commitments
+		
+		try {
+			monthPane.displayEvents(eventList.filter(aMonth, Calendar.MONTH));
+		} catch (CalendarException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 		if (showCommOnCal){
 			try{
 				monthPane.displayCommitments(commList.filter(aMonth, Calendar.MONTH)); //add only commitments on today to DayPane

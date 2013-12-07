@@ -15,6 +15,7 @@ import java.util.Locale;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 
 @SuppressWarnings("serial")
 public class DayView extends CalendarView {
@@ -26,12 +27,10 @@ public class DayView extends CalendarView {
 	
 	public DayView(GregorianCalendar datecalendar) {
 		super(datecalendar);
-		//System.out.println("CREATING DAY");
 		dayPane = new DayPane(datecalendar);
 		setCalPane(dayPane);
 		setCommitmentView(new CommitmentView());
 		setRange(datecalendar);
-		
 	}
 
 	@Override
@@ -57,7 +56,7 @@ public class DayView extends CalendarView {
 	}
 
 	@Override
-	public void displayCalData(CommitmentList commList, boolean showCommOnCal) {
+	public void displayCalData(EventList eventList, CommitmentList commList, boolean showCommOnCal) {
 
 		if (super.showAllCommFlag){
 			commitmentView.updateCommData(commList.getCommitments());
@@ -70,6 +69,8 @@ public class DayView extends CalendarView {
 			}
 		}
 		// TODO filter commitments
+
+
 		if (showCommOnCal)
 			try {
 				dayPane.displayCommitments(commList.filter(day));
@@ -80,10 +81,10 @@ public class DayView extends CalendarView {
 		else
 			dayPane.displayCommitments(null); //show no commitments on DayPane
 
-	    revalidate();
-	    repaint();
-	    
-//	    refresh();
+		revalidate();
+		repaint();
+
+		//refresh();
 		
 	}
 

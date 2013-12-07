@@ -237,8 +237,6 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 					"Invalid amount! Can only filter around day, week, month, and year types");
 		}
 
-		// System.out.println("Start: " + printcalendar(start));
-		// System.out.println("End:   " + printcalendar(end));
 
 		return filter(start, end);
 	}

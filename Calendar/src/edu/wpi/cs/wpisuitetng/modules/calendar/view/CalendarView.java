@@ -31,6 +31,7 @@ import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 
 
 @SuppressWarnings("serial")
@@ -52,7 +53,6 @@ public abstract class CalendarView extends JSplitPane {
 	 * create and display View componenets
 	 */
 	public void refresh() {
-		//System.out.println("NUM OF VIEW COMPS: " + this.getComponentCount());
 		setLeftComponent(calPane.getPane());
 		setRightComponent(makeRightView());
 		setResizeWeight(1.0);
@@ -93,7 +93,6 @@ public abstract class CalendarView extends JSplitPane {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("Show Visible pressed");
 				showAllCommFlag = false;
 				GUIEventController.getInstance().getSelectedCalendar().displayCalData();
 			}
@@ -112,7 +111,6 @@ public abstract class CalendarView extends JSplitPane {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("Show All pressed");
 				showAllCommFlag = true;
 				GUIEventController.getInstance().getSelectedCalendar().displayCalData();
 			}
@@ -195,7 +193,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * @param showTeamData 
 	 * @param showCommitments 
 	 */
-	abstract public void displayCalData(CommitmentList commList, boolean showCommOnCal);
+	abstract public void displayCalData(EventList eventList, CommitmentList commList, boolean showCommOnCal);
 	
 	public void updateScrollPosition(int value){
 		this.calPane.updateScrollPosition(value);
