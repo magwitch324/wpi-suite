@@ -16,17 +16,21 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -41,7 +45,7 @@ import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment.Status;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 
@@ -108,7 +112,7 @@ public class CommitmentFullView extends JPanel{
 			//if we are supposed to show team data, we need to put the team commitments into the list in the right order
 			for (int i = 0; i < teamData.getCommitments()
 					.getCommitments().size(); i++) {
-				combinedList.addCommitment(teamData.getCommitments()
+				combinedList.add(teamData.getCommitments()
 						.getCommitments().get(i));
 			}
 			commitmentList = combinedList.getCommitments();
@@ -127,9 +131,10 @@ public class CommitmentFullView extends JPanel{
 		SpringLayout switcherLayout = new SpringLayout();
 
 		viewSwitcher.setLayout(switcherLayout);
-
+		viewSwitcher.setBackground(Color.WHITE);
 		
 		final JRadioButton teamRadioButton = new JRadioButton("Team");
+		teamRadioButton.setBackground(Color.WHITE);
 		teamRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -145,6 +150,7 @@ public class CommitmentFullView extends JPanel{
 		
 		
 		final JRadioButton personalRadioButton = new JRadioButton("Personal");
+		personalRadioButton.setBackground(Color.WHITE);
 		personalRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -163,6 +169,7 @@ public class CommitmentFullView extends JPanel{
 		switcherLayout.putConstraint(SpringLayout.VERTICAL_CENTER, personalRadioButton, 0, SpringLayout.VERTICAL_CENTER, viewSwitcher);
 		
 		final JRadioButton bothRadioButton = new JRadioButton("Both");
+		bothRadioButton.setBackground(Color.WHITE);
 		bothRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -238,7 +245,25 @@ public class CommitmentFullView extends JPanel{
 		//commitPanel.add(sep);
 		for(int i = 0; i < commitmentList.size(); i++){
 			CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
+			Image nameImg;
+			Image scaleImg;
 			JLabel name = new JLabel(commitmentList.get(i).getName(),JLabel.CENTER);
+			try {
+				if (commitmentList.get(i).getIsPersonal())
+				{	
+					nameImg = ImageIO.read(getClass().getResource("Personal_Icon.png"));
+					scaleImg = nameImg.getScaledInstance(15,18, Image.SCALE_SMOOTH);
+					name.setIcon(new ImageIcon(scaleImg));
+				}
+				else
+				{
+					nameImg = ImageIO.read(getClass().getResource("Team_Icon.png"));
+					scaleImg = nameImg.getScaledInstance(15,18, Image.SCALE_SMOOTH);
+					name.setIcon(new ImageIcon(scaleImg));
+				}
+			} catch (IOException | IllegalArgumentException e) {
+
+			}
 			JLabel date = new JLabel(""+commitmentList.get(i).getDueDate().getTime(),JLabel.CENTER);
 			JLabel description = new JLabel("<HTML>"+ commitmentList.get(i).getDescription()+"</HTML>",JLabel.CENTER);
 			JLabel status = new JLabel(Status.convertToString(commitmentList.get(i).getStatus().id),JLabel.CENTER);

@@ -34,7 +34,7 @@ import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment.Status;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
@@ -198,7 +198,7 @@ public class CommitmentTab extends JPanel {
 		
 		this.nameTextField.setText(editingCommitment.getName());
 		this.descriptionTextField.setText(editingCommitment.getDescription());
-		this.categoryComboBox.setSelectedItem(editingCommitment.getCategoryId());
+		this.categoryComboBox.setSelectedItem(editingCommitment.getCategoryID());
 		
 		if(!editingCommitment.getIsPersonal())
 			this.rdbtnTeam.setSelected(true);
@@ -857,7 +857,7 @@ public class CommitmentTab extends JPanel {
 		}
 		for(Commitment comm: calData.getCommitments().getCommitments())
 		{
-			System.out.println("Commitment name: " + comm.getName()+", id: "+ comm.getId());
+			System.out.println("Commitment name: " + comm.getName()+", id: "+ comm.getID());
 		}
 		Commitment newComm;
 		if(mode == EditingMode.ADDING)
@@ -873,9 +873,10 @@ public class CommitmentTab extends JPanel {
 		else{
 			newComm.setIsPersonal(true);
 		}
-		
-		newComm.setCategoryId(((Category)this.categoryComboBox.getSelectedItem()).getId());
+
+		newComm.setCategoryID(((Category)this.categoryComboBox.getSelectedItem()).getId());
 		newComm.setDescription(this.descriptionTextField.getText());
+
 		
 
 		newComm.setStatus(Status.getStatusValue(statusComboBox.getSelectedIndex()));
@@ -929,7 +930,7 @@ public class CommitmentTab extends JPanel {
 		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
 		isTeamComm = true;
 	}
-		calData.getCommitments().removeCommmitment(editingCommitment.getId());
+		calData.getCommitments().removeCommmitment(editingCommitment.getID());
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 		removeTab();
 	}
@@ -969,7 +970,7 @@ public class CommitmentTab extends JPanel {
 					//make sure something changed
 					if (this.nameTextField.getText().equals(editingCommitment.getName()) 
 							&& this.descriptionTextField.getText().equals(editingCommitment.getDescription())
-							&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryId()
+							&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryID()
 							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
 							&& calDate.getTime().equals(editingCommitment.getDueDate().getTime())
 							){
