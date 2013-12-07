@@ -1137,14 +1137,14 @@ public class EventTab extends JPanel {
 		calEndDate.set(Calendar.MINUTE, calEndTime.get(Calendar.MINUTE));
 		
 		//set due date
-		newEvent.setStartDate(calStartDate);
-		newEvent.setEndDate(calStartDate);
+		newEvent.setStartTime(calStartDate);
+		newEvent.setEndTime(calStartDate);
 		newEvent.setName(this.nameTextField.getText());
 		
-//		if (mode == EditingMode.ADDING)
-//			calData.addEvent(newEvent);
-//		else
-//			calData.getEvents().update(newEvent);
+		if (mode == EditingMode.ADDING)
+			calData.addEvent(newEvent);
+		else
+			calData.getEvents().update(newEvent);
 
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 
