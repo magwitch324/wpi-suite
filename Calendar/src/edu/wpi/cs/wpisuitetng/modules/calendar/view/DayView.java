@@ -24,6 +24,7 @@ public class DayView extends CalendarView {
 	GregorianCalendar day;
 	private DayPane dayPane;
 	private GregorianCalendar endOfDay;
+	private boolean initializedCalData;
 	
 	public DayView(GregorianCalendar datecalendar) {
 		super(datecalendar);
@@ -32,7 +33,7 @@ public class DayView extends CalendarView {
 		setCalPane(dayPane);
 		setCommitmentView(new CommitmentView());
 		setRange(datecalendar);
-		
+		this.initializedCalData = false;
 	}
 
 	@Override
@@ -71,16 +72,18 @@ public class DayView extends CalendarView {
 			}
 		}
 		// TODO filter commitments
-		if (showCommOnCal)
-			try {
-				dayPane.displayCommitments(commList.filter(day));
-			} catch (CalendarException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		else
-			dayPane.displayCommitments(null); //show no commitments on DayPane
-
+		if(!this.initializedCalData){
+			if (showCommOnCal)
+				try {
+					dayPane.displayCommitments(commList.filter(day));
+				} catch (CalendarException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			else
+				dayPane.displayCommitments(null); //show no commitments on DayPane
+		}
+		this.initializedCalData = true;
 	    revalidate();
 	    repaint();
 	    
