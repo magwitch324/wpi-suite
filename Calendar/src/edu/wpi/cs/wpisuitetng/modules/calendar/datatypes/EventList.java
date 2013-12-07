@@ -35,7 +35,8 @@ public class EventList {
 
 
         /**
-         * Adds a single event to the events of the project
+         * Adds a single event to the events of the project in the correct order
+         * Events are listed with furthest in the future at index 0
          * 
          * @param newEve The event to be added to the list of events in the project
          */
