@@ -174,7 +174,7 @@ public class MyCalendar extends AbCalendar {
 				ConfigManager.getConfig().getProjectName() + "-"
 						+ ConfigManager.getConfig().getUserName());
 
-		setCommList();
+		setCommEventList();
 		setView();
 
 	}
@@ -217,8 +217,8 @@ public class MyCalendar extends AbCalendar {
 				// Iterate through team commitments and add each element to
 				// combinedList
 
-				for (int i = 0; i < teamData.getCommitments()
-						.getCommitments().size(); i++) {
+				for (int i = 0; i < teamData.getEvents()
+						.getEvents().size(); i++) {
 					combinedCommList.add(teamData.getCommitments()
 							.getCommitments().get(i));
 				}
@@ -228,16 +228,17 @@ public class MyCalendar extends AbCalendar {
 				// combinedEventList
 				for (int i = 0; i < teamData.getEvents()
 						.getEvents().size(); i++) {
-					combinedCommList.add(teamData.getCommitments()
-							.getCommitments().get(i));
+					combinedEventList.add(teamData.getEvents()
+							.getEvents().get(i));
 				}
-				commitments = combinedCommList;
+				events = combinedEventList;
 				
 			}
 
 			//if we are not supposed to show team data the CommitmentList should just be straight from the personal data
 			else {
 				commitments = getCalData().getCommitments();
+				events = getCalData().getEvents();
 			}
 		}
 	}
