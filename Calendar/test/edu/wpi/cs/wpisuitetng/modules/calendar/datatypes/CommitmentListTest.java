@@ -1,4 +1,4 @@
-package edu.wpi.cs.wpisuitetng.modules.calendar;
+package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
 import static org.junit.Assert.assertEquals;
 import static java.util.Calendar.*;
@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 

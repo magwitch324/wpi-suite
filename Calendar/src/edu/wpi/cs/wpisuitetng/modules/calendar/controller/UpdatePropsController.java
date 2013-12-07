@@ -11,7 +11,6 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
 
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import edu.wpi.cs.wpisuitetng.network.Network;
 import edu.wpi.cs.wpisuitetng.network.Request;
 import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
@@ -20,8 +19,6 @@ import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
  * This controller responds when the user clicks the Update button by
  * updating the contents of the CalendarProps text fields to the model of an existing
  * CalendarProps.
- * @version $Revision: 1.0 $
- * @author justinhess
  */
 public class UpdatePropsController{
 	

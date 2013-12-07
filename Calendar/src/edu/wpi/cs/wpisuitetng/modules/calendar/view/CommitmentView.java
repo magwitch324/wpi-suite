@@ -133,7 +133,7 @@ public class CommitmentView extends JPanel {
 							tag.setText("[Team]");
 							tag.setIcon(new ImageIcon(scaleImg));
 						}
-				} catch (IOException e) {
+				} catch (IOException | IllegalArgumentException e) {
 					if (commitmentList.get(i).getIsPersonal())
 					{
 						tag.setText("[Personal]");

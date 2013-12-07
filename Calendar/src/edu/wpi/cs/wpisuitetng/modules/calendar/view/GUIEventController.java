@@ -23,10 +23,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.Commit
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.EventTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 
-/**
- * @author sfp
- *
- */
+
 public class GUIEventController {
 	private static GUIEventController instance = null;
 	private int scrollBarValue;
@@ -246,8 +243,8 @@ public class GUIEventController {
 
 
 	public void switchView(GregorianCalendar acal, TeamCalendar.types switchtype){
-		teamCalendar.setCalsetView(acal, switchtype);
-		myCalendar.setCalsetView(acal, switchtype);
+		getSelectedCalendar().setCalsetView(acal, switchtype);
+		getSelectedCalendar().setDayViewButtonToActive();
 
 	}
 

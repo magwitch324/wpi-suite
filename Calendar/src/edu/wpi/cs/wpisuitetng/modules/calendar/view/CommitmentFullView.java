@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2013 WPI-Suite
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: CS Anonymous
+ ******************************************************************************/
+
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 
@@ -6,17 +16,21 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -228,7 +242,25 @@ public class CommitmentFullView extends JPanel{
 		//commitPanel.add(sep);
 		for(int i = 0; i < commitmentList.size(); i++){
 			CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
+			Image nameImg;
+			Image scaleImg;
 			JLabel name = new JLabel(commitmentList.get(i).getName(),JLabel.CENTER);
+			try {
+				if (commitmentList.get(i).getIsPersonal())
+				{	
+					nameImg = ImageIO.read(getClass().getResource("Personal_Icon.png"));
+					scaleImg = nameImg.getScaledInstance(15,18, Image.SCALE_SMOOTH);
+					name.setIcon(new ImageIcon(scaleImg));
+				}
+				else
+				{
+					nameImg = ImageIO.read(getClass().getResource("Team_Icon.png"));
+					scaleImg = nameImg.getScaledInstance(15,18, Image.SCALE_SMOOTH);
+					name.setIcon(new ImageIcon(scaleImg));
+				}
+			} catch (IOException | IllegalArgumentException e) {
+
+			}
 			JLabel date = new JLabel(""+commitmentList.get(i).getDueDate().getTime(),JLabel.CENTER);
 			JLabel description = new JLabel("<HTML>"+ commitmentList.get(i).getDescription()+"</HTML>",JLabel.CENTER);
 			JLabel status = new JLabel(Status.convertToString(commitmentList.get(i).getStatus().id),JLabel.CENTER);

@@ -11,9 +11,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 
 public class YearView extends CalendarView {
