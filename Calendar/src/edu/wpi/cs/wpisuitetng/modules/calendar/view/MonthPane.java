@@ -34,6 +34,7 @@ import javax.swing.SwingConstants;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
@@ -185,6 +186,33 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			}
 		}
 	}
+	
+	// Displays events on month pane
+	public void displayEvents(List<Event> eventList) {
+		// if we are supposed to display commitments
+		if (eventList != null) {
+
+			CombinedEventList alist = new CombinedEventList(eventList);
+
+			GregorianCalendar ret = (GregorianCalendar) startdate.clone();
+			ret.set(ret.get(Calendar.YEAR), curmonth, 1);
+
+			for (int i = 0; i < 42; i++) {
+				try {
+					days[i].addEvents(alist.filter(ret));
+				} catch (CalendarException e) {
+					e.printStackTrace();
+				}
+				ret.add(Calendar.DATE, 1);
+			}
+
+		} else {
+			for (int i = 0; i < 42; i++) {
+				days[i].addEvents(null);
+			}
+		}
+	}
+	
 	/** The internal class for representing an individual day
 	 * 
 	 */
