@@ -176,7 +176,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 			super();
 			this.monthstart = (GregorianCalendar)acal.clone();
 			this.monthstart.set(Calendar.DATE, 1);
-			
+			this.monthstart.get(Calendar.DATE);
 			this.monthpanestart = (GregorianCalendar)this.monthstart.clone();
 			this.monthpanestart.set(Calendar.DAY_OF_WEEK, this.monthstart.getFirstDayOfWeek());
 			
