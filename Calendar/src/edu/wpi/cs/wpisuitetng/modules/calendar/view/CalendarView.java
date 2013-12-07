@@ -53,7 +53,6 @@ public abstract class CalendarView extends JSplitPane {
 	 * create and display View componenets
 	 */
 	public void refresh() {
-		//System.out.println("NUM OF VIEW COMPS: " + this.getComponentCount());
 		setLeftComponent(calPane.getPane());
 		setRightComponent(makeRightView());
 		setResizeWeight(1.0);
@@ -94,7 +93,6 @@ public abstract class CalendarView extends JSplitPane {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("Show Visible pressed");
 				showAllCommFlag = false;
 				GUIEventController.getInstance().getSelectedCalendar().displayCalData();
 			}
@@ -113,7 +111,6 @@ public abstract class CalendarView extends JSplitPane {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("Show All pressed");
 				showAllCommFlag = true;
 				GUIEventController.getInstance().getSelectedCalendar().displayCalData();
 			}

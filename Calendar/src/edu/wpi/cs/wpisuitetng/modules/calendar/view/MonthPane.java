@@ -362,7 +362,6 @@ public class MonthPane extends JScrollPane implements ICalPane {
 						cindex++;
 					}
 					else{
-						System.out.println("DEBUG!!!!: " + eventlist.size() + " " + eindex);
 						wraps.add( new wrapper(eventlist.get(eindex)));
 						eindex++;
 					}
@@ -527,7 +526,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 					GUIEventController.getInstance().editCommitment(comm);
 				}
 				else{
-					//GUIEventController.getInstance().editEvent(event);
+					GUIEventController.getInstance().editEvent(event);
 				}
 			}
 			

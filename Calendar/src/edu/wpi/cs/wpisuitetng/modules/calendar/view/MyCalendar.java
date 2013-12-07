@@ -265,10 +265,6 @@ public class MyCalendar extends AbCalendar {
 
 			}
 		}
-		else{
-			//calView.refresh();
-		}
-		//System.out.println("repainting!!!!!!!!!!!!!!!");
 		super.paintComponent(g);
 	}
 	
