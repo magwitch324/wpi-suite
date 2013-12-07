@@ -15,6 +15,7 @@ import java.util.Locale;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 
 @SuppressWarnings("serial")
 public class DayView extends CalendarView {
@@ -57,7 +58,7 @@ public class DayView extends CalendarView {
 	}
 
 	@Override
-	public void displayCalData(CommitmentList commList, boolean showCommOnCal) {
+	public void displayCalData(EventList eventList, CommitmentList commList, boolean showCommOnCal) {
 
 		if (super.showAllCommFlag){
 			commitmentView.updateCommData(commList.getCommitments());

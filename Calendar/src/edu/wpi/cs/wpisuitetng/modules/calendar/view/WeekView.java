@@ -14,6 +14,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 
 
 @SuppressWarnings("serial")
@@ -72,7 +73,7 @@ public class WeekView extends CalendarView {
 	}
 
 	@Override
-	public void displayCalData(CommitmentList commList, boolean showCommOnCal) {
+	public void displayCalData(EventList eventList, CommitmentList commList, boolean showCommOnCal) {
 
 		if (super.showAllCommFlag){
 			commitmentView.updateCommData(commList.getCommitments());
