@@ -217,8 +217,8 @@ public class MyCalendar extends AbCalendar {
 				// Iterate through team commitments and add each element to
 				// combinedList
 
-				for (int i = 0; i < teamData.getEvents()
-						.getEvents().size(); i++) {
+				for (int i = 0; i < teamData.getCommitments()
+						.getCommitments().size(); i++) {
 					combinedCommList.add(teamData.getCommitments()
 							.getCommitments().get(i));
 				}
