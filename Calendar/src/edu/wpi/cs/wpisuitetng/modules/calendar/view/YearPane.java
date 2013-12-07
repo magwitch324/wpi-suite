@@ -62,8 +62,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 		this.setMinimumSize(new Dimension(100,100));
 		
 		this.supcal = (GregorianCalendar)acal.clone();
-		this.supcal.set(Calendar.DAY_OF_YEAR, 1);
-		
+		this.supcal.set(this.supcal.get(Calendar.YEAR), Calendar.JANUARY, 1);
 		GregorianCalendar temp = (GregorianCalendar)this.supcal.clone();
 		
 		for(int i = 0; i < 12; i++){
@@ -108,13 +107,11 @@ public class YearPane extends JScrollPane implements ICalPane{
 	public void displayCommitments(List<Commitment> commList) {
 		// if we are supposed to display commitments
 		if (commList != null) {
-
 			CombinedCommitmentList alist = new CombinedCommitmentList();
 			for(Commitment comm: commList){
 				alist.add(comm);
 			}
 
-			int index = 0;
 			GregorianCalendar ret = (GregorianCalendar) supcal.clone();
 
 			for(int i = 0; i < 12; i++){
@@ -320,9 +317,6 @@ public class YearPane extends JScrollPane implements ICalPane{
 			}
 			else{
 				numcomm = commList.size();
-				for(Commitment comm : commList){
-					System.out.println(scal.get(Calendar.DAY_OF_YEAR) + " : " + comm.getName() + " : " + comm.getDueDate().get(Calendar.DAY_OF_YEAR));
-				}
 			}
 			this.changeBackground();
 		}
