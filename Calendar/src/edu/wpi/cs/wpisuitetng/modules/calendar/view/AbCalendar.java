@@ -418,4 +418,11 @@ public abstract class AbCalendar extends JPanel {
 		UpdatePropsController.getInstance().updateCalendarProps(calProps);
 	}
 
+	public void setDayViewButtonToActive(){
+		viewbtns[0].setBorder(BorderFactory.createDashedBorder(CalendarStandard.CalendarRed, 2, 2, 1, true));
+		viewbtns[1].setBorder(BorderFactory.createEmptyBorder());
+		viewbtns[2].setBorder(BorderFactory.createEmptyBorder());
+		viewbtns[3].setBorder(BorderFactory.createEmptyBorder());
+	}
+	
 }

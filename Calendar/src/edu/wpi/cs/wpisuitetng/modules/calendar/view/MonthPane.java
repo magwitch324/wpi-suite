@@ -32,6 +32,7 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
@@ -41,6 +42,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 	JPanel mainview;
 	MonthDayPane[] days = new MonthDayPane[42];
 	GregorianCalendar startdate = null;
+	int curmonth = 0;
 
 	/**
 	 * Constructor for the month pane
@@ -60,14 +62,13 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		this.setViewportView(mainview);
 		this.setColumnHeader();
 
-		int month = acal.get(Calendar.MONTH);
+		curmonth = acal.get(Calendar.MONTH);
 		GregorianCalendar itcal = rewindcal(acal);
 		startdate = (GregorianCalendar) itcal.clone();
 
 		for (int i = 0; i < 42; i++) {
-			days[i] = new MonthDayPane(itcal, month);
+			days[i] = new MonthDayPane(itcal, curmonth);
 			mainview.add(days[i]);
-
 			itcal.add(Calendar.DATE, 1);
 		}
 	}
@@ -161,28 +162,21 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		// if we are supposed to display commitments
 		if (commList != null) {
 
-			CommitmentList alist = new CommitmentList();
-			for (int i = 0; i < commList.size(); i++) {
-				alist.addCommitment(commList.get(i));
+			CombinedCommitmentList alist = new CombinedCommitmentList();
+			for(Commitment comm: commList){
+				alist.addCommitment(comm);
 			}
 
 			int index = 0;
 			GregorianCalendar ret = (GregorianCalendar) startdate.clone();
 
-			while (ret.get(Calendar.DATE) != 1) {
-				index++;
-				ret.add(Calendar.DATE, 1);
-			}
-
-			days[index].addCommitments(alist.filter(ret));
-			index++;
-			ret.add(Calendar.DATE, 1);
-
-			while (ret.get(Calendar.DATE) != 1) {
+			ret.set(ret.get(Calendar.YEAR), curmonth, 1);
+			
+			do{
 				days[index].addCommitments(alist.filter(ret));
 				index++;
 				ret.add(Calendar.DATE, 1);
-			}
+			}while(ret.get(Calendar.DATE) != 1);
 
 		} else {
 			for (int i = 0; i < 42; i++) {
@@ -377,7 +371,6 @@ public class MonthPane extends JScrollPane implements ICalPane {
 
 					for(wrapper wrap: wraps){
 						curlab = wrap.getLabel();
-						System.out.println(curlab.getPreferredSize() + " : " + datelabel.getText());
 						height += curlab.getPreferredSize().getHeight();
 						if(height > boxheight ){
 							break;
