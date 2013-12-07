@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * Copyright (c) 2013 WPI-Suite
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: CS Anonymous
+ ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import static org.junit.Assert.*;
@@ -22,12 +31,12 @@ public class CalendarDataTest {
 		data.addCommitment(com3);
 		
 		CommitmentList list = data.getCommitments();
-		System.out.println(list.getCommitments().get(1).getDescription() + data.getCommitments().getCommitments().get(1).getId());
+		System.out.println(list.getCommitments().get(1).getDescription() + data.getCommitments().getCommitments().get(1).getID());
 		helper(list);
 		//System.out.println(data.getCommitments().getCommitments().get(0).getDescription());
-		System.out.println(data.getCommitments().getCommitments().get(1).getDescription() + data.getCommitments().getCommitments().get(1).getId());
+		System.out.println(data.getCommitments().getCommitments().get(1).getDescription() + data.getCommitments().getCommitments().get(1).getID());
 		helper2(data.getCommitments().getCommitments().get(1));
-		System.out.println(data.getCommitments().getCommitments().get(1).getDescription() + data.getCommitments().getCommitments().get(1).getId());
+		System.out.println(data.getCommitments().getCommitments().get(1).getDescription() + data.getCommitments().getCommitments().get(1).getID());
 	}
 	
 	public void helper(CommitmentList list){

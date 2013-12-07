@@ -35,7 +35,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment.Status;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 
 @SuppressWarnings("serial")
 public class CommitmentView extends JPanel {
@@ -121,15 +121,15 @@ public class CommitmentView extends JPanel {
 				try {
 						if (commitmentList.get(i).getIsPersonal())
 						{	
-							nameImg = ImageIO.read(getClass().getResource("Personal_Icon.png"));
-							scaleImg = nameImg.getScaledInstance(15,18, Image.SCALE_SMOOTH);
+							nameImg = ImageIO.read(getClass().getResource("PersonalCommitment_Icon.png"));
+							scaleImg = nameImg.getScaledInstance(20,20, Image.SCALE_SMOOTH);
 							tag.setText("[Personal]");
 							tag.setIcon(new ImageIcon(scaleImg));
 						}
 						else
 						{
-							nameImg = ImageIO.read(getClass().getResource("Team_Icon.png"));
-							scaleImg = nameImg.getScaledInstance(15,18, Image.SCALE_SMOOTH);
+							nameImg = ImageIO.read(getClass().getResource("TeamCommitment_Icon.png"));
+							scaleImg = nameImg.getScaledInstance(20,20, Image.SCALE_SMOOTH);
 							tag.setText("[Team]");
 							tag.setIcon(new ImageIcon(scaleImg));
 						}

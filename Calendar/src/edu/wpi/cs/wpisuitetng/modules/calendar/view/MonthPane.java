@@ -31,10 +31,11 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
 @SuppressWarnings("serial")
@@ -164,19 +165,20 @@ public class MonthPane extends JScrollPane implements ICalPane {
 
 			CombinedCommitmentList alist = new CombinedCommitmentList();
 			for(Commitment comm: commList){
-				alist.addCommitment(comm);
+				alist.add(comm);
 			}
 
-			int index = 0;
 			GregorianCalendar ret = (GregorianCalendar) startdate.clone();
-
 			ret.set(ret.get(Calendar.YEAR), curmonth, 1);
-			
-			do{
-				days[index].addCommitments(alist.filter(ret));
-				index++;
+
+			for (int i = 0; i < 42; i++) {
+				try {
+					days[i].addCommitments(alist.filter(ret));
+				} catch (CalendarException e) {
+					e.printStackTrace();
+				}
 				ret.add(Calendar.DATE, 1);
-			}while(ret.get(Calendar.DATE) != 1);
+			}
 
 		} else {
 			for (int i = 0; i < 42; i++) {
@@ -184,6 +186,33 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			}
 		}
 	}
+	
+	// Displays events on month pane
+	public void displayEvents(List<Event> eventList) {
+		// if we are supposed to display commitments
+		if (eventList != null) {
+
+			CombinedEventList alist = new CombinedEventList(eventList);
+
+			GregorianCalendar ret = (GregorianCalendar) startdate.clone();
+			ret.set(ret.get(Calendar.YEAR), curmonth, 1);
+
+			for (int i = 0; i < 42; i++) {
+				try {
+					days[i].addEvents(alist.filter(ret));
+				} catch (CalendarException e) {
+					e.printStackTrace();
+				}
+				ret.add(Calendar.DATE, 1);
+			}
+
+		} else {
+			for (int i = 0; i < 42; i++) {
+				days[i].addEvents(null);
+			}
+		}
+	}
+	
 	/** The internal class for representing an individual day
 	 * 
 	 */
@@ -204,7 +233,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		 */
 		public MonthDayPane(GregorianCalendar acal, int month){
 			super();
-			this.acal = acal;
+			this.acal = (GregorianCalendar)acal.clone();
 			SpringLayout layout = new SpringLayout();
 			this.setLayout(layout);
 			this.setPreferredSize(new Dimension(50, 20));
@@ -262,9 +291,11 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		 *            the list to change to
 		 */
 		public void addCommitments(List<Commitment> commlist) {
-			this.commlist = commlist;
-			merge();
-			didResize();
+			if(enabled){
+				this.commlist = commlist;
+				merge();
+				didResize();
+			}
 		}
 		
 		/**
@@ -273,9 +304,11 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		 *            the list to change to
 		 */
 		public void addEvents(List<Event> eventlist) {
-			this.eventlist = eventlist;
-			merge();
-			didResize();
+			if(enabled){
+				this.eventlist = eventlist;
+				merge();
+				didResize();
+			}
 		}
 		
 		protected void merge(){
@@ -302,7 +335,6 @@ public class MonthPane extends JScrollPane implements ICalPane {
 					}
 					
 					if(cindex == commlist.size()){
-						ccal.setTime(commlist.get(cindex-1).getDueDate().getTime());
 						ccal.add(Calendar.DATE, 1);
 					}
 					else{
@@ -310,7 +342,6 @@ public class MonthPane extends JScrollPane implements ICalPane {
 					}
 					
 					if(eindex == eventlist.size()){
-						ecal.setTime(eventlist.get(eindex).getStartTime().getTime());
 						ecal.add(Calendar.DATE, 1);
 					}
 					else{
@@ -532,86 +563,6 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			}
 		}
 	}
-
-	/**
-	 * Mouse listener class that is used to determine if the mouse is hovering
-	 * over an event or commitment panel. It will then make the appropriate
-	 * panel go to its expanded
-	 */
-	/*protected class PaneHover extends MouseAdapter {
-		boolean iscom = false;
-		boolean flag = false;
-		int index;
-
-		public PaneHover(int index, boolean iscompane) {
-			iscom = iscompane;
-			this.index = index;
-		}
-
-		public void mouseEntered(MouseEvent e) {
-			resetPanes();
-		}
-
-		public void mouseClicked(MouseEvent e) {
-			if (e.getClickCount() == 1) {
-				if (flag) {
-					if (iscom) {
-						compane[index].goBig();
-						SpringLayout layout = (SpringLayout) days[index]
-								.getLayout();
-						layout.putConstraint(SpringLayout.HORIZONTAL_CENTER,
-								seperator[index], 2, SpringLayout.WEST,
-								days[index]);
-					} else {
-						SpringLayout layout = (SpringLayout) days[index]
-								.getLayout();
-						layout.putConstraint(SpringLayout.HORIZONTAL_CENTER,
-								seperator[index], -2, SpringLayout.EAST,
-								days[index]);
-					}
-
-					days[index].revalidate();
-					days[index].repaint();
-				}
-			}
-		}
-
-		public void mouseExited(MouseEvent e) {
-			if (flag) {
-				if (iscom) {
-					compane[index].goSmall();
-					SpringLayout layout = (SpringLayout) days[index]
-							.getLayout();
-					layout.putConstraint(SpringLayout.HORIZONTAL_CENTER,
-							seperator[index], 0,
-							SpringLayout.HORIZONTAL_CENTER, days[index]);
-				} else {
-					SpringLayout layout = (SpringLayout) days[index]
-							.getLayout();
-					layout.putConstraint(SpringLayout.HORIZONTAL_CENTER,
-							seperator[index], 0,
-							SpringLayout.HORIZONTAL_CENTER, days[index]);
-				}
-				days[index].revalidate();
-				days[index].repaint();
-			}
-		}
-
-		public void setEnabled(boolean flag) {
-			this.flag = flag;
-		}
-	}
-
-	protected void resetPanes() {
-		for (int i = 0; i < 42; i++) {
-			SpringLayout layout = (SpringLayout) days[i].getLayout();
-			layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, seperator[i],
-					0, SpringLayout.HORIZONTAL_CENTER, days[i]);
-			compane[i].goSmall();
-			days[i].revalidate();
-			days[i].repaint();
-		}
-	}*/
 
 	/**
 	 * Mouse listener class that will listen for double clicking on a day then

@@ -74,8 +74,11 @@ public class WeekView extends CalendarView {
 	@Override
 	public void displayCalData(CommitmentList commList, boolean showCommOnCal) {
 
-
-		commitmentView.updateCommData(commList.getCommitments());
+		if (super.showAllCommFlag){
+			commitmentView.updateCommData(commList.getCommitments());
+		} else {
+			commitmentView.updateCommData(commList.filter(startDate,endDate));
+		}
 		// TODO filter commitments
 		if (showCommOnCal)
 			weekPane.displayCommitments(commList.filter(startDate, endDate)); //add only commitments on today to DayPane

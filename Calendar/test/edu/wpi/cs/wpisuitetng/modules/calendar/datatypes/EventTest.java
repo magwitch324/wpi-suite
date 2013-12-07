@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * Copyright (c) 2013 WPI-Suite
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: CS Anonymous
+ ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
 import static org.junit.Assert.*;
@@ -21,7 +30,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment.Status;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 
 public class EventTest {
 	
@@ -65,7 +74,7 @@ public class EventTest {
 	public void mainConstructorTest(){
 		GregorianCalendar tmpCal = new GregorianCalendar(1, DECEMBER, 2011);
 		//tmpCal.setTime(new Date());
-		Event testEvent = new Event ("test","test description",_20120129,_20120130,people1,1);
+		Event testEvent = new Event ("test","test description",_20120129,_20120130,people1,1, true);
 		//add Participants 
 		List<String> people = new ArrayList<String>();
 		//testing
