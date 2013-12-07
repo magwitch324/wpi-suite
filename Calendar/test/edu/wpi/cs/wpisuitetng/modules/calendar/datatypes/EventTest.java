@@ -88,6 +88,55 @@ public class EventTest {
 		assertEquals(people, testEvent.getParticipants());
 		assertEquals(1, testEvent.getCategoryID());
 	}
+	
+	/**
+	 * Ensures that setters work correctly
+	 */
+	@Test
+	public void setterConstructorTest(){
 		
+		Event testEvent = new Event("test","test description",_20120129,_20120130,people1,1);
+		testEvent.setName("setter testing");
+		testEvent.setDescription("setter test description");
+		testEvent.setStartTime(_20131209);
+		testEvent.setEndTime(_20131214);
+		testEvent.setCategoryID(2);
+		List<String> people = new ArrayList<String>();
+		people.add("John");
+		people.add("Mary");
+		people.add("Jack");
+		people.add("Lucy");
+		testEvent.setParticipants(people);
+		assertEquals("setter testing", testEvent.getName());
+		assertEquals("setter test description", testEvent.getDescription());
+		assertEquals(_20131209, testEvent.getStartTime());
+		assertEquals(_20131214, testEvent.getEndTime());
+		assertEquals(people, testEvent.getParticipants());
+		assertEquals(2, testEvent.getCategoryID());
+	}
+	
+
+	/**
+	 * Tests to make sure copyFrom() works as intended
+	 */
+	@Test
+	public void copyFromTest(){
+		Event testEvent2 = new Event ("test","test description",_20120129,_20120130,people1,1);
+		testEvent2.setCategoryID(2);
+		List<String> people = new ArrayList<String>();
+		people.add("John");
+		people.add("Mary");
+		people.add("Jack");
+		people.add("Lucy");
+		testEvent2.setParticipants(people);
+		Event testEvent = new Event();
+		testEvent.copyFrom(testEvent2);
+		assertEquals("test", testEvent.getName());
+		assertEquals("test description", testEvent.getDescription());
+		assertEquals(_20120129, testEvent.getStartTime());
+		assertEquals(_20120130, testEvent.getEndTime());
+		assertEquals(people, testEvent.getParticipants());
+		assertEquals(2, testEvent.getCategoryID());
+	}
 	
 }
