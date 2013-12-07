@@ -10,12 +10,16 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons;
 
 import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -191,15 +195,27 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	    this.helpButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 		helpButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		// the action listener for the Help Button
-//		helpButton.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// bring up a create requirement pane if not in Multiple Requirement Editing Mode
-//				//if (!ViewEventController.getInstance().getOverviewTable().getEditFlag()) {
-//					GUIEventController.getInstance().helpWiki();
-//			//	}
-//			}
-//		});	
+		helpButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// bring up a create requirement pane if not in Multiple Requirement Editing Mode
+				//if (!ViewEventController.getInstance().getOverviewTable().getEditFlag()) {
+					//GUIEventController.getInstance().helpWiki();
+			//	}
+				try {
+					Desktop.getDesktop().browse(new URL("https://github.com/magwitch324/wpi-suite/wiki/Calendar-Module").toURI());
+				} catch (MalformedURLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (URISyntaxException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});	
 		
 
 		contentPanel.add(createCommitButton);
