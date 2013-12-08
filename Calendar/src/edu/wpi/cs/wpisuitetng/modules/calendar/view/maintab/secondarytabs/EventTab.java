@@ -1132,8 +1132,8 @@ public class EventTab extends JPanel {
 		
 		GregorianCalendar calEndDate = new GregorianCalendar();
 		GregorianCalendar calEndTime = new GregorianCalendar();
-		calEndDate.setTime(this.startDatePicker.getDate());
-		calEndTime.setTime((Date)startTimeSpinner.getValue());
+		calEndDate.setTime(this.endDatePicker.getDate());
+		calEndTime.setTime((Date)endTimeSpinner.getValue());
 		calEndDate.set(Calendar.HOUR_OF_DAY, calEndTime.get(Calendar.HOUR_OF_DAY));
 		calEndDate.set(Calendar.MINUTE, calEndTime.get(Calendar.MINUTE));
 		
