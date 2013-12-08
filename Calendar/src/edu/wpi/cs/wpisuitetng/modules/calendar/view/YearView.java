@@ -80,4 +80,19 @@ public class YearView extends CalendarView {
 	    revalidate();
 	    repaint();
 	}
+
+	@Override
+	public void updateCommPane(CommitmentList commList, boolean showCommOnCal) {
+		if (super.showAllCommFlag){
+			commitmentView.updateCommData(commList.getCommitments());
+		} else {
+			try {
+				commitmentView.updateCommData(commList.filter(ayear, Calendar.YEAR));
+			} catch (CalendarException e) {
+				commitmentView.updateCommData(commList.getCommitments());
+			}
+		}
+	    revalidate();
+	    repaint();
+	}
 }
