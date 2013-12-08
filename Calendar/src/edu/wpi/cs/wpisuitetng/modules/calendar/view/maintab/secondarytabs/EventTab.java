@@ -1132,14 +1132,14 @@ public class EventTab extends JPanel {
 		
 		GregorianCalendar calEndDate = new GregorianCalendar();
 		GregorianCalendar calEndTime = new GregorianCalendar();
-		calEndDate.setTime(this.startDatePicker.getDate());
-		calEndTime.setTime((Date)startTimeSpinner.getValue());
+		calEndDate.setTime(this.endDatePicker.getDate());
+		calEndTime.setTime((Date)endTimeSpinner.getValue());
 		calEndDate.set(Calendar.HOUR_OF_DAY, calEndTime.get(Calendar.HOUR_OF_DAY));
 		calEndDate.set(Calendar.MINUTE, calEndTime.get(Calendar.MINUTE));
 		
 		//set due date
 		newEvent.setStartTime(calStartDate);
-		newEvent.setEndTime(calStartDate);
+		newEvent.setEndTime(calEndDate);
 		newEvent.setName(this.nameTextField.getText());
 		
 		if (mode == EditingMode.ADDING)
@@ -1166,7 +1166,7 @@ public class EventTab extends JPanel {
 		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
 		isTeamEvent = true;
 	}
-//		calData.getEvents().removeEvent(editingEvent.getId());
+		calData.getEvents().removeEvent(editingEvent.getID());
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 		removeTab();
 	}

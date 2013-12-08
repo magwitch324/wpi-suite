@@ -216,6 +216,7 @@ public class CommitmentFullView extends JPanel{
 		//topButtons.setLayout(new BoxLayout(topButtons, BoxLayout.X_AXIS));
 		JButton jName = new JButton("Name");
 		jName.setContentAreaFilled(false);
+		jName.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		//sort by name
 		jName.addMouseListener(new MouseAdapter() {
 			@Override
@@ -229,6 +230,7 @@ public class CommitmentFullView extends JPanel{
 		
 		JButton jDueDate = new JButton("Due Date");
 		jDueDate.setContentAreaFilled(false);
+		jDueDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		
 		// sort by date 
 		jDueDate.addMouseListener(new MouseAdapter() {
@@ -252,9 +254,11 @@ public class CommitmentFullView extends JPanel{
 
 		JButton jDescription = new JButton("Description");
 		jDescription.setContentAreaFilled(false);
+		jDescription.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		
 		JButton jStatus = new JButton("Status");
 		jStatus.setContentAreaFilled(false);
+		jStatus.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		
 		jStatus.addMouseListener(new MouseAdapter() {
 			@Override
