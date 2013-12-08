@@ -73,6 +73,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
+import javax.swing.BoxLayout;
+import java.awt.Component;
+import javax.swing.Box;
 
 public class CommitmentTab extends JPanel {
 	
@@ -133,6 +136,8 @@ public class CommitmentTab extends JPanel {
 	private JPanel panel;
 	private Date tmpDate = new Date(); //user for convert the date to default format
 	private boolean badTime;
+	private Component glue;
+	private Component glue_1;
 	
 
 	private enum EditingMode {
@@ -147,23 +152,15 @@ public class CommitmentTab extends JPanel {
 	 */
 	public CommitmentTab() {
 		this.initFlag = false;
-		
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		setLayout(gridBagLayout);
-		JPanel spacePanel1 = new JPanel();
-		JPanel spacePanel2 = new JPanel();
 		formPanel = new JPanel();
-		formPanel.setPreferredSize(new Dimension(500,600));
-		formPanel.setMinimumSize(new Dimension(500, 600));
-		spacePanel1.setMinimumSize(formPanel.getSize());
-		spacePanel2.setMinimumSize(formPanel.getSize());
-		GridBagConstraints constraints = new GridBagConstraints();
-		constraints.weightx = 1;
-		constraints.weighty = 1;
-		constraints.fill = GridBagConstraints.BOTH;
-		add(spacePanel1, constraints);
-		add(formPanel, constraints);
-		add(spacePanel2, constraints);
+		formPanel.setPreferredSize(new Dimension(700, 500));
+		formPanel.setMaximumSize(new Dimension(1200, 500));
+		formPanel.setMinimumSize(new Dimension(700, 500));
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		
+		glue = Box.createGlue();
+		add(glue);
+		add(formPanel);
 		
 		// form uses GridBagLayout w/ two columns
 		GridBagLayout gbl = new GridBagLayout();
@@ -181,6 +178,9 @@ public class CommitmentTab extends JPanel {
 		
 		
 		this.initFlag = true;
+		
+		glue_1 = Box.createGlue();
+		add(glue_1);
 	}
 
 	/**
