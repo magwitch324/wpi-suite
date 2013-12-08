@@ -7,6 +7,13 @@
  * 
  * Contributors: CS Anonymous
  ******************************************************************************/
+	/*
+	 * Sources:
+	 * Icons were developed using images obtained at: 
+	 * [1] https://svn.apache.org/repos/asf/openoffice/symphony/trunk/main/extras/source/gallery/symbols/
+	 * [2] http://www.clker.com/clipart-red-round.html
+	 * [3] http://www.iconsdb.com/red-icons/delete-icon.html
+	 */
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import static java.util.Calendar.JANUARY;
@@ -68,62 +75,70 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 public class CommitmentTab extends JPanel {
+	
+	// Main panel for everything.
+	private JPanel formPanel;
+
+	// JLabels
+	private JLabel lblName;
+	private JLabel lblDesc;
+	private JLabel lblCategory;
+	private JLabel lblType;
+	private JLabel lblTime;
+	private JLabel lblDate;
+	private JLabel lblStatus;
+	// Error messages
+	private JLabel lblDateError;
+	
+	// Editable elements
+	// Name
 	private JTextField nameTextField;
-	private GridBagConstraints gbc_nameTextField;
+	// Description
+	private JTextArea descriptionTextField;
+	// Category
+	private JComboBox<Category> categoryComboBox;
+	// Type
+	private JPanel rdbtnPanel;
+	private ButtonGroup rdbtnGroup;
+	private JRadioButton rdbtnPersonal;
+	private JRadioButton rdbtnTeam;
+	// Time
+	private JPanel spinnerPanel;
 	private JSpinner hourSpinner;
 	private JSpinner minuteSpinner;
 	private JSpinner AMPMSpinner;
-	private boolean isTeamComm;
-	private JButton btnAddCommitment;
-	private JComboBox<Category> categoryComboBox;
-	private JTextArea descriptionTextArea;
-	private JXDatePicker datePicker;
-	private JScrollPane descPane;
-	private JPanel panel;
 	private JSpinner.DateEditor hourEditor;
 	private JSpinner.DateEditor minuteEditor;
 	private JSpinner.DateEditor AMPMEditor;
-	private JPanel panel_1;
-	private JRadioButton rdbtnPersonal;
-	private JRadioButton rdbtnTeam;
-	private JLabel lblType;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JButton btnCancel;
-	private Date tmpDate = new Date(); //user for convert the date to default format
-	private String inputDate = (new SimpleDateFormat("MM/dd/yyyy EEE").format(tmpDate)); //the date user input
-	private boolean badDate;
-	private boolean badTime;
-	private Commitment editingCommitment;
-	private EditingMode mode = EditingMode.ADDING;
-	private JButton btnDelete;
-	private JComboBox statusComboBox;
+	// Date
+	private JXDatePicker datePicker;
+	// Status
+	private JComboBox<String> statusComboBox;
+	
+	// Buttons and their panel
 	private JPanel buttonPanel;
-	private JPanel formPanel;
-	private JLabel statusLabel;
-	private boolean initFlag; //to keep things from running before we fully intialize
-	private JPanel spinnerPanel;
+	private JButton btnAddCommitment;
+	private JButton btnDelete;
+	private JButton btnCancel;
 	
+	// Helper variables
+	private boolean initFlag; //to keep things from running before we fully initialize
+	private boolean isTeamComm;
+	private Commitment editingCommitment;
+	private boolean badDate;
+	private EditingMode mode = EditingMode.ADDING;
+
+	// Unused variables. If you don't find it useful, and you are the one who added it, please delete it. @Frank
+	private JScrollPane descPane;
+	private JPanel panel;
+	private Date tmpDate = new Date(); //user for convert the date to default format
+	private boolean badTime;
 	
-	
-	
-	/*
-	 * Sources:
-	 * Icons were developed using images obtained at: 
-	 * [1] https://svn.apache.org/repos/asf/openoffice/symphony/trunk/main/extras/source/gallery/symbols/
-	 * [2] http://www.clker.com/clipart-red-round.html
-	 * [3] http://www.iconsdb.com/red-icons/delete-icon.html
-	 */
-	
-	
-	
+
 	private enum EditingMode {
 		ADDING(0),
 		EDITING(1);
-		
-		private int currentMode;
-		
 		private EditingMode(int currentMode) {
-			this.currentMode = currentMode;
 		}
 	}
 	
@@ -158,507 +173,12 @@ public class CommitmentTab extends JPanel {
 		gbl.columnWidths = new int[] {0, 0};
 		formPanel.setLayout(gbl);
 		
+		addLabels();
+		addEditableElements();
+		addEditableElementsListeners();
+		setDefaultValuesForEditableElements();
+		addButtonPanel();
 		
-		//Name label
-		JLabel lblName = new JLabel("Name:");
-		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.anchor = GridBagConstraints.EAST;
-		gbc.insets = new Insets(0, 0, 5, 5);
-        gbc.fill = GridBagConstraints.VERTICAL;
-        gbc.weightx = 1;
-        gbc.weighty = 1;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-		formPanel.add(lblName, gbc);
-		
-		//Name text field
-		nameTextField = new JTextField();
-		gbc_nameTextField = new GridBagConstraints();
-		gbc_nameTextField.insets = new Insets(0, 0, 5, 0);
-		gbc_nameTextField.fill = GridBagConstraints.HORIZONTAL;
-        gbc_nameTextField.weightx = 10;
-        gbc_nameTextField.weighty = 1;
-        gbc_nameTextField.gridx = 1;
-        gbc_nameTextField.gridy = 0;
-		formPanel.add(nameTextField, gbc_nameTextField);
-		
-		nameTextField.addKeyListener(new KeyListener() {
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				listenerHelper();
-			}
-			
-			
-			
-			
-		});
-		
-		
-		//Description label
-		JLabel lblDesc = new JLabel("Description:");
-		lblDesc.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblDesc = new GridBagConstraints();
-		gbc_lblDesc.fill = GridBagConstraints.BOTH;
-		gbc_lblDesc.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDesc.gridx = 0;
-		gbc_lblDesc.gridy = 1;
-		formPanel.add(lblDesc, gbc_lblDesc);
-		
-		
-		//Scrollpane for description text area
-//		descPane = new JScrollPane();
-//		descPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-//		descPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-		//Text area for description
-		descriptionTextArea = new JTextArea();
-//		descriptionTextArea.setPreferredSize(new Dimension(500,160));
-//		descPane.setViewportView(descriptionTextArea);
-		descriptionTextArea.setLineWrap(true);
-		GridBagConstraints gbc_descriptionTextField = new GridBagConstraints();
-		gbc_descriptionTextField.fill = GridBagConstraints.BOTH;
-		gbc_descriptionTextField.insets = new Insets(0, 0, 5, 0);
-        gbc_descriptionTextField.weightx = 10;
-        gbc_descriptionTextField.weighty = 5;
-        gbc_descriptionTextField.gridx = 1;
-        gbc_descriptionTextField.gridy = 1;
-		formPanel.add(descriptionTextArea, gbc_descriptionTextField);
-		
-		descriptionTextArea.addKeyListener(new KeyListener() {
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				listenerHelper();
-			}
-			
-			
-			
-			
-		});
-		
-		//Category label
-		JLabel lblCategory = new JLabel("Category:");
-		lblCategory.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblCategory = new GridBagConstraints();
-		gbc_lblCategory.anchor = GridBagConstraints.EAST;
-		gbc_lblCategory.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCategory.gridx = 0;
-		gbc_lblCategory.gridy = 2;
-		gbc_lblCategory.weightx = 1;
-		gbc_lblCategory.weighty = 1;
-		formPanel.add(lblCategory, gbc_lblCategory);
-		
-		//Create category box, add two dummy categories
-		categoryComboBox = new JComboBox<Category>();
-		categoryComboBox.addItem(new Category(4, "Cat1"));
-		categoryComboBox.addItem(new Category(5, "Cat2"));
-
-		GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
-		gbc_categoryComboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_categoryComboBox.insets = new Insets(0, 0, 5, 0);
-		gbc_categoryComboBox.gridx = 1;
-		gbc_categoryComboBox.gridy = 2;
-		gbc_categoryComboBox.weightx = 10;
-		gbc_categoryComboBox.weighty = 1;
-		formPanel.add(categoryComboBox, gbc_categoryComboBox);
-		
-		categoryComboBox.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				listenerHelper();
-			}
-			
-		});
-		
-		lblType = new JLabel("Type:");
-		lblType.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblType = new GridBagConstraints();
-		gbc_lblType.anchor = GridBagConstraints.EAST;
-		gbc_lblType.insets = new Insets(0, 0, 5, 5);
-		gbc_lblType.gridx = 0;
-		gbc_lblType.gridy = 3;
-		formPanel.add(lblType, gbc_lblType);
-		
-		panel_1 = new JPanel();
-		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
-		gbc_panel_1.fill = GridBagConstraints.BOTH;
-		gbc_panel_1.gridx = 1;
-		gbc_panel_1.gridy = 3;
-		formPanel.add(panel_1, gbc_panel_1);
-		
-		rdbtnPersonal = new JRadioButton("Personal");
-		buttonGroup.add(rdbtnPersonal);
-		panel_1.add(rdbtnPersonal);
-		
-		rdbtnTeam = new JRadioButton("Team");
-		buttonGroup.add(rdbtnTeam);
-		panel_1.add(rdbtnTeam);
-		
-		rdbtnTeam.setSelected(true);
-
-		
-		spinnerPanel = new JPanel();
-		GridBagConstraints gbc_spinnerPanel = new GridBagConstraints();
-		gbc_spinnerPanel.insets = new Insets(0, 0, 5, 0);
-		gbc_spinnerPanel.fill = GridBagConstraints.BOTH;
-		gbc_spinnerPanel.gridx = 1;
-		gbc_spinnerPanel.gridy = 4;
-		formPanel.add(spinnerPanel, gbc_spinnerPanel);
-		spinnerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		//Time spinner, half hour resolution
-		hourSpinner = new JSpinner( new SpinnerDateModelHour());
-		hourSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		spinnerPanel.add(hourSpinner);
-		hourEditor = new JSpinner.DateEditor(hourSpinner, "hh");
-		hourSpinner.setEditor(hourEditor);
-		
-		minuteSpinner = new JSpinner( new SpinnerDateModelHalfHour());
-		minuteSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		spinnerPanel.add(minuteSpinner);
-		minuteEditor = new JSpinner.DateEditor(minuteSpinner, "mm");
-		minuteSpinner.setEditor(minuteEditor);
-		
-		AMPMSpinner = new JSpinner(new SpinnerDateModelAMPM());
-		AMPMSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		spinnerPanel.add(AMPMSpinner);
-		AMPMEditor = new JSpinner.DateEditor(AMPMSpinner, "a");
-		AMPMSpinner.setEditor(AMPMEditor);
-		
-		//Rounds the spinner to 30 or 00
-		addTimeRoundingEvent();
-		
-		hourSpinner.setValue(new GregorianCalendar().getTime());
-		minuteSpinner.setValue(new GregorianCalendar().getTime());
-		AMPMSpinner.setValue(new GregorianCalendar().getTime());
-		
-		//Time label
-		JLabel lblTime = new JLabel("Time:");
-		lblTime.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblTime = new GridBagConstraints();
-		gbc_lblTime.anchor = GridBagConstraints.EAST;
-		gbc_lblTime.fill = GridBagConstraints.VERTICAL;
-		gbc_lblTime.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTime.gridx = 0;
-		gbc_lblTime.gridy = 4;
-		gbc_lblTime.weightx = 1;
-		gbc_lblTime.weighty = 1;
-		formPanel.add(lblTime, gbc_lblTime);
-
-		
-		//Invalid Date label
-		final JLabel lblDateError = new JLabel("<html><font color='red'>Please enter a valid date (MM/DD/YYYY).</font></html>");
-		lblDateError.setVisible(false);
-		lblDateError.setHorizontalAlignment(SwingConstants.LEFT);
-		GridBagConstraints gbc_lblDateError = new GridBagConstraints();
-		gbc_lblDateError.insets = new Insets(0, 0, 5, 0);
-		gbc_lblDateError.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblDateError.gridx = 1;
-		gbc_lblDateError.gridy = 8;
-		gbc_lblDateError.weightx = 1;
-		gbc_lblDateError.weighty = 1;		
-		formPanel.add(lblDateError, gbc_lblDateError);
-		
-		//Date label
-		JLabel lblDate_1 = new JLabel("Date:");
-		lblDate_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblDate_1 = new GridBagConstraints();
-		gbc_lblDate_1.fill = GridBagConstraints.VERTICAL;
-		gbc_lblDate_1.anchor = GridBagConstraints.EAST;
-		gbc_lblDate_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDate_1.gridx = 0;
-		gbc_lblDate_1.gridy = 7;
-		gbc_lblDate_1.weightx = 1;
-		gbc_lblDate_1.weighty = 1;
-		formPanel.add(lblDate_1, gbc_lblDate_1);
-		
-		//DatePicker box
-		datePicker = new JXDatePicker();
-		datePicker.getEditor().setFont(new Font("Tahoma", Font.PLAIN, 13));
-		GridBagConstraints gbc_jdp = new GridBagConstraints();
-		gbc_jdp.insets = new Insets(0, 0, 5, 0);
-		gbc_jdp.fill = GridBagConstraints.HORIZONTAL;
-		gbc_jdp.gridx = 1;
-		gbc_jdp.gridy = 7;
-		gbc_jdp.weightx = 1;
-		gbc_jdp.weighty = 3;
-		formPanel.add(datePicker, gbc_jdp);
-		//Calendar calendar = datePicker.getMonthView().getCalendar();
-		//calendar.setTime(new Date());
-		//datePicker.getMonthView().setLowerBound(calendar.getTime());
-		SimpleDateFormat format1 = new SimpleDateFormat( "MM/dd/yyyy EEE" );
-		SimpleDateFormat format2 = new SimpleDateFormat( "MM/dd/yyyy" );
-		SimpleDateFormat format3 = new SimpleDateFormat( "MM.dd.yyyy" );
-		SimpleDateFormat format4 = new SimpleDateFormat( "MM.dd.yyyy EEE" );
-		datePicker.setFormats(new DateFormat[] {format1, format2, format3, format4});
-		datePicker.addKeyListener(new KeyListener() {
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-				
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				listenerHelper();
-			}
-			
-			
-			
-			
-		});
-		
-		datePicker.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				datePicker.getEditor().setBackground(Color.WHITE);
-				inputDate = datePicker.getEditor().getText().trim();
-			}
-			
-		});
-		
-		datePicker.getEditor().addFocusListener(new FocusListener() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				if(badDate) {
-					datePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
-					datePicker.getEditor().selectAll();
-					lblDateError.setVisible(true);
-					badDate = false;
-				}
-				/*
-				else if(badDate){
-					datePicker.getEditor().setText("The date is not valid");
-					datePicker.getEditor().setBackground(Color.red);
-					badDate = false;
-				}
-				*/
-				else{
-					//try {
-						SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy EEE"); 
-						datePicker.getEditor().setBackground(Color.WHITE);
-						datePicker.getEditor().setText(dt.format(datePicker.getDate()));
-						datePicker.getEditor().selectAll();
-						listenerHelper();
-					//}catch(NullPointerException ne) {
-					//	datePicker.getEditor().setText("The date is not valid");
-					//	datePicker.getEditor().setBackground(Color.red);
-					//}
-				}
-			}
-
-			@Override
-			public void focusLost(FocusEvent e) {
-				if(isBadInputDate()){
-					badDate = true;
-					datePicker.requestFocus();
-				}
-				/*
-				else{
-					Date date = null;
-					for(DateFormat formatter : datePicker.getFormats()) {
-						try {
-							date = formatter.parse(inputDate);
-						} catch (ParseException e1) {
-
-						}
-					}
-					if(date.compareTo(new Date()) < 0) {
-						badDate = true;
-						datePicker.requestFocus();
-					}
-				}
-				*/
-				else{
-					datePicker.getEditor().setBackground(Color.WHITE);
-					lblDateError.setVisible(false);
-				}
-				listenerHelper();
-			}
-		});
-		datePicker.addFocusListener(new FocusListener() {
-
-			@Override
-			public void focusGained(FocusEvent e) {
-				datePicker.getEditor().setBackground(Color.WHITE);
-				listenerHelper();
-			}
-
-			@Override
-			public void focusLost(FocusEvent e) {
-				datePicker.getEditor().setBackground(Color.WHITE);
-				listenerHelper();
-				
-			}
-
-			
-			
-			
-			
-		});
-		
-
-		
-		GregorianCalendar c = new GregorianCalendar();
-	    c.set(Calendar.HOUR_OF_DAY, 0);
-	    c.set(Calendar.MINUTE, 0);
-	    c.set(Calendar.SECOND, 0);
-		datePicker.setDate(c.getTime());
-		
-		
-		buttonPanel = new JPanel(new BorderLayout(18,0));
-		//Add Commitment button
-		
-		try {
-			Image img = ImageIO.read(getClass().getResource("Save_Icon.png"));
-			btnAddCommitment = new JButton("Save Commitment", new ImageIcon(img));
-		} catch (IOException ex) {}
-		catch(IllegalArgumentException ex){
-			btnCancel.setText("Save Commitment");
-		}
-
-		btnAddCommitment.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
-		btnAddCommitment.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				addCommitment();
-			}
-			
-			
-		});
-		
-		datePicker.addPropertyChangeListener(new PropertyChangeListener(){
-
-			@Override
-			public void propertyChange(PropertyChangeEvent evt) {
-				listenerHelper();
-			}}
-				);
-		
-		datePicker.getEditor().addKeyListener(new KeyListener(){
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				inputDate = datePicker.getEditor().getText().trim();
-				listenerHelper();
-				
-				// This next line checks for a blank date field, DO NOT REMOVE
-				if(nameTextField.getText().equals("") || datePicker.getEditor().getText().equals("")
-                        || nameTextField.getText().trim().length() == 0){
-                btnAddCommitment.setEnabled(false);
-				}
-
-				//boolean orignValue = initFlag;
-				//initFlag = true;
-				//listenerHelper();
-				//initFlag = orignValue;
-			}
-
-		});
-		
-		btnAddCommitment.setEnabled(false);
-		
-		
-		
-		GridBagConstraints gbc_btnPanel = new GridBagConstraints();
-		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
-		gbc_btnPanel.gridx = 1;
-		gbc_btnPanel.gridy = 10;
-		
-		//Add Cancel button
-
-		try {
-			Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
-			btnCancel = new JButton("Cancel", new ImageIcon(img));
-		} catch (IOException ex) {}
-		catch(IllegalArgumentException ex){
-			btnCancel.setText("Cancel");
-		}
-		
-		btnCancel.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
-		btnCancel.addActionListener(new ActionListener() {
-		
-		
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				removeTab();
-			}
-			
-		});		
-		
-		buttonPanel.add(btnAddCommitment, BorderLayout.WEST);
-		buttonPanel.add(btnCancel, BorderLayout.CENTER);
-	                    				// Set the horizontal gap
-		formPanel.add(buttonPanel, gbc_btnPanel);
-		
-		String[] statusStrings = {"New", "In Progress", "Completed"};
-		statusComboBox = new JComboBox(statusStrings);
-		
-		
-		statusComboBox.setSelectedIndex(0);
-		GridBagConstraints gbc_statusComboBox = new GridBagConstraints();
-		gbc_statusComboBox.insets = new Insets(0, 0, 5, 0);
-		gbc_statusComboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_statusComboBox.gridx = 1;		
-		gbc_statusComboBox.gridy = 9;
-		gbc_statusComboBox.weightx = 1;
-		gbc_statusComboBox.weighty = 3;
-
-		formPanel.add(statusComboBox,gbc_statusComboBox);
-		
-		statusLabel = new JLabel("Status:");
-		GridBagConstraints gbc_statusLabel = new GridBagConstraints();
-		gbc_statusLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_statusLabel.fill = GridBagConstraints.VERTICAL;
-		gbc_statusLabel.anchor = GridBagConstraints.EAST;
-		gbc_statusLabel.gridx = 0;
-		gbc_statusLabel.gridy = 9;
-		gbc_statusLabel.weightx = 1;
-		gbc_statusLabel.weighty = 3;
-
-		formPanel.add(statusLabel,gbc_statusLabel);
 		
 		this.initFlag = true;
 	}
@@ -669,13 +189,15 @@ public class CommitmentTab extends JPanel {
 	public CommitmentTab(Commitment commToEdit) {
 		this();
 		
+
+		
 		this.initFlag = false; //We need this to deal with the nested constructors
 		
 		editingCommitment = commToEdit;
 		this.mode = EditingMode.EDITING;
 		
 		this.nameTextField.setText(editingCommitment.getName());
-		this.descriptionTextArea.setText(editingCommitment.getDescription());
+		this.descriptionTextField.setText(editingCommitment.getDescription());
 		this.categoryComboBox.setSelectedItem(editingCommitment.getCategoryID());
 		
 		if(!editingCommitment.getIsPersonal())
@@ -694,105 +216,445 @@ public class CommitmentTab extends JPanel {
 
 		
 		statusComboBox.setSelectedIndex(commToEdit.getStatus().id);
-		
-		// Add Delete Button
-		try {
-			Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
-			btnDelete = new JButton("Delete Commitment", new ImageIcon(img));
-		} catch (IOException ex) {}
-		catch(IllegalArgumentException ex){
-			btnDelete.setText("Delete Commitment");
-		}
-		
-		btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
-		btnDelete.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				deleteCommitment();
-			}
-			
-		});
-		buttonPanel.add(btnDelete, BorderLayout.LINE_END);
-	
-		//Some edit specific listeners
-		//These are here to avoid possible NullPointer exceptions while opening the tab 
-		hourSpinner.addChangeListener(new ChangeListener(){
-
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				listenerHelper();
-				
-			}
-			
-			
-		});
-
-		//Some edit specific listeners
-		//These are here to avoid possible NullPointer exceptions while opening the tab 
-		minuteSpinner.addChangeListener(new ChangeListener(){
-
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				listenerHelper();
-				
-			}
-			
-			
-		});
-		//Some edit specific listeners
-		//These are here to avoid possible NullPointer exceptions while opening the tab 
-		AMPMSpinner.addChangeListener(new ChangeListener(){
-
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				listenerHelper();
-				
-			}
-			
-			
-		});
-		datePicker.getEditor().addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				listenerHelper();
-				
-			}
-			
-			
-		});
-		
-		statusComboBox.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				listenerHelper();
-				
-			}
-			
-			
-		});
+		this.btnDelete.setEnabled(true);
 		
 		this.initFlag = true;
 
 	}
-	
 
 	/**
-	 * Close this commitment tab
+	 * Create all labels in commitment tab.
 	 */
-	protected void removeTab() {
-		GUIEventController.getInstance().removeCommTab(this, isTeamComm);
+	private void addLabels() {
+		//Name label
+		lblName = new JLabel("Name:");
+		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.anchor = GridBagConstraints.EAST;
+		gbc.insets = new Insets(0, 0, 5, 5);
+        gbc.fill = GridBagConstraints.VERTICAL;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+		formPanel.add(lblName, gbc);
+		
+		//Description label
+		lblDesc = new JLabel("Description:");
+		lblDesc.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblDesc = new GridBagConstraints();
+		gbc_lblDesc.fill = GridBagConstraints.BOTH;
+		gbc_lblDesc.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDesc.gridx = 0;
+		gbc_lblDesc.gridy = 1;
+		formPanel.add(lblDesc, gbc_lblDesc);
+		
+		//Category label
+		lblCategory = new JLabel("Category:");
+		lblCategory.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblCategory = new GridBagConstraints();
+		gbc_lblCategory.anchor = GridBagConstraints.EAST;
+		gbc_lblCategory.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCategory.gridx = 0;
+		gbc_lblCategory.gridy = 2;
+		gbc_lblCategory.weightx = 1;
+		gbc_lblCategory.weighty = 1;
+		formPanel.add(lblCategory, gbc_lblCategory);
+		
+		//Type label
+		lblType = new JLabel("Type:");
+		lblType.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblType = new GridBagConstraints();
+		gbc_lblType.anchor = GridBagConstraints.EAST;
+		gbc_lblType.insets = new Insets(0, 0, 5, 5);
+		gbc_lblType.gridx = 0;
+		gbc_lblType.gridy = 3;
+		formPanel.add(lblType, gbc_lblType);
+		
+		//Time label
+		lblTime = new JLabel("Time:");
+		lblTime.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblTime = new GridBagConstraints();
+		gbc_lblTime.anchor = GridBagConstraints.EAST;
+		gbc_lblTime.fill = GridBagConstraints.VERTICAL;
+		gbc_lblTime.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTime.gridx = 0;
+		gbc_lblTime.gridy = 4;
+		gbc_lblTime.weightx = 1;
+		gbc_lblTime.weighty = 1;
+		formPanel.add(lblTime, gbc_lblTime);
+		
+		//Date label
+		lblDate = new JLabel("Date:");
+		lblDate.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblDate = new GridBagConstraints();
+		gbc_lblDate.fill = GridBagConstraints.VERTICAL;
+		gbc_lblDate.anchor = GridBagConstraints.EAST;
+		gbc_lblDate.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDate.gridx = 0;
+		gbc_lblDate.gridy = 7;
+		gbc_lblDate.weightx = 1;
+		gbc_lblDate.weighty = 1;
+		formPanel.add(lblDate, gbc_lblDate);
+		
+		//Status label
+		lblStatus = new JLabel("Status:");
+		GridBagConstraints gbc_lblStatus = new GridBagConstraints();
+		gbc_lblStatus.insets = new Insets(0, 0, 5, 5);
+		gbc_lblStatus.fill = GridBagConstraints.VERTICAL;
+		gbc_lblStatus.anchor = GridBagConstraints.EAST;
+		gbc_lblStatus.gridx = 0;
+		gbc_lblStatus.gridy = 9;
+		gbc_lblStatus.weightx = 1;
+		gbc_lblStatus.weighty = 3;
+		formPanel.add(lblStatus,gbc_lblStatus);
+		
+		//Invalid Date label
+		lblDateError = new JLabel("<html><font color='red'>Please enter a valid date (MM/DD/YYYY).</font></html>");
+		lblDateError.setVisible(false);
+		lblDateError.setHorizontalAlignment(SwingConstants.LEFT);
+		GridBagConstraints gbc_lblDateError = new GridBagConstraints();
+		gbc_lblDateError.insets = new Insets(0, 0, 5, 0);
+		gbc_lblDateError.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblDateError.gridx = 1;
+		gbc_lblDateError.gridy = 8;
+		gbc_lblDateError.weightx = 1;
+		gbc_lblDateError.weighty = 1;		
+		formPanel.add(lblDateError, gbc_lblDateError);
+	}
+	
+	/**
+	 * Construct all editable elements in commitment tab without listeners.
+	 */
+	private void addEditableElements() {
+		
+		//Name text field
+		nameTextField = new JTextField();
+		GridBagConstraints gbc_nameTextField = new GridBagConstraints();
+		gbc_nameTextField.insets = new Insets(0, 0, 5, 0);
+		gbc_nameTextField.fill = GridBagConstraints.HORIZONTAL;
+        gbc_nameTextField.weightx = 10;
+        gbc_nameTextField.weighty = 1;
+        gbc_nameTextField.gridx = 1;
+        gbc_nameTextField.gridy = 0;
+		formPanel.add(nameTextField, gbc_nameTextField);
+		
+		//Text area for description
+		descriptionTextField = new JTextArea();
+		//				descriptionTextField.setPreferredSize(new Dimension(500,160));
+		//				descPane.setViewportView(descriptionTextField);
+		descriptionTextField.setLineWrap(true);
+		GridBagConstraints gbc_descriptionTextField = new GridBagConstraints();
+		gbc_descriptionTextField.fill = GridBagConstraints.BOTH;
+		gbc_descriptionTextField.insets = new Insets(0, 0, 5, 0);
+		gbc_descriptionTextField.weightx = 10;
+		gbc_descriptionTextField.weighty = 5;
+		gbc_descriptionTextField.gridx = 1;
+		gbc_descriptionTextField.gridy = 1;
+		formPanel.add(descriptionTextField, gbc_descriptionTextField);
+
+		//Create category box, add two dummy categories
+		categoryComboBox = new JComboBox<Category>();
+		categoryComboBox.addItem(new Category(4, "Cat1"));
+		categoryComboBox.addItem(new Category(5, "Cat2"));
+
+		GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
+		gbc_categoryComboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_categoryComboBox.insets = new Insets(0, 0, 5, 0);
+		gbc_categoryComboBox.gridx = 1;
+		gbc_categoryComboBox.gridy = 2;
+		gbc_categoryComboBox.weightx = 10;
+		gbc_categoryComboBox.weighty = 1;
+		formPanel.add(categoryComboBox, gbc_categoryComboBox);
+		
+		// Create radio button panel.
+		rdbtnPanel = new JPanel();
+		GridBagConstraints gbc_rdbtnPanel = new GridBagConstraints();
+		gbc_rdbtnPanel.insets = new Insets(0, 0, 5, 0);
+		gbc_rdbtnPanel.fill = GridBagConstraints.BOTH;
+		gbc_rdbtnPanel.gridx = 1;
+		gbc_rdbtnPanel.gridy = 3;
+		formPanel.add(rdbtnPanel, gbc_rdbtnPanel);
+		rdbtnGroup = new ButtonGroup();
+		
+		// Create buttons and add to rdbtnGroup.
+		rdbtnPersonal = new JRadioButton("Personal");
+		rdbtnGroup.add(rdbtnPersonal);
+		rdbtnPanel.add(rdbtnPersonal);
+
+		rdbtnTeam = new JRadioButton("Team");
+		rdbtnGroup.add(rdbtnTeam);
+		rdbtnPanel.add(rdbtnTeam);
+		
+		// Create time spinner panel.
+		spinnerPanel = new JPanel();
+		GridBagConstraints gbc_spinnerPanel = new GridBagConstraints();
+		gbc_spinnerPanel.insets = new Insets(0, 0, 5, 0);
+		gbc_spinnerPanel.fill = GridBagConstraints.BOTH;
+		gbc_spinnerPanel.gridx = 1;
+		gbc_spinnerPanel.gridy = 4;
+		formPanel.add(spinnerPanel, gbc_spinnerPanel);
+		spinnerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+				
+		
+		// Create time spinners, hour, minute, and AM_PM
+		hourSpinner = new JSpinner( new SpinnerDateModelHour());
+		hourSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		spinnerPanel.add(hourSpinner);
+		hourEditor = new JSpinner.DateEditor(hourSpinner, "hh");
+		hourSpinner.setEditor(hourEditor);
+
+		minuteSpinner = new JSpinner( new SpinnerDateModelHalfHour());
+		minuteSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		spinnerPanel.add(minuteSpinner);
+		minuteEditor = new JSpinner.DateEditor(minuteSpinner, "mm");
+		minuteSpinner.setEditor(minuteEditor);
+
+		AMPMSpinner = new JSpinner(new SpinnerDateModelAMPM());
+		AMPMSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		spinnerPanel.add(AMPMSpinner);
+		AMPMEditor = new JSpinner.DateEditor(AMPMSpinner, "a");
+		AMPMSpinner.setEditor(AMPMEditor);
+				
+		// Create DatePicker and editor.
+		datePicker = new JXDatePicker();
+		datePicker.getEditor().setFont(new Font("Tahoma", Font.PLAIN, 13));
+		GridBagConstraints gbc_jdp = new GridBagConstraints();
+		gbc_jdp.insets = new Insets(0, 0, 5, 0);
+		gbc_jdp.fill = GridBagConstraints.HORIZONTAL;
+		gbc_jdp.gridx = 1;
+		gbc_jdp.gridy = 7;
+		gbc_jdp.weightx = 1;
+		gbc_jdp.weighty = 3;
+		formPanel.add(datePicker, gbc_jdp);
+
+		// Set acceptable date formats for date picker. Deprecated? @Frank
+		SimpleDateFormat format1 = new SimpleDateFormat( "MM/dd/yyyy EEE" );
+		SimpleDateFormat format2 = new SimpleDateFormat( "MM/dd/yyyy" );
+		SimpleDateFormat format3 = new SimpleDateFormat( "MM.dd.yyyy" );
+		SimpleDateFormat format4 = new SimpleDateFormat( "MM.dd.yyyy EEE" );
+		datePicker.setFormats(new DateFormat[] {format1, format2, format3, format4});
+				
+		// Create status combo box.
+		String[] statusStrings = {"New", "In Progress", "Completed"};
+		statusComboBox = new JComboBox<String>(statusStrings);
+		statusComboBox.setSelectedIndex(0);
+		GridBagConstraints gbc_statusComboBox = new GridBagConstraints();
+		gbc_statusComboBox.insets = new Insets(0, 0, 5, 0);
+		gbc_statusComboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_statusComboBox.gridx = 1;		
+		gbc_statusComboBox.gridy = 9;
+		gbc_statusComboBox.weightx = 1;
+		gbc_statusComboBox.weighty = 3;
+		formPanel.add(statusComboBox,gbc_statusComboBox);
+	}
+	
+	/**
+	 * Adds listeners for all editable elements in commitment tab.
+	 * Calls addTimeSpinnerListeners() and addDatePickerListeners() which are helper functions defined outside this method.
+	 */
+	private void addEditableElementsListeners() {
+		nameTextField.addKeyListener(new KeyListener() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				checkSaveBtnStatus();
+			}
+			// Unused.
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+			}
+		});
+		
+		descriptionTextField.addKeyListener(new KeyListener() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				checkSaveBtnStatus();
+			}
+			// Unused.
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+			}
+		});
+		
+		categoryComboBox.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				checkSaveBtnStatus();
+			}
+		});
+
+		statusComboBox.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				checkSaveBtnStatus();
+			}
+		});
+		
+		addTimeSpinnerListeners();
+		addDatePickerListeners();
+	}
+	
+	/**
+	 * Sets default values like date and time for spinners and date picker.
+	 * Must set values after listeners are added because automatic rounding of the minute spinner is done by a listener.
+	 */
+	private void setDefaultValuesForEditableElements() {
+		rdbtnTeam.setSelected(true);
+		hourSpinner.setValue(new GregorianCalendar().getTime());
+		minuteSpinner.setValue(new GregorianCalendar().getTime());
+		AMPMSpinner.setValue(new GregorianCalendar().getTime());
+		// Set time to 0 for no reason. Deprecated? @Frank
+		// Set default date for date picker.
+		GregorianCalendar c = new GregorianCalendar();
+		c.set(Calendar.HOUR_OF_DAY, 0);
+		c.set(Calendar.MINUTE, 0);
+		c.set(Calendar.SECOND, 0);
+		datePicker.setDate(c.getTime());
+	}
+	
+	/**
+	 * Adds the button panel to Commitment tab. Delete button is disabled on default.
+	 * This method adds listeners for the buttons to as the listeners are all relatively short.
+	 */
+	private void addButtonPanel() {
+		
+		/**
+		 * Initialize button panel instance and its constraints.
+		 */
+		buttonPanel = new JPanel(new BorderLayout(30,0));
+		GridBagConstraints gbc_btnPanel = new GridBagConstraints();
+		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
+		gbc_btnPanel.gridx = 1;
+		gbc_btnPanel.gridy = 10;
+
+		/**
+		 *  Initialize Save Commitment button.////////////////
+		 */
+		
+		// Load icon, create instance, and set text.
+		try {
+			Image img = ImageIO.read(getClass().getResource("Save_Icon.png"));
+			btnAddCommitment = new JButton("Save Commitment", new ImageIcon(img));
+		}
+		catch (IOException ex) {
+		}
+		catch(IllegalArgumentException ex){
+			btnCancel.setText("Save Commitment");
+		}
+		// To change cursor as it moves over this button
+		btnAddCommitment.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
+		// Add listener to perform action when button is pressed.
+		btnAddCommitment.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				addCommitment();
+			}
+		});
+		// AddCommitment button disabled on default.
+		btnAddCommitment.setEnabled(false);
+		
+		/**
+		 * Initialize Cancel button.////////////////
+		 */
+
+		// Load icon, create instance, and set text.
+		try {
+			Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
+			btnCancel = new JButton("Cancel", new ImageIcon(img));
+		}
+		catch (IOException ex) {
+		}
+		catch(IllegalArgumentException ex){
+			btnCancel.setText("Cancel");
+		}
+		
+		// To change cursor as it moves over this button
+		btnCancel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
+		// Add listener to perform action when button is pressed.
+		btnCancel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				removeTab();
+			}
+		});
+		
+		/**
+		 * Initialize Delete Commitment button.////////////////
+		 */
+		// Load icon, create instance, and set text.
+		try {
+			Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
+			btnDelete = new JButton("Delete Commitment", new ImageIcon(img));
+		}
+		catch (IOException ex) {
+		}
+		catch(IllegalArgumentException ex){
+			btnDelete.setText("Delete Commitment");
+		}
+		
+		// To change cursor as it moves over this button
+		btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
+		// Add listener to perform action when button is pressed.
+		btnDelete.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				deleteCommitment();
+			}
+		});
+		btnDelete.setEnabled(false);
+		buttonPanel.add(btnDelete, BorderLayout.LINE_END);
+		
+		/**
+		 * Add buttons to button panel, and add button panel to main panel for commitment tab.
+		 * Delete button is disabled on default.
+		 */
+		buttonPanel.add(btnAddCommitment, BorderLayout.WEST);
+		buttonPanel.add(btnCancel, BorderLayout.CENTER);
+		buttonPanel.add(btnCancel, BorderLayout.EAST);
+	    // Set the horizontal gap
+		formPanel.add(buttonPanel, gbc_btnPanel);
 	}
 
-
-	
-	
 	/**
-	 * Add an event handler to round the spinner minute value when not 0 or 30
+	 * Helper function that sets up listeners only for time spinners.
+	 * Time spinners include hour, minute, and AMPM.
 	 */
-	private void addTimeRoundingEvent() {
+	private void addTimeSpinnerListeners() {
+		//Some edit specific listeners
+		//These are here to avoid possible NullPointer exceptions while opening the tab 
+		hourSpinner.addChangeListener(new ChangeListener(){
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				checkSaveBtnStatus();
+			}
+		});
+		
+		hourSpinner.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				checkSaveBtnStatus();
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				checkSaveBtnStatus();
+			}
+		});
+
+		/**
+		 * Rounds minute input to the closest 30s everytime the text field changes.
+		 */
 		minuteSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				GregorianCalendar c = new GregorianCalendar();
@@ -819,15 +681,189 @@ public class CommitmentTab extends JPanel {
 					c.set(Calendar.HOUR, newHourVal);
 					//set spinner time value
 					minuteSpinner.getModel().setValue(c.getTime());
-					
 				}
+			}
+		});
+		//Some edit specific listeners
+		//These are here to avoid possible NullPointer exceptions while opening the tab 
+		AMPMSpinner.addChangeListener(new ChangeListener(){
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				checkSaveBtnStatus();
 			}
 		});
 	}
 
+	/**
+	 * Helper function that sets up listeners only for date picker.
+	 */
+	private void addDatePickerListeners() {
+		datePicker.getEditor().addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				checkSaveBtnStatus();
+			}
+		});
+		
+		datePicker.getEditor().addFocusListener(new FocusListener() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(badDate) {
+					datePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
+					datePicker.getEditor().selectAll();
+					lblDateError.setVisible(true);
+					badDate = false;
+				}
+
+				else{
+						SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy EEE"); 
+						datePicker.getEditor().setBackground(Color.WHITE);
+						datePicker.getEditor().setText(dt.format(datePicker.getDate()));
+						datePicker.getEditor().selectAll();
+						checkSaveBtnStatus();
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				
+				if(isBadInputDate()){
+					badDate = true;
+					datePicker.requestFocus();
+				}
+				else{
+					datePicker.getEditor().setBackground(Color.WHITE);
+					lblDateError.setVisible(false);
+				}
+				checkSaveBtnStatus();
+			}
+		});
+		
+		GregorianCalendar c = new GregorianCalendar();
+	    c.set(Calendar.HOUR_OF_DAY, 0);
+	    c.set(Calendar.MINUTE, 0);
+	    c.set(Calendar.SECOND, 0);
+		datePicker.setDate(c.getTime());
+		
+		
+		buttonPanel = new JPanel(new BorderLayout(18,0));
+		//Add Commitment button
+		
+		try {
+			Image img = ImageIO.read(getClass().getResource("Save_Icon.png"));
+			btnAddCommitment = new JButton("Save Commitment", new ImageIcon(img));
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			btnCancel.setText("Save Commitment");
+		}
+
+		btnAddCommitment.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
+		btnAddCommitment.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				addCommitment();
+			}
+		});
+		
+		datePicker.addPropertyChangeListener(new PropertyChangeListener(){
+
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				checkSaveBtnStatus();
+			}}
+				);
+		
+		datePicker.getEditor().addKeyListener(new KeyListener(){
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				checkSaveBtnStatus();
+				
+				// This next line checks for a blank date field, DO NOT REMOVE
+				if(nameTextField.getText().equals("") || datePicker.getEditor().getText().equals("")
+                        || nameTextField.getText().trim().length() == 0){
+                btnAddCommitment.setEnabled(false);
+				}
+
+				//boolean orignValue = initFlag;
+				//initFlag = true;
+				//checkSaveBtnStatus();
+				//initFlag = orignValue;
+			}
+
+		});
+		
+		datePicker.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				checkSaveBtnStatus();
+			}
+				
+		});
+		
+		datePicker.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				datePicker.getEditor().setBackground(Color.WHITE);
+			}
+			
+		});
+			
+		
+		datePicker.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				datePicker.getEditor().setBackground(Color.WHITE);
+				checkSaveBtnStatus();
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				datePicker.getEditor().setBackground(Color.WHITE);
+				checkSaveBtnStatus();
+				
+			}
+
+			
+			
+			
+			
+		});
+		
+	}
+	
+	/**
+	 * Close this commitment tab
+	 */
+	protected void removeTab() {
+		GUIEventController.getInstance().removeCommTab(this, isTeamComm);
+	}
 
 	/**
-	 * Adds new commitment with information contained in fields
+	 * Adds new commitment with information contained in fields.
 	 */
 	private void addCommitment() {
 		// TODO Auto-generated method stub
@@ -864,9 +900,10 @@ public class CommitmentTab extends JPanel {
 		else{
 			newComm.setIsPersonal(true);
 		}
-		
+
 		newComm.setCategoryID(((Category)this.categoryComboBox.getSelectedItem()).getId());
-		newComm.setDescription(this.descriptionTextArea.getText());
+		newComm.setDescription(this.descriptionTextField.getText());
+
 		
 
 		newComm.setStatus(Status.getStatusValue(statusComboBox.getSelectedIndex()));
@@ -927,7 +964,9 @@ public class CommitmentTab extends JPanel {
 
 	}
 	
-
+	/**
+	 * Delete a commitment.
+	 */
 	protected void deleteCommitment() {
 		// TODO Auto-generated method stub
 		CalendarData calData;
@@ -945,9 +984,9 @@ public class CommitmentTab extends JPanel {
 	}
 
 	/**
-	 * Controls the enable state of the save button
+	 * Controls the enable state of the save button by checking all user editable elements in commitment tab.
 	 */
-	private void listenerHelper(){
+	private void checkSaveBtnStatus(){
 		
 		if (initFlag){
 			if(nameTextField.getText().equals("") || datePicker.getDate() == null || //data validation
@@ -978,7 +1017,7 @@ public class CommitmentTab extends JPanel {
 					
 					//make sure something changed
 					if (this.nameTextField.getText().equals(editingCommitment.getName()) 
-							&& this.descriptionTextArea.getText().equals(editingCommitment.getDescription())
+							&& this.descriptionTextField.getText().equals(editingCommitment.getDescription())
 							&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryID()
 							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
 							&& calDate.getTime().equals(editingCommitment.getDueDate().getTime())
@@ -993,18 +1032,26 @@ public class CommitmentTab extends JPanel {
 		}
 	}
 	
+	/**
+	 * Checks text field in datepicker's editor.
+	 * @return boolean that indicates whether the input in the editor is valid.
+	 */
 	private boolean isBadInputDate() {
 		boolean result;
 		Date date = null;
 		for(DateFormat formatter : datePicker.getFormats()) {
 			try{
 				formatter.setLenient(false);
-				date = formatter.parse(inputDate);
+				date = formatter.parse(datePicker.getEditor().getText().trim());
 			}catch(ParseException pe){
 				//try next formatter
 			}
 			catch(NullPointerException ne){
 				result = false;
+			}
+			
+			if(date != null) {
+				break;
 			}
 		}
 		
@@ -1016,7 +1063,6 @@ public class CommitmentTab extends JPanel {
 		}
 		return result;
 	}
-
 }
 
 
