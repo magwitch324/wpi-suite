@@ -66,11 +66,16 @@ public class DayPane extends JPanel implements ICalPane {
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		scrollPane.setMinimumSize(new Dimension(300, 300));
 		scrollPane.setBackground(CalendarStandard.CalendarRed);
+		
 		scrollPane.getViewport().addComponentListener(new ComponentAdapter(){
 			public void componentResized(ComponentEvent e) {
-				scrollPane.getViewport().getView().setSize(scrollPane.getViewport().getSize());
+				int height = mainPanel.getHeight();
+				int width = scrollPane.getViewport().getWidth();
+				mainPanel.setSize(new Dimension(width, height));
+				mainPanel.setPreferredSize(new Dimension(width, height));
 			}
 		});
+		
 		// Sets the UPPER LEFT corner box
 		JPanel cornerBoxUL = new JPanel();
 		cornerBoxUL.setBackground(CalendarStandard.CalendarRed);

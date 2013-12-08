@@ -56,7 +56,6 @@ public class DayDayPane extends JPanel {
 		
 		this.addComponentListener(new ComponentAdapter(){
 			public void componentResized(ComponentEvent e) {
-				System.out.println(e.getComponent().getSize().getWidth());
 				//objectspane.setSize(getSize());
 				//linespane.setSize(getSize());
 				setLines();
@@ -64,9 +63,6 @@ public class DayDayPane extends JPanel {
 					obj.refreshSize();
 				}
 				setPos();
-				for(Component comp : getComponents()){
-					System.out.println(comp.getBounds());
-				}
 				//objectspane.revalidate();
 				//objectspane.repaint();
 				revalidate();
@@ -137,12 +133,12 @@ public class DayDayPane extends JPanel {
 			if(i%2==0){
 				col = Color.BLACK;
 				layout.putConstraint(SpringLayout.WEST, halfhourmarks[i], 5, SpringLayout.WEST, this);
-				layout.putConstraint(SpringLayout.EAST, halfhourmarks[i], 5, SpringLayout.EAST, this);
+				layout.putConstraint(SpringLayout.EAST, halfhourmarks[i], -5, SpringLayout.EAST, this);
 			}
 			else{
 				col = Color.GRAY;
 				layout.putConstraint(SpringLayout.WEST, halfhourmarks[i], 15, SpringLayout.WEST, this);
-				layout.putConstraint(SpringLayout.EAST, halfhourmarks[i], 15, SpringLayout.EAST, this);
+				layout.putConstraint(SpringLayout.EAST, halfhourmarks[i], -15, SpringLayout.EAST, this);
 			}
 			
 			halfhourmarks[i].setBackground(col);
@@ -167,7 +163,9 @@ public class DayDayPane extends JPanel {
 
 	protected void updatepane(){
 		displayobjects = new ArrayList<List<CalendarObjectPanel>>();
+		//System.out.println("Start org algorithm");
 		for(CalendarObjectPanel cop : sortedobjects){
+			//System.out.println(cop.getName());
 			int column_index = 0;
 			boolean isset = false;
 			while(!isset){
@@ -202,24 +200,26 @@ public class DayDayPane extends JPanel {
 			}
 		}
 		
+		System.out.println("Start width algorithm");
 		for(List<CalendarObjectPanel> column : displayobjects){
 			for(CalendarObjectPanel obj : column){
-				obj.setWidth(this.getWidth(displayobjects.indexOf(column), obj));
+				System.out.println("Column " + displayobjects.indexOf(column) + "  Row :" + column.indexOf(obj) + " Name : " + obj.getName());
+				obj.setColumnWidth(this.getWidth(displayobjects.indexOf(column), obj));
 			}
 		}
+		System.out.println("End algorithm");
 		
 		this.removeAll();
-		this.makeLines();
 		SpringLayout layout = (SpringLayout)this.getLayout();
 		//objectspane.setLayout(layout);
 		
 		for(List<CalendarObjectPanel> column : displayobjects){
 			for(CalendarObjectPanel obj : column){
-				layout.putConstraint(SpringLayout.WEST, obj, 0, SpringLayout.WEST, this);
+				layout.putConstraint(SpringLayout.WEST, obj, 3, SpringLayout.WEST, this);
 				if(displayobjects.indexOf(column) != 0){
 					for(CalendarObjectPanel compobj : displayobjects.get(displayobjects.indexOf(column) - 1)){
-						if(compobj.doesConflict(obj)){
-							layout.putConstraint(SpringLayout.WEST, obj, 0, SpringLayout.EAST, compobj);
+						if(obj.doesConflict(compobj)){
+							layout.putConstraint(SpringLayout.WEST, obj, 3, SpringLayout.EAST, compobj);
 						}
 					}
 				}
@@ -234,97 +234,40 @@ public class DayDayPane extends JPanel {
 		for(CalendarObjectPanel obj : sortedobjects){
 			this.add(obj);
 		}
+		this.makeLines();
 	}
-	
-	/*protected void setHeights(){
-		for(CalendarObjectPanel obj : sortedobjects){
-			int width = (int)(obj.getPreferredSize().getWidth());
-			double sup_height = this.getPreferredSize().getHeight();
-			System.out.println("Height before : " + obj.getPreferredSize());
-			obj.setPreferredSize(new Dimension(width, (int)(sup_height*obj.getSizeIndex()/48.0)));
-			obj.setSize(new Dimension(width, (int)(sup_height*obj.getSizeIndex()/48.0)));
-			System.out.println("Height after : " + obj.getPreferredSize());
-		}
-	}
-	
-	protected void setWidths(){
-		for(CalendarObjectPanel obj : sortedobjects){
-			int height = (int)obj.getPreferredSize().getHeight();
-			double sup_width = this.getPreferredSize().getWidth();
-			System.out.println("Width before : " + obj.getPreferredSize());
-			obj.setPreferredSize(new Dimension((int)(sup_width/obj.getWidth()), height));
-			obj.setSize(new Dimension((int)(sup_width/obj.getWidth()), height));
-			System.out.println("Width after : " + obj.getPreferredSize());
-		}
-	}*/
 	
 	protected void setPos(){
 		SpringLayout layout = (SpringLayout)this.getLayout();
 		for(CalendarObjectPanel obj : sortedobjects){
 			//layout.putConstraint(SpringLayout.NORTH, obj, 0, SpringLayout.NORTH, halfhourmarks[obj.getStartIndex()]);
 			//layout.putConstraint(SpringLayout.SOUTH, obj, 0, SpringLayout.SOUTH, halfhourmarks[obj.getEndIndex()]);
-			double sup_height = this.getPreferredSize().getHeight();
-			System.out.println("Down by " + halfhourmarks[obj.getStartIndex()].getBounds() + " : " + halfhourmarks[obj.getStartIndex()].getParent().getBounds());
-			layout.putConstraint(SpringLayout.NORTH, obj, (int)halfhourmarks[obj.getStartIndex()].getBounds().getY(), SpringLayout.NORTH, this);
+			layout.putConstraint(SpringLayout.NORTH, obj, 0, SpringLayout.NORTH, halfhourmarks[obj.getStartIndex()]);
 		}
 	}
 	
 	protected int getWidth(int column_index, CalendarObjectPanel cop){
 		int width = 1;
-		int max = 0;
-		//Calculate width to the right
-		try{
-			for(CalendarObjectPanel obj :displayobjects.get(column_index-1)){
-				if(obj.doesConflict(cop)){
-					int temp = getWidth(column_index-1, obj, false);
-					max = max < temp ? temp : max;
-				}
-			}
-		}catch(IndexOutOfBoundsException e){}
-		width += max;
-		
-		max = 0;
-		//Calculate width to the left
-		try{
-			for(CalendarObjectPanel obj :displayobjects.get(column_index+1)){
-				if(obj.doesConflict(cop)){
-					int temp = getWidth(column_index+1, obj, true);
-					max = max < temp ? temp : max;
-				}
-			}
-		}catch(IndexOutOfBoundsException e){}
-		width += max;
+		width += this.getWidth(column_index, cop, -1);
+		width += this.getWidth(column_index, cop, +1);
+		System.out.println("Width : " + width );
 		return width;
 	}
 	
-	protected int getWidth(int column_index, CalendarObjectPanel cop, boolean leftonly){
-		int width = 1;
+	protected int getWidth(int column_index, CalendarObjectPanel cop, int value){
+		int width = 0;
 		int max = 0;
-		if(!leftonly){
-			//Calculate width to the right
-			try{
-				for(CalendarObjectPanel obj :displayobjects.get(column_index-1)){
-					if(obj.doesConflict(cop)){
-						int temp = getWidth(column_index-1, obj, leftonly);
-						max = max < temp ? temp : max;
-					}
+		//Calculate width to the value
+		try{
+			for(CalendarObjectPanel obj :displayobjects.get(column_index+value)){
+				if(obj.doesConflict(cop)){
+					width = 1;
+					int temp = getWidth(column_index + value, obj, value);
+					max = max < temp ? temp : max;
 				}
-			}catch(IndexOutOfBoundsException e){}
-			width += max;
-		}
-		else{
-			max = 0;
-			//Calculate width to the left
-			try{
-				for(CalendarObjectPanel obj :displayobjects.get(column_index+1)){
-					if(obj.doesConflict(cop)){
-						int temp = getWidth(column_index+1, obj, leftonly);
-						max = max < temp ? temp : max;
-					}
-				}
-			}catch(IndexOutOfBoundsException e){}
-			width += max;
-		}
+			}
+		}catch(IndexOutOfBoundsException e){}
+		width += max;
 		
 		return width;
 	}

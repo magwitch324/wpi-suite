@@ -3,6 +3,8 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -20,7 +22,8 @@ public class CalendarObjectPanel extends JPanel {
 	Commitment comm = null;
 	GregorianCalendar acal = new GregorianCalendar();
 	JComponent parent = null;
-	int width = 1;
+	int columnwidth = 1;
+	int columnspanned = 1;
 	
 	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal, Event event){
 		this(parent, acal);
@@ -37,24 +40,41 @@ public class CalendarObjectPanel extends JPanel {
 		this.parent = parent;
 		this.acal.setTime(acal.getTime());
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
-		this.setBackground(CalendarStandard.CalendarYellow);
+		this.setBackground(CalendarStandard.CalendarRed);
+		this.addMouseListener(new MouseAdapter(){
+		    public void mouseClicked(MouseEvent e) {
+		    	if(e.getClickCount() > 1){
+		    		callEdit();
+		    	}
+		    }
+		});
+	}
+	
+	public String getName(){
+		if(event != null){
+			return event.getName();
+		}
+		else if(comm != null){
+			return comm.getName();
+		}
+		return "";
 	}
 	
 	public void refreshSize(){
 		double par_width = parent.getSize().getWidth();
 		double par_height = parent.getSize().getHeight();
-		Dimension new_size = new Dimension((int)(par_width/width), (int)(getSizeIndex()/48.0*par_height));
-		System.out.println("Refresh : " + new_size);
-		this.setSize(new_size);
+		Dimension new_size = new Dimension((int)(par_width/columnwidth * columnspanned), (int)(getSizeIndex()/48.0*par_height));
+		//System.out.println("Refresh : " + new_size + " : " + this.getName());
+		//this.setSize(new_size);
 		this.setPreferredSize(new_size);
 	}
 	
-	public int setWidth(int width){
-		return (this.width = width);
+	public int setColumnWidth(int columnwidth){
+		return (this.columnwidth = columnwidth);
 	}
 	
-	public int getWidth(){
-		return this.width;
+	public int getColumnWidth(){
+		return this.columnwidth;
 	}
 	
 	public int getStartIndex(){
@@ -71,7 +91,7 @@ public class CalendarObjectPanel extends JPanel {
 				index++;
 			}
 		}
-		System.out.println("Start index : " + index);
+		//System.out.println("Start : " + index + " : " + this.getName());
 		return index;
 	}
 	
@@ -94,26 +114,35 @@ public class CalendarObjectPanel extends JPanel {
 				index++;
 			}
 		}
-		System.out.println("End index : " + index);
+		//System.out.println("End : " + index + " : " + this.getName());
 		return index;
 	}
 	
 	public GregorianCalendar getStart(){
 		if(event != null){
-			return (GregorianCalendar)event.getStartTime().clone();
+			GregorianCalendar cal = new GregorianCalendar();
+			cal.setTime(event.getStartTime().getTime());
+			return cal;
 		}
 		else if(comm != null){
-			return (GregorianCalendar)comm.getDueDate().clone();
+			GregorianCalendar cal = new GregorianCalendar();
+			cal.setTime(comm.getDueDate().getTime());
+			return cal;
 		}
 		return new GregorianCalendar();
 	}
 	
 	public GregorianCalendar getEnd(){
 		if(event != null){
-			return (GregorianCalendar)event.getEndTime().clone();
+			GregorianCalendar cal = new GregorianCalendar();
+			cal.setTime(event.getEndTime().getTime());
+			cal.add(Calendar.MINUTE, 290);
+			return cal;
+			//return (GregorianCalendar)event.getEndTime().clone();
 		}
 		else if(comm != null){
-			GregorianCalendar cal = (GregorianCalendar)(comm.getDueDate().clone());
+			GregorianCalendar cal = new GregorianCalendar();
+			cal.setTime(comm.getDueDate().getTime());
 			cal.add(Calendar.MINUTE, 30);
 			return cal;
 		}
@@ -121,28 +150,24 @@ public class CalendarObjectPanel extends JPanel {
 	}
 	
 	public boolean doesConflict(CalendarObjectPanel other){
-		GregorianCalendar thisstart = this.getStart();
-		GregorianCalendar thisend = this.getEnd();
-		GregorianCalendar otherstart = other.getStart();
-		GregorianCalendar otherend = other.getEnd();
-		
-		if(thisstart.before(otherstart)){
-			if(thisend.after(otherstart)){
-				return true;
-			}
-			if(thisend.before(otherend)){
-				return true;
-			}
-		}
-		else if(thisstart.after(otherstart)){
-			if(thisstart.before(otherend)){
-				return true;
-			}
-		}
-		else{
-			return true;
-		}
-		return false;
+		int thisstart = this.getStartIndex();
+		int thisend = this.getEndIndex();
+		int otherstart = other.getStartIndex();
+		int otherend = other.getEndIndex();
+		System.out.println("------------------------");
+		System.out.println("" + this.getStartIndex() + " -- " + this.getEndIndex());
+		System.out.println("" + other.getStartIndex() + " -- " + other.getEndIndex());
+		System.out.println( (thisstart < otherend) && (thisend > otherstart));
+		System.out.println("------------------------");
+		return (thisstart < otherend) && (thisend > otherstart);
 	}
 	
+	public void callEdit(){
+		if(event != null){
+			GUIEventController.getInstance().editEvent(event);
+		}
+		else if(comm != null){
+			GUIEventController.getInstance().editCommitment(comm);
+		}
+	}
 }
