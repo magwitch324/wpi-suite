@@ -202,6 +202,6 @@ public abstract class CalendarView extends JSplitPane {
 		this.calPane.updateScrollPosition(value);
 	}
 
-	
+	abstract public void updateCommPane(CommitmentList commList, boolean showCommOnCal);
 	
 }

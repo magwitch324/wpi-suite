@@ -156,4 +156,12 @@ public class TeamCalendar extends AbCalendar {
 						+ ConfigManager.getConfig().getUserName() + "-PROPS");
 		showcom.setSelected(calProps.getTeamShowComm());
 	}
+
+	@Override
+	protected void updateCommPane() {
+		if(initialized){
+			calView.updateCommPane(calData.getCommitments(), getShowCommitments());
+		}
+		
+	}
 }
