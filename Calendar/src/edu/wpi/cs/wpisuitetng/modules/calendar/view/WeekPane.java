@@ -201,7 +201,6 @@ public class WeekPane extends JPanel implements ICalPane {
 	    for(int i = 0; i<7; i++){
 	    	DetailedDay aday = new DetailedDay(cal,new CommitDetailedPane(cal, comms.get(i)));
 	    	aday.setBackground(CalendarStandard.CalendarYellow);
-	    	System.out.println(cal.getTime().toString());
 	    	aday.addMouseListener(new AMouseEvent(cal));
 	    	apane.add( aday );
 	    	cal.add(Calendar.DATE, 1);

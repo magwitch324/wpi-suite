@@ -35,7 +35,6 @@ public class CommitDetailedPane extends JPanel {
 
 		super();
 		
-		//System.out.println( "start" );
 		this.setLayout(new SpringLayout());
 		this.addComponentListener(new ComponentListener() {
 		    public void componentResized(ComponentEvent e) {didResize();}
@@ -57,11 +56,9 @@ public class CommitDetailedPane extends JPanel {
 		this.didResize();
 
 		this.setBackground(new Color(0,0,0,0));
-		//System.out.println( "end" );
 	}
 	
 	protected void didResize(){
-		//System.out.println( "did resize" );
 		HalfHourBlock[] halfBlocks = new HalfHourBlock[48];
 		this.removeAll();
 		

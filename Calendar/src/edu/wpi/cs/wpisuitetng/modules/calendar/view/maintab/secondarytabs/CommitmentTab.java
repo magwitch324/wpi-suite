@@ -9,31 +9,27 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JSpinner;
-import javax.swing.SwingConstants;
-import javax.swing.event.ChangeListener;
+import static java.util.Calendar.JANUARY;
+import static java.util.Calendar.YEAR;
 
-import org.jdesktop.swingx.JXDatePicker;
-
-import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
-import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
-
-import java.beans.PropertyChangeListener;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -41,31 +37,35 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.awt.BorderLayout;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.Insets;
+import java.util.Random;
 
-import javax.swing.event.ChangeEvent;
-import javax.swing.JButton;
-
-import java.awt.Color;
-
-import javax.swing.JRadioButton;
+import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
-import java.awt.FlowLayout;
-import javax.swing.SpinnerModel;
-import java.awt.GridLayout;
-import java.awt.Font;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import org.jdesktop.swingx.JXDatePicker;
+
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 public class CommitmentTab extends JPanel {
 	private JTextField nameTextField;
@@ -539,7 +539,7 @@ public class CommitmentTab extends JPanel {
 		datePicker.setDate(c.getTime());
 		
 		
-		buttonPanel = new JPanel(new BorderLayout(30,0));
+		buttonPanel = new JPanel(new BorderLayout(20,0));
 		//Add Commitment button
 		
 		try {
@@ -894,8 +894,29 @@ public class CommitmentTab extends JPanel {
 		newComm.setDueDate(calDate);
 		newComm.setName(this.nameTextField.getText());
 		
-		if (mode == EditingMode.ADDING)
+		if (mode == EditingMode.ADDING) {
 			calData.addCommitment(newComm);
+			
+			/**
+			 * COMMENT THIS OUT TO NOT ADD A LOT OF COMMITMENTS
+			 * The script to add a bunch of commitments
+			 */
+//			GregorianCalendar day = new GregorianCalendar(2013, JANUARY, 1, 12, 00, 00);
+//			GregorianCalendar lastDay = new GregorianCalendar();
+//			lastDay.setTime(day.getTime());
+//			lastDay.add(YEAR, 1);
+//			Random rnd = new Random();
+//			while (day.before(lastDay)) {
+//				CalendarStandard.printcalendar(lastDay);
+//				GregorianCalendar set = new GregorianCalendar();
+//				set.setTime(day.getTime());
+//				Commitment newCommitment = new Commitment("Test", set, "Test Description", 0, false);
+//				calData.addCommitment(newCommitment);
+//				
+//				day.add(Calendar.DAY_OF_YEAR, rnd.nextInt(3));
+//			}
+			
+		}
 		else
 			calData.getCommitments().update(newComm);
 

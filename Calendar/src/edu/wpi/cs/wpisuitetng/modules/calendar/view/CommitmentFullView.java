@@ -13,6 +13,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
@@ -136,6 +137,7 @@ public class CommitmentFullView extends JPanel{
 		
 		final JRadioButton teamRadioButton = new JRadioButton("Team");
 		teamRadioButton.setBackground(Color.WHITE);
+		teamRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this radio button
 		teamRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -152,6 +154,7 @@ public class CommitmentFullView extends JPanel{
 		
 		final JRadioButton personalRadioButton = new JRadioButton("Personal");
 		personalRadioButton.setBackground(Color.WHITE);
+		personalRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this radio button
 		personalRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -171,6 +174,7 @@ public class CommitmentFullView extends JPanel{
 		
 		final JRadioButton bothRadioButton = new JRadioButton("Both");
 		bothRadioButton.setBackground(Color.WHITE);
+		bothRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this radio button
 		bothRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -291,14 +295,14 @@ public class CommitmentFullView extends JPanel{
 			try {
 				if (commitmentList.get(i).getIsPersonal())
 				{	
-					nameImg = ImageIO.read(getClass().getResource("Personal_Icon.png"));
-					scaleImg = nameImg.getScaledInstance(15,18, Image.SCALE_SMOOTH);
+					nameImg = ImageIO.read(getClass().getResource("PersonalCommitment_Icon.png"));
+					scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
 					name.setIcon(new ImageIcon(scaleImg));
 				}
 				else
 				{
-					nameImg = ImageIO.read(getClass().getResource("Team_Icon.png"));
-					scaleImg = nameImg.getScaledInstance(15,18, Image.SCALE_SMOOTH);
+					nameImg = ImageIO.read(getClass().getResource("TeamCommitment_Icon.png"));
+					scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
 					name.setIcon(new ImageIcon(scaleImg));
 				}
 			} catch (IOException | IllegalArgumentException e) {
@@ -322,10 +326,11 @@ public class CommitmentFullView extends JPanel{
 			commitmentPanel.setMaximumSize(new Dimension(20000,75));
 			Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 			commitmentPanel.setBorder(loweredbevel);
+			commitmentPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this commitment pannel
 			commitmentPanel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					if (e.getClickCount() > 1)
+					if (e.getClickCount() >= 1)
 						GUIEventController.getInstance().editCommitment(((CommitmentViewPanel)e.getComponent()).getCommitment());
 				}		
 			});
