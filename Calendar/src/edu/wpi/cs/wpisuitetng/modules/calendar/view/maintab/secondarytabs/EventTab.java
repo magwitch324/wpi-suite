@@ -1139,7 +1139,7 @@ public class EventTab extends JPanel {
 		
 		//set due date
 		newEvent.setStartTime(calStartDate);
-		newEvent.setEndTime(calStartDate);
+		newEvent.setEndTime(calEndDate);
 		newEvent.setName(this.nameTextField.getText());
 		
 		if (mode == EditingMode.ADDING)
@@ -1166,7 +1166,7 @@ public class EventTab extends JPanel {
 		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
 		isTeamEvent = true;
 	}
-//		calData.getEvents().removeEvent(editingEvent.getId());
+		calData.getEvents().removeEvent(editingEvent.getID());
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 		removeTab();
 	}
