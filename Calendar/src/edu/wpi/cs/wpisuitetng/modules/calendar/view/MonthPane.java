@@ -467,7 +467,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			scroll.setViewportView(big);
 			scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-			scroll.getVerticalScrollBar().setValue(0);
+			//scroll.getVerticalScrollBar().setValue(0);
 			this.revalidate();
 			this.repaint();
 		}
