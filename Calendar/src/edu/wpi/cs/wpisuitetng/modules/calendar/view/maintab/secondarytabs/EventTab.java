@@ -884,22 +884,23 @@ public class EventTab extends JPanel {
 		this.nameTextField.setText(editingEvent.getName());
 		this.descriptionTextArea.setText(editingEvent.getDescription());
 		
-		// ADD LATER!
-		//this.categoryComboBox.setSelectedItem(editingEvent.getCategoryId());
+		this.categoryComboBox.setSelectedItem(editingEvent.getCategoryID());
 		
-		/*
+		
 		if(!editingEvent.getIsPersonal())
 			this.rdbtnTeam.setSelected(true);
 		else
 			this.rdbtnPersonal.setSelected(true);
-		*/
+		
 		
 		this.rdbtnTeam.setEnabled(false);
 		this.rdbtnPersonal.setEnabled(false);
 		
 
-		//this.startTimeSpinner.setValue(editingEvent.getDueDate().getTime());
-		//this.startDatePicker.setDate(editingEvent.getDueDate().getTime());
+		this.startTimeSpinner.setValue(editingEvent.getStartTime().getTime());
+		this.startDatePicker.setDate(editingEvent.getStartTime().getTime());
+		this.endTimeSpinner.setValue(editingEvent.getEndTime().getTime());
+		this.endDatePicker.setDate(editingEvent.getEndTime().getTime());
 
 		
 		// Add Delete Button

@@ -33,9 +33,11 @@ import javax.swing.SwingConstants;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
+@SuppressWarnings("serial")
 public class YearPane extends JScrollPane implements ICalPane{
 	GregorianCalendar supcal = null;
 	YearMonthPane[] monthpanes = new YearMonthPane[12];
@@ -107,16 +109,13 @@ public class YearPane extends JScrollPane implements ICalPane{
 	public void displayCommitments(List<Commitment> commList) {
 		// if we are supposed to display commitments
 		if (commList != null) {
-			CombinedCommitmentList alist = new CombinedCommitmentList();
-			for(Commitment comm: commList){
-				alist.add(comm);
-			}
+			CombinedCommitmentList alist = new CombinedCommitmentList(commList);
 
 			GregorianCalendar ret = (GregorianCalendar) supcal.clone();
 
 			for(int i = 0; i < 12; i++){
 				try{
-					monthpanes[i].displayCommitments(alist.filter(ret, Calendar.YEAR));
+					monthpanes[i].displayCommitments(alist.filter(ret, Calendar.MONTH));
 					ret.add(Calendar.MONTH, 1);
 				}
 				catch(CalendarException e){
@@ -126,6 +125,33 @@ public class YearPane extends JScrollPane implements ICalPane{
 		} else {
 			for (int i = 0; i < 12; i++) {
 				monthpanes[i].displayCommitments(null);
+			}
+		}
+	}
+	
+	/**
+	 * Sends proper events down to the months
+	 * @param eventList
+	 */
+	public void displayEvents(List<Event> eventList) {
+		// if we are supposed to display commitments
+		if (eventList != null) {
+			CombinedEventList alist = new CombinedEventList(eventList);
+			
+			GregorianCalendar tmpCal = (GregorianCalendar) supcal.clone();
+
+			for(int i = 0; i < 12; i++){
+				try{
+					monthpanes[i].displayEvents(alist.filter(tmpCal, Calendar.MONTH));
+					tmpCal.add(Calendar.MONTH, 1);
+				}
+				catch(CalendarException e){
+					
+				}
+			}
+		} else {
+			for (int i = 0; i < 12; i++) {
+				monthpanes[i].displayEvents(null);
 			}
 		}
 	}
@@ -150,7 +176,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 			super();
 			this.monthstart = (GregorianCalendar)acal.clone();
 			this.monthstart.set(Calendar.DATE, 1);
-			
+			this.monthstart.get(Calendar.DATE);
 			this.monthpanestart = (GregorianCalendar)this.monthstart.clone();
 			this.monthpanestart.set(Calendar.DAY_OF_WEEK, this.monthstart.getFirstDayOfWeek());
 			
@@ -234,6 +260,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 			apane.setBackground(defaultbackground);
 			return apane;
 		}
+		
 		/**
 		 * Sends proper commitments down to the days
 		 * @param commList
@@ -242,10 +269,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 			// if we are supposed to display commitments
 			if (commList != null) {
 
-				CombinedCommitmentList alist = new CombinedCommitmentList();
-				for(Commitment comm: commList){
-					alist.add(comm);
-				}
+				CombinedCommitmentList alist = new CombinedCommitmentList(commList);
 
 				GregorianCalendar ret = (GregorianCalendar) this.monthpanestart.clone();
 				
@@ -253,7 +277,6 @@ public class YearPane extends JScrollPane implements ICalPane{
 					try {
 						daypanes[i].displayCommitments(alist.filter(ret));
 					} catch (CalendarException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					ret.add(Calendar.DATE, 1);
@@ -262,6 +285,31 @@ public class YearPane extends JScrollPane implements ICalPane{
 			} else {
 				for (int i = 0; i < 42; i++) {
 					daypanes[i].displayCommitments(null);
+				}
+			}
+		}
+		/**
+		 * Sends proper events down to the days
+		 * @param eventList
+		 */
+		public void displayEvents(List<Event> eventList) {
+			// if we are supposed to display commitments
+			if (eventList != null) {
+				CombinedEventList alist = new CombinedEventList(eventList);
+
+				GregorianCalendar ret = (GregorianCalendar) this.monthpanestart.clone();
+				
+				for (int i = 0; i < 42; i++) {
+					try {
+						daypanes[i].displayEvents(alist.filter(ret));
+					} catch (CalendarException e) {
+						e.printStackTrace();
+					}
+					ret.add(Calendar.DATE, 1);
+				}
+			} else {
+				for (int i = 0; i < 42; i++) {
+					daypanes[i].displayEvents(null);
 				}
 			}
 		}
@@ -276,8 +324,8 @@ public class YearPane extends JScrollPane implements ICalPane{
 		List<Commitment> commlist = null;
 		int numcomm = -1;
 		int numevent = 0;
-		Color[][] colors = {{new Color(0,0,0),new Color(50,50,50),new Color(150,150,150),new Color(250,250,250)},
-											{CalendarStandard.CalendarYellow ,new Color(50,0,0),new Color(150,0,0),new Color(250,0,0)}};
+		BackgroundColor bgc_withcomm, bgc;
+		
 		/**
 		 * The constructor for year day pane
 		 * @param acal the current day to display
@@ -289,10 +337,14 @@ public class YearPane extends JScrollPane implements ICalPane{
 			this.setLayout(new GridLayout(1,1));
 			JLabel lbl = new JLabel("" + this.scal.get(Calendar.DATE), SwingConstants.CENTER);
 			active = month == acal.get(Calendar.MONTH);
-			
+
 			if(active){
 				lbl.setForeground(new Color(0,0,0));
 				this.setBackground(CalendarStandard.CalendarYellow);
+				
+				bgc_withcomm = new BackgroundColor(CalendarStandard.CalendarYellow, CalendarStandard.HeatMapRed, 10);
+				bgc = new BackgroundColor(CalendarStandard.CalendarYellow, CalendarStandard.HeatMapRed, 5);
+				
 				//adds double click feature to the days
 				this.addMouseListener(new MouseAdapter(){
 					public void mouseClicked(MouseEvent e){
@@ -308,32 +360,83 @@ public class YearPane extends JScrollPane implements ICalPane{
 			}
 			this.add(lbl);
 			this.setPreferredSize(lbl.getPreferredSize());
-			this.setBorder(BorderFactory.createRaisedSoftBevelBorder());
+			//this.setBorder(BorderFactory.createRaisedSoftBevelBorder());
 		}
 		
+		/**
+		 * Displays the number of commitments via a heat map in the background
+		 * @param commList the list of commitments to show
+		 */
 		public void displayCommitments(List<Commitment> commList) {
-			if(commList == null){
-				numcomm = -1;
-			}
-			else{
-				numcomm = commList.size();
-			}
-			this.changeBackground();
-		}
-		
-		protected void changeBackground(){
 			if(active){
-				if(numcomm < 0){
-					this.setBackground(colors[1][numevent]);
-				}
-				else if(numcomm < colors[0].length){
-					this.setBackground(colors[0][numcomm + numevent]);
+				if(commList == null){
+					numcomm = -1;
+					this.setBackground(bgc.getColoratStep(numevent));
 				}
 				else{
-					this.setBackground(colors[0][colors[0].length-1]);
+					numcomm = commList.size();
+					this.setBackground(bgc_withcomm.getColoratStep(numevent + numcomm));
 				}
 			}
-
+		}
+		
+		/**
+		 * Displays the number of events via a heat map in the background
+		 * @param eventList the list of events to show
+		 */
+		public void displayEvents(List<Event> eventList) {
+			if(active){
+				if(eventList == null){
+					numevent = 0;
+				}
+				else{
+					numevent = eventList.size();	
+				}
+				
+				if(numcomm == -1){
+					this.setBackground(bgc.getColoratStep(numevent));
+				}
+				else{
+					this.setBackground(bgc_withcomm.getColoratStep(numevent + numcomm));
+				}
+			}
+		}
+		
+		/**
+		 * Internal class used to calculate color in incremental steps between a range of colors
+		 */
+		protected class BackgroundColor{
+			protected Color lower;
+			protected Color higher;
+			double steps;
+			/**
+			 * Constructor for BackgroundColor
+			 * @param l the lower threshold of the color range, 0 step
+			 * @param h the upper threshold of the color range, steps step
+			 * @param steps the number of steps possible in the range
+			 */
+			BackgroundColor(Color l, Color h, int steps){
+				this.steps = steps;
+				lower = l;
+				higher = h;
+			}
+			
+			/**
+			 * Find the color at the the given step in the color range
+			 * @param step the step desired to find the color
+			 * @return the color at the specific step
+			 */
+			public Color getColoratStep(int step){
+				if(step > steps){
+					step = (int)steps;
+				}
+				int red, green, blue;
+				red = (int)((higher.getRed() - lower.getRed()) *(step/steps) + lower.getRed());
+				green = (int)((higher.getGreen() - lower.getGreen()) *(step/steps) + lower.getGreen());
+				blue = (int)((higher.getBlue() - lower.getBlue()) *(step/steps) + lower.getBlue());
+				
+				return new Color(red, green, blue);
+			}
 		}
 	}
 

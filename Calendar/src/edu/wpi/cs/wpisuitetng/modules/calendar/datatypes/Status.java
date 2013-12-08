@@ -53,5 +53,9 @@ public enum Status {
 
 		return result;
 	}
+	
+	public int getId() {
+		return id;
+	}
 
 }

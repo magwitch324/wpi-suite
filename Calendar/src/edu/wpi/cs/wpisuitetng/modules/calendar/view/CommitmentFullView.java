@@ -13,6 +13,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
@@ -24,6 +25,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -135,6 +137,7 @@ public class CommitmentFullView extends JPanel{
 		
 		final JRadioButton teamRadioButton = new JRadioButton("Team");
 		teamRadioButton.setBackground(Color.WHITE);
+		teamRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this radio button
 		teamRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -151,6 +154,7 @@ public class CommitmentFullView extends JPanel{
 		
 		final JRadioButton personalRadioButton = new JRadioButton("Personal");
 		personalRadioButton.setBackground(Color.WHITE);
+		personalRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this radio button
 		personalRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -170,6 +174,7 @@ public class CommitmentFullView extends JPanel{
 		
 		final JRadioButton bothRadioButton = new JRadioButton("Both");
 		bothRadioButton.setBackground(Color.WHITE);
+		bothRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this radio button
 		bothRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -211,10 +216,10 @@ public class CommitmentFullView extends JPanel{
 		//topButtons.setLayout(new BoxLayout(topButtons, BoxLayout.X_AXIS));
 		JButton jName = new JButton("Name");
 		jName.setContentAreaFilled(false);
+		//sort by name
 		jName.addMouseListener(new MouseAdapter() {
 			@Override
 		public void mouseClicked(MouseEvent e) {
-				//commitmentList = bubbleSort(commitmentList);
 				Collections.sort(commitmentList);
 				update2();
 			}
@@ -224,10 +229,49 @@ public class CommitmentFullView extends JPanel{
 		
 		JButton jDueDate = new JButton("Due Date");
 		jDueDate.setContentAreaFilled(false);
+		
+		// sort by date 
+		jDueDate.addMouseListener(new MouseAdapter() {
+			@Override
+		public void mouseClicked(MouseEvent e) {
+				Collections.sort(commitmentList, new Comparator<Commitment>() {
+				
+				@Override 
+				public int compare(Commitment c1, Commitment c2) {
+					if(c1.getDueDate().before(c2.getDueDate()))
+						return -1;
+					else if(c1.getDueDate().after(c2.getDueDate())) 
+						return 1;
+					else
+						return 0;
+				}				
+				});
+				update2();
+			}			
+		});
+
 		JButton jDescription = new JButton("Description");
 		jDescription.setContentAreaFilled(false);
+		
 		JButton jStatus = new JButton("Status");
 		jStatus.setContentAreaFilled(false);
+		
+		// sort by status TODO
+		jStatus.addMouseListener(new MouseAdapter() {
+			@Override
+		public void mouseClicked(MouseEvent e) {
+				Collections.sort(commitmentList, new Comparator<Commitment>() {
+					
+				@Override 
+				public int compare(Commitment c1, Commitment c2) {
+					return c1.getStatus().convertToString(c1.getStatus().getId()).compareTo(c2.getStatus().convertToString(c2.getStatus().getId()));
+
+				}		
+				});
+				update2();
+			}			
+		});
+
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.LINE_START;
 		c.fill = GridBagConstraints.BOTH;
@@ -251,14 +295,14 @@ public class CommitmentFullView extends JPanel{
 			try {
 				if (commitmentList.get(i).getIsPersonal())
 				{	
-					nameImg = ImageIO.read(getClass().getResource("Personal_Icon.png"));
-					scaleImg = nameImg.getScaledInstance(15,18, Image.SCALE_SMOOTH);
+					nameImg = ImageIO.read(getClass().getResource("PersonalCommitment_Icon.png"));
+					scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
 					name.setIcon(new ImageIcon(scaleImg));
 				}
 				else
 				{
-					nameImg = ImageIO.read(getClass().getResource("Team_Icon.png"));
-					scaleImg = nameImg.getScaledInstance(15,18, Image.SCALE_SMOOTH);
+					nameImg = ImageIO.read(getClass().getResource("TeamCommitment_Icon.png"));
+					scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
 					name.setIcon(new ImageIcon(scaleImg));
 				}
 			} catch (IOException | IllegalArgumentException e) {
@@ -282,10 +326,11 @@ public class CommitmentFullView extends JPanel{
 			commitmentPanel.setMaximumSize(new Dimension(20000,75));
 			Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 			commitmentPanel.setBorder(loweredbevel);
+			commitmentPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this commitment pannel
 			commitmentPanel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					if (e.getClickCount() > 1)
+					if (e.getClickCount() >= 1)
 						GUIEventController.getInstance().editCommitment(((CommitmentViewPanel)e.getComponent()).getCommitment());
 				}		
 			});

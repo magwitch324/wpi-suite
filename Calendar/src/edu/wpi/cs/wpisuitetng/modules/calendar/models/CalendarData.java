@@ -175,9 +175,6 @@ public class CalendarData extends AbstractModel {
 	 * 
 	 */
 	public String toJSON() {
-		System.out.println("printing caldata: ");
-		System.out.println(this.id);
-		System.out.println(this.commitments);
 		return new Gson().toJson(this, CalendarData.class);
 	}
 
