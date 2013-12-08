@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatType;
+
 public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 
 	/**
@@ -137,5 +139,22 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 		}
 
 		return newEvents;
+	}
+	
+	/**
+	 * Converts the list into an event list
+	 * 
+	 * @return equivalent list of events
+	 */
+	public CombinedEventList toCombinedEventList(){
+		CombinedEventList eventList = new CombinedEventList();
+		int increment;
+		for(RepeatingEvent event : calendarObjects){
+
+			//TODO:Implement
+			
+			
+		}
+		return eventList;
 	}
 }
