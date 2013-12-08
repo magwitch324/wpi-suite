@@ -539,7 +539,7 @@ public class CommitmentTab extends JPanel {
 		datePicker.setDate(c.getTime());
 		
 		
-		buttonPanel = new JPanel(new BorderLayout(20,0));
+		buttonPanel = new JPanel(new BorderLayout(18,0));
 		//Add Commitment button
 		
 		try {

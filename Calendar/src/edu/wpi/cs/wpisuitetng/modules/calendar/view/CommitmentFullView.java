@@ -25,6 +25,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -215,10 +216,10 @@ public class CommitmentFullView extends JPanel{
 		//topButtons.setLayout(new BoxLayout(topButtons, BoxLayout.X_AXIS));
 		JButton jName = new JButton("Name");
 		jName.setContentAreaFilled(false);
+		//sort by name
 		jName.addMouseListener(new MouseAdapter() {
 			@Override
 		public void mouseClicked(MouseEvent e) {
-				//commitmentList = bubbleSort(commitmentList);
 				Collections.sort(commitmentList);
 				update2();
 			}
@@ -228,10 +229,49 @@ public class CommitmentFullView extends JPanel{
 		
 		JButton jDueDate = new JButton("Due Date");
 		jDueDate.setContentAreaFilled(false);
+		
+		// sort by date 
+		jDueDate.addMouseListener(new MouseAdapter() {
+			@Override
+		public void mouseClicked(MouseEvent e) {
+				Collections.sort(commitmentList, new Comparator<Commitment>() {
+				
+				@Override 
+				public int compare(Commitment c1, Commitment c2) {
+					if(c1.getDueDate().before(c2.getDueDate()))
+						return -1;
+					else if(c1.getDueDate().after(c2.getDueDate())) 
+						return 1;
+					else
+						return 0;
+				}				
+				});
+				update2();
+			}			
+		});
+
 		JButton jDescription = new JButton("Description");
 		jDescription.setContentAreaFilled(false);
+		
 		JButton jStatus = new JButton("Status");
 		jStatus.setContentAreaFilled(false);
+		
+		// sort by status TODO
+		jStatus.addMouseListener(new MouseAdapter() {
+			@Override
+		public void mouseClicked(MouseEvent e) {
+				Collections.sort(commitmentList, new Comparator<Commitment>() {
+					
+				@Override 
+				public int compare(Commitment c1, Commitment c2) {
+					return c1.getStatus().convertToString(c1.getStatus().getId()).compareTo(c2.getStatus().convertToString(c2.getStatus().getId()));
+
+				}		
+				});
+				update2();
+			}			
+		});
+
 		GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.LINE_START;
 		c.fill = GridBagConstraints.BOTH;
