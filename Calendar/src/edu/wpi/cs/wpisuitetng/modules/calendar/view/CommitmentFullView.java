@@ -256,7 +256,6 @@ public class CommitmentFullView extends JPanel{
 		JButton jStatus = new JButton("Status");
 		jStatus.setContentAreaFilled(false);
 		
-		// sort by status TODO
 		jStatus.addMouseListener(new MouseAdapter() {
 			@Override
 		public void mouseClicked(MouseEvent e) {
