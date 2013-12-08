@@ -139,5 +139,23 @@ public class CategoryListTest {
 	    	assertEquals("Next Year", categories.get(2).getName());
 	    	assertEquals("Last Year", categories.get(0).getName());
 	    }
+	 
+	 /**
+	  * Test to ensure update works correctly
+	  */
+	  @Test
+	    public void updateTest() {
+	    	categoryList.addCategory(nextWeek);
+	    	categoryList.addCategory(todayCategory);
+	    	categoryList.addCategory(lastYear);
+	    	categoryList.addCategory(nextYear);
+	    	todayCategory.setName("abc");
+	    	nextWeek.setId(9);
+	    	categoryList.update(todayCategory);
+	    	categoryList.update(nextWeek);	
+	    	assertEquals("abc", categoryList.getCategory(3).getName());
+	    	assertEquals(9, categoryList.getElementAt(1).getId());
+	    }
+
 
 }
