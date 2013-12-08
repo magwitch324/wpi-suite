@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * Copyright (c) 2013 WPI-Suite
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: CS Anonymous
+ ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Color;
@@ -25,16 +34,33 @@ public class CalendarObjectPanel extends JPanel {
 	int columnwidth = 1;
 	int columnspanned = 1;
 	
+	/**
+	 * The constructor
+	 * @param parent the parent which sizes are based upon
+	 * @param acal	the current date to be displayed
+	 * @param event the event which all information is pulled to be displayed
+	 */
 	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal, Event event){
 		this(parent, acal);
 		this.event = event;
 	}
 	
+	/**
+	 * The constructor
+	 * @param parent the parent which sizes are based upon
+	 * @param acal	the current date to be displayed
+	 * @param comm the commitment which all information is pulled to be displayed
+	 */
 	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal, Commitment comm){
 		this(parent, acal);
 		this.comm = comm;
 	}
 	
+	/**
+	 * Protected constructor that handles common code
+	 * @param parent the parent which sizes are based upon
+	 * @param acal	the current date to be displayed
+	 */
 	protected CalendarObjectPanel(JComponent parent, GregorianCalendar acal){
 		super();
 		this.parent = parent;
@@ -50,6 +76,9 @@ public class CalendarObjectPanel extends JPanel {
 		});
 	}
 	
+	/**
+	 * @return the name of the event/commitment to display
+	 */
 	public String getName(){
 		if(event != null){
 			return event.getName();
@@ -60,23 +89,48 @@ public class CalendarObjectPanel extends JPanel {
 		return "";
 	}
 	
+	/**
+	 * refreshes the size of the based on the number of columns, columns spanned, and the length of it
+	 */
 	public void refreshSize(){
 		double par_width = parent.getSize().getWidth();
 		double par_height = parent.getSize().getHeight();
 		Dimension new_size = new Dimension((int)((par_width-3*columnwidth)/columnwidth * columnspanned), (int)(getSizeIndex()/48.0*par_height));
-		//System.out.println("Refresh : " + new_size + " : " + this.getName());
-		//this.setSize(new_size);
 		this.setPreferredSize(new_size);
 	}
 	
+	/**
+	 * Sets the number
+	 * @param columnwidth the number of columns
+	 * @return the new column width
+	 */
 	public int setColumnWidth(int columnwidth){
 		return (this.columnwidth = columnwidth);
 	}
 	
+	/**
+	 * Gets the column width
+	 * @return the current column width
+	 */
 	public int getColumnWidth(){
 		return this.columnwidth;
 	}
 	
+	/**
+	 * Sets the columns spanned
+	 * @param columnspanned the number of columns that this should span
+	 * @return
+	 */
+	public int setColumnSpan(int columnspanned){
+		return (this.columnspanned = columnspanned);
+	}
+	
+	/**
+	 * Gets the start date based on its 2*hour and minute time
+	 * If it is before this day then it will set it to 0
+	 * 22:30 will return 45
+	 * @return the index based on hour and minute
+	 */
 	public int getStartIndex(){
 		GregorianCalendar tempstart = (GregorianCalendar)this.acal.clone();
 		tempstart.set(Calendar.HOUR_OF_DAY, 0);
@@ -91,14 +145,24 @@ public class CalendarObjectPanel extends JPanel {
 				index++;
 			}
 		}
-		//System.out.println("Start : " + index + " : " + this.getName());
+
 		return index;
 	}
 	
+	/**
+	 * Gets the length of this based on the start and end index
+	 * @return the size in hours index
+	 */
 	public int getSizeIndex(){
 		return getEndIndex() - getStartIndex();
 	}
 	
+	/**
+	 * Gets the end date based on its 2*hour and minute time
+	 * If it is after this day then it will set it to 48
+	 * 22:30 will return 45
+	 * @return the index based on hour and minute
+	 */
 	public int getEndIndex(){
 		GregorianCalendar tempend = (GregorianCalendar)this.acal.clone();
 		tempend.set(Calendar.HOUR_OF_DAY, 0);
@@ -114,10 +178,14 @@ public class CalendarObjectPanel extends JPanel {
 				index++;
 			}
 		}
-		//System.out.println("End : " + index + " : " + this.getName());
+
 		return index;
 	}
 	
+	/**
+	 * Gets the start time of this
+	 * @return the start time of the event/commitment
+	 */
 	public GregorianCalendar getStart(){
 		if(event != null){
 			GregorianCalendar cal = new GregorianCalendar();
@@ -132,6 +200,10 @@ public class CalendarObjectPanel extends JPanel {
 		return new GregorianCalendar();
 	}
 	
+	/**
+	 * Gets the end time of this
+	 * @return the end time of the event/commitment
+	 */
 	public GregorianCalendar getEnd(){
 		if(event != null){
 			GregorianCalendar cal = new GregorianCalendar();
@@ -148,20 +220,24 @@ public class CalendarObjectPanel extends JPanel {
 		}
 		return new GregorianCalendar();
 	}
-	
+
+	/**
+	 * Detmines if this and the given COP conflict
+	 * @param other the other COP to compare
+	 * @return whether this and other conflict in time
+	 */
 	public boolean doesConflict(CalendarObjectPanel other){
 		int thisstart = this.getStartIndex();
 		int thisend = this.getEndIndex();
 		int otherstart = other.getStartIndex();
 		int otherend = other.getEndIndex();
-		/*System.out.println("------------------------");
-		System.out.println("" + this.getStartIndex() + " -- " + this.getEndIndex());
-		System.out.println("" + other.getStartIndex() + " -- " + other.getEndIndex());
-		System.out.println( (thisstart < otherend) && (thisend > otherstart));
-		System.out.println("------------------------");*/
+		
 		return (thisstart < otherend) && (thisend > otherstart);
 	}
 	
+	/**
+	 * calls the edit on the current event/commitment
+	 */
 	public void callEdit(){
 		if(event != null){
 			GUIEventController.getInstance().editEvent(event);
