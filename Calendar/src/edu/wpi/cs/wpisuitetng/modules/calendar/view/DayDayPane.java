@@ -32,9 +32,6 @@ public class DayDayPane extends JPanel {
 	List<List<CalendarObjectPanel>> displayobjects = new ArrayList<List<CalendarObjectPanel>>();
 	JSeparator[] halfhourmarks= new JSeparator[49];
 	
-	//JPanel linespane = new JPanel();
-	//JPanel objectspane = new JPanel();
-	
 	public DayDayPane(GregorianCalendar acal){
 		super();
 		
@@ -44,27 +41,16 @@ public class DayDayPane extends JPanel {
 		
 		SpringLayout layout = new SpringLayout();
 		this.setLayout(layout);
-		//objectspane.setMinimumSize(new Dimension(50, 800));
-		//objectspane.setPreferredSize(new Dimension(50, 800));
-		//objectspane.setBackground(new Color(0,0,0,0));
-		//objectspane.setOpaque(false);
-		///this.add(objectspane);
 		
-		//linespane.setLayout(new GridLayout(48,1));
 		this.makeLines();
-		//this.add(linespane);
 		
 		this.addComponentListener(new ComponentAdapter(){
 			public void componentResized(ComponentEvent e) {
-				//objectspane.setSize(getSize());
-				//linespane.setSize(getSize());
 				setLines();
 				for(CalendarObjectPanel obj : sortedobjects){
 					obj.refreshSize();
 				}
 				setPos();
-				//objectspane.revalidate();
-				//objectspane.repaint();
 				revalidate();
 				repaint();
 			}
@@ -163,9 +149,9 @@ public class DayDayPane extends JPanel {
 
 	protected void updatepane(){
 		displayobjects = new ArrayList<List<CalendarObjectPanel>>();
-		//System.out.println("Start org algorithm");
 		for(CalendarObjectPanel cop : sortedobjects){
-			//System.out.println(cop.getName());
+			System.out.println("++++++++++++++++++");
+			System.out.println(cop.getName());
 			int column_index = 0;
 			boolean isset = false;
 			while(!isset){
@@ -176,6 +162,7 @@ public class DayDayPane extends JPanel {
 				catch(IndexOutOfBoundsException e){
 					 column = new ArrayList<CalendarObjectPanel>();
 					 displayobjects.add(column);
+					 System.out.println("made new column");
 				}
 				
 				int row_index = 0;
@@ -187,10 +174,12 @@ public class DayDayPane extends JPanel {
 					catch(IndexOutOfBoundsException e){
 						column.add(cop);
 						isset = true;
+						System.out.println("Added at " + column_index + ", " + row_index);
 						break;
 					}
 					
-					if(obj.doesConflict(obj)){
+					if(cop.doesConflict(obj)){
+						System.out.println("found conflict with " + obj.getName());
 						break;
 					}
 					row_index++;
@@ -198,16 +187,18 @@ public class DayDayPane extends JPanel {
 				
 				column_index++;
 			}
+			System.out.println("++++++++++++++++++\n");
 		}
+
 		
-		System.out.println("Start width algorithm");
+		//System.out.println("Start width algorithm");
 		for(List<CalendarObjectPanel> column : displayobjects){
 			for(CalendarObjectPanel obj : column){
-				System.out.println("Column " + displayobjects.indexOf(column) + "  Row :" + column.indexOf(obj) + " Name : " + obj.getName());
+				//System.out.println("Column " + displayobjects.indexOf(column) + "  Row :" + column.indexOf(obj) + " Name : " + obj.getName());
 				obj.setColumnWidth(this.getWidth(displayobjects.indexOf(column), obj));
 			}
 		}
-		System.out.println("End algorithm");
+		//System.out.println("End algorithm");
 		
 		this.removeAll();
 		SpringLayout layout = (SpringLayout)this.getLayout();
@@ -240,9 +231,7 @@ public class DayDayPane extends JPanel {
 	protected void setPos(){
 		SpringLayout layout = (SpringLayout)this.getLayout();
 		for(CalendarObjectPanel obj : sortedobjects){
-			//layout.putConstraint(SpringLayout.NORTH, obj, 0, SpringLayout.NORTH, halfhourmarks[obj.getStartIndex()]);
-			//layout.putConstraint(SpringLayout.SOUTH, obj, 0, SpringLayout.SOUTH, halfhourmarks[obj.getEndIndex()]);
-			layout.putConstraint(SpringLayout.NORTH, obj, 0, SpringLayout.NORTH, halfhourmarks[obj.getStartIndex()]);
+			layout.putConstraint(SpringLayout.NORTH, obj, 0, SpringLayout.VERTICAL_CENTER, halfhourmarks[obj.getStartIndex()]);
 		}
 	}
 	

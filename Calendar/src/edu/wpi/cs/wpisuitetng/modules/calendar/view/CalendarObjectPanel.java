@@ -40,7 +40,7 @@ public class CalendarObjectPanel extends JPanel {
 		this.parent = parent;
 		this.acal.setTime(acal.getTime());
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
-		this.setBackground(CalendarStandard.CalendarRed);
+		this.setBackground(Color.WHITE);
 		this.addMouseListener(new MouseAdapter(){
 		    public void mouseClicked(MouseEvent e) {
 		    	if(e.getClickCount() > 1){
@@ -63,7 +63,7 @@ public class CalendarObjectPanel extends JPanel {
 	public void refreshSize(){
 		double par_width = parent.getSize().getWidth();
 		double par_height = parent.getSize().getHeight();
-		Dimension new_size = new Dimension((int)(par_width/columnwidth * columnspanned), (int)(getSizeIndex()/48.0*par_height));
+		Dimension new_size = new Dimension((int)((par_width-3*columnwidth)/columnwidth * columnspanned), (int)(getSizeIndex()/48.0*par_height));
 		//System.out.println("Refresh : " + new_size + " : " + this.getName());
 		//this.setSize(new_size);
 		this.setPreferredSize(new_size);
@@ -154,11 +154,11 @@ public class CalendarObjectPanel extends JPanel {
 		int thisend = this.getEndIndex();
 		int otherstart = other.getStartIndex();
 		int otherend = other.getEndIndex();
-		System.out.println("------------------------");
+		/*System.out.println("------------------------");
 		System.out.println("" + this.getStartIndex() + " -- " + this.getEndIndex());
 		System.out.println("" + other.getStartIndex() + " -- " + other.getEndIndex());
 		System.out.println( (thisstart < otherend) && (thisend > otherstart));
-		System.out.println("------------------------");
+		System.out.println("------------------------");*/
 		return (thisstart < otherend) && (thisend > otherstart);
 	}
 	
