@@ -23,14 +23,23 @@ public class RepeatingEvent extends CalendarObject {
 	private Date endTime;
 	/** a list of participants of the event */
 	private List<String> participants = new ArrayList<String>();
+	/** the last date for the event to repeat on */
+	private Date finalRepeat;
+	public enum RepeatType{
+		DAY,WEEk,MONTH;
+	};
+	/** the type of the repeat */
+	private RepeatType repType;
 
 	/**
 	 * Constructs a Event with default characteristics
 	 */
 	public RepeatingEvent() {
 		super();
-		startTime = new Date(0);
-		endTime = new Date(0);
+		this.startTime = new Date(0);
+		this.endTime = new Date(0);
+		this.finalRepeat = new Date(0);
+		this.repType = RepeatType.DAY;
 	}
 
 	/**
@@ -50,15 +59,21 @@ public class RepeatingEvent extends CalendarObject {
 	 * @param categoryID
 	 *            The Category of the Event
 	 * @param isPersonal
-	 *            A boolean stating that the Event is personal
+	 *            A boolean stating that the Event is personal    
+	 * @param finalRepeat
+	 * 			  A date Representing the final repeat day
+	 * @param repType
+	 *			  A Repeat type indicating the event's repeat type
 	 */
 	public RepeatingEvent(String name, String description, GregorianCalendar startTime,
 			GregorianCalendar endTime, String[] people, int categoryID,
-			boolean isPersonal) {
+			boolean isPersonal, GregorianCalendar finalRepeat, RepeatType repType) {
 		super(name, description, categoryID, isPersonal);
 		this.startTime = startTime.getTime();
 		this.endTime = endTime.getTime();
 		Collections.addAll(this.participants, people);
+		this.finalRepeat = finalRepeat.getTime();
+		this.repType = repType;
 	}
 
 	/**
@@ -72,6 +87,8 @@ public class RepeatingEvent extends CalendarObject {
 		this.startTime = toCopyFrom.getStartTime().getTime();
 		this.endTime = toCopyFrom.getEndTime().getTime();
 		this.participants = toCopyFrom.getParticipants();
+		this.finalRepeat = toCopyFrom.getFinalRepeat().getTime();
+		this.repType = toCopyFrom.getRepType();
 	}
 
 	// GETTERS
@@ -107,6 +124,26 @@ public class RepeatingEvent extends CalendarObject {
 		return participants;
 	}
 
+	/**
+	 * Getter for the final Repeat date
+	 * 
+	 * @return final repeat date
+	 */
+	public GregorianCalendar getFinalRepeat() {
+		GregorianCalendar tmp = new GregorianCalendar();
+		tmp.setTime(this.finalRepeat);
+		return tmp;
+	}
+	
+	/**
+	 * Getter for the repeat type
+	 * 
+	 * @return the repType
+	 */
+	public RepeatType getRepType() {
+		return repType;
+	}
+	
 	// SETTERS
 	/**
 	 * Setter for the start time
@@ -136,6 +173,25 @@ public class RepeatingEvent extends CalendarObject {
 	 */
 	public void setParticipants(List<String> participants) {
 		this.participants = participants;
+	}
+	
+	/**
+	 * Setter for the final repeat date
+	 * 
+	 * @param finalRepeat
+	 */
+	public void setFinalRepeat(GregorianCalendar finalRepeat) {
+		this.finalRepeat = finalRepeat.getTime();
+
+	}
+
+	/**
+	 * Setter for the Repeat Typw
+	 * 
+	 * @param repType the repType to set
+	 */
+	public void setRepType(RepeatType repType) {
+		this.repType = repType;
 	}
 
 }
