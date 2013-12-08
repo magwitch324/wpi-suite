@@ -23,7 +23,9 @@ public class Event extends CalendarObject {
 	private Date endTime;
 	/** a list of participants of the event */
 	private List<String> participants = new ArrayList<String>();
-
+	/** indicates whether or not the event is a repeating one*/
+	private boolean isRepeating;
+	
 	/**
 	 * Constructs a Event with default characteristics
 	 */
@@ -31,6 +33,7 @@ public class Event extends CalendarObject {
 		super();
 		startTime = new Date(0);
 		endTime = new Date(0);
+		isRepeating = false;
 	}
 
 	/**
@@ -98,6 +101,15 @@ public class Event extends CalendarObject {
 	}
 
 	/**
+	 * Getter for whether or not the event is a repeating one
+	 * 
+	 * @return whether or not the event repeats
+	 */
+	public boolean getIsRepeating() {
+		return isRepeating;
+	}
+	
+	/**
 	 * Getter for participants
 	 * 
 	 * @return the list of strings representing the users for whom the event has
@@ -138,4 +150,12 @@ public class Event extends CalendarObject {
 		this.participants = participants;
 	}
 
+	/**
+	 * Setter for the whether or not the event is a repeating one
+	 * 
+	 * @param isRepeating
+	 */
+	public void setIsRepeating(boolean isRepeating) {
+		this.isRepeating = isRepeating;
+	}
 }
