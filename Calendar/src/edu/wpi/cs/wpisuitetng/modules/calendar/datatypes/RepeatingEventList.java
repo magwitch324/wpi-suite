@@ -148,11 +148,23 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	 */
 	public CombinedEventList toCombinedEventList(){
 		CombinedEventList eventList = new CombinedEventList();
+		GregorianCalendar eventStart = new GregorianCalendar();
+		GregorianCalendar eventEnd = new GregorianCalendar();
 		int increment;
 		for(RepeatingEvent event : calendarObjects){
-
-			//TODO:Implement
+			for(int i = 0; i < event.getRepetitions(); i++){
+				Event tmp = new Event();
+				tmp.setID(event.getID());
+				tmp.setName(event.getName());
+				tmp.setDescription(event.getDescription());
+				tmp.setParticipants(event.getParticipants());
+				tmp.setStartTime(event.getStartTime());
+				tmp.setEndTime(event.getEndTime());
+				tmp.setIsPersonal(event.getIsPersonal());
+				eventList.add(tmp);
+			}
 			
+		
 			
 		}
 		return eventList;
