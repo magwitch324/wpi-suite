@@ -19,6 +19,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEventList;
 
 public class CalendarData extends AbstractModel {
 
@@ -27,6 +29,7 @@ public class CalendarData extends AbstractModel {
 	private CategoryList categories;
 	private CommitmentList commitments;
 	private EventList events;
+	private RepeatingEventList repeatingEvents;
 
 	/**
 	 * Constructs a CalendarData with default characteristics
@@ -37,6 +40,7 @@ public class CalendarData extends AbstractModel {
 		this.categories = new CategoryList();
 		this.commitments = new CommitmentList(); 
 		this.events = new EventList();
+		this.repeatingEvents = new RepeatingEventList();
 	}
 
 	/**
@@ -84,6 +88,15 @@ public class CalendarData extends AbstractModel {
 	}
 	
 	/**
+	 * Returns the list of repeatingEvents in this calendar
+	 * 
+	 * @return the list of repeating events
+	 */
+	public RepeatingEventList getRepeatingEvents(){
+		return repeatingEvents;
+	}
+	
+	/**
 	 * Adds a event to the calendar
 	 * 
 	 * @param event
@@ -108,6 +121,15 @@ public class CalendarData extends AbstractModel {
 	 */
 	public void addCategory(Category newCategory){
 		//TODO add correct call
+	}
+	
+	/**
+	 * Adds a repeating event to the calendar
+	 * 
+	 * @param repeatingEvent
+	 */
+	public void addRepeatingEvent(RepeatingEvent newEvent){
+		repeatingEvents.add(newEvent);
 	}
 	
 	/**
@@ -220,6 +242,7 @@ public class CalendarData extends AbstractModel {
 		this.categories = toCopyFrom.getCategories();
 		this.commitments = toCopyFrom.getCommitments();
 		this.events = toCopyFrom.getEvents();
+		this.repeatingEvents = toCopyFrom.getRepeatingEvents();
 	}
 
 	
