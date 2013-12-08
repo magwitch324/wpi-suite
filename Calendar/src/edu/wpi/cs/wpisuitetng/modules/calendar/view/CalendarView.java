@@ -96,7 +96,7 @@ public abstract class CalendarView extends JSplitPane {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				showAllCommFlag = false;
-				GUIEventController.getInstance().getSelectedCalendar().displayCalData();
+				GUIEventController.getInstance().getSelectedCalendar().updateCommPane();
 			}
 			
 		});
@@ -115,7 +115,7 @@ public abstract class CalendarView extends JSplitPane {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				showAllCommFlag = true;
-				GUIEventController.getInstance().getSelectedCalendar().displayCalData();
+				GUIEventController.getInstance().getSelectedCalendar().updateCommPane();
 			}
 			
 		});
