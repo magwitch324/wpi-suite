@@ -937,16 +937,21 @@ public class CommitmentTab extends JPanel {
 			 * COMMENT THIS OUT TO NOT ADD A LOT OF COMMITMENTS
 			 * The script to add a bunch of commitments
 			 */
-//			GregorianCalendar day = new GregorianCalendar(2013, JANUARY, 1, 12, 00, 00);
+//			GregorianCalendar day = new GregorianCalendar(2013, JANUARY, 1, 8, 00, 00);
 //			GregorianCalendar lastDay = new GregorianCalendar();
 //			lastDay.setTime(day.getTime());
 //			lastDay.add(YEAR, 1);
 //			Random rnd = new Random();
+//			String[] commitments = {"Meeting", "Party", "Shindig", "Meal"};
+//			String[] names = {"Anthony", "Andrew", "Frank", "Julie", "Pavel", "Sam", "Sean", "Seiichiro", "Thom", "Teresa", "Tim", "Tucker", "Coach Mike"};
 //			while (day.before(lastDay)) {
 //				CalendarStandard.printcalendar(lastDay);
 //				GregorianCalendar set = new GregorianCalendar();
 //				set.setTime(day.getTime());
-//				Commitment newCommitment = new Commitment("Test", set, "Test Description", 0, false);
+//				set.add(Calendar.HOUR, rnd.nextInt(10));
+//				String commitment = commitments[rnd.nextInt(4)];
+//				String name = names[rnd.nextInt(13)];
+//				Commitment newCommitment = new Commitment(commitment + " with " + name, set, "No Description", 0, false);
 //				calData.addCommitment(newCommitment);
 //				
 //				day.add(Calendar.DAY_OF_YEAR, rnd.nextInt(3));
