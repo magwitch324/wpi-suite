@@ -73,19 +73,43 @@ public class DayView extends CalendarView {
 
 		if (showCommOnCal)
 			try {
+				dayPane.displayEvents(eventList.filter(day));
 				dayPane.displayCommitments(commList.filter(day));
 			} catch (CalendarException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		else
+		else{
 			dayPane.displayCommitments(null); //show no commitments on DayPane
+			try {
+				dayPane.displayEvents(eventList.filter(day));
+			} catch (CalendarException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 		revalidate();
 		repaint();
 
 		//refresh();
 		
+	}
+
+	@Override
+	public void updateCommPane(CommitmentList commList, boolean showCommOnCal) {
+		if (super.showAllCommFlag){
+			commitmentView.updateCommData(commList.getCommitments());
+		} else {
+			try {
+				commitmentView.updateCommData(commList.filter(day));
+			} catch (CalendarException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		revalidate();
+		repaint();
 	}
 
 }

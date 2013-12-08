@@ -409,6 +409,7 @@ public abstract class AbCalendar extends JPanel {
 
 	abstract void updateCalData();
 	abstract protected void displayCalData();
+	abstract protected void updateCommPane();
 	abstract public boolean getShowTeamData();
 	abstract void applyCalProps();
 
