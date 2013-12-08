@@ -131,15 +131,17 @@ public class WeekPane extends JPanel implements ICalPane {
     						{"Sun, ", "Mon, ", "Tue, ","Wed, ", "Thu, ", "Fri, ", "Sat, " },
     						{"Sun", "Mon", "Tue","Wed", "Thu", "Fri", "Sat" }};
     	
-    	Calendar acal = (Calendar)mydate.clone();
+    	GregorianCalendar acal = (GregorianCalendar)mydate.clone();
 		for(int i=0; i < 7; i++) {
 			weekdays[0][i] += acal.get(Calendar.DATE);
 			weekdays[1][i] += acal.get(Calendar.DATE);
-			acal.add(Calendar.DATE, 1);
+			
 			labels[i] = new JLabel(weekdays[0][i], SwingConstants.CENTER);
 			labels[i].setFont(CalendarStandard.CalendarFontBold);
 			labels[i].setForeground(Color.WHITE);
+			labels[i].addMouseListener(new AMouseEvent(acal));
 			apane.add(labels[i]);
+			acal.add(Calendar.DATE, 1);
 		}
     	
 
