@@ -620,7 +620,6 @@ public class CommitmentTab extends JPanel {
 		 */
 		buttonPanel.add(btnAddCommitment, BorderLayout.WEST);
 		buttonPanel.add(btnCancel, BorderLayout.CENTER);
-		buttonPanel.add(btnCancel, BorderLayout.EAST);
 	    // Set the horizontal gap
 		formPanel.add(buttonPanel, gbc_btnPanel);
 	}
