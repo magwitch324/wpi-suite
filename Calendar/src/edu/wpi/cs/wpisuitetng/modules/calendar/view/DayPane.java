@@ -12,6 +12,8 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ import org.jdesktop.swingx.border.MatteBorderExt;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
 public class DayPane extends JPanel implements ICalPane {
 	/**
@@ -39,7 +42,7 @@ public class DayPane extends JPanel implements ICalPane {
 	private static final long serialVersionUID = 1L;
 	JPanel mainPanel = new JPanel();
 	GregorianCalendar day;
-	private DetailedDay daypane;
+	private DayDayPane daypane;
 	private SpringLayout layout;
 	private JScrollPane scrollPane;
 	private JPanel header = new JPanel();
@@ -63,6 +66,11 @@ public class DayPane extends JPanel implements ICalPane {
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		scrollPane.setMinimumSize(new Dimension(300, 300));
 		scrollPane.setBackground(CalendarStandard.CalendarRed);
+		scrollPane.getViewport().addComponentListener(new ComponentAdapter(){
+			public void componentResized(ComponentEvent e) {
+				scrollPane.getViewport().getView().setSize(scrollPane.getViewport().getSize());
+			}
+		});
 		// Sets the UPPER LEFT corner box
 		JPanel cornerBoxUL = new JPanel();
 		cornerBoxUL.setBackground(CalendarStandard.CalendarRed);
@@ -111,12 +119,6 @@ public class DayPane extends JPanel implements ICalPane {
 
 		});
 		refresh();
-
-
-
-
-
-
 	}
 
 
@@ -128,7 +130,7 @@ public class DayPane extends JPanel implements ICalPane {
 		setLayout(new GridLayout(1,1));
 
 		if (daypane == null)
-			daypane = new DetailedDay(day, new CommitDetailedPane(day, new ArrayList<Commitment>()));
+			daypane = new DayDayPane(day);
 		daypane.setBackground(CalendarStandard.CalendarYellow);
 		layout.putConstraint(SpringLayout.WEST, daypane, 0, SpringLayout.WEST, mainPanel);
 		layout.putConstraint(SpringLayout.NORTH, daypane, 0, SpringLayout.NORTH, mainPanel);
@@ -154,25 +156,12 @@ public class DayPane extends JPanel implements ICalPane {
 	 */
 	public void displayCommitments(List<Commitment> commList) {
 		//if we are supposed to display commitments
-		if(commList != null){
-			
-			// Create and set the label "Commitments" for when ShowCommitments
-			// is checked
-			if (header.getComponentCount() < 2){//Checks to make sure that the label doesn't already exist
-				JLabel commitlabel = new JLabel("<html><font color='white'><b>"
-						+ "Commitments" + "</b></font></html>",
-						SwingConstants.CENTER);
-				commitlabel.setFont(CalendarStandard.CalendarFont.deriveFont(14));
-				header.add(commitlabel);
-			}
-
-			daypane = new DetailedDay(day, new CommitDetailedPane(day, commList));
-		}
-		else{
-			daypane = new DetailedDay(day);
-		}
-		refresh();
-
+		daypane.displayCommitments(commList);
+	}
+	
+	public void displayEvents(List<Event> eventList) {
+		//if we are supposed to display commitments
+		daypane.displayEvents(eventList);
 	}
 
 	protected JComponent getTimesBar(double height){
