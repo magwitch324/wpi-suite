@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -260,7 +261,6 @@ public class CommitmentFullView extends JPanel{
 		jStatus.setContentAreaFilled(false);
 		jStatus.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		
-		// sort by status TODO
 		jStatus.addMouseListener(new MouseAdapter() {
 			@Override
 		public void mouseClicked(MouseEvent e) {
@@ -312,7 +312,11 @@ public class CommitmentFullView extends JPanel{
 			} catch (IOException | IllegalArgumentException e) {
 
 			}
-			JLabel date = new JLabel(""+commitmentList.get(i).getDueDate().getTime(),JLabel.CENTER);
+
+			SimpleDateFormat df = new SimpleDateFormat();
+			df.applyPattern("EEEE, MMMM d, y - hh:mm a");
+			
+			JLabel date = new JLabel(""+df.format(commitmentList.get(i).getDueDate().getTime()),JLabel.CENTER);
 			JLabel description = new JLabel("<HTML>"+ commitmentList.get(i).getDescription()+"</HTML>",JLabel.CENTER);
 			JLabel status = new JLabel(Status.convertToString(commitmentList.get(i).getStatus().id),JLabel.CENTER);
 			commitmentPanel.setLayout(experimentLayout);
