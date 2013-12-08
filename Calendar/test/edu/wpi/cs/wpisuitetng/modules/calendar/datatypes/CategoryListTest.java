@@ -76,6 +76,7 @@ public class CategoryListTest {
 	    assertEquals("Next Year", categoryList.getCategory(6).getName());
 	    assertEquals("Today", categoryList.getCategory(3).getName());
 	    }
+	
 	/**
 	 * Test to ensure remove function works correctly
 	 */
@@ -92,6 +93,34 @@ public class CategoryListTest {
 	    	assertEquals("Next Year", categoryList.getElementAt(0).getName());
 	    	assertEquals("Next Week", categoryList.getElementAt(1).getName());
 	    }
+	 
+	  /**
+	   * Test to ensure remove all works correctly
+	   */
+	 @Test
+	    public void removeAllTest() {
+	    	categoryList.addCategory(nextWeek);
+	    	categoryList.addCategory(todayCategory);
+	    	categoryList.addCategory(lastYear);
+	    	categoryList.addCategory(nextYear);
+	    	categoryList.removeAll();
+	    	assertEquals(0, categoryList.getSize());
+	    }
+	 /**
+	  * Test to ensure adds the given array of categories work correctly
+	  */
+	 
+	 @Test
+	    public void addCategoriesTest() {
+	    	Category[] categoryArray = new Category[]{lastYear, todayCategory, nextYear};
+	    	categoryList.addCategorys(categoryArray);
+	    	
+	    	assertEquals(3, categoryList.getSize());
+	    	assertEquals("Last Year", categoryList.getElementAt(2).getName());
+	    	assertEquals("Today", categoryList.getElementAt(0).getName());
+	    }
+
+
 
 
 }
