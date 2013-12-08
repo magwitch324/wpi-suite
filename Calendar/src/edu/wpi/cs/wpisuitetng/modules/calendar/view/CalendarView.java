@@ -12,6 +12,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -85,6 +86,7 @@ public abstract class CalendarView extends JSplitPane {
 		JRadioButton showVisibleButton = new JRadioButton("Show all open commitments in visible range");
 		showVisibleButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		showVisibleButton.setBackground(Color.WHITE);
+		showVisibleButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this radio button
 		if(!showAllCommFlag){// need to check due to how refreshing works
 			showVisibleButton.setSelected(true);
 		}
@@ -103,6 +105,7 @@ public abstract class CalendarView extends JSplitPane {
 		JRadioButton showAllButton = new JRadioButton("Show all open commitments");
 		showAllButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		showAllButton.setBackground(Color.WHITE);
+		showAllButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this radio button
 		if (showAllCommFlag){
 			showAllButton.setSelected(true);
 		}
