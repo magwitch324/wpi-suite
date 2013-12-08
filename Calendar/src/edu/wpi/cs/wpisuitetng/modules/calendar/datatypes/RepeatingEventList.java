@@ -10,6 +10,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -150,17 +151,34 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 		CombinedEventList eventList = new CombinedEventList();
 		GregorianCalendar eventStart = new GregorianCalendar();
 		GregorianCalendar eventEnd = new GregorianCalendar();
-		int increment;
+		int field; 
+
 		for(RepeatingEvent event : calendarObjects){
+			if(event.getRepType() == RepeatType.DAY){
+				field = Calendar.DATE;
+			} else if(event.getRepType() == RepeatType.WEEK){
+				field = Calendar.WEEK_OF_YEAR;
+			} else if(event.getRepType() == RepeatType.MONTH){
+				field = Calendar.MONTH;
+			} else {
+				field = Calendar.DATE;
+			}
 			for(int i = 0; i < event.getRepetitions(); i++){
+				
+				
 				Event tmp = new Event();
 				tmp.setID(event.getID());
 				tmp.setName(event.getName());
 				tmp.setDescription(event.getDescription());
 				tmp.setParticipants(event.getParticipants());
-				tmp.setStartTime(event.getStartTime());
+				eventStart = event.getStartTime();
+				eventStart.add(field, i);
+				tmp.setStartTime(eventStart);
+				eventEnd = event.getEndTime();
+				eventEnd.add(field, i);
 				tmp.setEndTime(event.getEndTime());
 				tmp.setIsPersonal(event.getIsPersonal());
+				tmp.setCategoryID(event.getCategoryID());
 				eventList.add(tmp);
 			}
 			
