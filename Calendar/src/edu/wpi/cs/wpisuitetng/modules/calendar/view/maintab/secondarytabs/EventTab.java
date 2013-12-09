@@ -11,6 +11,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -29,6 +30,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatType;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 import java.beans.PropertyChangeListener;
@@ -99,6 +102,9 @@ public class EventTab extends JPanel {
 	private JPanel formPanel;
 	private boolean initFlag; //to keep things from running before we fully intialize
 	private JSpinner.DateEditor startTimeEditor;
+	private JCheckBox repeatCheckBox;
+	private JLabel lblRepeat;
+	private JTextField repeatAmt;
 	
 	
 	
@@ -804,7 +810,41 @@ public class EventTab extends JPanel {
 		endTimeSpinner.setValue(startTime.getTime());
 		startTimeSpinner.setValue(startTime.getTime());
 		
+		//Add Repeat Label
+		lblRepeat = new JLabel("Repetition:");
+		lblRepeat.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblRepeat = new GridBagConstraints();
+		gbc_lblRepeat.anchor = GridBagConstraints.EAST;
+		gbc_lblRepeat.fill = GridBagConstraints.VERTICAL;
+		gbc_lblRepeat.insets = new Insets(0, 0, 5, 5);
+		gbc_lblRepeat.gridx = 0;
+		gbc_lblRepeat.gridy = 8;
+		gbc_lblRepeat.weighty = 1;
+		formPanel.add(lblRepeat, gbc_lblRepeat);
 		
+		//Add Repeat Checkbox
+		repeatCheckBox = new JCheckBox("Repeats?");
+		GridBagConstraints gbc_repeatCheckBox = new GridBagConstraints();
+		gbc_repeatCheckBox.gridwidth = 1;
+		gbc_repeatCheckBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_repeatCheckBox.insets = new Insets(0, 0, 5, 0);
+		gbc_repeatCheckBox.gridx = 1;
+		gbc_repeatCheckBox.gridy = 8;
+		gbc_repeatCheckBox.weightx = 10;
+		gbc_repeatCheckBox.weighty = 1;
+		formPanel.add(repeatCheckBox, gbc_repeatCheckBox);
+		
+		//Add Repeat Text Field
+		repeatAmt = new JTextField();
+		GridBagConstraints gbc_repeatAmt = new GridBagConstraints();
+		gbc_repeatAmt.gridwidth = 2;
+		gbc_repeatAmt.fill = GridBagConstraints.HORIZONTAL;
+		gbc_repeatAmt.insets = new Insets(0, 0, 5, 0);
+		gbc_repeatAmt.gridx = 2;
+		gbc_repeatAmt.gridy = 8;
+		gbc_repeatAmt.weightx = 10;
+		gbc_repeatAmt.weighty = 1;
+		formPanel.add(repeatAmt, gbc_repeatAmt);
 		
 		buttonPanel = new JPanel(new BorderLayout(30,0));
 		//Add Event button
@@ -1085,7 +1125,7 @@ public class EventTab extends JPanel {
 	private void addEvent() {
 		// TODO Auto-generated method stub
 
-		
+
 		if(nameTextField.getText().equals("") || startDatePicker.getDate() == null){
 			return;
 		}
@@ -1099,59 +1139,115 @@ public class EventTab extends JPanel {
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
 			isTeamEvent = true;
 		}
-//		for(Event event: calData.getEvents().getEvents())
-//		{
-//			System.out.println("Event name: " + event.getName()+", id: "+ event.getId());
-//		}
-		Event newEvent;
-		if(mode == EditingMode.ADDING)
-		{
-			newEvent = new Event();
-		}
-		else
-			newEvent = editingEvent;
-		
-		if(isTeamEvent){
-			newEvent.setIsPersonal(false);
-		}
-		else{
-			newEvent.setIsPersonal(true);
-		}
-		
-		newEvent.setCategoryID(((Category)this.categoryComboBox.getSelectedItem()).getId());
-		newEvent.setDescription(this.descriptionTextArea.getText());
-		
-		
-		//Parse date and time info
-		GregorianCalendar calStartDate = new GregorianCalendar();
-		GregorianCalendar calStartTime = new GregorianCalendar();
-		calStartDate.setTime(this.startDatePicker.getDate());
-		calStartTime.setTime((Date)startTimeSpinner.getValue());
-		calStartDate.set(Calendar.HOUR_OF_DAY, calStartTime.get(Calendar.HOUR_OF_DAY));
-		calStartDate.set(Calendar.MINUTE, calStartTime.get(Calendar.MINUTE));
-		
-		GregorianCalendar calEndDate = new GregorianCalendar();
-		GregorianCalendar calEndTime = new GregorianCalendar();
-		calEndDate.setTime(this.endDatePicker.getDate());
-		calEndTime.setTime((Date)endTimeSpinner.getValue());
-		calEndDate.set(Calendar.HOUR_OF_DAY, calEndTime.get(Calendar.HOUR_OF_DAY));
-		calEndDate.set(Calendar.MINUTE, calEndTime.get(Calendar.MINUTE));
-		
-		//set due date
-		newEvent.setStartTime(calStartDate);
-		newEvent.setEndTime(calEndDate);
-		newEvent.setName(this.nameTextField.getText());
-		
-		if (mode == EditingMode.ADDING)
-			calData.addEvent(newEvent);
-		else
-			calData.getEvents().update(newEvent);
+		//		for(Event event: calData.getEvents().getEvents())
+		//		{
+		//			System.out.println("Event name: " + event.getName()+", id: "+ event.getId());
+		//		}
+		if (repeatCheckBox.isSelected()){
+			RepeatingEvent newRepEvent;
+			//if(mode == EditingMode.ADDING)
+			//{
+			newRepEvent = new RepeatingEvent();
+			//}
+			//else
+			//newRepEvent = editingEvent;
+			//TODO:Implement editing for repeating events
 
-		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+			if(isTeamEvent){
+				newRepEvent.setIsPersonal(false);
+			}
+			else{
+				newRepEvent.setIsPersonal(true);
+			}
 
- 
-		this.removeTab();
+			newRepEvent.setCategoryID(((Category)this.categoryComboBox.getSelectedItem()).getId());
+			newRepEvent.setDescription(this.descriptionTextArea.getText());
 
+
+			//Parse date and time info
+			GregorianCalendar calStartDate = new GregorianCalendar();
+			GregorianCalendar calStartTime = new GregorianCalendar();
+			calStartDate.setTime(this.startDatePicker.getDate());
+			calStartTime.setTime((Date)startTimeSpinner.getValue());
+			calStartDate.set(Calendar.HOUR_OF_DAY, calStartTime.get(Calendar.HOUR_OF_DAY));
+			calStartDate.set(Calendar.MINUTE, calStartTime.get(Calendar.MINUTE));
+
+			GregorianCalendar calEndDate = new GregorianCalendar();
+			GregorianCalendar calEndTime = new GregorianCalendar();
+			calEndDate.setTime(this.endDatePicker.getDate());
+			calEndTime.setTime((Date)endTimeSpinner.getValue());
+			calEndDate.set(Calendar.HOUR_OF_DAY, calEndTime.get(Calendar.HOUR_OF_DAY));
+			calEndDate.set(Calendar.MINUTE, calEndTime.get(Calendar.MINUTE));
+
+			//set due date
+			newRepEvent.setStartTime(calStartDate);
+			newRepEvent.setEndTime(calEndDate);
+			newRepEvent.setName(this.nameTextField.getText());
+			newRepEvent.setRepType(RepeatType.DAY);
+			newRepEvent.setRepetitions(Integer.parseInt(repeatAmt.getText()));
+
+
+			if (mode == EditingMode.ADDING)
+				calData.addRepeatingEvent(newRepEvent);
+			else
+				calData.getRepeatingEvents().update(newRepEvent);
+
+			UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+
+
+			this.removeTab();
+
+		} else {
+
+			Event newEvent;
+			if(mode == EditingMode.ADDING)
+			{
+				newEvent = new Event();
+			}
+			else
+				newEvent = editingEvent;
+
+			if(isTeamEvent){
+				newEvent.setIsPersonal(false);
+			}
+			else{
+				newEvent.setIsPersonal(true);
+			}
+
+			newEvent.setCategoryID(((Category)this.categoryComboBox.getSelectedItem()).getId());
+			newEvent.setDescription(this.descriptionTextArea.getText());
+
+
+			//Parse date and time info
+			GregorianCalendar calStartDate = new GregorianCalendar();
+			GregorianCalendar calStartTime = new GregorianCalendar();
+			calStartDate.setTime(this.startDatePicker.getDate());
+			calStartTime.setTime((Date)startTimeSpinner.getValue());
+			calStartDate.set(Calendar.HOUR_OF_DAY, calStartTime.get(Calendar.HOUR_OF_DAY));
+			calStartDate.set(Calendar.MINUTE, calStartTime.get(Calendar.MINUTE));
+
+			GregorianCalendar calEndDate = new GregorianCalendar();
+			GregorianCalendar calEndTime = new GregorianCalendar();
+			calEndDate.setTime(this.endDatePicker.getDate());
+			calEndTime.setTime((Date)endTimeSpinner.getValue());
+			calEndDate.set(Calendar.HOUR_OF_DAY, calEndTime.get(Calendar.HOUR_OF_DAY));
+			calEndDate.set(Calendar.MINUTE, calEndTime.get(Calendar.MINUTE));
+
+			//set due date
+			newEvent.setStartTime(calStartDate);
+			newEvent.setEndTime(calEndDate);
+			newEvent.setName(this.nameTextField.getText());
+
+			if (mode == EditingMode.ADDING)
+				calData.addEvent(newEvent);
+			else
+				calData.getEvents().update(newEvent);
+
+			UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+
+
+			this.removeTab();
+		}
 	}
 	
 

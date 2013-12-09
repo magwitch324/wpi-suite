@@ -9,6 +9,7 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -148,6 +149,7 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	 * @return equivalent list of events
 	 */
 	public CombinedEventList toCombinedEventList(){
+		SimpleDateFormat format = new SimpleDateFormat();
 		CombinedEventList eventList = new CombinedEventList();
 		GregorianCalendar eventStart = new GregorianCalendar();
 		GregorianCalendar eventEnd = new GregorianCalendar();
@@ -173,12 +175,15 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 				tmp.setParticipants(event.getParticipants());
 				eventStart = event.getStartTime();
 				eventStart.add(field, i);
+				//System.out.println(format.format(eventStart));
 				tmp.setStartTime(eventStart);
 				eventEnd = event.getEndTime();
 				eventEnd.add(field, i);
-				tmp.setEndTime(event.getEndTime());
+				//System.out.println(format.format(eventEnd));
+				tmp.setEndTime(eventEnd);
 				tmp.setIsPersonal(event.getIsPersonal());
 				tmp.setCategoryID(event.getCategoryID());
+				tmp.setIsRepeating(true);
 				eventList.add(tmp);
 			}
 			
