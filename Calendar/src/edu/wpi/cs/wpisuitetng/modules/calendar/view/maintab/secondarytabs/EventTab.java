@@ -873,6 +873,16 @@ public class EventTab extends JPanel {
 		gbc_repeatTypeComboBox.weighty = 1;
 		formPanel.add(repeatTypeComboBox, gbc_repeatTypeComboBox);
 		repeatTypeComboBox.setEnabled(false);//we only want this active when repeat checkbox is checked
+		repeatTypeComboBox.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listenerHelper();
+				
+			}
+			
+		});
+		
 		
 		//Add Repetitions Label
 		lblNumberRepetitions = new JLabel("# of Repetitions:");
@@ -898,6 +908,28 @@ public class EventTab extends JPanel {
 		gbc_repeatAmt.weighty = 1;
 		formPanel.add(repeatAmt, gbc_repeatAmt);
 		repeatAmt.setEnabled(false);//we only want this active when repeat checkbox is checked
+		repeatAmt.addKeyListener(new KeyListener(){
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				listenerHelper();
+				
+			}
+			
+		});
+		
 		
 		buttonPanel = new JPanel(new BorderLayout(30,0));
 		//Add Event button
@@ -1372,7 +1404,7 @@ public class EventTab extends JPanel {
 	 * Controls the enable state of the save button
 	 */
 	private void listenerHelper(){
-		
+
 		if (initFlag){
 			if(nameTextField.getText().equals("") || startDatePicker.getDate() == null || //data validation
 					endDatePicker.getDate() == null || nameTextField.getText().trim().length() == 0){
@@ -1387,30 +1419,54 @@ public class EventTab extends JPanel {
 					calTime.setTime((Date)startTimeSpinner.getValue());
 					calStartDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
 					calStartDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
-					
+
 					calEndDate.setTime(this.endDatePicker.getDate());
 					calTime.setTime((Date)endTimeSpinner.getValue());
 					calEndDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
 					calEndDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
-					
+
+
 					//make sure something changed
-					if (this.nameTextField.getText().equals(editingEvent.getName()) 
-							&& this.descriptionTextArea.getText().equals(editingEvent.getDescription())){
-							//&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingEvent.getCategoryId()
-							//&& calStartDate.getTime().equals(editingEvent.getStartDate().getTime())
-							//&& calEndDate.getTime().equals(editingEvent.getEndDate().getTime()))
+					if (this.repeatCheckBox.isSelected()){
+						RepeatType editingRepeatType;
+						if (this.repeatTypeComboBox.getSelectedIndex() == 2){
+							editingRepeatType = RepeatType.MONTH;
+						} else if (this.repeatTypeComboBox.getSelectedIndex() == 1) {
+							editingRepeatType = RepeatType.WEEK;
+						} else {
+							editingRepeatType = RepeatType.DAY;
+						}
+						if (this.nameTextField.getText().equals(editingEvent.getName()) 
+								&& this.descriptionTextArea.getText().equals(editingEvent.getDescription())
+								&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingEvent.getCategoryID()
+								&& calStartDate.getTime().equals(editingRepeatingEvent.getStartTime().getTime())
+								&& calEndDate.getTime().equals(editingRepeatingEvent.getEndTime().getTime())
+								&& Integer.parseInt(this.repeatAmt.getText()) == editingRepeatingEvent.getRepetitions()
+								&& editingRepeatType == editingRepeatingEvent.getRepType()) {
 
-							
-						btnAddEvent.setEnabled(false);
-						return;
+
+							btnAddEvent.setEnabled(false);
+							return;
+						}
+					} else {
+						if (this.nameTextField.getText().equals(editingEvent.getName()) 
+								&& this.descriptionTextArea.getText().equals(editingEvent.getDescription())
+								&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingEvent.getCategoryID()
+								&& calStartDate.getTime().equals(editingEvent.getStartTime().getTime())
+								&& calEndDate.getTime().equals(editingEvent.getEndTime().getTime())) {
+
+
+							btnAddEvent.setEnabled(false);
+							return;
+						}
 					}
+					btnAddEvent.setEnabled(true);
 				}
-				btnAddEvent.setEnabled(true);
-			}
 
+			}
 		}
 	}
-	
+
 	/**
 	 * check if the user enters a bad date
 	 */
