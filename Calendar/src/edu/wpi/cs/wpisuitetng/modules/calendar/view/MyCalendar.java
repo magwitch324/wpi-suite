@@ -215,6 +215,7 @@ public class MyCalendar extends AbCalendar {
 			if (getShowTeamData()) {
 				// Iterate through team commitments and add each element to
 				// combinedList
+				// do it backwards to maintain order
 				int j = teamData.getCommitments().getCommitments().size() - 1;
 				for (int i = j; i >= 0; i--) {
 					combinedCommList.add(teamData.getCommitments()
@@ -224,6 +225,7 @@ public class MyCalendar extends AbCalendar {
 				
 				// Iterate through team events and add each element to
 				// combinedEventList
+				// do it backwards to maintain order
 				j = teamData.getEvents().getEvents().size() - 1;
 				for (int i = j; i >= 0; i--) {
 					combinedEventList.add(teamData.getEvents()
