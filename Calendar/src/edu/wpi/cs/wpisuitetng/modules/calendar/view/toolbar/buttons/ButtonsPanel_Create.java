@@ -82,32 +82,36 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		
 		try {
 			Image img = ImageIO.read(getClass().getResource("CreateCommitment_Icon.png"));
-			ImageIcon imageIcon = new ImageIcon(img);
-			int width = imageIcon.getIconWidth();
-			int hight = imageIcon.getIconHeight();
+//			ImageIcon imageIcon = new ImageIcon(img);
+//			int width = imageIcon.getIconWidth();
+//			int hight = imageIcon.getIconHeight();
 		    this.createCommitButton.setIcon(new ImageIcon(img));
 		    //ImageObserver observer =;
 			//this.createCommitButton.setMaximumSize(img.getWidth(observer ), height);
 		    
 		    img = ImageIO.read(getClass().getResource("CreateEvent_Icon.png"));
-		    ImageIcon imageIcon1 = new ImageIcon(img);
-		    this.createEventButton.setIcon((new ImageIcon(imageIcon1.getImage().getScaledInstance(width, hight,
-		            java.awt.Image.SCALE_SMOOTH))));
+		    this.createEventButton.setIcon(new ImageIcon(img));
+//		    ImageIcon imageIcon1 = new ImageIcon(img);
+//		    this.createEventButton.setIcon((new ImageIcon(imageIcon1.getImage().getScaledInstance(width, hight,
+//		            java.awt.Image.SCALE_SMOOTH))));
 		    
 		    img = ImageIO.read(getClass().getResource("ManageCategory_Icon.png"));
-		    ImageIcon imageIcon2 = new ImageIcon(img);
-		    this.manageCategoryButton.setIcon((new ImageIcon(imageIcon2.getImage().getScaledInstance(width, hight,
-		            java.awt.Image.SCALE_SMOOTH))));
+            this.manageCategoryButton.setIcon(new ImageIcon(img));
+//		    ImageIcon imageIcon2 = new ImageIcon(img);
+//		    this.manageCategoryButton.setIcon((new ImageIcon(imageIcon2.getImage().getScaledInstance(width, hight,
+//		            java.awt.Image.SCALE_SMOOTH))));
 		    
 		    img = ImageIO.read(getClass().getResource("ManageFilter_Icon.png"));
-		    ImageIcon imageIcon3 = new ImageIcon(img);
-		    this.manageFilterButton.setIcon((new ImageIcon(imageIcon3.getImage().getScaledInstance(width, hight,
-		            java.awt.Image.SCALE_SMOOTH))));
+            this.manageFilterButton.setIcon(new ImageIcon(img));
+//		    ImageIcon imageIcon3 = new ImageIcon(img);
+//		    this.manageFilterButton.setIcon((new ImageIcon(imageIcon3.getImage().getScaledInstance(width, hight,
+//		            java.awt.Image.SCALE_SMOOTH))));
 		    
 		    img = ImageIO.read(getClass().getResource("Help_Icon.png"));
-		    ImageIcon imageIcon4 = new ImageIcon(img);
-		    this.helpButton.setIcon((new ImageIcon(imageIcon4.getImage().getScaledInstance(width, hight,
-		            java.awt.Image.SCALE_SMOOTH))));
+            this.helpButton.setIcon(new ImageIcon(img));
+//		    ImageIcon imageIcon4 = new ImageIcon(img);
+//		    this.helpButton.setIcon((new ImageIcon(imageIcon4.getImage().getScaledInstance(width, hight,
+//		            java.awt.Image.SCALE_SMOOTH))));
 		    
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
@@ -237,16 +241,16 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 			}
 		});	
 		
-		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
-	    createCommitButton.setBorder(raisedbevel);
+//		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+//	    createCommitButton.setBorder(raisedbevel);
 		contentPanel.add(createCommitButton);
-		createEventButton.setBorder(raisedbevel);
+//		createEventButton.setBorder(raisedbevel);
 		contentPanel.add(createEventButton);
-		manageCategoryButton.setBorder(raisedbevel);
+//		manageCategoryButton.setBorder(raisedbevel);
 		contentPanel.add(manageCategoryButton);
-		manageFilterButton.setBorder(raisedbevel);
+//		manageFilterButton.setBorder(raisedbevel);
 		contentPanel.add(manageFilterButton);
-		helpButton.setBorder(raisedbevel);
+//		helpButton.setBorder(raisedbevel);
 		contentPanel.add(helpButton);
 
 		
