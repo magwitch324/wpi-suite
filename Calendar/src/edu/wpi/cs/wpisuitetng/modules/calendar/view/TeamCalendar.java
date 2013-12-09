@@ -14,6 +14,7 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -22,6 +23,9 @@ import javax.swing.SpringLayout;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
@@ -117,6 +121,57 @@ public class TeamCalendar extends AbCalendar {
 	public boolean getShowTeamData(){
 		return false;
 	}
+	
+	public void setCommEventList() {
+		//if we dont have the caldata dont do anything
+		if (initialized && getCalData() != null) {
+			//create a combined Commitment list
+			CombinedCommitmentList combinedCommList = new CombinedCommitmentList(
+					new ArrayList<Commitment>(getCalData()
+							.getCommitments().getCommitments()));
+			//create a combined event list
+			CombinedEventList combinedEventList = getCalData()
+					.getRepeatingEvents().toCombinedEventList();
+			for (int i = 0; i < getCalData().getEvents()
+					.getEvents().size(); i++) {
+				combinedEventList.add(getCalData().getEvents()
+						.getEvents().get(i));
+			}
+			
+			//get the team data
+			CalendarData teamData = CalendarDataModel.getInstance()
+					.getCalendarData(ConfigManager.getConfig().getProjectName());
+
+			//if we are supposed to show team data, we need to put the team commitments into the list in the right order
+			if (getShowTeamData()) {
+				// Iterate through team commitments and add each element to
+				// combinedList
+
+				for (int i = 0; i < teamData.getCommitments()
+						.getCommitments().size(); i++) {
+					combinedCommList.add(teamData.getCommitments()
+							.getCommitments().get(i));
+				}
+				commitments = combinedCommList;
+				
+				// Iterate through team events and add each element to
+				// combinedEventList
+				for (int i = 0; i < teamData.getEvents()
+						.getEvents().size(); i++) {
+					combinedEventList.add(teamData.getEvents()
+							.getEvents().get(i));
+				}
+				events = combinedEventList;
+				
+			}
+
+			//if we are not supposed to show team data the CommitmentList should just be straight from the personal data
+			else {
+				commitments = getCalData().getCommitments();
+				events = getCalData().getEvents();
+			}
+		}
+	}
 
 	public void updateCalData() {
 		if(!initialized){
@@ -131,7 +186,8 @@ public class TeamCalendar extends AbCalendar {
 		}
 		calData = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName());
-
+		
+		setCommEventList();
 		setView();
 		//		displayCalData();
 
