@@ -231,10 +231,10 @@ public class GUIEventController {
 		EventTab editEvent = new EventTab(event);
 		try {
 			Image img = ImageIO.read(getClass().getResource("EditEvent_Icon.png"));
-			main.addTab("Edit Commitment", new ImageIcon(img), editEvent);
+			main.addTab("Edit Event", new ImageIcon(img), editEvent);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			main.addTab("Edit Commitment", new ImageIcon(), editEvent);
+			main.addTab("Edit Event", new ImageIcon(), editEvent);
 		}
 		//		main.addTab("Edit Commitment", null, editCommit, "Edit Commitment");
 		//		editCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));

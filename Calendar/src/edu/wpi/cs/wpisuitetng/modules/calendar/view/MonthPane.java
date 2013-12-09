@@ -168,8 +168,8 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				alist.add(comm);
 			}
 
-			GregorianCalendar ret = (GregorianCalendar) startdate.clone();
-			ret.set(ret.get(Calendar.YEAR), curmonth, 1);
+			GregorianCalendar ret = new GregorianCalendar();
+			ret.setTime(startdate.getTime());
 
 			for (int i = 0; i < 42; i++) {
 				try {
@@ -194,9 +194,9 @@ public class MonthPane extends JScrollPane implements ICalPane {
 
 			CombinedEventList alist = new CombinedEventList(eventList);
 
-			GregorianCalendar ret = (GregorianCalendar) startdate.clone();
-			ret.set(ret.get(Calendar.YEAR), curmonth, 1);
-
+			GregorianCalendar ret = new GregorianCalendar();
+					ret.setTime(startdate.getTime());
+					
 			for (int i = 0; i < 42; i++) {
 				try {
 					days[i].addEvents(alist.filter(ret));
