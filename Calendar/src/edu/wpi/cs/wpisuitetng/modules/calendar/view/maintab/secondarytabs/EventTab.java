@@ -108,6 +108,7 @@ public class EventTab extends JPanel {
 	private JComboBox<String> repeatTypeComboBox;
 	private JLabel lblRepeatType;
 	private JLabel lblNumberRepetitions;
+	private RepeatingEvent editingRepeatingEvent;
 	
 	
 	
@@ -965,7 +966,7 @@ public class EventTab extends JPanel {
 	/**
 	 * Create a event tab in editing mode.
 	 */
-	public EventTab(Event event) {
+	public EventTab(Event event, CalendarData calData) {
 		this();
 		
 		this.initFlag = false; //We need this to deal with the nested constructors
@@ -994,6 +995,30 @@ public class EventTab extends JPanel {
 		this.endTimeSpinner.setValue(editingEvent.getEndTime().getTime());
 		this.endDatePicker.setDate(editingEvent.getEndTime().getTime());
 
+		//handle repetition fields
+		if(event.getIsRepeating()){
+			this.editingRepeatingEvent = calData.getRepeatingEvents().get(event.getID());
+			this.repeatCheckBox.setSelected(true);
+			this.repeatAmt.setText(Integer.toString(this.editingRepeatingEvent.getRepetitions()));
+			this.repeatAmt.setEnabled(true);
+			if (this.editingRepeatingEvent.getRepType() == RepeatType.MONTH){
+				this.repeatTypeComboBox.setSelectedIndex(2);
+			} else if (this.editingRepeatingEvent.getRepType() == RepeatType.WEEK){
+				this.repeatTypeComboBox.setSelectedIndex(1);
+			} else {
+				this.repeatTypeComboBox.setSelectedIndex(0);
+			}
+			this.repeatTypeComboBox.setEnabled(true);
+			//pull time from the Repeating event
+			//otherwise the initial occurrence will get set to the double-clicked day
+			this.startTimeSpinner.setValue(editingRepeatingEvent.getStartTime().getTime());
+			this.startDatePicker.setDate(editingRepeatingEvent.getStartTime().getTime());
+			this.endTimeSpinner.setValue(editingRepeatingEvent.getEndTime().getTime());
+			this.endDatePicker.setDate(editingRepeatingEvent.getEndTime().getTime());
+		}
+		
+		this.repeatCheckBox.setEnabled(false);//Don't want people changing this for now
+											  // we might be able to enable it later
 		
 		// Add Delete Button
 		try {
@@ -1197,13 +1222,13 @@ public class EventTab extends JPanel {
 		//		}
 		if (repeatCheckBox.isSelected()){
 			RepeatingEvent newRepEvent;
-			//if(mode == EditingMode.ADDING)
-			//{
-			newRepEvent = new RepeatingEvent();
-			//}
-			//else
-			//newRepEvent = editingEvent;
-			//TODO:Implement editing for repeating events
+			if(mode == EditingMode.ADDING)
+			{
+				newRepEvent = new RepeatingEvent();
+			}
+			else {
+				newRepEvent = editingRepeatingEvent;
+			}
 
 			if(isTeamEvent){
 				newRepEvent.setIsPersonal(false);

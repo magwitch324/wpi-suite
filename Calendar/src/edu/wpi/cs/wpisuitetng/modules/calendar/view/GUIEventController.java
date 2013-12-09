@@ -213,7 +213,12 @@ public class GUIEventController {
 	 * @param calData CalendarData where commitment is located
 	 */
 	public void editEvent(Event event) {
-		EventTab editEvent = new EventTab(event);
+		EventTab editEvent;
+		if (event.getIsPersonal()){
+			editEvent = new EventTab(event, myCalendar.getCalData());
+		} else {
+			editEvent = new EventTab(event, teamCalendar.getCalData());
+		}
 		try {
 			Image img = ImageIO.read(getClass().getResource("EditEvent_Icon.png"));
 			main.addTab("Edit Event", new ImageIcon(img), editEvent);
