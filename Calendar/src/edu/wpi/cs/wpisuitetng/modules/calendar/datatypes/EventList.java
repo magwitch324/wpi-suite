@@ -93,15 +93,6 @@ public class EventList extends CalendarObjectList<Event> {
 	public void addEvents(Event[] array) {
 		addCalendarObjects(array);
 	}
-	
-	/**
-	 * Update the Event list
-	 * 
-	 * @param the Event to be updated
-	 */
-	public void update(Event newEvent) {
-		super.update(newEvent);
-	}
 
 	/**
 	 * Filter the event list to data between the start and end Calendars This is
@@ -137,5 +128,24 @@ public class EventList extends CalendarObjectList<Event> {
 		}
 
 		return newEvents;
+	}
+	
+	/**
+	 * Update the calendarObject list
+	 * 
+	 * @param the CalendarObject to be updated
+	 */
+	public void update(Event newObject) {
+		Event tmp = get(newObject.getID());
+		if(tmp.getStartTime().equals(newObject.getStartTime())){
+			int i = calendarObjects.indexOf(get(newObject.getID()));
+			calendarObjects.remove(get(newObject.getID()));
+			calendarObjects.add(i, newObject);
+			return;
+		}
+		else{
+		calendarObjects.remove(get(newObject.getID()));
+		add(newObject);
+		}
 	}
 }

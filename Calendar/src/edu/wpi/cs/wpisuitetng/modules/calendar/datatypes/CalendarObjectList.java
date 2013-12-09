@@ -148,10 +148,7 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 	 * 
 	 * @param the CalendarObject to be updated
 	 */
-	public void update(T newObject) {
-		calendarObjects.remove(get(newObject.getID()));
-		calendarObjects.add(newObject);
-	}
+	abstract void update(T newObject);
 	
 	/**
 	 * Filter the calendarObject list to data on a specific date

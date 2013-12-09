@@ -52,13 +52,6 @@ public class MonthView extends CalendarView {
 				
 		refresh();
 	}
-	
-	public void displayCalData(CalendarData personalCalData, CalendarData teamCalData) {
-		commitmentView.update();
-		// TODO Auto-generated method stub
-		
-	}
-
 
 	@Override
 	public void displayCalData(EventList eventList, CommitmentList commList, boolean showCommOnCal) {
@@ -75,7 +68,6 @@ public class MonthView extends CalendarView {
 		try {
 			monthPane.displayEvents(eventList.filter(aMonth, Calendar.MONTH));
 		} catch (CalendarException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		

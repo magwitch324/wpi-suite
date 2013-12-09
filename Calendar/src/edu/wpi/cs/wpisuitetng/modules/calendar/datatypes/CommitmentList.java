@@ -94,12 +94,21 @@ public class CommitmentList extends CalendarObjectList<Commitment> {
 	}
 	
 	/**
-	 * Update the Commitment list
+	 * Update the calendarObject list
 	 * 
-	 * @param the Commitment to be updated
+	 * @param the CalendarObject to be updated
 	 */
-	public void update(Commitment newCommit) {
-		super.update(newCommit);
+	public void update(Commitment newObject) {
+		Commitment tmp = get(newObject.getID());
+		if(tmp.getDueDate().equals(newObject.getDueDate())){
+			int i = calendarObjects.indexOf(get(newObject.getID()));
+			calendarObjects.add(i, newObject);
+			return;
+		}
+		else{
+		calendarObjects.remove(get(newObject.getID()));
+		add(newObject);
+		}
 	}
 
 	/**

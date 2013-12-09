@@ -79,7 +79,7 @@ public abstract class AbCalendar extends JPanel {
 	protected EventList events;
 
 	public AbCalendar(){
-		
+
 		super();
 		initialized = false;
 		mycal = new GregorianCalendar();
@@ -88,7 +88,7 @@ public abstract class AbCalendar extends JPanel {
 
 		// Draws GUI
 		drawThis();
-		
+
 	}
 
 
@@ -129,7 +129,7 @@ public abstract class AbCalendar extends JPanel {
 
 		viewbtns[0].setBorder(BorderFactory.createDashedBorder(CalendarStandard.CalendarRed, 2, 2, 1, true));
 		apane.add(viewbtns[0]);		
-		
+
 
 		viewbtns[1] = new JToggleButton();
 
@@ -158,9 +158,9 @@ public abstract class AbCalendar extends JPanel {
 				viewbtns[3].setBorder(BorderFactory.createEmptyBorder());
 			}
 		});
-		
+
 		apane.add(viewbtns[1]);
-		
+
 
 		viewbtns[2] = new JToggleButton();
 
@@ -189,9 +189,9 @@ public abstract class AbCalendar extends JPanel {
 				viewbtns[3].setBorder(BorderFactory.createEmptyBorder());
 			}
 		});
-		
+
 		apane.add(viewbtns[2]);
-		
+
 
 		viewbtns[3] = new JToggleButton();
 
@@ -220,9 +220,9 @@ public abstract class AbCalendar extends JPanel {
 				viewbtns[2].setBorder(BorderFactory.createEmptyBorder());
 			}
 		});
-		
+
 		apane.add(viewbtns[3]);
-		
+
 		return apane;
 	}
 
@@ -299,52 +299,52 @@ public abstract class AbCalendar extends JPanel {
 		return apane;
 	}
 
-	
+
 	// Adds create new commitment button
-//	protected JComponent ButtonsPanelCreate(){
-//		JPanel apane = new JPanel();
-//		apane.setBackground(Color.WHITE);
-//		
-//		//apane.setLayout(new BoxLayout(apane, BoxLayout.X_AXIS));
-//		//this.setPreferredWidth(1200);
-//		
-//		JButton createCommitButton= new JButton();
-//		createCommitButton.setBackground(Color.WHITE);
-//		createCommitButton.setFont(CalendarStandard.CalendarFont);
-//		createCommitButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
-//		//createCommitButton.setPreferredSize(new Dimension(400, 800));
-//		//createCommitButton.setHorizontalAlignment(SwingConstants.CENTER);
-//		
-//		try {
-//			Image img = ImageIO.read(getClass().getResource("AddCommitment_Icon.png"));
-//		    createCommitButton.setIcon(new ImageIcon(img));
-//		    createCommitButton.setBorder(BorderFactory.createEmptyBorder());
-//		    createCommitButton.setContentAreaFilled(false);
-//		    
-//		} catch (IOException ex) {}
-//		catch(IllegalArgumentException ex){
-//			createCommitButton.setIcon(new ImageIcon());
-//			createCommitButton.setText("Commitment");
-//		}
-//		
-//		// the action listener for the Create Requirement Button
-//		createCommitButton.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// bring up a create requirement pane if not in Multiple Requirement Editing Mode
-//				//if (!ViewEventController.getInstance().getOverviewTable().getEditFlag()) {
-//					GUIEventController.getInstance().createCommitment();
-//			//	}
-//			}
-//		});		
-//		
-//		//createCommitButton.setBorder(new EmptyBorder(0, 0, 0, 15));
-//		//contentPanel.setOpaque(false);
-//		
-//		apane.add(createCommitButton);
-//		return apane;
-//	}
-	
+	//	protected JComponent ButtonsPanelCreate(){
+	//		JPanel apane = new JPanel();
+	//		apane.setBackground(Color.WHITE);
+	//		
+	//		//apane.setLayout(new BoxLayout(apane, BoxLayout.X_AXIS));
+	//		//this.setPreferredWidth(1200);
+	//		
+	//		JButton createCommitButton= new JButton();
+	//		createCommitButton.setBackground(Color.WHITE);
+	//		createCommitButton.setFont(CalendarStandard.CalendarFont);
+	//		createCommitButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
+	//		//createCommitButton.setPreferredSize(new Dimension(400, 800));
+	//		//createCommitButton.setHorizontalAlignment(SwingConstants.CENTER);
+	//		
+	//		try {
+	//			Image img = ImageIO.read(getClass().getResource("AddCommitment_Icon.png"));
+	//		    createCommitButton.setIcon(new ImageIcon(img));
+	//		    createCommitButton.setBorder(BorderFactory.createEmptyBorder());
+	//		    createCommitButton.setContentAreaFilled(false);
+	//		    
+	//		} catch (IOException ex) {}
+	//		catch(IllegalArgumentException ex){
+	//			createCommitButton.setIcon(new ImageIcon());
+	//			createCommitButton.setText("Commitment");
+	//		}
+	//		
+	//		// the action listener for the Create Requirement Button
+	//		createCommitButton.addActionListener(new ActionListener() {
+	//			@Override
+	//			public void actionPerformed(ActionEvent e) {
+	//				// bring up a create requirement pane if not in Multiple Requirement Editing Mode
+	//				//if (!ViewEventController.getInstance().getOverviewTable().getEditFlag()) {
+	//					GUIEventController.getInstance().createCommitment();
+	//			//	}
+	//			}
+	//		});		
+	//		
+	//		//createCommitButton.setBorder(new EmptyBorder(0, 0, 0, 15));
+	//		//contentPanel.setOpaque(false);
+	//		
+	//		apane.add(createCommitButton);
+	//		return apane;
+	//	}
+
 	public JComponent getComponent() {
 		return this; 
 	}
@@ -372,9 +372,9 @@ public abstract class AbCalendar extends JPanel {
 		break;
 		case(3):
 			calView = (new YearView(mycal));
-			displayCalData();
-			viewpanel.add(calView);		
-			break;
+		displayCalData();
+		viewpanel.add(calView);		
+		break;
 		default:
 			//TODO error
 			break;
@@ -413,7 +413,7 @@ public abstract class AbCalendar extends JPanel {
 	abstract public boolean getShowTeamData();
 	abstract void applyCalProps();
 
-	
+
 	/**
 	 * This function is called on Janeway shutdown to save the calendar props.
 	 */
@@ -421,11 +421,17 @@ public abstract class AbCalendar extends JPanel {
 		UpdatePropsController.getInstance().updateCalendarProps(calProps);
 	}
 
-	public void setDayViewButtonToActive(){
-		viewbtns[0].setBorder(BorderFactory.createDashedBorder(CalendarStandard.CalendarRed, 2, 2, 1, true));
-		viewbtns[1].setBorder(BorderFactory.createEmptyBorder());
-		viewbtns[2].setBorder(BorderFactory.createEmptyBorder());
-		viewbtns[3].setBorder(BorderFactory.createEmptyBorder());
+	public void setViewButtonToActive(AbCalendar.types switchView){
+		int k = switchView.ordinal();
+		int i;
+		for(i = 0; i < 4; i++){
+			if(i == k){
+				viewbtns[i].setBorder(BorderFactory.createDashedBorder(CalendarStandard.CalendarRed, 2, 2, 1, true));
+			}
+			else{
+				viewbtns[i].setBorder(BorderFactory.createEmptyBorder());
+			}
+		}
 	}
-	
+
 }
