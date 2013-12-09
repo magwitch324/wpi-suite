@@ -127,6 +127,13 @@ public class DayDayPane extends JPanel {
 				}
 			}
 		}
+		
+		System.out.println("________--------________");
+		for(CalendarObjectPanel cop : sortedobjects){
+			System.out.println(cop.getName());
+		}
+		System.out.println("-------_________--------");
+		
 	}
 
 	/**
@@ -193,7 +200,6 @@ public class DayDayPane extends JPanel {
 					//there was no column there so it must make a new one
 					 column = new ArrayList<CalendarObjectPanel>();
 					 displayobjects.add(column);
-					 System.out.println("made new column");
 				}
 				
 				int row_index = 0;
@@ -207,12 +213,10 @@ public class DayDayPane extends JPanel {
 						//hits the end of the column so adds it to it and quits the main loop
 						column.add(cop);
 						isset = true;
-						System.out.println("Added at " + column_index + ", " + row_index);
 						break;
 					}
 					
 					if(cop.doesConflict(obj)){
-						System.out.println("found conflict with " + obj.getName());
 						break;
 					}
 					row_index++;
@@ -290,7 +294,6 @@ public class DayDayPane extends JPanel {
 		int width = 1;
 		width += this.getWidth(column_index, cop, -1);
 		width += this.getWidth(column_index, cop, +1);
-		System.out.println("Width : " + width );
 		return width;
 	}
 	
@@ -327,7 +330,16 @@ public class DayDayPane extends JPanel {
 	 */
 	protected int getSpan(int column_index, CalendarObjectPanel cop){
 		int span = 1;
-		
+		for(int i = 1 + column_index; i < displayobjects.size(); i++){
+			for(CalendarObjectPanel obj : displayobjects.get(i)){
+				if(obj.doesConflict(cop)){
+					span = i-column_index;
+					cop.setColumnWidth(obj.getColumnWidth());
+					i = displayobjects.size();
+					break;
+				}
+			}
+		}
 		return span;
 	}
 
