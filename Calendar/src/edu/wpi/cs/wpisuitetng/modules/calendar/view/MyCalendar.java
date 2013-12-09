@@ -218,6 +218,7 @@ public class MyCalendar extends AbCalendar {
 
 			//if we are supposed to show team data, we need to put the team commitments into the list in the right order
 			if (getShowTeamData()) {
+		
 				// Iterate through team commitments and add each element to
 				// combinedList
 
@@ -227,6 +228,12 @@ public class MyCalendar extends AbCalendar {
 							.getCommitments().get(i));
 				}
 				commitments = combinedCommList;
+				
+				//get the combined events for team
+				CombinedEventList teamRepeatEvents = teamData.getRepeatingEvents().toCombinedEventList();
+				for (int i = 0; i < teamRepeatEvents.getEvents().size(); i++){
+					combinedEventList.add(teamRepeatEvents.getEvents().get(i));
+				}
 				
 				// Iterate through team events and add each element to
 				// combinedEventList
