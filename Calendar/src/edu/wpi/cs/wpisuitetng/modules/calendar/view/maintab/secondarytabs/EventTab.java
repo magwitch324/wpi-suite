@@ -75,8 +75,8 @@ public class EventTab extends JPanel {
 	private JSpinner startTimeSpinner;
 	private JSpinner endTimeSpinner;
 	private boolean isTeamEvent;
-	SpinnerDateModelHalfHour startSpinnerModel = new SpinnerDateModelHalfHour();  
-	SpinnerDateModelHalfHour endSpinnerModel = new SpinnerDateModelHalfHour();  
+	SpinnerDateModelMinute startSpinnerModel = new SpinnerDateModelMinute();  
+	SpinnerDateModelMinute endSpinnerModel = new SpinnerDateModelMinute();  
 	private JButton btnAddEvent;
 	private JComboBox<Category> categoryComboBox;
 	private JTextArea descriptionTextArea;
@@ -367,7 +367,7 @@ public class EventTab extends JPanel {
 		formPanel.add(lblTime, gbc_lblTime);
 		
 		//Time spinner, half hour resolution
-		startTimeSpinner = new JSpinner( new SpinnerDateModelHalfHour());
+		startTimeSpinner = new JSpinner( new SpinnerDateModelMinute());
 		startTimeSpinner.setModel(startSpinnerModel);
 		startTimeEditor = new JSpinner.DateEditor(startTimeSpinner, "hh:mm a");
 		startTimeSpinner.setEditor(startTimeEditor);
@@ -588,7 +588,7 @@ public class EventTab extends JPanel {
 		formPanel.add(lblTime2, gbc_lblTime2);
 		
 		//Time spinner, half hour resolution
-		endTimeSpinner = new JSpinner( new SpinnerDateModelHalfHour());
+		endTimeSpinner = new JSpinner( new SpinnerDateModelMinute());
 		endTimeSpinner.setModel(endSpinnerModel);
 		endTimeEditor = new JSpinner.DateEditor(endTimeSpinner, "hh:mm a");
 		endTimeSpinner.setEditor(endTimeEditor);
