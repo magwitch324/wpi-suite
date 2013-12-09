@@ -105,7 +105,9 @@ public class EventTab extends JPanel {
 	private JCheckBox repeatCheckBox;
 	private JLabel lblRepeat;
 	private JTextField repeatAmt;
-	
+	private JComboBox<String> repeatTypeComboBox;
+	private JLabel lblRepeatType;
+	private JLabel lblNumberRepetitions;
 	
 	
 	
@@ -834,14 +836,52 @@ public class EventTab extends JPanel {
 		gbc_repeatCheckBox.weighty = 1;
 		formPanel.add(repeatCheckBox, gbc_repeatCheckBox);
 		
+		//Add Repeat type Label
+		lblRepeatType = new JLabel("Repeat Type");
+		lblRepeatType.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblRepeatType = new GridBagConstraints();
+		gbc_lblRepeatType.anchor = GridBagConstraints.EAST;
+		gbc_lblRepeatType.fill = GridBagConstraints.VERTICAL;
+		gbc_lblRepeatType.insets = new Insets(0, 0, 5, 5);
+		gbc_lblRepeatType.gridx = 2;
+		gbc_lblRepeatType.gridy = 8;
+		gbc_lblRepeatType.weighty = 1;
+		formPanel.add(lblRepeatType, gbc_lblRepeatType);
+		
+		//Add Repeat ComboBox
+		String[] repeatStrings = {"Daily", "Weekly", "Monthly"};
+		repeatTypeComboBox = new JComboBox<String>(repeatStrings);
+		repeatTypeComboBox.setSelectedIndex(0);
+		GridBagConstraints gbc_repeatTypeComboBox = new GridBagConstraints();
+		gbc_repeatTypeComboBox.gridwidth = 1;
+		gbc_repeatTypeComboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_repeatTypeComboBox.insets = new Insets(0, 0, 5, 0);
+		gbc_repeatTypeComboBox.gridx = 3;
+		gbc_repeatTypeComboBox.gridy = 8;
+		gbc_repeatTypeComboBox.weightx = 10;
+		gbc_repeatTypeComboBox.weighty = 1;
+		formPanel.add(repeatTypeComboBox, gbc_repeatTypeComboBox);
+		
+		//Add Repetitions Label
+		lblNumberRepetitions = new JLabel("# of Repetitions:");
+		lblNumberRepetitions.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblNumberRepetitions = new GridBagConstraints();
+		gbc_lblNumberRepetitions.anchor = GridBagConstraints.EAST;
+		gbc_lblNumberRepetitions.fill = GridBagConstraints.VERTICAL;
+		gbc_lblNumberRepetitions.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNumberRepetitions.gridx = 0;
+		gbc_lblNumberRepetitions.gridy = 9;
+		gbc_lblNumberRepetitions.weighty = 1;
+		formPanel.add(lblNumberRepetitions, gbc_lblNumberRepetitions);
+		
 		//Add Repeat Text Field
 		repeatAmt = new JTextField();
 		GridBagConstraints gbc_repeatAmt = new GridBagConstraints();
-		gbc_repeatAmt.gridwidth = 2;
+		gbc_repeatAmt.gridwidth = 3;
 		gbc_repeatAmt.fill = GridBagConstraints.HORIZONTAL;
 		gbc_repeatAmt.insets = new Insets(0, 0, 5, 0);
-		gbc_repeatAmt.gridx = 2;
-		gbc_repeatAmt.gridy = 8;
+		gbc_repeatAmt.gridx = 1;
+		gbc_repeatAmt.gridy = 9;
 		gbc_repeatAmt.weightx = 10;
 		gbc_repeatAmt.weighty = 1;
 		formPanel.add(repeatAmt, gbc_repeatAmt);
@@ -879,7 +919,7 @@ public class EventTab extends JPanel {
 		gbc_btnPanel.insets = new Insets(0, 0, 0, 5);
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
 		gbc_btnPanel.gridx = 1;
-		gbc_btnPanel.gridy = 9;
+		gbc_btnPanel.gridy = 10;
 		
 		//Add Cancel button
 
@@ -1183,7 +1223,16 @@ public class EventTab extends JPanel {
 			newRepEvent.setStartTime(calStartDate);
 			newRepEvent.setEndTime(calEndDate);
 			newRepEvent.setName(this.nameTextField.getText());
-			newRepEvent.setRepType(RepeatType.DAY);
+			
+			//Set repeating fields
+			if (repeatTypeComboBox.getSelectedIndex() == 2){
+				newRepEvent.setRepType(RepeatType.MONTH);
+			} else if (repeatTypeComboBox.getSelectedIndex() == 1){
+				newRepEvent.setRepType(RepeatType.WEEK);
+			} else {
+				newRepEvent.setRepType(RepeatType.DAY);
+			}
+			
 			newRepEvent.setRepetitions(Integer.parseInt(repeatAmt.getText()));
 
 
