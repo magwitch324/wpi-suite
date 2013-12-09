@@ -18,15 +18,15 @@ import javax.swing.SpinnerDateModel;
 /**
  * SpinnerDateModel Increments time value by 30 minutes
  */
-public class SpinnerDateModelHalfHour extends SpinnerDateModel {
+public class SpinnerDateModelMinute extends SpinnerDateModel {
 
 
-	public SpinnerDateModelHalfHour() {
+	public SpinnerDateModelMinute() {
 		// TODO Auto-generated constructor stub
 		super(new Date(0), null, null, Calendar.MINUTE);
 	}
 
-	public SpinnerDateModelHalfHour(Date value, Comparable start,
+	public SpinnerDateModelMinute(Date value, Comparable start,
 			Comparable end, int calendarField) {
 		super(value, start, end, calendarField);
 		// TODO Auto-generated constructor stub
@@ -36,7 +36,7 @@ public class SpinnerDateModelHalfHour extends SpinnerDateModel {
 	   {  
 	      Calendar cal = new GregorianCalendar();
 	      cal.setTime((Date)super.getValue());
-	      cal.add(Calendar.MINUTE, 30);  
+	      cal.add(Calendar.MINUTE, -1);  
 	      super.setValue(cal.getTime());
 	      return super.getValue();  
 	   }  
@@ -44,7 +44,7 @@ public class SpinnerDateModelHalfHour extends SpinnerDateModel {
 	   {  
 		  Calendar cal = new GregorianCalendar();
 	      cal.setTime((Date)super.getValue());
-	      cal.add(Calendar.MINUTE, -30);  
+	      cal.add(Calendar.MINUTE, 1);  
 	      super.setValue(cal.getTime());
 	      return super.getValue();// substract 15 minutes  
 	   }  
