@@ -10,22 +10,31 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 
 public class CalendarObjectPanel extends JPanel {
 	Event event = null;
@@ -44,7 +53,36 @@ public class CalendarObjectPanel extends JPanel {
 	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal, Event event){
 		this(parent, acal);
 		this.event = event;
-		this.add(new JLabel(event.getName(), SwingConstants.CENTER));
+		String name = event.getName();
+		setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this text
+
+		JLabel alab = new JLabel(event.getDescription(), JLabel.CENTER);
+		alab.setBackground(new Color(0,0,0,0));
+		add(alab, SwingConstants.CENTER);
+		
+		Image nameImg;
+		Image scaleImg;
+		
+		try {
+			if (event.getIsPersonal())
+			{	
+				nameImg = ImageIO.read(getClass().getResource("PersonalEvent_Icon.png"));
+				
+			}
+			else
+			{
+				nameImg = ImageIO.read(getClass().getResource("TeamEvent_Icon.png"));
+			}
+			scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
+			alab = new JLabel(name, new ImageIcon(scaleImg), JLabel.CENTER);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			alab = new JLabel(name, JLabel.CENTER);
+		}
+		
+		//alab.setSize( alab.getPreferredSize() );
+		alab.setBackground(new Color(0,0,0,0));
+		add(alab, SwingConstants.CENTER);
 	}
 	
 	/**
@@ -56,7 +94,36 @@ public class CalendarObjectPanel extends JPanel {
 	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal, Commitment comm){
 		this(parent, acal);
 		this.comm = comm;
-		this.add(new JLabel(comm.getName(), SwingConstants.CENTER));
+		String name = comm.getName();
+		setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this text
+
+		JLabel alab = new JLabel(comm.getDescription(), JLabel.CENTER);
+		alab.setBackground(new Color(0,0,0,0));
+		add(alab, SwingConstants.CENTER);
+		
+		Image nameImg;
+		Image scaleImg;
+		
+		try {
+			if (comm.getIsPersonal())
+			{	
+				nameImg = ImageIO.read(getClass().getResource("PersonalCommitment_Icon.png"));
+				
+			}
+			else
+			{
+				nameImg = ImageIO.read(getClass().getResource("TeamCommitment_Icon.png"));
+			}
+			scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
+			alab = new JLabel(name, new ImageIcon(scaleImg), JLabel.CENTER);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			alab = new JLabel(name, JLabel.CENTER);
+		}
+		
+		//alab.setSize( alab.getPreferredSize() );
+		alab.setBackground(new Color(0,0,0,0));
+		add(alab, SwingConstants.CENTER);
 	}
 	
 	/**
