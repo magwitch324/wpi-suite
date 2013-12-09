@@ -412,6 +412,9 @@ public class CommitmentTab extends JPanel {
 		hourSpinner.setEditor(hourEditor);
 		hourEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
 
+		JLabel colon = new JLabel(":");
+		spinnerPanel.add(colon);
+		
 		minuteSpinner = new JSpinner( new SpinnerDateModelMinute());
 		minuteSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		spinnerPanel.add(minuteSpinner);

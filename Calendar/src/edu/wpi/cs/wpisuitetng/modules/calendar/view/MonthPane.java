@@ -317,6 +317,10 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			}
 		}
 		
+		/**
+		 * used to merge commitments and events in so that they are ordered by time
+		 * 
+		 */
 		protected void merge(){
 			wraps = new ArrayList<wrapper>();
 			//if we only have events

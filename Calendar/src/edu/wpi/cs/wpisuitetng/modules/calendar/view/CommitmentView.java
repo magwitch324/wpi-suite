@@ -98,7 +98,6 @@ public class CommitmentView extends JPanel {
 		commitPanel.setBackground(Color.WHITE);
 		List<CommitmentViewPanel> commPanelList = new ArrayList<CommitmentViewPanel>();
 		int n = 0;//adjusted index to take hidden commitments into account
-		//TODO implement personal commitment displaying
 		
 		// print something when we do not  have any commitments
 		if(commitmentList.size() == 0) {			
@@ -109,14 +108,8 @@ public class CommitmentView extends JPanel {
 		
 		for(int i = 0; i < commitmentList.size(); i++){
 			if (commitmentList.get(i).getStatus().id != 2) {//Skips over completed commitments
-				//Commitment commit = new Commitment();
-				// commit.setName("Commitment Name");
-				// commit.setDueDate(new Date());
-				// commit.setDescription("The description of this commitment is right here. This will be shown as the description.");
 				CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
 				commitmentPanel.setBackground(Color.LIGHT_GRAY.brighter());
-				//commitmentPanel.setBorder((BorderFactory.createMatteBorder(
-				//        -2, -2, -2, -2, Color.GRAY)));
 
 				Image nameImg;
 				Image scaleImg;
