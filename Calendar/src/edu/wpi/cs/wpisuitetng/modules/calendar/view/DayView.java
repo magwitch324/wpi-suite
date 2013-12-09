@@ -64,11 +64,9 @@ public class DayView extends CalendarView {
 			try {
 				commitmentView.updateCommData(commList.filter(day));
 			} catch (CalendarException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		// TODO filter commitments
 
 
 		if (showCommOnCal)
@@ -76,7 +74,6 @@ public class DayView extends CalendarView {
 				dayPane.displayEvents(eventList.filter(day));
 				dayPane.displayCommitments(commList.filter(day));
 			} catch (CalendarException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		else{
@@ -84,7 +81,6 @@ public class DayView extends CalendarView {
 			try {
 				dayPane.displayEvents(eventList.filter(day));
 			} catch (CalendarException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -104,7 +100,6 @@ public class DayView extends CalendarView {
 			try {
 				commitmentView.updateCommData(commList.filter(day));
 			} catch (CalendarException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

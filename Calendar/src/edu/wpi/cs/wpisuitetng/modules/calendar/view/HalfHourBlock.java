@@ -121,7 +121,6 @@ public class HalfHourBlock extends JPanel{
 	 * @param maximizeComponent
 	 */
 	protected void setFull(Component maximizeComponent) {
-		// TODO Auto-generated method stub
 		layout.setColumns(1);
 		this.removeAll();
 		this.add(maximizeComponent);
@@ -139,9 +138,7 @@ public class HalfHourBlock extends JPanel{
 	/**
 	 * Restore the half hour block to its normal appearance after one component is maximized
 	 */
-	protected void restoreDefault() {
-		// TODO Auto-generated method stub
-		
+	protected void restoreDefault() {		
 		size = teamComPanels.size() + personalComPanels.size();
 		layout.setColumns(size);
 		this.setLayout(layout);
