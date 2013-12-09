@@ -194,19 +194,6 @@ public class GUIEventController {
 		main.setSelectedComponent(editCommit);
 	}
 
-
-	//No longer necessary
-	/*
-	// Creates new empty tab that will be used to put all commitments 
-	public void createViewCommitmentsTab() {
-		CommitmentFullView commitFullView = new CommitmentFullView(getSelectedCalendar());
-		main.addTab("All Commitments", null, commitFullView, "All Commitment");
-		main.invalidate(); //force the tabbedpane to redraw.
-		main.repaint();
-		main.setSelectedComponent(commitFullView);
-	}
-	 */
-
 	public void createEvent() {
 		EventTab newEvent = new EventTab();
 		try {
@@ -216,8 +203,6 @@ public class GUIEventController {
 		catch(IllegalArgumentException ex){
 			main.addTab("New Event", new ImageIcon(), newEvent);
 		}
-		//		main.addTab("New Commitment", null, newCommit, "New Commitment");
-		//		newCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(newEvent);
@@ -236,8 +221,6 @@ public class GUIEventController {
 		catch(IllegalArgumentException ex){
 			main.addTab("Edit Event", new ImageIcon(), editEvent);
 		}
-		//		main.addTab("Edit Commitment", null, editCommit, "Edit Commitment");
-		//		editCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(editEvent);
@@ -251,7 +234,6 @@ public class GUIEventController {
 	}
 
 	public void updateCalData() {
-		// TODO Auto-generated method stub
 		teamCalendar.updateCalData();
 		myCalendar.updateCalData();
 		teamCalendar.calView.commitmentView.update();
@@ -260,7 +242,6 @@ public class GUIEventController {
 	}
 
 	public void setScrollBarValue(int value) {
-		// TODO Auto-generated method stub
 		scrollBarValue = value;
 		teamCalendar.calView.updateScrollPosition(value);
 		myCalendar.calView.updateScrollPosition(value);

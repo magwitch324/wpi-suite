@@ -180,7 +180,6 @@ public class MyCalendar extends AbCalendar {
 	}
 
 	protected void displayCalData() {
-		// TODO Auto-generated method stub
 		if (initialized) {
 			calView.displayCalData(this.events, this.commitments, this.getShowCommitments());
 		}
@@ -191,7 +190,7 @@ public class MyCalendar extends AbCalendar {
 		return showteam.isSelected();
 	}
 
-	/*
+	/**
 	 * Called when we need to update the list of commitments to be displayed for a calendar
 	 * This happens at 2 different times:
 	 * 		Initialization
