@@ -199,6 +199,10 @@ public class MyCalendar extends AbCalendar {
 	public void setCommEventList() {
 		//if we dont have the caldata dont do anything
 		if (initialized && getCalData() != null) {
+			//create a combined Commitment list
+			CombinedCommitmentList combinedCommList = new CombinedCommitmentList(
+					new ArrayList<Commitment>(getCalData()
+							.getCommitments().getCommitments()));
 			//create a combined event list
 			CombinedEventList combinedEventList = getCalData()
 					.getRepeatingEvents().toCombinedEventList();
@@ -207,11 +211,39 @@ public class MyCalendar extends AbCalendar {
 				combinedEventList.add(getCalData().getEvents()
 						.getEvents().get(i));
 			}
+			
+			//get the team data
+			CalendarData teamData = CalendarDataModel.getInstance()
+					.getCalendarData(ConfigManager.getConfig().getProjectName());
 
+			//if we are supposed to show team data, we need to put the team commitments into the list in the right order
+			if (getShowTeamData()) {
+				// Iterate through team commitments and add each element to
+				// combinedList
 
-			commitments = getCalData().getCommitments();
-			events = combinedEventList;
+				for (int i = 0; i < teamData.getCommitments()
+						.getCommitments().size(); i++) {
+					combinedCommList.add(teamData.getCommitments()
+							.getCommitments().get(i));
+				}
+				commitments = combinedCommList;
+				
+				// Iterate through team events and add each element to
+				// combinedEventList
+				for (int i = 0; i < teamData.getEvents()
+						.getEvents().size(); i++) {
+					combinedEventList.add(teamData.getEvents()
+							.getEvents().get(i));
+				}
+				events = combinedEventList;
+				
+			}
 
+			//if we are not supposed to show team data the CommitmentList should just be straight from the personal data
+			else {
+				commitments = getCalData().getCommitments();
+				events = combinedEventList;
+			}
 		}
 	}
 	
