@@ -147,7 +147,7 @@ public class MyCalendar extends AbCalendar {
 		this.add(viewpanel);
 		viewbtns[currenttype.getCurrentType()].setSelected(true);
 
-		// setView();
+		setView();
 
 	}
 
