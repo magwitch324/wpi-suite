@@ -835,6 +835,16 @@ public class EventTab extends JPanel {
 		gbc_repeatCheckBox.weightx = 10;
 		gbc_repeatCheckBox.weighty = 1;
 		formPanel.add(repeatCheckBox, gbc_repeatCheckBox);
+		repeatCheckBox.setSelected(false);
+		repeatCheckBox.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				repeatTypeComboBox.setEnabled(repeatCheckBox.isSelected());
+				repeatAmt.setEnabled(repeatCheckBox.isSelected());
+			}
+			
+		});
 		
 		//Add Repeat type Label
 		lblRepeatType = new JLabel("Repeat Type");
@@ -861,6 +871,7 @@ public class EventTab extends JPanel {
 		gbc_repeatTypeComboBox.weightx = 10;
 		gbc_repeatTypeComboBox.weighty = 1;
 		formPanel.add(repeatTypeComboBox, gbc_repeatTypeComboBox);
+		repeatTypeComboBox.setEnabled(false);//we only want this active when repeat checkbox is checked
 		
 		//Add Repetitions Label
 		lblNumberRepetitions = new JLabel("# of Repetitions:");
@@ -885,6 +896,7 @@ public class EventTab extends JPanel {
 		gbc_repeatAmt.weightx = 10;
 		gbc_repeatAmt.weighty = 1;
 		formPanel.add(repeatAmt, gbc_repeatAmt);
+		repeatAmt.setEnabled(false);//we only want this active when repeat checkbox is checked
 		
 		buttonPanel = new JPanel(new BorderLayout(30,0));
 		//Add Event button
