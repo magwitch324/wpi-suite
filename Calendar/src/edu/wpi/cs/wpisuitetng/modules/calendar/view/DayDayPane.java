@@ -329,7 +329,7 @@ public class DayDayPane extends JPanel {
 	 * @return the number of columns an object should span
 	 */
 	protected int getSpan(int column_index, CalendarObjectPanel cop){
-		int span = 1;
+		int span = 0;
 		for(int i = 1 + column_index; i < displayobjects.size(); i++){
 			for(CalendarObjectPanel obj : displayobjects.get(i)){
 				if(obj.doesConflict(cop)){
@@ -340,6 +340,12 @@ public class DayDayPane extends JPanel {
 				}
 			}
 		}
+		
+		if(span == 0){
+			SpringLayout layout = (SpringLayout)this.getLayout();
+			layout.putConstraint(SpringLayout.EAST, cop, -3, SpringLayout.EAST, this);
+		}
+		
 		return span;
 	}
 
