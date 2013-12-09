@@ -69,6 +69,12 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
+import javax.swing.BoxLayout;
+
+import java.awt.Component;
+
+import javax.swing.Box;
+
 @SuppressWarnings("serial")
 public class CommitmentTab extends JPanel {
 	
@@ -122,9 +128,11 @@ public class CommitmentTab extends JPanel {
 	private boolean initFlag; //to keep things from running before we fully initialize
 	private boolean isTeamComm;
 	private Commitment editingCommitment;
-	private int lastHour;
 	private EditingMode mode = EditingMode.ADDING;
 
+	private Component glue;
+	private Component glue_1;
+	
 	private enum EditingMode {
 		ADDING,
 		EDITING;
@@ -135,23 +143,15 @@ public class CommitmentTab extends JPanel {
 	 */
 	public CommitmentTab() {
 		this.initFlag = false;
-		
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		setLayout(gridBagLayout);
-		JPanel spacePanel1 = new JPanel();
-		JPanel spacePanel2 = new JPanel();
 		formPanel = new JPanel();
-		formPanel.setPreferredSize(new Dimension(500,600));
-		formPanel.setMinimumSize(new Dimension(500, 600));
-		spacePanel1.setMinimumSize(formPanel.getSize());
-		spacePanel2.setMinimumSize(formPanel.getSize());
-		GridBagConstraints constraints = new GridBagConstraints();
-		constraints.weightx = 1;
-		constraints.weighty = 1;
-		constraints.fill = GridBagConstraints.BOTH;
-		add(spacePanel1, constraints);
-		add(formPanel, constraints);
-		add(spacePanel2, constraints);
+		formPanel.setPreferredSize(new Dimension(700, 500));
+		formPanel.setMaximumSize(new Dimension(1200, 500));
+		formPanel.setMinimumSize(new Dimension(700, 500));
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		
+		glue = Box.createGlue();
+		add(glue);
+		add(formPanel);
 		
 		// form uses GridBagLayout w/ two columns
 		GridBagLayout gbl = new GridBagLayout();
@@ -169,6 +169,9 @@ public class CommitmentTab extends JPanel {
 		
 		
 		this.initFlag = true;
+		
+		glue_1 = Box.createGlue();
+		add(glue_1);
 	}
 
 	/**
@@ -520,8 +523,6 @@ public class CommitmentTab extends JPanel {
 		AMPMSpinner.setValue(cal.getTime());
 		datePicker.setDate(cal.getTime());
 		cal.setTime((Date) minuteSpinner.getValue());
-		//lastHour = cal.get(Calendar.HOUR);
-		lastHour = 0;
 	}
 	
 	/**
@@ -736,7 +737,6 @@ public class CommitmentTab extends JPanel {
 				}
 				
 				if(currentHour == 11) {
-					lastHour = currentHour;
 					cal.setTime((Date) hourSpinner.getValue());
 					cal.add(Calendar.HOUR, -1);  
 					hourSpinner.setValue(cal.getTime());
@@ -978,16 +978,21 @@ public class CommitmentTab extends JPanel {
 			 * COMMENT THIS OUT TO NOT ADD A LOT OF COMMITMENTS
 			 * The script to add a bunch of commitments
 			 */
-//			GregorianCalendar day = new GregorianCalendar(2013, JANUARY, 1, 12, 00, 00);
+//			GregorianCalendar day = new GregorianCalendar(2013, JANUARY, 1, 8, 00, 00);
 //			GregorianCalendar lastDay = new GregorianCalendar();
 //			lastDay.setTime(day.getTime());
 //			lastDay.add(YEAR, 1);
 //			Random rnd = new Random();
+//			String[] commitments = {"Meeting", "Party", "Shindig", "Meal"};
+//			String[] names = {"Anthony", "Andrew", "Frank", "Julie", "Pavel", "Sam", "Sean", "Seiichiro", "Thom", "Teresa", "Tim", "Tucker", "Coach Mike"};
 //			while (day.before(lastDay)) {
 //				CalendarStandard.printcalendar(lastDay);
 //				GregorianCalendar set = new GregorianCalendar();
 //				set.setTime(day.getTime());
-//				Commitment newCommitment = new Commitment("Test", set, "Test Description", 0, false);
+//				set.add(Calendar.HOUR, rnd.nextInt(10));
+//				String commitment = commitments[rnd.nextInt(4)];
+//				String name = names[rnd.nextInt(13)];
+//				Commitment newCommitment = new Commitment(commitment + " with " + name, set, "No Description", 0, false);
 //				calData.addCommitment(newCommitment);
 //				
 //				day.add(Calendar.DAY_OF_YEAR, rnd.nextInt(3));

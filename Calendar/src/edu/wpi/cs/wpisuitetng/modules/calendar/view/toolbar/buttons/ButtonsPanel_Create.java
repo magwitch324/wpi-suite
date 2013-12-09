@@ -9,13 +9,16 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons;
 
+import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.ImageObserver;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -26,8 +29,10 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 import edu.wpi.cs.wpisuitetng.janeway.gui.container.toolbar.ToolbarGroupView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
@@ -43,6 +48,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		private final JButton manageCategoryButton;
 		private final JButton manageFilterButton;
 		private final JButton helpButton;
+
 //	
 	
 	public ButtonsPanel_Create(){
@@ -58,9 +64,10 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		JPanel contentPanel = new JPanel();
 //		contentPanel.setBackground(Color.WHITE);
 //		contentPanel.setLayout(new GridLayout(1,5,10,10));
+		
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
 		this.setPreferredWidth(1200);
-		
+	
 		this.createCommitButton.setPreferredSize(new Dimension(240, 250));
 		this.createCommitButton.setHorizontalAlignment(SwingConstants.CENTER);
 		this.createEventButton.setPreferredSize(new Dimension(240, 250));
@@ -75,19 +82,32 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		
 		try {
 			Image img = ImageIO.read(getClass().getResource("CreateCommitment_Icon.png"));
+			ImageIcon imageIcon = new ImageIcon(img);
+			int width = imageIcon.getIconWidth();
+			int hight = imageIcon.getIconHeight();
 		    this.createCommitButton.setIcon(new ImageIcon(img));
+		    //ImageObserver observer =;
+			//this.createCommitButton.setMaximumSize(img.getWidth(observer ), height);
 		    
 		    img = ImageIO.read(getClass().getResource("CreateEvent_Icon.png"));
-		    this.createEventButton.setIcon(new ImageIcon(img));
+		    ImageIcon imageIcon1 = new ImageIcon(img);
+		    this.createEventButton.setIcon((new ImageIcon(imageIcon1.getImage().getScaledInstance(width, hight,
+		            java.awt.Image.SCALE_SMOOTH))));
 		    
 		    img = ImageIO.read(getClass().getResource("ManageCategory_Icon.png"));
-		    this.manageCategoryButton.setIcon(new ImageIcon(img));
+		    ImageIcon imageIcon2 = new ImageIcon(img);
+		    this.manageCategoryButton.setIcon((new ImageIcon(imageIcon2.getImage().getScaledInstance(width, hight,
+		            java.awt.Image.SCALE_SMOOTH))));
 		    
 		    img = ImageIO.read(getClass().getResource("ManageFilter_Icon.png"));
-		    this.manageFilterButton.setIcon(new ImageIcon(img));
+		    ImageIcon imageIcon3 = new ImageIcon(img);
+		    this.manageFilterButton.setIcon((new ImageIcon(imageIcon3.getImage().getScaledInstance(width, hight,
+		            java.awt.Image.SCALE_SMOOTH))));
 		    
 		    img = ImageIO.read(getClass().getResource("Help_Icon.png"));
-		    this.helpButton.setIcon(new ImageIcon(img));
+		    ImageIcon imageIcon4 = new ImageIcon(img);
+		    this.helpButton.setIcon((new ImageIcon(imageIcon4.getImage().getScaledInstance(width, hight,
+		            java.awt.Image.SCALE_SMOOTH))));
 		    
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
@@ -217,11 +237,16 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 			}
 		});	
 		
-
+		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+	    createCommitButton.setBorder(raisedbevel);
 		contentPanel.add(createCommitButton);
+		createEventButton.setBorder(raisedbevel);
 		contentPanel.add(createEventButton);
+		manageCategoryButton.setBorder(raisedbevel);
 		contentPanel.add(manageCategoryButton);
+		manageFilterButton.setBorder(raisedbevel);
 		contentPanel.add(manageFilterButton);
+		helpButton.setBorder(raisedbevel);
 		contentPanel.add(helpButton);
 
 		

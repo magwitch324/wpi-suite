@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * Copyright (c) 2013 WPI-Suite
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: CS Anonymous
+ ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Color;
@@ -23,6 +32,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
+/**
+ * The class for a day containing event commitments and the half hour marks
+ */
 @SuppressWarnings("serial")
 public class DayDayPane extends JPanel {
 	GregorianCalendar acal;
@@ -32,6 +44,10 @@ public class DayDayPane extends JPanel {
 	List<List<CalendarObjectPanel>> displayobjects = new ArrayList<List<CalendarObjectPanel>>();
 	JSeparator[] halfhourmarks= new JSeparator[49];
 	
+	/**
+	 * Constructor for daydaypane
+	 * @param acal the date that is used for displaying
+	 */
 	public DayDayPane(GregorianCalendar acal){
 		super();
 		
@@ -44,6 +60,7 @@ public class DayDayPane extends JPanel {
 		
 		this.makeLines();
 		
+		//resize listener that should set lines based on the new size
 		this.addComponentListener(new ComponentAdapter(){
 			public void componentResized(ComponentEvent e) {
 				setLines();
@@ -57,6 +74,9 @@ public class DayDayPane extends JPanel {
 		});
 	}
 	
+	/**
+	 * merges this' eventlist and commlist into a single sorted list
+	 */
 	protected void merge(){
 		sortedobjects = new ArrayList<CalendarObjectPanel>();
 		
@@ -107,8 +127,18 @@ public class DayDayPane extends JPanel {
 				}
 			}
 		}
+		
+		System.out.println("________--------________");
+		for(CalendarObjectPanel cop : sortedobjects){
+			System.out.println(cop.getName());
+		}
+		System.out.println("-------_________--------");
+		
 	}
 
+	/**
+	 * Makes the half hour lines and sets their x size
+	 */
 	protected void makeLines(){
 		//half hour marks code
 		SpringLayout layout = (SpringLayout)this.getLayout();
@@ -138,6 +168,9 @@ public class DayDayPane extends JPanel {
 		this.setLines();
 	}
 	
+	/**
+	 * sets the y position of the half hour lines
+	 */
 	protected void setLines(){
 		SpringLayout layout = (SpringLayout)this.getLayout();
 		for(int i = 1; i < 49; i++){
@@ -147,39 +180,43 @@ public class DayDayPane extends JPanel {
 		}
 	}
 
+	/**
+	 * updates this by setting the lines, and main caller for placing commitments and events in their places
+	 */
 	protected void updatepane(){
+		//the list used to hold the event commitment wrappers in columns and rows based on conflicts
 		displayobjects = new ArrayList<List<CalendarObjectPanel>>();
+		//main loop going over all the sorted objects
 		for(CalendarObjectPanel cop : sortedobjects){
-			System.out.println("++++++++++++++++++");
-			System.out.println(cop.getName());
 			int column_index = 0;
 			boolean isset = false;
+			//loops for going over the columns
 			while(!isset){
 				List<CalendarObjectPanel> column = null;
 				try{
 					column = displayobjects.get(column_index);
 				}
 				catch(IndexOutOfBoundsException e){
+					//there was no column there so it must make a new one
 					 column = new ArrayList<CalendarObjectPanel>();
 					 displayobjects.add(column);
-					 System.out.println("made new column");
 				}
 				
 				int row_index = 0;
+				//loops through the row until a conflict is found or there is nothing left
 				while(!isset){
 					CalendarObjectPanel obj = null;
 					try{
 						obj = column.get(row_index);
 					}
 					catch(IndexOutOfBoundsException e){
+						//hits the end of the column so adds it to it and quits the main loop
 						column.add(cop);
 						isset = true;
-						System.out.println("Added at " + column_index + ", " + row_index);
 						break;
 					}
 					
 					if(cop.doesConflict(obj)){
-						System.out.println("found conflict with " + obj.getName());
 						break;
 					}
 					row_index++;
@@ -187,23 +224,26 @@ public class DayDayPane extends JPanel {
 				
 				column_index++;
 			}
-			System.out.println("++++++++++++++++++\n");
 		}
 
 		
-		//System.out.println("Start width algorithm");
+		//loops through the display objects setting the number of columns for a calendarobjectpanel
 		for(List<CalendarObjectPanel> column : displayobjects){
 			for(CalendarObjectPanel obj : column){
-				//System.out.println("Column " + displayobjects.indexOf(column) + "  Row :" + column.indexOf(obj) + " Name : " + obj.getName());
 				obj.setColumnWidth(this.getWidth(displayobjects.indexOf(column), obj));
 			}
 		}
-		//System.out.println("End algorithm");
+		//loops through the display objects setting the span of columns for a calendarobjectpanel
+		for(List<CalendarObjectPanel> column : displayobjects){
+			for(CalendarObjectPanel obj : column){
+				obj.setColumnSpan(this.getSpan(displayobjects.indexOf(column), obj));
+			}
+		}
 		
 		this.removeAll();
 		SpringLayout layout = (SpringLayout)this.getLayout();
-		//objectspane.setLayout(layout);
 		
+		//Sets the left of an object to either this or a conflict in the previous column
 		for(List<CalendarObjectPanel> column : displayobjects){
 			for(CalendarObjectPanel obj : column){
 				layout.putConstraint(SpringLayout.WEST, obj, 3, SpringLayout.WEST, this);
@@ -217,17 +257,26 @@ public class DayDayPane extends JPanel {
 			}
 		}
 		
+		//Refreshes the size of the object based on the number of columns and its span
 		for(CalendarObjectPanel obj : sortedobjects){
 			obj.refreshSize();
 		}
+		
+		//sets the y position of each COP
 		this.setPos();
 		
+		//Adds all the objects to this
 		for(CalendarObjectPanel obj : sortedobjects){
 			this.add(obj);
 		}
+		
+		//Makes the lines
 		this.makeLines();
 	}
 	
+	/**
+	 * Iterates through the sorted objects and sets their position based on start times
+	 */
 	protected void setPos(){
 		SpringLayout layout = (SpringLayout)this.getLayout();
 		for(CalendarObjectPanel obj : sortedobjects){
@@ -235,14 +284,26 @@ public class DayDayPane extends JPanel {
 		}
 	}
 	
+	/**
+	 * Gets the number of columns that should be associated with the object
+	 * @param column_index the index of the column based on the 
+	 * @param cop the object to check for width
+	 * @return the number of columns conflicting with the object
+	 */
 	protected int getWidth(int column_index, CalendarObjectPanel cop){
 		int width = 1;
 		width += this.getWidth(column_index, cop, -1);
 		width += this.getWidth(column_index, cop, +1);
-		System.out.println("Width : " + width );
 		return width;
 	}
 	
+	/**
+	 * Helper function that iterates over the column to find the width
+	 * @param column_index the index of the column to check
+	 * @param cop the object to check for width
+	 * @param value the direction that the width check should go
+	 * @return the width going the given direction
+	 */
 	protected int getWidth(int column_index, CalendarObjectPanel cop, int value){
 		int width = 0;
 		int max = 0;
@@ -261,6 +322,31 @@ public class DayDayPane extends JPanel {
 		return width;
 	}
 
+	/**
+	 * Finds the number of columns an COP should span
+	 * @param column_index the index of the column to check
+	 * @param cop the COP to check for span
+	 * @return the number of columns an object should span
+	 */
+	protected int getSpan(int column_index, CalendarObjectPanel cop){
+		int span = 1;
+		for(int i = 1 + column_index; i < displayobjects.size(); i++){
+			for(CalendarObjectPanel obj : displayobjects.get(i)){
+				if(obj.doesConflict(cop)){
+					span = i-column_index;
+					cop.setColumnWidth(obj.getColumnWidth());
+					i = displayobjects.size();
+					break;
+				}
+			}
+		}
+		return span;
+	}
+
+	/**
+	 * Displays the commitments by merging events and commitments then updating the pane
+	 * @param commList the commitments to display
+	 */
 	public void displayCommitments(List<Commitment> commList) {
 		// if we are supposed to display commitments
 		if (commList != null) {
@@ -272,6 +358,10 @@ public class DayDayPane extends JPanel {
 		updatepane();
 	}
 	
+	/**
+	 * Displays the commitments by merging events and commitments then updating the pane
+	 * @param eventList the events to display
+	 */
 	public void displayEvents(List<Event> eventList) {
 		// if we are supposed to display events
 		if (eventList != null) {
