@@ -21,6 +21,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
@@ -43,6 +44,7 @@ public class CalendarObjectPanel extends JPanel {
 	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal, Event event){
 		this(parent, acal);
 		this.event = event;
+		this.add(new JLabel(event.getName(), SwingConstants.CENTER));
 	}
 	
 	/**
@@ -54,6 +56,7 @@ public class CalendarObjectPanel extends JPanel {
 	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal, Commitment comm){
 		this(parent, acal);
 		this.comm = comm;
+		this.add(new JLabel(comm.getName(), SwingConstants.CENTER));
 	}
 	
 	/**
@@ -95,7 +98,7 @@ public class CalendarObjectPanel extends JPanel {
 	public void refreshSize(){
 		double par_width = parent.getSize().getWidth();
 		double par_height = parent.getSize().getHeight();
-		Dimension new_size = new Dimension((int)((par_width-3*columnwidth)/columnwidth * columnspanned), (int)(getSizeIndex()/48.0*par_height));
+		Dimension new_size = new Dimension((int)((par_width-3*(columnwidth+1))/columnwidth * columnspanned), (int)(getSizeIndex()/48.0*par_height));
 		this.setPreferredSize(new_size);
 	}
 	
@@ -208,9 +211,7 @@ public class CalendarObjectPanel extends JPanel {
 		if(event != null){
 			GregorianCalendar cal = new GregorianCalendar();
 			cal.setTime(event.getEndTime().getTime());
-			cal.add(Calendar.MINUTE, 290);
 			return cal;
-			//return (GregorianCalendar)event.getEndTime().clone();
 		}
 		else if(comm != null){
 			GregorianCalendar cal = new GregorianCalendar();
