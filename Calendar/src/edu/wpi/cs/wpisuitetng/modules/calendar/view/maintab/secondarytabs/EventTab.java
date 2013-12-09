@@ -151,7 +151,7 @@ public class EventTab extends JPanel {
 		constraints.fill = GridBagConstraints.BOTH;
 		add(spacePanel1, constraints);
 		constraints = new GridBagConstraints();
-		constraints.weightx = 1;
+		constraints.weightx = 2;
 		constraints.gridx = 1;
 		constraints.weighty = 1;
 		constraints.fill = GridBagConstraints.BOTH;
