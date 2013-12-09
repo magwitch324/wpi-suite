@@ -214,11 +214,7 @@ public class GUIEventController {
 	 */
 	public void editEvent(Event event) {
 		EventTab editEvent;
-		if (event.getIsPersonal()){
-			editEvent = new EventTab(event, myCalendar.getCalData());
-		} else {
-			editEvent = new EventTab(event, teamCalendar.getCalData());
-		}
+		editEvent = new EventTab(event);
 		try {
 			Image img = ImageIO.read(getClass().getResource("EditEvent_Icon.png"));
 			main.addTab("Edit Event", new ImageIcon(img), editEvent);

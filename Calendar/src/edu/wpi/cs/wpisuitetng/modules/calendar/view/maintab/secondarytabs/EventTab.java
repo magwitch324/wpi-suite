@@ -966,7 +966,7 @@ public class EventTab extends JPanel {
 	/**
 	 * Create a event tab in editing mode.
 	 */
-	public EventTab(Event event, CalendarData calData) {
+	public EventTab(Event event) {
 		this();
 		
 		this.initFlag = false; //We need this to deal with the nested constructors
@@ -997,6 +997,15 @@ public class EventTab extends JPanel {
 
 		//handle repetition fields
 		if(event.getIsRepeating()){
+			CalendarData calData;
+			if (this.rdbtnPersonal.isSelected()){
+				calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
+				isTeamEvent = false;
+			}
+			else{
+				calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
+				isTeamEvent = true;
+			}
 			this.editingRepeatingEvent = calData.getRepeatingEvents().get(event.getID());
 			this.repeatCheckBox.setSelected(true);
 			this.repeatAmt.setText(Integer.toString(this.editingRepeatingEvent.getRepetitions()));
@@ -1009,7 +1018,7 @@ public class EventTab extends JPanel {
 				this.repeatTypeComboBox.setSelectedIndex(0);
 			}
 			this.repeatTypeComboBox.setEnabled(true);
-			//pull time from the Repeating event
+			//pull times from the Repeating event
 			//otherwise the initial occurrence will get set to the double-clicked day
 			this.startTimeSpinner.setValue(editingRepeatingEvent.getStartTime().getTime());
 			this.startDatePicker.setDate(editingRepeatingEvent.getStartTime().getTime());
