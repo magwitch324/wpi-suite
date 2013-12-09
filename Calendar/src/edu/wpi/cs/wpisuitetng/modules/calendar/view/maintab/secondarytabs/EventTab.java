@@ -1349,15 +1349,21 @@ public class EventTab extends JPanel {
 	protected void deleteEvent() {
 		// TODO Auto-generated method stub
 		CalendarData calData;
-	if (this.rdbtnPersonal.isSelected()){
+		if (this.rdbtnPersonal.isSelected()){
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
 			isTeamEvent = false;
-	}
-	else{
-		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
-		isTeamEvent = true;
-	}
-		calData.getEvents().removeEvent(editingEvent.getID());
+		}
+		else{
+			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
+			isTeamEvent = true;
+		}
+
+		if (this.repeatCheckBox.isSelected()){
+			calData.getRepeatingEvents().removeEvent(editingRepeatingEvent.getID());
+		} else {
+			calData.getEvents().removeEvent(editingEvent.getID());
+		}
+		
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 		removeTab();
 	}
