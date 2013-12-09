@@ -267,4 +267,12 @@ public class MyCalendar extends AbCalendar {
 		
 	}
 
+	@Override
+	protected void updateCommPane() {
+		if (initialized) {
+			calView.updateCommPane(this.commitments, this.getShowCommitments());
+		}
+		
+	}
+
 }

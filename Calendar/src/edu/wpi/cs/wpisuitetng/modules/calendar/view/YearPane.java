@@ -187,6 +187,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 			//Creates the month lbl and a wrapper and places it in this at the top
 			JLabel monthlbl = new JLabel(acal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()),
 											SwingConstants.CENTER);
+			monthlbl.addMouseListener(new AMouseMonthEvent(acal));
 			JPanel temppane = new JPanel();
 			temppane.setLayout(new GridLayout(1,1));
 			temppane.setBackground(CalendarStandard.CalendarRed);
@@ -439,6 +440,23 @@ public class YearPane extends JScrollPane implements ICalPane{
 			}
 		}
 	}
+	
+	protected class AMouseMonthEvent extends MouseAdapter{
+		GregorianCalendar adate = new GregorianCalendar();
+		
+		public AMouseMonthEvent(GregorianCalendar adate){
+			this.adate.setTime(adate.getTime());
+
+		}
+
+	    public void mouseClicked(MouseEvent e) {
+	    	if(e.getClickCount() > 1){
+	    		//switch to day view
+	    		GUIEventController.getInstance().switchView(adate, AbCalendar.types.MONTH);
+	    	}
+	    }
+	}
+
 
 	/**
 	 * returns this in a jpanel wrapper

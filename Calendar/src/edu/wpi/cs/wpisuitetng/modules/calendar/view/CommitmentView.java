@@ -19,7 +19,9 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -56,6 +58,7 @@ public class CommitmentView extends JPanel {
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(scrollPane, BorderLayout.CENTER );
+		scrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 
 		SpringLayout layout = new SpringLayout();
@@ -146,12 +149,18 @@ public class CommitmentView extends JPanel {
 				}
 				
 				
+				Commitment comm = commitmentList.get(i);
 				
 //				JLabel tag = new JLabel(commitmentList.get(i).getIsPersonal() ? "[Personal]" : "[Team]");
-				JLabel name = new JLabel("Name: "+commitmentList.get(i).getName());
-				JLabel date = new JLabel("Due Date: "+ commitmentList.get(i).getDueDate().getTime());
-				JLabel description = new JLabel("<HTML>Description: "+ commitmentList.get(i).getDescription()+"</HTML>");
-				JLabel status = new JLabel("Status: " + Status.convertToString(commitmentList.get(i).getStatus().id));
+				JLabel name = new JLabel("Name: "+ comm.getName());
+				
+				// Setting up date string
+				SimpleDateFormat df = new SimpleDateFormat();
+				df.applyPattern("EEEE, MMMM d, y - hh:mm a");
+				
+				JLabel date = new JLabel("Due Date: "+ df.format(comm.getDueDate().getTime()));
+				JLabel description = new JLabel("<HTML>Description: "+ comm.getDescription()+"</HTML>");
+				JLabel status = new JLabel("Status: " + Status.convertToString(comm.getStatus().id));
 				
 
 				commitmentPanel.setLayout(new GridBagLayout());

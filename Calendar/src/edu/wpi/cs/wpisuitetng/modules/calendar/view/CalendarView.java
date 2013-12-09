@@ -29,6 +29,7 @@ import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
@@ -65,15 +66,14 @@ public abstract class CalendarView extends JSplitPane {
 	 * @return
 	 */
 	private JPanel makeRightView() {
-		
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
 		JPanel labelPanel = new JPanel();
 		labelPanel.setLayout(new GridLayout(1,1,0,0));
-		labelPanel.setBorder(new EmptyBorder(0, 10, 0 , 10));
-		labelPanel.setMinimumSize(new Dimension(330, 50));
-		labelPanel.setBackground(Color.WHITE);
+//		labelPanel.setBorder(new EmptyBorder(0, 10, 0 , 10));
+//		labelPanel.setMinimumSize(new Dimension(330, 50));
+		labelPanel.setBackground(Color.WHITE);			
 		
 		JLabel dateLabel = new JLabel("<html><body style='width: 100%'><center>" + dateRange + "</center></html>", SwingConstants.CENTER);
 		dateLabel.setFont(CalendarStandard.CalendarFontBold.deriveFont(Font.BOLD, 16));
@@ -96,7 +96,7 @@ public abstract class CalendarView extends JSplitPane {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				showAllCommFlag = false;
-				GUIEventController.getInstance().getSelectedCalendar().displayCalData();
+				GUIEventController.getInstance().getSelectedCalendar().updateCommPane();
 			}
 			
 		});
@@ -115,7 +115,7 @@ public abstract class CalendarView extends JSplitPane {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				showAllCommFlag = true;
-				GUIEventController.getInstance().getSelectedCalendar().displayCalData();
+				GUIEventController.getInstance().getSelectedCalendar().updateCommPane();
 			}
 			
 		});
@@ -124,7 +124,6 @@ public abstract class CalendarView extends JSplitPane {
 		ButtonGroup commPanelFilters = new ButtonGroup();
 		commPanelFilters.add(showVisibleButton);
 		commPanelFilters.add(showAllButton);
-		
 		//View all Commitments Button is no longer necessary, but I'm leaving this code here
 		//  in case the changes need to be reverted
 		/*
@@ -157,10 +156,12 @@ public abstract class CalendarView extends JSplitPane {
 		*/
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(VERTICAL_SPLIT);
+		separator.setBackground(Color.gray);
 		panel.add(separator);
 		panel.add(commitmentView, BorderLayout.CENTER);
 		panel.setBackground(Color.WHITE);
-		
+		panel.setBorder(new LineBorder(Color.gray));
+
 		return panel;
 		
 	}
@@ -202,6 +203,6 @@ public abstract class CalendarView extends JSplitPane {
 		this.calPane.updateScrollPosition(value);
 	}
 
-	
+	abstract public void updateCommPane(CommitmentList commList, boolean showCommOnCal);
 	
 }

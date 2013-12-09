@@ -91,4 +91,15 @@ public class WeekView extends CalendarView {
 
 	}
 
+	@Override
+	public void updateCommPane(CommitmentList commList, boolean showCommOnCal) {
+		if (super.showAllCommFlag){
+			commitmentView.updateCommData(commList.getCommitments());
+		} else {
+			commitmentView.updateCommData(commList.filter(startDate,endDate));
+		}
+		revalidate();
+		repaint();
+	}
+
 }
