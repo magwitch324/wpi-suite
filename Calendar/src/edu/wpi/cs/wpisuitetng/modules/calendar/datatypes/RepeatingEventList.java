@@ -99,12 +99,22 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	}
 	
 	/**
-	 * Update the Event list
+	 * Update the calendarObject list
 	 * 
-	 * @param the Event to be updated
+	 * @param the CalendarObject to be updated
 	 */
-	public void update(RepeatingEvent newEvent) {
-		super.update(newEvent);
+	public void update(RepeatingEvent newObject) {
+		RepeatingEvent tmp = get(newObject.getID());
+		if(tmp.getStartTime().equals(newObject.getStartTime())){
+			int i = calendarObjects.indexOf(get(newObject.getID()));
+			calendarObjects.remove(get(newObject.getID()));
+			calendarObjects.add(i, newObject);
+			return;
+		}
+		else{
+		calendarObjects.remove(get(newObject.getID()));
+		add(newObject);
+		}
 	}
 
 	/**
