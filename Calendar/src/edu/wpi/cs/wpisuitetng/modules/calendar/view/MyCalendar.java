@@ -147,7 +147,7 @@ public class MyCalendar extends AbCalendar {
 		this.add(viewpanel);
 		viewbtns[currenttype.getCurrentType()].setSelected(true);
 
-		// setView();
+		setView();
 
 	}
 
@@ -221,9 +221,9 @@ public class MyCalendar extends AbCalendar {
 		
 				// Iterate through team commitments and add each element to
 				// combinedList
-
-				for (int i = 0; i < teamData.getCommitments()
-						.getCommitments().size(); i++) {
+				// do it backwards to maintain order
+				int j = teamData.getCommitments().getCommitments().size() - 1;
+				for (int i = j; i >= 0; i--) {
 					combinedCommList.add(teamData.getCommitments()
 							.getCommitments().get(i));
 				}
@@ -237,8 +237,9 @@ public class MyCalendar extends AbCalendar {
 				
 				// Iterate through team events and add each element to
 				// combinedEventList
-				for (int i = 0; i < teamData.getEvents()
-						.getEvents().size(); i++) {
+				// do it backwards to maintain order
+				j = teamData.getEvents().getEvents().size() - 1;
+				for (int i = j; i >= 0; i--) {
 					combinedEventList.add(teamData.getEvents()
 							.getEvents().get(i));
 				}

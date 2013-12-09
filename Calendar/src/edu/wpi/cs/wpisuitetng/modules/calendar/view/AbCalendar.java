@@ -357,29 +357,24 @@ public abstract class AbCalendar extends JPanel {
 		switch(currenttype.getCurrentType()){
 		case(0):
 			calView = (new DayView(mycal));
-		displayCalData();
-		viewpanel.add(calView);
 		break;
 		case(1):
 			calView = (new WeekView(mycal));
-		displayCalData();
-		viewpanel.add(calView);
 		break;
 		case(2):
 			calView = (new MonthView(mycal));
-		displayCalData();
-		viewpanel.add(calView);			
 		break;
 		case(3):
 			calView = (new YearView(mycal));
-		displayCalData();
-		viewpanel.add(calView);		
 		break;
 		default:
 			//TODO error
 			break;
 		}
 
+		displayCalData();
+		viewpanel.add(calView);
+		
 		viewpanel.revalidate();
 		viewpanel.repaint();
 		//System.out.println("Cal COUNT end: " + viewpanel.getComponentCount());
