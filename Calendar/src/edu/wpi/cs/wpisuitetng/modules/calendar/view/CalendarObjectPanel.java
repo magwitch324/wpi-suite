@@ -204,10 +204,6 @@ public class CalendarObjectPanel extends JPanel {
 	 * @return the new column width
 	 */
 	public int setColumnWidth(int columnwidth){
-		if(columnwidth < 2){
-			this.columnwidth = 2;
-			return 2;
-		}
 		return (this.columnwidth = columnwidth);
 	}
 	
@@ -225,11 +221,15 @@ public class CalendarObjectPanel extends JPanel {
 	 * @return
 	 */
 	public int setColumnSpan(int columnspanned){
-		if(columnspanned < 1){
-			this.columnspanned = 1;
-			return 1;
-		}
 		return (this.columnspanned = columnspanned);
+	}
+	
+	/**
+	 * Gets the columns spanned
+	 * @return
+	 */
+	public int getColumnSpan(){
+		return this.columnspanned;
 	}
 	
 	/**

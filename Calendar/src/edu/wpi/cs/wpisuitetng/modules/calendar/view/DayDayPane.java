@@ -337,17 +337,23 @@ public class DayDayPane extends JPanel {
 	protected int getSpan(int column_index, CalendarObjectPanel cop){
 		int span = 0;
 		for(int i = 1 + column_index; i < displayobjects.size(); i++){
+			CalendarObjectPanel max_obj = null;
+			int max_width = 0;
 			for(CalendarObjectPanel obj : displayobjects.get(i)){
 				if(obj.doesConflict(cop)){
-					span = i-column_index;
-					cop.setColumnWidth(obj.getColumnWidth());
-					i = displayobjects.size();
-					break;
+					if(max_width < obj.getColumnWidth()){
+						span = i-column_index;
+						max_width = obj.getColumnWidth();
+						cop.setColumnWidth(obj.getColumnWidth());
+					}
 				}
+			}
+			if(span != 0){
+				break;
 			}
 		}
 		
-		if(span == 0 && cop.getColumnWidth() > 2){
+		if(  span == 0 ){
 			SpringLayout layout = (SpringLayout)this.getLayout();
 			layout.putConstraint(SpringLayout.EAST, cop, -3, SpringLayout.EAST, this);
 		}
