@@ -149,12 +149,21 @@ public class CommitmentView extends JPanel {
 				
 				// Setting up date string
 				SimpleDateFormat df = new SimpleDateFormat();
-				df.applyPattern("EEEE, MMMM d, y - hh:mm a");
+				df.applyPattern("EEEE, MMMM d, y");
 				
+				// Date
 				JLabel date = new JLabel("Due Date: "+ df.format(comm.getDueDate().getTime()));
+				
+				// Description and status 
 				JLabel description = new JLabel("<HTML>Description: "+ comm.getDescription()+"</HTML>");
 				JLabel status = new JLabel("Status: " + Status.convertToString(comm.getStatus().id));
 				
+				// Setting up time string
+				SimpleDateFormat tm = new SimpleDateFormat();
+				tm.applyPattern("hh:mm a");
+				
+				// Get time
+				JLabel time = new JLabel("Due Time: "+ tm.format(comm.getDueDate().getTime()));
 
 				commitmentPanel.setLayout(new GridBagLayout());
 				GridBagConstraints c = new GridBagConstraints();
@@ -165,6 +174,7 @@ public class CommitmentView extends JPanel {
 				commitmentPanel.add(tag, c);
 				commitmentPanel.add(name,c);
 				commitmentPanel.add(date,c);
+				commitmentPanel.add(time,c);
 				commitmentPanel.add(description,c);
 				commitmentPanel.add(status,c);
 				//  description.setMaximumSize(new Dimension(285,300));
