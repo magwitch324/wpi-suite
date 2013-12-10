@@ -112,6 +112,7 @@ public class EventTab extends JPanel {
 	private JLabel lblRepeatType;
 	private JLabel lblNumberRepetitions;
 	private RepeatingEvent editingRepeatingEvent;
+	private JScrollPane descriptionScrollPane;
 	
 	
 	
@@ -257,7 +258,10 @@ public class EventTab extends JPanel {
         gbc_descriptionTextField.gridx = 1;
         gbc_descriptionTextField.gridy = 1;
         gbc.gridwidth = 3;
-		formPanel.add(descriptionTextArea, gbc_descriptionTextField);
+        descriptionScrollPane = new JScrollPane(descriptionTextArea);
+		formPanel.add(descriptionScrollPane, gbc_descriptionTextField);
+		descriptionScrollPane.setMaximumSize(new Dimension(10000000,10));
+		descriptionScrollPane.getViewport().setMaximumSize(new Dimension(10000000,10));
 		
 		descriptionTextArea.addKeyListener(new KeyListener() {
 
