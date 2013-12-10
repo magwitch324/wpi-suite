@@ -31,7 +31,7 @@ public class CommitmentViewPanel extends JPanel {
 
 	public CommitmentViewPanel(Commitment commitment) {
 		// TODO Auto-generated constructor stub
-		this.comm = commitment;
+		comm = commitment;
 	}
 
 	public Commitment getCommitment() {

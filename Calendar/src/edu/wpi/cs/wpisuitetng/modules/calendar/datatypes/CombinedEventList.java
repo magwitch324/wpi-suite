@@ -13,7 +13,7 @@ public class CombinedEventList extends EventList{
 	
 	public CombinedEventList(List<Event> list) {
 		this();
-		this.calendarObjects = list;
+		calendarObjects = list;
 	}
 	
 	@Override

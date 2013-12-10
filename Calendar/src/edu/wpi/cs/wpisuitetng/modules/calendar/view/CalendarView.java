@@ -50,7 +50,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * Sets up the panel with the refresh function
 	 */
 	public CalendarView(GregorianCalendar calendar) {
-		this.showAllCommFlag = false;
+		showAllCommFlag = false;
 	}
 	/**
 	 * create and display View componenets
@@ -183,12 +183,12 @@ public abstract class CalendarView extends JSplitPane {
 	
 	public void setCalPane(ICalPane pane) {
 		// TODO Auto-generated method stub
-		this.calPane = pane;
+		calPane = pane;
 	}
 	
 	public void setCommitmentView(CommitmentView comm) {
 		// TODO Auto-generated method stub
-		this.commitmentView = comm;
+		commitmentView = comm;
 	}
 	
 	/** Display calendar data in internal panels, decides what commitments 
@@ -201,7 +201,7 @@ public abstract class CalendarView extends JSplitPane {
 	abstract public void displayCalData(EventList eventList, CommitmentList commList, boolean showCommOnCal);
 	
 	public void updateScrollPosition(int value){
-		this.calPane.updateScrollPosition(value);
+		calPane.updateScrollPosition(value);
 	}
 
 	abstract public void updateCommPane(CommitmentList commList, boolean showCommOnCal);

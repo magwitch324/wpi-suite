@@ -44,12 +44,12 @@ public class DetailedDay extends JPanel {
 		mainview.setBackground(new Color(0,0,0,0));
 		this.add(mainview, JLayeredPane.DEFAULT_LAYER);
 	
-		layout.putConstraint(SpringLayout.WEST, this.secondview, 2, SpringLayout.HORIZONTAL_CENTER, this);
-		layout.putConstraint(SpringLayout.NORTH, this.secondview, 0, SpringLayout.NORTH, this);
-		layout.putConstraint(SpringLayout.EAST, this.secondview, -10, SpringLayout.EAST, this);
-		layout.putConstraint(SpringLayout.SOUTH, this.secondview, 0, SpringLayout.SOUTH, this);
-		this.secondview.setBackground(new Color(0,0,0,0));
-		this.add(this.secondview, JLayeredPane.PALETTE_LAYER);
+		layout.putConstraint(SpringLayout.WEST, secondview, 2, SpringLayout.HORIZONTAL_CENTER, this);
+		layout.putConstraint(SpringLayout.NORTH, secondview, 0, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.EAST, secondview, -10, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.SOUTH, secondview, 0, SpringLayout.SOUTH, this);
+		secondview.setBackground(new Color(0,0,0,0));
+		this.add(secondview, JLayeredPane.PALETTE_LAYER);
 		
 		this.makelines();
 		this.didResize();

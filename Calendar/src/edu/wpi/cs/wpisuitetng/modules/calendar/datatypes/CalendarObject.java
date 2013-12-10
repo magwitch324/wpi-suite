@@ -41,11 +41,11 @@ public abstract class CalendarObject extends AbstractModel {
 	}
 	
 	public void copyFrom(CalendarObject toCopyFrom) {
-		this.name = toCopyFrom.getName();
-		this.description = toCopyFrom.getDescription();
-		this.isPersonal = toCopyFrom.getIsPersonal();
-		this.categoryID = toCopyFrom.getCategoryID();
-		this.id = toCopyFrom.getID();
+		name = toCopyFrom.getName();
+		description = toCopyFrom.getDescription();
+		isPersonal = toCopyFrom.getIsPersonal();
+		categoryID = toCopyFrom.getCategoryID();
+		id = toCopyFrom.getID();
 	}
 	
 	// JSON Functions
@@ -143,7 +143,7 @@ public abstract class CalendarObject extends AbstractModel {
 	 * @return categoryID
 	 */
 	public int getCategoryID() {
-		return this.categoryID;
+		return categoryID;
 	}
 	
 	/** 
@@ -151,7 +151,7 @@ public abstract class CalendarObject extends AbstractModel {
 	 * @return id
 	 */
 	public int getID() {
-		return this.id;
+		return id;
 	}
 
 	// SETTERS
@@ -184,7 +184,7 @@ public abstract class CalendarObject extends AbstractModel {
 	 * @param id
 	 */
 	public void setCategoryID(int id) {
-		this.categoryID = id;
+		categoryID = id;
 	}
 	
 	/**

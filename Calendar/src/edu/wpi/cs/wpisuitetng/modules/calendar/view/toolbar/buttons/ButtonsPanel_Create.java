@@ -88,15 +88,15 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 //		this.setPreferredWidth(700);
 	
 //		this.createCommitButton.setSize(new Dimension(100, 250));
-		this.createCommitButton.setHorizontalAlignment(SwingConstants.CENTER);
+		createCommitButton.setHorizontalAlignment(SwingConstants.CENTER);
 //		this.createEventButton.setPreferredSize(new Dimension(240, 250));
-		this.createEventButton.setHorizontalAlignment(SwingConstants.CENTER);
+		createEventButton.setHorizontalAlignment(SwingConstants.CENTER);
 //		this.manageCategoryButton.setPreferredSize(new Dimension(240, 250));
-		this.manageCategoryButton.setHorizontalAlignment(SwingConstants.CENTER);
+		manageCategoryButton.setHorizontalAlignment(SwingConstants.CENTER);
 //		this.manageFilterButton.setPreferredSize(new Dimension(240, 250));
-		this.manageFilterButton.setHorizontalAlignment(SwingConstants.CENTER);
+		manageFilterButton.setHorizontalAlignment(SwingConstants.CENTER);
 //		this.helpButton.setSize(240, 250);
-		this.helpButton.setHorizontalAlignment(SwingConstants.CENTER);
+		helpButton.setHorizontalAlignment(SwingConstants.CENTER);
 
 		
 		try {
@@ -104,52 +104,52 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 //			ImageIcon imageIcon = new ImageIcon(img);
 //			int width = imageIcon.getIconWidth();
 //			int hight = imageIcon.getIconHeight();
-		    this.createCommitButton.setIcon(new ImageIcon(img));
+		    createCommitButton.setIcon(new ImageIcon(img));
 		    //ImageObserver observer =;
 			//this.createCommitButton.setMaximumSize(img.getWidth(observer ), height);
 		    
 		    img = ImageIO.read(getClass().getResource("CreateEvent_Icon.png"));
-		    this.createEventButton.setIcon(new ImageIcon(img));
+		    createEventButton.setIcon(new ImageIcon(img));
 //		    ImageIcon imageIcon1 = new ImageIcon(img);
 //		    this.createEventButton.setIcon((new ImageIcon(imageIcon1.getImage().getScaledInstance(width, hight,
 //		            java.awt.Image.SCALE_SMOOTH))));
 		    
 		    img = ImageIO.read(getClass().getResource("ManageCategory_Icon.png"));
-            this.manageCategoryButton.setIcon(new ImageIcon(img));
+            manageCategoryButton.setIcon(new ImageIcon(img));
 //		    ImageIcon imageIcon2 = new ImageIcon(img);
 //		    this.manageCategoryButton.setIcon((new ImageIcon(imageIcon2.getImage().getScaledInstance(width, hight,
 //		            java.awt.Image.SCALE_SMOOTH))));
 		    
 		    img = ImageIO.read(getClass().getResource("ManageFilter_Icon.png"));
-            this.manageFilterButton.setIcon(new ImageIcon(img));
+            manageFilterButton.setIcon(new ImageIcon(img));
 //		    ImageIcon imageIcon3 = new ImageIcon(img);
 //		    this.manageFilterButton.setIcon((new ImageIcon(imageIcon3.getImage().getScaledInstance(width, hight,
 //		            java.awt.Image.SCALE_SMOOTH))));
 		    
 		    img = ImageIO.read(getClass().getResource("Help_Icon.png"));
-            this.helpButton.setIcon(new ImageIcon(img));
+            helpButton.setIcon(new ImageIcon(img));
 //		    ImageIcon imageIcon4 = new ImageIcon(img);
 //		    this.helpButton.setIcon((new ImageIcon(imageIcon4.getImage().getScaledInstance(width, hight,
 //		            java.awt.Image.SCALE_SMOOTH))));
 		    
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			this.createCommitButton.setIcon(new ImageIcon());
-			this.createEventButton.setIcon(new ImageIcon());
-			this.manageCategoryButton.setIcon(new ImageIcon());
-			this.manageFilterButton.setIcon(new ImageIcon());
-			this.helpButton.setIcon(new ImageIcon());
-			this.helpButton.setText("Help");
+			createCommitButton.setIcon(new ImageIcon());
+			createEventButton.setIcon(new ImageIcon());
+			manageCategoryButton.setIcon(new ImageIcon());
+			manageFilterButton.setIcon(new ImageIcon());
+			helpButton.setIcon(new ImageIcon());
+			helpButton.setText("Help");
 		}
 		
-	    this.createCommitButton.setText("<html>Create<br />Commitment</html>");
-	    this.createCommitButton.setFont(CalendarStandard.CalendarFontBold);
-	    this.createCommitButton.setHorizontalAlignment(SwingConstants.CENTER);
+	    createCommitButton.setText("<html>Create<br />Commitment</html>");
+	    createCommitButton.setFont(CalendarStandard.CalendarFontBold);
+	    createCommitButton.setHorizontalAlignment(SwingConstants.CENTER);
 //	    this.createCommitButton.setForeground(CalendarStandard.CalendarRed);
 //	    this.createCommitButton.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, CalendarStandard.CalendarRed));
 //	    this.createCommitButton.setBackground(CalendarStandard.CalendarYellow);
-	    this.createCommitButton.setContentAreaFilled(false);
-	    this.createCommitButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+	    createCommitButton.setContentAreaFilled(false);
+	    createCommitButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 //	    this.createCommitButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		createCommitButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		// the action listener for the Create Commitment Button
@@ -165,14 +165,14 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		
 		
 		
-	    this.createEventButton.setText("<html>Create<br />Event</html>");
-	    this.createEventButton.setFont(CalendarStandard.CalendarFontBold);
-	    this.createEventButton.setHorizontalAlignment(SwingConstants.CENTER);
+	    createEventButton.setText("<html>Create<br />Event</html>");
+	    createEventButton.setFont(CalendarStandard.CalendarFontBold);
+	    createEventButton.setHorizontalAlignment(SwingConstants.CENTER);
 //	    this.createEventButton.setForeground(CalendarStandard.CalendarRed);
 //	    this.createEventButton.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, CalendarStandard.CalendarRed));
 //	    this.createEventButton.setBackground(CalendarStandard.CalendarYellow);
-	    this.createEventButton.setContentAreaFilled(false);
-	    this.createEventButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+	    createEventButton.setContentAreaFilled(false);
+	    createEventButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 //	    this.createEventButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		createEventButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		// the action listener for the Create Event Button
@@ -187,14 +187,14 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		});	
 		
 		
-	    this.manageCategoryButton.setText("<html>Manage<br />Categories</html>");
-	    this.manageCategoryButton.setFont(CalendarStandard.CalendarFontBold);
-	    this.manageCategoryButton.setHorizontalAlignment(SwingConstants.CENTER);
+	    manageCategoryButton.setText("<html>Manage<br />Categories</html>");
+	    manageCategoryButton.setFont(CalendarStandard.CalendarFontBold);
+	    manageCategoryButton.setHorizontalAlignment(SwingConstants.CENTER);
 //	    this.manageCategoryButton.setForeground(CalendarStandard.CalendarRed);
 //	    this.manageCategoryButton.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, CalendarStandard.CalendarRed));
 //	    this.manageCategoryButton.setBackground(CalendarStandard.CalendarYellow);
-	    this.manageCategoryButton.setContentAreaFilled(false);
-	    this.manageCategoryButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+	    manageCategoryButton.setContentAreaFilled(false);
+	    manageCategoryButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 //	    this.manageCategoryButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		manageCategoryButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		// the action listener for the Manage Category Button
@@ -210,14 +210,14 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		
 		
 		
-	    this.manageFilterButton.setText("<html>Manage<br />Filters</html>");
-	    this.manageFilterButton.setFont(CalendarStandard.CalendarFontBold);
-	    this.manageFilterButton.setHorizontalAlignment(SwingConstants.CENTER);
+	    manageFilterButton.setText("<html>Manage<br />Filters</html>");
+	    manageFilterButton.setFont(CalendarStandard.CalendarFontBold);
+	    manageFilterButton.setHorizontalAlignment(SwingConstants.CENTER);
 //	    this.manageFilterButton.setForeground(CalendarStandard.CalendarRed);
 //	    this.manageFilterButton.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, CalendarStandard.CalendarRed));
 //	    this.manageFilterButton.setBackground(CalendarStandard.CalendarYellow);
-	    this.manageFilterButton.setContentAreaFilled(false);
-	    this.manageFilterButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+	    manageFilterButton.setContentAreaFilled(false);
+	    manageFilterButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 //	    this.manageFilterButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		manageFilterButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		// the action listener for the Manage Filter Button
@@ -234,12 +234,12 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		
 		
 //	    this.helpButton.setText("Help Library");
-	    this.helpButton.setFont(CalendarStandard.CalendarFontBold);
+	    helpButton.setFont(CalendarStandard.CalendarFontBold);
 //	    this.helpButton.setForeground(CalendarStandard.CalendarRed);
 //	    this.helpButton.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, CalendarStandard.CalendarRed));
 //	    this.helpButton.setBackground(CalendarStandard.CalendarYellow);
-	    this.helpButton.setContentAreaFilled(false);
-	    this.helpButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+	    helpButton.setContentAreaFilled(false);
+	    helpButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 //	    this.helpButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		helpButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		// the action listener for the Help Button

@@ -88,13 +88,13 @@ public class DayDayPane extends JPanel {
 		
 		if(commlist.isEmpty() && !eventlist.isEmpty()){
 			for(Event event : eventlist){
-				sortedobjects.add(new CalendarObjectPanel(this, this.acal, event, detailLevel));
+				sortedobjects.add(new CalendarObjectPanel(this, acal, event, detailLevel));
 			}
 		}
 		//if we only have commitments
 		else if(!commlist.isEmpty() && eventlist.isEmpty()){
 			for(Commitment comm : commlist){
-				sortedobjects.add(new CalendarObjectPanel(this, this.acal, comm, detailLevel));
+				sortedobjects.add(new CalendarObjectPanel(this, acal, comm, detailLevel));
 			}
 		}
 		//if we have both
@@ -124,11 +124,11 @@ public class DayDayPane extends JPanel {
 				}
 				
 				if(ccal.before(ecal)){
-					sortedobjects.add(new CalendarObjectPanel(this, this.acal, commlist.get(cindex)));
+					sortedobjects.add(new CalendarObjectPanel(this, acal, commlist.get(cindex)));
 					cindex++;
 				}
 				else{
-					sortedobjects.add(new CalendarObjectPanel(this, this.acal, eventlist.get(eindex)));
+					sortedobjects.add(new CalendarObjectPanel(this, acal, eventlist.get(eindex)));
 					eindex++;
 				}
 			}
@@ -367,20 +367,20 @@ public class DayDayPane extends JPanel {
 	 */
 	public void displayCommitments(List<Commitment> commList) {
 		// if we are supposed to display commitments
-		this.commlist = new ArrayList<Commitment>();
+		commlist = new ArrayList<Commitment>();
 		
 		if (commList != null) {
 			
 			for(Commitment comm : commList){
 				int index = 0;
-				for(Commitment comp : this.commlist){
+				for(Commitment comp : commlist){
 					if(comp.getDueDate().after(comm.getDueDate())){
 						break;
 					}
 					index ++;
 				}
 				
-				this.commlist.add(index, comm);
+				commlist.add(index, comm);
 			}
 			
 		} else {
@@ -396,19 +396,19 @@ public class DayDayPane extends JPanel {
 	 */
 	public void displayEvents(List<Event> eventList) {
 		// if we are supposed to display events
-		this.eventlist = new ArrayList<Event>();
+		eventlist = new ArrayList<Event>();
 		
 		if (eventList != null) {
 			for(Event event : eventList){
 				int index = 0;
-				for(Event comp : this.eventlist){
+				for(Event comp : eventlist){
 					if(comp.getStartTime().after(event.getStartTime())){
 						break;
 					}
 					index ++;
 				}
 				
-				this.eventlist.add(index, event);
+				eventlist.add(index, event);
 			}
 		} else {
 			

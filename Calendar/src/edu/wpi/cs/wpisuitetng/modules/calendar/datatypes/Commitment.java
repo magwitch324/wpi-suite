@@ -57,13 +57,13 @@ public class Commitment extends CalendarObject implements
 	 */
 	public void copyFrom(Commitment toCopyFrom) {
 		super.copyFrom(toCopyFrom);
-		this.dueDate = toCopyFrom.getDueDate().getTime();
-		this.status = toCopyFrom.getStatus();
+		dueDate = toCopyFrom.getDueDate().getTime();
+		status = toCopyFrom.getStatus();
 	}
 
 	public int compareTo(Commitment person) {
-		if (this.name != null && person.name != null) {
-			return this.name.compareToIgnoreCase(person.name);
+		if (name != null && person.name != null) {
+			return name.compareToIgnoreCase(person.name);
 		}
 		return 0;
 	}

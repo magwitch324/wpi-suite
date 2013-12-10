@@ -28,9 +28,9 @@ public class CalendarProps extends AbstractModel {
 	public CalendarProps() {
 		super();
 		id = "";
-		this.showMyComm = false;
-		this.showTeamComm = false;
-		this.showTeamData = false;
+		showMyComm = false;
+		showTeamComm = false;
+		showTeamData = false;
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class CalendarProps extends AbstractModel {
 	 * @param showComm
 	 */
 	public void setMyShowComm(boolean showComm){
-		this.showMyComm = showComm;
+		showMyComm = showComm;
 	}
 	
 	/**
@@ -63,7 +63,7 @@ public class CalendarProps extends AbstractModel {
 	 * 
 	 */
 	public boolean getMyShowComm(){
-		return this.showMyComm;
+		return showMyComm;
 	}
 	
 	/**
@@ -72,7 +72,7 @@ public class CalendarProps extends AbstractModel {
 	 * @param showComm
 	 */
 	public void setTeamShowComm(boolean showComm){
-		this.showTeamComm = showComm;
+		showTeamComm = showComm;
 	}
 	
 	/**
@@ -80,7 +80,7 @@ public class CalendarProps extends AbstractModel {
 	 * 
 	 */
 	public boolean getTeamShowComm(){
-		return this.showTeamComm;
+		return showTeamComm;
 	}
 
 	
@@ -90,7 +90,7 @@ public class CalendarProps extends AbstractModel {
 	 * @param showComm
 	 */
 	public void setShowTeamData(boolean showTeam){
-		this.showTeamData = showTeam;
+		showTeamData = showTeam;
 	}
 	
 	/**
@@ -98,7 +98,7 @@ public class CalendarProps extends AbstractModel {
 	 * 
 	 */
 	public boolean getShowTeamData(){
-		return this.showTeamData;
+		return showTeamData;
 	}
 	
 	/**
@@ -207,10 +207,10 @@ public class CalendarProps extends AbstractModel {
 	}
 
 	public void copyFrom(CalendarProps toCopyFrom){
-		this.id = toCopyFrom.getId();
-		this.showMyComm = toCopyFrom.getMyShowComm();
-		this.showTeamComm = toCopyFrom.getTeamShowComm();
-		this.showTeamData = toCopyFrom.getShowTeamData();
+		id = toCopyFrom.getId();
+		showMyComm = toCopyFrom.getMyShowComm();
+		showTeamComm = toCopyFrom.getTeamShowComm();
+		showTeamData = toCopyFrom.getShowTeamData();
 	}
 
 	

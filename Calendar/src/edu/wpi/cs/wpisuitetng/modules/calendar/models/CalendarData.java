@@ -37,10 +37,10 @@ public class CalendarData extends AbstractModel {
 	public CalendarData() {
 		super();
 		id = "";
-		this.categories = new CategoryList();
-		this.commitments = new CommitmentList(); 
-		this.events = new EventList();
-		this.repeatingEvents = new RepeatingEventList();
+		categories = new CategoryList();
+		commitments = new CommitmentList(); 
+		events = new EventList();
+		repeatingEvents = new RepeatingEventList();
 	}
 
 	/**
@@ -238,11 +238,11 @@ public class CalendarData extends AbstractModel {
 	}
 
 	public void copyFrom(CalendarData toCopyFrom){
-		this.id = toCopyFrom.getId();
-		this.categories = toCopyFrom.getCategories();
-		this.commitments = toCopyFrom.getCommitments();
-		this.events = toCopyFrom.getEvents();
-		this.repeatingEvents = toCopyFrom.getRepeatingEvents();
+		id = toCopyFrom.getId();
+		categories = toCopyFrom.getCategories();
+		commitments = toCopyFrom.getCommitments();
+		events = toCopyFrom.getEvents();
+		repeatingEvents = toCopyFrom.getRepeatingEvents();
 	}
 
 	

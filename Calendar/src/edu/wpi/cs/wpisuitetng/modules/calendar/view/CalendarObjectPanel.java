@@ -250,7 +250,7 @@ public class CalendarObjectPanel extends JPanel {
 	 * @return the current column width
 	 */
 	public int getColumnWidth(){
-		return this.columnwidth;
+		return columnwidth;
 	}
 	
 	/**
@@ -267,7 +267,7 @@ public class CalendarObjectPanel extends JPanel {
 	 * @return
 	 */
 	public int getColumnSpan(){
-		return this.columnspanned;
+		return columnspanned;
 	}
 	
 	/**
@@ -275,7 +275,7 @@ public class CalendarObjectPanel extends JPanel {
 	 * @return a value 0 - 1.0 of the start time, defaults to 0 if before this' today
 	 */
 	public double getStartRatio(){
-		GregorianCalendar tempstart = (GregorianCalendar)this.acal.clone();
+		GregorianCalendar tempstart = (GregorianCalendar)acal.clone();
 		tempstart.set(Calendar.HOUR_OF_DAY, 0);
 		tempstart.set(Calendar.MINUTE, 0);
 		tempstart.set(Calendar.SECOND, 0);
@@ -302,7 +302,7 @@ public class CalendarObjectPanel extends JPanel {
 	 * @return a value 0 - 1.0 of the end time, defaults to 1.0 if after this' today
 	 */
 	public double getEndRatio(){
-		GregorianCalendar tempend = (GregorianCalendar)this.acal.clone();
+		GregorianCalendar tempend = (GregorianCalendar)acal.clone();
 		tempend.set(Calendar.HOUR_OF_DAY, 0);
 		tempend.set(Calendar.MINUTE, 0);
 		tempend.set(Calendar.SECOND, 0);

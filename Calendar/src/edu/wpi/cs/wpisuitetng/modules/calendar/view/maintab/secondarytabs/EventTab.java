@@ -169,7 +169,7 @@ public class EventTab extends JPanel {
 	 * Create the panel.
 	 */
 	public EventTab() {
-		this.initFlag = false;
+		initFlag = false;
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		setLayout(gridBagLayout);
@@ -782,7 +782,7 @@ public class EventTab extends JPanel {
 	                    				// Set the horizontal gap
 		formPanel.add(buttonPanel, gbc_btnPanel);
 		
-		this.initFlag = true;
+		initFlag = true;
 		
 		addEditableElementsListeners();
 	}
@@ -1350,7 +1350,7 @@ public class EventTab extends JPanel {
 		GregorianCalendar cal = getEndDate();
 		cal.setTime(new Date(cal.getTime().getTime() + diff));
 		setEndDate(cal);
-		this.oldStartTime = getStartDate();
+		oldStartTime = getStartDate();
 	}
 
 
@@ -1449,9 +1449,9 @@ public class EventTab extends JPanel {
 					//System.out.println("Commit time in milli is " + editingEvent.getDueDate().getTimeInMillis());
 					
 					//make sure something changed
-					if (this.nameTextField.getText().equals(editingEvent.getName()) 
-							&& this.descriptionTextArea.getText().equals(editingEvent.getDescription())
-							&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingEvent.getCategoryID()
+					if (nameTextField.getText().equals(editingEvent.getName()) 
+							&& descriptionTextArea.getText().equals(editingEvent.getDescription())
+							&& ((Category)categoryComboBox.getSelectedItem()).getId() == editingEvent.getCategoryID()
 							&& getStartDate().getTime().equals(editingEvent.getStartTime().getTime())
 							&& getEndDate().getTime().equals(editingEvent.getEndTime().getTime()))
 					{
@@ -1459,7 +1459,7 @@ public class EventTab extends JPanel {
 						return;
 					}
 				}
-				if(this.repeatCheckBox.isSelected()){
+				if(repeatCheckBox.isSelected()){
 					try {
 						if (Integer.parseInt(repeatAmt.getText()) >= 1){
 							btnAddEvent.setEnabled(true);	
@@ -1484,36 +1484,36 @@ public class EventTab extends JPanel {
 	public EventTab(Event event) {
 		this();
 		
-		this.initFlag = false; //We need this to deal with the nested constructors
+		initFlag = false; //We need this to deal with the nested constructors
 		
 		editingEvent = event;
-		this.mode = EditingMode.EDITING;
+		mode = EditingMode.EDITING;
 		
-		this.nameTextField.setText(editingEvent.getName());
-		this.descriptionTextArea.setText(editingEvent.getDescription());
+		nameTextField.setText(editingEvent.getName());
+		descriptionTextArea.setText(editingEvent.getDescription());
 		
-		this.categoryComboBox.setSelectedItem(editingEvent.getCategoryID());
+		categoryComboBox.setSelectedItem(editingEvent.getCategoryID());
 		
 		
 		if(!editingEvent.getIsPersonal())
-			this.rdbtnTeam.setSelected(true);
+			rdbtnTeam.setSelected(true);
 		else
-			this.rdbtnPersonal.setSelected(true);
+			rdbtnPersonal.setSelected(true);
 		
 		
-		this.rdbtnTeam.setEnabled(false);
-		this.rdbtnPersonal.setEnabled(false);
+		rdbtnTeam.setEnabled(false);
+		rdbtnPersonal.setEnabled(false);
 		
 
 		setStartDate(editingEvent.getStartTime());
-		this.startDatePicker.setDate(editingEvent.getStartTime().getTime());
+		startDatePicker.setDate(editingEvent.getStartTime().getTime());
 		setEndDate(editingEvent.getEndTime());
-		this.endDatePicker.setDate(editingEvent.getEndTime().getTime());
+		endDatePicker.setDate(editingEvent.getEndTime().getTime());
 
 		//handle repetition fields
 		if(event.getIsRepeating()){
 			CalendarData calData;
-			if (this.rdbtnPersonal.isSelected()){
+			if (rdbtnPersonal.isSelected()){
 				calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
 				isTeamEvent = false;
 			}
@@ -1521,27 +1521,27 @@ public class EventTab extends JPanel {
 				calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
 				isTeamEvent = true;
 			}
-			this.editingRepeatingEvent = calData.getRepeatingEvents().get(event.getID());
-			this.repeatCheckBox.setSelected(true);
-			this.repeatAmt.setText(Integer.toString(this.editingRepeatingEvent.getRepetitions()));
-			this.repeatAmt.setEnabled(true);
-			if (this.editingRepeatingEvent.getRepType() == RepeatType.MONTH){
-				this.repeatTypeComboBox.setSelectedIndex(2);
-			} else if (this.editingRepeatingEvent.getRepType() == RepeatType.WEEK){
-				this.repeatTypeComboBox.setSelectedIndex(1);
+			editingRepeatingEvent = calData.getRepeatingEvents().get(event.getID());
+			repeatCheckBox.setSelected(true);
+			repeatAmt.setText(Integer.toString(editingRepeatingEvent.getRepetitions()));
+			repeatAmt.setEnabled(true);
+			if (editingRepeatingEvent.getRepType() == RepeatType.MONTH){
+				repeatTypeComboBox.setSelectedIndex(2);
+			} else if (editingRepeatingEvent.getRepType() == RepeatType.WEEK){
+				repeatTypeComboBox.setSelectedIndex(1);
 			} else {
-				this.repeatTypeComboBox.setSelectedIndex(0);
+				repeatTypeComboBox.setSelectedIndex(0);
 			}
-			this.repeatTypeComboBox.setEnabled(true);
+			repeatTypeComboBox.setEnabled(true);
 			//pull times from the Repeating event
 			//otherwise the initial occurrence will get set to the double-clicked day
 			setStartDate(editingRepeatingEvent.getStartTime());
-			this.startDatePicker.setDate(editingRepeatingEvent.getStartTime().getTime());
+			startDatePicker.setDate(editingRepeatingEvent.getStartTime().getTime());
 			setEndDate(editingRepeatingEvent.getEndTime());
-			this.endDatePicker.setDate(editingRepeatingEvent.getEndTime().getTime());
+			endDatePicker.setDate(editingRepeatingEvent.getEndTime().getTime());
 		}
 		
-		this.repeatCheckBox.setEnabled(false);//Don't want people changing this for now
+		repeatCheckBox.setEnabled(false);//Don't want people changing this for now
 											  // we might be able to enable it later
 		
 		// Add Delete Button
@@ -1566,7 +1566,7 @@ public class EventTab extends JPanel {
 	
 		
 		
-		this.initFlag = true;
+		initFlag = true;
 
 	}
 	
@@ -1640,7 +1640,7 @@ public class EventTab extends JPanel {
 		}
 
 		CalendarData calData;
-		if (this.rdbtnPersonal.isSelected()){
+		if (rdbtnPersonal.isSelected()){
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
 			isTeamEvent = false;
 		}
@@ -1669,14 +1669,14 @@ public class EventTab extends JPanel {
 				newRepEvent.setIsPersonal(true);
 			}
 
-			newRepEvent.setCategoryID(((Category)this.categoryComboBox.getSelectedItem()).getId());
-			newRepEvent.setDescription(this.descriptionTextArea.getText());
+			newRepEvent.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getId());
+			newRepEvent.setDescription(descriptionTextArea.getText());
 
 
 			//set start/end date
 			newRepEvent.setStartTime(getStartDate());
 			newRepEvent.setEndTime(getEndDate());
-			newRepEvent.setName(this.nameTextField.getText());
+			newRepEvent.setName(nameTextField.getText());
 			
 			//Set repeating fields
 			if (repeatTypeComboBox.getSelectedIndex() == 2){
@@ -1717,8 +1717,8 @@ public class EventTab extends JPanel {
 				newEvent.setIsPersonal(true);
 			}
 
-			newEvent.setCategoryID(((Category)this.categoryComboBox.getSelectedItem()).getId());
-			newEvent.setDescription(this.descriptionTextArea.getText());
+			newEvent.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getId());
+			newEvent.setDescription(descriptionTextArea.getText());
 
 
 			
@@ -1726,7 +1726,7 @@ public class EventTab extends JPanel {
 			//set due date
 			newEvent.setStartTime(getStartDate());
 			newEvent.setEndTime(getEndDate());
-			newEvent.setName(this.nameTextField.getText());
+			newEvent.setName(nameTextField.getText());
 
 			if (mode == EditingMode.ADDING)
 				calData.addEvent(newEvent);
@@ -1744,7 +1744,7 @@ public class EventTab extends JPanel {
 	protected void deleteEvent() {
 		// TODO Auto-generated method stub
 		CalendarData calData;
-		if (this.rdbtnPersonal.isSelected()){
+		if (rdbtnPersonal.isSelected()){
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
 			isTeamEvent = false;
 		}
@@ -1753,7 +1753,7 @@ public class EventTab extends JPanel {
 			isTeamEvent = true;
 		}
 
-		if (this.repeatCheckBox.isSelected()){
+		if (repeatCheckBox.isSelected()){
 			calData.getRepeatingEvents().removeEvent(editingRepeatingEvent.getID());
 		} else {
 			calData.getEvents().removeEvent(editingEvent.getID());

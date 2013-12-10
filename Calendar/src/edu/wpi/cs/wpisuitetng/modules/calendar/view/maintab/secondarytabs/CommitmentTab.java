@@ -145,7 +145,7 @@ public class CommitmentTab extends JPanel {
 	 * Create the panel.
 	 */
 	public CommitmentTab() {
-		this.initFlag = false;
+		initFlag = false;
 		this.setBackground(Color.WHITE);
 		formPanel = new JPanel();
 		formPanel.setBackground(Color.WHITE);
@@ -174,7 +174,7 @@ public class CommitmentTab extends JPanel {
 		addButtonPanel();
 		
 		
-		this.initFlag = true;
+		initFlag = true;
 		
 		glue_1 = Box.createGlue();
 		add(glue_1);
@@ -188,35 +188,35 @@ public class CommitmentTab extends JPanel {
 		
 
 		
-		this.initFlag = false; //We need this to deal with the nested constructors
+		initFlag = false; //We need this to deal with the nested constructors
 		
 		editingCommitment = commToEdit;
-		this.mode = EditingMode.EDITING;
+		mode = EditingMode.EDITING;
 		
-		this.nameTextField.setText(editingCommitment.getName());
-		this.descriptionTextField.setText(editingCommitment.getDescription());
-		this.categoryComboBox.setSelectedItem(editingCommitment.getCategoryID());
+		nameTextField.setText(editingCommitment.getName());
+		descriptionTextField.setText(editingCommitment.getDescription());
+		categoryComboBox.setSelectedItem(editingCommitment.getCategoryID());
 		
 		if(!editingCommitment.getIsPersonal())
-			this.rdbtnTeam.setSelected(true);
+			rdbtnTeam.setSelected(true);
 		else
-			this.rdbtnPersonal.setSelected(true);
+			rdbtnPersonal.setSelected(true);
 		
-		this.rdbtnTeam.setEnabled(false);
-		this.rdbtnPersonal.setEnabled(false);
+		rdbtnTeam.setEnabled(false);
+		rdbtnPersonal.setEnabled(false);
 		
 
-		this.hourSpinner.setValue(editingCommitment.getDueDate().getTime());
-		this.minuteSpinner.setValue(editingCommitment.getDueDate().getTime());
-		this.AMPMSpinner.setValue(editingCommitment.getDueDate().getTime());
-		this.datePicker.setDate(editingCommitment.getDueDate().getTime());
+		hourSpinner.setValue(editingCommitment.getDueDate().getTime());
+		minuteSpinner.setValue(editingCommitment.getDueDate().getTime());
+		AMPMSpinner.setValue(editingCommitment.getDueDate().getTime());
+		datePicker.setDate(editingCommitment.getDueDate().getTime());
 
 		
 		statusComboBox.setSelectedIndex(commToEdit.getStatus().id);
 
-		this.btnDelete.setEnabled(true);
+		btnDelete.setEnabled(true);
 		
-		this.initFlag = true;
+		initFlag = true;
 
 	}
 
@@ -952,7 +952,7 @@ public class CommitmentTab extends JPanel {
 		}
 
 		CalendarData calData;
-		if (this.rdbtnPersonal.isSelected()){
+		if (rdbtnPersonal.isSelected()){
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
 			isTeamComm = false;
 		}
@@ -979,8 +979,8 @@ public class CommitmentTab extends JPanel {
 			newComm.setIsPersonal(true);
 		}
 
-		newComm.setCategoryID(((Category)this.categoryComboBox.getSelectedItem()).getId());
-		newComm.setDescription(this.descriptionTextField.getText());
+		newComm.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getId());
+		newComm.setDescription(descriptionTextField.getText());
 
 		
 
@@ -993,7 +993,7 @@ public class CommitmentTab extends JPanel {
 		GregorianCalendar calMinute = new GregorianCalendar();
 		GregorianCalendar calAMPM = new GregorianCalendar();
 		
-		calDate.setTime(this.datePicker.getDate());
+		calDate.setTime(datePicker.getDate());
 		calHour.setTime((Date)hourSpinner.getValue());
 		calMinute.setTime((Date)minuteSpinner.getValue());
 		calAMPM.setTime((Date)AMPMSpinner.getValue());
@@ -1007,7 +1007,7 @@ public class CommitmentTab extends JPanel {
 		
 		//set due date
 		newComm.setDueDate(calDate);
-		newComm.setName(this.nameTextField.getText());
+		newComm.setName(nameTextField.getText());
 		
 		if (mode == EditingMode.ADDING) {
 			calData.addCommitment(newComm);
@@ -1063,7 +1063,7 @@ public class CommitmentTab extends JPanel {
 	protected void deleteCommitment() {
 		// TODO Auto-generated method stub
 		CalendarData calData;
-	if (this.rdbtnPersonal.isSelected()){
+	if (rdbtnPersonal.isSelected()){
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
 			isTeamComm = false;
 	}
@@ -1097,7 +1097,7 @@ public class CommitmentTab extends JPanel {
 					GregorianCalendar calMinute = new GregorianCalendar();
 					GregorianCalendar calAMPM = new GregorianCalendar();
 					
-					calDate.setTime(this.datePicker.getDate());
+					calDate.setTime(datePicker.getDate());
 					calHour.setTime((Date)hourSpinner.getValue());
 					calMinute.setTime((Date)minuteSpinner.getValue());
 					calAMPM.setTime((Date)AMPMSpinner.getValue());
@@ -1112,9 +1112,9 @@ public class CommitmentTab extends JPanel {
 					//System.out.println("Commit time in milli is " + editingCommitment.getDueDate().getTimeInMillis());
 					
 					//make sure something changed
-					if (this.nameTextField.getText().equals(editingCommitment.getName()) 
-							&& this.descriptionTextField.getText().equals(editingCommitment.getDescription())
-							&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryID()
+					if (nameTextField.getText().equals(editingCommitment.getName()) 
+							&& descriptionTextField.getText().equals(editingCommitment.getDescription())
+							&& ((Category)categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryID()
 							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
 							&& calDate.getTime().equals(editingCommitment.getDueDate().getTime())
 							){

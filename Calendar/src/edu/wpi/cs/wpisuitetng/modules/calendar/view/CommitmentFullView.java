@@ -87,10 +87,10 @@ public class CommitmentFullView extends JPanel{
 	
 	/*Constructor creates main scrolling Panel and sets tcalendar which will grab teams commitments*/
 	public CommitmentFullView(AbCalendar teamCalendar, AbCalendar personalCalendar) {
-		this.tcalendar = teamCalendar;
-		this.pcalendar = personalCalendar;
+		tcalendar = teamCalendar;
+		pcalendar = personalCalendar;
 		
-		this.mode = ViewingMode.TEAM;
+		mode = ViewingMode.TEAM;
 		
 		commitPanel = new JPanel();
 		
@@ -561,7 +561,7 @@ public class CommitmentFullView extends JPanel{
 	}
 	
 	private void switchView(ViewingMode newMode){
-		this.mode = newMode;
+		mode = newMode;
 		this.update();
 	}
 	

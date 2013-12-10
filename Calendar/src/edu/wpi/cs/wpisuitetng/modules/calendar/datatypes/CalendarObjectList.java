@@ -48,7 +48,7 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 	public T get(int id) {
 		T temp = null;
 		// iterate through list of CalendarObjects until id is found
-		for (int i = 0; i < this.calendarObjects.size(); i++) {
+		for (int i = 0; i < calendarObjects.size(); i++) {
 			temp = calendarObjects.get(i);
 			if (temp.getID() == id) {
 				break;
@@ -66,7 +66,7 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 	 */
 	public void remove(int removeId) {
 		// iterate through list of CalendarObjects until id of project is found
-		for (int i = 0; i < this.calendarObjects.size(); i++) {
+		for (int i = 0; i < calendarObjects.size(); i++) {
 			if (calendarObjects.get(i).getID() == removeId) {
 				// remove the id
 				calendarObjects.remove(i);
@@ -93,7 +93,7 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 	 * @return the next open id number
 	 */
 	public int getNextID() {
-		return this.nextID++;
+		return nextID++;
 	}
 	
 	/**

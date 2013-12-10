@@ -55,7 +55,7 @@ public class CategoryList {
 	{
 		Category temp = null;
 		// iterate through list of categories until id is found
-		for (int i=0; i < this.categories.size(); i++){
+		for (int i=0; i < categories.size(); i++){
 			temp = categories.get(i);
 			if (temp.getId() == id){
 				break;
@@ -70,7 +70,7 @@ public class CategoryList {
 	 */
 	public void removeCategory(int removeId){
 		// iterate through list of categories until id of project is found
-		for (int i=0; i < this.categories.size(); i++){
+		for (int i=0; i < categories.size(); i++){
 			if (categories.get(i).getId() == removeId){
 				// remove the id
 				categories.remove(i);

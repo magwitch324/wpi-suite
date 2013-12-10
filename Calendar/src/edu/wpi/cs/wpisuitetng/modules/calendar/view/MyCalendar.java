@@ -181,7 +181,7 @@ public class MyCalendar extends AbCalendar {
 
 	protected void displayCalData() {
 		if (initialized) {
-			calView.displayCalData(this.events, this.commitments, this.getShowCommitments());
+			calView.displayCalData(events, commitments, this.getShowCommitments());
 		}
 	}
 
@@ -309,7 +309,7 @@ public class MyCalendar extends AbCalendar {
 	@Override
 	protected void updateCommPane() {
 		if (initialized) {
-			calView.updateCommPane(this.commitments, this.getShowCommitments());
+			calView.updateCommPane(commitments, this.getShowCommitments());
 		}
 		
 	}

@@ -36,10 +36,10 @@ public class RepeatingEvent extends CalendarObject {
 	 */
 	public RepeatingEvent() {
 		super();
-		this.startTime = new Date(0);
-		this.endTime = new Date(0);
-		this.repetitions = 0;
-		this.repType = RepeatType.DAY;
+		startTime = new Date(0);
+		endTime = new Date(0);
+		repetitions = 0;
+		repType = RepeatType.DAY;
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class RepeatingEvent extends CalendarObject {
 		super(name, description, categoryID, isPersonal);
 		this.startTime = startTime.getTime();
 		this.endTime = endTime.getTime();
-		Collections.addAll(this.participants, people);
+		Collections.addAll(participants, people);
 		this.repetitions = repetitions;
 		this.repType = repType;
 	}
@@ -84,11 +84,11 @@ public class RepeatingEvent extends CalendarObject {
 	 */
 	public void copyFrom(RepeatingEvent toCopyFrom) {
 		super.copyFrom(toCopyFrom);
-		this.startTime = toCopyFrom.getStartTime().getTime();
-		this.endTime = toCopyFrom.getEndTime().getTime();
-		this.participants = toCopyFrom.getParticipants();
-		this.repetitions = toCopyFrom.getRepetitions();
-		this.repType = toCopyFrom.getRepType();
+		startTime = toCopyFrom.getStartTime().getTime();
+		endTime = toCopyFrom.getEndTime().getTime();
+		participants = toCopyFrom.getParticipants();
+		repetitions = toCopyFrom.getRepetitions();
+		repType = toCopyFrom.getRepType();
 	}
 
 	// GETTERS
@@ -99,7 +99,7 @@ public class RepeatingEvent extends CalendarObject {
 	 */
 	public GregorianCalendar getStartTime() {
 		GregorianCalendar tmp = new GregorianCalendar();
-		tmp.setTime(this.startTime);
+		tmp.setTime(startTime);
 		return tmp;
 	}
 
@@ -110,7 +110,7 @@ public class RepeatingEvent extends CalendarObject {
 	 */
 	public GregorianCalendar getEndTime() {
 		GregorianCalendar tmp = new GregorianCalendar();
-		tmp.setTime(this.endTime);
+		tmp.setTime(endTime);
 		return tmp;
 	}
 

@@ -103,13 +103,13 @@ public abstract class AbCalendar extends JPanel {
 
 		try {
 			Image img = ImageIO.read(getClass().getResource("Day_Icon.png"));
-			this.viewbtns[0].setIcon(new ImageIcon(img));
-			this.viewbtns[0].setBorder(BorderFactory.createEmptyBorder());
+			viewbtns[0].setIcon(new ImageIcon(img));
+			viewbtns[0].setBorder(BorderFactory.createEmptyBorder());
 			viewbtns[0].setContentAreaFilled(false);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			this.viewbtns[0].setIcon(new ImageIcon());
-			this.viewbtns[0].setText("Day");
+			viewbtns[0].setIcon(new ImageIcon());
+			viewbtns[0].setText("Day");
 		} 
 
 		viewbtns[0].setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
@@ -135,13 +135,13 @@ public abstract class AbCalendar extends JPanel {
 
 		try {
 			Image img = ImageIO.read(getClass().getResource("Week_Icon.png"));
-			this.viewbtns[1].setIcon(new ImageIcon(img));
-			this.viewbtns[1].setBorder(BorderFactory.createEmptyBorder());
+			viewbtns[1].setIcon(new ImageIcon(img));
+			viewbtns[1].setBorder(BorderFactory.createEmptyBorder());
 			viewbtns[1].setContentAreaFilled(false);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			this.viewbtns[1].setIcon(new ImageIcon());
-			this.viewbtns[1].setText("Week");
+			viewbtns[1].setIcon(new ImageIcon());
+			viewbtns[1].setText("Week");
 		}
 
 		viewbtns[1].setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
@@ -166,13 +166,13 @@ public abstract class AbCalendar extends JPanel {
 
 		try {
 			Image img = ImageIO.read(getClass().getResource("Month_Icon.png"));
-			this.viewbtns[2].setIcon(new ImageIcon(img));	
-			this.viewbtns[2].setBorder(BorderFactory.createEmptyBorder());
+			viewbtns[2].setIcon(new ImageIcon(img));	
+			viewbtns[2].setBorder(BorderFactory.createEmptyBorder());
 			viewbtns[2].setContentAreaFilled(false);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			this.viewbtns[2].setIcon(new ImageIcon());
-			this.viewbtns[2].setText("Month");
+			viewbtns[2].setIcon(new ImageIcon());
+			viewbtns[2].setText("Month");
 		}
 
 		viewbtns[2].setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
@@ -197,13 +197,13 @@ public abstract class AbCalendar extends JPanel {
 
 		try {
 			Image img = ImageIO.read(getClass().getResource("Year_Icon.png"));
-			this.viewbtns[3].setIcon(new ImageIcon(img));
-			this.viewbtns[3].setBorder(BorderFactory.createEmptyBorder());
+			viewbtns[3].setIcon(new ImageIcon(img));
+			viewbtns[3].setBorder(BorderFactory.createEmptyBorder());
 			viewbtns[3].setContentAreaFilled(false);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			this.viewbtns[3].setIcon(new ImageIcon());
-			this.viewbtns[3].setText("Year");
+			viewbtns[3].setIcon(new ImageIcon());
+			viewbtns[3].setText("Year");
 		}
 
 		viewbtns[3].setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
@@ -421,7 +421,7 @@ public abstract class AbCalendar extends JPanel {
 	}
 
 	public CalendarData getCalData(){
-		return this.calData;
+		return calData;
 	}
 
 

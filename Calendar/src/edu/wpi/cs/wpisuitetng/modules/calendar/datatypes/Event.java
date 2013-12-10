@@ -61,7 +61,7 @@ public class Event extends CalendarObject {
 		super(name, description, categoryID, isPersonal);
 		this.startTime = startTime.getTime();
 		this.endTime = endTime.getTime();
-		Collections.addAll(this.participants, people);
+		Collections.addAll(participants, people);
 	}
 
 	/**
@@ -72,9 +72,9 @@ public class Event extends CalendarObject {
 	 */
 	public void copyFrom(Event toCopyFrom) {
 		super.copyFrom(toCopyFrom);
-		this.startTime = toCopyFrom.getStartTime().getTime();
-		this.endTime = toCopyFrom.getEndTime().getTime();
-		this.participants = toCopyFrom.getParticipants();
+		startTime = toCopyFrom.getStartTime().getTime();
+		endTime = toCopyFrom.getEndTime().getTime();
+		participants = toCopyFrom.getParticipants();
 	}
 
 	// GETTERS
@@ -85,7 +85,7 @@ public class Event extends CalendarObject {
 	 */
 	public GregorianCalendar getStartTime() {
 		GregorianCalendar tmp = new GregorianCalendar();
-		tmp.setTime(this.startTime);
+		tmp.setTime(startTime);
 		return tmp;
 	}
 
@@ -96,7 +96,7 @@ public class Event extends CalendarObject {
 	 */
 	public GregorianCalendar getEndTime() {
 		GregorianCalendar tmp = new GregorianCalendar();
-		tmp.setTime(this.endTime);
+		tmp.setTime(endTime);
 		return tmp;
 	}
 

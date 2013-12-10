@@ -78,7 +78,7 @@ public class CalendarPropsModel extends AbstractListModel {
 	{
 		CalendarProps temp = null;
 		// iterate through list of CalendarPropss until id is found
-		for (int i=0; i < this.CalendarPropss.size(); i++){
+		for (int i=0; i < CalendarPropss.size(); i++){
 			temp = CalendarPropss.get(i);
 			if (temp.getId().equals(id)){
 				break;
@@ -96,7 +96,7 @@ public class CalendarPropsModel extends AbstractListModel {
 	 */
 	public void removeCalendarProps(String removeId){
 		// iterate through list of CalendarPropss until id of project is found
-		for (int i=0; i < this.CalendarPropss.size(); i++){
+		for (int i=0; i < CalendarPropss.size(); i++){
 			if (CalendarPropss.get(i).getId().equals(removeId)){
 				// remove the id
 				CalendarPropss.remove(i);
@@ -157,7 +157,7 @@ public class CalendarPropsModel extends AbstractListModel {
 	 */
 	public void addCalendarProps(CalendarProps[] calData) {
 		for (int i = 0; i < calData.length; i++) {
-			this.CalendarPropss.add(calData[i]);
+			CalendarPropss.add(calData[i]);
 
 		}
 		this.fireIntervalAdded(this, 0, Math.max(getSize() - 1, 0));

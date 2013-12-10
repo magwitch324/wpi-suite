@@ -79,7 +79,7 @@ public class CalendarDataModel extends AbstractListModel {
 	{
 		CalendarData temp = null;
 		// iterate through list of CalendarDatas until id is found
-		for (int i=0; i < this.calendarDatas.size(); i++){
+		for (int i=0; i < calendarDatas.size(); i++){
 			temp = calendarDatas.get(i);
 			if (temp.getId().equals(id)){
 				break;
@@ -97,7 +97,7 @@ public class CalendarDataModel extends AbstractListModel {
 	 */
 	public void removeCalendarData(String removeId){
 		// iterate through list of CalendarDatas until id of project is found
-		for (int i=0; i < this.calendarDatas.size(); i++){
+		for (int i=0; i < calendarDatas.size(); i++){
 			if (calendarDatas.get(i).getId().equals(removeId)){
 				// remove the id
 				calendarDatas.remove(i);
@@ -158,7 +158,7 @@ public class CalendarDataModel extends AbstractListModel {
 	 */
 	public void addCalendarData(CalendarData[] calData) {
 		for (int i = 0; i < calData.length; i++) {
-			this.calendarDatas.add(calData[i]);
+			calendarDatas.add(calData[i]);
 
 		}
 		this.fireIntervalAdded(this, 0, Math.max(getSize() - 1, 0));

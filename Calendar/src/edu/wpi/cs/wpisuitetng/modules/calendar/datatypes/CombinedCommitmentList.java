@@ -23,7 +23,7 @@ public class CombinedCommitmentList extends CommitmentList {
 	
 	public CombinedCommitmentList(List<Commitment> list) {
 		this();
-		this.calendarObjects = list;
+		calendarObjects = list;
 	}
 	
 	@Override
