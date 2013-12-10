@@ -73,7 +73,9 @@ public class CommitmentFullView extends JPanel{
 	
 	List<Commitment> commitmentList = new ArrayList<Commitment>();
 	private int namesort = 0;
+	private int datesort = 0;
 	JButton jName;
+	JButton jDueDate;
 	public enum ViewingMode {
 		TEAM, PERSONAL, BOTH;		
 	};
@@ -256,6 +258,7 @@ public class CommitmentFullView extends JPanel{
 		jName.addMouseListener(new MouseAdapter() {
 			@Override
 		public void mouseClicked(MouseEvent e) {
+				datesort = 0;
 				Collections.sort(commitmentList);
 				if(namesort == 1){
 					namesort = 2;
@@ -270,7 +273,13 @@ public class CommitmentFullView extends JPanel{
 		});
 		
 		
-		JButton jDueDate = new JButton("Due Date");
+		jDueDate = new JButton("Due Date");
+		if(datesort == 1){
+			jDueDate.setText("Due Date ^");
+		}
+		else if(datesort == 2){
+			jDueDate.setText("Due Date v");
+		}
 		jDueDate.setContentAreaFilled(false);
 		jDueDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		
@@ -278,6 +287,7 @@ public class CommitmentFullView extends JPanel{
 		jDueDate.addMouseListener(new MouseAdapter() {
 			@Override
 		public void mouseClicked(MouseEvent e) {
+				namesort = 0;
 				Collections.sort(commitmentList, new Comparator<Commitment>() {
 				
 				@Override 
@@ -290,6 +300,13 @@ public class CommitmentFullView extends JPanel{
 						return 0;
 				}				
 				});
+				if(datesort == 1){
+					datesort = 2;
+					Collections.reverse(commitmentList);
+				}
+				else if(datesort == 2 || datesort == 0){
+					datesort = 1;
+				}
 				update2();
 			}			
 		});
