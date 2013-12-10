@@ -135,7 +135,7 @@ public class CommitmentTab extends JPanel {
 	private Component glue;
 	private Component glue_1;
 	
-	private enum EditingMode {
+	public enum EditingMode {
 		ADDING,
 		EDITING;
 	}
