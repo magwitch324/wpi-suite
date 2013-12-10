@@ -15,7 +15,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Date;
 
-public class Event extends CalendarObject {
+public class RepeatingEvent extends CalendarObject {
 
 	/** the start date of the event */
 	private Date startTime;
@@ -23,17 +23,23 @@ public class Event extends CalendarObject {
 	private Date endTime;
 	/** a list of participants of the event */
 	private List<String> participants = new ArrayList<String>();
-	/** indicates whether or not the event is a repeating one*/
-	private boolean isRepeating;
-	
+	/** the number of repetitions */
+	private int repetitions;
+	public enum RepeatType{
+		DAY,WEEK,MONTH;
+	};
+	/** the type of the repeat */
+	private RepeatType repType;
+
 	/**
 	 * Constructs a Event with default characteristics
 	 */
-	public Event() {
+	public RepeatingEvent() {
 		super();
-		startTime = new Date(0);
-		endTime = new Date(0);
-		isRepeating = false;
+		this.startTime = new Date(0);
+		this.endTime = new Date(0);
+		this.repetitions = 0;
+		this.repType = RepeatType.DAY;
 	}
 
 	/**
@@ -53,15 +59,21 @@ public class Event extends CalendarObject {
 	 * @param categoryID
 	 *            The Category of the Event
 	 * @param isPersonal
-	 *            A boolean stating that the Event is personal
+	 *            A boolean stating that the Event is personal    
+	 * @param finalRepeat
+	 * 			  A date Representing the final repeat day
+	 * @param repType
+	 *			  A Repeat type indicating the event's repeat type
 	 */
-	public Event(String name, String description, GregorianCalendar startTime,
+	public RepeatingEvent(String name, String description, GregorianCalendar startTime,
 			GregorianCalendar endTime, String[] people, int categoryID,
-			boolean isPersonal) {
+			boolean isPersonal, int repetitions, RepeatType repType) {
 		super(name, description, categoryID, isPersonal);
 		this.startTime = startTime.getTime();
 		this.endTime = endTime.getTime();
 		Collections.addAll(this.participants, people);
+		this.repetitions = repetitions;
+		this.repType = repType;
 	}
 
 	/**
@@ -70,11 +82,13 @@ public class Event extends CalendarObject {
 	 * @param toCopyFrom
 	 *            the event to copy from.
 	 */
-	public void copyFrom(Event toCopyFrom) {
+	public void copyFrom(RepeatingEvent toCopyFrom) {
 		super.copyFrom(toCopyFrom);
 		this.startTime = toCopyFrom.getStartTime().getTime();
 		this.endTime = toCopyFrom.getEndTime().getTime();
 		this.participants = toCopyFrom.getParticipants();
+		this.repetitions = toCopyFrom.getRepetitions();
+		this.repType = toCopyFrom.getRepType();
 	}
 
 	// GETTERS
@@ -101,15 +115,6 @@ public class Event extends CalendarObject {
 	}
 
 	/**
-	 * Getter for whether or not the event is a repeating one
-	 * 
-	 * @return whether or not the event repeats
-	 */
-	public boolean getIsRepeating() {
-		return isRepeating;
-	}
-	
-	/**
 	 * Getter for participants
 	 * 
 	 * @return the list of strings representing the users for whom the event has
@@ -119,6 +124,24 @@ public class Event extends CalendarObject {
 		return participants;
 	}
 
+	/**
+	 * Getter for the final Repeat date
+	 * 
+	 * @return final repeat date
+	 */
+	public int getRepetitions() {
+		return repetitions;
+	}
+	
+	/**
+	 * Getter for the repeat type
+	 * 
+	 * @return the repType
+	 */
+	public RepeatType getRepType() {
+		return repType;
+	}
+	
 	// SETTERS
 	/**
 	 * Setter for the start time
@@ -149,13 +172,24 @@ public class Event extends CalendarObject {
 	public void setParticipants(List<String> participants) {
 		this.participants = participants;
 	}
+	
+	/**
+	 * Setter for the final repeat date
+	 * 
+	 * @param finalRepeat
+	 */
+	public void setRepetitions(int repetitions) {
+		this.repetitions = repetitions;
+
+	}
 
 	/**
-	 * Setter for the whether or not the event is a repeating one
+	 * Setter for the Repeat Typw
 	 * 
-	 * @param isRepeating
+	 * @param repType the repType to set
 	 */
-	public void setIsRepeating(boolean isRepeating) {
-		this.isRepeating = isRepeating;
+	public void setRepType(RepeatType repType) {
+		this.repType = repType;
 	}
+
 }

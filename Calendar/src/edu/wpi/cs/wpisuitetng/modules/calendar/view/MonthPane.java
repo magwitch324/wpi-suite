@@ -30,6 +30,7 @@ import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
@@ -243,7 +244,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			scroll = new JScrollPane();
 			small = new JPanel();
 			big = new JPanel();
-			
+			this.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 			
 			datelabel = new JLabel("" + acal.get(Calendar.DATE));
 			layout.putConstraint(SpringLayout.NORTH, datelabel, 1, SpringLayout.NORTH, this);

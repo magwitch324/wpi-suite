@@ -14,6 +14,7 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -22,6 +23,9 @@ import javax.swing.SpringLayout;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
@@ -117,6 +121,23 @@ public class TeamCalendar extends AbCalendar {
 	public boolean getShowTeamData(){
 		return false;
 	}
+	
+	public void setCommEventList() {
+		//if we dont have the caldata dont do anything
+		if (initialized && getCalData() != null) {
+			//create a combined event list
+			CombinedEventList combinedEventList = getCalData()
+					.getRepeatingEvents().toCombinedEventList();
+			for (int i = 0; i < getCalData().getEvents()
+					.getEvents().size(); i++) {
+				combinedEventList.add(getCalData().getEvents()
+						.getEvents().get(i));
+			}
+				commitments = getCalData().getCommitments();
+				events = combinedEventList;
+			
+		}
+	}
 
 	public void updateCalData() {
 		if(!initialized){
@@ -131,7 +152,8 @@ public class TeamCalendar extends AbCalendar {
 		}
 		calData = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName());
-
+		
+		setCommEventList();
 		setView();
 		//		displayCalData();
 
@@ -140,7 +162,7 @@ public class TeamCalendar extends AbCalendar {
 	protected void displayCalData() {
 		// TODO Auto-generated method stub
 		if(initialized){
-			calView.displayCalData(calData.getEvents(), calData.getCommitments(), getShowCommitments());
+			calView.displayCalData(this.events, this.commitments, getShowCommitments());
 		}
 	}
 	
