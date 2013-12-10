@@ -1460,9 +1460,9 @@ public class EventTab extends JPanel {
 							return;
 						}
 					}
-					btnAddEvent.setEnabled(true);
-				}
 
+				}
+				btnAddEvent.setEnabled(true);
 			}
 		}
 	}
