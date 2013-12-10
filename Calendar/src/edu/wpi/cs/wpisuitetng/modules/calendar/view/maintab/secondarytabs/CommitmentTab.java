@@ -50,6 +50,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.DateEditor;
 import javax.swing.JTextArea;
@@ -129,6 +130,7 @@ public class CommitmentTab extends JPanel {
 	private boolean isTeamComm;
 	private Commitment editingCommitment;
 	private EditingMode mode = EditingMode.ADDING;
+	private JScrollPane descriptionScrollPane;
 
 	private Component glue;
 	private Component glue_1;
@@ -360,8 +362,13 @@ public class CommitmentTab extends JPanel {
 		gbc_descriptionTextField.weighty = 5;
 		gbc_descriptionTextField.gridx = 1;
 		gbc_descriptionTextField.gridy = 1;
-		formPanel.add(descriptionTextField, gbc_descriptionTextField);
-
+		
+		descriptionScrollPane = new JScrollPane(descriptionTextField);
+		
+		formPanel.add(descriptionScrollPane, gbc_descriptionTextField);
+		descriptionScrollPane.setMaximumSize(new Dimension(10000000,10));
+		descriptionScrollPane.getViewport().setMaximumSize(new Dimension(10000000,10));
+		
 		//Create category box, add two dummy categories
 		categoryComboBox = new JComboBox<Category>();
 		categoryComboBox.addItem(new Category(4, "Cat1"));
