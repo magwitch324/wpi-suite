@@ -29,6 +29,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
@@ -182,7 +183,8 @@ public class YearPane extends JScrollPane implements ICalPane{
 			
 			SpringLayout layout = new SpringLayout();
 			this.setLayout(layout);
-			this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+			//this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+			this.setBorder(BorderFactory.createSoftBevelBorder(BevelBorder.RAISED));
 			
 			//Creates the month lbl and a wrapper and places it in this at the top
 			JLabel monthlbl = new JLabel(acal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()),
@@ -334,6 +336,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 		 */
 		public YearDayPane(final GregorianCalendar acal, int month){
 			super();
+			this.setBorder(BorderFactory.createSoftBevelBorder(BevelBorder.RAISED));
 			this.scal = (GregorianCalendar)acal.clone();
 			this.setLayout(new GridLayout(1,1));
 			JLabel lbl = new JLabel("" + this.scal.get(Calendar.DATE), SwingConstants.CENTER);
@@ -361,7 +364,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 			}
 			this.add(lbl);
 			this.setPreferredSize(lbl.getPreferredSize());
-			//this.setBorder(BorderFactory.createRaisedSoftBevelBorder());
+
 		}
 		
 		/**
