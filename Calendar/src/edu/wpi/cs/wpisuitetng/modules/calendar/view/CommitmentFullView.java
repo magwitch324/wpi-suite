@@ -43,6 +43,9 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
+
+import org.jdesktop.swingx.border.MatteBorderExt;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
@@ -65,6 +68,9 @@ public class CommitmentFullView extends JPanel{
 	AbCalendar tcalendar;
 	AbCalendar pcalendar;
 	JPanel commitPanel;
+	JScrollPane scrollPane;
+	JPanel header;
+	
 	List<Commitment> commitmentList = new ArrayList<Commitment>();
 	public enum ViewingMode {
 		TEAM, PERSONAL, BOTH;		
@@ -79,12 +85,28 @@ public class CommitmentFullView extends JPanel{
 		this.mode = ViewingMode.TEAM;
 		
 		commitPanel = new JPanel();
-		JScrollPane scrollPane = new JScrollPane(commitPanel, 
+		
+		// Header panel
+		header = new JPanel();
+		header.setBackground(Color.WHITE);
+		header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
+		header.setBorder(new EmptyBorder(5,5,5,5));
+		header.setBorder(new MatteBorder(0,0,2,0, Color.BLACK));
+		
+		scrollPane = new JScrollPane(commitPanel, 
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(scrollPane, BorderLayout.CENTER );
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		scrollPane.getHorizontalScrollBar().setUnitIncrement(20);
+
+		// Sets the UPPER RIGHT corner box
+		JPanel cornerBoxUR = new JPanel();
+		cornerBoxUR.setBackground(Color.WHITE);
+		scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
+				cornerBoxUR);
+		add(scrollPane);
+		
 		/*spring layout to allow adjustments to size of screen without messing up panels*/
 		SpringLayout layout = new SpringLayout();
 		setLayout(layout);
@@ -125,8 +147,10 @@ public class CommitmentFullView extends JPanel{
 	/*commit panel is populated with all events which are in separate panels that can be scrolled and clicked*/
 	private void setupPanels() {
 		commitPanel.setLayout(new BoxLayout(commitPanel, BoxLayout.Y_AXIS));
-		commitPanel.setBorder(new EmptyBorder(10, 5, 10 , 20));
+		commitPanel.setBorder(new EmptyBorder(5, 5, 10 , 20));
 		commitPanel.setBackground(Color.WHITE);
+		
+		header.removeAll();
 		
 		
 		JPanel viewSwitcher = new JPanel();
@@ -208,7 +232,7 @@ public class CommitmentFullView extends JPanel{
 		viewSwitcher.setPreferredSize(new Dimension(300,50));
 		viewSwitcher.setMaximumSize(new Dimension(20000, 50));
 		
-		commitPanel.add(viewSwitcher);
+		header.add(viewSwitcher);
 		
 		JPanel topButtons = new JPanel();
 		
@@ -288,7 +312,11 @@ public class CommitmentFullView extends JPanel{
 		topButtons.setMaximumSize(new Dimension(20000, 75));
 		Border loweredbevel1 = BorderFactory.createLoweredBevelBorder();
 		topButtons.setBorder(loweredbevel1);
-		commitPanel.add(topButtons);
+		topButtons.setBorder(new MatteBorder(5,5,5,5, Color.WHITE));
+		
+		header.add(topButtons);
+		
+		scrollPane.setColumnHeaderView(header);
 		//JSeparator sep = new JSeparator();
 		//commitPanel.add(sep);
 		for(int i = 0; i < commitmentList.size(); i++){
