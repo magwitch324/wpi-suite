@@ -45,7 +45,7 @@ public class DayPane extends JPanel implements ICalPane {
 	private DayDayPane daypane;
 	private SpringLayout layout;
 	private JScrollPane scrollPane;
-	private JPanel header = new JPanel();
+	private JLabel headerlabel;
 	
 	/**
 	 * Create the panel.
@@ -80,41 +80,41 @@ public class DayPane extends JPanel implements ICalPane {
 		JPanel cornerBoxUL = new JPanel();
 		cornerBoxUL.setBackground(CalendarStandard.CalendarRed);
 		cornerBoxUL.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.GRAY));
-		scrollPane.setCorner(ScrollPaneConstants.UPPER_LEFT_CORNER,
-				cornerBoxUL);
+		scrollPane.setCorner(ScrollPaneConstants.UPPER_LEFT_CORNER, cornerBoxUL);
 		
 		// Sets the UPPER RIGHT corner box
 		JPanel cornerBoxUR = new JPanel();
 		cornerBoxUR.setBackground(CalendarStandard.CalendarRed);
 		cornerBoxUR.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.GRAY));
-		scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
-				cornerBoxUR);
+		scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER, cornerBoxUR);
 		add(scrollPane);
 
 
 		// Create the header panel
-		header.setLayout(new GridLayout(1, 2));
+		JPanel header = new JPanel();
+		header.setLayout(new GridLayout(1, 1));
 		header.setBackground(CalendarStandard.CalendarRed);
 		header.setBorder(new MatteBorder(0, 0, 2, 0, Color.GRAY));
 		header.setPreferredSize(new Dimension(10, 40));
 
-		// Create and set the label "Events"
-		JLabel eventlabel = new JLabel("<html><font color='white'><b>"
-				+ "Events" + "</b></font></html>", SwingConstants.CENTER);
-		eventlabel.setFont(CalendarStandard.CalendarFont.deriveFont(14));
-		header.add(eventlabel);
-
+		headerlabel = new JLabel("Event", SwingConstants.CENTER);
+		headerlabel.setFont(CalendarStandard.CalendarFontBold.deriveFont(14));
+		headerlabel.setForeground(Color.WHITE);
+		header.add(headerlabel);
+		
 		// add apane to the header of the scrollpane
 		scrollPane.setColumnHeaderView(header);
 		
-		
-		layout = new SpringLayout();
-		mainPanel.setLayout(layout);
-		
+		mainPanel.setLayout(new GridLayout(1,1));
+		daypane = new DayDayPane(day);
+		mainPanel.add(daypane);
+		mainPanel.setBackground(CalendarStandard.CalendarYellow);
 		mainPanel.setPreferredSize(new Dimension(30, 2000));
 
+		//sets the hours panel
 		scrollPane.setRowHeader(new HourDisplayPort(mainPanel));
 
+		//adds a mouse listener for scroll check
 		scrollPane.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -122,34 +122,11 @@ public class DayPane extends JPanel implements ICalPane {
 			}
 
 		});
-		refresh();
 	}
 
 
 	public void refresh() {
 		
-		mainPanel.removeAll();
-		
-		setLayout(new GridLayout(1,1));
-
-		if (daypane == null)
-			daypane = new DayDayPane(day);
-		daypane.setBackground(CalendarStandard.CalendarYellow);
-		layout.putConstraint(SpringLayout.WEST, daypane, 0, SpringLayout.WEST, mainPanel);
-		layout.putConstraint(SpringLayout.NORTH, daypane, 0, SpringLayout.NORTH, mainPanel);
-		layout.putConstraint(SpringLayout.SOUTH, daypane, 0, SpringLayout.SOUTH, mainPanel);
-		layout.putConstraint(SpringLayout.EAST, daypane, 0, SpringLayout.EAST, mainPanel);
-		mainPanel.add(daypane);
-
-
-		//scrollPane.setColumnHeaderView(labelPane);
-
-		mainPanel.revalidate();
-		mainPanel.repaint();
-		scrollPane.revalidate();
-		scrollPane.repaint();
-		scrollPane.getVerticalScrollBar().setValue(GUIEventController.getInstance().getScrollBarValue());
-
 	}
 
 
@@ -158,6 +135,12 @@ public class DayPane extends JPanel implements ICalPane {
 	 * @param dayTeamCommList 
 	 */
 	public void displayCommitments(List<Commitment> commList) {
+		if(commList == null){
+			headerlabel.setText("Events");
+		}
+		else{
+			headerlabel.setText("Events and Commitments");
+		}
 		//if we are supposed to display commitments
 		daypane.displayCommitments(commList);
 	}
