@@ -12,11 +12,12 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -27,8 +28,8 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
-import javax.swing.SwingConstants;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CalendarObject;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
@@ -63,8 +64,7 @@ public class CalendarObjectPanel extends JPanel {
 		    }
 		});
 		
-		this.setLayout(new GridLayout(1,1));
-		
+		this.setLayout(layout);
 	}
 	
 	/**
@@ -120,40 +120,41 @@ public class CalendarObjectPanel extends JPanel {
 	
 	
 	private void setLabel() {
-		JLabel alab = new JLabel();
 		String type;
+		String time;
 		CalendarObject calobj;
+		
+		SimpleDateFormat tm = new SimpleDateFormat();
+		tm.applyPattern("hh:mm a");
+		
 		if (event == null) {
 			type = "Commitment";
 			calobj = comm;
+			time = "Due: " + tm.format(comm.getDueDate().getTime());
 		} else {
 			type = "Event";
 			calobj = event;
-		}
-		String name = calobj.getName();
-		String description = calobj.getDescription();
-		String label;
-		setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this text
-
-		if (detailLevel == AbCalendar.types.WEEK) {
-			label = name;
-			setToolTipText(name);
-		} else {
-//			label = "<html><font size = 5><b>" + name + "</b></font><br>" + description + "</html>";
-//			label = label.replaceAll("\n", "<br>");
-			
-			label = name;
-			
-			setToolTipText(name);
+			time = tm.format(event.getStartTime().getTime()) + " - " + tm.format(event.getEndTime().getTime());
 		}
 		
-		alab.setText(label);
-		alab.setAlignmentX(SwingConstants.CENTER);
-		alab.setAlignmentY(SwingConstants.NORTH);
+		String name = calobj.getName();
+		String description = calobj.getDescription();
+		
+		String tt = "<html>Name: " + name + "<br>" + time + "<br>Description: " + description + "</html>";
+		tt = tt.replaceAll("\n", "<br>");
+		setToolTipText(tt);
+		
+		JLabel nameL = new JLabel(name);
+		nameL.setFont(new Font("SansSerif", Font.BOLD, 14));
+		description = description.replaceAll("\n", " ");
+		JLabel descL = new JLabel(description);
+		JLabel timeL = new JLabel(time);
+		JLabel iconL = new JLabel();
+		
+		setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this text
 		
 		Image nameImg;
 		Image scaleImg;
-		
 		try {
 			if (calobj.getIsPersonal()) {	
 				nameImg = ImageIO.read(getClass().getResource("Personal" + type + "_Icon.png"));
@@ -162,17 +163,54 @@ public class CalendarObjectPanel extends JPanel {
 				nameImg = ImageIO.read(getClass().getResource("Team" + type + "_Icon.png"));
 			}
 			scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
-			alab.setIcon(new ImageIcon(scaleImg));
+			ImageIcon imageIcon = new ImageIcon(scaleImg);
+			iconL.setIcon(imageIcon);
+			iconL.setSize(imageIcon.getIconHeight(), imageIcon.getIconWidth());
 			
 		} catch (IOException e) {
 
 		}
 		
-		alab.setBackground(new Color(0,0,0,0));
-		alab.setMaximumSize(this.getSize());
 		removeAll();
 		
-		add(alab, SwingConstants.CENTER);
+		add(iconL);
+		
+		layout.putConstraint(SpringLayout.WEST, iconL, 5, SpringLayout.WEST, this);
+		layout.putConstraint(SpringLayout.NORTH, iconL, 5, SpringLayout.NORTH, this);
+		
+		SpringLayout textLayout = new SpringLayout();
+		JPanel textPanel = new JPanel();
+		textPanel.setBackground(Color.WHITE);
+		textPanel.setLayout(textLayout);
+		
+		textPanel.add(nameL);
+		textPanel.add(timeL);
+		textPanel.add(descL);
+		
+		add(textPanel);
+		
+		// Layout for right side of veiw
+		layout.putConstraint(SpringLayout.WEST, textPanel, 5, SpringLayout.EAST, iconL);
+		layout.putConstraint(SpringLayout.NORTH, textPanel, 2, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.EAST, textPanel, -5, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.SOUTH, textPanel, -5, SpringLayout.SOUTH, this);
+		
+		// Layout for name label
+		textLayout.putConstraint(SpringLayout.WEST, nameL, 0, SpringLayout.WEST, textPanel);
+		textLayout.putConstraint(SpringLayout.NORTH, nameL, 0, SpringLayout.NORTH, textPanel);
+		textLayout.putConstraint(SpringLayout.EAST, nameL, 0, SpringLayout.EAST, textPanel);
+		
+		// layout for time label
+		textLayout.putConstraint(SpringLayout.WEST, timeL, 0, SpringLayout.WEST, textPanel);
+		textLayout.putConstraint(SpringLayout.NORTH, timeL, 0, SpringLayout.SOUTH, nameL);
+		textLayout.putConstraint(SpringLayout.EAST, timeL, 0, SpringLayout.EAST, textPanel);
+		
+		// layout for desc label
+		textLayout.putConstraint(SpringLayout.WEST, descL, 0, SpringLayout.WEST, textPanel);
+		textLayout.putConstraint(SpringLayout.NORTH, descL, 0, SpringLayout.SOUTH, timeL);
+		textLayout.putConstraint(SpringLayout.EAST, descL, 0, SpringLayout.EAST, textPanel);
+		
+		
 	}
 	
 	/**

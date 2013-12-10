@@ -151,7 +151,7 @@ public class EventListTest {
 		eventList1.add(lastYear);
 		lastYear.setName("Changed Last Year");
 		eventList1.update(lastYear);
-		assertEquals("Changed Last Year", eventList1.getElementAt(0).getName());
+		assertEquals("Changed Last Year", eventList1.getElementAt(2).getName());
 	}
 	
 	@Test
