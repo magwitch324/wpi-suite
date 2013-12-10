@@ -370,6 +370,7 @@ public class EventTab extends JPanel {
 //		startTimeSpinner.setEditor(startTimeEditor);
 		// Create time spinner panel.
 		startSpinnerPanel = new JPanel();
+		startSpinnerPanel.setBackground(Color.WHITE);
 		
 		startSpinnerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 				
@@ -495,6 +496,7 @@ public class EventTab extends JPanel {
 //		endTimeSpinner.setEditor(endTimeEditor);
 		// Create time spinner panel.
 		endSpinnerPanel = new JPanel();
+		endSpinnerPanel.setBackground(Color.WHITE);
 		
 		endSpinnerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 				
