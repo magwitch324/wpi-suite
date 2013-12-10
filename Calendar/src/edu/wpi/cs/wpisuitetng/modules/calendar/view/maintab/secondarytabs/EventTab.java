@@ -112,6 +112,7 @@ public class EventTab extends JPanel {
 	private JLabel lblRepeatType;
 	private JLabel lblNumberRepetitions;
 	private RepeatingEvent editingRepeatingEvent;
+	private JScrollPane descriptionScrollPane;
 	
 	
 	
@@ -257,7 +258,10 @@ public class EventTab extends JPanel {
         gbc_descriptionTextField.gridx = 1;
         gbc_descriptionTextField.gridy = 1;
         gbc.gridwidth = 3;
-		formPanel.add(descriptionTextArea, gbc_descriptionTextField);
+        descriptionScrollPane = new JScrollPane(descriptionTextArea);
+		formPanel.add(descriptionScrollPane, gbc_descriptionTextField);
+		descriptionScrollPane.setMaximumSize(new Dimension(10000000,10));
+		descriptionScrollPane.getViewport().setMaximumSize(new Dimension(10000000,10));
 		
 		descriptionTextArea.addKeyListener(new KeyListener() {
 
@@ -857,6 +861,7 @@ public class EventTab extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				repeatTypeComboBox.setEnabled(repeatCheckBox.isSelected());
 				repeatAmt.setEnabled(repeatCheckBox.isSelected());
+				listenerHelper();
 			}
 			
 		});
@@ -939,7 +944,12 @@ public class EventTab extends JPanel {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				listenerHelper();
-				
+				try {
+					Integer.parseInt(repeatAmt.getText());
+					btnAddEvent.setEnabled(true);
+				} catch (Exception ex){
+					btnAddEvent.setEnabled(false);
+				}
 			}
 			
 		});
@@ -1427,6 +1437,15 @@ public class EventTab extends JPanel {
 						}
 					}
 
+				}
+				if(this.repeatCheckBox.isSelected()){
+					try {
+						Integer.parseInt(repeatAmt.getText());
+						btnAddEvent.setEnabled(true);
+					} catch (Exception ex){
+						btnAddEvent.setEnabled(false);
+					}
+					return;
 				}
 				btnAddEvent.setEnabled(true);
 			}

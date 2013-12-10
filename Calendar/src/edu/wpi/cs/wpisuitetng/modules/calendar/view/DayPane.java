@@ -102,7 +102,6 @@ public class DayPane extends JPanel implements ICalPane {
 		headerlabel.setForeground(Color.WHITE);
 		header.add(headerlabel);
 		
-		// add apane to the header of the scrollpane
 		scrollPane.setColumnHeaderView(header);
 		
 		mainPanel.setLayout(new GridLayout(1,1));
@@ -122,11 +121,13 @@ public class DayPane extends JPanel implements ICalPane {
 			}
 
 		});
+		
+		refresh();
 	}
 
 
 	public void refresh() {
-		
+   	 	scrollPane.getVerticalScrollBar().setValue(GUIEventController.getInstance().getScrollBarValue());
 	}
 
 
@@ -136,10 +137,12 @@ public class DayPane extends JPanel implements ICalPane {
 	 */
 	public void displayCommitments(List<Commitment> commList) {
 		if(commList == null){
-			headerlabel.setText("Events");
+			headerlabel.setText("<html><font color='white'><b>"
+					+ "Events" + "</b></font></html>");
 		}
 		else{
-			headerlabel.setText("Events and Commitments");
+			headerlabel.setText("<html><font color='white'><b>"
+					+ "Events and Commitments" + "</b></font></html>");
 		}
 		//if we are supposed to display commitments
 		daypane.displayCommitments(commList);

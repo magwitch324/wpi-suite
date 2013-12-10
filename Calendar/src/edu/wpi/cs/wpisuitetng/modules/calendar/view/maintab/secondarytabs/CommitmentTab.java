@@ -50,6 +50,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.DateEditor;
 import javax.swing.JTextArea;
@@ -129,6 +130,7 @@ public class CommitmentTab extends JPanel {
 	private boolean isTeamComm;
 	private Commitment editingCommitment;
 	private EditingMode mode = EditingMode.ADDING;
+	private JScrollPane descriptionScrollPane;
 
 	private Component glue;
 	private Component glue_1;
@@ -137,6 +139,8 @@ public class CommitmentTab extends JPanel {
 		ADDING,
 		EDITING;
 	}
+	private int tempHour;
+	private int tempMin;
 	
 	/**
 	 * Create the panel.
@@ -277,7 +281,7 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(lblTime, gbc_lblTime);
 		
 		//Invalid Time label
-		lblTimeError = new JLabel("<html><font color='red'>Please enter AM or PM.</font></html>");
+		lblTimeError = new JLabel("<html><font color='red'>Please enter a valid time (12 hour format).</font></html>");
 		lblTimeError.setVisible(false);
 		lblTimeError.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_lblTimeError = new GridBagConstraints();
@@ -358,8 +362,13 @@ public class CommitmentTab extends JPanel {
 		gbc_descriptionTextField.weighty = 5;
 		gbc_descriptionTextField.gridx = 1;
 		gbc_descriptionTextField.gridy = 1;
-		formPanel.add(descriptionTextField, gbc_descriptionTextField);
-
+		
+		descriptionScrollPane = new JScrollPane(descriptionTextField);
+		
+		formPanel.add(descriptionScrollPane, gbc_descriptionTextField);
+		descriptionScrollPane.setMaximumSize(new Dimension(10000000,10));
+		descriptionScrollPane.getViewport().setMaximumSize(new Dimension(10000000,10));
+		
 		//Create category box, add two dummy categories
 		categoryComboBox = new JComboBox<Category>();
 		categoryComboBox.addItem(new Category(4, "Cat1"));
@@ -674,6 +683,7 @@ public class CommitmentTab extends JPanel {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				checkSaveBtnStatus();
+				tempHour = Integer.parseInt(hourEditor.getTextField().getText().toString());
 			}
 		});
 		
@@ -730,6 +740,7 @@ public class CommitmentTab extends JPanel {
 				GregorianCalendar cal = new GregorianCalendar();
 				cal.setTime((Date) minuteSpinner.getValue());
 				int currentHour = cal.get(Calendar.HOUR);
+				tempMin = Integer.parseInt(minuteEditor.getTextField().getText().toString());
 
 				if(currentHour == 1) {
 					cal.setTime((Date) hourSpinner.getValue());
@@ -1135,7 +1146,7 @@ public class CommitmentTab extends JPanel {
 	
 	private void checkTimeSpinnerStatus(JSpinner spinner) {
 		DateEditor editor = (DateEditor)spinner.getEditor();
-		if(isBadInputTime(editor)) {
+		if(isBadInputTime(editor) || tempHour < 1 || tempHour > 12 || tempMin > 59) {
 			editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 			lblTimeError.setVisible(true);
 		}

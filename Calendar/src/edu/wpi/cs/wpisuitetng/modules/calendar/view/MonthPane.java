@@ -114,6 +114,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			JPanel wrapper = new JPanel();
 			wrapper.setLayout(new GridLayout(1, 1));
 			wrapper.setBackground(CalendarStandard.CalendarRed);
+			wrapper.setBorder(BorderFactory.createSoftBevelBorder(BevelBorder.RAISED));
 			label[i] = new JLabel("", SwingConstants.CENTER);
 			label[i].setFont(CalendarStandard.CalendarFontBold);
 			label[i].setForeground(Color.WHITE);
@@ -239,7 +240,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			this.setLayout(layout);
 			this.setPreferredSize(new Dimension(50, 20));
 			this.setBackground(CalendarStandard.CalendarYellow);
-			this.setBorder(BorderFactory.createEmptyBorder());
+			this.setBorder(BorderFactory.createSoftBevelBorder(BevelBorder.RAISED));
 			this.addMouseListener(new wholecheck());
 			scroll = new JScrollPane();
 			small = new JPanel();

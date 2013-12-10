@@ -117,7 +117,6 @@ public class WeekPane extends JPanel implements ICalPane {
 			
 		});
 		
-	   	
 	   	refresh();
 	}
 
@@ -223,6 +222,7 @@ public class WeekPane extends JPanel implements ICalPane {
 	}
 	
 	public void refresh() {
+   	 	scrollPane.getVerticalScrollBar().setValue(GUIEventController.getInstance().getScrollBarValue());
 	}
 
 
