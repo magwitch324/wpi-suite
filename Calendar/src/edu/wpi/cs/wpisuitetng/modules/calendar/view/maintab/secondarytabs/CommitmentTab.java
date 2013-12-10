@@ -137,6 +137,8 @@ public class CommitmentTab extends JPanel {
 		ADDING,
 		EDITING;
 	}
+	private int tempHour;
+	private int tempMin;
 	
 	/**
 	 * Create the panel.
@@ -277,7 +279,7 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(lblTime, gbc_lblTime);
 		
 		//Invalid Time label
-		lblTimeError = new JLabel("<html><font color='red'>Please enter AM or PM.</font></html>");
+		lblTimeError = new JLabel("<html><font color='red'>Please enter a valid time (12 hour format).</font></html>");
 		lblTimeError.setVisible(false);
 		lblTimeError.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_lblTimeError = new GridBagConstraints();
@@ -674,6 +676,7 @@ public class CommitmentTab extends JPanel {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				checkSaveBtnStatus();
+				tempHour = Integer.parseInt(hourEditor.getTextField().getText().toString());
 			}
 		});
 		
@@ -730,6 +733,7 @@ public class CommitmentTab extends JPanel {
 				GregorianCalendar cal = new GregorianCalendar();
 				cal.setTime((Date) minuteSpinner.getValue());
 				int currentHour = cal.get(Calendar.HOUR);
+				tempMin = Integer.parseInt(minuteEditor.getTextField().getText().toString());
 
 				if(currentHour == 1) {
 					cal.setTime((Date) hourSpinner.getValue());
@@ -1135,7 +1139,7 @@ public class CommitmentTab extends JPanel {
 	
 	private void checkTimeSpinnerStatus(JSpinner spinner) {
 		DateEditor editor = (DateEditor)spinner.getEditor();
-		if(isBadInputTime(editor)) {
+		if(isBadInputTime(editor) || tempHour < 1 || tempHour > 12 || tempMin > 59) {
 			editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 			lblTimeError.setVisible(true);
 		}
