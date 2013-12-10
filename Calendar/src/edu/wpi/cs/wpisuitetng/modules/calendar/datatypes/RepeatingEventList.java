@@ -159,7 +159,6 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	 * @return equivalent list of events
 	 */
 	public CombinedEventList toCombinedEventList(){
-		SimpleDateFormat format = new SimpleDateFormat();
 		CombinedEventList eventList = new CombinedEventList();
 		GregorianCalendar eventStart = new GregorianCalendar();
 		GregorianCalendar eventEnd = new GregorianCalendar();
