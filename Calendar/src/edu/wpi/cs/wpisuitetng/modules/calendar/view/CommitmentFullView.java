@@ -73,7 +73,13 @@ public class CommitmentFullView extends JPanel{
 	
 	List<Commitment> commitmentList = new ArrayList<Commitment>();
 	private int namesort = 0;
+	private int datesort = 0;
+	private int dessort = 0;
+	private int statussort = 0;
 	JButton jName;
+	JButton jDueDate;
+	JButton jDescription;
+	JButton jStatus;
 	public enum ViewingMode {
 		TEAM, PERSONAL, BOTH;		
 	};
@@ -260,6 +266,9 @@ public class CommitmentFullView extends JPanel{
 		jName.addMouseListener(new MouseAdapter() {
 			@Override
 		public void mouseClicked(MouseEvent e) {
+				datesort = 0;
+				dessort = 0;
+				statussort = 0;
 				Collections.sort(commitmentList);
 				if(namesort == 1){
 					namesort = 2;
@@ -274,16 +283,31 @@ public class CommitmentFullView extends JPanel{
 		});
 		
 		
-		JButton jDueDate = new JButton("<html><font color='white'><b>"
+
+		jDueDate = new JButton("<html><font color='white'><b>"
 				+ "Due Date" + "</b></font></html>");
 //		jDueDate.setContentAreaFilled(false);
 		jDueDate.setBackground(CalendarStandard.CalendarRed);
+
+		if(datesort == 1){
+			jDueDate.setText("<html><font color='white'><b>"
+					+ "Due Date ^" + "</b></font></html>");
+		}
+		else if(datesort == 2){
+			jDueDate.setText("<html><font color='white'><b>"
+					+ "Due Date v" + "</b></font></html>");
+		}
+		//jDueDate.setContentAreaFilled(false);
+
 		jDueDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		
 		// sort by date 
 		jDueDate.addMouseListener(new MouseAdapter() {
 			@Override
 		public void mouseClicked(MouseEvent e) {
+				namesort = 0;
+				dessort = 0;
+				statussort = 0;
 				Collections.sort(commitmentList, new Comparator<Commitment>() {
 				
 				@Override 
@@ -296,23 +320,77 @@ public class CommitmentFullView extends JPanel{
 						return 0;
 				}				
 				});
+				if(datesort == 1){
+					datesort = 2;
+					Collections.reverse(commitmentList);
+				}
+				else if(datesort == 2 || datesort == 0){
+					datesort = 1;
+				}
 				update2();
 			}			
 		});
 
-		JButton jDescription = new JButton("<html><font color='white'><b>"
+
+		jDescription = new JButton("<html><font color='white'><b>"
 				+ "Description" + "</b></font></html>");
 //		jDescription.setContentAreaFilled(false);
 		jDescription.setBackground(CalendarStandard.CalendarRed);
+		if(dessort == 1){
+			jDescription.setText("<html><font color='white'><b>"
+					+ "Description ^" + "</b></font></html>");
+		}
+		else if(dessort == 2){
+			jDescription.setText("<html><font color='white'><b>"
+					+ "Description v" + "</b></font></html>");
+		}
+		//jDescription.setContentAreaFilled(false);
+
 		jDescription.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
+		jDescription.addMouseListener(new MouseAdapter() {
+			@Override
+		public void mouseClicked(MouseEvent e) {
+				namesort = 0;
+				datesort = 0;
+				statussort = 0;
+				Collections.sort(commitmentList, new Comparator<Commitment>() {
+					
+				@Override 
+				public int compare(Commitment c1, Commitment c2) {
+					return c1.getDescription().compareTo(c2.getDescription());
+				}		
+				});
+				if(dessort == 1){
+					dessort = 2;
+					Collections.reverse(commitmentList);
+				}
+				else if(dessort == 2 || dessort == 0){
+					dessort = 1;
+				}
+				update2();
+			}			
+		});
 		
-		JButton jStatus = new JButton("Status");
-		jStatus.setContentAreaFilled(false);
+		jStatus = new JButton("<html><font color='white'><b>"
+				+ "Status" + "</b></font></html>");
+		if(statussort == 1){
+			jStatus.setText("<html><font color='white'><b>"
+					+ "Status ^" + "</b></font></html>");
+		}
+		else if(statussort == 2){
+			jStatus.setText("<html><font color='white'><b>"
+					+ "Status v" + "</b></font></html>");
+		}
+//		jStatus.setContentAreaFilled(false);
+		jStatus.setBackground(CalendarStandard.CalendarRed);
 		jStatus.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		
 		jStatus.addMouseListener(new MouseAdapter() {
 			@Override
 		public void mouseClicked(MouseEvent e) {
+				namesort = 0;
+				datesort = 0;
+				dessort = 0;
 				Collections.sort(commitmentList, new Comparator<Commitment>() {
 					
 				@Override 
@@ -321,6 +399,13 @@ public class CommitmentFullView extends JPanel{
 
 				}		
 				});
+				if(statussort == 1){
+					statussort = 2;
+					Collections.reverse(commitmentList);
+				}
+				else if(statussort == 2 || statussort == 0){
+					statussort = 1;
+				}
 				update2();
 			}			
 		});

@@ -36,6 +36,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 
+@SuppressWarnings("serial")
 public class CalendarObjectPanel extends JPanel {
 	Event event = null;
 	Commitment comm = null;
