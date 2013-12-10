@@ -286,7 +286,7 @@ public class DayDayPane extends JPanel {
 	protected void setPos(){
 		SpringLayout layout = (SpringLayout)this.getLayout();
 		for(CalendarObjectPanel obj : sortedobjects){
-			layout.putConstraint(SpringLayout.NORTH, obj, 0, SpringLayout.VERTICAL_CENTER, halfhourmarks[obj.getStartIndex()]);
+			layout.putConstraint(SpringLayout.NORTH, obj, (int)(this.getHeight() * obj.getStartRatio()), SpringLayout.NORTH, this);
 		}
 	}
 	
@@ -347,7 +347,7 @@ public class DayDayPane extends JPanel {
 			}
 		}
 		
-		if(span == 0){
+		if(span == 0 && cop.getColumnWidth() > 2){
 			SpringLayout layout = (SpringLayout)this.getLayout();
 			layout.putConstraint(SpringLayout.EAST, cop, -3, SpringLayout.EAST, this);
 		}

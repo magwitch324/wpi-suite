@@ -41,7 +41,7 @@ public class CalendarObjectPanel extends JPanel {
 	JComponent parent = null;
 	SpringLayout layout= new SpringLayout();
 	AbCalendar.types detailLevel;
-	int columnwidth = 1;
+	int columnwidth = 2;
 	int columnspanned = 1;
 	
 	/**
@@ -165,17 +165,12 @@ public class CalendarObjectPanel extends JPanel {
 			alab.setIcon(new ImageIcon(scaleImg));
 			
 		} catch (IOException e) {
-			//TODO Auto generated catch
+
 		}
 		
 		alab.setBackground(new Color(0,0,0,0));
 		alab.setMaximumSize(this.getSize());
 		removeAll();
-		
-//		layout.putConstraint(SpringLayout.NORTH, alab, 1, SpringLayout.NORTH, this);
-//		layout.putConstraint(SpringLayout.SOUTH, alab, -1, SpringLayout.SOUTH, this);
-//		layout.putConstraint(SpringLayout.EAST, alab, -1, SpringLayout.EAST, this);
-//		layout.putConstraint(SpringLayout.WEST, alab, 1, SpringLayout.WEST, this);
 		
 		add(alab, SwingConstants.CENTER);
 	}
@@ -199,7 +194,7 @@ public class CalendarObjectPanel extends JPanel {
 	public void refreshSize(){
 		double par_width = parent.getSize().getWidth();
 		double par_height = parent.getSize().getHeight();
-		Dimension new_size = new Dimension((int)((par_width-3*(columnwidth+1))/columnwidth * columnspanned), (int)(getSizeIndex()/48.0*par_height));
+		Dimension new_size = new Dimension((int)((par_width-3*columnwidth - 3)/columnwidth * columnspanned), (int)(par_height* this.getRatioDifference()));
 		this.setPreferredSize(new_size);
 	}
 	
@@ -209,6 +204,10 @@ public class CalendarObjectPanel extends JPanel {
 	 * @return the new column width
 	 */
 	public int setColumnWidth(int columnwidth){
+		if(columnwidth < 2){
+			this.columnwidth = 2;
+			return 2;
+		}
 		return (this.columnwidth = columnwidth);
 	}
 	
@@ -226,48 +225,45 @@ public class CalendarObjectPanel extends JPanel {
 	 * @return
 	 */
 	public int setColumnSpan(int columnspanned){
+		if(columnspanned < 1){
+			this.columnspanned = 1;
+			return 1;
+		}
 		return (this.columnspanned = columnspanned);
 	}
 	
 	/**
-	 * Gets the start date based on its 2*hour and minute time
-	 * If it is before this day then it will set it to 0
-	 * 22:30 will return 45
-	 * @return the index based on hour and minute
+	 * Finds the start time as a ratio in a 24 hour period
+	 * @return a value 0 - 1.0 of the start time, defaults to 0 if before this' today
 	 */
-	public int getStartIndex(){
+	public double getStartRatio(){
 		GregorianCalendar tempstart = (GregorianCalendar)this.acal.clone();
 		tempstart.set(Calendar.HOUR_OF_DAY, 0);
 		tempstart.set(Calendar.MINUTE, 0);
 		tempstart.set(Calendar.SECOND, 0);
 		tempstart.set(Calendar.MILLISECOND, 0);
 		
-		int index = 0;
+		double index = 0;
 		if(!this.getStart().before(tempstart)){
-			index = 2*this.getStart().get(Calendar.HOUR_OF_DAY);
-			if(this.getStart().get(Calendar.MINUTE) >= 30 ){
-				index++;
-			}
+			index = (( this.getStart().get(Calendar.HOUR_OF_DAY) * 60.0 ) + (this.getStart().get(Calendar.MINUTE))) / (24.0 * 60.0);
 		}
 
 		return index;
 	}
 	
 	/**
-	 * Gets the length of this based on the start and end index
-	 * @return the size in hours index
+	 * Finds the difference between the end ratio and start ratio value
+	 * @return the equivalent of the length of the event in ratio form
 	 */
-	public int getSizeIndex(){
-		return getEndIndex() - getStartIndex();
+	public double getRatioDifference(){
+		return this.getEndRatio() - this.getStartRatio();
 	}
 	
 	/**
-	 * Gets the end date based on its 2*hour and minute time
-	 * If it is after this day then it will set it to 48
-	 * 22:30 will return 45
-	 * @return the index based on hour and minute
+	 * Finds the end time as a ratio in a 24 hour period
+	 * @return a value 0 - 1.0 of the end time, defaults to 1.0 if after this' today
 	 */
-	public int getEndIndex(){
+	public double getEndRatio(){
 		GregorianCalendar tempend = (GregorianCalendar)this.acal.clone();
 		tempend.set(Calendar.HOUR_OF_DAY, 0);
 		tempend.set(Calendar.MINUTE, 0);
@@ -275,12 +271,9 @@ public class CalendarObjectPanel extends JPanel {
 		tempend.set(Calendar.MILLISECOND, 0);
 		tempend.add(Calendar.DATE, 1);
 		
-		int index = 48;
+		double index = 1.0;
 		if(!this.getEnd().after(tempend)){
-			index = 2*this.getEnd().get(Calendar.HOUR_OF_DAY);
-			if(this.getEnd().get(Calendar.MINUTE) >= 30 ){
-				index++;
-			}
+			index = (( this.getEnd().get(Calendar.HOUR_OF_DAY) * 60.0 ) + (this.getEnd().get(Calendar.MINUTE))) / (24.0 * 60.0);
 		}
 
 		return index;
@@ -329,10 +322,10 @@ public class CalendarObjectPanel extends JPanel {
 	 * @return whether this and other conflict in time
 	 */
 	public boolean doesConflict(CalendarObjectPanel other){
-		int thisstart = this.getStartIndex();
-		int thisend = this.getEndIndex();
-		int otherstart = other.getStartIndex();
-		int otherend = other.getEndIndex();
+		double thisstart = this.getStartRatio();
+		double thisend = this.getEndRatio();
+		double otherstart = other.getStartRatio();
+		double otherend = other.getEndRatio();
 		
 		return (thisstart < otherend) && (thisend > otherstart);
 	}
