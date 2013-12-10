@@ -102,6 +102,7 @@ public class CommitmentList extends CalendarObjectList<Commitment> {
 		Commitment tmp = get(newObject.getID());
 		if(tmp.getDueDate().equals(newObject.getDueDate())){
 			int i = calendarObjects.indexOf(get(newObject.getID()));
+			calendarObjects.remove(get(newObject.getID()));
 			calendarObjects.add(i, newObject);
 			return;
 		}

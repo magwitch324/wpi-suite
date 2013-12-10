@@ -147,7 +147,7 @@ public class MyCalendar extends AbCalendar {
 		this.add(viewpanel);
 		viewbtns[currenttype.getCurrentType()].setSelected(true);
 
-		// setView();
+		setView();
 
 	}
 
@@ -204,15 +204,21 @@ public class MyCalendar extends AbCalendar {
 					new ArrayList<Commitment>(getCalData()
 							.getCommitments().getCommitments()));
 			//create a combined event list
-			CombinedEventList combinedEventList = new CombinedEventList(
-					new ArrayList<Event>(getCalData()
-							.getEvents().getEvents()));
+			CombinedEventList combinedEventList = getCalData()
+					.getRepeatingEvents().toCombinedEventList();
+			for (int i = 0; i < getCalData().getEvents()
+					.getEvents().size(); i++) {
+				combinedEventList.add(getCalData().getEvents()
+						.getEvents().get(i));
+			}
+			
 			//get the team data
 			CalendarData teamData = CalendarDataModel.getInstance()
 					.getCalendarData(ConfigManager.getConfig().getProjectName());
 
 			//if we are supposed to show team data, we need to put the team commitments into the list in the right order
 			if (getShowTeamData()) {
+		
 				// Iterate through team commitments and add each element to
 				// combinedList
 				// do it backwards to maintain order
@@ -222,6 +228,12 @@ public class MyCalendar extends AbCalendar {
 							.getCommitments().get(i));
 				}
 				commitments = combinedCommList;
+				
+				//get the combined events for team
+				CombinedEventList teamRepeatEvents = teamData.getRepeatingEvents().toCombinedEventList();
+				for (int i = 0; i < teamRepeatEvents.getEvents().size(); i++){
+					combinedEventList.add(teamRepeatEvents.getEvents().get(i));
+				}
 				
 				// Iterate through team events and add each element to
 				// combinedEventList
@@ -238,7 +250,7 @@ public class MyCalendar extends AbCalendar {
 			//if we are not supposed to show team data the CommitmentList should just be straight from the personal data
 			else {
 				commitments = getCalData().getCommitments();
-				events = getCalData().getEvents();
+				events = combinedEventList;
 			}
 		}
 	}

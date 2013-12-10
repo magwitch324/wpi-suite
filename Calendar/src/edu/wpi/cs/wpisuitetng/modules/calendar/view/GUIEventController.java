@@ -213,7 +213,8 @@ public class GUIEventController {
 	 * @param calData CalendarData where commitment is located
 	 */
 	public void editEvent(Event event) {
-		EventTab editEvent = new EventTab(event);
+		EventTab editEvent;
+		editEvent = new EventTab(event);
 		try {
 			Image img = ImageIO.read(getClass().getResource("EditEvent_Icon.png"));
 			main.addTab("Edit Event", new ImageIcon(img), editEvent);

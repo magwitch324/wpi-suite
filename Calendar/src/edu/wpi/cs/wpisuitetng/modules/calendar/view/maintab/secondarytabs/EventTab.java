@@ -11,6 +11,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -29,6 +30,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatType;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 import java.beans.PropertyChangeListener;
@@ -99,7 +102,13 @@ public class EventTab extends JPanel {
 	private JPanel formPanel;
 	private boolean initFlag; //to keep things from running before we fully intialize
 	private JSpinner.DateEditor startTimeEditor;
-	
+	private JCheckBox repeatCheckBox;
+	private JLabel lblRepeat;
+	private JTextField repeatAmt;
+	private JComboBox<String> repeatTypeComboBox;
+	private JLabel lblRepeatType;
+	private JLabel lblNumberRepetitions;
+	private RepeatingEvent editingRepeatingEvent;
 	
 	
 	
@@ -804,6 +813,122 @@ public class EventTab extends JPanel {
 		endTimeSpinner.setValue(startTime.getTime());
 		startTimeSpinner.setValue(startTime.getTime());
 		
+		//Add Repeat Label
+		lblRepeat = new JLabel("Repetition:");
+		lblRepeat.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblRepeat = new GridBagConstraints();
+		gbc_lblRepeat.anchor = GridBagConstraints.EAST;
+		gbc_lblRepeat.fill = GridBagConstraints.VERTICAL;
+		gbc_lblRepeat.insets = new Insets(0, 0, 5, 5);
+		gbc_lblRepeat.gridx = 0;
+		gbc_lblRepeat.gridy = 8;
+		gbc_lblRepeat.weighty = 1;
+		formPanel.add(lblRepeat, gbc_lblRepeat);
+		
+		//Add Repeat Checkbox
+		repeatCheckBox = new JCheckBox("Repeats?");
+		GridBagConstraints gbc_repeatCheckBox = new GridBagConstraints();
+		gbc_repeatCheckBox.gridwidth = 1;
+		gbc_repeatCheckBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_repeatCheckBox.insets = new Insets(0, 0, 5, 0);
+		gbc_repeatCheckBox.gridx = 1;
+		gbc_repeatCheckBox.gridy = 8;
+		gbc_repeatCheckBox.weightx = 10;
+		gbc_repeatCheckBox.weighty = 1;
+		formPanel.add(repeatCheckBox, gbc_repeatCheckBox);
+		repeatCheckBox.setSelected(false);
+		repeatCheckBox.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				repeatTypeComboBox.setEnabled(repeatCheckBox.isSelected());
+				repeatAmt.setEnabled(repeatCheckBox.isSelected());
+			}
+			
+		});
+		
+		//Add Repeat type Label
+		lblRepeatType = new JLabel("Repeat Type");
+		lblRepeatType.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblRepeatType = new GridBagConstraints();
+		gbc_lblRepeatType.anchor = GridBagConstraints.EAST;
+		gbc_lblRepeatType.fill = GridBagConstraints.VERTICAL;
+		gbc_lblRepeatType.insets = new Insets(0, 0, 5, 5);
+		gbc_lblRepeatType.gridx = 2;
+		gbc_lblRepeatType.gridy = 8;
+		gbc_lblRepeatType.weighty = 1;
+		formPanel.add(lblRepeatType, gbc_lblRepeatType);
+		
+		//Add Repeat ComboBox
+		String[] repeatStrings = {"Daily", "Weekly", "Monthly"};
+		repeatTypeComboBox = new JComboBox<String>(repeatStrings);
+		repeatTypeComboBox.setSelectedIndex(0);
+		GridBagConstraints gbc_repeatTypeComboBox = new GridBagConstraints();
+		gbc_repeatTypeComboBox.gridwidth = 1;
+		gbc_repeatTypeComboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_repeatTypeComboBox.insets = new Insets(0, 0, 5, 0);
+		gbc_repeatTypeComboBox.gridx = 3;
+		gbc_repeatTypeComboBox.gridy = 8;
+		gbc_repeatTypeComboBox.weightx = 10;
+		gbc_repeatTypeComboBox.weighty = 1;
+		formPanel.add(repeatTypeComboBox, gbc_repeatTypeComboBox);
+		repeatTypeComboBox.setEnabled(false);//we only want this active when repeat checkbox is checked
+		repeatTypeComboBox.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				listenerHelper();
+				
+			}
+			
+		});
+		
+		
+		//Add Repetitions Label
+		lblNumberRepetitions = new JLabel("# of Repetitions:");
+		lblNumberRepetitions.setHorizontalAlignment(SwingConstants.RIGHT);
+		GridBagConstraints gbc_lblNumberRepetitions = new GridBagConstraints();
+		gbc_lblNumberRepetitions.anchor = GridBagConstraints.EAST;
+		gbc_lblNumberRepetitions.fill = GridBagConstraints.VERTICAL;
+		gbc_lblNumberRepetitions.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNumberRepetitions.gridx = 0;
+		gbc_lblNumberRepetitions.gridy = 9;
+		gbc_lblNumberRepetitions.weighty = 1;
+		formPanel.add(lblNumberRepetitions, gbc_lblNumberRepetitions);
+		
+		//Add Repeat Text Field
+		repeatAmt = new JTextField();
+		GridBagConstraints gbc_repeatAmt = new GridBagConstraints();
+		gbc_repeatAmt.gridwidth = 3;
+		gbc_repeatAmt.fill = GridBagConstraints.HORIZONTAL;
+		gbc_repeatAmt.insets = new Insets(0, 0, 5, 0);
+		gbc_repeatAmt.gridx = 1;
+		gbc_repeatAmt.gridy = 9;
+		gbc_repeatAmt.weightx = 10;
+		gbc_repeatAmt.weighty = 1;
+		formPanel.add(repeatAmt, gbc_repeatAmt);
+		repeatAmt.setEnabled(false);//we only want this active when repeat checkbox is checked
+		repeatAmt.addKeyListener(new KeyListener(){
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				listenerHelper();
+				
+			}
+			
+		});
 		
 		
 		buttonPanel = new JPanel(new BorderLayout(30,0));
@@ -839,7 +964,7 @@ public class EventTab extends JPanel {
 		gbc_btnPanel.insets = new Insets(0, 0, 0, 5);
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
 		gbc_btnPanel.gridx = 1;
-		gbc_btnPanel.gridy = 9;
+		gbc_btnPanel.gridy = 10;
 		
 		//Add Cancel button
 
@@ -902,6 +1027,39 @@ public class EventTab extends JPanel {
 		this.endTimeSpinner.setValue(editingEvent.getEndTime().getTime());
 		this.endDatePicker.setDate(editingEvent.getEndTime().getTime());
 
+		//handle repetition fields
+		if(event.getIsRepeating()){
+			CalendarData calData;
+			if (this.rdbtnPersonal.isSelected()){
+				calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
+				isTeamEvent = false;
+			}
+			else{
+				calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
+				isTeamEvent = true;
+			}
+			this.editingRepeatingEvent = calData.getRepeatingEvents().get(event.getID());
+			this.repeatCheckBox.setSelected(true);
+			this.repeatAmt.setText(Integer.toString(this.editingRepeatingEvent.getRepetitions()));
+			this.repeatAmt.setEnabled(true);
+			if (this.editingRepeatingEvent.getRepType() == RepeatType.MONTH){
+				this.repeatTypeComboBox.setSelectedIndex(2);
+			} else if (this.editingRepeatingEvent.getRepType() == RepeatType.WEEK){
+				this.repeatTypeComboBox.setSelectedIndex(1);
+			} else {
+				this.repeatTypeComboBox.setSelectedIndex(0);
+			}
+			this.repeatTypeComboBox.setEnabled(true);
+			//pull times from the Repeating event
+			//otherwise the initial occurrence will get set to the double-clicked day
+			this.startTimeSpinner.setValue(editingRepeatingEvent.getStartTime().getTime());
+			this.startDatePicker.setDate(editingRepeatingEvent.getStartTime().getTime());
+			this.endTimeSpinner.setValue(editingRepeatingEvent.getEndTime().getTime());
+			this.endDatePicker.setDate(editingRepeatingEvent.getEndTime().getTime());
+		}
+		
+		this.repeatCheckBox.setEnabled(false);//Don't want people changing this for now
+											  // we might be able to enable it later
 		
 		// Add Delete Button
 		try {
@@ -1037,7 +1195,7 @@ public class EventTab extends JPanel {
 	private void addEvent() {
 		// TODO Auto-generated method stub
 
-		
+
 		if(nameTextField.getText().equals("") || startDatePicker.getDate() == null){
 			return;
 		}
@@ -1051,74 +1209,145 @@ public class EventTab extends JPanel {
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
 			isTeamEvent = true;
 		}
-//		for(Event event: calData.getEvents().getEvents())
-//		{
-//			System.out.println("Event name: " + event.getName()+", id: "+ event.getId());
-//		}
-		Event newEvent;
-		if(mode == EditingMode.ADDING)
-		{
-			newEvent = new Event();
-		}
-		else
-			newEvent = editingEvent;
-		
-		if(isTeamEvent){
-			newEvent.setIsPersonal(false);
-		}
-		else{
-			newEvent.setIsPersonal(true);
-		}
-		
-		newEvent.setCategoryID(((Category)this.categoryComboBox.getSelectedItem()).getId());
-		newEvent.setDescription(this.descriptionTextArea.getText());
-		
-		
-		//Parse date and time info
-		GregorianCalendar calStartDate = new GregorianCalendar();
-		GregorianCalendar calStartTime = new GregorianCalendar();
-		calStartDate.setTime(this.startDatePicker.getDate());
-		calStartTime.setTime((Date)startTimeSpinner.getValue());
-		calStartDate.set(Calendar.HOUR_OF_DAY, calStartTime.get(Calendar.HOUR_OF_DAY));
-		calStartDate.set(Calendar.MINUTE, calStartTime.get(Calendar.MINUTE));
-		
-		GregorianCalendar calEndDate = new GregorianCalendar();
-		GregorianCalendar calEndTime = new GregorianCalendar();
-		calEndDate.setTime(this.endDatePicker.getDate());
-		calEndTime.setTime((Date)endTimeSpinner.getValue());
-		calEndDate.set(Calendar.HOUR_OF_DAY, calEndTime.get(Calendar.HOUR_OF_DAY));
-		calEndDate.set(Calendar.MINUTE, calEndTime.get(Calendar.MINUTE));
-		
-		//set due date
-		newEvent.setStartTime(calStartDate);
-		newEvent.setEndTime(calEndDate);
-		newEvent.setName(this.nameTextField.getText());
-		
-		if (mode == EditingMode.ADDING)
-			calData.addEvent(newEvent);
-		else
-			calData.getEvents().update(newEvent);
+		//		for(Event event: calData.getEvents().getEvents())
+		//		{
+		//			System.out.println("Event name: " + event.getName()+", id: "+ event.getId());
+		//		}
+		if (repeatCheckBox.isSelected()){
+			RepeatingEvent newRepEvent;
+			if(mode == EditingMode.ADDING)
+			{
+				newRepEvent = new RepeatingEvent();
+			}
+			else {
+				newRepEvent = editingRepeatingEvent;
+			}
 
-		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+			if(isTeamEvent){
+				newRepEvent.setIsPersonal(false);
+			}
+			else{
+				newRepEvent.setIsPersonal(true);
+			}
 
- 
-		this.removeTab();
+			newRepEvent.setCategoryID(((Category)this.categoryComboBox.getSelectedItem()).getId());
+			newRepEvent.setDescription(this.descriptionTextArea.getText());
 
+
+			//Parse date and time info
+			GregorianCalendar calStartDate = new GregorianCalendar();
+			GregorianCalendar calStartTime = new GregorianCalendar();
+			calStartDate.setTime(this.startDatePicker.getDate());
+			calStartTime.setTime((Date)startTimeSpinner.getValue());
+			calStartDate.set(Calendar.HOUR_OF_DAY, calStartTime.get(Calendar.HOUR_OF_DAY));
+			calStartDate.set(Calendar.MINUTE, calStartTime.get(Calendar.MINUTE));
+
+			GregorianCalendar calEndDate = new GregorianCalendar();
+			GregorianCalendar calEndTime = new GregorianCalendar();
+			calEndDate.setTime(this.endDatePicker.getDate());
+			calEndTime.setTime((Date)endTimeSpinner.getValue());
+			calEndDate.set(Calendar.HOUR_OF_DAY, calEndTime.get(Calendar.HOUR_OF_DAY));
+			calEndDate.set(Calendar.MINUTE, calEndTime.get(Calendar.MINUTE));
+
+			//set due date
+			newRepEvent.setStartTime(calStartDate);
+			newRepEvent.setEndTime(calEndDate);
+			newRepEvent.setName(this.nameTextField.getText());
+			
+			//Set repeating fields
+			if (repeatTypeComboBox.getSelectedIndex() == 2){
+				newRepEvent.setRepType(RepeatType.MONTH);
+			} else if (repeatTypeComboBox.getSelectedIndex() == 1){
+				newRepEvent.setRepType(RepeatType.WEEK);
+			} else {
+				newRepEvent.setRepType(RepeatType.DAY);
+			}
+			
+			newRepEvent.setRepetitions(Integer.parseInt(repeatAmt.getText()));
+
+
+			if (mode == EditingMode.ADDING)
+				calData.addRepeatingEvent(newRepEvent);
+			else
+				calData.getRepeatingEvents().update(newRepEvent);
+
+			UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+
+
+			this.removeTab();
+
+		} else {
+
+			Event newEvent;
+			if(mode == EditingMode.ADDING)
+			{
+				newEvent = new Event();
+			}
+			else
+				newEvent = editingEvent;
+
+			if(isTeamEvent){
+				newEvent.setIsPersonal(false);
+			}
+			else{
+				newEvent.setIsPersonal(true);
+			}
+
+			newEvent.setCategoryID(((Category)this.categoryComboBox.getSelectedItem()).getId());
+			newEvent.setDescription(this.descriptionTextArea.getText());
+
+
+			//Parse date and time info
+			GregorianCalendar calStartDate = new GregorianCalendar();
+			GregorianCalendar calStartTime = new GregorianCalendar();
+			calStartDate.setTime(this.startDatePicker.getDate());
+			calStartTime.setTime((Date)startTimeSpinner.getValue());
+			calStartDate.set(Calendar.HOUR_OF_DAY, calStartTime.get(Calendar.HOUR_OF_DAY));
+			calStartDate.set(Calendar.MINUTE, calStartTime.get(Calendar.MINUTE));
+
+			GregorianCalendar calEndDate = new GregorianCalendar();
+			GregorianCalendar calEndTime = new GregorianCalendar();
+			calEndDate.setTime(this.endDatePicker.getDate());
+			calEndTime.setTime((Date)endTimeSpinner.getValue());
+			calEndDate.set(Calendar.HOUR_OF_DAY, calEndTime.get(Calendar.HOUR_OF_DAY));
+			calEndDate.set(Calendar.MINUTE, calEndTime.get(Calendar.MINUTE));
+
+			//set due date
+			newEvent.setStartTime(calStartDate);
+			newEvent.setEndTime(calEndDate);
+			newEvent.setName(this.nameTextField.getText());
+
+			if (mode == EditingMode.ADDING)
+				calData.addEvent(newEvent);
+			else
+				calData.getEvents().update(newEvent);
+
+			UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+
+
+			this.removeTab();
+		}
 	}
 	
 
 	protected void deleteEvent() {
 		// TODO Auto-generated method stub
 		CalendarData calData;
-	if (this.rdbtnPersonal.isSelected()){
+		if (this.rdbtnPersonal.isSelected()){
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
 			isTeamEvent = false;
-	}
-	else{
-		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
-		isTeamEvent = true;
-	}
-		calData.getEvents().removeEvent(editingEvent.getID());
+		}
+		else{
+			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
+			isTeamEvent = true;
+		}
+
+		if (this.repeatCheckBox.isSelected()){
+			calData.getRepeatingEvents().removeEvent(editingRepeatingEvent.getID());
+		} else {
+			calData.getEvents().removeEvent(editingEvent.getID());
+		}
+		
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 		removeTab();
 	}
@@ -1127,7 +1356,7 @@ public class EventTab extends JPanel {
 	 * Controls the enable state of the save button
 	 */
 	private void listenerHelper(){
-		
+
 		if (initFlag){
 			if(nameTextField.getText().equals("") || startDatePicker.getDate() == null || //data validation
 					endDatePicker.getDate() == null || nameTextField.getText().trim().length() == 0){
@@ -1142,30 +1371,54 @@ public class EventTab extends JPanel {
 					calTime.setTime((Date)startTimeSpinner.getValue());
 					calStartDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
 					calStartDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
-					
+
 					calEndDate.setTime(this.endDatePicker.getDate());
 					calTime.setTime((Date)endTimeSpinner.getValue());
 					calEndDate.set(Calendar.HOUR_OF_DAY, calTime.get(Calendar.HOUR_OF_DAY));
 					calEndDate.set(Calendar.MINUTE, calTime.get(Calendar.MINUTE));
-					
+
+
 					//make sure something changed
-					if (this.nameTextField.getText().equals(editingEvent.getName()) 
-							&& this.descriptionTextArea.getText().equals(editingEvent.getDescription())){
-							//&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingEvent.getCategoryId()
-							//&& calStartDate.getTime().equals(editingEvent.getStartDate().getTime())
-							//&& calEndDate.getTime().equals(editingEvent.getEndDate().getTime()))
+					if (this.repeatCheckBox.isSelected()){
+						RepeatType editingRepeatType;
+						if (this.repeatTypeComboBox.getSelectedIndex() == 2){
+							editingRepeatType = RepeatType.MONTH;
+						} else if (this.repeatTypeComboBox.getSelectedIndex() == 1) {
+							editingRepeatType = RepeatType.WEEK;
+						} else {
+							editingRepeatType = RepeatType.DAY;
+						}
+						if (this.nameTextField.getText().equals(editingEvent.getName()) 
+								&& this.descriptionTextArea.getText().equals(editingEvent.getDescription())
+								&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingEvent.getCategoryID()
+								&& calStartDate.getTime().equals(editingRepeatingEvent.getStartTime().getTime())
+								&& calEndDate.getTime().equals(editingRepeatingEvent.getEndTime().getTime())
+								&& Integer.parseInt(this.repeatAmt.getText()) == editingRepeatingEvent.getRepetitions()
+								&& editingRepeatType == editingRepeatingEvent.getRepType()) {
 
-							
-						btnAddEvent.setEnabled(false);
-						return;
+
+							btnAddEvent.setEnabled(false);
+							return;
+						}
+					} else {
+						if (this.nameTextField.getText().equals(editingEvent.getName()) 
+								&& this.descriptionTextArea.getText().equals(editingEvent.getDescription())
+								&& ((Category)this.categoryComboBox.getSelectedItem()).getId() == editingEvent.getCategoryID()
+								&& calStartDate.getTime().equals(editingEvent.getStartTime().getTime())
+								&& calEndDate.getTime().equals(editingEvent.getEndTime().getTime())) {
+
+
+							btnAddEvent.setEnabled(false);
+							return;
+						}
 					}
+					btnAddEvent.setEnabled(true);
 				}
-				btnAddEvent.setEnabled(true);
-			}
 
+			}
 		}
 	}
-	
+
 	/**
 	 * check if the user enters a bad date
 	 */
