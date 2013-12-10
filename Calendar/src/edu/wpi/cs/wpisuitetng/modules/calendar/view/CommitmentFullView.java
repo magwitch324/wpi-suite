@@ -72,6 +72,8 @@ public class CommitmentFullView extends JPanel{
 	JPanel header;
 	
 	List<Commitment> commitmentList = new ArrayList<Commitment>();
+	private int namesort = 0;
+	JButton jName;
 	public enum ViewingMode {
 		TEAM, PERSONAL, BOTH;		
 	};
@@ -239,7 +241,15 @@ public class CommitmentFullView extends JPanel{
 		GridLayout experimentLayout = new GridLayout(0,4);
 		topButtons.setLayout(experimentLayout);
 		//topButtons.setLayout(new BoxLayout(topButtons, BoxLayout.X_AXIS));
-		JButton jName = new JButton("Name");
+		jName = new JButton("Name");
+		if(namesort == 1){
+			jName.setText("Name ^");
+		}
+		else if(namesort == 2){
+			jName.setText("Name v");
+		}
+		
+		
 		jName.setContentAreaFilled(false);
 		jName.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		//sort by name
@@ -247,6 +257,13 @@ public class CommitmentFullView extends JPanel{
 			@Override
 		public void mouseClicked(MouseEvent e) {
 				Collections.sort(commitmentList);
+				if(namesort == 1){
+					namesort = 2;
+					Collections.reverse(commitmentList);
+				}
+				else if(namesort == 2 || namesort == 0){
+					namesort = 1;
+				}
 				update2();
 			}
 			
