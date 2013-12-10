@@ -319,9 +319,38 @@ public class CommitmentFullView extends JPanel{
 			}			
 		});
 
-		JButton jDescription = new JButton("Description");
+		jDescription = new JButton("Description");
+		if(dessort == 1){
+			jDescription.setText("Description ^");
+		}
+		else if(dessort == 2){
+			jDescription.setText("Description v");
+		}
 		jDescription.setContentAreaFilled(false);
 		jDescription.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
+		jDescription.addMouseListener(new MouseAdapter() {
+			@Override
+		public void mouseClicked(MouseEvent e) {
+				namesort = 0;
+				datesort = 0;
+				statussort = 0;
+				Collections.sort(commitmentList, new Comparator<Commitment>() {
+					
+				@Override 
+				public int compare(Commitment c1, Commitment c2) {
+					return c1.getDescription().compareTo(c2.getDescription());
+				}		
+				});
+				if(dessort == 1){
+					dessort = 2;
+					Collections.reverse(commitmentList);
+				}
+				else if(dessort == 2 || dessort == 0){
+					dessort = 1;
+				}
+				update2();
+			}			
+		});
 		
 		jStatus = new JButton("Status");
 		if(statussort == 1){
