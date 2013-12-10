@@ -443,11 +443,9 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(datePicker, gbc_jdp);
 
 		// Set acceptable date formats for date picker. Deprecated? @Frank
-		SimpleDateFormat format1 = new SimpleDateFormat( "MM/dd/yyyy EEE" );
-		SimpleDateFormat format2 = new SimpleDateFormat( "MM/dd/yyyy" );
-		SimpleDateFormat format3 = new SimpleDateFormat( "MM.dd.yyyy" );
-		SimpleDateFormat format4 = new SimpleDateFormat( "MM.dd.yyyy EEE" );
-		datePicker.setFormats(new DateFormat[] {format1, format2, format3, format4});
+		SimpleDateFormat format1 = new SimpleDateFormat( "MM/dd/yyyy" );
+		SimpleDateFormat format2 = new SimpleDateFormat( "MM.dd.yyyy" );
+		datePicker.setFormats(new DateFormat[] {format1, format2});
 				
 		// Create status combo box.
 		String[] statusStrings = {"New", "In Progress", "Completed"};
@@ -1128,7 +1126,7 @@ public class CommitmentTab extends JPanel {
 			lblDateError.setVisible(true);
 		}
 		else {
-			SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy EEE"); 
+			SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy"); 
 			datePicker.getEditor().setBackground(Color.WHITE);
 			datePicker.getEditor().setText(dt.format(datePicker.getDate()));
 			lblDateError.setVisible(false);
