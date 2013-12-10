@@ -32,7 +32,7 @@ public class ToolbarView  extends DefaultToolbarView {
 	 * @param visible boolean
 	 */
 	public ToolbarView(boolean visible) {
-		super.setBackground(Color.LIGHT_GRAY);
+		super.setBackground(Color.WHITE);
 		
 		// REMOVE BUTTONS FOR NOW BECAUSE THEY NEED TO BE MOVED DOWN
 		//createButtons = new ButtonsPanel_Create();

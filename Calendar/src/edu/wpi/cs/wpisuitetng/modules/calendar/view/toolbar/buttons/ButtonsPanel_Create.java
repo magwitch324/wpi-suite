@@ -65,7 +65,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 //		createCommitButton= new JButton("<html>Create<br />Commitment</html>");
 //		createEventButton= new JButton("<html>Create<br />Event</html>");
 		JPanel contentPanel = new JPanel();
-//		contentPanel.setBackground(Color.WHITE);
+		contentPanel.setBackground(Color.WHITE);
 		GridBagLayout layout = new GridBagLayout();
 		contentPanel.setLayout(layout);
 		GridBagConstraints cons1 = new GridBagConstraints();
