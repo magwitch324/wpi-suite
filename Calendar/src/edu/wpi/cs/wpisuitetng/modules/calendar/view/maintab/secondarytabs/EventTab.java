@@ -797,8 +797,8 @@ public class EventTab extends JPanel {
 		
 
 		
-		//adds handler to set both start and end spinners to nearest 30 or 00
-		addTimeRoundingEvent();
+		//adds handler to check for duration validity and to keep duration consistent
+		addTimeCheckEvent();
 		//Sets time value of end and start spinners
 		startTime = new GregorianCalendar();
 		endTimeSpinner.setValue(startTime.getTime());
@@ -978,35 +978,12 @@ public class EventTab extends JPanel {
 	/**
 	 * Add an event handler to round the spinner minute value when not 0 or 30
 	 */
-	private void addTimeRoundingEvent() {
+	private void addTimeCheckEvent() {
 		startTimeSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				GregorianCalendar c = new GregorianCalendar();
 				//get time value from spinner
 				c.setTime((Date)startTimeSpinner.getValue());
-				int minutesVal = c.get(Calendar.MINUTE);
-				int hourVal = c.get(Calendar.HOUR);
-				int newMinutesVal;
-				int newHourVal = hourVal;
-				
-				//round value if not 0 or 30 mins
-				if(minutesVal != 0 && minutesVal != 30)
-				{	
-					if (minutesVal < 15)
-						newMinutesVal = 0;
-					else if (minutesVal > 15 && minutesVal < 45)
-						newMinutesVal = 30;
-					else
-					{
-						newMinutesVal = 0;
-						newHourVal += 1;
-					}
-					c.set(Calendar.MINUTE, newMinutesVal);
-					c.set(Calendar.HOUR, newHourVal);
-					//set spinner time value
-					startSpinnerModel.setValue(c.getTime());
-					
-				}
 				
 				//increment end time appropriately to keep same event duration
 				long timeDiff = c.getTime().getTime() - startTime.getTime().getTime();
@@ -1018,32 +995,7 @@ public class EventTab extends JPanel {
 		});
 		endTimeSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				GregorianCalendar c = new GregorianCalendar();
-				//get time value from spinner
-				c.setTime((Date)endTimeSpinner.getValue());
-				int minutesVal = c.get(Calendar.MINUTE);
-				int hourVal = c.get(Calendar.HOUR);
-				int newMinutesVal;
-				int newHourVal = hourVal;
 				
-				//round value if not 0 or 30 mins
-				if(minutesVal != 0 && minutesVal != 30)
-				{	
-					if (minutesVal < 15)
-						newMinutesVal = 0;
-					else if (minutesVal > 15 && minutesVal < 45)
-						newMinutesVal = 30;
-					else
-					{
-						newMinutesVal = 0;
-						newHourVal += 1;
-					}
-					c.set(Calendar.MINUTE, newMinutesVal);
-					c.set(Calendar.HOUR, newHourVal);
-					//set spinner time value
-					endSpinnerModel.setValue(c.getTime());
-					
-				}
 				checkStartEnd();
 			}
 
