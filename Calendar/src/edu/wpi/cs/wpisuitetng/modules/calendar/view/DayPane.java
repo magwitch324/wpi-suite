@@ -136,10 +136,12 @@ public class DayPane extends JPanel implements ICalPane {
 	 */
 	public void displayCommitments(List<Commitment> commList) {
 		if(commList == null){
-			headerlabel.setText("Events");
+			headerlabel.setText("<html><font color='white'><b>"
+					+ "Events" + "</b></font></html>");
 		}
 		else{
-			headerlabel.setText("Events and Commitments");
+			headerlabel.setText("<html><font color='white'><b>"
+					+ "Events and Commitments" + "</b></font></html>");
 		}
 		//if we are supposed to display commitments
 		daypane.displayCommitments(commList);
