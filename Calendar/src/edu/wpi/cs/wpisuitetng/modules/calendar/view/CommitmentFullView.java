@@ -155,7 +155,7 @@ public class CommitmentFullView extends JPanel{
 	/*commit panel is populated with all events which are in separate panels that can be scrolled and clicked*/
 	private void setupPanels() {
 		commitPanel.setLayout(new BoxLayout(commitPanel, BoxLayout.Y_AXIS));
-		commitPanel.setBorder(new EmptyBorder(5, 5, 10 , 20));
+		commitPanel.setBorder(new EmptyBorder(5, 5, 10 , 5));
 		commitPanel.setBackground(Color.WHITE);
 		
 		header.removeAll();
