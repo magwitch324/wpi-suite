@@ -36,6 +36,7 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 
@@ -102,6 +103,8 @@ public class CommitmentView extends JPanel {
 		// print something when we do not  have any commitments
 		if(commitmentList.size() == 0) {			
 			JLabel message = new JLabel("<html><body style='width: 100%'><center>There are no commitments to display</center></html>", SwingConstants.CENTER);
+			message.setBackground(CalendarStandard.CalendarYellow);
+			message.setOpaque(true);
 			message.setBorder(new EmptyBorder(0, 0, 15, 0));
 			commitPanel.add(message, BorderLayout.CENTER);
 		}
@@ -109,7 +112,8 @@ public class CommitmentView extends JPanel {
 		for(int i = 0; i < commitmentList.size(); i++){
 			if (commitmentList.get(i).getStatus().id != 2) {//Skips over completed commitments
 				CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
-				commitmentPanel.setBackground(Color.LIGHT_GRAY.brighter());
+				commitmentPanel.setBackground(CalendarStandard.CalendarYellow);
+//				commitmentPanel.setBackground(Color.LIGHT_GRAY.brighter());
 
 				Image nameImg;
 				Image scaleImg;

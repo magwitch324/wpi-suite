@@ -42,6 +42,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -61,6 +62,7 @@ import javax.swing.event.ChangeListener;
 import org.jdesktop.swingx.JXDatePicker;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
@@ -146,12 +148,14 @@ public class CommitmentTab extends JPanel {
 	public CommitmentTab() {
 		this.initFlag = false;
 		formPanel = new JPanel();
+		formPanel.setBackground(Color.WHITE);
 		formPanel.setPreferredSize(new Dimension(700, 500));
 		formPanel.setMaximumSize(new Dimension(1200, 500));
 		formPanel.setMinimumSize(new Dimension(700, 500));
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
 		glue = Box.createGlue();
+		glue.setBackground(Color.WHITE);
 		add(glue);
 		add(formPanel);
 		
@@ -222,6 +226,8 @@ public class CommitmentTab extends JPanel {
 	private void addLabels() {
 		//Name label
 		lblName = new JLabel("Name:");
+//		lblName.setBackground(CalendarStandard.CalendarRed);
+//		lblName.setForeground(Color.WHITE);
 		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.anchor = GridBagConstraints.EAST;
@@ -235,6 +241,8 @@ public class CommitmentTab extends JPanel {
 		
 		//Description label
 		lblDesc = new JLabel("Description:");
+//		lblDesc.setBackground(CalendarStandard.CalendarRed);
+//		lblDesc.setForeground(Color.WHITE);
 		lblDesc.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblDesc = new GridBagConstraints();
 		gbc_lblDesc.fill = GridBagConstraints.BOTH;
@@ -245,6 +253,8 @@ public class CommitmentTab extends JPanel {
 		
 		//Category label
 		lblCategory = new JLabel("Category:");
+//		lblCategory.setBackground(CalendarStandard.CalendarRed);
+//		lblCategory.setForeground(Color.WHITE);
 		lblCategory.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblCategory = new GridBagConstraints();
 		gbc_lblCategory.anchor = GridBagConstraints.EAST;
@@ -257,6 +267,8 @@ public class CommitmentTab extends JPanel {
 		
 		//Type label
 		lblType = new JLabel("Type:");
+//		lblType.setBackground(CalendarStandard.CalendarRed);
+//		lblType.setForeground(Color.WHITE);
 		lblType.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblType = new GridBagConstraints();
 		gbc_lblType.anchor = GridBagConstraints.EAST;
@@ -267,6 +279,8 @@ public class CommitmentTab extends JPanel {
 		
 		//Time label
 		lblTime = new JLabel("Time:");
+//		lblTime.setBackground(CalendarStandard.CalendarRed);
+//		lblTime.setForeground(Color.WHITE);
 		lblTime.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblTime = new GridBagConstraints();
 		gbc_lblTime.anchor = GridBagConstraints.EAST;
@@ -293,6 +307,8 @@ public class CommitmentTab extends JPanel {
 		
 		//Date label
 		lblDate = new JLabel("Date:");
+//		lblDate.setBackground(CalendarStandard.CalendarRed);
+//		lblDate.setForeground(Color.WHITE);
 		lblDate.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblDate = new GridBagConstraints();
 		gbc_lblDate.fill = GridBagConstraints.VERTICAL;
@@ -319,6 +335,8 @@ public class CommitmentTab extends JPanel {
 		
 		//Status label
 		lblStatus = new JLabel("Status:");
+//		lblStatus.setBackground(CalendarStandard.CalendarRed);
+//		lblStatus.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblStatus = new GridBagConstraints();
 		gbc_lblStatus.insets = new Insets(0, 0, 5, 5);
 		gbc_lblStatus.fill = GridBagConstraints.VERTICAL;
@@ -339,6 +357,8 @@ public class CommitmentTab extends JPanel {
 		
 		//Name text field
 		nameTextField = new JTextField();
+		nameTextField.setBackground(CalendarStandard.CalendarYellow);
+		nameTextField.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		GridBagConstraints gbc_nameTextField = new GridBagConstraints();
 		gbc_nameTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_nameTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -353,6 +373,8 @@ public class CommitmentTab extends JPanel {
 		//				descriptionTextField.setPreferredSize(new Dimension(500,160));
 		//				descPane.setViewportView(descriptionTextField);
 		descriptionTextField.setLineWrap(true);
+		descriptionTextField.setBackground(CalendarStandard.CalendarYellow);
+		descriptionTextField.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		GridBagConstraints gbc_descriptionTextField = new GridBagConstraints();
 		gbc_descriptionTextField.fill = GridBagConstraints.BOTH;
 		gbc_descriptionTextField.insets = new Insets(0, 0, 5, 0);
@@ -364,6 +386,7 @@ public class CommitmentTab extends JPanel {
 
 		//Create category box, add two dummy categories
 		categoryComboBox = new JComboBox<Category>();
+		categoryComboBox.setBackground(CalendarStandard.CalendarYellow);
 		categoryComboBox.addItem(new Category(4, "Cat1"));
 		categoryComboBox.addItem(new Category(5, "Cat2"));
 
@@ -378,6 +401,7 @@ public class CommitmentTab extends JPanel {
 		
 		// Create radio button panel.
 		rdbtnPanel = new JPanel();
+		rdbtnPanel.setBackground(Color.WHITE);
 		GridBagConstraints gbc_rdbtnPanel = new GridBagConstraints();
 		gbc_rdbtnPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_rdbtnPanel.fill = GridBagConstraints.BOTH;
@@ -388,15 +412,18 @@ public class CommitmentTab extends JPanel {
 		
 		// Create buttons and add to rdbtnGroup.
 		rdbtnPersonal = new JRadioButton("Personal");
+		rdbtnPersonal.setBackground(Color.WHITE);
 		rdbtnGroup.add(rdbtnPersonal);
 		rdbtnPanel.add(rdbtnPersonal);
 
 		rdbtnTeam = new JRadioButton("Team");
+		rdbtnTeam.setBackground(Color.WHITE);
 		rdbtnGroup.add(rdbtnTeam);
 		rdbtnPanel.add(rdbtnTeam);
 		
 		// Create time spinner panel.
 		spinnerPanel = new JPanel();
+		spinnerPanel.setBackground(Color.WHITE);
 		GridBagConstraints gbc_spinnerPanel = new GridBagConstraints();
 		gbc_spinnerPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_spinnerPanel.fill = GridBagConstraints.BOTH;
@@ -435,6 +462,8 @@ public class CommitmentTab extends JPanel {
 		datePicker = new JXDatePicker();
 		datePicker.getEditor().setFont(new Font("Tahoma", Font.PLAIN, 13));
 		datePicker.getEditor().setFocusLostBehavior(JFormattedTextField.PERSIST);
+		datePicker.putClientProperty("JDatePicker.backgroundOnEditable", Boolean.TRUE);
+		datePicker.setBackground(CalendarStandard.CalendarYellow);
 		GridBagConstraints gbc_jdp = new GridBagConstraints();
 		gbc_jdp.insets = new Insets(0, 0, 5, 0);
 		gbc_jdp.fill = GridBagConstraints.HORIZONTAL;
@@ -452,6 +481,7 @@ public class CommitmentTab extends JPanel {
 		// Create status combo box.
 		String[] statusStrings = {"New", "In Progress", "Completed"};
 		statusComboBox = new JComboBox<String>(statusStrings);
+		statusComboBox.setBackground(CalendarStandard.CalendarYellow);
 		statusComboBox.setSelectedIndex(0);
 		GridBagConstraints gbc_statusComboBox = new GridBagConstraints();
 		gbc_statusComboBox.insets = new Insets(0, 0, 5, 0);
@@ -538,6 +568,7 @@ public class CommitmentTab extends JPanel {
 		 * Initialize button panel instance and its constraints.
 		 */
 		buttonPanel = new JPanel(new BorderLayout(30,0));
+		buttonPanel.setBackground(Color.WHITE);
 		GridBagConstraints gbc_btnPanel = new GridBagConstraints();
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
 		gbc_btnPanel.gridx = 1;

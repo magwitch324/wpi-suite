@@ -24,6 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 
 @SuppressWarnings("serial")
@@ -50,7 +51,8 @@ public class CommitmentCalViewPanel extends JPanel {
 		setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this text
 
 		JLabel alab = new JLabel(comm.getDescription(), JLabel.CENTER);
-		alab.setBackground(new Color(0,0,0,0));
+		alab.setBackground(CalendarStandard.CalendarYellow);
+//		alab.setBackground(new Color(0,0,0,0));
 		add(alab, SwingConstants.CENTER);
 		
 		Image nameImg;
@@ -74,7 +76,8 @@ public class CommitmentCalViewPanel extends JPanel {
 		}
 		
 		//alab.setSize( alab.getPreferredSize() );
-		alab.setBackground(new Color(0,0,0,0));
+		alab.setBackground(CalendarStandard.CalendarYellow);
+//		alab.setBackground(new Color(0,0,0,0));
 		add(alab, SwingConstants.CENTER);
 		
 	}

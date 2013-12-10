@@ -250,12 +250,28 @@ public class CommitmentFullView extends JPanel{
 		jName = new JButton("<html><font color='white'><b>"
 				+ "Name" + "</b></font></html>");
 		if(namesort == 1){
-			jName.setText("<html><font color='white'><b>"
-					+ "Name ^" + "</b></font></html>");
+			try {
+				Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
+				jName.setIcon(new ImageIcon(img));
+				jName.setText("<html><font color='white'><b>"
+						+ "Name" + "</b></font></html>");
+			} catch (IOException ex) {}
+			catch(IllegalArgumentException ex){
+				jName.setText("<html><font color='white'><b>"
+						+ "Name ^" + "</b></font></html>");
+			}
 		}
 		else if(namesort == 2){
-			jName.setText("<html><font color='white'><b>"
-					+ "Name v" + "</b></font></html>");
+			try {
+				Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+				jName.setIcon(new ImageIcon(img));
+				jName.setText("<html><font color='white'><b>"
+						+ "Name" + "</b></font></html>");
+			} catch (IOException ex) {}
+			catch(IllegalArgumentException ex){
+				jName.setText("<html><font color='white'><b>"
+						+ "Name v" + "</b></font></html>");
+			}
 		}
 		
 		
@@ -290,12 +306,28 @@ public class CommitmentFullView extends JPanel{
 		jDueDate.setBackground(CalendarStandard.CalendarRed);
 
 		if(datesort == 1){
-			jDueDate.setText("<html><font color='white'><b>"
-					+ "Due Date ^" + "</b></font></html>");
+			try {
+				Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
+				jDueDate.setIcon(new ImageIcon(img));
+				jDueDate.setText("<html><font color='white'><b>"
+						+ "Due Date" + "</b></font></html>");
+			} catch (IOException ex) {}
+			catch(IllegalArgumentException ex){
+				jDueDate.setText("<html><font color='white'><b>"
+						+ "Due Date ^" + "</b></font></html>");
+			}
 		}
 		else if(datesort == 2){
-			jDueDate.setText("<html><font color='white'><b>"
-					+ "Due Date v" + "</b></font></html>");
+			try {
+				Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+				jDueDate.setIcon(new ImageIcon(img));
+				jDueDate.setText("<html><font color='white'><b>"
+						+ "Due Date" + "</b></font></html>");
+			} catch (IOException ex) {}
+			catch(IllegalArgumentException ex){
+				jDueDate.setText("<html><font color='white'><b>"
+						+ "Due Date v" + "</b></font></html>");
+			}
 		}
 		//jDueDate.setContentAreaFilled(false);
 
@@ -337,12 +369,28 @@ public class CommitmentFullView extends JPanel{
 //		jDescription.setContentAreaFilled(false);
 		jDescription.setBackground(CalendarStandard.CalendarRed);
 		if(dessort == 1){
-			jDescription.setText("<html><font color='white'><b>"
-					+ "Description ^" + "</b></font></html>");
+			try {
+				Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
+				jDescription.setIcon(new ImageIcon(img));
+				jDescription.setText("<html><font color='white'><b>"
+						+ "Description" + "</b></font></html>");
+			} catch (IOException ex) {}
+			catch(IllegalArgumentException ex){
+				jDescription.setText("<html><font color='white'><b>"
+						+ "Description ^" + "</b></font></html>");
+			}
 		}
 		else if(dessort == 2){
-			jDescription.setText("<html><font color='white'><b>"
-					+ "Description v" + "</b></font></html>");
+			try {
+				Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+				jDescription.setIcon(new ImageIcon(img));
+				jDescription.setText("<html><font color='white'><b>"
+						+ "Description" + "</b></font></html>");
+			} catch (IOException ex) {}
+			catch(IllegalArgumentException ex){
+				jDescription.setText("<html><font color='white'><b>"
+						+ "Description v" + "</b></font></html>");
+			}
 		}
 		//jDescription.setContentAreaFilled(false);
 
@@ -374,12 +422,28 @@ public class CommitmentFullView extends JPanel{
 		jStatus = new JButton("<html><font color='white'><b>"
 				+ "Status" + "</b></font></html>");
 		if(statussort == 1){
-			jStatus.setText("<html><font color='white'><b>"
-					+ "Status ^" + "</b></font></html>");
+			try {
+				Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
+				jStatus.setIcon(new ImageIcon(img));
+				jStatus.setText("<html><font color='white'><b>"
+						+ "Status" + "</b></font></html>");
+			} catch (IOException ex) {}
+			catch(IllegalArgumentException ex){
+				jStatus.setText("<html><font color='white'><b>"
+						+ "Status ^" + "</b></font></html>");
+			}
 		}
 		else if(statussort == 2){
-			jStatus.setText("<html><font color='white'><b>"
-					+ "Status v" + "</b></font></html>");
+			try {
+				Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+				jStatus.setIcon(new ImageIcon(img));
+				jStatus.setText("<html><font color='white'><b>"
+						+ "Status" + "</b></font></html>");
+			} catch (IOException ex) {}
+			catch(IllegalArgumentException ex){
+				jStatus.setText("<html><font color='white'><b>"
+						+ "Status v" + "</b></font></html>");
+			}
 		}
 //		jStatus.setContentAreaFilled(false);
 		jStatus.setBackground(CalendarStandard.CalendarRed);

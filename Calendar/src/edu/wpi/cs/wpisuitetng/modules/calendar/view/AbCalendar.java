@@ -254,8 +254,18 @@ public abstract class AbCalendar extends JPanel {
 		JPanel apane = new JPanel();
 		apane.setBackground(Color.WHITE);
 
-		JButton backwardbutton = new JButton("<<");
-		backwardbutton.setBackground(Color.WHITE);
+		JButton backwardbutton = new JButton();
+		try {
+			Image img = ImageIO.read(getClass().getResource("BackArrow_Icon.png"));
+			backwardbutton.setIcon(new ImageIcon(img));
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			backwardbutton.setText("<<");
+			backwardbutton.setForeground(Color.WHITE);
+		}
+		backwardbutton.setBackground(CalendarStandard.CalendarRed);
+		backwardbutton.setOpaque(true);
+		backwardbutton.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		backwardbutton.setFont(CalendarStandard.CalendarFont);
 		backwardbutton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		backwardbutton.addActionListener(new ActionListener() {
@@ -268,7 +278,10 @@ public abstract class AbCalendar extends JPanel {
 		});
 
 		JButton todaybutton = new JButton("Today");
-		todaybutton.setBackground(Color.WHITE);
+		todaybutton.setBackground(CalendarStandard.CalendarRed);
+		todaybutton.setOpaque(true);
+		todaybutton.setForeground(Color.WHITE);
+		todaybutton.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		todaybutton.setFont(CalendarStandard.CalendarFont);
 		todaybutton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		todaybutton.addActionListener(new ActionListener() {
@@ -280,8 +293,18 @@ public abstract class AbCalendar extends JPanel {
 			}
 		});
 
-		JButton forwardbutton = new JButton(">>");
-		forwardbutton.setBackground(Color.WHITE);
+		JButton forwardbutton = new JButton();
+		try {
+			Image img = ImageIO.read(getClass().getResource("ForwardArrow_Icon.png"));
+			forwardbutton.setIcon(new ImageIcon(img));
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			forwardbutton.setText("<<");
+			forwardbutton.setForeground(Color.WHITE);
+		}
+		forwardbutton.setBackground(CalendarStandard.CalendarRed);
+		forwardbutton.setOpaque(true);
+		forwardbutton.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		forwardbutton.setFont(CalendarStandard.CalendarFont);
 		forwardbutton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		forwardbutton.addActionListener(new ActionListener() {

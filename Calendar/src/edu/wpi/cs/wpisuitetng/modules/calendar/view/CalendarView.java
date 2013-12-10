@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
@@ -71,11 +72,11 @@ public abstract class CalendarView extends JSplitPane {
 		
 		JPanel labelPanel = new JPanel();
 		labelPanel.setLayout(new GridLayout(1,1,0,0));
+		labelPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.GRAY));
 //		labelPanel.setBorder(new EmptyBorder(0, 10, 0 , 10));
 //		labelPanel.setMinimumSize(new Dimension(330, 50));
-		labelPanel.setBackground(Color.WHITE);			
-		
-		JLabel dateLabel = new JLabel("<html><body style='width: 100%'><center>" + dateRange + "</center></html>", SwingConstants.CENTER);
+		labelPanel.setBackground(CalendarStandard.CalendarRed);			
+		JLabel dateLabel = new JLabel("<html><font color='white'><body style='width: 100%'><center>" + dateRange + "</center></html>", SwingConstants.CENTER);
 		dateLabel.setFont(CalendarStandard.CalendarFontBold.deriveFont(Font.BOLD, 16));
 		dateLabel.setBorder(new EmptyBorder(5, 0, 5, 0));
 		

@@ -10,6 +10,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
@@ -25,6 +26,7 @@ import javax.swing.event.ChangeListener;
 import org.jdesktop.swingx.JXDatePicker;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
@@ -147,10 +149,13 @@ public class EventTab extends JPanel {
 		JPanel spacePanel1 = new JPanel();
 		JPanel spacePanel2 = new JPanel();
 		formPanel = new JPanel();
+		formPanel.setBackground(Color.WHITE);
 		formPanel.setPreferredSize(new Dimension(500,600));
 		formPanel.setMinimumSize(new Dimension(500, 600));
 		spacePanel1.setMinimumSize(formPanel.getSize());
+		spacePanel1.setBackground(Color.WHITE);
 		spacePanel2.setMinimumSize(formPanel.getSize());
+		spacePanel2.setBackground(Color.WHITE);
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.weightx = 1;
 		constraints.gridx = 0;
@@ -193,6 +198,8 @@ public class EventTab extends JPanel {
 		
 		//Name text field
 		nameTextField = new JTextField();
+		nameTextField.setBackground(CalendarStandard.CalendarYellow);
+		nameTextField.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		gbc_nameTextField = new GridBagConstraints();
 		gbc_nameTextField.gridwidth = 3;
 		gbc_nameTextField.insets = new Insets(0, 0, 5, 0);
@@ -249,6 +256,7 @@ public class EventTab extends JPanel {
 //		descriptionTextArea.setPreferredSize(new Dimension(500,160));
 //		descPane.setViewportView(descriptionTextArea);
 		descriptionTextArea.setLineWrap(true);
+		descriptionTextArea.setBackground(CalendarStandard.CalendarYellow);
 		GridBagConstraints gbc_descriptionTextField = new GridBagConstraints();
 		gbc_descriptionTextField.gridwidth = 3;
 		gbc_descriptionTextField.fill = GridBagConstraints.BOTH;
@@ -300,6 +308,7 @@ public class EventTab extends JPanel {
 		
 		//Create category box, add two dummy categories
 		categoryComboBox = new JComboBox<Category>();
+		categoryComboBox.setBackground(CalendarStandard.CalendarYellow);
 		categoryComboBox.addItem(new Category(4, "Cat1"));
 		categoryComboBox.addItem(new Category(5, "Cat2"));
 
@@ -333,6 +342,7 @@ public class EventTab extends JPanel {
 		formPanel.add(lblType, gbc_lblType);
 		
 		panel_1 = new JPanel();
+		panel_1.setBackground(Color.WHITE);
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.gridwidth = 3;
 		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
@@ -342,10 +352,12 @@ public class EventTab extends JPanel {
 		formPanel.add(panel_1, gbc_panel_1);
 		
 		rdbtnPersonal = new JRadioButton("Personal");
+		rdbtnPersonal.setBackground(Color.WHITE);
 		buttonGroup.add(rdbtnPersonal);
 		panel_1.add(rdbtnPersonal);
 		
 		rdbtnTeam = new JRadioButton("Team");
+		rdbtnPersonal.setBackground(Color.WHITE);
 		buttonGroup.add(rdbtnTeam);
 		panel_1.add(rdbtnTeam);
 		
@@ -845,6 +857,7 @@ public class EventTab extends JPanel {
 		
 		//Add Repeat Checkbox
 		repeatCheckBox = new JCheckBox("Repeats?");
+		repeatCheckBox.setBackground(Color.WHITE);
 		GridBagConstraints gbc_repeatCheckBox = new GridBagConstraints();
 		gbc_repeatCheckBox.gridwidth = 1;
 		gbc_repeatCheckBox.fill = GridBagConstraints.HORIZONTAL;
@@ -881,6 +894,7 @@ public class EventTab extends JPanel {
 		//Add Repeat ComboBox
 		String[] repeatStrings = {"Daily", "Weekly", "Monthly"};
 		repeatTypeComboBox = new JComboBox<String>(repeatStrings);
+		repeatTypeComboBox.setBackground(CalendarStandard.CalendarYellow);
 		repeatTypeComboBox.setSelectedIndex(0);
 		GridBagConstraints gbc_repeatTypeComboBox = new GridBagConstraints();
 		gbc_repeatTypeComboBox.gridwidth = 1;
@@ -917,6 +931,7 @@ public class EventTab extends JPanel {
 		
 		//Add Repeat Text Field
 		repeatAmt = new JTextField();
+		repeatAmt.setBackground(CalendarStandard.CalendarYellow);
 		GridBagConstraints gbc_repeatAmt = new GridBagConstraints();
 		gbc_repeatAmt.gridwidth = 3;
 		gbc_repeatAmt.fill = GridBagConstraints.HORIZONTAL;
@@ -956,6 +971,7 @@ public class EventTab extends JPanel {
 		
 		
 		buttonPanel = new JPanel(new BorderLayout(30,0));
+		buttonPanel.setBackground(Color.WHITE);
 		//Add Event button
 		
 		try {
