@@ -97,7 +97,7 @@ public class WeekPane extends JPanel implements ICalPane {
 		GregorianCalendar temp = new GregorianCalendar();
 		temp.setTime(mydate.getTime());
 		for(int i = 0; i < 7; i++){
-			day[i] = new DayDayPane(temp);
+			day[i] = new DayDayPane(temp, AbCalendar.types.WEEK);
 			mainPanel.add(day[i]);
 			day[i].addMouseListener(new AMouseEvent(temp));
 			day[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));

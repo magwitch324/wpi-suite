@@ -106,7 +106,7 @@ public class DayPane extends JPanel implements ICalPane {
 		scrollPane.setColumnHeaderView(header);
 		
 		mainPanel.setLayout(new GridLayout(1,1));
-		daypane = new DayDayPane(day);
+		daypane = new DayDayPane(day, AbCalendar.types.DAY);
 		mainPanel.add(daypane);
 		mainPanel.setBackground(CalendarStandard.CalendarYellow);
 		mainPanel.setPreferredSize(new Dimension(30, 2000));
