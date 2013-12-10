@@ -203,7 +203,7 @@ public class CalendarProps extends AbstractModel {
 	 */
 	@Override
 	public String toString() {
-		return this.getId();
+		return id;
 	}
 
 	public void copyFrom(CalendarProps toCopyFrom){

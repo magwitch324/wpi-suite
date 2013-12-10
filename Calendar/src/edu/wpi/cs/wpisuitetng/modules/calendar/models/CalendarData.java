@@ -234,7 +234,7 @@ public class CalendarData extends AbstractModel {
 	 */
 	@Override
 	public String toString() {
-		return this.getId();
+		return id;
 	}
 
 	public void copyFrom(CalendarData toCopyFrom){

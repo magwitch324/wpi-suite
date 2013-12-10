@@ -110,7 +110,7 @@ public abstract class CalendarObject extends AbstractModel {
 	 */
 	@Override
 	public String toString() {
-		return this.getName();
+		return name;
 	}
 
 	// GETTERS

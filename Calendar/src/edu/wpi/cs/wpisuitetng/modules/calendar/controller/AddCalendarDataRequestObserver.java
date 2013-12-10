@@ -44,7 +44,7 @@ public class AddCalendarDataRequestObserver implements RequestObserver {
 		final ResponseModel response = iReq.getResponse();
 		
 		// Parse the CalendarData out of the response body
-		final CalendarData caldata = CalendarData.fromJson(response.getBody());		
+		final CalendarData caldata = CalendarData.fromJson(response.getBody());	
 	}
 
 	/**

@@ -178,7 +178,7 @@ public class Category extends AbstractModel implements Comparator<Category>{
 	 */
 	@Override
 	public String toString() {
-		return this.getName();
+		return name;
 	}
 	
 	@Override

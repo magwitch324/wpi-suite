@@ -117,7 +117,7 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 	 * remove each CalendarObjects from the model.
 	 */
 	public void removeAll() {
-		calendarObjects.removeAll(getCalendarObjects());
+		calendarObjects.removeAll(calendarObjects);
 	}
 
 	/**
