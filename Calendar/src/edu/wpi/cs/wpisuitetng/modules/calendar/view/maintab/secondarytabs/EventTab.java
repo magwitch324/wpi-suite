@@ -51,6 +51,9 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.Insets;
@@ -92,7 +95,7 @@ public class EventTab extends JPanel {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JButton btnCancel;
 	private Date tmpDate = new Date(); //user for convert the date to default format
-	private String inputDate = (new SimpleDateFormat("MM/dd/yyyy EEE").format(tmpDate)); //the date user input
+	private String inputDate = (new SimpleDateFormat("MM/dd/yyyy").format(tmpDate)); //the date user input
 	private boolean badDate;
 	private boolean badTime;
 	private Event editingEvent;
@@ -387,8 +390,17 @@ public class EventTab extends JPanel {
 	
 		
 		//Invalid Time label
-		final JLabel lblTimeError = new JLabel("Please enter a valid time.");
+		final JLabel lblTimeError = new JLabel("<html><font color='red'>Please enter a valid time.</font></html>");
 		lblTimeError.setVisible(false);
+		lblTimeError.setHorizontalAlignment(SwingConstants.LEFT);
+		GridBagConstraints gbc_lblTimeError = new GridBagConstraints();
+		gbc_lblTimeError.insets = new Insets(0, 0, 5, 0);
+		gbc_lblTimeError.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblTimeError.gridx = 3;
+		gbc_lblTimeError.gridy = 5;
+		gbc_lblTimeError.weightx = 1;
+		gbc_lblTimeError.weighty = 1;		
+		formPanel.add(lblTimeError, gbc_lblTimeError);
 		
 		//Invalid Date label
 		final JLabel lblDateError = new JLabel("<html><font color='red'>Please enter a valid date (MM/DD/YYYY).</font></html>");
@@ -402,15 +414,6 @@ public class EventTab extends JPanel {
 		gbc_lblDateError.weightx = 1;
 		gbc_lblDateError.weighty = 1;		
 		formPanel.add(lblDateError, gbc_lblDateError);
-		lblTimeError.setHorizontalAlignment(SwingConstants.LEFT);
-		GridBagConstraints gbc_lblTimeError = new GridBagConstraints();
-		gbc_lblTimeError.insets = new Insets(0, 0, 5, 0);
-		gbc_lblTimeError.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblTimeError.gridx = 3;
-		gbc_lblTimeError.gridy = 5;
-		gbc_lblTimeError.weightx = 1;
-		gbc_lblTimeError.weighty = 1;		
-		formPanel.add(lblTimeError, gbc_lblTimeError);
 		
 		
 		
@@ -428,137 +431,140 @@ public class EventTab extends JPanel {
 		//Calendar calendar = datePicker.getMonthView().getCalendar();
 		//calendar.setTime(new Date());
 		//datePicker.getMonthView().setLowerBound(calendar.getTime());
-		SimpleDateFormat format1 = new SimpleDateFormat( "MM/dd/yyyy EEE" );
-		SimpleDateFormat format2 = new SimpleDateFormat( "MM/dd/yyyy" );
-		SimpleDateFormat format3 = new SimpleDateFormat( "MM.dd.yyyy" );
-		SimpleDateFormat format4 = new SimpleDateFormat( "MM.dd.yyyy EEE" );
-		startDatePicker.setFormats(new DateFormat[] {format1, format2, format3, format4});
+		SimpleDateFormat format1 = new SimpleDateFormat( "MM/dd/yyyy" );
+		SimpleDateFormat format2 = new SimpleDateFormat( "MM.dd.yyyy" );
+		startDatePicker.setFormats(new DateFormat[] {format1, format2});
 		
-		
-//		startDatePicker.getEditor().addKeyListener(new KeyListener(){
-//
-//			@Override
-//			public void keyTyped(KeyEvent e) {
-//			}
-//
-//			@Override
-//			public void keyPressed(KeyEvent e) {
-//				startDatePicker.getEditor().setBackground(Color.WHITE);
-//				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-//					checkBadDate();
-//				}
-//			}
-//
-//			@Override
-//			public void keyReleased(KeyEvent e) {
-//				inputDate = startDatePicker.getEditor().getText().trim();
-//				listenerHelper();
-//				
-//				// This next line checks for a blank date field, DO NOT REMOVE
-//				if(nameTextField.getText().equals("") || startDatePicker.getEditor().getText().equals("")
-//                        || nameTextField.getText().trim().length() == 0){
-//                btnAddEvent.setEnabled(false);
-//				}
-//
-//				//boolean orignValue = initFlag;
-//				//initFlag = true;
-//				//listenerHelper();
-//				//initFlag = orignValue;
-//			}
-//
-//		});
-//		
-//		startDatePicker.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				startDatePicker.getEditor().setBackground(Color.WHITE);
-//				inputDate = startDatePicker.getEditor().getText().trim();
-//			}
-//			
-//		});
-//		
-//		startDatePicker.getEditor().addFocusListener(new FocusListener() {
-//			@Override
-//			public void focusGained(FocusEvent e) {
-//				if(badDate) {
-//					startDatePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
-//					startDatePicker.getEditor().selectAll();
-//					lblDateError.setVisible(true);
-//					badDate = false;
-//				}
-//				/*
-//				else if(badDate){
-//					datePicker.getEditor().setText("The date is not valid");
-//					datePicker.getEditor().setBackground(Color.red);
-//					badDate = false;
-//				}
-//				*/
-//				else{
-//					//try {
-//						SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy EEE"); 
-//						startDatePicker.getEditor().setBackground(Color.WHITE);
-//						startDatePicker.getEditor().setText(dt.format(startDatePicker.getDate()));
-//						startDatePicker.getEditor().selectAll();
-//						listenerHelper();
-//					//}catch(NullPointerException ne) {
-//					//	datePicker.getEditor().setText("The date is not valid");
-//					//	datePicker.getEditor().setBackground(Color.red);
-//					//}
-//				}
-//			}
-//
-//			@Override
-//			public void focusLost(FocusEvent e) {
-//				if(isBadInputDate()){
-//					badDate = true;
-//					startDatePicker.requestFocus();
-//				}
-//				/*
-//				else{
-//					Date date = null;
-//					for(DateFormat formatter : datePicker.getFormats()) {
-//						try {
-//							date = formatter.parse(inputDate);
-//						} catch (ParseException e1) {
-//
-//						}
-//					}
-//					if(date.compareTo(new Date()) < 0) {
-//						badDate = true;
-//						datePicker.requestFocus();
-//					}
-//				}
-//				*/
-//				else{
-//					startDatePicker.getEditor().setBackground(Color.WHITE);
-//					lblDateError.setVisible(false);
-//				}
-//				listenerHelper();
-//			}
-//		});
-//		startDatePicker.addFocusListener(new FocusListener() {
-//
-//			@Override
-//			public void focusGained(FocusEvent e) {
-//				startDatePicker.getEditor().setBackground(Color.WHITE);
-//				listenerHelper();
-//			}
-//
-//			@Override
-//			public void focusLost(FocusEvent e) {
-//				startDatePicker.getEditor().setBackground(Color.WHITE);
-//				listenerHelper();
-//				
-//			}
-//
-//			
-//			
-//			
-//			
-//		});
-//		
+//////////////////////////		
+		startDatePicker.getEditor().addKeyListener(new KeyListener(){
 
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				startDatePicker.getEditor().setBackground(Color.WHITE);
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					checkBadDate();
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				inputDate = startDatePicker.getEditor().getText().trim();
+				listenerHelper();
+				
+				// This next line checks for a blank date field, DO NOT REMOVE
+				if(nameTextField.getText().equals("") || startDatePicker.getEditor().getText().equals("")
+                        || nameTextField.getText().trim().length() == 0){
+                btnAddEvent.setEnabled(false);
+				}
+				//boolean orignValue = initFlag;
+				//initFlag = true;
+				//listenerHelper();
+				//initFlag = orignValue;
+			}
+
+		});
+		
+		startDatePicker.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				startDatePicker.getEditor().setBackground(Color.WHITE);
+				inputDate = startDatePicker.getEditor().getText().trim();
+			}
+			
+		});
+		
+		startDatePicker.getEditor().addFocusListener(new FocusListener() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(badDate) {
+					startDatePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
+					startDatePicker.getEditor().selectAll();
+					lblDateError.setVisible(true);
+					badDate = false;
+				}
+				/*
+				else if(badDate){
+					datePicker.getEditor().setText("The date is not valid");
+					datePicker.getEditor().setBackground(Color.red);
+					badDate = false;
+				}
+				*/
+				else{
+					//try {
+						SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy"); 
+						startDatePicker.getEditor().setBackground(Color.WHITE);
+						startDatePicker.getEditor().setText(dt.format(startDatePicker.getDate()));
+						startDatePicker.getEditor().selectAll();
+						listenerHelper();
+					//}catch(NullPointerException ne) {
+					//	datePicker.getEditor().setText("The date is not valid");
+					//	datePicker.getEditor().setBackground(Color.red);
+					//}
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(isBadInputDate()){
+					badDate = true;
+					startDatePicker.requestFocus();
+				}
+				/*
+				else{
+					Date date = null;
+					for(DateFormat formatter : datePicker.getFormats()) {
+						try {
+							date = formatter.parse(inputDate);
+						} catch (ParseException e1) {
+
+						}
+					}
+					if(date.compareTo(new Date()) < 0) {
+						badDate = true;
+						datePicker.requestFocus();
+					}
+				}
+				*/
+				else{
+					startDatePicker.getEditor().setBackground(Color.WHITE);
+				lblDateError.setVisible(false);
+				}
+				listenerHelper();
+			}
+		});
+		startDatePicker.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				startDatePicker.getEditor().setBackground(Color.WHITE);
+				listenerHelper();
+		}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				startDatePicker.getEditor().setBackground(Color.WHITE);
+				listenerHelper();
+				
+			}
+		});
+		startDatePicker.getEditor().addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char vChar = e.getKeyChar();
+                if (!(Character.isDigit(vChar)
+                		|| (vChar == '/')
+                        || (vChar == KeyEvent.VK_BACK_SPACE)
+                        || (vChar == KeyEvent.VK_DELETE))) {
+                    e.consume();
+                }
+            }
+        });
+		
+////////////////////////////////////////////
 		
 		
 
@@ -611,6 +617,15 @@ public class EventTab extends JPanel {
 		//Invalid Time label
 		final JLabel lblTimeError2 = new JLabel("Please enter a valid time.");
 		lblTimeError2.setVisible(false);
+		lblTimeError2.setHorizontalAlignment(SwingConstants.LEFT);
+		GridBagConstraints gbc_lblTimeError2 = new GridBagConstraints();
+		gbc_lblTimeError2.insets = new Insets(0, 0, 5, 0);
+		gbc_lblTimeError2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblTimeError2.gridx = 3;
+		gbc_lblTimeError2.gridy = 7;
+		gbc_lblTimeError2.weightx = 1;
+		gbc_lblTimeError2.weighty = 1;		
+		formPanel.add(lblTimeError2, gbc_lblTimeError2);
 		
 		//Invalid Date label
 		final JLabel lblDateError2 = new JLabel("<html><font color='red'>Please enter a valid date (MM/DD/YYYY).</font></html>");
@@ -624,15 +639,7 @@ public class EventTab extends JPanel {
 		gbc_lblDateError2.weightx = 1;
 		gbc_lblDateError2.weighty = 1;		
 		formPanel.add(lblDateError2, gbc_lblDateError2);
-		lblTimeError2.setHorizontalAlignment(SwingConstants.LEFT);
-		GridBagConstraints gbc_lblTimeError2 = new GridBagConstraints();
-		gbc_lblTimeError2.insets = new Insets(0, 0, 5, 0);
-		gbc_lblTimeError2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblTimeError2.gridx = 3;
-		gbc_lblTimeError2.gridy = 7;
-		gbc_lblTimeError2.weightx = 1;
-		gbc_lblTimeError2.weighty = 1;		
-		formPanel.add(lblTimeError2, gbc_lblTimeError2);
+		
 		
 		
 		
@@ -650,7 +657,7 @@ public class EventTab extends JPanel {
 		//Calendar calendar = datePicker.getMonthView().getCalendar();
 		//calendar.setTime(new Date());
 		//datePicker.getMonthView().setLowerBound(calendar.getTime());
-		endDatePicker.setFormats(new DateFormat[] {format1, format2, format3, format4});
+		endDatePicker.setFormats(new DateFormat[] {format1, format2});
 		
 		GregorianCalendar c = new GregorianCalendar();
 	    c.set(Calendar.HOUR_OF_DAY, 0);
@@ -681,129 +688,136 @@ public class EventTab extends JPanel {
 				listenerHelper();
 			}}
 				);
+////////////////////////////////		
+		endDatePicker.getEditor().addKeyListener(new KeyListener(){
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				endDatePicker.getEditor().setBackground(Color.WHITE);
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					checkBadDate();
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				inputDate = endDatePicker.getEditor().getText().trim();
+				listenerHelper();
+				
+				// This next line checks for a blank date field, DO NOT REMOVE
+				if(nameTextField.getText().equals("") || endDatePicker.getEditor().getText().equals("")
+                        || nameTextField.getText().trim().length() == 0){
+                btnAddEvent.setEnabled(false);
+				}
+
+				//boolean orignValue = initFlag;
+				//initFlag = true;
+				//listenerHelper();
+				//initFlag = orignValue;
+			}
+
+		});
+		endDatePicker.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				endDatePicker.getEditor().setBackground(Color.WHITE);
+				inputDate = endDatePicker.getEditor().getText().trim();
+			}
+			
+		});
 		
-//		endDatePicker.getEditor().addKeyListener(new KeyListener(){
-//
-//			@Override
-//			public void keyTyped(KeyEvent e) {
-//			}
-//
-//			@Override
-//			public void keyPressed(KeyEvent e) {
-//				endDatePicker.getEditor().setBackground(Color.WHITE);
-//				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-//					checkBadDate();
-//				}
-//			}
-//
-//			@Override
-//			public void keyReleased(KeyEvent e) {
-//				inputDate = endDatePicker.getEditor().getText().trim();
-//				listenerHelper();
-//				
-//				// This next line checks for a blank date field, DO NOT REMOVE
-//				if(nameTextField.getText().equals("") || endDatePicker.getEditor().getText().equals("")
-//                        || nameTextField.getText().trim().length() == 0){
-//                btnAddEvent.setEnabled(false);
-//				}
-//
-//				//boolean orignValue = initFlag;
-//				//initFlag = true;
-//				//listenerHelper();
-//				//initFlag = orignValue;
-//			}
-//
-//		});
-//		endDatePicker.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				endDatePicker.getEditor().setBackground(Color.WHITE);
-//				inputDate = endDatePicker.getEditor().getText().trim();
-//			}
-//			
-//		});
-//		
-//		endDatePicker.getEditor().addFocusListener(new FocusListener() {
-//			@Override
-//			public void focusGained(FocusEvent e) {
-//				if(badDate) {
-//					endDatePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
-//					endDatePicker.getEditor().selectAll();
-//					lblDateError.setVisible(true);
-//					badDate = false;
-//				}
-//				/*
-//				else if(badDate){
-//					datePicker.getEditor().setText("The date is not valid");
-//					datePicker.getEditor().setBackground(Color.red);
-//					badDate = false;
-//				}
-//				*/
-//				else{
-//					//try {
-//						SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy EEE"); 
-//						endDatePicker.getEditor().setBackground(Color.WHITE);
-//						endDatePicker.getEditor().setText(dt.format(endDatePicker.getDate()));
-//						endDatePicker.getEditor().selectAll();
-//						listenerHelper();
-//					//}catch(NullPointerException ne) {
-//					//	datePicker.getEditor().setText("The date is not valid");
-//					//	datePicker.getEditor().setBackground(Color.red);
-//					//}
-//				}
-//			}
-//
-//			@Override
-//			public void focusLost(FocusEvent e) {
-//				if(isBadInputDate()){
-//					badDate = true;
-//					endDatePicker.requestFocus();
-//				}
-//				/*
-//				else{
-//					Date date = null;
-//					for(DateFormat formatter : datePicker.getFormats()) {
-//						try {
-//							date = formatter.parse(inputDate);
-//						} catch (ParseException e1) {
-//
-//						}
-//					}
-//					if(date.compareTo(new Date()) < 0) {
-//						badDate = true;
-//						datePicker.requestFocus();
-//					}
-//				}
-//				*/
-//				else{
-//					endDatePicker.getEditor().setBackground(Color.WHITE);
-//					lblDateError.setVisible(false);
-//				}
-//				listenerHelper();
-//			}
-//		});
-//		endDatePicker.addFocusListener(new FocusListener() {
-//
-//			@Override
-//			public void focusGained(FocusEvent e) {
-//				endDatePicker.getEditor().setBackground(Color.WHITE);
-//				listenerHelper();
-//			}
-//
-//			@Override
-//			public void focusLost(FocusEvent e) {
-//				endDatePicker.getEditor().setBackground(Color.WHITE);
-//				listenerHelper();
-//				
-//			}
-//
-//			
-//			
-//			
-//			
-//		});
+		endDatePicker.getEditor().addFocusListener(new FocusListener() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				if(badDate) {
+					endDatePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
+					endDatePicker.getEditor().selectAll();
+					lblDateError.setVisible(true);
+					badDate = false;
+				}
+				/*
+				else if(badDate){
+					datePicker.getEditor().setText("The date is not valid");
+					datePicker.getEditor().setBackground(Color.red);
+					badDate = false;
+				}
+				*/
+				else{
+					//try {
+						SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy"); 
+						endDatePicker.getEditor().setBackground(Color.WHITE);
+						endDatePicker.getEditor().setText(dt.format(endDatePicker.getDate()));
+						endDatePicker.getEditor().selectAll();
+						listenerHelper();
+					//}catch(NullPointerException ne) {
+					//	datePicker.getEditor().setText("The date is not valid");
+					//	datePicker.getEditor().setBackground(Color.red);
+					//}
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(isBadInputDate()){
+					badDate = true;
+					endDatePicker.requestFocus();
+				}
+				/*
+				else{
+					Date date = null;
+					for(DateFormat formatter : datePicker.getFormats()) {
+						try {
+							date = formatter.parse(inputDate);
+						} catch (ParseException e1) {
+
+						}
+					}
+					if(date.compareTo(new Date()) < 0) {
+						badDate = true;
+						datePicker.requestFocus();
+					}
+				}
+				*/
+				else{
+					endDatePicker.getEditor().setBackground(Color.WHITE);
+					lblDateError.setVisible(false);
+				}
+				listenerHelper();
+			}
+		});
+		endDatePicker.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				endDatePicker.getEditor().setBackground(Color.WHITE);
+				listenerHelper();
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				endDatePicker.getEditor().setBackground(Color.WHITE);
+				listenerHelper();
+				
+			}
+		});
 		
+		endDatePicker.getEditor().addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char vChar = e.getKeyChar();
+                if (!(Character.isDigit(vChar)
+                		|| (vChar == '/')
+                        || (vChar == KeyEvent.VK_BACK_SPACE)
+                        || (vChar == KeyEvent.VK_DELETE))) {
+                    e.consume();
+                }
+            }
+        });
+/////////////////////////////////////////		
 
 		
 		//adds handler to set both start and end spinners to nearest 30 or 00
@@ -1460,9 +1474,9 @@ public class EventTab extends JPanel {
 							return;
 						}
 					}
-					btnAddEvent.setEnabled(true);
-				}
 
+				}
+				btnAddEvent.setEnabled(true);
 			}
 		}
 	}
