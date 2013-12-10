@@ -939,7 +939,12 @@ public class EventTab extends JPanel {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				listenerHelper();
-				
+				try {
+					Integer.parseInt(repeatAmt.getText());
+					btnAddEvent.setEnabled(true);
+				} catch (Exception ex){
+					btnAddEvent.setEnabled(false);
+				}
 			}
 			
 		});
