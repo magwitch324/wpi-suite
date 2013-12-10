@@ -81,10 +81,14 @@ public class WeekView extends CalendarView {
 			commitmentView.updateCommData(commList.filter(startDate,endDate));
 		}
 		// TODO filter commitments
-		if (showCommOnCal)
+		if (showCommOnCal){
 			weekPane.displayCommitments(commList.filter(startDate, endDate)); //add only commitments on today to DayPane
-		else
+			weekPane.displayEvents(eventList.filter(startDate, endDate));
+		}
+		else{
 			weekPane.displayCommitments(null); //show no commitments on DayPane
+			weekPane.displayEvents(eventList.filter(startDate, endDate));
+		}
 
 		revalidate();
 		repaint();

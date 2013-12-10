@@ -43,6 +43,9 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
+
+import org.jdesktop.swingx.border.MatteBorderExt;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
@@ -65,7 +68,18 @@ public class CommitmentFullView extends JPanel{
 	AbCalendar tcalendar;
 	AbCalendar pcalendar;
 	JPanel commitPanel;
+	JScrollPane scrollPane;
+	JPanel header;
+	
 	List<Commitment> commitmentList = new ArrayList<Commitment>();
+	private int namesort = 0;
+	private int datesort = 0;
+	private int dessort = 0;
+	private int statussort = 0;
+	JButton jName;
+	JButton jDueDate;
+	JButton jDescription;
+	JButton jStatus;
 	public enum ViewingMode {
 		TEAM, PERSONAL, BOTH;		
 	};
@@ -79,12 +93,28 @@ public class CommitmentFullView extends JPanel{
 		this.mode = ViewingMode.TEAM;
 		
 		commitPanel = new JPanel();
-		JScrollPane scrollPane = new JScrollPane(commitPanel, 
+		
+		// Header panel
+		header = new JPanel();
+		header.setBackground(Color.WHITE);
+		header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
+		header.setBorder(new EmptyBorder(5,5,5,5));
+		header.setBorder(new MatteBorder(0,0,2,0, Color.BLACK));
+		
+		scrollPane = new JScrollPane(commitPanel, 
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(scrollPane, BorderLayout.CENTER );
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		scrollPane.getHorizontalScrollBar().setUnitIncrement(20);
+
+		// Sets the UPPER RIGHT corner box
+		JPanel cornerBoxUR = new JPanel();
+		cornerBoxUR.setBackground(Color.WHITE);
+		scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
+				cornerBoxUR);
+		add(scrollPane);
+		
 		/*spring layout to allow adjustments to size of screen without messing up panels*/
 		SpringLayout layout = new SpringLayout();
 		setLayout(layout);
@@ -125,8 +155,10 @@ public class CommitmentFullView extends JPanel{
 	/*commit panel is populated with all events which are in separate panels that can be scrolled and clicked*/
 	private void setupPanels() {
 		commitPanel.setLayout(new BoxLayout(commitPanel, BoxLayout.Y_AXIS));
-		commitPanel.setBorder(new EmptyBorder(10, 5, 10 , 20));
+		commitPanel.setBorder(new EmptyBorder(5, 5, 10 , 20));
 		commitPanel.setBackground(Color.WHITE);
+		
+		header.removeAll();
 		
 		
 		JPanel viewSwitcher = new JPanel();
@@ -208,35 +240,74 @@ public class CommitmentFullView extends JPanel{
 		viewSwitcher.setPreferredSize(new Dimension(300,50));
 		viewSwitcher.setMaximumSize(new Dimension(20000, 50));
 		
-		commitPanel.add(viewSwitcher);
+		header.add(viewSwitcher);
 		
 		JPanel topButtons = new JPanel();
 		
 		GridLayout experimentLayout = new GridLayout(0,4);
 		topButtons.setLayout(experimentLayout);
 		//topButtons.setLayout(new BoxLayout(topButtons, BoxLayout.X_AXIS));
-		JButton jName = new JButton("Name");
-		jName.setContentAreaFilled(false);
+		jName = new JButton("<html><font color='white'><b>"
+				+ "Name" + "</b></font></html>");
+		if(namesort == 1){
+			jName.setText("<html><font color='white'><b>"
+					+ "Name ^" + "</b></font></html>");
+		}
+		else if(namesort == 2){
+			jName.setText("<html><font color='white'><b>"
+					+ "Name v" + "</b></font></html>");
+		}
+		
+		
+//		jName.setContentAreaFilled(false);
+		jName.setBackground(CalendarStandard.CalendarRed);
 		jName.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		//sort by name
 		jName.addMouseListener(new MouseAdapter() {
 			@Override
 		public void mouseClicked(MouseEvent e) {
+				datesort = 0;
+				dessort = 0;
+				statussort = 0;
 				Collections.sort(commitmentList);
+				if(namesort == 1){
+					namesort = 2;
+					Collections.reverse(commitmentList);
+				}
+				else if(namesort == 2 || namesort == 0){
+					namesort = 1;
+				}
 				update2();
 			}
 			
 		});
 		
 		
-		JButton jDueDate = new JButton("Due Date");
-		jDueDate.setContentAreaFilled(false);
+
+		jDueDate = new JButton("<html><font color='white'><b>"
+				+ "Due Date" + "</b></font></html>");
+//		jDueDate.setContentAreaFilled(false);
+		jDueDate.setBackground(CalendarStandard.CalendarRed);
+
+		if(datesort == 1){
+			jDueDate.setText("<html><font color='white'><b>"
+					+ "Due Date ^" + "</b></font></html>");
+		}
+		else if(datesort == 2){
+			jDueDate.setText("<html><font color='white'><b>"
+					+ "Due Date v" + "</b></font></html>");
+		}
+		//jDueDate.setContentAreaFilled(false);
+
 		jDueDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		
 		// sort by date 
 		jDueDate.addMouseListener(new MouseAdapter() {
 			@Override
 		public void mouseClicked(MouseEvent e) {
+				namesort = 0;
+				dessort = 0;
+				statussort = 0;
 				Collections.sort(commitmentList, new Comparator<Commitment>() {
 				
 				@Override 
@@ -249,21 +320,77 @@ public class CommitmentFullView extends JPanel{
 						return 0;
 				}				
 				});
+				if(datesort == 1){
+					datesort = 2;
+					Collections.reverse(commitmentList);
+				}
+				else if(datesort == 2 || datesort == 0){
+					datesort = 1;
+				}
 				update2();
 			}			
 		});
 
-		JButton jDescription = new JButton("Description");
-		jDescription.setContentAreaFilled(false);
+
+		jDescription = new JButton("<html><font color='white'><b>"
+				+ "Description" + "</b></font></html>");
+//		jDescription.setContentAreaFilled(false);
+		jDescription.setBackground(CalendarStandard.CalendarRed);
+		if(dessort == 1){
+			jDescription.setText("<html><font color='white'><b>"
+					+ "Description ^" + "</b></font></html>");
+		}
+		else if(dessort == 2){
+			jDescription.setText("<html><font color='white'><b>"
+					+ "Description v" + "</b></font></html>");
+		}
+		//jDescription.setContentAreaFilled(false);
+
 		jDescription.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
+		jDescription.addMouseListener(new MouseAdapter() {
+			@Override
+		public void mouseClicked(MouseEvent e) {
+				namesort = 0;
+				datesort = 0;
+				statussort = 0;
+				Collections.sort(commitmentList, new Comparator<Commitment>() {
+					
+				@Override 
+				public int compare(Commitment c1, Commitment c2) {
+					return c1.getDescription().compareTo(c2.getDescription());
+				}		
+				});
+				if(dessort == 1){
+					dessort = 2;
+					Collections.reverse(commitmentList);
+				}
+				else if(dessort == 2 || dessort == 0){
+					dessort = 1;
+				}
+				update2();
+			}			
+		});
 		
-		JButton jStatus = new JButton("Status");
-		jStatus.setContentAreaFilled(false);
+		jStatus = new JButton("<html><font color='white'><b>"
+				+ "Status" + "</b></font></html>");
+		if(statussort == 1){
+			jStatus.setText("<html><font color='white'><b>"
+					+ "Status ^" + "</b></font></html>");
+		}
+		else if(statussort == 2){
+			jStatus.setText("<html><font color='white'><b>"
+					+ "Status v" + "</b></font></html>");
+		}
+//		jStatus.setContentAreaFilled(false);
+		jStatus.setBackground(CalendarStandard.CalendarRed);
 		jStatus.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		
 		jStatus.addMouseListener(new MouseAdapter() {
 			@Override
 		public void mouseClicked(MouseEvent e) {
+				namesort = 0;
+				datesort = 0;
+				dessort = 0;
 				Collections.sort(commitmentList, new Comparator<Commitment>() {
 					
 				@Override 
@@ -272,6 +399,13 @@ public class CommitmentFullView extends JPanel{
 
 				}		
 				});
+				if(statussort == 1){
+					statussort = 2;
+					Collections.reverse(commitmentList);
+				}
+				else if(statussort == 2 || statussort == 0){
+					statussort = 1;
+				}
 				update2();
 			}			
 		});
@@ -284,11 +418,15 @@ public class CommitmentFullView extends JPanel{
 		topButtons.add(jDueDate,c);
 		topButtons.add(jDescription,c);
 		topButtons.add(jStatus,c);
-		topButtons.setPreferredSize(new Dimension(300,75));
-		topButtons.setMaximumSize(new Dimension(20000, 75));
+		topButtons.setPreferredSize(new Dimension(300,50));
+		topButtons.setMaximumSize(new Dimension(20000, 50));
 		Border loweredbevel1 = BorderFactory.createLoweredBevelBorder();
 		topButtons.setBorder(loweredbevel1);
-		commitPanel.add(topButtons);
+		topButtons.setBorder(new MatteBorder(5,5,5,5, Color.WHITE));
+		
+		header.add(topButtons);
+		
+		scrollPane.setColumnHeaderView(header);
 		//JSeparator sep = new JSeparator();
 		//commitPanel.add(sep);
 		for(int i = 0; i < commitmentList.size(); i++){

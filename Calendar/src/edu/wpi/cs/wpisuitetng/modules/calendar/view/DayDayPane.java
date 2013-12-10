@@ -27,6 +27,7 @@ import javax.swing.JSeparator;
 import javax.swing.SpringLayout;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
@@ -54,6 +55,7 @@ public class DayDayPane extends JPanel {
 		this.acal = (GregorianCalendar)acal.clone();
 		this.setMinimumSize(new Dimension(50, 800));
 		this.setPreferredSize(new Dimension(50, 800));
+		this.setBackground(CalendarStandard.CalendarYellow);
 		
 		SpringLayout layout = new SpringLayout();
 		this.setLayout(layout);
@@ -355,10 +357,24 @@ public class DayDayPane extends JPanel {
 	 */
 	public void displayCommitments(List<Commitment> commList) {
 		// if we are supposed to display commitments
+		this.commlist = new ArrayList<Commitment>();
+		
 		if (commList != null) {
-			this.commlist = commList;
+			
+			for(Commitment comm : commList){
+				int index = 0;
+				for(Commitment comp : this.commlist){
+					if(comp.getDueDate().after(comm.getDueDate())){
+						break;
+					}
+					index ++;
+				}
+				
+				this.commlist.add(index, comm);
+			}
+			
 		} else {
-			this.commlist = new ArrayList<Commitment>();
+
 		}
 		merge();
 		updatepane();
@@ -370,10 +386,22 @@ public class DayDayPane extends JPanel {
 	 */
 	public void displayEvents(List<Event> eventList) {
 		// if we are supposed to display events
+		this.eventlist = new ArrayList<Event>();
+		
 		if (eventList != null) {
-			this.eventlist = eventList;
+			for(Event event : eventList){
+				int index = 0;
+				for(Event comp : this.eventlist){
+					if(comp.getStartTime().after(event.getStartTime())){
+						break;
+					}
+					index ++;
+				}
+				
+				this.eventlist.add(index, event);
+			}
 		} else {
-			this.eventlist = new ArrayList<Event>();
+			
 		}
 		merge();
 		updatepane();
