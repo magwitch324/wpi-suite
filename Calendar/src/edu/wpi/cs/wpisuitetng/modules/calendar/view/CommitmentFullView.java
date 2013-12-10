@@ -241,16 +241,20 @@ public class CommitmentFullView extends JPanel{
 		GridLayout experimentLayout = new GridLayout(0,4);
 		topButtons.setLayout(experimentLayout);
 		//topButtons.setLayout(new BoxLayout(topButtons, BoxLayout.X_AXIS));
-		jName = new JButton("Name");
+		jName = new JButton("<html><font color='white'><b>"
+				+ "Name" + "</b></font></html>");
 		if(namesort == 1){
-			jName.setText("Name ^");
+			jName.setText("<html><font color='white'><b>"
+					+ "Name ^" + "</b></font></html>");
 		}
 		else if(namesort == 2){
-			jName.setText("Name v");
+			jName.setText("<html><font color='white'><b>"
+					+ "Name v" + "</b></font></html>");
 		}
 		
 		
-		jName.setContentAreaFilled(false);
+//		jName.setContentAreaFilled(false);
+		jName.setBackground(CalendarStandard.CalendarRed);
 		jName.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		//sort by name
 		jName.addMouseListener(new MouseAdapter() {
@@ -270,8 +274,10 @@ public class CommitmentFullView extends JPanel{
 		});
 		
 		
-		JButton jDueDate = new JButton("Due Date");
-		jDueDate.setContentAreaFilled(false);
+		JButton jDueDate = new JButton("<html><font color='white'><b>"
+				+ "Due Date" + "</b></font></html>");
+//		jDueDate.setContentAreaFilled(false);
+		jDueDate.setBackground(CalendarStandard.CalendarRed);
 		jDueDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		
 		// sort by date 
@@ -294,8 +300,10 @@ public class CommitmentFullView extends JPanel{
 			}			
 		});
 
-		JButton jDescription = new JButton("Description");
-		jDescription.setContentAreaFilled(false);
+		JButton jDescription = new JButton("<html><font color='white'><b>"
+				+ "Description" + "</b></font></html>");
+//		jDescription.setContentAreaFilled(false);
+		jDescription.setBackground(CalendarStandard.CalendarRed);
 		jDescription.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
 		
 		JButton jStatus = new JButton("Status");
@@ -325,8 +333,8 @@ public class CommitmentFullView extends JPanel{
 		topButtons.add(jDueDate,c);
 		topButtons.add(jDescription,c);
 		topButtons.add(jStatus,c);
-		topButtons.setPreferredSize(new Dimension(300,75));
-		topButtons.setMaximumSize(new Dimension(20000, 75));
+		topButtons.setPreferredSize(new Dimension(300,50));
+		topButtons.setMaximumSize(new Dimension(20000, 50));
 		Border loweredbevel1 = BorderFactory.createLoweredBevelBorder();
 		topButtons.setBorder(loweredbevel1);
 		topButtons.setBorder(new MatteBorder(5,5,5,5, Color.WHITE));
