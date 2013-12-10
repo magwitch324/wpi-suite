@@ -713,12 +713,6 @@ public class EventTab extends JPanel {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				checkSaveBtnStatus();
-				try {
-					Integer.parseInt(repeatAmt.getText());
-					btnAddEvent.setEnabled(true);
-				} catch (Exception ex){
-					btnAddEvent.setEnabled(false);
-				}
 			}
 			
 		});
@@ -1465,8 +1459,11 @@ public class EventTab extends JPanel {
 				}
 				if(this.repeatCheckBox.isSelected()){
 					try {
-						Integer.parseInt(repeatAmt.getText());
-						btnAddEvent.setEnabled(true);
+						if (Integer.parseInt(repeatAmt.getText()) >= 1){
+							btnAddEvent.setEnabled(true);	
+						} else {
+							btnAddEvent.setEnabled(false);
+						}
 					} catch (Exception ex){
 						btnAddEvent.setEnabled(false);
 					}
