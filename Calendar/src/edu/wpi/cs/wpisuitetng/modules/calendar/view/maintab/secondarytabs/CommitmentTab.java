@@ -146,6 +146,7 @@ public class CommitmentTab extends JPanel {
 	 */
 	public CommitmentTab() {
 		this.initFlag = false;
+		this.setBackground(Color.WHITE);
 		formPanel = new JPanel();
 		formPanel.setBackground(Color.WHITE);
 		formPanel.setPreferredSize(new Dimension(700, 500));
