@@ -12,8 +12,6 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -28,13 +26,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CalendarObject;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 
 @SuppressWarnings("serial")
 public class CalendarObjectPanel extends JPanel {
@@ -42,97 +39,17 @@ public class CalendarObjectPanel extends JPanel {
 	Commitment comm = null;
 	GregorianCalendar acal = new GregorianCalendar();
 	JComponent parent = null;
+	SpringLayout layout= new SpringLayout();
+	AbCalendar.types detailLevel;
 	int columnwidth = 1;
 	int columnspanned = 1;
-	
-	/**
-	 * The constructor
-	 * @param parent the parent which sizes are based upon
-	 * @param acal	the current date to be displayed
-	 * @param event the event which all information is pulled to be displayed
-	 */
-	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal, Event event){
-		this(parent, acal);
-		this.event = event;
-		String name = event.getName();
-		setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this text
-
-		JLabel alab = new JLabel(event.getDescription(), JLabel.CENTER);
-		alab.setBackground(new Color(0,0,0,0));
-		add(alab, SwingConstants.CENTER);
-		
-		Image nameImg;
-		Image scaleImg;
-		
-		try {
-			if (event.getIsPersonal())
-			{	
-				nameImg = ImageIO.read(getClass().getResource("PersonalEvent_Icon.png"));
-				
-			}
-			else
-			{
-				nameImg = ImageIO.read(getClass().getResource("TeamEvent_Icon.png"));
-			}
-			scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
-			alab = new JLabel(name, new ImageIcon(scaleImg), JLabel.CENTER);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			alab = new JLabel(name, JLabel.CENTER);
-		}
-		
-		//alab.setSize( alab.getPreferredSize() );
-		alab.setBackground(new Color(0,0,0,0));
-		add(alab, SwingConstants.CENTER);
-	}
-	
-	/**
-	 * The constructor
-	 * @param parent the parent which sizes are based upon
-	 * @param acal	the current date to be displayed
-	 * @param comm the commitment which all information is pulled to be displayed
-	 */
-	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal, Commitment comm){
-		this(parent, acal);
-		this.comm = comm;
-		String name = comm.getName();
-		setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this text
-
-		JLabel alab = new JLabel(comm.getDescription(), JLabel.CENTER);
-		alab.setBackground(new Color(0,0,0,0));
-		add(alab, SwingConstants.CENTER);
-		
-		Image nameImg;
-		Image scaleImg;
-		
-		try {
-			if (comm.getIsPersonal())
-			{	
-				nameImg = ImageIO.read(getClass().getResource("PersonalCommitment_Icon.png"));
-				
-			}
-			else
-			{
-				nameImg = ImageIO.read(getClass().getResource("TeamCommitment_Icon.png"));
-			}
-			scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
-			alab = new JLabel(name, new ImageIcon(scaleImg), JLabel.CENTER);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			alab = new JLabel(name, JLabel.CENTER);
-		}
-		
-		//alab.setSize( alab.getPreferredSize() );
-		alab.setBackground(new Color(0,0,0,0));
-		add(alab, SwingConstants.CENTER);
-	}
 	
 	/**
 	 * Protected constructor that handles common code
 	 * @param parent the parent which sizes are based upon
 	 * @param acal	the current date to be displayed
 	 */
-	protected CalendarObjectPanel(JComponent parent, GregorianCalendar acal){
+	private CalendarObjectPanel(JComponent parent, GregorianCalendar acal){
 		super();
 		this.parent = parent;
 		this.acal.setTime(acal.getTime());
@@ -145,6 +62,122 @@ public class CalendarObjectPanel extends JPanel {
 		    	}
 		    }
 		});
+		
+		this.setLayout(new GridLayout(1,1));
+		
+	}
+	
+	/**
+	 * The constructor
+	 * @param parent the parent which sizes are based upon
+	 * @param acal	the current date to be displayed
+	 * @param event the event which all information is pulled to be displayed
+	 */
+	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal, Event event){
+		this(parent, acal);
+		this.event = event;
+		detailLevel = AbCalendar.types.DAY;
+		setLabel();
+	}
+	
+	/**
+	 * The constructor
+	 * @param parent the parent which sizes are based upon
+	 * @param acal	the current date to be displayed
+	 * @param comm the commitment which all information is pulled to be displayed
+	 */
+	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal, Commitment comm){
+		this(parent, acal);
+		this.comm = comm;
+		detailLevel = AbCalendar.types.DAY;
+		setLabel();
+	}
+	
+	/** 
+	 * Constructor where level of detail is specified, for event
+	 * @param parent
+	 * @param acal
+	 * @param event
+	 * @param detailLevel
+	 */
+	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal, Event event, AbCalendar.types detailLevel){
+		this(parent, acal, event);
+		this.detailLevel = detailLevel;
+		setLabel(); 
+	}
+	/** 
+	 * Constructor where level of detail is specified, for commitment
+	 * @param parent
+	 * @param acal
+	 * @param event
+	 * @param detailLevel
+	 */
+	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal, Commitment comm, AbCalendar.types detailLevel){
+		this(parent, acal, comm);
+		this.detailLevel = detailLevel;
+		setLabel();
+	}
+	
+	
+	private void setLabel() {
+		JLabel alab = new JLabel();
+		String type;
+		CalendarObject calobj;
+		if (event == null) {
+			type = "Commitment";
+			calobj = comm;
+		} else {
+			type = "Event";
+			calobj = event;
+		}
+		String name = calobj.getName();
+		String description = calobj.getDescription();
+		String label;
+		setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this text
+
+		if (detailLevel == AbCalendar.types.WEEK) {
+			label = name;
+			setToolTipText(name);
+		} else {
+//			label = "<html><font size = 5><b>" + name + "</b></font><br>" + description + "</html>";
+//			label = label.replaceAll("\n", "<br>");
+			
+			label = name;
+			
+			setToolTipText(name);
+		}
+		
+		alab.setText(label);
+		alab.setAlignmentX(SwingConstants.CENTER);
+		alab.setAlignmentY(SwingConstants.NORTH);
+		
+		Image nameImg;
+		Image scaleImg;
+		
+		try {
+			if (calobj.getIsPersonal()) {	
+				nameImg = ImageIO.read(getClass().getResource("Personal" + type + "_Icon.png"));
+				
+			} else {
+				nameImg = ImageIO.read(getClass().getResource("Team" + type + "_Icon.png"));
+			}
+			scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
+			alab.setIcon(new ImageIcon(scaleImg));
+			
+		} catch (IOException e) {
+			//TODO Auto generated catch
+		}
+		
+		alab.setBackground(new Color(0,0,0,0));
+		alab.setMaximumSize(this.getSize());
+		removeAll();
+		
+//		layout.putConstraint(SpringLayout.NORTH, alab, 1, SpringLayout.NORTH, this);
+//		layout.putConstraint(SpringLayout.SOUTH, alab, -1, SpringLayout.SOUTH, this);
+//		layout.putConstraint(SpringLayout.EAST, alab, -1, SpringLayout.EAST, this);
+//		layout.putConstraint(SpringLayout.WEST, alab, 1, SpringLayout.WEST, this);
+		
+		add(alab, SwingConstants.CENTER);
 	}
 	
 	/**

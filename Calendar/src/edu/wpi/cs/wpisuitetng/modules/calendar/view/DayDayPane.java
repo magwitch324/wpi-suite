@@ -45,12 +45,16 @@ public class DayDayPane extends JPanel {
 	List<List<CalendarObjectPanel>> displayobjects = new ArrayList<List<CalendarObjectPanel>>();
 	JSeparator[] halfhourmarks= new JSeparator[49];
 	
+	AbCalendar.types detailLevel;
+	
 	/**
 	 * Constructor for daydaypane
 	 * @param acal the date that is used for displaying
 	 */
-	public DayDayPane(GregorianCalendar acal){
+	public DayDayPane(GregorianCalendar acal, AbCalendar.types detailLevel){
 		super();
+		
+		this.detailLevel = detailLevel;
 		
 		this.acal = (GregorianCalendar)acal.clone();
 		this.setMinimumSize(new Dimension(50, 800));
@@ -84,13 +88,13 @@ public class DayDayPane extends JPanel {
 		
 		if(commlist.isEmpty() && !eventlist.isEmpty()){
 			for(Event event : eventlist){
-				sortedobjects.add(new CalendarObjectPanel(this, this.acal, event));
+				sortedobjects.add(new CalendarObjectPanel(this, this.acal, event, detailLevel));
 			}
 		}
 		//if we only have commitments
 		else if(!commlist.isEmpty() && eventlist.isEmpty()){
 			for(Commitment comm : commlist){
-				sortedobjects.add(new CalendarObjectPanel(this, this.acal, comm));
+				sortedobjects.add(new CalendarObjectPanel(this, this.acal, comm, detailLevel));
 			}
 		}
 		//if we have both
