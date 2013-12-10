@@ -332,7 +332,7 @@ public class EventTab extends JPanel {
 		panel_1.add(rdbtnPersonal);
 		
 		rdbtnTeam = new JRadioButton("Team");
-		rdbtnPersonal.setBackground(Color.WHITE);
+		rdbtnTeam.setBackground(Color.WHITE);
 		buttonGroup.add(rdbtnTeam);
 		panel_1.add(rdbtnTeam);
 		
