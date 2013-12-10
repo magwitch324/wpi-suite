@@ -899,7 +899,7 @@ public class EventTab extends JPanel {
 		
 		
 		//Add Repetitions Label
-		lblNumberRepetitions = new JLabel("# of Repetitions:");
+		lblNumberRepetitions = new JLabel("# of Occurrences:");
 		lblNumberRepetitions.setHorizontalAlignment(SwingConstants.RIGHT);
 		GridBagConstraints gbc_lblNumberRepetitions = new GridBagConstraints();
 		gbc_lblNumberRepetitions.anchor = GridBagConstraints.EAST;

@@ -10,12 +10,15 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.ImageObserver;
@@ -63,20 +66,36 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 //		createEventButton= new JButton("<html>Create<br />Event</html>");
 		JPanel contentPanel = new JPanel();
 //		contentPanel.setBackground(Color.WHITE);
-//		contentPanel.setLayout(new GridLayout(1,5,10,10));
+		GridBagLayout layout = new GridBagLayout();
+		contentPanel.setLayout(layout);
+		GridBagConstraints cons1 = new GridBagConstraints();
+//		layout.ipadx = 5;
+//		layout.ipady = 5;
+		cons1.anchor = GridBagConstraints.PAGE_START;
+        cons1.weightx = 1;
+		GridBagConstraints cons2 = new GridBagConstraints();
+//		layout.ipadx = 5;
+//		layout.ipady = 5;
+		cons2.anchor = GridBagConstraints.CENTER;
+        cons2.weightx = 1;
+		GridBagConstraints cons3 = new GridBagConstraints();
+//		layout.ipadx = 5;
+//		layout.ipady = 5;
+		cons3.anchor = GridBagConstraints.LINE_END;
+        cons3.weightx = 1;
 		
-		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
-		this.setPreferredWidth(1200);
+//		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
+//		this.setPreferredWidth(700);
 	
-		this.createCommitButton.setPreferredSize(new Dimension(240, 250));
+//		this.createCommitButton.setSize(new Dimension(100, 250));
 		this.createCommitButton.setHorizontalAlignment(SwingConstants.CENTER);
-		this.createEventButton.setPreferredSize(new Dimension(240, 250));
+//		this.createEventButton.setPreferredSize(new Dimension(240, 250));
 		this.createEventButton.setHorizontalAlignment(SwingConstants.CENTER);
-		this.manageCategoryButton.setPreferredSize(new Dimension(240, 250));
+//		this.manageCategoryButton.setPreferredSize(new Dimension(240, 250));
 		this.manageCategoryButton.setHorizontalAlignment(SwingConstants.CENTER);
-		this.manageFilterButton.setPreferredSize(new Dimension(240, 250));
+//		this.manageFilterButton.setPreferredSize(new Dimension(240, 250));
 		this.manageFilterButton.setHorizontalAlignment(SwingConstants.CENTER);
-		this.helpButton.setSize(240, 250);
+//		this.helpButton.setSize(240, 250);
 		this.helpButton.setHorizontalAlignment(SwingConstants.CENTER);
 
 		
@@ -131,6 +150,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 //	    this.createCommitButton.setBackground(CalendarStandard.CalendarYellow);
 	    this.createCommitButton.setContentAreaFilled(false);
 	    this.createCommitButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+//	    this.createCommitButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		createCommitButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		// the action listener for the Create Commitment Button
 		createCommitButton.addActionListener(new ActionListener() {
@@ -153,6 +173,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 //	    this.createEventButton.setBackground(CalendarStandard.CalendarYellow);
 	    this.createEventButton.setContentAreaFilled(false);
 	    this.createEventButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+//	    this.createEventButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		createEventButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		// the action listener for the Create Event Button
 		createEventButton.addActionListener(new ActionListener() {
@@ -174,6 +195,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 //	    this.manageCategoryButton.setBackground(CalendarStandard.CalendarYellow);
 	    this.manageCategoryButton.setContentAreaFilled(false);
 	    this.manageCategoryButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+//	    this.manageCategoryButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		manageCategoryButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		// the action listener for the Manage Category Button
 //		manageCategoryButton.addActionListener(new ActionListener() {
@@ -196,6 +218,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 //	    this.manageFilterButton.setBackground(CalendarStandard.CalendarYellow);
 	    this.manageFilterButton.setContentAreaFilled(false);
 	    this.manageFilterButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+//	    this.manageFilterButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		manageFilterButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		// the action listener for the Manage Filter Button
 //		manageFilterButton.addActionListener(new ActionListener() {
@@ -217,6 +240,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 //	    this.helpButton.setBackground(CalendarStandard.CalendarYellow);
 	    this.helpButton.setContentAreaFilled(false);
 	    this.helpButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+//	    this.helpButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		helpButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		// the action listener for the Help Button
 		helpButton.addActionListener(new ActionListener() {
@@ -243,15 +267,15 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		
 //		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 //	    createCommitButton.setBorder(raisedbevel);
-		contentPanel.add(createCommitButton);
+		contentPanel.add(createCommitButton, cons1);
 //		createEventButton.setBorder(raisedbevel);
-		contentPanel.add(createEventButton);
+		contentPanel.add(createEventButton, cons1);
 //		manageCategoryButton.setBorder(raisedbevel);
-		contentPanel.add(manageCategoryButton);
+		contentPanel.add(manageCategoryButton, cons2);
 //		manageFilterButton.setBorder(raisedbevel);
-		contentPanel.add(manageFilterButton);
+		contentPanel.add(manageFilterButton, cons3);
 //		helpButton.setBorder(raisedbevel);
-		contentPanel.add(helpButton);
+		contentPanel.add(helpButton, cons3);
 
 		
 		this.add(contentPanel);
