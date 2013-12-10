@@ -36,7 +36,7 @@ public class SpinnerDateModelMinute extends SpinnerDateModel {
 	   {  
 	      Calendar cal = new GregorianCalendar();
 	      cal.setTime((Date)super.getValue());
-	      cal.add(Calendar.MINUTE, -1);  
+	      cal.add(Calendar.MINUTE, 1);  
 	      super.setValue(cal.getTime());
 	      return super.getValue();  
 	   }  
@@ -44,7 +44,7 @@ public class SpinnerDateModelMinute extends SpinnerDateModel {
 	   {  
 		  Calendar cal = new GregorianCalendar();
 	      cal.setTime((Date)super.getValue());
-	      cal.add(Calendar.MINUTE, 1);  
+	      cal.add(Calendar.MINUTE, -1);  
 	      super.setValue(cal.getTime());
 	      return super.getValue();// substract 15 minutes  
 	   }  
