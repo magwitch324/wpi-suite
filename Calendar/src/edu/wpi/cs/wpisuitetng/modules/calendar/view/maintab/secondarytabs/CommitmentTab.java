@@ -18,6 +18,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -40,9 +41,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -66,16 +70,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
-
-import javax.swing.BoxLayout;
-
-import java.awt.Component;
-
-import javax.swing.Box;
 
 @SuppressWarnings("serial")
 public class CommitmentTab extends JPanel {
@@ -1016,10 +1015,10 @@ public class CommitmentTab extends JPanel {
 			 * COMMENT THIS OUT TO NOT ADD A LOT OF COMMITMENTS
 			 * The script to add a bunch of commitments
 			 */
-//			GregorianCalendar day = new GregorianCalendar(2013, JANUARY, 1, 8, 00, 00);
+//			GregorianCalendar day = new GregorianCalendar(2013, Calendar.JANUARY, 1, 8, 00, 00);
 //			GregorianCalendar lastDay = new GregorianCalendar();
 //			lastDay.setTime(day.getTime());
-//			lastDay.add(YEAR, 1);
+//			lastDay.add(Calendar.YEAR, 1);
 //			Random rnd = new Random();
 //			String[] commitments = {"Meeting", "Party", "Shindig", "Meal"};
 //			String[] names = {"Anthony", "Andrew", "Frank", "Julie", "Pavel", "Sam", "Sean", "Seiichiro", "Thom", "Teresa", "Tim", "Tucker", "Coach Mike"};
@@ -1030,8 +1029,18 @@ public class CommitmentTab extends JPanel {
 //				set.add(Calendar.HOUR, rnd.nextInt(10));
 //				String commitment = commitments[rnd.nextInt(4)];
 //				String name = names[rnd.nextInt(13)];
-//				Commitment newCommitment = new Commitment(commitment + " with " + name, set, "No Description", 0, false);
-//				calData.addCommitment(newCommitment);
+//				if (rnd.nextInt(2) == 1) {
+//					GregorianCalendar endTime = new GregorianCalendar();
+//					endTime.setTime(set.getTime());
+//					endTime.add(Calendar.HOUR, rnd.nextInt(4)+1);
+//					String[] people = {names[rnd.nextInt(13)], names[rnd.nextInt(13)], names[rnd.nextInt(13)]};
+//					Event newEvent = new Event("A long " + commitment, "Event with " + people[0] + ", " + people[1] + ", and " + people[2],
+//												set, endTime, people, 0, false);
+//					calData.addEvent(newEvent);
+//				} else {
+//					Commitment newCommitment = new Commitment(commitment + " with " + name, set, "No Description", 0, false);
+//					calData.addCommitment(newCommitment);
+//				}
 //				
 //				day.add(Calendar.DAY_OF_YEAR, rnd.nextInt(3));
 //			}

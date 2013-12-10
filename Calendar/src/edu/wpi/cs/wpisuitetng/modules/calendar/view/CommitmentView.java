@@ -103,7 +103,8 @@ public class CommitmentView extends JPanel {
 		// print something when we do not  have any commitments
 		if(commitmentList.size() == 0) {			
 			JLabel message = new JLabel("<html><body style='width: 100%'><center>There are no commitments to display</center></html>", SwingConstants.CENTER);
-			message.setBackground(CalendarStandard.CalendarYellow);
+			message.setBackground(Color.WHITE);
+			message.setAlignmentX(CENTER_ALIGNMENT);
 			message.setOpaque(true);
 			message.setBorder(new EmptyBorder(0, 0, 15, 0));
 			commitPanel.add(message, BorderLayout.CENTER);
