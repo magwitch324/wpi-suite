@@ -857,6 +857,7 @@ public class EventTab extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				repeatTypeComboBox.setEnabled(repeatCheckBox.isSelected());
 				repeatAmt.setEnabled(repeatCheckBox.isSelected());
+				listenerHelper();
 			}
 			
 		});
@@ -1432,6 +1433,15 @@ public class EventTab extends JPanel {
 						}
 					}
 
+				}
+				if(this.repeatCheckBox.isSelected()){
+					try {
+						Integer.parseInt(repeatAmt.getText());
+						btnAddEvent.setEnabled(true);
+					} catch (Exception ex){
+						btnAddEvent.setEnabled(false);
+					}
+					return;
 				}
 				btnAddEvent.setEnabled(true);
 			}
