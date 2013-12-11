@@ -556,6 +556,9 @@ public class CommitmentTab extends JPanel {
 		AMPMSpinner.setValue(cal.getTime());
 		datePicker.setDate(cal.getTime());
 		cal.setTime((Date) minuteSpinner.getValue());
+		tempHour = cal.get(Calendar.HOUR);
+		tempMin = cal.get(Calendar.MINUTE);
+		
 	}
 	
 	/**
