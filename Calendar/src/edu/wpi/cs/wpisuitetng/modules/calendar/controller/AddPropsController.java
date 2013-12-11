@@ -25,7 +25,7 @@ import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
 public class AddPropsController{
 	
 	private static AddPropsController instance;
-	private AddPropsRequestObserver observer;
+	private final AddPropsRequestObserver observer;
 	
 	/**
 	 * Construct an AddCalendarPropsController for the given model, view pair

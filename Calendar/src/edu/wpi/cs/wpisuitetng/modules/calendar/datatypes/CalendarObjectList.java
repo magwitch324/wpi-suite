@@ -185,13 +185,13 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 	 */
 	public List<T> filter(GregorianCalendar date, int amount)
 			throws CalendarException {
-		GregorianCalendar start = new GregorianCalendar();
+		final GregorianCalendar start = new GregorianCalendar();
 		start.setTime(date.getTime());
 		start.set(Calendar.HOUR_OF_DAY, 0);
 		start.set(Calendar.MINUTE, 0);
 		start.set(Calendar.SECOND, 0);
 
-		GregorianCalendar end = new GregorianCalendar();
+		final GregorianCalendar end = new GregorianCalendar();
 
 		/*
 		 * All methods here add the given amount, then roll back one day to
@@ -239,12 +239,12 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 	}
 
 	public void printcalendar(GregorianCalendar cal) {
-		String dayName = cal.getDisplayName(GregorianCalendar.DAY_OF_WEEK,
+		final String dayName = cal.getDisplayName(GregorianCalendar.DAY_OF_WEEK,
 				LONG, Locale.ENGLISH);
-		int dayNum = cal.get(DAY_OF_MONTH);
-		String monthName = cal.getDisplayName(GregorianCalendar.MONTH, LONG,
+		final int dayNum = cal.get(DAY_OF_MONTH);
+		final String monthName = cal.getDisplayName(GregorianCalendar.MONTH, LONG,
 				Locale.ENGLISH);
-		int year = cal.get(YEAR);
+		final int year = cal.get(YEAR);
 		System.out.println(dayName + ", " + monthName + " " + dayNum + ", "
 				+ year);
 	}

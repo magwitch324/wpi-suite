@@ -46,7 +46,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 public class ButtonsPanel_Create extends ToolbarGroupView{
 	
 	// initialize the main view toolbar buttons
-		private JButton createCommitButton;
+		private final JButton createCommitButton;
 		private final JButton createEventButton;
 		private final JButton manageCategoryButton;
 		private final JButton manageFilterButton;
@@ -64,21 +64,21 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 //		
 //		createCommitButton= new JButton("<html>Create<br />Commitment</html>");
 //		createEventButton= new JButton("<html>Create<br />Event</html>");
-		JPanel contentPanel = new JPanel();
+		final JPanel contentPanel = new JPanel();
 		contentPanel.setBackground(Color.WHITE);
-		GridBagLayout layout = new GridBagLayout();
+		final GridBagLayout layout = new GridBagLayout();
 		contentPanel.setLayout(layout);
-		GridBagConstraints cons1 = new GridBagConstraints();
+		final GridBagConstraints cons1 = new GridBagConstraints();
 //		layout.ipadx = 5;
 //		layout.ipady = 5;
 		cons1.anchor = GridBagConstraints.PAGE_START;
         cons1.weightx = 1;
-		GridBagConstraints cons2 = new GridBagConstraints();
+		final GridBagConstraints cons2 = new GridBagConstraints();
 //		layout.ipadx = 5;
 //		layout.ipady = 5;
 		cons2.anchor = GridBagConstraints.CENTER;
         cons2.weightx = 1;
-		GridBagConstraints cons3 = new GridBagConstraints();
+		final GridBagConstraints cons3 = new GridBagConstraints();
 //		layout.ipadx = 5;
 //		layout.ipady = 5;
 		cons3.anchor = GridBagConstraints.LINE_END;
@@ -295,8 +295,4 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	 * Method getCreateEventButton.
 	
 	 * @return JButton */
-//	public JButton getCreateEventButton() {
-//		return createEventButton;
-//	}
-
 }

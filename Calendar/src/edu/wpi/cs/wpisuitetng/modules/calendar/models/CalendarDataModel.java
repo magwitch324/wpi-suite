@@ -26,7 +26,7 @@ public class CalendarDataModel extends AbstractListModel {
 	/**
 	 * The list in which all the CalendarData for a single project are contained
 	 */
-	private List<CalendarData> calendarDatas;
+	private final List<CalendarData> calendarDatas;
 	private int nextID; // the next available ID number for the calendarData that are added.
 	
 	//the static object to allow the category model to be 
@@ -141,8 +141,8 @@ public class CalendarDataModel extends AbstractListModel {
 	 * from the model.
 	 */
 	public void emptyModel() {
-		int oldSize = getSize();
-		Iterator<CalendarData> iterator = calendarDatas.iterator();
+		final int oldSize = getSize();
+		final Iterator<CalendarData> iterator = calendarDatas.iterator();
 		while (iterator.hasNext()) {
 			iterator.next();
 			iterator.remove();

@@ -65,7 +65,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		this.setColumnHeader();
 
 		curmonth = acal.get(Calendar.MONTH);
-		GregorianCalendar itcal = rewindcal(acal);
+		final GregorianCalendar itcal = rewindcal(acal);
 		startdate = (GregorianCalendar) itcal.clone();
 
 		for (int i = 0; i < 42; i++) {
@@ -84,7 +84,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 	 * @return the modified calendar
 	 */
 	protected GregorianCalendar rewindcal(GregorianCalendar acal) {
-		GregorianCalendar ret = (GregorianCalendar) acal.clone();
+		final GregorianCalendar ret = (GregorianCalendar) acal.clone();
 
 		while (ret.get(Calendar.DATE) != 1) {
 			ret.add(Calendar.DATE, -1);
@@ -100,8 +100,8 @@ public class MonthPane extends JScrollPane implements ICalPane {
 	 * Sets the column header with the day of the week for that column
 	 */
 	protected void setColumnHeader() {
-		JViewport port = new JViewport();
-		JPanel panel = new JPanel();
+		final JViewport port = new JViewport();
+		final JPanel panel = new JPanel();
 		final String[][] text = {
 				{ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
 						"Friday", "Saturday" },
@@ -149,7 +149,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 	 * @return this in a JPanel wrapper
 	 */
 	public JPanel getPane() {
-		JPanel apanel = new JPanel();
+		final JPanel apanel = new JPanel();
 		apanel.setLayout(new GridLayout(1, 1));
 		apanel.add(this);
 		return apanel;
@@ -165,12 +165,12 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		// if we are supposed to display commitments
 		if (commList != null) {
 
-			CombinedCommitmentList alist = new CombinedCommitmentList();
+			final CombinedCommitmentList alist = new CombinedCommitmentList();
 			for(Commitment comm: commList){
 				alist.add(comm);
 			}
 
-			GregorianCalendar ret = new GregorianCalendar();
+			final GregorianCalendar ret = new GregorianCalendar();
 			ret.setTime(startdate.getTime());
 
 			for (int i = 0; i < 42; i++) {
@@ -194,9 +194,9 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		// if we are supposed to display commitments
 		if (eventList != null) {
 
-			CombinedEventList alist = new CombinedEventList(eventList);
+			final CombinedEventList alist = new CombinedEventList(eventList);
 
-			GregorianCalendar ret = new GregorianCalendar();
+			final GregorianCalendar ret = new GregorianCalendar();
 					ret.setTime(startdate.getTime());
 					
 			for (int i = 0; i < 42; i++) {
@@ -236,7 +236,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		public MonthDayPane(GregorianCalendar acal, int month){
 			super();
 			this.acal = (GregorianCalendar)acal.clone();
-			SpringLayout layout = new SpringLayout();
+			final SpringLayout layout = new SpringLayout();
 			this.setLayout(layout);
 			this.setPreferredSize(new Dimension(50, 20));
 			this.setBackground(CalendarStandard.CalendarYellow);
@@ -341,8 +341,8 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			else if(commlist != null && eventlist != null){
 				int eindex = 0;
 				int cindex = 0;
-				GregorianCalendar ccal = new GregorianCalendar();
-				GregorianCalendar ecal = new GregorianCalendar();
+				final GregorianCalendar ccal = new GregorianCalendar();
+				final GregorianCalendar ecal = new GregorianCalendar();
 				
 				while(true){
 					if(cindex == commlist.size() && eindex == eventlist.size()){
@@ -381,8 +381,8 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				big.removeAll();
 				if(wraps != null){
 					this.setPreferredSize(this.getSize());
-					double boxheight = scroll.getViewport().getSize().getHeight();
-					double boxwidth = scroll.getViewport().getSize().getWidth();
+					final double boxheight = scroll.getViewport().getSize().getHeight();
+					final double boxwidth = scroll.getViewport().getSize().getWidth();
 					double height = 0.0;
 
 					SpringLayout layout = (SpringLayout) big.getLayout();
@@ -495,7 +495,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 					return comm.getDueDate();
 				}
 				else{
-					GregorianCalendar acal = new GregorianCalendar();
+					final GregorianCalendar acal = new GregorianCalendar();
 					acal.setTime(event.getStartTime().getTime());
 					return acal;
 				}

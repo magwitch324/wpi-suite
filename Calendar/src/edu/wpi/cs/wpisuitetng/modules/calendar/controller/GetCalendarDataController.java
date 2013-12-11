@@ -28,7 +28,7 @@ import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
  */
 public class GetCalendarDataController implements ActionListener {
 
-	private GetCalendarDataRequestObserver observer;
+	private final GetCalendarDataRequestObserver observer;
 	private static GetCalendarDataController instance;
 
 	/**

@@ -84,7 +84,7 @@ public class Event extends CalendarObject {
 	 * @return start time
 	 */
 	public GregorianCalendar getStartTime() {
-		GregorianCalendar tmp = new GregorianCalendar();
+		final GregorianCalendar tmp = new GregorianCalendar();
 		tmp.setTime(startTime);
 		return tmp;
 	}
@@ -95,7 +95,7 @@ public class Event extends CalendarObject {
 	 * @return end time
 	 */
 	public GregorianCalendar getEndTime() {
-		GregorianCalendar tmp = new GregorianCalendar();
+		final GregorianCalendar tmp = new GregorianCalendar();
 		tmp.setTime(endTime);
 		return tmp;
 	}

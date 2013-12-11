@@ -20,7 +20,7 @@ import edu.wpi.cs.wpisuitetng.network.models.IRequest;
  */
 public class GetCalendarDataRequestObserver implements RequestObserver {
 	
-	private GetCalendarDataController controller;
+	private final GetCalendarDataController controller;
 	
 	/**
 	 * Constructs the observer given a GetCalendarDataController
@@ -38,7 +38,7 @@ public class GetCalendarDataRequestObserver implements RequestObserver {
 	@Override
 	public void responseSuccess(IRequest iReq) {
 		// Convert the JSON array of calendarData to a CalendarData object array
-		CalendarData[] calData = CalendarData.fromJsonArray(iReq.getResponse().getBody());
+		final CalendarData[] calData = CalendarData.fromJsonArray(iReq.getResponse().getBody());
 		
 		// Pass these Events to the controller
 		controller.receivedCalendarData(calData);
@@ -60,7 +60,7 @@ public class GetCalendarDataRequestObserver implements RequestObserver {
 	 */
 	@Override
 	public void fail(IRequest iReq, Exception exception) {
-		CalendarData[] errorCalData = { new CalendarData("Error") };
+		final CalendarData[] errorCalData = { new CalendarData("Error") };
 		controller.receivedCalendarData(errorCalData);
 	}
 

@@ -105,7 +105,7 @@ public class GUIEventController {
 	 */
 	public AbCalendar getSelectedCalendar()
 	{
-		int index = main.getSelectedIndex();
+		final int index = main.getSelectedIndex();
 		if (index == 0)
 			return myCalendar;
 		else if (index == 1)
@@ -159,9 +159,9 @@ public class GUIEventController {
 	}
 
 	public void createCommitment() {
-		CommitmentTab newCommit = new CommitmentTab();
+		final CommitmentTab newCommit = new CommitmentTab();
 		try {
-			Image img = ImageIO.read(getClass().getResource("NewCommitment_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource("NewCommitment_Icon.png"));
 			main.addTab("New Commitment", new ImageIcon(img), newCommit);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
@@ -181,7 +181,7 @@ public class GUIEventController {
 	public void editCommitment(Commitment comm) {
 		CommitmentTab editCommit = new CommitmentTab(comm);
 		try {
-			Image img = ImageIO.read(getClass().getResource("EditCommitment_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource("EditCommitment_Icon.png"));
 			main.addTab("Edit Commitment", new ImageIcon(img), editCommit);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
@@ -195,7 +195,7 @@ public class GUIEventController {
 	}
 
 	public void createEvent() {
-		EventTab newEvent = new EventTab();
+		final EventTab newEvent = new EventTab();
 		try {
 			Image img = ImageIO.read(getClass().getResource("NewEvent_Icon.png"));
 			main.addTab("New Event", new ImageIcon(img), newEvent);
@@ -213,10 +213,10 @@ public class GUIEventController {
 	 * @param calData CalendarData where commitment is located
 	 */
 	public void editEvent(Event event) {
-		EventTab editEvent;
+		final EventTab editEvent;
 		editEvent = new EventTab(event);
 		try {
-			Image img = ImageIO.read(getClass().getResource("EditEvent_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource("EditEvent_Icon.png"));
 			main.addTab("Edit Event", new ImageIcon(img), editEvent);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){

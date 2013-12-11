@@ -57,7 +57,7 @@ public abstract class AbCalendar extends JPanel {
 		MONTH(2),
 		YEAR(3);
 
-		private int currentType;
+		private final int currentType;
 
 		private types(int currentType) {
 			this.currentType = currentType;
@@ -97,14 +97,14 @@ public abstract class AbCalendar extends JPanel {
 	abstract void drawThis();
 
 	protected JComponent getViewButtonPanel(){
-		JPanel apane = new JPanel();
+		final JPanel apane = new JPanel();
 		apane.setBackground(Color.WHITE);
 		apane.setLayout(new GridLayout(1,4,15,0));
 
 		viewbtns[0] = new JToggleButton();
 
 		try {
-			Image img = ImageIO.read(getClass().getResource("Day_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource("Day_Icon.png"));
 			viewbtns[0].setIcon(new ImageIcon(img));
 			viewbtns[0].setBorder(BorderFactory.createEmptyBorder());
 			viewbtns[0].setContentAreaFilled(false);
@@ -136,7 +136,7 @@ public abstract class AbCalendar extends JPanel {
 		viewbtns[1] = new JToggleButton();
 
 		try {
-			Image img = ImageIO.read(getClass().getResource("Week_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource("Week_Icon.png"));
 			viewbtns[1].setIcon(new ImageIcon(img));
 			viewbtns[1].setBorder(BorderFactory.createEmptyBorder());
 			viewbtns[1].setContentAreaFilled(false);
@@ -167,7 +167,7 @@ public abstract class AbCalendar extends JPanel {
 		viewbtns[2] = new JToggleButton();
 
 		try {
-			Image img = ImageIO.read(getClass().getResource("Month_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource("Month_Icon.png"));
 			viewbtns[2].setIcon(new ImageIcon(img));	
 			viewbtns[2].setBorder(BorderFactory.createEmptyBorder());
 			viewbtns[2].setContentAreaFilled(false);
@@ -198,7 +198,7 @@ public abstract class AbCalendar extends JPanel {
 		viewbtns[3] = new JToggleButton();
 
 		try {
-			Image img = ImageIO.read(getClass().getResource("Year_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource("Year_Icon.png"));
 			viewbtns[3].setIcon(new ImageIcon(img));
 			viewbtns[3].setBorder(BorderFactory.createEmptyBorder());
 			viewbtns[3].setContentAreaFilled(false);
@@ -256,10 +256,10 @@ public abstract class AbCalendar extends JPanel {
 		JPanel apane = new JPanel();
 		apane.setBackground(Color.WHITE);
 
-		JButton backwardbutton = new JButton();
-		JLabel backLabel = new JLabel();
+		final JButton backwardbutton = new JButton();
+		final JLabel backLabel = new JLabel();
 		try {
-			Image img = ImageIO.read(getClass().getResource("BackArrow_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource("BackArrow_Icon.png"));
 			backLabel.setIcon(new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
@@ -282,8 +282,8 @@ public abstract class AbCalendar extends JPanel {
 			}
 		});
 
-		JButton todaybutton = new JButton();
-		JLabel todayLabel = new JLabel("Today");
+		final JButton todaybutton = new JButton();
+		final JLabel todayLabel = new JLabel("Today");
 		todayLabel.setBackground(CalendarStandard.CalendarRed);
 		todayLabel.setOpaque(true);
 		todayLabel.setBorder(new EmptyBorder(5,5,5,5));
@@ -301,10 +301,10 @@ public abstract class AbCalendar extends JPanel {
 			}
 		});
 
-		JButton forwardbutton = new JButton();
-		JLabel forwardLabel = new JLabel();
+		final JButton forwardbutton = new JButton();
+		final JLabel forwardLabel = new JLabel();
 		try {
-			Image img = ImageIO.read(getClass().getResource("ForwardArrow_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource("ForwardArrow_Icon.png"));
 			forwardLabel.setIcon(new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
@@ -451,7 +451,7 @@ public abstract class AbCalendar extends JPanel {
 	}
 
 	public void setViewButtonToActive(AbCalendar.types switchView){
-		int k = switchView.ordinal();
+		final int k = switchView.ordinal();
 		int i;
 		for(i = 0; i < 4; i++){
 			if(i == k){

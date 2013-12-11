@@ -71,21 +71,21 @@ public class WeekPane extends JPanel implements ICalPane {
 		
 		scrollPane.getViewport().addComponentListener(new ComponentAdapter(){
 			public void componentResized(ComponentEvent e) {
-				int height = mainPanel.getHeight();
-				int width = scrollPane.getViewport().getWidth();
+				final int height = mainPanel.getHeight();
+				final int width = scrollPane.getViewport().getWidth();
 				mainPanel.setSize(new Dimension(width, height));
 				mainPanel.setPreferredSize(new Dimension(width, height));
 			}
 		});
 		
 		// Sets the UPPER LEFT corner box
-		JPanel cornerBoxUL = new JPanel();
+		final JPanel cornerBoxUL = new JPanel();
 		cornerBoxUL.setBackground(CalendarStandard.CalendarRed);
 		cornerBoxUL.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.GRAY));
 		scrollPane.setCorner(ScrollPaneConstants.UPPER_LEFT_CORNER, cornerBoxUL);
 		
 		// Sets the UPPER RIGHT corner box
-		JPanel cornerBoxUR = new JPanel();
+		final JPanel cornerBoxUR = new JPanel();
 		cornerBoxUR.setBackground(CalendarStandard.CalendarRed);
 		cornerBoxUR.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.GRAY));
 		scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER, cornerBoxUR);
@@ -94,7 +94,7 @@ public class WeekPane extends JPanel implements ICalPane {
 		mainPanel.setPreferredSize(new Dimension(30, 2000));
 		mainPanel.setLayout(new GridLayout(1,7));
 		
-		GregorianCalendar temp = new GregorianCalendar();
+		final GregorianCalendar temp = new GregorianCalendar();
 		temp.setTime(mydate.getTime());
 		for(int i = 0; i < 7; i++){
 			day[i] = new DayDayPane(temp, AbCalendar.types.WEEK);
@@ -189,7 +189,7 @@ public class WeekPane extends JPanel implements ICalPane {
     	}
     	else{
 			GregorianCalendar temp = new GregorianCalendar();
-			CombinedCommitmentList alist = new CombinedCommitmentList(commList);
+			final CombinedCommitmentList alist = new CombinedCommitmentList(commList);
 			temp.setTime(mydate.getTime());
 			for(int i = 0; i < 7; i++){
 				try{
@@ -208,8 +208,8 @@ public class WeekPane extends JPanel implements ICalPane {
 			}
     	}
     	else{
-			GregorianCalendar temp = new GregorianCalendar();
-			CombinedEventList alist = new CombinedEventList(eventList);
+    		final GregorianCalendar temp = new GregorianCalendar();
+    		final CombinedEventList alist = new CombinedEventList(eventList);
 			temp.setTime(mydate.getTime());
 			for(int i = 0; i < 7; i++){
 				try{

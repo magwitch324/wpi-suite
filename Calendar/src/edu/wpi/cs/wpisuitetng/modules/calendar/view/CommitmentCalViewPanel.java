@@ -30,21 +30,21 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 @SuppressWarnings("serial")
 public class CommitmentCalViewPanel extends JPanel {
 
-	private Commitment comm;
+	private final Commitment comm;
 	
 	public CommitmentCalViewPanel(Commitment comm)
 	{
 		//TODO add function for clicking to go to the editor
 		this.comm = comm;
 		
-		GregorianCalendar acal = new GregorianCalendar();
+		final GregorianCalendar acal = new GregorianCalendar();
 		acal.setTime(comm.getDueDate().getTime());
 		if(acal.get(Calendar.HOUR_OF_DAY) < 24) {
 		} else {
 		}
 		
 		
-		String name = comm.getName();
+		final String name = comm.getName();
 		//String descr = "Descr: " + comm.getDescription();
 //		String tag = comm.getIsPersonal() ? "[Personal]" : "[Team]";
 //		setLayout(new GridLayout(2,1));
@@ -56,7 +56,7 @@ public class CommitmentCalViewPanel extends JPanel {
 		add(alab, SwingConstants.CENTER);
 		
 		Image nameImg;
-		Image scaleImg;
+		final Image scaleImg;
 		
 		try {
 			if (comm.getIsPersonal())

@@ -99,9 +99,9 @@ public class CommitmentList extends CalendarObjectList<Commitment> {
 	 * @param the CalendarObject to be updated
 	 */
 	public void update(Commitment newObject) {
-		Commitment tmp = get(newObject.getID());
+		final Commitment tmp = get(newObject.getID());
 		if(tmp.getDueDate().equals(newObject.getDueDate())){
-			int i = calendarObjects.indexOf(get(newObject.getID()));
+			final int i = calendarObjects.indexOf(get(newObject.getID()));
 			calendarObjects.remove(get(newObject.getID()));
 			calendarObjects.add(i, newObject);
 			return;
@@ -123,8 +123,8 @@ public class CommitmentList extends CalendarObjectList<Commitment> {
 	public List<Commitment> filter(GregorianCalendar start,
 			GregorianCalendar end) {
 
-		GregorianCalendar commitDate = new GregorianCalendar();
-		List<Commitment> newCommitments = new ArrayList<Commitment>();
+		final GregorianCalendar commitDate = new GregorianCalendar();
+		final List<Commitment> newCommitments = new ArrayList<Commitment>();
 
 		// iterate and add all commitments between start and end
 		// to the commitment list

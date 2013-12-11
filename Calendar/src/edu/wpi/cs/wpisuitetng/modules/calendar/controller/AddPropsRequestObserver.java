@@ -22,7 +22,7 @@ import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
  */
 public class AddPropsRequestObserver implements RequestObserver {
 		
-	private AddPropsController controller;
+	private final AddPropsController controller;
 	
 	/**
 	 * Constructs the observer given an AddCalendarPropsController

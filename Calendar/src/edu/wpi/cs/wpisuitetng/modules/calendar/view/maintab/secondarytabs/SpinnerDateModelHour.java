@@ -34,7 +34,7 @@ public class SpinnerDateModelHour extends SpinnerDateModel {
 	
 	public Object getNextValue()  
 	   {  
-	      Calendar cal = new GregorianCalendar();
+		  final Calendar cal = new GregorianCalendar();
 	      cal.setTime((Date)super.getValue());
 	      cal.add(Calendar.HOUR_OF_DAY, 1);  
 	      super.setValue(cal.getTime());
@@ -42,7 +42,7 @@ public class SpinnerDateModelHour extends SpinnerDateModel {
 	   }  
 	   public Object getPreviousValue()  
 	   {  
-		  Calendar cal = new GregorianCalendar();
+		  final Calendar cal = new GregorianCalendar();
 	      cal.setTime((Date)super.getValue());
 	      cal.add(Calendar.HOUR_OF_DAY, -1);  
 	      super.setValue(cal.getTime());

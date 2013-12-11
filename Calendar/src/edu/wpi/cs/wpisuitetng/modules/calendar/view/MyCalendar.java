@@ -46,10 +46,10 @@ public class MyCalendar extends AbCalendar {
 	}
 
 	protected void drawThis() {
-		SpringLayout layout = new SpringLayout();
+		final SpringLayout layout = new SpringLayout();
 		setLayout(layout);
 
-		JComponent viewbtnpanel = getViewButtonPanel();
+		final JComponent viewbtnpanel = getViewButtonPanel();
 		layout.putConstraint(SpringLayout.WEST, viewbtnpanel, 5,
 				SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.NORTH, viewbtnpanel, 5,
@@ -58,7 +58,7 @@ public class MyCalendar extends AbCalendar {
 		// SpringLayout.HORIZONTAL_CENTER, this);
 		this.add(viewbtnpanel);
 
-		JComponent datepanel = getDatePanel();
+		final JComponent datepanel = getDatePanel();
 		layout.putConstraint(SpringLayout.NORTH, datepanel, 5,
 				SpringLayout.SOUTH, viewbtnpanel);
 		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datepanel, 0,
@@ -159,7 +159,7 @@ public class MyCalendar extends AbCalendar {
 			if (CalendarDataModel.getInstance().getCalendarData(
 					ConfigManager.getConfig().getProjectName() + "-"
 							+ ConfigManager.getConfig().getUserName()) == null) {
-				CalendarData createdCal = new CalendarData(ConfigManager
+				final CalendarData createdCal = new CalendarData(ConfigManager
 						.getConfig().getProjectName()
 						+ "-"
 						+ ConfigManager.getConfig().getUserName());
@@ -200,11 +200,11 @@ public class MyCalendar extends AbCalendar {
 		//if we dont have the caldata dont do anything
 		if (initialized && getCalData() != null) {
 			//create a combined Commitment list
-			CombinedCommitmentList combinedCommList = new CombinedCommitmentList(
+			final CombinedCommitmentList combinedCommList = new CombinedCommitmentList(
 					new ArrayList<Commitment>(getCalData()
 							.getCommitments().getCommitments()));
 			//create a combined event list
-			CombinedEventList combinedEventList = getCalData()
+			final CombinedEventList combinedEventList = getCalData()
 					.getRepeatingEvents().toCombinedEventList();
 			for (int i = 0; i < getCalData().getEvents()
 					.getEvents().size(); i++) {
@@ -213,7 +213,7 @@ public class MyCalendar extends AbCalendar {
 			}
 			
 			//get the team data
-			CalendarData teamData = CalendarDataModel.getInstance()
+			final CalendarData teamData = CalendarDataModel.getInstance()
 					.getCalendarData(ConfigManager.getConfig().getProjectName());
 
 			//if we are supposed to show team data, we need to put the team commitments into the list in the right order
@@ -230,7 +230,7 @@ public class MyCalendar extends AbCalendar {
 				commitments = combinedCommList;
 				
 				//get the combined events for team
-				CombinedEventList teamRepeatEvents = teamData.getRepeatingEvents().toCombinedEventList();
+				final CombinedEventList teamRepeatEvents = teamData.getRepeatingEvents().toCombinedEventList();
 				for (int i = 0; i < teamRepeatEvents.getEvents().size(); i++){
 					combinedEventList.add(teamRepeatEvents.getEvents().get(i));
 				}
@@ -289,7 +289,7 @@ public class MyCalendar extends AbCalendar {
 		if (CalendarPropsModel.getInstance().getCalendarProps(
 				ConfigManager.getConfig().getProjectName() + "-"
 						+ ConfigManager.getConfig().getUserName() + "-PROPS") == null) {
-			CalendarProps createdProps = new CalendarProps(ConfigManager
+			final CalendarProps createdProps = new CalendarProps(ConfigManager
 					.getConfig().getProjectName()
 					+ "-"
 					+ ConfigManager.getConfig().getUserName() + "-PROPS");

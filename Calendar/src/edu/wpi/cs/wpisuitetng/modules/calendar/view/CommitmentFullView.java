@@ -109,14 +109,14 @@ public class CommitmentFullView extends JPanel{
 		scrollPane.getHorizontalScrollBar().setUnitIncrement(20);
 
 		// Sets the UPPER RIGHT corner box
-		JPanel cornerBoxUR = new JPanel();
+		final JPanel cornerBoxUR = new JPanel();
 		cornerBoxUR.setBackground(Color.WHITE);
 		scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
 				cornerBoxUR);
 		add(scrollPane);
 		
 		/*spring layout to allow adjustments to size of screen without messing up panels*/
-		SpringLayout layout = new SpringLayout();
+		final SpringLayout layout = new SpringLayout();
 		setLayout(layout);
 		layout.putConstraint(SpringLayout.WEST, scrollPane, 0, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.EAST, scrollPane, 0, SpringLayout.EAST, this);
@@ -137,9 +137,9 @@ public class CommitmentFullView extends JPanel{
 		} else if (mode == ViewingMode.PERSONAL){
 			commitmentList = pcalendar.getCalData().getCommitments().getCommitments();
 		} else { // here mode == ViewingMode.BOTH
-			CombinedCommitmentList combinedList = new CombinedCommitmentList(
+			final CombinedCommitmentList combinedList = new CombinedCommitmentList(
 					new ArrayList<Commitment>(pcalendar.getCalData().getCommitments().getCommitments()));
-			CalendarData teamData = CalendarDataModel.getInstance()
+			final CalendarData teamData = CalendarDataModel.getInstance()
 					.getCalendarData(ConfigManager.getConfig().getProjectName());
 
 			//if we are supposed to show team data, we need to put the team commitments into the list in the right order
@@ -161,9 +161,9 @@ public class CommitmentFullView extends JPanel{
 		header.removeAll();
 		
 		
-		JPanel viewSwitcher = new JPanel();
+		final JPanel viewSwitcher = new JPanel();
 
-		SpringLayout switcherLayout = new SpringLayout();
+		final SpringLayout switcherLayout = new SpringLayout();
 
 		viewSwitcher.setLayout(switcherLayout);
 		viewSwitcher.setBackground(Color.WHITE);
@@ -224,7 +224,7 @@ public class CommitmentFullView extends JPanel{
 		bothRadioButton.setMaximumSize(new Dimension(100,50));
 		bothRadioButton.setAlignmentX(CENTER_ALIGNMENT);
 		
-		ButtonGroup viewSwitchGroup = new ButtonGroup();
+		final ButtonGroup viewSwitchGroup = new ButtonGroup();
 		viewSwitchGroup.add(teamRadioButton);
 		viewSwitchGroup.add(personalRadioButton);
 		viewSwitchGroup.add(bothRadioButton);
@@ -242,16 +242,16 @@ public class CommitmentFullView extends JPanel{
 		
 		header.add(viewSwitcher);
 		
-		JPanel topButtons = new JPanel();
+		final JPanel topButtons = new JPanel();
 		
-		GridLayout experimentLayout = new GridLayout(0,4);
+		final GridLayout experimentLayout = new GridLayout(0,4);
 		topButtons.setLayout(experimentLayout);
 		//topButtons.setLayout(new BoxLayout(topButtons, BoxLayout.X_AXIS));
 		jName = new JButton("<html><font color='white'><b>"
 				+ "Name" + "</b></font></html>");
 		if(namesort == 1){
 			try {
-				Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
+				final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
 				jName.setIcon(new ImageIcon(img));
 				jName.setText("<html><font color='white'><b>"
 						+ "Name" + "</b></font></html>");
@@ -263,7 +263,7 @@ public class CommitmentFullView extends JPanel{
 		}
 		else if(namesort == 2){
 			try {
-				Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+				final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
 				jName.setIcon(new ImageIcon(img));
 				jName.setText("<html><font color='white'><b>"
 						+ "Name" + "</b></font></html>");
@@ -307,7 +307,7 @@ public class CommitmentFullView extends JPanel{
 
 		if(datesort == 1){
 			try {
-				Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
+				final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
 				jDueDate.setIcon(new ImageIcon(img));
 				jDueDate.setText("<html><font color='white'><b>"
 						+ "Due Date" + "</b></font></html>");
@@ -319,7 +319,7 @@ public class CommitmentFullView extends JPanel{
 		}
 		else if(datesort == 2){
 			try {
-				Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+				final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
 				jDueDate.setIcon(new ImageIcon(img));
 				jDueDate.setText("<html><font color='white'><b>"
 						+ "Due Date" + "</b></font></html>");
@@ -382,7 +382,7 @@ public class CommitmentFullView extends JPanel{
 		}
 		else if(dessort == 2){
 			try {
-				Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+				final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
 				jDescription.setIcon(new ImageIcon(img));
 				jDescription.setText("<html><font color='white'><b>"
 						+ "Description" + "</b></font></html>");
@@ -423,7 +423,7 @@ public class CommitmentFullView extends JPanel{
 				+ "Status" + "</b></font></html>");
 		if(statussort == 1){
 			try {
-				Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
+				final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
 				jStatus.setIcon(new ImageIcon(img));
 				jStatus.setText("<html><font color='white'><b>"
 						+ "Status" + "</b></font></html>");
@@ -435,7 +435,7 @@ public class CommitmentFullView extends JPanel{
 		}
 		else if(statussort == 2){
 			try {
-				Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+				final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
 				jStatus.setIcon(new ImageIcon(img));
 				jStatus.setText("<html><font color='white'><b>"
 						+ "Status" + "</b></font></html>");
@@ -474,7 +474,7 @@ public class CommitmentFullView extends JPanel{
 			}			
 		});
 
-		GridBagConstraints c = new GridBagConstraints();
+		final GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.LINE_START;
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
@@ -484,7 +484,7 @@ public class CommitmentFullView extends JPanel{
 		topButtons.add(jStatus,c);
 		topButtons.setPreferredSize(new Dimension(300,50));
 		topButtons.setMaximumSize(new Dimension(20000, 50));
-		Border loweredbevel1 = BorderFactory.createLoweredBevelBorder();
+		final Border loweredbevel1 = BorderFactory.createLoweredBevelBorder();
 		topButtons.setBorder(loweredbevel1);
 		topButtons.setBorder(new MatteBorder(5,5,5,5, Color.WHITE));
 		
