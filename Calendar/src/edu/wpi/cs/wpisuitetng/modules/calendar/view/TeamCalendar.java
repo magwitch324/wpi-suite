@@ -42,20 +42,16 @@ public class TeamCalendar extends AbCalendar {
 		final SpringLayout layout = new SpringLayout();
 		setLayout(layout);
 
+
 		final JComponent viewbtnpanel = getViewButtonPanel();
-		layout.putConstraint(SpringLayout.WEST, viewbtnpanel, 5,
-				SpringLayout.WEST, this);
-		layout.putConstraint(SpringLayout.NORTH, viewbtnpanel, 5,
-				SpringLayout.NORTH, this);
-		// layout.putConstraint(SpringLayout.EAST, viewbtnpanel, -30,
-		// SpringLayout.HORIZONTAL_CENTER, this);
+		layout.putConstraint(SpringLayout.WEST, viewbtnpanel, 15, SpringLayout.WEST, this);
+		layout.putConstraint(SpringLayout.NORTH, viewbtnpanel, 5, SpringLayout.NORTH, this);
 		this.add(viewbtnpanel);
 
 		final JComponent datepanel = getDatePanel();
-		layout.putConstraint(SpringLayout.NORTH, datepanel, 5,
-				SpringLayout.SOUTH, viewbtnpanel);
-		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datepanel, 0,
-				SpringLayout.HORIZONTAL_CENTER, this);
+		//layout.putConstraint(SpringLayout.NORTH, datepanel, 0, SpringLayout.NORTH, viewbtnpanel);
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datepanel, 0, SpringLayout.HORIZONTAL_CENTER, this);
+		layout.putConstraint(SpringLayout.SOUTH, datepanel, 0, SpringLayout.SOUTH, viewbtnpanel);
 		this.add(datepanel);
 
 		showcom = new JCheckBox("Show Commitments");
@@ -69,46 +65,25 @@ public class TeamCalendar extends AbCalendar {
 			}
 		});
 
-		layout.putConstraint(SpringLayout.WEST, showcom, 30, SpringLayout.EAST,
-				viewbtnpanel);
-		layout.putConstraint(SpringLayout.NORTH, showcom, 0,
-				SpringLayout.NORTH, viewbtnpanel);
-		// layout.putConstraint(SpringLayout.EAST, showcom, -5,
-		// SpringLayout.EAST, this);
-		layout.putConstraint(SpringLayout.SOUTH, showcom, 0,
-				SpringLayout.SOUTH, viewbtnpanel);
+		layout.putConstraint(SpringLayout.EAST, showcom, -40, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.NORTH, showcom, 0, SpringLayout.NORTH, viewbtnpanel);
+		layout.putConstraint(SpringLayout.SOUTH, showcom, 0, SpringLayout.SOUTH, viewbtnpanel);
 		this.add(showcom);
-
-		// Displays Commitment Button
-//		JComponent commitmentPanel = ButtonsPanelCreate();
-//		layout.putConstraint(SpringLayout.NORTH, commitmentPanel, 5,
-//				SpringLayout.NORTH, viewbtnpanel);
-//		layout.putConstraint(SpringLayout.EAST, commitmentPanel, 0,
-//				SpringLayout.EAST, this);
-//		this.add(commitmentPanel);
-//		
-
+		
 		//COMENTED OUT FILTER DROP DOWN MENU BECAUSE IT DOESN'T DO ANYTHING AT THE MOMENT
 
-		final JComboBox filter = new JComboBox();
-		layout.putConstraint(SpringLayout.WEST, filter, 30, SpringLayout.EAST,
-				showcom);
-		layout.putConstraint(SpringLayout.NORTH, filter, 0, SpringLayout.NORTH,
-				viewbtnpanel);
-		layout.putConstraint(SpringLayout.EAST, filter, -5, SpringLayout.EAST,
-				this);
-		layout.putConstraint(SpringLayout.SOUTH, showcom, 0,
-				SpringLayout.SOUTH, viewbtnpanel);
-		//		this.add(filter);
 
-		layout.putConstraint(SpringLayout.WEST, viewpanel, 5,
-				SpringLayout.WEST, this);
-		layout.putConstraint(SpringLayout.NORTH, viewpanel, 5,
-				SpringLayout.SOUTH, datepanel);
-		layout.putConstraint(SpringLayout.EAST, viewpanel, -5,
-				SpringLayout.EAST, this);
-		layout.putConstraint(SpringLayout.SOUTH, viewpanel, -5,
-				SpringLayout.SOUTH, this);
+		final JComboBox filter = new JComboBox();
+		layout.putConstraint(SpringLayout.WEST, filter, 30, SpringLayout.EAST, showcom);
+		layout.putConstraint(SpringLayout.NORTH, filter, 0, SpringLayout.NORTH, viewbtnpanel);
+		layout.putConstraint(SpringLayout.EAST, filter, -5, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.SOUTH, showcom, 0, SpringLayout.SOUTH, viewbtnpanel);
+		//this.add(filter);
+
+		layout.putConstraint(SpringLayout.WEST, viewpanel, 5, SpringLayout.WEST, this);
+		layout.putConstraint(SpringLayout.NORTH, viewpanel, 5, SpringLayout.SOUTH, datepanel);
+		layout.putConstraint(SpringLayout.EAST, viewpanel, -5, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.SOUTH, viewpanel, -5, SpringLayout.SOUTH, this);
 
 		this.add(viewpanel);
 		viewbtns[currenttype.getCurrentType()].setSelected(true);

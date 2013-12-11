@@ -254,8 +254,9 @@ public abstract class AbCalendar extends JPanel {
 
 	protected JComponent getDatePanel(){
 		JPanel apane = new JPanel();
-		apane.setBackground(Color.WHITE);
-
+		apane.setBackground(new Color(0,0,0,0));
+		apane.setOpaque(false);
+		
 		final JButton backwardbutton = new JButton();
 		final JLabel backLabel = new JLabel();
 		try {

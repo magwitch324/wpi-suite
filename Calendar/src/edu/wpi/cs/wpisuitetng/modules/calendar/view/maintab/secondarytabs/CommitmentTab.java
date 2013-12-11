@@ -441,6 +441,7 @@ public class CommitmentTab extends JPanel {
 		spinnerPanel.add(hourSpinner);
 		hourEditor = new JSpinner.DateEditor(hourSpinner, "hh");
 		hourSpinner.setEditor(hourEditor);
+		hourEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 		hourEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
 
 		final JLabel colon = new JLabel(":");
@@ -451,12 +452,14 @@ public class CommitmentTab extends JPanel {
 		spinnerPanel.add(minuteSpinner);
 		minuteEditor = new JSpinner.DateEditor(minuteSpinner, "mm");
 		minuteSpinner.setEditor(minuteEditor);
+		minuteEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 		minuteEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
 
 		AMPMSpinner = new JSpinner(new SpinnerDateModelAMPM());
 		AMPMSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		spinnerPanel.add(AMPMSpinner);
 		AMPMEditor = new JSpinner.DateEditor(AMPMSpinner, "a");
+		AMPMEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 		AMPMSpinner.setEditor(AMPMEditor);
 		AMPMEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
 				
@@ -465,7 +468,7 @@ public class CommitmentTab extends JPanel {
 		datePicker.getEditor().setFont(new Font("Tahoma", Font.PLAIN, 13));
 		datePicker.getEditor().setFocusLostBehavior(JFormattedTextField.PERSIST);
 		datePicker.putClientProperty("JDatePicker.backgroundOnEditable", Boolean.TRUE);
-		datePicker.setBackground(CalendarStandard.CalendarYellow);
+		datePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		final GridBagConstraints gbc_jdp = new GridBagConstraints();
 		gbc_jdp.insets = new Insets(0, 0, 5, 0);
 		gbc_jdp.fill = GridBagConstraints.HORIZONTAL;
@@ -1178,7 +1181,7 @@ public class CommitmentTab extends JPanel {
 		}
 		else {
 			final SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy"); 
-			datePicker.getEditor().setBackground(Color.WHITE);
+			datePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
 			datePicker.getEditor().setText(dt.format(datePicker.getDate()));
 			lblDateError.setVisible(false);
 		}
@@ -1191,7 +1194,7 @@ public class CommitmentTab extends JPanel {
 			lblTimeError.setVisible(true);
 		}
 		else {
-			editor.getTextField().setBackground(Color.WHITE);
+			editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 			lblTimeError.setVisible(false);
 		}
 	}

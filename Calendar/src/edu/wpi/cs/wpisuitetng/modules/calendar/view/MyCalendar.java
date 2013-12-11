@@ -49,34 +49,21 @@ public class MyCalendar extends AbCalendar {
 		final SpringLayout layout = new SpringLayout();
 		setLayout(layout);
 
+
 		final JComponent viewbtnpanel = getViewButtonPanel();
-		layout.putConstraint(SpringLayout.WEST, viewbtnpanel, 5,
-				SpringLayout.WEST, this);
-		layout.putConstraint(SpringLayout.NORTH, viewbtnpanel, 5,
-				SpringLayout.NORTH, this);
-		// layout.putConstraint(SpringLayout.EAST, viewbtnpanel, -30,
-		// SpringLayout.HORIZONTAL_CENTER, this);
+		layout.putConstraint(SpringLayout.WEST, viewbtnpanel, 15, SpringLayout.WEST, this);
+		layout.putConstraint(SpringLayout.NORTH, viewbtnpanel, 5, SpringLayout.NORTH, this);
 		this.add(viewbtnpanel);
 
-		final JComponent datepanel = getDatePanel();
-		layout.putConstraint(SpringLayout.NORTH, datepanel, 5,
-				SpringLayout.SOUTH, viewbtnpanel);
-		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datepanel, 0,
-				SpringLayout.HORIZONTAL_CENTER, this);
+		JComponent datepanel = getDatePanel();
+		//layout.putConstraint(SpringLayout.NORTH, datepanel, 0, SpringLayout.NORTH, viewbtnpanel);
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datepanel, 0, SpringLayout.HORIZONTAL_CENTER, this);
+		layout.putConstraint(SpringLayout.SOUTH, datepanel, 0, SpringLayout.SOUTH, viewbtnpanel);
 		this.add(datepanel);
-		
-		// Displays Commitment Button
-//		JComponent commitmentPanel = ButtonsPanelCreate();
-//		layout.putConstraint(SpringLayout.NORTH, commitmentPanel, 5,
-//				SpringLayout.NORTH, viewbtnpanel);
-//		layout.putConstraint(SpringLayout.EAST, commitmentPanel, 0,
-//				SpringLayout.EAST, this);
-//		this.add(commitmentPanel);
 
 		showcom = new JCheckBox("Show Commitments");
 		showcom.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		showcom.setFont(CalendarStandard.CalendarFont
-				.deriveFont(Font.PLAIN, 14));
+		showcom.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14f));
 		showcom.setBackground(Color.WHITE);
 		showcom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -84,21 +71,15 @@ public class MyCalendar extends AbCalendar {
 				setView();
 			}
 		});
-		layout.putConstraint(SpringLayout.WEST, showcom, 30, SpringLayout.EAST,
-				viewbtnpanel);
-		layout.putConstraint(SpringLayout.NORTH, showcom, 0,
-				SpringLayout.NORTH, viewbtnpanel);
-		// layout.putConstraint(SpringLayout.EAST, showcom, -5,
-		// SpringLayout.EAST, this);
-		layout.putConstraint(SpringLayout.SOUTH, showcom, 0,
-				SpringLayout.SOUTH, viewbtnpanel);
+		//layout.putConstraint(SpringLayout.EAST, showcom, -30, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.NORTH, showcom, 0, SpringLayout.NORTH, viewbtnpanel);
+		layout.putConstraint(SpringLayout.SOUTH, showcom, 0, SpringLayout.SOUTH, viewbtnpanel);
 		this.add(showcom);
 
 		
 		showteam = new JCheckBox("Show Team Data");
 		showteam.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		showteam.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN,
-				14));
+		showteam.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14f));
 		showteam.setBackground(Color.WHITE);
 		showteam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -108,15 +89,12 @@ public class MyCalendar extends AbCalendar {
 				setView();
 			}
 		});
-		layout.putConstraint(SpringLayout.WEST, showteam, 5, SpringLayout.EAST,
-				showcom);
-		layout.putConstraint(SpringLayout.NORTH, showteam, 0,
-				SpringLayout.NORTH, viewbtnpanel);
-		// layout.putConstraint(SpringLayout.EAST, showteam, -5,
-		// SpringLayout.EAST, this);
-		layout.putConstraint(SpringLayout.SOUTH, showteam, 0,
-				SpringLayout.SOUTH, viewbtnpanel);
+		layout.putConstraint(SpringLayout.EAST, showteam, -10, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.NORTH, showteam, 0, SpringLayout.NORTH, viewbtnpanel);
+		layout.putConstraint(SpringLayout.SOUTH, showteam, 0, SpringLayout.SOUTH, viewbtnpanel);
 		this.add(showteam);
+		
+		layout.putConstraint(SpringLayout.EAST, showcom, -10, SpringLayout.WEST, showteam);
 	
 		
 	
@@ -135,14 +113,10 @@ public class MyCalendar extends AbCalendar {
 		
 		
 		
-		layout.putConstraint(SpringLayout.WEST, viewpanel, 5,
-				SpringLayout.WEST, this);
-		layout.putConstraint(SpringLayout.NORTH, viewpanel, 5,
-				SpringLayout.SOUTH, datepanel);
-		layout.putConstraint(SpringLayout.EAST, viewpanel, -5,
-				SpringLayout.EAST, this);
-		layout.putConstraint(SpringLayout.SOUTH, viewpanel, -5,
-				SpringLayout.SOUTH, this);
+		layout.putConstraint(SpringLayout.WEST, viewpanel, 5, SpringLayout.WEST, this);
+		layout.putConstraint(SpringLayout.NORTH, viewpanel, 5, SpringLayout.SOUTH, datepanel);
+		layout.putConstraint(SpringLayout.EAST, viewpanel, -5, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.SOUTH, viewpanel, -5, SpringLayout.SOUTH, this);
 
 		this.add(viewpanel);
 		viewbtns[currenttype.getCurrentType()].setSelected(true);
