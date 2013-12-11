@@ -273,9 +273,9 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 //		manageCategoryButton.setBorder(raisedbevel);
 		
 		// REMOVED NON-FUNCTIONAL BUTTONS FOR THE TIME BEING
-		//contentPanel.add(manageCategoryButton, cons2);
+//		contentPanel.add(manageCategoryButton, cons2);
 //		manageFilterButton.setBorder(raisedbevel);
-		//contentPanel.add(manageFilterButton, cons3);
+//		contentPanel.add(manageFilterButton, cons3);
 //		helpButton.setBorder(raisedbevel);
 		contentPanel.add(helpButton, cons3);
 
