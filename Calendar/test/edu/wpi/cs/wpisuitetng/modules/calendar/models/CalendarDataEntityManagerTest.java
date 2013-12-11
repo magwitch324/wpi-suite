@@ -11,7 +11,10 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -54,8 +57,12 @@ public class CalendarDataEntityManagerTest {
 	@Test
 	public void testMakeEntity() throws WPISuiteException {
 		CalendarData created = manager.makeEntity(defaultSession, calendarData.toJSON());
+		List<CalendarData> list = new ArrayList<CalendarData>();
+		Collections.addAll(list, manager.getEntity(defaultSession, "1"));
 		assertEquals("1", created.getId());
-		assertSame(created, calendarData.getEvents().get(0));
+		assertSame(2, manager.getAll(defaultSession).length);
+		assertEquals("1", list.get(0).getId());
+		assertEquals("1", list.get(1).getId());
 		assertSame(testProject, created.getProject());
 	}
 }
