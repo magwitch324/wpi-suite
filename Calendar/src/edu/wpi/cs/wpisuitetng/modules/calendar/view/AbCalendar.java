@@ -25,8 +25,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdatePropsController;
@@ -255,16 +257,19 @@ public abstract class AbCalendar extends JPanel {
 		apane.setBackground(Color.WHITE);
 
 		JButton backwardbutton = new JButton();
+		JLabel backLabel = new JLabel();
 		try {
 			Image img = ImageIO.read(getClass().getResource("BackArrow_Icon.png"));
-			backwardbutton.setIcon(new ImageIcon(img));
+			backLabel.setIcon(new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			backwardbutton.setText("<<");
-			backwardbutton.setForeground(Color.WHITE);
+			backLabel.setText("<<");
+			backLabel.setForeground(Color.WHITE);
 		}
-		backwardbutton.setBackground(CalendarStandard.CalendarRed);
-		backwardbutton.setOpaque(true);
+		backLabel.setBackground(CalendarStandard.CalendarRed);
+		backLabel.setOpaque(true);
+		backLabel.setBorder(new EmptyBorder(5,5,5,5));
+		backwardbutton.add(backLabel);
 		backwardbutton.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		backwardbutton.setFont(CalendarStandard.CalendarFont);
 		backwardbutton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
@@ -277,10 +282,13 @@ public abstract class AbCalendar extends JPanel {
 			}
 		});
 
-		JButton todaybutton = new JButton("Today");
-		todaybutton.setBackground(CalendarStandard.CalendarRed);
-		todaybutton.setOpaque(true);
-		todaybutton.setForeground(Color.WHITE);
+		JButton todaybutton = new JButton();
+		JLabel todayLabel = new JLabel("Today");
+		todayLabel.setBackground(CalendarStandard.CalendarRed);
+		todayLabel.setOpaque(true);
+		todayLabel.setBorder(new EmptyBorder(5,5,5,5));
+		todayLabel.setForeground(Color.WHITE);
+		todaybutton.add(todayLabel);
 		todaybutton.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		todaybutton.setFont(CalendarStandard.CalendarFont);
 		todaybutton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
@@ -294,16 +302,19 @@ public abstract class AbCalendar extends JPanel {
 		});
 
 		JButton forwardbutton = new JButton();
+		JLabel forwardLabel = new JLabel();
 		try {
 			Image img = ImageIO.read(getClass().getResource("ForwardArrow_Icon.png"));
-			forwardbutton.setIcon(new ImageIcon(img));
+			forwardLabel.setIcon(new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			forwardbutton.setText("<<");
-			forwardbutton.setForeground(Color.WHITE);
+			forwardLabel.setText("<<");
+			forwardLabel.setForeground(Color.WHITE);
 		}
-		forwardbutton.setBackground(CalendarStandard.CalendarRed);
-		forwardbutton.setOpaque(true);
+		forwardLabel.setBackground(CalendarStandard.CalendarRed);
+		forwardLabel.setOpaque(true);
+		forwardLabel.setBorder(new EmptyBorder(5,5,5,5));
+		forwardbutton.add(forwardLabel);
 		forwardbutton.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		forwardbutton.setFont(CalendarStandard.CalendarFont);
 		forwardbutton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
