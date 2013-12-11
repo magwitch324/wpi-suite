@@ -1380,8 +1380,10 @@ public class EventTab extends JPanel {
 
 
 	protected void checkEndBeforeStart() {
+		if(initFlag){
 		if(getEndDate().getTime().before(getStartDate().getTime()))
 				setEndDate(getStartDate());
+		}
 	}
 
 
@@ -1904,6 +1906,7 @@ public class EventTab extends JPanel {
 	}
 	
 	private void checkStartDatePickerStatus() {
+		if(initFlag){
 		if(isBadStartInputDate()) {
 			startDatePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 			lblDateError.setVisible(true);
@@ -1914,9 +1917,11 @@ public class EventTab extends JPanel {
 			startDatePicker.getEditor().setText(dt.format(startDatePicker.getDate()));
 			lblDateError.setVisible(false);
 		}
+		}
 	}
 	
 	private void checkEndDatePickerStatus() {
+		if(initFlag){
 		if(isBadEndInputDate()) {
 			endDatePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 			lblDateError2.setVisible(true);
@@ -1927,9 +1932,11 @@ public class EventTab extends JPanel {
 			endDatePicker.getEditor().setText(dt.format(endDatePicker.getDate()));
 			lblDateError2.setVisible(false);
 		}
+		}
 	}
 	
 	private void checkStartTimeSpinnerStatus(JSpinner spinner) {
+		if(initFlag){
 		final DateEditor editor = (DateEditor)spinner.getEditor();
 		if(isBadInputTime(editor) || startTempHour < 1 || startTempHour > 12 || startTempMin > 59) {
 			editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
@@ -1939,9 +1946,11 @@ public class EventTab extends JPanel {
 			editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 			lblTimeError.setText(" ");
 		}
+		}
 	}
 	
 	private void checkEndTimeSpinnerStatus(JSpinner spinner) {
+		if(initFlag){
 		final DateEditor editor = (DateEditor)spinner.getEditor();
 		if(isBadInputTime(editor) || endTempHour < 1 || endTempHour > 12 || endTempMin > 59) {
 			editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
@@ -1950,6 +1959,7 @@ public class EventTab extends JPanel {
 		else {
 			editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 			lblTimeError2.setText(" ");
+		}
 		}
 	}
 	
