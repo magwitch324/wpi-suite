@@ -144,22 +144,26 @@ public class GUIEventController {
 		return main;
 	}
 
-	public void removeCommTab(CommitmentTab commTab, boolean isTeamComm)
+	public void removeCommTab(CommitmentTab commTab, int goTo)
 	{
 
-		main.remove(commTab);
-		if(isTeamComm){
-			main.setSelectedComponent(teamCalendar);
-		}
-		else{
-			main.setSelectedComponent(myCalendar);
-
-		}
-
+			main.remove(commTab);
+			switch(goTo){
+				case 0 : main.setSelectedComponent(myCalendar);
+						break;
+				case 1 : main.setSelectedComponent(teamCalendar);
+						break;
+				case 3 : main.setSelectedComponent(commitFullView);
+						break;
+			}
 	}
 
 	public void createCommitment() {
-		CommitmentTab newCommit = new CommitmentTab();
+		int openedFrom = main.getSelectedIndex();
+		if (openedFrom > 2){
+			openedFrom = 0;
+		}
+		CommitmentTab newCommit = new CommitmentTab(openedFrom);
 		try {
 			Image img = ImageIO.read(getClass().getResource("NewCommitment_Icon.png"));
 			main.addTab("New Commitment", new ImageIcon(img), newCommit);
@@ -179,7 +183,11 @@ public class GUIEventController {
 	 * @param calData CalendarData where commitment is located
 	 */
 	public void editCommitment(Commitment comm) {
-		CommitmentTab editCommit = new CommitmentTab(comm);
+		int openedFrom = main.getSelectedIndex();
+		if (openedFrom > 2){
+			openedFrom = 0;
+		}
+		CommitmentTab editCommit = new CommitmentTab(comm, openedFrom);
 		try {
 			Image img = ImageIO.read(getClass().getResource("EditCommitment_Icon.png"));
 			main.addTab("Edit Commitment", new ImageIcon(img), editCommit);
