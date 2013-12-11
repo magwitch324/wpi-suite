@@ -814,9 +814,11 @@ public class EventTab extends JPanel {
 					
 					checkStartDatePickerStatus();
 					checkSaveBtnStatus();
+					checkEndBeforeStart();
 				} catch (ParseException e1) {
 					checkStartDatePickerStatus();
 					checkSaveBtnStatus();
+					checkEndBeforeStart();
 				}
 
 			}
@@ -915,9 +917,9 @@ public class EventTab extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				checkSaveBtnStatus();
-				checkEndDatePickerStatus();
-				checkEndBeforeStart();
+				//checkSaveBtnStatus();
+				//checkEndDatePickerStatus();
+				//checkEndBeforeStart();
 			}
 
 		});
