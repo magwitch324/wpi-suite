@@ -203,7 +203,11 @@ public class GUIEventController {
 	}
 
 	public void createEvent() {
-		EventTab newEvent = new EventTab();
+		int openedFrom = main.getSelectedIndex();
+		if (openedFrom > 2){
+			openedFrom = 0;
+		}
+		EventTab newEvent = new EventTab(openedFrom);
 		try {
 			Image img = ImageIO.read(getClass().getResource("NewEvent_Icon.png"));
 			main.addTab("New Event", new ImageIcon(img), newEvent);
@@ -221,8 +225,12 @@ public class GUIEventController {
 	 * @param calData CalendarData where commitment is located
 	 */
 	public void editEvent(Event event) {
+		int openedFrom = main.getSelectedIndex();
+		if (openedFrom > 2){
+			openedFrom = 0;
+		}
 		EventTab editEvent;
-		editEvent = new EventTab(event);
+		editEvent = new EventTab(event, openedFrom);
 		try {
 			Image img = ImageIO.read(getClass().getResource("EditEvent_Icon.png"));
 			main.addTab("Edit Event", new ImageIcon(img), editEvent);
@@ -266,15 +274,14 @@ public class GUIEventController {
 		teamCalendar.applyCalProps();
 	}
 
-	public void removeEventTab(EventTab eventTab, boolean isTeamEvent) {
+	public void removeEventTab(EventTab eventTab, int goTo) {
 		main.remove(eventTab);
-		if(isTeamEvent){
-			main.setSelectedComponent(teamCalendar);
-		}
-		else{
-			main.setSelectedComponent(myCalendar);
-
-		}
+		switch(goTo){
+		case 0 : main.setSelectedComponent(myCalendar);
+				break;
+		case 1 : main.setSelectedComponent(teamCalendar);
+				break;
+	}
 		
 	}
 	
