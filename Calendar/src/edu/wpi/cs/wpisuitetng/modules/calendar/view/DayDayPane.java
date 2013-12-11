@@ -133,13 +133,6 @@ public class DayDayPane extends JPanel {
 				}
 			}
 		}
-		
-		System.out.println("________--------________");
-		for(CalendarObjectPanel cop : sortedobjects){
-			System.out.println(cop.getName());
-		}
-		System.out.println("-------_________--------");
-		
 	}
 
 	/**
