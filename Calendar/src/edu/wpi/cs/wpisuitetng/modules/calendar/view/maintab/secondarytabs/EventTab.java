@@ -380,9 +380,9 @@ public class EventTab extends JPanel {
 		// Create time spinners, hour, minute, and AM_PM
 		startHourSpinner = new JSpinner( new SpinnerDateModelHour());
 		startHourSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		startHourSpinner.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		startSpinnerPanel.add(startHourSpinner);
 		startHourEditor = new JSpinner.DateEditor(startHourSpinner, "hh");
+		startHourEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 		startHourSpinner.setEditor(startHourEditor);
 		startHourEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
 
@@ -390,18 +390,18 @@ public class EventTab extends JPanel {
 		startSpinnerPanel.add(colon);
 		
 		startMinuteSpinner = new JSpinner( new SpinnerDateModelMinute());
-		startMinuteSpinner.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		startMinuteSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		startSpinnerPanel.add(startMinuteSpinner);
 		startMinuteEditor = new JSpinner.DateEditor(startMinuteSpinner, "mm");
+		startMinuteEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 		startMinuteSpinner.setEditor(startMinuteEditor);
 		startMinuteEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
 
 		startAMPMSpinner = new JSpinner(new SpinnerDateModelAMPM());
-		startAMPMSpinner.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		startAMPMSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		startSpinnerPanel.add(startAMPMSpinner);
 		startAMPMEditor = new JSpinner.DateEditor(startAMPMSpinner, "a");
+		startAMPMEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 		startAMPMSpinner.setEditor(startAMPMEditor);
 		startAMPMEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
 		GridBagConstraints gbc_startspinner = new GridBagConstraints();
@@ -509,10 +509,10 @@ public class EventTab extends JPanel {
 		
 		// Create time spinners, hour, minute, and AM_PM
 		endHourSpinner = new JSpinner( new SpinnerDateModelHour());
-		endHourSpinner.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		endHourSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		endSpinnerPanel.add(endHourSpinner);
 		endHourEditor = new JSpinner.DateEditor(endHourSpinner, "hh");
+		endHourEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 		endHourSpinner.setEditor(endHourEditor);
 		endHourEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
 
@@ -520,18 +520,18 @@ public class EventTab extends JPanel {
 		endSpinnerPanel.add(colon);
 		
 		endMinuteSpinner = new JSpinner( new SpinnerDateModelMinute());
-		endMinuteSpinner.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		endMinuteSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		endSpinnerPanel.add(endMinuteSpinner);
 		endMinuteEditor = new JSpinner.DateEditor(endMinuteSpinner, "mm");
+		endMinuteEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 		endMinuteSpinner.setEditor(endMinuteEditor);
 		endMinuteEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
 
 		endAMPMSpinner = new JSpinner(new SpinnerDateModelAMPM());
-		endAMPMSpinner.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		endAMPMSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		endSpinnerPanel.add(endAMPMSpinner);
 		endAMPMEditor = new JSpinner.DateEditor(endAMPMSpinner, "a");
+		endAMPMEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 		endAMPMSpinner.setEditor(endAMPMEditor);
 		endAMPMEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
 		GridBagConstraints gbc_spinner2 = new GridBagConstraints();
