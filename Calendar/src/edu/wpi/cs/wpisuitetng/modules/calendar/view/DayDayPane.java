@@ -109,25 +109,25 @@ public class DayDayPane extends JPanel {
 					break;
 				}
 				
-				if(cindex == commlist.size()){
+				if(cindex >= commlist.size()){
 					ccal.add(Calendar.DATE, 1);
 				}
 				else{
 					ccal.setTime(commlist.get(cindex).getDueDate().getTime());
 				}
 				
-				if(eindex == eventlist.size()){
+				if(eindex >= eventlist.size()){
 					ecal.add(Calendar.DATE, 1);
 				}
 				else{
 					ecal.setTime(eventlist.get(eindex).getStartTime().getTime());
 				}
 				
-				if(ccal.before(ecal)){
+				if(ccal.before(ecal) && cindex < commlist.size()){
 					sortedobjects.add(new CalendarObjectPanel(this, acal, commlist.get(cindex)));
 					cindex++;
 				}
-				else{
+				else if(eindex < eventlist.size()){
 					sortedobjects.add(new CalendarObjectPanel(this, acal, eventlist.get(eindex)));
 					eindex++;
 				}
