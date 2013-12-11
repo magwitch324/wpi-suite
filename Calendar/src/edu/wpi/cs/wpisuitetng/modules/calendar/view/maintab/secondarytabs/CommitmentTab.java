@@ -124,6 +124,7 @@ public class CommitmentTab extends JPanel {
 	private JButton btnSaveCommitment;
 	private JButton btnDelete;
 	private JButton btnCancel;
+	private int openedFrom;
 	
 	// Helper variables
 	private boolean initFlag; //to keep things from running before we fully initialize
@@ -144,7 +145,8 @@ public class CommitmentTab extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public CommitmentTab() {
+	public CommitmentTab(int openedFrom) {
+		this.openedFrom = openedFrom;
 		initFlag = false;
 		this.setBackground(Color.WHITE);
 		formPanel = new JPanel();
@@ -183,8 +185,8 @@ public class CommitmentTab extends JPanel {
 	/**
 	 * Create a commitment tab in editing mode.
 	 */
-	public CommitmentTab(Commitment commToEdit) {
-		this();
+	public CommitmentTab(Commitment commToEdit, int openedFrom) {
+		this(openedFrom);
 		
 
 		
@@ -586,7 +588,7 @@ public class CommitmentTab extends JPanel {
 		catch (IOException ex) {
 		}
 		catch(IllegalArgumentException ex){
-			btnCancel.setText("Save Commitment");
+			btnSaveCommitment.setText("Save Commitment");
 		}
 		// To change cursor as it moves over this button
 		btnSaveCommitment.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -623,7 +625,7 @@ public class CommitmentTab extends JPanel {
 		btnCancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				removeTab();
+				removeTab(openedFrom);
 			}
 		});
 		
@@ -936,8 +938,8 @@ public class CommitmentTab extends JPanel {
 	/**
 	 * Close this commitment tab
 	 */
-	protected void removeTab() {
-		GUIEventController.getInstance().removeCommTab(this, isTeamComm);
+	protected void removeTab(int goTo) {
+		GUIEventController.getInstance().removeCommTab(this, goTo);
 	}
 
 	/**
@@ -1053,7 +1055,7 @@ public class CommitmentTab extends JPanel {
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 
  
-		this.removeTab();
+		this.removeTab(isTeamComm ? 1 : 0);
 
 	}
 	
@@ -1073,7 +1075,7 @@ public class CommitmentTab extends JPanel {
 	}
 		calData.getCommitments().removeCommmitment(editingCommitment.getID());
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
-		removeTab();
+		removeTab(isTeamComm ? 1 : 0);
 	}
 
 	/**
