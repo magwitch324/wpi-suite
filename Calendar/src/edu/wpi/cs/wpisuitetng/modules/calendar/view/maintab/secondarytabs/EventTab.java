@@ -380,6 +380,7 @@ public class EventTab extends JPanel {
 		// Create time spinners, hour, minute, and AM_PM
 		startHourSpinner = new JSpinner( new SpinnerDateModelHour());
 		startHourSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		startHourSpinner.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		startSpinnerPanel.add(startHourSpinner);
 		startHourEditor = new JSpinner.DateEditor(startHourSpinner, "hh");
 		startHourSpinner.setEditor(startHourEditor);
@@ -389,6 +390,7 @@ public class EventTab extends JPanel {
 		startSpinnerPanel.add(colon);
 		
 		startMinuteSpinner = new JSpinner( new SpinnerDateModelMinute());
+		startMinuteSpinner.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		startMinuteSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		startSpinnerPanel.add(startMinuteSpinner);
 		startMinuteEditor = new JSpinner.DateEditor(startMinuteSpinner, "mm");
@@ -396,6 +398,7 @@ public class EventTab extends JPanel {
 		startMinuteEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
 
 		startAMPMSpinner = new JSpinner(new SpinnerDateModelAMPM());
+		startAMPMSpinner.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		startAMPMSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		startSpinnerPanel.add(startAMPMSpinner);
 		startAMPMEditor = new JSpinner.DateEditor(startAMPMSpinner, "a");
@@ -443,6 +446,7 @@ public class EventTab extends JPanel {
 		
 		//DatePicker box
 		startDatePicker = new JXDatePicker();
+		startDatePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		GridBagConstraints gbc_jdp = new GridBagConstraints();
 		gbc_jdp.insets = new Insets(0, 0, 5, 5);
 		gbc_jdp.fill = GridBagConstraints.HORIZONTAL;
@@ -505,6 +509,7 @@ public class EventTab extends JPanel {
 		
 		// Create time spinners, hour, minute, and AM_PM
 		endHourSpinner = new JSpinner( new SpinnerDateModelHour());
+		endHourSpinner.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		endHourSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		endSpinnerPanel.add(endHourSpinner);
 		endHourEditor = new JSpinner.DateEditor(endHourSpinner, "hh");
@@ -515,6 +520,7 @@ public class EventTab extends JPanel {
 		endSpinnerPanel.add(colon);
 		
 		endMinuteSpinner = new JSpinner( new SpinnerDateModelMinute());
+		endMinuteSpinner.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		endMinuteSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		endSpinnerPanel.add(endMinuteSpinner);
 		endMinuteEditor = new JSpinner.DateEditor(endMinuteSpinner, "mm");
@@ -522,6 +528,7 @@ public class EventTab extends JPanel {
 		endMinuteEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
 
 		endAMPMSpinner = new JSpinner(new SpinnerDateModelAMPM());
+		endAMPMSpinner.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		endAMPMSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		endSpinnerPanel.add(endAMPMSpinner);
 		endAMPMEditor = new JSpinner.DateEditor(endAMPMSpinner, "a");
@@ -570,6 +577,7 @@ public class EventTab extends JPanel {
 		
 		//DatePicker box
 		endDatePicker = new JXDatePicker();
+		endDatePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		GridBagConstraints gbc_jdp2 = new GridBagConstraints();
 		gbc_jdp2.insets = new Insets(0, 0, 5, 5);
 		gbc_jdp2.fill = GridBagConstraints.HORIZONTAL;
@@ -1859,7 +1867,7 @@ public class EventTab extends JPanel {
 		}
 		else {
 			SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy"); 
-			startDatePicker.getEditor().setBackground(Color.WHITE);
+			startDatePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
 			startDatePicker.getEditor().setText(dt.format(startDatePicker.getDate()));
 			lblDateError.setVisible(false);
 		}
@@ -1872,7 +1880,7 @@ public class EventTab extends JPanel {
 		}
 		else {
 			SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy"); 
-			endDatePicker.getEditor().setBackground(Color.WHITE);
+			endDatePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
 			endDatePicker.getEditor().setText(dt.format(endDatePicker.getDate()));
 			lblDateError2.setVisible(false);
 		}
@@ -1885,7 +1893,7 @@ public class EventTab extends JPanel {
 			lblTimeError.setText("<html><font color='red'>Please enter a valid time.</font></html>");
 		}
 		else {
-			editor.getTextField().setBackground(Color.WHITE);
+			editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 			lblTimeError.setText(" ");
 		}
 	}
@@ -1897,7 +1905,7 @@ public class EventTab extends JPanel {
 			lblTimeError2.setText("<html><font color='red'>Please enter a valid time.</font></html>");
 		}
 		else {
-			editor.getTextField().setBackground(Color.WHITE);
+			editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 			lblTimeError2.setText(" ");
 		}
 	}
