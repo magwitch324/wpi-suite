@@ -142,6 +142,7 @@ public class EventTab extends JPanel {
 	private int startTempMin = 1;
 	private int endTempMin = 1;
 	private int endTempHour = 1;
+	private int openedFrom;
 	
 	
 	
@@ -168,7 +169,8 @@ public class EventTab extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public EventTab() {
+	public EventTab(int openedFrom) {
+		this.openedFrom = openedFrom;
 		initFlag = false;
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -772,7 +774,7 @@ public class EventTab extends JPanel {
 		
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				removeTab();
+				removeTabCancel();
 			}
 			
 		});
@@ -1483,8 +1485,8 @@ public class EventTab extends JPanel {
 	/**
 	 * Create a event tab in editing mode.
 	 */
-	public EventTab(Event event) {
-		this();
+	public EventTab(Event event, int openedFrom) {
+		this(openedFrom);
 		
 		initFlag = false; //We need this to deal with the nested constructors
 		
@@ -1576,8 +1578,14 @@ public class EventTab extends JPanel {
 	/**
 	 * Close this event tab
 	 */
-	protected void removeTab() {
-		GUIEventController.getInstance().removeEventTab(this, isTeamEvent);
+	protected void removeTab(int goTo) {
+		GUIEventController.getInstance().removeEventTab(this, goTo);
+	}
+	/**
+	 * Close this event tab when cancel is hit
+	 */
+	protected void removeTabCancel() {
+		GUIEventController.getInstance().removeEventTab(this, openedFrom);
 	}
 
 	
@@ -1700,7 +1708,7 @@ public class EventTab extends JPanel {
 			UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 
 
-			this.removeTab();
+			this.removeTab(isTeamEvent ? 1 : 0);
 
 		} else {
 
@@ -1738,7 +1746,7 @@ public class EventTab extends JPanel {
 			UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 
 
-			this.removeTab();
+			this.removeTab(isTeamEvent ? 1 : 0);
 		}
 	}
 	
@@ -1762,7 +1770,7 @@ public class EventTab extends JPanel {
 		}
 		
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
-		removeTab();
+		removeTab(isTeamEvent ? 1 : 0);
 	}
 
 
