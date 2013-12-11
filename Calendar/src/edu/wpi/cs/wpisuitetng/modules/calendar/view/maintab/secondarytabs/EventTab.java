@@ -1101,7 +1101,6 @@ public class EventTab extends JPanel {
 				} catch (ParseException e1) {
 					checkStartTimeSpinnerStatus(startAMPMSpinner);
 					checkSaveBtnStatus();
-					e1.printStackTrace();
 				}
 			}
 		});
