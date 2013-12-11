@@ -1464,7 +1464,7 @@ public class EventTab extends JPanel {
 				}
 				if(repeatCheckBox.isSelected()){
 					try {
-						if (Integer.parseInt(repeatAmt.getText()) >= 1){
+						if (Integer.parseInt(repeatAmt.getText()) > 1){
 							btnAddEvent.setEnabled(true);	
 						} else {
 							btnAddEvent.setEnabled(false);
