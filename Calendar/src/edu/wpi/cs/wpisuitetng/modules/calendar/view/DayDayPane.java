@@ -133,13 +133,6 @@ public class DayDayPane extends JPanel {
 				}
 			}
 		}
-		
-		System.out.println("________--------________");
-		for(CalendarObjectPanel cop : sortedobjects){
-			System.out.println(cop.getName());
-		}
-		System.out.println("-------_________--------");
-		
 	}
 
 	/**
@@ -368,7 +361,7 @@ public class DayDayPane extends JPanel {
 	public void displayCommitments(List<Commitment> commList) {
 		// if we are supposed to display commitments
 		commlist = new ArrayList<Commitment>();
-		
+		//sorting check
 		if (commList != null) {
 			
 			for(Commitment comm : commList){
@@ -396,8 +389,15 @@ public class DayDayPane extends JPanel {
 	 */
 	public void displayEvents(List<Event> eventList) {
 		// if we are supposed to display events
+		if(eventList == null){
+			eventlist = new ArrayList<Event>();
+		}
+		else{
+			eventlist = eventList;
+		}
+
 		eventlist = new ArrayList<Event>();
-		
+		//sorting check
 		if (eventList != null) {
 			for(Event event : eventList){
 				int index = 0;
