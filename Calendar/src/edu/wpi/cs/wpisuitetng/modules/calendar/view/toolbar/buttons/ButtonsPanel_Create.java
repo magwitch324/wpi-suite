@@ -9,19 +9,14 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.ImageObserver;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -29,13 +24,10 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 
 import edu.wpi.cs.wpisuitetng.janeway.gui.container.toolbar.ToolbarGroupView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
@@ -194,7 +186,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 //	    this.manageCategoryButton.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, CalendarStandard.CalendarRed));
 //	    this.manageCategoryButton.setBackground(CalendarStandard.CalendarYellow);
 	    manageCategoryButton.setContentAreaFilled(false);
-	    manageCategoryButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+	    manageCategoryButton.setBorder(BorderFactory.createEmptyBorder(5, 60, 5, 0));
 //	    this.manageCategoryButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		manageCategoryButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		// the action listener for the Manage Category Button
@@ -217,7 +209,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 //	    this.manageFilterButton.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, CalendarStandard.CalendarRed));
 //	    this.manageFilterButton.setBackground(CalendarStandard.CalendarYellow);
 	    manageFilterButton.setContentAreaFilled(false);
-	    manageFilterButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+	    manageFilterButton.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 10));
 //	    this.manageFilterButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		manageFilterButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		// the action listener for the Manage Filter Button
@@ -233,13 +225,13 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		
 		
 		
-//	    this.helpButton.setText("Help Library");
+	    helpButton.setText("<html>Get<br />Help</html>");
 	    helpButton.setFont(CalendarStandard.CalendarFontBold);
 //	    this.helpButton.setForeground(CalendarStandard.CalendarRed);
 //	    this.helpButton.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, CalendarStandard.CalendarRed));
 //	    this.helpButton.setBackground(CalendarStandard.CalendarYellow);
 	    helpButton.setContentAreaFilled(false);
-	    helpButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+	    helpButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 50));
 //	    this.helpButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		helpButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		// the action listener for the Help Button
@@ -271,11 +263,9 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 //		createEventButton.setBorder(raisedbevel);
 		contentPanel.add(createEventButton, cons1);
 //		manageCategoryButton.setBorder(raisedbevel);
-		
-		// REMOVED NON-FUNCTIONAL BUTTONS FOR THE TIME BEING
-//		contentPanel.add(manageCategoryButton, cons2);
+		contentPanel.add(manageCategoryButton, cons2);
 //		manageFilterButton.setBorder(raisedbevel);
-//		contentPanel.add(manageFilterButton, cons3);
+		contentPanel.add(manageFilterButton, cons3);
 //		helpButton.setBorder(raisedbevel);
 		contentPanel.add(helpButton, cons3);
 
