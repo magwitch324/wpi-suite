@@ -437,29 +437,29 @@ public class CommitmentTab extends JPanel {
 		
 		// Create time spinners, hour, minute, and AM_PM
 		hourSpinner = new JSpinner( new SpinnerDateModelHour());
-		hourSpinner.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		hourSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		spinnerPanel.add(hourSpinner);
 		hourEditor = new JSpinner.DateEditor(hourSpinner, "hh");
 		hourSpinner.setEditor(hourEditor);
+		hourEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 		hourEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
 
 		JLabel colon = new JLabel(":");
 		spinnerPanel.add(colon);
 		
 		minuteSpinner = new JSpinner( new SpinnerDateModelMinute());
-		minuteSpinner.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		minuteSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		spinnerPanel.add(minuteSpinner);
 		minuteEditor = new JSpinner.DateEditor(minuteSpinner, "mm");
 		minuteSpinner.setEditor(minuteEditor);
+		minuteEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 		minuteEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
 
 		AMPMSpinner = new JSpinner(new SpinnerDateModelAMPM());
-		AMPMSpinner.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		AMPMSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		spinnerPanel.add(AMPMSpinner);
 		AMPMEditor = new JSpinner.DateEditor(AMPMSpinner, "a");
+		AMPMEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 		AMPMSpinner.setEditor(AMPMEditor);
 		AMPMEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
 				
