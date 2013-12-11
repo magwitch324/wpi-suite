@@ -184,7 +184,7 @@ public class RepeatingEvent extends CalendarObject {
 	}
 
 	/**
-	 * Setter for the Repeat Typw
+	 * Setter for the Repeat Type
 	 * 
 	 * @param repType the repType to set
 	 */

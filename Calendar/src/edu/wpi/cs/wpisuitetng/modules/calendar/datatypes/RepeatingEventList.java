@@ -43,7 +43,7 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 		newEvent.setID(nextID);
 		nextID++;
 		if (calendarObjects.size() != 0) {
-			while (i < calendarObjects.size()) {
+			while (i < calendarObjects.size()) {//adds the event in order
 				if (newEvent.getStartTime().before(
 						calendarObjects.get(i).getEndTime())) {
 					break;
@@ -124,37 +124,16 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	 * @param start
 	 * @param end
 	 * @return
+	 * @deprecated function isn't useful for this datatype use {@link toCombinedEventList()} to convert to CombinedEventList
 	 */
+	@Deprecated
 	public List<RepeatingEvent> filter(GregorianCalendar start, GregorianCalendar end) {
 
-		final GregorianCalendar eventStart = new GregorianCalendar();
-		final GregorianCalendar eventEnd = new GregorianCalendar();
-		final List<RepeatingEvent> newEvents = new ArrayList<RepeatingEvent>();
-
-		// iterate and add all Events between start and end
-		// to the event list
-		for (RepeatingEvent event : calendarObjects) {
-			eventStart.setTime(event.getStartTime().getTime());
-			eventEnd.setTime(event.getEndTime().getTime());
-			if (
-			// Event start or Event end is within filter times
-			((eventStart.after(start) && eventStart.before(end)) || (eventEnd
-					.after(start) && eventEnd.before(end)))
-
-			||
-
-			// Event start is before, Event end is after
-					(eventStart.before(start) && eventEnd.after(end))) {
-
-				newEvents.add(event);
-			}
-		}
-
-		return newEvents;
+		return null;
 	}
 	
 	/**
-	 * Converts the list into an event list
+	 * Converts the list into an equivalent CombinedEvent list
 	 * 
 	 * @return equivalent list of events
 	 */
@@ -164,7 +143,9 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 		GregorianCalendar eventEnd = new GregorianCalendar();
 		int field; 
 
+		//loops through repeating events
 		for(RepeatingEvent event : calendarObjects){
+			//sets which calendar field needs to be incremented based on repeat type
 			if(event.getRepType() == RepeatType.DAY){
 				field = Calendar.DATE;
 			} else if(event.getRepType() == RepeatType.WEEK){
@@ -174,25 +155,31 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 			} else {
 				field = Calendar.DATE;
 			}
+			
+			//loops through each occurrence of the Repeating Event
 			for(int i = 0; i < event.getRepetitions(); i++){
 				
-				
+				//all the fields are copied to an event with the start and end time incremented
+				// to make it recur
 				Event tmp = new Event();
 				tmp.setID(event.getID());
 				tmp.setName(event.getName());
 				tmp.setDescription(event.getDescription());
 				tmp.setParticipants(event.getParticipants());
+				//adjusts start time for this occurrence
 				eventStart = event.getStartTime();
-				eventStart.add(field, i);
-				//System.out.println(format.format(eventStart));
+				eventStart.add(field, i);// the field always corresponds to 
+										 //		how often the event has to repeat,
+										 //		so we can just increment it by how many 
+										 //		occurrences we are after the first one
 				tmp.setStartTime(eventStart);
+				//adjusts end time for this occurrence
 				eventEnd = event.getEndTime();
 				eventEnd.add(field, i);
-				//System.out.println(format.format(eventEnd));
 				tmp.setEndTime(eventEnd);
 				tmp.setIsPersonal(event.getIsPersonal());
 				tmp.setCategoryID(event.getCategoryID());
-				tmp.setIsRepeating(true);
+				tmp.setIsRepeating(true);//Tells the GUI that the event is repeating
 				eventList.add(tmp);
 			}
 			

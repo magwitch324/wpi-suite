@@ -7,7 +7,6 @@
  * 
  * Contributors: CS Anonymous
  ******************************************************************************/
-
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Color;
