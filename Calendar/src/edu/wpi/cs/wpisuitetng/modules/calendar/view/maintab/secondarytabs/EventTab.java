@@ -1109,7 +1109,6 @@ public class EventTab extends JPanel {
 				} catch (ParseException e1) {
 					checkStartTimeSpinnerStatus(startAMPMSpinner);
 					checkSaveBtnStatus();
-					e1.printStackTrace();
 				}
 			}
 		});
@@ -1473,7 +1472,7 @@ public class EventTab extends JPanel {
 				}
 				if(repeatCheckBox.isSelected()){
 					try {
-						if (Integer.parseInt(repeatAmt.getText()) >= 1){
+						if (Integer.parseInt(repeatAmt.getText()) > 1){
 							btnAddEvent.setEnabled(true);	
 						} else {
 							btnAddEvent.setEnabled(false);
@@ -1525,6 +1524,9 @@ public class EventTab extends JPanel {
 		//handle repetition fields
 		if(event.getIsRepeating()){
 			CalendarData calData;
+			//we need the calData so that we can get the actual repeating event from it
+			// the event that the tab was opened with is just a dummy event so that the GUI
+			// can display it
 			if (rdbtnPersonal.isSelected()){
 				calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
 				isTeamEvent = false;
@@ -1554,6 +1556,7 @@ public class EventTab extends JPanel {
 		}
 		
 		repeatCheckBox.setEnabled(false);//Don't want people changing this for now
+											  // it would not be worth the effort to implement right now
 											  // we might be able to enable it later
 		
 		// Add Delete Button
@@ -1650,7 +1653,6 @@ public class EventTab extends JPanel {
 	 * Adds new event with information contained in fields
 	 */
 	private void addEvent() {
-		// TODO Auto-generated method stub
 
 
 		if(nameTextField.getText().equals("") || startDatePicker.getDate() == null){
@@ -1670,6 +1672,9 @@ public class EventTab extends JPanel {
 		//		{
 		//			System.out.println("Event name: " + event.getName()+", id: "+ event.getId());
 		//		}
+		
+		//repeat events are handled separately because if the tab is editing a repeating event,
+		// then it was opened with a dummy event
 		if (repeatCheckBox.isSelected()){
 			RepeatingEvent newRepEvent;
 			if(mode == EditingMode.ADDING)
@@ -1680,6 +1685,7 @@ public class EventTab extends JPanel {
 				newRepEvent = editingRepeatingEvent;
 			}
 
+			// set fields
 			if(isTeamEvent){
 				newRepEvent.setIsPersonal(false);
 			}
@@ -1760,7 +1766,7 @@ public class EventTab extends JPanel {
 	
 
 	protected void deleteEvent() {
-		// TODO Auto-generated method stub
+
 		CalendarData calData;
 		if (rdbtnPersonal.isSelected()){
 			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
@@ -1771,7 +1777,7 @@ public class EventTab extends JPanel {
 			isTeamEvent = true;
 		}
 
-		if (repeatCheckBox.isSelected()){
+		if (repeatCheckBox.isSelected()){//repeating events are stored separately so they need to be deleted separately
 			calData.getRepeatingEvents().removeEvent(editingRepeatingEvent.getID());
 		} else {
 			calData.getEvents().removeEvent(editingEvent.getID());

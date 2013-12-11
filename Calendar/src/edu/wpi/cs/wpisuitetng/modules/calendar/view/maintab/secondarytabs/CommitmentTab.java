@@ -819,7 +819,6 @@ public class CommitmentTab extends JPanel {
 				} catch (ParseException e1) {
 					checkTimeSpinnerStatus(AMPMSpinner);
 					checkSaveBtnStatus();
-					e1.printStackTrace();
 				}
 			}
 		});
