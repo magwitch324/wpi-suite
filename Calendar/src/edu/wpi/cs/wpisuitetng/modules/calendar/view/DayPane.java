@@ -42,10 +42,10 @@ public class DayPane extends JPanel implements ICalPane {
 	private static final long serialVersionUID = 1L;
 	JPanel mainPanel = new JPanel();
 	GregorianCalendar day;
-	private DayDayPane daypane;
+	private final DayDayPane daypane;
 	private SpringLayout layout;
-	private JScrollPane scrollPane;
-	private JLabel headerlabel;
+	private final JScrollPane scrollPane;
+	private final JLabel headerlabel;
 	
 	/**
 	 * Create the panel.
@@ -69,21 +69,21 @@ public class DayPane extends JPanel implements ICalPane {
 		
 		scrollPane.getViewport().addComponentListener(new ComponentAdapter(){
 			public void componentResized(ComponentEvent e) {
-				int height = mainPanel.getHeight();
-				int width = scrollPane.getViewport().getWidth();
+				final int height = mainPanel.getHeight();
+				final int width = scrollPane.getViewport().getWidth();
 				mainPanel.setSize(new Dimension(width, height));
 				mainPanel.setPreferredSize(new Dimension(width, height));
 			}
 		});
 		
 		// Sets the UPPER LEFT corner box
-		JPanel cornerBoxUL = new JPanel();
+		final JPanel cornerBoxUL = new JPanel();
 		cornerBoxUL.setBackground(CalendarStandard.CalendarRed);
 		cornerBoxUL.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.GRAY));
 		scrollPane.setCorner(ScrollPaneConstants.UPPER_LEFT_CORNER, cornerBoxUL);
 		
 		// Sets the UPPER RIGHT corner box
-		JPanel cornerBoxUR = new JPanel();
+		final JPanel cornerBoxUR = new JPanel();
 		cornerBoxUR.setBackground(CalendarStandard.CalendarRed);
 		cornerBoxUR.setBorder(new MatteBorderExt(0, 0, 2, 0, Color.GRAY));
 		scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER, cornerBoxUR);
@@ -91,7 +91,7 @@ public class DayPane extends JPanel implements ICalPane {
 
 
 		// Create the header panel
-		JPanel header = new JPanel();
+		final JPanel header = new JPanel();
 		header.setLayout(new GridLayout(1, 1));
 		header.setBackground(CalendarStandard.CalendarRed);
 		header.setBorder(new MatteBorder(0, 0, 2, 0, Color.GRAY));

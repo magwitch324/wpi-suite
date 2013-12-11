@@ -59,11 +59,11 @@ public class CommitDetailedPane extends JPanel {
 	}
 	
 	protected void didResize(){
-		HalfHourBlock[] halfBlocks = new HalfHourBlock[48];
+		final HalfHourBlock[] halfBlocks = new HalfHourBlock[48];
 		this.removeAll();
 		
-		int y = (int)this.getSize().getHeight();
-		SpringLayout layout = (SpringLayout)this.getLayout();
+		final int y = (int)this.getSize().getHeight();
+		final SpringLayout layout = (SpringLayout)this.getLayout();
 
 //		Old code 
 //		

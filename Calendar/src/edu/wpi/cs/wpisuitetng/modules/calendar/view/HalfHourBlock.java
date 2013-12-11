@@ -32,10 +32,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 @SuppressWarnings("serial")
 public class HalfHourBlock extends JPanel{
 	private int size;
-	private GridLayout layout;
-	private int pos;
-	private List<JComponent> teamComPanels = new ArrayList<JComponent>();
-	private List<JComponent> personalComPanels = new ArrayList<JComponent>();
+	private final GridLayout layout;
+	private final int pos;
+	private final List<JComponent> teamComPanels = new ArrayList<JComponent>();
+	private final List<JComponent> personalComPanels = new ArrayList<JComponent>();
 	
 	/** Constructor
 	 * @param pos Time value position of block (0 - 47)
@@ -56,7 +56,7 @@ public class HalfHourBlock extends JPanel{
 	{
 		size++;
 		layout.setColumns(size);
-		JComponent comPanel = this.getTeamComPanel(newComm);
+		final JComponent comPanel = this.getTeamComPanel(newComm);
 		this.add(comPanel, SwingConstants.CENTER);
 		comPanel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -76,7 +76,7 @@ public class HalfHourBlock extends JPanel{
 	{
 		size++;
 		layout.setColumns(size);
-		JComponent comPanel = this.getPersonalComPanel(newComm);
+		final JComponent comPanel = this.getPersonalComPanel(newComm);
 		this.add(comPanel, SwingConstants.CENTER);
 		comPanel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -96,11 +96,11 @@ public class HalfHourBlock extends JPanel{
 	 * @return
 	 */
 	private JComponent getTeamComPanel(Commitment tochange){
-		CommitmentCalViewPanel apane = new CommitmentCalViewPanel(tochange);
+		final CommitmentCalViewPanel apane = new CommitmentCalViewPanel(tochange);
 		apane.setBackground(new Color(255,255,255));
 		
 
-		LineBorder roundedLineBorder = new LineBorder(Color.black, 1, true);
+		final LineBorder roundedLineBorder = new LineBorder(Color.black, 1, true);
 		apane.setBorder(roundedLineBorder);
 		
 		apane.addMouseListener(new MouseAdapter() {
@@ -161,11 +161,11 @@ public class HalfHourBlock extends JPanel{
 	 * @return
 	 */
 	private JComponent getPersonalComPanel(Commitment tochange){
-		CommitmentCalViewPanel apane = new CommitmentCalViewPanel(tochange);
+		final CommitmentCalViewPanel apane = new CommitmentCalViewPanel(tochange);
 		apane.setBackground(new Color(255,255,255));
 		
 
-		LineBorder roundedLineBorder = new LineBorder(Color.black, 1, true);
+		final LineBorder roundedLineBorder = new LineBorder(Color.black, 1, true);
 		apane.setBorder(roundedLineBorder);
 		
 		apane.addMouseListener(new MouseAdapter() {

@@ -111,7 +111,7 @@ public class CalendarDataEntityManager implements EntityManager<CalendarData> {
 	
 	 * @throws WPISuiteException user isn't authorized for the given role */
 	private void ensureRole(Session session, Role role) throws WPISuiteException {
-		User user = (User) db.retrieve(User.class, "username", session.getUsername()).get(0);
+		final User user = (User) db.retrieve(User.class, "username", session.getUsername()).get(0);
 		if(!user.getRole().equals(role)) {
 			throw new UnauthorizedException();
 		}
@@ -172,18 +172,18 @@ public class CalendarDataEntityManager implements EntityManager<CalendarData> {
 	@Override
 	public CalendarData update(Session session, String content) throws WPISuiteException {
 		
-		CalendarData updatedCalData = CalendarData.fromJson(content);
+		final CalendarData updatedCalData = CalendarData.fromJson(content);
 		/*
 		 * Because of the disconnected objects problem in db4o, we can't just save Categorys.
 		 * We have to get the original defect from db4o, copy properties from updatedCategory,
 		 * then save the original Category again.
 		 */
-		List<Model> oldCalData = db.retrieve(CalendarData.class, "id", updatedCalData.getId(), session.getProject());
+		final List<Model> oldCalData = db.retrieve(CalendarData.class, "id", updatedCalData.getId(), session.getProject());
 		if(oldCalData.size() < 1 || oldCalData.get(0) == null) {
 			throw new BadRequestException("CalendarData with ID does not exist.");
 		}
 				
-		CalendarData existingCalData = (CalendarData)oldCalData.get(0);		
+		final CalendarData existingCalData = (CalendarData)oldCalData.get(0);		
 
 		// copy values to old CalendarData and fill in our changeset appropriately
 		existingCalData.copyFrom(updatedCalData);

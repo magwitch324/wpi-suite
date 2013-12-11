@@ -33,12 +33,12 @@ public abstract class CalendarStandard {
 	public static final Font  CalendarFontBold = new Font("SansSerif", Font.BOLD, 12);
 	
 	public static void printcalendar(GregorianCalendar cal) {
-		String dayName = cal.getDisplayName(GregorianCalendar.DAY_OF_WEEK,
+		final String dayName = cal.getDisplayName(GregorianCalendar.DAY_OF_WEEK,
 				LONG, Locale.ENGLISH);
-		int dayNum = cal.get(DAY_OF_MONTH);
-		String monthName = cal.getDisplayName(GregorianCalendar.MONTH, LONG,
+		final int dayNum = cal.get(DAY_OF_MONTH);
+		final String monthName = cal.getDisplayName(GregorianCalendar.MONTH, LONG,
 				Locale.ENGLISH);
-		int year = cal.get(YEAR);
+		final int year = cal.get(YEAR);
 		System.out.println(dayName + ", " + monthName + " " + dayNum + ", "
 				+ year);
 	}

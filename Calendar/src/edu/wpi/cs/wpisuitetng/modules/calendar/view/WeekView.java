@@ -22,7 +22,7 @@ public class WeekView extends CalendarView {
 
 	private GregorianCalendar startDate;
 	private GregorianCalendar endDate;
-	private WeekPane weekPane;
+	private final WeekPane weekPane;
 	
 
 	public WeekView(GregorianCalendar datecalendar) {
@@ -60,12 +60,12 @@ public class WeekView extends CalendarView {
 		endDate.add(Calendar.MILLISECOND, -1);
 
 		
-		String startMonthName = startDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
-		String endMonthName = endDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
-		int startDayNum = startDate.get(Calendar.DAY_OF_MONTH);
-		int endDayNum = endDate.get(Calendar.DAY_OF_MONTH);
-		int startYear = startDate.get(Calendar.YEAR);
-		int endYear = endDate.get(Calendar.YEAR);
+		final String startMonthName = startDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+		final String endMonthName = endDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+		final int startDayNum = startDate.get(Calendar.DAY_OF_MONTH);
+		final int endDayNum = endDate.get(Calendar.DAY_OF_MONTH);
+		final int startYear = startDate.get(Calendar.YEAR);
+		final int endYear = endDate.get(Calendar.YEAR);
 		
 		setLabel(startMonthName + " " + startDayNum + ", " + startYear + "<br>---<br>" + endMonthName + " " + endDayNum + ", " + endYear);
 

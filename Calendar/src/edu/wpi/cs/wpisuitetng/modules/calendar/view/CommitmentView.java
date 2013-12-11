@@ -55,14 +55,14 @@ public class CommitmentView extends JPanel {
 
 
 		commitPanel = new JPanel();
-		JScrollPane scrollPane = new JScrollPane(commitPanel, 
+		final JScrollPane scrollPane = new JScrollPane(commitPanel, 
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(scrollPane, BorderLayout.CENTER );
 		scrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 
-		SpringLayout layout = new SpringLayout();
+		final SpringLayout layout = new SpringLayout();
 		setLayout(layout);
 		layout.putConstraint(SpringLayout.WEST, scrollPane, 0, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.EAST, scrollPane, 0, SpringLayout.EAST, this);
@@ -94,15 +94,15 @@ public class CommitmentView extends JPanel {
 	public void update(){
 		 
 		commitPanel.removeAll();
-		SpringLayout commPanelLayout = new SpringLayout();
+		final SpringLayout commPanelLayout = new SpringLayout();
 		commitPanel.setLayout(commPanelLayout);
 		commitPanel.setBackground(Color.WHITE);
-		List<CommitmentViewPanel> commPanelList = new ArrayList<CommitmentViewPanel>();
+		final List<CommitmentViewPanel> commPanelList = new ArrayList<CommitmentViewPanel>();
 		int n = 0;//adjusted index to take hidden commitments into account
 		
 		// print something when we do not  have any commitments
 		if(commitmentList.size() == 0) {			
-			JLabel message = new JLabel("<html><body style='width: 100%'><center>There are no commitments to display</center></html>", SwingConstants.CENTER);
+			final JLabel message = new JLabel("<html><body style='width: 100%'><center>There are no commitments to display</center></html>", SwingConstants.CENTER);
 			message.setBackground(Color.WHITE);
 			message.setAlignmentX(CENTER_ALIGNMENT);
 			message.setOpaque(true);

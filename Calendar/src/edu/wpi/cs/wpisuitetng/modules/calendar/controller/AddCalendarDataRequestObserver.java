@@ -22,7 +22,7 @@ import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
  */
 public class AddCalendarDataRequestObserver implements RequestObserver {
 		
-	private AddCalendarDataController controller;
+	private final AddCalendarDataController controller;
 	
 	/**
 	 * Constructs the observer given an AddCalendarDataController

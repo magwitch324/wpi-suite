@@ -22,7 +22,7 @@ public class DayView extends CalendarView {
 
 
 	GregorianCalendar day;
-	private DayPane dayPane;
+	private final DayPane dayPane;
 	private GregorianCalendar endOfDay;
 	
 	public DayView(GregorianCalendar datecalendar) {
@@ -47,10 +47,10 @@ public class DayView extends CalendarView {
 		endOfDay.add(Calendar.DATE, 1);
 		endOfDay.add(Calendar.MILLISECOND, -1);
 		
-		String dayName = day.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
-		int dayNum = day.get(Calendar.DAY_OF_MONTH);
-		String monthName = day.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
-		int year = day.get(Calendar.YEAR);
+		final String dayName = day.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
+		final int dayNum = day.get(Calendar.DAY_OF_MONTH);
+		final String monthName = day.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+		final int year = day.get(Calendar.YEAR);
 		setLabel(dayName + ", " + monthName + " " + dayNum + ", " + year);
 		refresh();
 	}

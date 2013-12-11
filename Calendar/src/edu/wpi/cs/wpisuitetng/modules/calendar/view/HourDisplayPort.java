@@ -80,7 +80,7 @@ public class HourDisplayPort extends JViewport {
 	 */
 	protected void setY(){
 		int max = 0;
-		double height = reference.getHeight();
+		final double height = reference.getHeight();
 		for(int i = 1; i < 24; i++){
 			layout.putConstraint(SpringLayout.VERTICAL_CENTER, labels[i], (int) (height * i / 24.0), SpringLayout.NORTH, mainpanel);
 			max = labels[i].getPreferredSize().width > max ? labels[i].getPreferredSize().width : max;

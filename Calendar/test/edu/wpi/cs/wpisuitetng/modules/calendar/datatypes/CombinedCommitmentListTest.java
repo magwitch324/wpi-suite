@@ -43,6 +43,10 @@ public class CombinedCommitmentListTest {
 		commitmentList.add(nextMonth);
 	}
 	
+	
+	/*
+	 * Test to ensure addEmptyList works correctly
+	 */
 	@Test
 	public void addEmptyListTest() {
 		combinedCommitmentList = new CombinedCommitmentList();
@@ -51,6 +55,9 @@ public class CombinedCommitmentListTest {
 		assertEquals("Today", combinedCommitmentList.getElementAt(0).getName());
 	}
 	
+	/*
+	 * Test to ensure addNonEmptyList works correctly
+	 */
 	@Test
 	public void addNonEmptyListTest() {
 		combinedCommitmentList = new CombinedCommitmentList(commitmentList);

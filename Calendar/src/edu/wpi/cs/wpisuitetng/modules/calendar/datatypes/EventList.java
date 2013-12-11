@@ -104,9 +104,9 @@ public class EventList extends CalendarObjectList<Event> {
 	 */
 	public List<Event> filter(GregorianCalendar start, GregorianCalendar end) {
 
-		GregorianCalendar eventStart = new GregorianCalendar();
-		GregorianCalendar eventEnd = new GregorianCalendar();
-		List<Event> newEvents = new ArrayList<Event>();
+		final GregorianCalendar eventStart = new GregorianCalendar();
+		final GregorianCalendar eventEnd = new GregorianCalendar();
+		final List<Event> newEvents = new ArrayList<Event>();
 
 		// iterate and add all Events between start and end
 		// to the event list
@@ -136,9 +136,9 @@ public class EventList extends CalendarObjectList<Event> {
 	 * @param the CalendarObject to be updated
 	 */
 	public void update(Event newObject) {
-		Event tmp = get(newObject.getID());
+		final Event tmp = get(newObject.getID());
 		if(tmp.getStartTime().equals(newObject.getStartTime())){
-			int i = calendarObjects.indexOf(get(newObject.getID()));
+			final int i = calendarObjects.indexOf(get(newObject.getID()));
 			calendarObjects.remove(get(newObject.getID()));
 			calendarObjects.add(i, newObject);
 			return;

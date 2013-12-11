@@ -111,7 +111,7 @@ public class CalPropsEntityManager implements EntityManager<CalendarProps> {
 	
 	 * @throws WPISuiteException user isn't authorized for the given role */
 	private void ensureRole(Session session, Role role) throws WPISuiteException {
-		User user = (User) db.retrieve(User.class, "username", session.getUsername()).get(0);
+		final User user = (User) db.retrieve(User.class, "username", session.getUsername()).get(0);
 		if(!user.getRole().equals(role)) {
 			throw new UnauthorizedException();
 		}
@@ -172,18 +172,18 @@ public class CalPropsEntityManager implements EntityManager<CalendarProps> {
 	@Override
 	public CalendarProps update(Session session, String content) throws WPISuiteException {
 		
-		CalendarProps updatedCalData = CalendarProps.fromJson(content);
+		final CalendarProps updatedCalData = CalendarProps.fromJson(content);
 		/*
 		 * Because of the disconnected objects problem in db4o, we can't just save Categorys.
 		 * We have to get the original defect from db4o, copy properties from updatedCategory,
 		 * then save the original Category again.
 		 */
-		List<Model> oldCalData = db.retrieve(CalendarProps.class, "id", updatedCalData.getId(), session.getProject());
+		final List<Model> oldCalData = db.retrieve(CalendarProps.class, "id", updatedCalData.getId(), session.getProject());
 		if(oldCalData.size() < 1 || oldCalData.get(0) == null) {
 			throw new BadRequestException("CalendarProps with ID does not exist.");
 		}
 				
-		CalendarProps existingCalData = (CalendarProps)oldCalData.get(0);		
+		final CalendarProps existingCalData = (CalendarProps)oldCalData.get(0);		
 
 		// copy values to old CalendarProps and fill in our changeset appropriately
 		existingCalData.copyFrom(updatedCalData);

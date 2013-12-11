@@ -75,7 +75,7 @@ public class Commitment extends CalendarObject implements
 	 * @return the due date
 	 */
 	public GregorianCalendar getDueDate() {
-		GregorianCalendar tmp = new GregorianCalendar();
+		final GregorianCalendar tmp = new GregorianCalendar();
 		tmp.setTime(dueDate);
 		return tmp;
 	}
