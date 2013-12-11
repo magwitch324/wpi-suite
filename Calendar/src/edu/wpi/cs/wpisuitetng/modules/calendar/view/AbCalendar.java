@@ -405,7 +405,8 @@ public abstract class AbCalendar extends JPanel {
 			//TODO error
 			break;
 		}
-
+		viewpanel.removeAll();
+		viewpanel.setLayout(new GridLayout(1,1));
 		displayCalData();
 		viewpanel.add(calView);
 		
