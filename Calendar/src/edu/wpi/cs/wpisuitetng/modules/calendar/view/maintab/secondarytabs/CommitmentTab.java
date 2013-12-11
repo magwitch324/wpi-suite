@@ -124,6 +124,7 @@ public class CommitmentTab extends JPanel {
 	private JButton btnSaveCommitment;
 	private JButton btnDelete;
 	private JButton btnCancel;
+	private int openedFrom;
 	
 	// Helper variables
 	private boolean initFlag; //to keep things from running before we fully initialize
@@ -144,7 +145,8 @@ public class CommitmentTab extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public CommitmentTab() {
+	public CommitmentTab(int openedFrom) {
+		this.openedFrom = openedFrom;
 		initFlag = false;
 		this.setBackground(Color.WHITE);
 		formPanel = new JPanel();
@@ -183,8 +185,8 @@ public class CommitmentTab extends JPanel {
 	/**
 	 * Create a commitment tab in editing mode.
 	 */
-	public CommitmentTab(Commitment commToEdit) {
-		this();
+	public CommitmentTab(Commitment commToEdit, int openedFrom) {
+		this(openedFrom);
 		
 
 		
@@ -439,6 +441,7 @@ public class CommitmentTab extends JPanel {
 		spinnerPanel.add(hourSpinner);
 		hourEditor = new JSpinner.DateEditor(hourSpinner, "hh");
 		hourSpinner.setEditor(hourEditor);
+		hourEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 		hourEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
 
 		JLabel colon = new JLabel(":");
@@ -449,12 +452,14 @@ public class CommitmentTab extends JPanel {
 		spinnerPanel.add(minuteSpinner);
 		minuteEditor = new JSpinner.DateEditor(minuteSpinner, "mm");
 		minuteSpinner.setEditor(minuteEditor);
+		minuteEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 		minuteEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
 
 		AMPMSpinner = new JSpinner(new SpinnerDateModelAMPM());
 		AMPMSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		spinnerPanel.add(AMPMSpinner);
 		AMPMEditor = new JSpinner.DateEditor(AMPMSpinner, "a");
+		AMPMEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 		AMPMSpinner.setEditor(AMPMEditor);
 		AMPMEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
 				
@@ -463,7 +468,7 @@ public class CommitmentTab extends JPanel {
 		datePicker.getEditor().setFont(new Font("Tahoma", Font.PLAIN, 13));
 		datePicker.getEditor().setFocusLostBehavior(JFormattedTextField.PERSIST);
 		datePicker.putClientProperty("JDatePicker.backgroundOnEditable", Boolean.TRUE);
-		datePicker.setBackground(CalendarStandard.CalendarYellow);
+		datePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		GridBagConstraints gbc_jdp = new GridBagConstraints();
 		gbc_jdp.insets = new Insets(0, 0, 5, 0);
 		gbc_jdp.fill = GridBagConstraints.HORIZONTAL;
@@ -556,6 +561,9 @@ public class CommitmentTab extends JPanel {
 		AMPMSpinner.setValue(cal.getTime());
 		datePicker.setDate(cal.getTime());
 		cal.setTime((Date) minuteSpinner.getValue());
+		tempHour = cal.get(Calendar.HOUR);
+		tempMin = cal.get(Calendar.MINUTE);
+		
 	}
 	
 	/**
@@ -586,7 +594,7 @@ public class CommitmentTab extends JPanel {
 		catch (IOException ex) {
 		}
 		catch(IllegalArgumentException ex){
-			btnCancel.setText("Save Commitment");
+			btnSaveCommitment.setText("Save Commitment");
 		}
 		// To change cursor as it moves over this button
 		btnSaveCommitment.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -623,7 +631,7 @@ public class CommitmentTab extends JPanel {
 		btnCancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				removeTab();
+				removeTab(openedFrom);
 			}
 		});
 		
@@ -811,7 +819,6 @@ public class CommitmentTab extends JPanel {
 				} catch (ParseException e1) {
 					checkTimeSpinnerStatus(AMPMSpinner);
 					checkSaveBtnStatus();
-					e1.printStackTrace();
 				}
 			}
 		});
@@ -936,8 +943,8 @@ public class CommitmentTab extends JPanel {
 	/**
 	 * Close this commitment tab
 	 */
-	protected void removeTab() {
-		GUIEventController.getInstance().removeCommTab(this, isTeamComm);
+	protected void removeTab(int goTo) {
+		GUIEventController.getInstance().removeCommTab(this, goTo);
 	}
 
 	/**
@@ -1053,7 +1060,7 @@ public class CommitmentTab extends JPanel {
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 
  
-		this.removeTab();
+		this.removeTab(isTeamComm ? 1 : 0);
 
 	}
 	
@@ -1073,7 +1080,7 @@ public class CommitmentTab extends JPanel {
 	}
 		calData.getCommitments().removeCommmitment(editingCommitment.getID());
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
-		removeTab();
+		removeTab(isTeamComm ? 1 : 0);
 	}
 
 	/**
@@ -1174,7 +1181,7 @@ public class CommitmentTab extends JPanel {
 		}
 		else {
 			SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy"); 
-			datePicker.getEditor().setBackground(Color.WHITE);
+			datePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
 			datePicker.getEditor().setText(dt.format(datePicker.getDate()));
 			lblDateError.setVisible(false);
 		}
@@ -1187,7 +1194,7 @@ public class CommitmentTab extends JPanel {
 			lblTimeError.setVisible(true);
 		}
 		else {
-			editor.getTextField().setBackground(Color.WHITE);
+			editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 			lblTimeError.setVisible(false);
 		}
 	}
