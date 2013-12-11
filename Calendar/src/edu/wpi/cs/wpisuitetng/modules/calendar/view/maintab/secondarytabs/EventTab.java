@@ -607,8 +607,11 @@ public class EventTab extends JPanel {
 		//Sets time value of end and start spinners
 		oldStartTime = new GregorianCalendar();
 		setStartDate(oldStartTime);
+		oldStartTime = new GregorianCalendar();
 		setEndDate(oldStartTime);
-		
+		oldStartTime = new GregorianCalendar();
+
+
 		//Add Repeat Label
 		lblRepeat = new JLabel("Repetition:");
 		lblRepeat.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -866,12 +869,25 @@ public class EventTab extends JPanel {
 		
 		
 		
-		//Triggered on enter.
-		startDatePicker.addActionListener(new ActionListener() {
+//		//Triggered on enter.
+//		startDatePicker.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				checkStartDatePickerStatus();
+//				checkSaveBtnStatus();
+//			}
+//		});
+		
+		
+		//Triggered on change.
+		startDatePicker.addPropertyChangeListener(new PropertyChangeListener() {
+			
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void propertyChange(PropertyChangeEvent evt) {
+				// TODO Auto-generated method stub
 				checkStartDatePickerStatus();
 				checkSaveBtnStatus();
+				checkEndBeforeStart();
 			}
 		});
 	
@@ -948,14 +964,26 @@ public class EventTab extends JPanel {
 		
 		
 		
-		//Triggered on enter.
-		endDatePicker.addActionListener(new ActionListener() {
+//		//Triggered on enter.
+//		endDatePicker.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				checkEndDatePickerStatus();
+//				checkSaveBtnStatus();
+//				checkEndBeforeStart();
+//
+//			}
+//		});
+		
+		//Triggered on change.
+		endDatePicker.addPropertyChangeListener(new PropertyChangeListener() {
+			
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void propertyChange(PropertyChangeEvent evt) {
+				// TODO Auto-generated method stub
 				checkEndDatePickerStatus();
 				checkSaveBtnStatus();
 				checkEndBeforeStart();
-
 			}
 		});
 	
@@ -1004,6 +1032,7 @@ public class EventTab extends JPanel {
 				checkSaveBtnStatus();
 				startTempHour = Integer.parseInt(startHourEditor.getTextField().getText().toString());
 				checkStartTimeSpinnerStatus(startHourSpinner);
+
 				updateEndTime();
 			}
 		});
@@ -1065,15 +1094,15 @@ public class EventTab extends JPanel {
 				checkStartTimeSpinnerStatus(startMinuteSpinner);
 				
 				if(currentHour == 1) {
-					cal.setTime((Date) startHourSpinner.getValue());
+					cal.setTime(getStartDate().getTime());
 					cal.add(Calendar.HOUR, 1);  
-					startHourSpinner.setValue(cal.getTime());
+					setStartDate(cal);
 				}
 				
 				if(currentHour == 11) {
-					cal.setTime((Date) startHourSpinner.getValue());
+					cal.setTime(getStartDate().getTime());
 					cal.add(Calendar.HOUR, -1);  
-					startHourSpinner.setValue(cal.getTime());
+					setStartDate(cal);
 				}
 				checkSaveBtnStatus();
 				updateEndTime();
@@ -1259,15 +1288,15 @@ public class EventTab extends JPanel {
 				checkEndTimeSpinnerStatus(endMinuteSpinner);
 				
 				if(currentHour == 1) {
-					cal.setTime((Date) endHourSpinner.getValue());
+					cal.setTime(getEndDate().getTime());
 					cal.add(Calendar.HOUR, 1);  
-					endHourSpinner.setValue(cal.getTime());
+					setEndDate(cal);
 				}
 				
 				if(currentHour == 11) {
-					cal.setTime((Date) endHourSpinner.getValue());
+					cal.setTime(getEndDate().getTime());
 					cal.add(Calendar.HOUR, -1);  
-					endHourSpinner.setValue(cal.getTime());
+					setEndDate(cal);
 				}
 				checkSaveBtnStatus();
 				checkEndBeforeStart();
@@ -1351,8 +1380,10 @@ public class EventTab extends JPanel {
 
 
 	protected void checkEndBeforeStart() {
+		if(initFlag){
 		if(getEndDate().getTime().before(getStartDate().getTime()))
 				setEndDate(getStartDate());
+		}
 	}
 
 
@@ -1360,6 +1391,7 @@ public class EventTab extends JPanel {
 		final long diff = getStartDate().getTime().getTime() - oldStartTime.getTime().getTime();
 		final GregorianCalendar cal = getEndDate();
 		cal.setTime(new Date(cal.getTime().getTime() + diff));
+
 		setEndDate(cal);
 		oldStartTime = getStartDate();
 	}
@@ -1371,7 +1403,9 @@ public class EventTab extends JPanel {
 		cal.setTime(oldStartTime.getTime());
 		final GregorianCalendar calTemp = new GregorianCalendar();
 		calTemp.setTime(startDatePicker.getDate());
-		cal.set(Calendar.DATE, calTemp.get(Calendar.DATE));
+		calTemp.set(Calendar.MILLISECOND, 0);
+		calTemp.set(Calendar.SECOND, 0);
+		cal.setTime(calTemp.getTime());
 		
 
 		calTemp.setTime(startDatePicker.getDate());
@@ -1397,7 +1431,9 @@ public class EventTab extends JPanel {
 		cal.setTime(oldStartTime.getTime());
 		final GregorianCalendar calTemp = new GregorianCalendar();
 		calTemp.setTime(endDatePicker.getDate());
-		cal.set(Calendar.DATE, calTemp.get(Calendar.DATE));
+		calTemp.set(Calendar.MILLISECOND, 0);
+		calTemp.set(Calendar.SECOND, 0);
+		cal.setTime(calTemp.getTime());
 		
 
 		calTemp.setTime(endDatePicker.getDate());
@@ -1421,16 +1457,19 @@ public class EventTab extends JPanel {
 	{
 		endDatePicker.setDate(date.getTime());
 		startHourSpinner.setValue(date.getTime());
-		startMinuteSpinner.setValue(date.getTime());
 		startAMPMSpinner.setValue(date.getTime());
+		date.set(Calendar.HOUR, 0);
+		startMinuteSpinner.setValue(date.getTime());
+
 	}
 	
 	private void setEndDate(GregorianCalendar date)
 	{
 		endDatePicker.setDate(date.getTime());
 		endHourSpinner.setValue(date.getTime());
-		endMinuteSpinner.setValue(date.getTime());
 		endAMPMSpinner.setValue(date.getTime());
+		date.set(Calendar.HOUR, 0);
+		endMinuteSpinner.setValue(date.getTime());
 	}
 	
 	
@@ -1867,6 +1906,7 @@ public class EventTab extends JPanel {
 	}
 	
 	private void checkStartDatePickerStatus() {
+		if(initFlag){
 		if(isBadStartInputDate()) {
 			startDatePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 			lblDateError.setVisible(true);
@@ -1877,9 +1917,11 @@ public class EventTab extends JPanel {
 			startDatePicker.getEditor().setText(dt.format(startDatePicker.getDate()));
 			lblDateError.setVisible(false);
 		}
+		}
 	}
 	
 	private void checkEndDatePickerStatus() {
+		if(initFlag){
 		if(isBadEndInputDate()) {
 			endDatePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 			lblDateError2.setVisible(true);
@@ -1890,9 +1932,11 @@ public class EventTab extends JPanel {
 			endDatePicker.getEditor().setText(dt.format(endDatePicker.getDate()));
 			lblDateError2.setVisible(false);
 		}
+		}
 	}
 	
 	private void checkStartTimeSpinnerStatus(JSpinner spinner) {
+		if(initFlag){
 		final DateEditor editor = (DateEditor)spinner.getEditor();
 		if(isBadInputTime(editor) || startTempHour < 1 || startTempHour > 12 || startTempMin > 59) {
 			editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
@@ -1902,9 +1946,11 @@ public class EventTab extends JPanel {
 			editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 			lblTimeError.setText(" ");
 		}
+		}
 	}
 	
 	private void checkEndTimeSpinnerStatus(JSpinner spinner) {
+		if(initFlag){
 		final DateEditor editor = (DateEditor)spinner.getEditor();
 		if(isBadInputTime(editor) || endTempHour < 1 || endTempHour > 12 || endTempMin > 59) {
 			editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
@@ -1913,6 +1959,7 @@ public class EventTab extends JPanel {
 		else {
 			editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 			lblTimeError2.setText(" ");
+		}
 		}
 	}
 	
