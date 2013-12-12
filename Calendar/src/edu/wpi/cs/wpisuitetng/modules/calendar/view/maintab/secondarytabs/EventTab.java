@@ -608,6 +608,7 @@ public class EventTab extends JPanel {
 		oldStartTime = new GregorianCalendar();
 		setStartDate(oldStartTime);
 		oldStartTime = new GregorianCalendar();
+		oldStartTime.add(Calendar.MINUTE, 30);
 		setEndDate(oldStartTime);
 		oldStartTime = new GregorianCalendar();
 
