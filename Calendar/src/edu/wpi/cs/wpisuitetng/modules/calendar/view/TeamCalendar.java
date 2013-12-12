@@ -110,7 +110,6 @@ public class TeamCalendar extends AbCalendar {
 			}
 				commitments = getCalData().getCommitments();
 				events = combinedEventList;
-			
 		}
 	}
 

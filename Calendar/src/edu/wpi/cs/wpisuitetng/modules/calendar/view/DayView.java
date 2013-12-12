@@ -68,9 +68,9 @@ public class DayView extends CalendarView {
 			}
 		}
 
-
 		if (showCommOnCal)
 			try {
+				
 				dayPane.displayEvents(eventList.filter(day));
 				dayPane.displayCommitments(commList.filter(day));
 			} catch (CalendarException e) {

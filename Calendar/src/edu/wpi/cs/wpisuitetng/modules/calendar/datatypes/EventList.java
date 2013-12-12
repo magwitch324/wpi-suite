@@ -41,7 +41,7 @@ public class EventList extends CalendarObjectList<Event> {
 		if (calendarObjects.size() != 0) {
 			while (i < calendarObjects.size()) {
 				if (newEvent.getStartTime().before(
-						calendarObjects.get(i).getEndTime())) {
+						calendarObjects.get(i).getStartTime())) {
 					break;
 				}
 				i++;

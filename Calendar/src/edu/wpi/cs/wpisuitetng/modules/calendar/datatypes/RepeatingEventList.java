@@ -45,7 +45,7 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 		if (calendarObjects.size() != 0) {
 			while (i < calendarObjects.size()) {//adds the event in order
 				if (newEvent.getStartTime().before(
-						calendarObjects.get(i).getEndTime())) {
+						calendarObjects.get(i).getStartTime())) {
 					break;
 				}
 				i++;

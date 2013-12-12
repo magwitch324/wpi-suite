@@ -364,7 +364,7 @@ public class DayDayPane extends JPanel {
 		//sorting check
 		if (commList != null) {
 			
-			for(Commitment comm : commList){
+			/*for(Commitment comm : commList){
 				int index = 0;
 				for(Commitment comp : commlist){
 					if(comp.getDueDate().after(comm.getDueDate())){
@@ -374,7 +374,9 @@ public class DayDayPane extends JPanel {
 				}
 				
 				commlist.add(index, comm);
-			}
+				}*/
+			commlist.addAll(commList);
+			
 			
 		} else {
 
@@ -395,7 +397,7 @@ public class DayDayPane extends JPanel {
 		else{
 			eventlist = eventList;
 		}
-
+/*
 		eventlist = new ArrayList<Event>();
 		//sorting check
 		if (eventList != null) {
@@ -412,7 +414,7 @@ public class DayDayPane extends JPanel {
 			}
 		} else {
 			
-		}
+		}*/	
 		merge();
 		updatepane();
 	}
