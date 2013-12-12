@@ -101,8 +101,8 @@ public class EventTab extends JPanel {
 	private JLabel lblType;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JButton btnCancel;
-	private Date tmpDate = new Date(); //user for convert the date to default format
-	private String inputDate = (new SimpleDateFormat("MM/dd/yyyy").format(tmpDate)); //the date user input
+	private final Date tmpDate = new Date(); //user for convert the date to default format
+	private final String inputDate = (new SimpleDateFormat("MM/dd/yyyy").format(tmpDate)); //the date user input
 	private boolean badDate;
 	private boolean badTime;
 	private Event editingEvent;
@@ -159,7 +159,7 @@ public class EventTab extends JPanel {
 	private enum EditingMode {
 		ADDING(0),
 		EDITING(1);
-		private int currentMode;
+		private final int currentMode;
 		
 		private EditingMode(int currentMode) {
 			this.currentMode = currentMode;
@@ -173,10 +173,10 @@ public class EventTab extends JPanel {
 		this.openedFrom = openedFrom;
 		initFlag = false;
 		
-		GridBagLayout gridBagLayout = new GridBagLayout();
+		final GridBagLayout gridBagLayout = new GridBagLayout();
 		setLayout(gridBagLayout);
-		JPanel spacePanel1 = new JPanel();
-		JPanel spacePanel2 = new JPanel();
+		final JPanel spacePanel1 = new JPanel();
+		final JPanel spacePanel2 = new JPanel();
 		formPanel = new JPanel();
 		formPanel.setBackground(Color.WHITE);
 		formPanel.setPreferredSize(new Dimension(500,600));
@@ -205,7 +205,7 @@ public class EventTab extends JPanel {
 		add(spacePanel2, constraints);
 		
 		// form uses GridBagLayout w/ two columns
-		GridBagLayout gbl = new GridBagLayout();
+		final GridBagLayout gbl = new GridBagLayout();
 		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		gbl.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0};
 		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -213,9 +213,9 @@ public class EventTab extends JPanel {
 		formPanel.setLayout(gbl);
 		
 		//Name label
-		JLabel lblName = new JLabel("Name:");
+		final JLabel lblName = new JLabel("Name:");
 		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc = new GridBagConstraints();
+		final GridBagConstraints gbc = new GridBagConstraints();
 		gbc.anchor = GridBagConstraints.EAST;
 		gbc.insets = new Insets(0, 0, 5, 5);
         gbc.fill = GridBagConstraints.VERTICAL;
@@ -243,9 +243,9 @@ public class EventTab extends JPanel {
 		
 		
 		//Description label
-		JLabel lblDesc = new JLabel("Description:");
+		final JLabel lblDesc = new JLabel("Description:");
 		lblDesc.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblDesc = new GridBagConstraints();
+		final GridBagConstraints gbc_lblDesc = new GridBagConstraints();
 		gbc_lblDesc.fill = GridBagConstraints.BOTH;
 		gbc_lblDesc.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDesc.gridx = 0;
@@ -264,7 +264,7 @@ public class EventTab extends JPanel {
 //		descPane.setViewportView(descriptionTextArea);
 		descriptionTextArea.setLineWrap(true);
 		descriptionTextArea.setBackground(CalendarStandard.CalendarYellow);
-		GridBagConstraints gbc_descriptionTextField = new GridBagConstraints();
+		final GridBagConstraints gbc_descriptionTextField = new GridBagConstraints();
 		gbc_descriptionTextField.gridwidth = 3;
 		gbc_descriptionTextField.fill = GridBagConstraints.BOTH;
 		gbc_descriptionTextField.insets = new Insets(0, 0, 5, 0);
@@ -280,9 +280,9 @@ public class EventTab extends JPanel {
 		
 		
 		//Category label
-		JLabel lblCategory = new JLabel("Category:");
+		final JLabel lblCategory = new JLabel("Category:");
 		lblCategory.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblCategory = new GridBagConstraints();
+		final GridBagConstraints gbc_lblCategory = new GridBagConstraints();
 		gbc_lblCategory.anchor = GridBagConstraints.EAST;
 		gbc_lblCategory.insets = new Insets(0, 0, 5, 5);
 		gbc_lblCategory.gridx = 0;
@@ -297,7 +297,7 @@ public class EventTab extends JPanel {
 		categoryComboBox.addItem(new Category(4, "Cat1"));
 		categoryComboBox.addItem(new Category(5, "Cat2"));
 
-		GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
+		final GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
 		gbc_categoryComboBox.gridwidth = 3;
 		gbc_categoryComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_categoryComboBox.insets = new Insets(0, 0, 5, 0);
@@ -311,7 +311,7 @@ public class EventTab extends JPanel {
 		
 		lblType = new JLabel("Type:");
 		lblType.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblType = new GridBagConstraints();
+		final GridBagConstraints gbc_lblType = new GridBagConstraints();
 		gbc_lblType.anchor = GridBagConstraints.EAST;
 		gbc_lblType.insets = new Insets(0, 0, 5, 5);
 		gbc_lblType.gridx = 0;
@@ -320,7 +320,7 @@ public class EventTab extends JPanel {
 		
 		panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
-		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		final GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.gridwidth = 3;
 		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
@@ -341,9 +341,9 @@ public class EventTab extends JPanel {
 		rdbtnTeam.setSelected(true);
 		
 		//Date label
-		JLabel lblDate_1 = new JLabel("Start Date:");
+		final JLabel lblDate_1 = new JLabel("Start Date:");
 		lblDate_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblDate_1 = new GridBagConstraints();
+		final GridBagConstraints gbc_lblDate_1 = new GridBagConstraints();
 		gbc_lblDate_1.fill = GridBagConstraints.VERTICAL;
 		gbc_lblDate_1.anchor = GridBagConstraints.EAST;
 		gbc_lblDate_1.insets = new Insets(0, 0, 5, 5);
@@ -354,9 +354,9 @@ public class EventTab extends JPanel {
 		formPanel.add(lblDate_1, gbc_lblDate_1);
 		
 		//Time label
-		JLabel lblTime = new JLabel("Start Time:");
+		final JLabel lblTime = new JLabel("Start Time:");
 		lblTime.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblTime = new GridBagConstraints();
+		final GridBagConstraints gbc_lblTime = new GridBagConstraints();
 		gbc_lblTime.anchor = GridBagConstraints.EAST;
 		gbc_lblTime.fill = GridBagConstraints.VERTICAL;
 		gbc_lblTime.insets = new Insets(0, 0, 5, 5);
@@ -404,7 +404,7 @@ public class EventTab extends JPanel {
 		startAMPMEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 		startAMPMSpinner.setEditor(startAMPMEditor);
 		startAMPMEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
-		GridBagConstraints gbc_startspinner = new GridBagConstraints();
+		final GridBagConstraints gbc_startspinner = new GridBagConstraints();
 		gbc_startspinner.fill = GridBagConstraints.HORIZONTAL;
 		gbc_startspinner.insets = new Insets(0, 0, 5, 0);
 		gbc_startspinner.gridx = 3;
@@ -419,7 +419,7 @@ public class EventTab extends JPanel {
 		//Invalid Time label
 		lblTimeError = new JLabel(" ");
 		lblTimeError.setHorizontalAlignment(SwingConstants.CENTER);
-		GridBagConstraints gbc_lblTimeError = new GridBagConstraints();
+		final GridBagConstraints gbc_lblTimeError = new GridBagConstraints();
 		gbc_lblTimeError.insets = new Insets(0, 0, 5, 0);
 		gbc_lblTimeError.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblTimeError.gridx = 3;
@@ -432,7 +432,7 @@ public class EventTab extends JPanel {
 		lblDateError = new JLabel("<html><font color='red'>Please enter a valid date (MM/DD/YYYY).</font></html>");
 		lblDateError.setVisible(false);
 		lblDateError.setHorizontalAlignment(SwingConstants.LEFT);
-		GridBagConstraints gbc_lblDateError = new GridBagConstraints();
+		final GridBagConstraints gbc_lblDateError = new GridBagConstraints();
 		gbc_lblDateError.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDateError.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblDateError.gridx = 1;
@@ -447,7 +447,7 @@ public class EventTab extends JPanel {
 		//DatePicker box
 		startDatePicker = new JXDatePicker();
 		startDatePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
-		GridBagConstraints gbc_jdp = new GridBagConstraints();
+		final GridBagConstraints gbc_jdp = new GridBagConstraints();
 		gbc_jdp.insets = new Insets(0, 0, 5, 5);
 		gbc_jdp.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jdp.gridx = 1;
@@ -458,8 +458,8 @@ public class EventTab extends JPanel {
 		//Calendar calendar = startDatePicker.getMonthView().getCalendar();
 		//calendar.setTime(new Date());
 		//startDatePicker.getMonthView().setLowerBound(calendar.getTime());
-		SimpleDateFormat format1 = new SimpleDateFormat( "MM/dd/yyyy" );
-		SimpleDateFormat format2 = new SimpleDateFormat( "MM.dd.yyyy" );
+		final SimpleDateFormat format1 = new SimpleDateFormat( "MM/dd/yyyy" );
+		final SimpleDateFormat format2 = new SimpleDateFormat( "MM.dd.yyyy" );
 		startDatePicker.setFormats(new DateFormat[] {format1, format2});
 		
 		
@@ -471,9 +471,9 @@ public class EventTab extends JPanel {
 		//End Date/Time Forms
 		
 		//Date label
-		JLabel lblDate_2 = new JLabel("End Date:");
+		final JLabel lblDate_2 = new JLabel("End Date:");
 		lblDate_2.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblDate_2 = new GridBagConstraints();
+		final GridBagConstraints gbc_lblDate_2 = new GridBagConstraints();
 		gbc_lblDate_2.fill = GridBagConstraints.VERTICAL;
 		gbc_lblDate_2.anchor = GridBagConstraints.EAST;
 		gbc_lblDate_2.insets = new Insets(0, 0, 5, 5);
@@ -484,9 +484,9 @@ public class EventTab extends JPanel {
 		formPanel.add(lblDate_2, gbc_lblDate_2);
 		
 		//Time2 label
-		JLabel lblTime2 = new JLabel("End Time:");
+		final JLabel lblTime2 = new JLabel("End Time:");
 		lblTime2.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblTime2 = new GridBagConstraints();
+		final GridBagConstraints gbc_lblTime2 = new GridBagConstraints();
 		gbc_lblTime2.anchor = GridBagConstraints.EAST;
 		gbc_lblTime2.fill = GridBagConstraints.VERTICAL;
 		gbc_lblTime2.insets = new Insets(0, 0, 5, 5);
@@ -534,7 +534,7 @@ public class EventTab extends JPanel {
 		endAMPMEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 		endAMPMSpinner.setEditor(endAMPMEditor);
 		endAMPMEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
-		GridBagConstraints gbc_spinner2 = new GridBagConstraints();
+		final GridBagConstraints gbc_spinner2 = new GridBagConstraints();
 		gbc_spinner2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_spinner2.insets = new Insets(0, 0, 5, 0);
 		gbc_spinner2.gridx = 3;
@@ -549,7 +549,7 @@ public class EventTab extends JPanel {
 		//Invalid Time label
 		lblTimeError2 = new JLabel(" ");
 		lblTimeError2.setHorizontalAlignment(SwingConstants.CENTER);
-		GridBagConstraints gbc_lblTimeError2 = new GridBagConstraints();
+		final GridBagConstraints gbc_lblTimeError2 = new GridBagConstraints();
 		gbc_lblTimeError2.insets = new Insets(0, 0, 5, 0);
 		gbc_lblTimeError2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblTimeError2.gridx = 3;
@@ -562,7 +562,7 @@ public class EventTab extends JPanel {
 		lblDateError2 = new JLabel("<html><font color='red'>Please enter a valid date (MM/DD/YYYY).</font></html>");
 		lblDateError2.setVisible(false);
 		lblDateError2.setHorizontalAlignment(SwingConstants.LEFT);
-		GridBagConstraints gbc_lblDateError2 = new GridBagConstraints();
+		final GridBagConstraints gbc_lblDateError2 = new GridBagConstraints();
 		gbc_lblDateError2.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDateError2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblDateError2.gridx = 1;
@@ -578,7 +578,7 @@ public class EventTab extends JPanel {
 		//DatePicker box
 		endDatePicker = new JXDatePicker();
 		endDatePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
-		GridBagConstraints gbc_jdp2 = new GridBagConstraints();
+		final GridBagConstraints gbc_jdp2 = new GridBagConstraints();
 		gbc_jdp2.insets = new Insets(0, 0, 5, 5);
 		gbc_jdp2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jdp2.gridx = 1;
@@ -591,7 +591,7 @@ public class EventTab extends JPanel {
 		//startDatePicker.getMonthView().setLowerBound(calendar.getTime());
 		endDatePicker.setFormats(new DateFormat[] {format1, format2});
 		
-		GregorianCalendar c = new GregorianCalendar();
+		final GregorianCalendar c = new GregorianCalendar();
 	    c.set(Calendar.HOUR_OF_DAY, 0);
 	    c.set(Calendar.MINUTE, 0);
 	    c.set(Calendar.SECOND, 0);
@@ -607,12 +607,15 @@ public class EventTab extends JPanel {
 		//Sets time value of end and start spinners
 		oldStartTime = new GregorianCalendar();
 		setStartDate(oldStartTime);
+		oldStartTime = new GregorianCalendar();
 		setEndDate(oldStartTime);
-		
+		oldStartTime = new GregorianCalendar();
+
+
 		//Add Repeat Label
 		lblRepeat = new JLabel("Repetition:");
 		lblRepeat.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblRepeat = new GridBagConstraints();
+		final GridBagConstraints gbc_lblRepeat = new GridBagConstraints();
 		gbc_lblRepeat.anchor = GridBagConstraints.EAST;
 		gbc_lblRepeat.fill = GridBagConstraints.VERTICAL;
 		gbc_lblRepeat.insets = new Insets(0, 0, 5, 5);
@@ -624,7 +627,7 @@ public class EventTab extends JPanel {
 		//Add Repeat Checkbox
 		repeatCheckBox = new JCheckBox("Repeats?");
 		repeatCheckBox.setBackground(Color.WHITE);
-		GridBagConstraints gbc_repeatCheckBox = new GridBagConstraints();
+		final GridBagConstraints gbc_repeatCheckBox = new GridBagConstraints();
 		gbc_repeatCheckBox.gridwidth = 1;
 		gbc_repeatCheckBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_repeatCheckBox.insets = new Insets(0, 0, 5, 0);
@@ -648,7 +651,7 @@ public class EventTab extends JPanel {
 		//Add Repeat type Label
 		lblRepeatType = new JLabel("Repeat Type");
 		lblRepeatType.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblRepeatType = new GridBagConstraints();
+		final GridBagConstraints gbc_lblRepeatType = new GridBagConstraints();
 		gbc_lblRepeatType.anchor = GridBagConstraints.EAST;
 		gbc_lblRepeatType.fill = GridBagConstraints.VERTICAL;
 		gbc_lblRepeatType.insets = new Insets(0, 0, 5, 5);
@@ -658,11 +661,11 @@ public class EventTab extends JPanel {
 		formPanel.add(lblRepeatType, gbc_lblRepeatType);
 		
 		//Add Repeat ComboBox
-		String[] repeatStrings = {"Daily", "Weekly", "Monthly"};
+		final String[] repeatStrings = {"Daily", "Weekly", "Monthly"};
 		repeatTypeComboBox = new JComboBox<String>(repeatStrings);
 		repeatTypeComboBox.setBackground(CalendarStandard.CalendarYellow);
 		repeatTypeComboBox.setSelectedIndex(0);
-		GridBagConstraints gbc_repeatTypeComboBox = new GridBagConstraints();
+		final GridBagConstraints gbc_repeatTypeComboBox = new GridBagConstraints();
 		gbc_repeatTypeComboBox.gridwidth = 1;
 		gbc_repeatTypeComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_repeatTypeComboBox.insets = new Insets(0, 0, 5, 0);
@@ -686,7 +689,7 @@ public class EventTab extends JPanel {
 		//Add Repetitions Label
 		lblNumberRepetitions = new JLabel("# of Occurrences:");
 		lblNumberRepetitions.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_lblNumberRepetitions = new GridBagConstraints();
+		final GridBagConstraints gbc_lblNumberRepetitions = new GridBagConstraints();
 		gbc_lblNumberRepetitions.anchor = GridBagConstraints.EAST;
 		gbc_lblNumberRepetitions.fill = GridBagConstraints.VERTICAL;
 		gbc_lblNumberRepetitions.insets = new Insets(0, 0, 5, 5);
@@ -698,7 +701,7 @@ public class EventTab extends JPanel {
 		//Add Repeat Text Field
 		repeatAmt = new JTextField();
 		repeatAmt.setBackground(CalendarStandard.CalendarYellow);
-		GridBagConstraints gbc_repeatAmt = new GridBagConstraints();
+		final GridBagConstraints gbc_repeatAmt = new GridBagConstraints();
 		gbc_repeatAmt.gridwidth = 3;
 		gbc_repeatAmt.fill = GridBagConstraints.HORIZONTAL;
 		gbc_repeatAmt.insets = new Insets(0, 0, 5, 0);
@@ -735,7 +738,7 @@ public class EventTab extends JPanel {
 		//Add Event button
 		
 		try {
-			Image img = ImageIO.read(getClass().getResource("Save_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource("Save_Icon.png"));
 			btnAddEvent = new JButton("Save Event", new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
@@ -759,7 +762,7 @@ public class EventTab extends JPanel {
 		
 		
 		
-		GridBagConstraints gbc_btnPanel = new GridBagConstraints();
+		final GridBagConstraints gbc_btnPanel = new GridBagConstraints();
 		gbc_btnPanel.gridwidth = 3;
 		gbc_btnPanel.insets = new Insets(0, 0, 0, 5);
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
@@ -811,11 +814,11 @@ public class EventTab extends JPanel {
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				String txt = startDatePicker.getEditor().getText();
+				final String txt = startDatePicker.getEditor().getText();
 				try {
 					startDatePicker.getEditor().commitEdit();
 					
-					GregorianCalendar cal = new GregorianCalendar();
+					final GregorianCalendar cal = new GregorianCalendar();
 					cal.setTime(startDatePicker.getDate());
 					
 					if(cal.get(Calendar.YEAR) < 1900) {
@@ -854,7 +857,7 @@ public class EventTab extends JPanel {
 		
 		startDatePicker.getEditor().addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
-                char vChar = e.getKeyChar();
+            	final char vChar = e.getKeyChar();
                 if (!(Character.isDigit(vChar)
                 		|| (vChar == '/')
                         || (vChar == KeyEvent.VK_BACK_SPACE)
@@ -866,12 +869,25 @@ public class EventTab extends JPanel {
 		
 		
 		
-		//Triggered on enter.
-		startDatePicker.addActionListener(new ActionListener() {
+//		//Triggered on enter.
+//		startDatePicker.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				checkStartDatePickerStatus();
+//				checkSaveBtnStatus();
+//			}
+//		});
+		
+		
+		//Triggered on change.
+		startDatePicker.addPropertyChangeListener(new PropertyChangeListener() {
+			
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void propertyChange(PropertyChangeEvent evt) {
+				// TODO Auto-generated method stub
 				checkStartDatePickerStatus();
 				checkSaveBtnStatus();
+				checkEndBeforeStart();
 			}
 		});
 	
@@ -891,11 +907,11 @@ public class EventTab extends JPanel {
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				String txt = endDatePicker.getEditor().getText();
+				final String txt = endDatePicker.getEditor().getText();
 				try {
 					endDatePicker.getEditor().commitEdit();
 					
-					GregorianCalendar cal = new GregorianCalendar();
+					final GregorianCalendar cal = new GregorianCalendar();
 					cal.setTime(endDatePicker.getDate());
 					
 					if(cal.get(Calendar.YEAR) < 1900) {
@@ -936,7 +952,7 @@ public class EventTab extends JPanel {
 		
 		endDatePicker.getEditor().addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
-                char vChar = e.getKeyChar();
+            	final char vChar = e.getKeyChar();
                 if (!(Character.isDigit(vChar)
                 		|| (vChar == '/')
                         || (vChar == KeyEvent.VK_BACK_SPACE)
@@ -948,14 +964,26 @@ public class EventTab extends JPanel {
 		
 		
 		
-		//Triggered on enter.
-		endDatePicker.addActionListener(new ActionListener() {
+//		//Triggered on enter.
+//		endDatePicker.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				checkEndDatePickerStatus();
+//				checkSaveBtnStatus();
+//				checkEndBeforeStart();
+//
+//			}
+//		});
+		
+		//Triggered on change.
+		endDatePicker.addPropertyChangeListener(new PropertyChangeListener() {
+			
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void propertyChange(PropertyChangeEvent evt) {
+				// TODO Auto-generated method stub
 				checkEndDatePickerStatus();
 				checkSaveBtnStatus();
 				checkEndBeforeStart();
-
 			}
 		});
 	
@@ -985,7 +1013,7 @@ public class EventTab extends JPanel {
 		
 		startHourEditor.getTextField().addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
-                char vChar = e.getKeyChar();
+            	final char vChar = e.getKeyChar();
                 if (!(Character.isDigit(vChar)
                         || (vChar == KeyEvent.VK_BACK_SPACE)
                         || (vChar == KeyEvent.VK_DELETE))) {
@@ -1004,6 +1032,7 @@ public class EventTab extends JPanel {
 				checkSaveBtnStatus();
 				startTempHour = Integer.parseInt(startHourEditor.getTextField().getText().toString());
 				checkStartTimeSpinnerStatus(startHourSpinner);
+
 				updateEndTime();
 			}
 		});
@@ -1044,7 +1073,7 @@ public class EventTab extends JPanel {
 		
 		startMinuteEditor.getTextField().addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
-                char vChar = e.getKeyChar();
+            	final char vChar = e.getKeyChar();
                 if (!(Character.isDigit(vChar)
                         || (vChar == KeyEvent.VK_BACK_SPACE)
                         || (vChar == KeyEvent.VK_DELETE))) {
@@ -1058,22 +1087,22 @@ public class EventTab extends JPanel {
 		 */
 		startMinuteSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				GregorianCalendar cal = new GregorianCalendar();
+				final GregorianCalendar cal = new GregorianCalendar();
 				cal.setTime((Date) startMinuteSpinner.getValue());
-				int currentHour = cal.get(Calendar.HOUR);
+				final int currentHour = cal.get(Calendar.HOUR);
 				startTempMin = Integer.parseInt(startMinuteEditor.getTextField().getText().toString());
 				checkStartTimeSpinnerStatus(startMinuteSpinner);
 				
 				if(currentHour == 1) {
-					cal.setTime((Date) startHourSpinner.getValue());
+					cal.setTime(getStartDate().getTime());
 					cal.add(Calendar.HOUR, 1);  
-					startHourSpinner.setValue(cal.getTime());
+					setStartDate(cal);
 				}
 				
 				if(currentHour == 11) {
-					cal.setTime((Date) startHourSpinner.getValue());
+					cal.setTime(getStartDate().getTime());
 					cal.add(Calendar.HOUR, -1);  
-					startHourSpinner.setValue(cal.getTime());
+					setStartDate(cal);
 				}
 				checkSaveBtnStatus();
 				updateEndTime();
@@ -1115,7 +1144,7 @@ public class EventTab extends JPanel {
 		
 		startAMPMEditor.getTextField().addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
-                char vChar = e.getKeyChar();
+            	final char vChar = e.getKeyChar();
                 if (!((vChar == 'A')
                 		|| (vChar == 'P')
                 		|| (vChar == 'M')
@@ -1179,7 +1208,7 @@ public class EventTab extends JPanel {
 		
 		endHourEditor.getTextField().addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
-                char vChar = e.getKeyChar();
+            	final char vChar = e.getKeyChar();
                 if (!(Character.isDigit(vChar)
                         || (vChar == KeyEvent.VK_BACK_SPACE)
                         || (vChar == KeyEvent.VK_DELETE))) {
@@ -1238,7 +1267,7 @@ public class EventTab extends JPanel {
 		
 		endMinuteEditor.getTextField().addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
-                char vChar = e.getKeyChar();
+            	final char vChar = e.getKeyChar();
                 if (!(Character.isDigit(vChar)
                         || (vChar == KeyEvent.VK_BACK_SPACE)
                         || (vChar == KeyEvent.VK_DELETE))) {
@@ -1252,22 +1281,22 @@ public class EventTab extends JPanel {
 		 */
 		endMinuteSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				GregorianCalendar cal = new GregorianCalendar();
+				final GregorianCalendar cal = new GregorianCalendar();
 				cal.setTime((Date) endMinuteSpinner.getValue());
-				int currentHour = cal.get(Calendar.HOUR);
+				final int currentHour = cal.get(Calendar.HOUR);
 				endTempMin = Integer.parseInt(endMinuteEditor.getTextField().getText().toString());
 				checkEndTimeSpinnerStatus(endMinuteSpinner);
 				
 				if(currentHour == 1) {
-					cal.setTime((Date) endHourSpinner.getValue());
+					cal.setTime(getEndDate().getTime());
 					cal.add(Calendar.HOUR, 1);  
-					endHourSpinner.setValue(cal.getTime());
+					setEndDate(cal);
 				}
 				
 				if(currentHour == 11) {
-					cal.setTime((Date) endHourSpinner.getValue());
+					cal.setTime(getEndDate().getTime());
 					cal.add(Calendar.HOUR, -1);  
-					endHourSpinner.setValue(cal.getTime());
+					setEndDate(cal);
 				}
 				checkSaveBtnStatus();
 				checkEndBeforeStart();
@@ -1309,7 +1338,7 @@ public class EventTab extends JPanel {
 		
 		endAMPMEditor.getTextField().addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
-                char vChar = e.getKeyChar();
+            	final char vChar = e.getKeyChar();
                 if (!((vChar == 'A')
                 		|| (vChar == 'P')
                 		|| (vChar == 'M')
@@ -1351,15 +1380,18 @@ public class EventTab extends JPanel {
 
 
 	protected void checkEndBeforeStart() {
+		if(initFlag){
 		if(getEndDate().getTime().before(getStartDate().getTime()))
 				setEndDate(getStartDate());
+		}
 	}
 
 
 	protected void updateEndTime() {
-		long diff = getStartDate().getTime().getTime() - oldStartTime.getTime().getTime();
-		GregorianCalendar cal = getEndDate();
+		final long diff = getStartDate().getTime().getTime() - oldStartTime.getTime().getTime();
+		final GregorianCalendar cal = getEndDate();
 		cal.setTime(new Date(cal.getTime().getTime() + diff));
+
 		setEndDate(cal);
 		oldStartTime = getStartDate();
 	}
@@ -1367,11 +1399,13 @@ public class EventTab extends JPanel {
 
 	private GregorianCalendar getStartDate()
 	{
-		GregorianCalendar cal = new GregorianCalendar();
+		final GregorianCalendar cal = new GregorianCalendar();
 		cal.setTime(oldStartTime.getTime());
-		GregorianCalendar calTemp = new GregorianCalendar();
+		final GregorianCalendar calTemp = new GregorianCalendar();
 		calTemp.setTime(startDatePicker.getDate());
-		cal.set(Calendar.DATE, calTemp.get(Calendar.DATE));
+		calTemp.set(Calendar.MILLISECOND, 0);
+		calTemp.set(Calendar.SECOND, 0);
+		cal.setTime(calTemp.getTime());
 		
 
 		calTemp.setTime(startDatePicker.getDate());
@@ -1393,11 +1427,13 @@ public class EventTab extends JPanel {
 	
 	private GregorianCalendar getEndDate()
 	{
-		GregorianCalendar cal = new GregorianCalendar();
+		final GregorianCalendar cal = new GregorianCalendar();
 		cal.setTime(oldStartTime.getTime());
-		GregorianCalendar calTemp = new GregorianCalendar();
+		final GregorianCalendar calTemp = new GregorianCalendar();
 		calTemp.setTime(endDatePicker.getDate());
-		cal.set(Calendar.DATE, calTemp.get(Calendar.DATE));
+		calTemp.set(Calendar.MILLISECOND, 0);
+		calTemp.set(Calendar.SECOND, 0);
+		cal.setTime(calTemp.getTime());
 		
 
 		calTemp.setTime(endDatePicker.getDate());
@@ -1421,16 +1457,19 @@ public class EventTab extends JPanel {
 	{
 		endDatePicker.setDate(date.getTime());
 		startHourSpinner.setValue(date.getTime());
-		startMinuteSpinner.setValue(date.getTime());
 		startAMPMSpinner.setValue(date.getTime());
+		date.set(Calendar.HOUR, 0);
+		startMinuteSpinner.setValue(date.getTime());
+
 	}
 	
 	private void setEndDate(GregorianCalendar date)
 	{
 		endDatePicker.setDate(date.getTime());
 		endHourSpinner.setValue(date.getTime());
-		endMinuteSpinner.setValue(date.getTime());
 		endAMPMSpinner.setValue(date.getTime());
+		date.set(Calendar.HOUR, 0);
+		endMinuteSpinner.setValue(date.getTime());
 	}
 	
 	
@@ -1561,7 +1600,7 @@ public class EventTab extends JPanel {
 		
 		// Add Delete Button
 		try {
-			Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
 			btnDelete = new JButton("Delete Event", new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
@@ -1795,7 +1834,7 @@ public class EventTab extends JPanel {
 	private boolean isBadStartInputDate() {
 		boolean result;
 		Date date = null;
-		GregorianCalendar cal = new GregorianCalendar();
+		final GregorianCalendar cal = new GregorianCalendar();
 		if(startDatePicker.getDate() == null) {
 			result = true;
 		}
@@ -1834,7 +1873,7 @@ public class EventTab extends JPanel {
 	private boolean isBadEndInputDate() {
 		boolean result;
 		Date date = null;
-		GregorianCalendar cal = new GregorianCalendar();
+		final GregorianCalendar cal = new GregorianCalendar();
 		if(endDatePicker.getDate() == null) {
 			result = true;
 		}
@@ -1867,33 +1906,38 @@ public class EventTab extends JPanel {
 	}
 	
 	private void checkStartDatePickerStatus() {
+		if(initFlag){
 		if(isBadStartInputDate()) {
 			startDatePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 			lblDateError.setVisible(true);
 		}
 		else {
-			SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy"); 
+			final SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy"); 
 			startDatePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
 			startDatePicker.getEditor().setText(dt.format(startDatePicker.getDate()));
 			lblDateError.setVisible(false);
 		}
+		}
 	}
 	
 	private void checkEndDatePickerStatus() {
+		if(initFlag){
 		if(isBadEndInputDate()) {
 			endDatePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 			lblDateError2.setVisible(true);
 		}
 		else {
-			SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy"); 
+			final SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy"); 
 			endDatePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
 			endDatePicker.getEditor().setText(dt.format(endDatePicker.getDate()));
 			lblDateError2.setVisible(false);
 		}
+		}
 	}
 	
 	private void checkStartTimeSpinnerStatus(JSpinner spinner) {
-		DateEditor editor = (DateEditor)spinner.getEditor();
+		if(initFlag){
+		final DateEditor editor = (DateEditor)spinner.getEditor();
 		if(isBadInputTime(editor) || startTempHour < 1 || startTempHour > 12 || startTempMin > 59) {
 			editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 			lblTimeError.setText("<html><font color='red'>Please enter a valid time.</font></html>");
@@ -1902,10 +1946,12 @@ public class EventTab extends JPanel {
 			editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 			lblTimeError.setText(" ");
 		}
+		}
 	}
 	
 	private void checkEndTimeSpinnerStatus(JSpinner spinner) {
-		DateEditor editor = (DateEditor)spinner.getEditor();
+		if(initFlag){
+		final DateEditor editor = (DateEditor)spinner.getEditor();
 		if(isBadInputTime(editor) || endTempHour < 1 || endTempHour > 12 || endTempMin > 59) {
 			editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 			lblTimeError2.setText("<html><font color='red'>Please enter a valid time.</font></html>");
@@ -1914,11 +1960,12 @@ public class EventTab extends JPanel {
 			editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 			lblTimeError2.setText(" ");
 		}
+		}
 	}
 	
 	private boolean isBadInputTime(DateEditor editor) {
 		boolean result;
-		SimpleDateFormat format = editor.getFormat();
+		final SimpleDateFormat format = editor.getFormat();
 		Date date = null;
 		
 		try {

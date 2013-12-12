@@ -25,7 +25,7 @@ public class CalendarPropsModel extends AbstractListModel {
 	/**
 	 * The list in which all the CalendarProps for a single project are contained
 	 */
-	private List<CalendarProps> CalendarPropss;
+	private final List<CalendarProps> CalendarPropss;
 	private int nextID; // the next available ID number for the CalendarProps that are added.
 	
 	//the static object to allow the category model to be 
@@ -140,8 +140,8 @@ public class CalendarPropsModel extends AbstractListModel {
 	 * from the model.
 	 */
 	public void emptyModel() {
-		int oldSize = getSize();
-		Iterator<CalendarProps> iterator = CalendarPropss.iterator();
+		final int oldSize = getSize();
+		final Iterator<CalendarProps> iterator = CalendarPropss.iterator();
 		while (iterator.hasNext()) {
 			iterator.next();
 			iterator.remove();

@@ -30,13 +30,13 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons.ButtonsPanel
 public class Calendar implements IJanewayModule {
 	
 	/** The tabs used by this module */
-	private List<JanewayTabModel> tabs;
+	private final List<JanewayTabModel> tabs;
 	//public final MainTabController mainTabController;
 	//public ToolbarController toolbarController;
 
 	public Calendar() {
 		//MainTab
-		MainTabView mainPanel = new MainTabView(); 
+		final MainTabView mainPanel = new MainTabView(); 
 		//mainTabController = new MainTabController(mainPanel);
 		
 		/*
@@ -48,7 +48,7 @@ public class Calendar implements IJanewayModule {
 		*/
 		
 		
-		ToolbarView toolbarPanel = new ToolbarView(false);
+		final ToolbarView toolbarPanel = new ToolbarView(false);
 		/*toolbarPanel.setLayout(new FlowLayout());
 		toolbarPanel.add(new JButton("<html>Create<br />Commitment</html>"));
 		toolbarPanel.add(new JButton("<html>Create<br />Event</html>"));
@@ -64,7 +64,7 @@ public class Calendar implements IJanewayModule {
 		
 		tabs = new ArrayList<JanewayTabModel>();
 		// Create a tab model that contains the toolBar panel and the main content panel
-		JanewayTabModel tab1 = new JanewayTabModel(getName(), new ImageIcon(), new ButtonsPanel_Create(), mainPanel);
+		final JanewayTabModel tab1 = new JanewayTabModel(getName(), new ImageIcon(), new ButtonsPanel_Create(), mainPanel);
 
 		// Add the tab to the list of tabs owned by this module
 		tabs.add(tab1);

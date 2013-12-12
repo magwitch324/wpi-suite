@@ -26,7 +26,7 @@ import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
  */
 public class GetPropsController implements ActionListener {
 
-	private GetPropsRequestObserver observer;
+	private final GetPropsRequestObserver observer;
 	private static GetPropsController instance;
 
 	/**

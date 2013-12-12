@@ -24,7 +24,7 @@ import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
 public class UpdateCalendarDataController{
 	
 	private static UpdateCalendarDataController instance;
-	private UpdateCalendarDataRequestObserver observer;
+	private final UpdateCalendarDataRequestObserver observer;
 	
 	/**
 	 * Construct an UpdateCalendarDataController for the given model, view pair
@@ -58,7 +58,7 @@ public class UpdateCalendarDataController{
 		//refreshes calendar GUI
 		GUIEventController.getInstance().updateCalData();
 		System.out.println("Updating caldata");
-		Request request = Network.getInstance().makeRequest("calendar/calendardata", HttpMethod.POST); // POST == update
+		final Request request = Network.getInstance().makeRequest("calendar/calendardata", HttpMethod.POST); // POST == update
 		request.setBody(newCalData.toJSON()); // put the updated CalendarData in the body of the request
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); 

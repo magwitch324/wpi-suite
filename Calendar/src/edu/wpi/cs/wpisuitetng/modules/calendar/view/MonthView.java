@@ -21,8 +21,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 @SuppressWarnings("serial")
 public class MonthView extends CalendarView {
 	
-	private GregorianCalendar aMonth;
-	private MonthPane monthPane;
+	private final GregorianCalendar aMonth;
+	private final MonthPane monthPane;
 	
 
 
@@ -46,7 +46,7 @@ public class MonthView extends CalendarView {
 			aMonth.add(Calendar.DAY_OF_MONTH, -1);
 		}
 		
-		String monthName = aMonth.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+		final String monthName = aMonth.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
 		
 		setLabel(monthName + " " + aMonth.get(Calendar.YEAR));
 				

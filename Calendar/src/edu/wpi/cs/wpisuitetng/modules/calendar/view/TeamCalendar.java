@@ -39,15 +39,16 @@ public class TeamCalendar extends AbCalendar {
 	}
 
 	protected void drawThis() {
-		SpringLayout layout = new SpringLayout();
+		final SpringLayout layout = new SpringLayout();
 		setLayout(layout);
 
-		JComponent viewbtnpanel = getViewButtonPanel();
+
+		final JComponent viewbtnpanel = getViewButtonPanel();
 		layout.putConstraint(SpringLayout.WEST, viewbtnpanel, 15, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.NORTH, viewbtnpanel, 5, SpringLayout.NORTH, this);
 		this.add(viewbtnpanel);
 
-		JComponent datepanel = getDatePanel();
+		final JComponent datepanel = getDatePanel();
 		//layout.putConstraint(SpringLayout.NORTH, datepanel, 0, SpringLayout.NORTH, viewbtnpanel);
 		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datepanel, 0, SpringLayout.HORIZONTAL_CENTER, this);
 		layout.putConstraint(SpringLayout.SOUTH, datepanel, 0, SpringLayout.SOUTH, viewbtnpanel);
@@ -71,7 +72,8 @@ public class TeamCalendar extends AbCalendar {
 		
 		//COMENTED OUT FILTER DROP DOWN MENU BECAUSE IT DOESN'T DO ANYTHING AT THE MOMENT
 
-		JComboBox filter = new JComboBox();
+
+		final JComboBox filter = new JComboBox();
 		layout.putConstraint(SpringLayout.WEST, filter, 30, SpringLayout.EAST, showcom);
 		layout.putConstraint(SpringLayout.NORTH, filter, 0, SpringLayout.NORTH, viewbtnpanel);
 		layout.putConstraint(SpringLayout.EAST, filter, -5, SpringLayout.EAST, this);
@@ -99,7 +101,7 @@ public class TeamCalendar extends AbCalendar {
 		//if we dont have the caldata dont do anything
 		if (initialized && getCalData() != null) {
 			//create a combined event list
-			CombinedEventList combinedEventList = getCalData()
+			final CombinedEventList combinedEventList = getCalData()
 					.getRepeatingEvents().toCombinedEventList();
 			for (int i = 0; i < getCalData().getEvents()
 					.getEvents().size(); i++) {
@@ -116,7 +118,7 @@ public class TeamCalendar extends AbCalendar {
 		if(!initialized){
 			if (CalendarDataModel.getInstance().getCalendarData(
 					ConfigManager.getConfig().getProjectName()) == null) {
-				CalendarData createdCal = new CalendarData(ConfigManager
+				final CalendarData createdCal = new CalendarData(ConfigManager
 						.getConfig().getProjectName());
 				CalendarDataModel.getInstance().addCalendarData(createdCal);
 			}

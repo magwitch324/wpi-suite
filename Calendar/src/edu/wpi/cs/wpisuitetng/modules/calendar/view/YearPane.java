@@ -66,7 +66,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 		
 		supcal = (GregorianCalendar)acal.clone();
 		supcal.set(supcal.get(Calendar.YEAR), Calendar.JANUARY, 1);
-		GregorianCalendar temp = (GregorianCalendar)supcal.clone();
+		final GregorianCalendar temp = (GregorianCalendar)supcal.clone();
 		
 		for(int i = 0; i < 12; i++){
 			monthpanes[i] = new YearMonthPane(temp);
@@ -80,8 +80,8 @@ public class YearPane extends JScrollPane implements ICalPane{
 		 */
 		this.addComponentListener(new ComponentAdapter(){
 		    public void componentResized(ComponentEvent e) {
-		    	double cur_width = getViewport().getSize().getWidth();
-		    	double sup_width = monthpanes[0].getPreferredSize().getWidth();
+		    	final double cur_width = getViewport().getSize().getWidth();
+		    	final double sup_width = monthpanes[0].getPreferredSize().getWidth();
 		    	//Repeatedly goes through the resize until a proper size is found
 		    	while(true){
 			    	if(width * sup_width > cur_width && width > 1){
@@ -95,7 +95,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 			    	}
 		    	}
 	    		height = 12/width;
-	    		GridLayout layout = (GridLayout)mainview.getLayout();
+	    		final GridLayout layout = (GridLayout)mainview.getLayout();
 	    		layout.setColumns(width);
 	    		layout.setRows(height);
 	    		mainview.revalidate();
@@ -110,9 +110,9 @@ public class YearPane extends JScrollPane implements ICalPane{
 	public void displayCommitments(List<Commitment> commList) {
 		// if we are supposed to display commitments
 		if (commList != null) {
-			CombinedCommitmentList alist = new CombinedCommitmentList(commList);
+			final CombinedCommitmentList alist = new CombinedCommitmentList(commList);
 
-			GregorianCalendar ret = (GregorianCalendar) supcal.clone();
+			final GregorianCalendar ret = (GregorianCalendar) supcal.clone();
 
 			for(int i = 0; i < 12; i++){
 				try{
@@ -137,9 +137,9 @@ public class YearPane extends JScrollPane implements ICalPane{
 	public void displayEvents(List<Event> eventList) {
 		// if we are supposed to display commitments
 		if (eventList != null) {
-			CombinedEventList alist = new CombinedEventList(eventList);
+			final CombinedEventList alist = new CombinedEventList(eventList);
 			
-			GregorianCalendar tmpCal = (GregorianCalendar) supcal.clone();
+			final GregorianCalendar tmpCal = (GregorianCalendar) supcal.clone();
 
 			for(int i = 0; i < 12; i++){
 				try{
@@ -181,16 +181,16 @@ public class YearPane extends JScrollPane implements ICalPane{
 			monthpanestart = (GregorianCalendar)monthstart.clone();
 			monthpanestart.set(Calendar.DAY_OF_WEEK, monthstart.getFirstDayOfWeek());
 			
-			SpringLayout layout = new SpringLayout();
+			final SpringLayout layout = new SpringLayout();
 			this.setLayout(layout);
 			//this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
 			this.setBorder(BorderFactory.createSoftBevelBorder(BevelBorder.RAISED));
 			
 			//Creates the month lbl and a wrapper and places it in this at the top
-			JLabel monthlbl = new JLabel(acal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()),
+			final JLabel monthlbl = new JLabel(acal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()),
 											SwingConstants.CENTER);
 			monthlbl.addMouseListener(new AMouseMonthEvent(acal));
-			JPanel temppane = new JPanel();
+			final JPanel temppane = new JPanel();
 			temppane.setLayout(new GridLayout(1,1));
 			temppane.setBackground(CalendarStandard.CalendarRed);
 			
@@ -205,17 +205,17 @@ public class YearPane extends JScrollPane implements ICalPane{
 			this.add(temppane);
 			
 			//Get the weekdays pane and sets below the month lbl wrapper
-			JPanel names = getDayNames();
+			final JPanel names = getDayNames();
 			layout.putConstraint(SpringLayout.WEST, names, 0, SpringLayout.WEST, this);
 			layout.putConstraint(SpringLayout.NORTH, names, 0, SpringLayout.SOUTH, temppane);
 			layout.putConstraint(SpringLayout.EAST, names, 0, SpringLayout.EAST, this);
 			this.add(names);
 			
 			//Create the days pane and set the grid layout
-			JPanel days = new JPanel();
+			final JPanel days = new JPanel();
 			days.setLayout(new GridLayout(6,7,1,1));
 			
-			GregorianCalendar temp = (GregorianCalendar)monthpanestart.clone();
+			final GregorianCalendar temp = (GregorianCalendar)monthpanestart.clone();
 			
 			//add the individual days to the view
 			for(int i = 0; i < 42; i++){
@@ -247,8 +247,8 @@ public class YearPane extends JScrollPane implements ICalPane{
 		 * @return the panel with the weekday names
 		 */
 		protected JPanel getDayNames(){
-			String[] days = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
-			JPanel apane = new JPanel();
+			final String[] days = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+			final JPanel apane = new JPanel();
 			apane.setLayout(new GridLayout(1,7));
 			double width = 0;
 			JLabel lbl = null;
@@ -272,9 +272,9 @@ public class YearPane extends JScrollPane implements ICalPane{
 			// if we are supposed to display commitments
 			if (commList != null) {
 
-				CombinedCommitmentList alist = new CombinedCommitmentList(commList);
+				final CombinedCommitmentList alist = new CombinedCommitmentList(commList);
 
-				GregorianCalendar ret = (GregorianCalendar) monthpanestart.clone();
+				final GregorianCalendar ret = (GregorianCalendar) monthpanestart.clone();
 				
 				for (int i = 0; i < 42; i++) {
 					try {
@@ -298,9 +298,9 @@ public class YearPane extends JScrollPane implements ICalPane{
 		public void displayEvents(List<Event> eventList) {
 			// if we are supposed to display commitments
 			if (eventList != null) {
-				CombinedEventList alist = new CombinedEventList(eventList);
+				final CombinedEventList alist = new CombinedEventList(eventList);
 
-				GregorianCalendar ret = (GregorianCalendar) monthpanestart.clone();
+				final GregorianCalendar ret = (GregorianCalendar) monthpanestart.clone();
 				
 				for (int i = 0; i < 42; i++) {
 					try {
@@ -339,7 +339,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 			this.setBorder(BorderFactory.createSoftBevelBorder(BevelBorder.RAISED));
 			scal = (GregorianCalendar)acal.clone();
 			this.setLayout(new GridLayout(1,1));
-			JLabel lbl = new JLabel("" + scal.get(Calendar.DATE), SwingConstants.CENTER);
+			final JLabel lbl = new JLabel("" + scal.get(Calendar.DATE), SwingConstants.CENTER);
 			active = month == acal.get(Calendar.MONTH);
 
 			if(active){
@@ -434,7 +434,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 				if(step > steps){
 					step = (int)steps;
 				}
-				int red, green, blue;
+				final int red, green, blue;
 				red = (int)((higher.getRed() - lower.getRed()) *(step/steps) + lower.getRed());
 				green = (int)((higher.getGreen() - lower.getGreen()) *(step/steps) + lower.getGreen());
 				blue = (int)((higher.getBlue() - lower.getBlue()) *(step/steps) + lower.getBlue());
@@ -466,7 +466,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 	 */
 	@Override
 	public JPanel getPane() {
-		JPanel apanel = new JPanel();
+		final JPanel apanel = new JPanel();
 		apanel.setLayout(new GridLayout(1, 1));
 		apanel.add(this);
 		return apanel;

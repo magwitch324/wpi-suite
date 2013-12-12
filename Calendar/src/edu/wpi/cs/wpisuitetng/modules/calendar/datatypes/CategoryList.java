@@ -23,7 +23,7 @@ public class CategoryList {
 	/**
 	 * The list in which all the categories for a single project are contained
 	 */
-	private List<Category> categories;
+	private final List<Category> categories;
 
 	/**
 	 * Constructs an empty list of categories for the project

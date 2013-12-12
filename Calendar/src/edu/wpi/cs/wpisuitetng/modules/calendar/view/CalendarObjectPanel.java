@@ -124,7 +124,7 @@ public class CalendarObjectPanel extends JPanel {
 		String time;
 		CalendarObject calobj;
 		
-		SimpleDateFormat tm = new SimpleDateFormat();
+		final SimpleDateFormat tm = new SimpleDateFormat();
 		tm.applyPattern("hh:mm a");
 		
 		if (event == null) {
@@ -154,24 +154,24 @@ public class CalendarObjectPanel extends JPanel {
 			}
 		}
 		
-		String name = calobj.getName();
+		final String name = calobj.getName();
 		String description = calobj.getDescription();
 		
 		String tt = "<html>Name: " + name + "<br>" + time + "<br>Description: " + description + "</html>";
 		tt = tt.replaceAll("\n", "<br>");
 		setToolTipText(tt);
 		
-		JLabel nameL = new JLabel(name);
+		final JLabel nameL = new JLabel(name);
 		nameL.setFont(new Font("SansSerif", Font.BOLD, 14));
 		description = description.replaceAll("\n", " ");
-		JLabel descL = new JLabel(description);
-		JLabel timeL = new JLabel(time);
-		JLabel iconL = new JLabel();
+		final JLabel descL = new JLabel(description);
+		final JLabel timeL = new JLabel(time);
+		final JLabel iconL = new JLabel();
 		
 		setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this text
 		
 		Image nameImg;
-		Image scaleImg;
+		final Image scaleImg;
 		try {
 			if (calobj.getIsPersonal()) {	
 				nameImg = ImageIO.read(getClass().getResource("Personal" + type + "_Icon.png"));
@@ -180,7 +180,7 @@ public class CalendarObjectPanel extends JPanel {
 				nameImg = ImageIO.read(getClass().getResource("Team" + type + "_Icon.png"));
 			}
 			scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
-			ImageIcon imageIcon = new ImageIcon(scaleImg);
+			final ImageIcon imageIcon = new ImageIcon(scaleImg);
 			iconL.setIcon(imageIcon);
 			iconL.setSize(imageIcon.getIconHeight(), imageIcon.getIconWidth());
 			
@@ -195,8 +195,8 @@ public class CalendarObjectPanel extends JPanel {
 		layout.putConstraint(SpringLayout.WEST, iconL, 5, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.NORTH, iconL, 5, SpringLayout.NORTH, this);
 		
-		SpringLayout textLayout = new SpringLayout();
-		JPanel textPanel = new JPanel();
+		final SpringLayout textLayout = new SpringLayout();
+		final JPanel textPanel = new JPanel();
 		textPanel.setBackground(Color.WHITE);
 		textPanel.setLayout(textLayout);
 		
@@ -247,9 +247,9 @@ public class CalendarObjectPanel extends JPanel {
 	 * refreshes the size of the based on the number of columns, columns spanned, and the length of it
 	 */
 	public void refreshSize(){
-		double par_width = parent.getSize().getWidth();
-		double par_height = parent.getSize().getHeight();
-		Dimension new_size = new Dimension((int)((par_width-3*columnwidth - 3)/columnwidth * columnspanned), (int)(par_height* this.getRatioDifference()));
+		final double par_width = parent.getSize().getWidth();
+		final double par_height = parent.getSize().getHeight();
+		final Dimension new_size = new Dimension((int)((par_width-3*columnwidth - 3)/columnwidth * columnspanned), (int)(par_height* this.getRatioDifference()));
 		this.setPreferredSize(new_size);
 	}
 	
@@ -292,7 +292,7 @@ public class CalendarObjectPanel extends JPanel {
 	 * @return a value 0 - 1.0 of the start time, defaults to 0 if before this' today
 	 */
 	public double getStartRatio(){
-		GregorianCalendar tempstart = (GregorianCalendar)acal.clone();
+		final GregorianCalendar tempstart = (GregorianCalendar)acal.clone();
 		tempstart.set(Calendar.HOUR_OF_DAY, 0);
 		tempstart.set(Calendar.MINUTE, 0);
 		tempstart.set(Calendar.SECOND, 0);
@@ -319,7 +319,7 @@ public class CalendarObjectPanel extends JPanel {
 	 * @return a value 0 - 1.0 of the end time, defaults to 1.0 if after this' today
 	 */
 	public double getEndRatio(){
-		GregorianCalendar tempend = (GregorianCalendar)acal.clone();
+		final GregorianCalendar tempend = (GregorianCalendar)acal.clone();
 		tempend.set(Calendar.HOUR_OF_DAY, 0);
 		tempend.set(Calendar.MINUTE, 0);
 		tempend.set(Calendar.SECOND, 0);
@@ -340,12 +340,12 @@ public class CalendarObjectPanel extends JPanel {
 	 */
 	public GregorianCalendar getStart(){
 		if(event != null){
-			GregorianCalendar cal = new GregorianCalendar();
+			final GregorianCalendar cal = new GregorianCalendar();
 			cal.setTime(event.getStartTime().getTime());
 			return cal;
 		}
 		else if(comm != null){
-			GregorianCalendar cal = new GregorianCalendar();
+			final GregorianCalendar cal = new GregorianCalendar();
 			cal.setTime(comm.getDueDate().getTime());
 			return cal;
 		}
@@ -363,7 +363,7 @@ public class CalendarObjectPanel extends JPanel {
 			return cal;
 		}
 		else if(comm != null){
-			GregorianCalendar cal = new GregorianCalendar();
+			final GregorianCalendar cal = new GregorianCalendar();
 			cal.setTime(comm.getDueDate().getTime());
 			cal.add(Calendar.MINUTE, 30);
 			return cal;
@@ -377,10 +377,10 @@ public class CalendarObjectPanel extends JPanel {
 	 * @return whether this and other conflict in time
 	 */
 	public boolean doesConflict(CalendarObjectPanel other){
-		double thisstart = this.getStartRatio();
-		double thisend = this.getEndRatio();
-		double otherstart = other.getStartRatio();
-		double otherend = other.getEndRatio();
+		final double thisstart = this.getStartRatio();
+		final double thisend = this.getEndRatio();
+		final double otherstart = other.getStartRatio();
+		final double otherend = other.getEndRatio();
 		
 		return (thisstart < otherend) && (thisend > otherstart);
 	}

@@ -67,16 +67,16 @@ public abstract class CalendarView extends JSplitPane {
 	 * @return
 	 */
 	private JPanel makeRightView() {
-		JPanel panel = new JPanel();
+		final JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
-		JPanel labelPanel = new JPanel();
+		final JPanel labelPanel = new JPanel();
 		labelPanel.setLayout(new GridLayout(1,1,0,0));
 		labelPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.GRAY));
 //		labelPanel.setBorder(new EmptyBorder(0, 10, 0 , 10));
 //		labelPanel.setMinimumSize(new Dimension(330, 50));
 		labelPanel.setBackground(CalendarStandard.CalendarRed);			
-		JLabel dateLabel = new JLabel("<html><font color='white'><body style='width: 100%'><center>" + dateRange + "</center></html>", SwingConstants.CENTER);
+		final JLabel dateLabel = new JLabel("<html><font color='white'><body style='width: 100%'><center>" + dateRange + "</center></html>", SwingConstants.CENTER);
 		dateLabel.setFont(CalendarStandard.CalendarFontBold.deriveFont(Font.BOLD, 16));
 		dateLabel.setBorder(new EmptyBorder(5, 0, 5, 0));
 		
@@ -84,7 +84,7 @@ public abstract class CalendarView extends JSplitPane {
 		
 		panel.add(labelPanel);
 		//radio buttons for controlling the filter in the commitment pane
-		JRadioButton showVisibleButton = new JRadioButton("Show all open commitments in visible range");
+		final JRadioButton showVisibleButton = new JRadioButton("Show all open commitments in visible range");
 		showVisibleButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		showVisibleButton.setBackground(Color.WHITE);
 		showVisibleButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this radio button
@@ -122,7 +122,7 @@ public abstract class CalendarView extends JSplitPane {
 		});
 		panel.add(showAllButton);
 		
-		ButtonGroup commPanelFilters = new ButtonGroup();
+		final ButtonGroup commPanelFilters = new ButtonGroup();
 		commPanelFilters.add(showVisibleButton);
 		commPanelFilters.add(showAllButton);
 		//View all Commitments Button is no longer necessary, but I'm leaving this code here
@@ -155,7 +155,7 @@ public abstract class CalendarView extends JSplitPane {
 			}	
 		});		
 		*/
-		JSeparator separator = new JSeparator();
+		final JSeparator separator = new JSeparator();
 		separator.setOrientation(VERTICAL_SPLIT);
 		separator.setBackground(Color.gray);
 		panel.add(separator);

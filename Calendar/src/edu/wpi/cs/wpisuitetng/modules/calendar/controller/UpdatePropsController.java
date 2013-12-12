@@ -23,7 +23,7 @@ import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
 public class UpdatePropsController{
 	
 	private static UpdatePropsController instance;
-	private UpdatePropsRequestObserver observer;
+	private final UpdatePropsRequestObserver observer;
 	
 	/**
 	 * Construct an UpdateCalendarPropsController for the given model, view pair
@@ -57,7 +57,7 @@ public class UpdatePropsController{
 		//refreshes calendar GUI
 		//GUIEventController.getInstance().updateCalData();
 		System.out.println("Updating calprops");
-		Request request = Network.getInstance().makeRequest("calendar/calendarprops", HttpMethod.POST); // POST == update
+		final Request request = Network.getInstance().makeRequest("calendar/calendarprops", HttpMethod.POST); // POST == update
 		request.setBody(newCalData.toJSON()); // put the updated CalendarProps in the body of the request
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); 

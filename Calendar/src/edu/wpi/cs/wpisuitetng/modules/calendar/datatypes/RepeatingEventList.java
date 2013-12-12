@@ -104,9 +104,9 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	 * @param the CalendarObject to be updated
 	 */
 	public void update(RepeatingEvent newObject) {
-		RepeatingEvent tmp = get(newObject.getID());
+		final RepeatingEvent tmp = get(newObject.getID());
 		if(tmp.getStartTime().equals(newObject.getStartTime())){
-			int i = calendarObjects.indexOf(get(newObject.getID()));
+			final int i = calendarObjects.indexOf(get(newObject.getID()));
 			calendarObjects.remove(get(newObject.getID()));
 			calendarObjects.add(i, newObject);
 			return;
@@ -138,7 +138,7 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	 * @return equivalent list of events
 	 */
 	public CombinedEventList toCombinedEventList(){
-		CombinedEventList eventList = new CombinedEventList();
+		final CombinedEventList eventList = new CombinedEventList();
 		GregorianCalendar eventStart = new GregorianCalendar();
 		GregorianCalendar eventEnd = new GregorianCalendar();
 		int field; 

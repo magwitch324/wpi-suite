@@ -47,6 +47,9 @@ public class CombinedEventListTest {
 		eventList.add(nextMonth);
 	}
 	
+	/*
+	 * Test to ensure addEmptyList works correctly
+	 */
 	@Test
 	public void addEmptyListTest() {
 		combinedEventList = new CombinedEventList();
@@ -55,6 +58,9 @@ public class CombinedEventListTest {
 		assertEquals("Today", combinedEventList.getElementAt(0).getName());
 	}
 	
+	/*
+	 * Test to ensure addNonEmptyList works correctly
+	 */
 	@Test
 	public void addNonEmptyListTest() {
 		combinedEventList = new CombinedEventList(eventList);

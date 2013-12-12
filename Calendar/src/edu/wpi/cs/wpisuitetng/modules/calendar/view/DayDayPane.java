@@ -61,7 +61,7 @@ public class DayDayPane extends JPanel {
 		this.setPreferredSize(new Dimension(50, 800));
 		this.setBackground(CalendarStandard.CalendarYellow);
 		
-		SpringLayout layout = new SpringLayout();
+		final SpringLayout layout = new SpringLayout();
 		this.setLayout(layout);
 		
 		this.makeLines();
@@ -101,33 +101,33 @@ public class DayDayPane extends JPanel {
 		else if(commlist != null && eventlist != null){
 			int eindex = 0;
 			int cindex = 0;
-			GregorianCalendar ccal = new GregorianCalendar();
-			GregorianCalendar ecal = new GregorianCalendar();
+			final GregorianCalendar ccal = new GregorianCalendar();
+			final GregorianCalendar ecal = new GregorianCalendar();
 			
 			while(true){
 				if(cindex == commlist.size() && eindex == eventlist.size()){
 					break;
 				}
 				
-				if(cindex == commlist.size()){
+				if(cindex >= commlist.size()){
 					ccal.add(Calendar.DATE, 1);
 				}
 				else{
 					ccal.setTime(commlist.get(cindex).getDueDate().getTime());
 				}
 				
-				if(eindex == eventlist.size()){
+				if(eindex >= eventlist.size()){
 					ecal.add(Calendar.DATE, 1);
 				}
 				else{
 					ecal.setTime(eventlist.get(eindex).getStartTime().getTime());
 				}
 				
-				if(ccal.before(ecal)){
+				if(ccal.before(ecal) && cindex < commlist.size()){
 					sortedobjects.add(new CalendarObjectPanel(this, acal, commlist.get(cindex)));
 					cindex++;
 				}
-				else{
+				else if(eindex < eventlist.size()){
 					sortedobjects.add(new CalendarObjectPanel(this, acal, eventlist.get(eindex)));
 					eindex++;
 				}
@@ -140,7 +140,7 @@ public class DayDayPane extends JPanel {
 	 */
 	protected void makeLines(){
 		//half hour marks code
-		SpringLayout layout = (SpringLayout)this.getLayout();
+		final SpringLayout layout = (SpringLayout)this.getLayout();
 		for(int i = 0; i < 49; i++){
 			halfhourmarks[i] = new JSeparator();
 			
@@ -171,7 +171,7 @@ public class DayDayPane extends JPanel {
 	 * sets the y position of the half hour lines
 	 */
 	protected void setLines(){
-		SpringLayout layout = (SpringLayout)this.getLayout();
+		final SpringLayout layout = (SpringLayout)this.getLayout();
 		for(int i = 1; i < 49; i++){
 			layout.putConstraint(SpringLayout.VERTICAL_CENTER, halfhourmarks[i], 
 								(int)((this.getSize().getHeight())*i/48.0),
@@ -240,7 +240,7 @@ public class DayDayPane extends JPanel {
 		}
 		
 		this.removeAll();
-		SpringLayout layout = (SpringLayout)this.getLayout();
+		final SpringLayout layout = (SpringLayout)this.getLayout();
 		
 		//Sets the left of an object to either this or a conflict in the previous column
 		for(List<CalendarObjectPanel> column : displayobjects){
@@ -277,7 +277,7 @@ public class DayDayPane extends JPanel {
 	 * Iterates through the sorted objects and sets their position based on start times
 	 */
 	protected void setPos(){
-		SpringLayout layout = (SpringLayout)this.getLayout();
+		final SpringLayout layout = (SpringLayout)this.getLayout();
 		for(CalendarObjectPanel obj : sortedobjects){
 			layout.putConstraint(SpringLayout.NORTH, obj, (int)(this.getHeight() * obj.getStartRatio()), SpringLayout.NORTH, this);
 		}
@@ -347,7 +347,7 @@ public class DayDayPane extends JPanel {
 		}
 		
 		if(  span == 0 ){
-			SpringLayout layout = (SpringLayout)this.getLayout();
+			final SpringLayout layout = (SpringLayout)this.getLayout();
 			layout.putConstraint(SpringLayout.EAST, cop, -3, SpringLayout.EAST, this);
 		}
 		

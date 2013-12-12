@@ -20,7 +20,7 @@ import edu.wpi.cs.wpisuitetng.network.models.IRequest;
  */
 public class GetPropsRequestObserver implements RequestObserver {
 	
-	private GetPropsController controller;
+	private final GetPropsController controller;
 	
 	/**
 	 * Constructs the observer given a GetCalendarPropsController
@@ -38,7 +38,7 @@ public class GetPropsRequestObserver implements RequestObserver {
 	@Override
 	public void responseSuccess(IRequest iReq) {
 		// Convert the JSON array of CalendarProps to a CalendarProps object array
-		CalendarProps[] calData = CalendarProps.fromJsonArray(iReq.getResponse().getBody());
+		final CalendarProps[] calData = CalendarProps.fromJsonArray(iReq.getResponse().getBody());
 		
 		// Pass these Events to the controller
 		controller.receivedCalendarProps(calData);
@@ -60,7 +60,7 @@ public class GetPropsRequestObserver implements RequestObserver {
 	 */
 	@Override
 	public void fail(IRequest iReq, Exception exception) {
-		CalendarProps[] errorCalData = { new CalendarProps("Error") };
+		final CalendarProps[] errorCalData = { new CalendarProps("Error") };
 		controller.receivedCalendarProps(errorCalData);
 	}
 
