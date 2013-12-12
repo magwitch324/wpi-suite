@@ -46,24 +46,23 @@ public class MyCalendar extends AbCalendar {
 	}
 
 	protected void drawThis() {
-		final SpringLayout layout = new SpringLayout();
+		SpringLayout layout = new SpringLayout();
 		setLayout(layout);
 
-
-		final JComponent viewbtnpanel = getViewButtonPanel();
+		JComponent viewbtnpanel = getViewButtonPanel();
 		layout.putConstraint(SpringLayout.WEST, viewbtnpanel, 15, SpringLayout.WEST, this);
-		layout.putConstraint(SpringLayout.NORTH, viewbtnpanel, 5, SpringLayout.NORTH, this);
+        layout.putConstraint(SpringLayout.NORTH, viewbtnpanel, 5, SpringLayout.NORTH, this);
 		this.add(viewbtnpanel);
 
 		JComponent datepanel = getDatePanel();
-		//layout.putConstraint(SpringLayout.NORTH, datepanel, 0, SpringLayout.NORTH, viewbtnpanel);
-		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datepanel, 0, SpringLayout.HORIZONTAL_CENTER, this);
-		layout.putConstraint(SpringLayout.SOUTH, datepanel, 0, SpringLayout.SOUTH, viewbtnpanel);
-		this.add(datepanel);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datepanel, 0, SpringLayout.HORIZONTAL_CENTER, this);
+        layout.putConstraint(SpringLayout.SOUTH, datepanel, 0, SpringLayout.SOUTH, viewbtnpanel);
+        this.add(datepanel);
+		
 
 		showcom = new JCheckBox("Show Commitments");
 		showcom.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		showcom.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14f));
+        showcom.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14f));
 		showcom.setBackground(Color.WHITE);
 		showcom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -71,15 +70,15 @@ public class MyCalendar extends AbCalendar {
 				setView();
 			}
 		});
-		//layout.putConstraint(SpringLayout.EAST, showcom, -30, SpringLayout.EAST, this);
-		layout.putConstraint(SpringLayout.NORTH, showcom, 0, SpringLayout.NORTH, viewbtnpanel);
-		layout.putConstraint(SpringLayout.SOUTH, showcom, 0, SpringLayout.SOUTH, viewbtnpanel);
+		
+        layout.putConstraint(SpringLayout.NORTH, showcom, 0, SpringLayout.NORTH, viewbtnpanel);
+        layout.putConstraint(SpringLayout.SOUTH, showcom, 0, SpringLayout.SOUTH, viewbtnpanel);
 		this.add(showcom);
 
 		
 		showteam = new JCheckBox("Show Team Data");
 		showteam.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		showteam.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14f));
+        showteam.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14f));
 		showteam.setBackground(Color.WHITE);
 		showteam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -89,12 +88,13 @@ public class MyCalendar extends AbCalendar {
 				setView();
 			}
 		});
-		layout.putConstraint(SpringLayout.EAST, showteam, -10, SpringLayout.EAST, this);
-		layout.putConstraint(SpringLayout.NORTH, showteam, 0, SpringLayout.NORTH, viewbtnpanel);
-		layout.putConstraint(SpringLayout.SOUTH, showteam, 0, SpringLayout.SOUTH, viewbtnpanel);
+		
+        layout.putConstraint(SpringLayout.EAST, showteam, -10, SpringLayout.EAST, this);
+        layout.putConstraint(SpringLayout.NORTH, showteam, 0, SpringLayout.NORTH, viewbtnpanel);
+        layout.putConstraint(SpringLayout.SOUTH, showteam, 0, SpringLayout.SOUTH, viewbtnpanel);
 		this.add(showteam);
 		
-		layout.putConstraint(SpringLayout.EAST, showcom, -10, SpringLayout.WEST, showteam);
+        layout.putConstraint(SpringLayout.EAST, showcom, -10, SpringLayout.WEST, showteam);
 	
 		
 	
@@ -113,10 +113,10 @@ public class MyCalendar extends AbCalendar {
 		
 		
 		
-		layout.putConstraint(SpringLayout.WEST, viewpanel, 5, SpringLayout.WEST, this);
-		layout.putConstraint(SpringLayout.NORTH, viewpanel, 5, SpringLayout.SOUTH, datepanel);
-		layout.putConstraint(SpringLayout.EAST, viewpanel, -5, SpringLayout.EAST, this);
-		layout.putConstraint(SpringLayout.SOUTH, viewpanel, -5, SpringLayout.SOUTH, this);
+        layout.putConstraint(SpringLayout.WEST, viewpanel, 5, SpringLayout.WEST, this);
+        layout.putConstraint(SpringLayout.NORTH, viewpanel, 5, SpringLayout.SOUTH, datepanel);
+        layout.putConstraint(SpringLayout.EAST, viewpanel, -5, SpringLayout.EAST, this);
+        layout.putConstraint(SpringLayout.SOUTH, viewpanel, -5, SpringLayout.SOUTH, this);
 
 		this.add(viewpanel);
 		viewbtns[currenttype.getCurrentType()].setSelected(true);
@@ -133,7 +133,7 @@ public class MyCalendar extends AbCalendar {
 			if (CalendarDataModel.getInstance().getCalendarData(
 					ConfigManager.getConfig().getProjectName() + "-"
 							+ ConfigManager.getConfig().getUserName()) == null) {
-				final CalendarData createdCal = new CalendarData(ConfigManager
+				CalendarData createdCal = new CalendarData(ConfigManager
 						.getConfig().getProjectName()
 						+ "-"
 						+ ConfigManager.getConfig().getUserName());
@@ -174,11 +174,11 @@ public class MyCalendar extends AbCalendar {
 		//if we dont have the caldata dont do anything
 		if (initialized && getCalData() != null) {
 			//create a combined Commitment list
-			final CombinedCommitmentList combinedCommList = new CombinedCommitmentList(
+			CombinedCommitmentList combinedCommList = new CombinedCommitmentList(
 					new ArrayList<Commitment>(getCalData()
 							.getCommitments().getCommitments()));
 			//create a combined event list
-			final CombinedEventList combinedEventList = getCalData()
+			CombinedEventList combinedEventList = getCalData()
 					.getRepeatingEvents().toCombinedEventList();
 			for (int i = 0; i < getCalData().getEvents()
 					.getEvents().size(); i++) {
@@ -187,7 +187,7 @@ public class MyCalendar extends AbCalendar {
 			}
 			
 			//get the team data
-			final CalendarData teamData = CalendarDataModel.getInstance()
+			CalendarData teamData = CalendarDataModel.getInstance()
 					.getCalendarData(ConfigManager.getConfig().getProjectName());
 
 			//if we are supposed to show team data, we need to put the team commitments into the list in the right order
@@ -204,7 +204,7 @@ public class MyCalendar extends AbCalendar {
 				commitments = combinedCommList;
 				
 				//get the combined events for team
-				final CombinedEventList teamRepeatEvents = teamData.getRepeatingEvents().toCombinedEventList();
+				CombinedEventList teamRepeatEvents = teamData.getRepeatingEvents().toCombinedEventList();
 				for (int i = 0; i < teamRepeatEvents.getEvents().size(); i++){
 					combinedEventList.add(teamRepeatEvents.getEvents().get(i));
 				}
@@ -263,7 +263,7 @@ public class MyCalendar extends AbCalendar {
 		if (CalendarPropsModel.getInstance().getCalendarProps(
 				ConfigManager.getConfig().getProjectName() + "-"
 						+ ConfigManager.getConfig().getUserName() + "-PROPS") == null) {
-			final CalendarProps createdProps = new CalendarProps(ConfigManager
+			CalendarProps createdProps = new CalendarProps(ConfigManager
 					.getConfig().getProjectName()
 					+ "-"
 					+ ConfigManager.getConfig().getUserName() + "-PROPS");

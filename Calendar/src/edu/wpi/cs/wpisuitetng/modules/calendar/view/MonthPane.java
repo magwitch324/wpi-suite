@@ -12,17 +12,21 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -228,6 +232,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		JScrollPane scroll = null;
 		boolean enabled;
 		GregorianCalendar acal = null;
+		static final int label_spacing = 5;
 		/**
 		 * 
 		 * @param acal
@@ -264,7 +269,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				
 				layout.putConstraint(SpringLayout.NORTH, scroll, 0, SpringLayout.SOUTH, datelabel);
 				layout.putConstraint(SpringLayout.WEST, scroll, 0, SpringLayout.WEST, this);
-				layout.putConstraint(SpringLayout.SOUTH, scroll, 0, SpringLayout.SOUTH, this);
+				layout.putConstraint(SpringLayout.SOUTH, scroll, -5, SpringLayout.SOUTH, this);
 				layout.putConstraint(SpringLayout.EAST, scroll, 0, SpringLayout.EAST, this);
 				scroll.setPreferredSize(new Dimension(10,10));
 				scroll.setBorder(BorderFactory.createEmptyBorder());
@@ -349,25 +354,25 @@ public class MonthPane extends JScrollPane implements ICalPane {
 						break;
 					}
 					
-					if(cindex == commlist.size()){
-						ccal.add(Calendar.DATE, 1);
+					if(cindex >= commlist.size()){
+						ccal.add(Calendar.DATE, 2);
 					}
 					else{
 						ccal.setTime(commlist.get(cindex).getDueDate().getTime());
 					}
 					
-					if(eindex == eventlist.size()){
-						ecal.add(Calendar.DATE, 1);
+					if(eindex >= eventlist.size()){
+						ecal.add(Calendar.DATE, 2);
 					}
 					else{
 						ecal.setTime(eventlist.get(eindex).getStartTime().getTime());
 					}
 					
-					if(ccal.before(ecal)){
+					if(ccal.before(ecal) && cindex < commlist.size()){
 						wraps.add( new wrapper(commlist.get(cindex)));
 						cindex++;
 					}
-					else{
+					else if(eindex < eventlist.size()){
 						wraps.add( new wrapper(eventlist.get(eindex)));
 						eindex++;
 					}
@@ -390,12 +395,12 @@ public class MonthPane extends JScrollPane implements ICalPane {
 
 					for(wrapper wrap: wraps){
 						curlab = wrap.getLabel();
-						height += curlab.getPreferredSize().getHeight();
+						height += curlab.getPreferredSize().getHeight() + label_spacing;
 						if (lastlab == null) {
 							layout.putConstraint(SpringLayout.NORTH, curlab, 1, SpringLayout.NORTH, big);
 						} 
 						else {
-							layout.putConstraint(SpringLayout.NORTH, curlab, 0, SpringLayout.SOUTH, lastlab);
+							layout.putConstraint(SpringLayout.NORTH, curlab, label_spacing, SpringLayout.SOUTH, lastlab);
 						}
 						layout.putConstraint(SpringLayout.WEST, curlab, 1, SpringLayout.WEST, big);
 						
@@ -417,12 +422,12 @@ public class MonthPane extends JScrollPane implements ICalPane {
 
 					for(wrapper wrap: wraps){
 						curlab = wrap.getLabel();
-						height += curlab.getPreferredSize().getHeight();
+						height += curlab.getPreferredSize().getHeight() + label_spacing;
 						if(height > boxheight ){
 							break;
 						}
 						
-						if(height + curlab.getPreferredSize().getHeight() > boxheight && (wraps.size() - wraps.indexOf(wrap) > 1)){
+						if(height + curlab.getPreferredSize().getHeight() + label_spacing > boxheight && (wraps.size() - wraps.indexOf(wrap) > 1)){
 							curlab = new JLabel("+" + (wraps.size() - wraps.indexOf(wrap)) + " more");
 						}
 						
@@ -430,7 +435,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 							layout.putConstraint(SpringLayout.NORTH, curlab, 1, SpringLayout.NORTH, small);
 						} 
 						else {
-							layout.putConstraint(SpringLayout.NORTH, curlab, 0, SpringLayout.SOUTH, lastlab);
+							layout.putConstraint(SpringLayout.NORTH, curlab, label_spacing, SpringLayout.SOUTH, lastlab);
 						}
 						layout.putConstraint(SpringLayout.WEST, curlab, 1, SpringLayout.WEST, small);
 						
@@ -503,10 +508,10 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			
 			public JLabel getLabel(){
 				if(comm != null){
-					return new LabelWrapper(comm, "-" + comm.getName());
+					return new LabelWrapper(comm, comm.getName());
 				}
 				else{
-					return new LabelWrapper(event, "-" + event.getName());
+					return new LabelWrapper(event, event.getName());
 				}
 			}
 		}
@@ -517,14 +522,50 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			
 			public LabelWrapper(Commitment comm, String text){
 				super(text);
-				this.setPreferredSize(super.getPreferredSize());
 				this.comm = comm;
+				
+				try {
+					Image nameImg;
+					final Image scaleImg;
+					if (comm.getIsPersonal()) {	
+						nameImg = ImageIO.read(getClass().getResource("PersonalCommitment_Icon.png"));
+						
+					} else {
+						nameImg = ImageIO.read(getClass().getResource("TeamCommitment_Icon.png"));
+					}
+					
+					scaleImg = nameImg.getScaledInstance(13, 13, Image.SCALE_SMOOTH);
+					final ImageIcon imageIcon = new ImageIcon(scaleImg);
+					this.setIcon(imageIcon);
+					//this.setSize(imageIcon.getIconHeight(), imageIcon.getIconWidth());
+					
+				} catch (IOException e) { }
+				
+				this.setPreferredSize(super.getPreferredSize());
 			}
 			
 			public LabelWrapper(Event event, String text){
 				super(text);
-				this.setPreferredSize(super.getPreferredSize());
 				this.event = event;
+				
+				try {
+					Image nameImg;
+					final Image scaleImg;
+					if (event.getIsPersonal()) {	
+						nameImg = ImageIO.read(getClass().getResource("PersonalEvent_Icon.png"));
+						
+					} else {
+						nameImg = ImageIO.read(getClass().getResource("TeamEvent_Icon.png"));
+					}
+					
+					scaleImg = nameImg.getScaledInstance(13, 13, Image.SCALE_SMOOTH);
+					final ImageIcon imageIcon = new ImageIcon(scaleImg);
+					this.setIcon(imageIcon);
+					//this.setSize(imageIcon.getIconHeight(), imageIcon.getIconWidth());
+					
+				} catch (IOException e) { }
+				
+				this.setPreferredSize(super.getPreferredSize());
 			}
 			
 			public void edit(){
