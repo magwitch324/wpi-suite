@@ -30,10 +30,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 public class HourDisplayPort extends JViewport {
 	JComponent reference = null;
 	JPanel mainpanel = new JPanel();
-	String[] times = {"12:00", "1 AM","2:00","3:00","4:00","5:00","6:00",
-			"7:00","8:00","9:00","10:00","11:00","12 PM",
-			"1:00","2:00","3:00","4:00","5:00","6:00",
-			"7:00","8:00","9:00","10:00","11:00"};
+	String[] times = {"12:00", "01 AM","02:00","03:00","04:00","05:00","06:00",
+			"07:00","08:00","09:00","10:00","11:00","12 PM",
+			"01:00","02:00","03:00","04:00","05:00","06:00",
+			"07:00","08:00","09:00","10:00","11:00"};
 	
 	JLabel[] labels = new JLabel[24];
 	SpringLayout layout = new SpringLayout();
@@ -69,7 +69,7 @@ public class HourDisplayPort extends JViewport {
 			labels[i] = new JLabel(times[i]);
 			labels[i].setForeground(Color.WHITE);
 			labels[i].setFont(CalendarStandard.CalendarFontBold);
-			layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, labels[i], 0, SpringLayout.HORIZONTAL_CENTER, mainpanel);
+			layout.putConstraint(SpringLayout.WEST, labels[i], 0, SpringLayout.WEST, mainpanel);
 			mainpanel.add(labels[i]);
 		}
 		setY();
