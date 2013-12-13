@@ -35,9 +35,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 @SuppressWarnings("serial")
 public class TeamCalendar extends AbCalendar {
 
-	public TeamCalendar() {
-	}
-
 	protected void drawThis() {
 		final SpringLayout layout = new SpringLayout();
 		setLayout(layout);

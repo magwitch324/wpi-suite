@@ -19,13 +19,7 @@ public class EventList extends CalendarObjectList<Event> {
 	 * The list in which all the events for a single project are contained
 	 */
 	// Use the super list calendarObjects
-
-	/**
-	 * Constructs an empty list of events for the project
-	 */
-	public EventList() {
-	}
-
+	
 	/**
 	 * Adds a single event to the events of the project in the correct order
 	 * Events are listed with furthest in the future at index 0

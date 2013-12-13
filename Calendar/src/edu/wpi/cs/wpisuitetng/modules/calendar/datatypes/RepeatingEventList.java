@@ -23,12 +23,6 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	// Use the super list calendarObjects
 
 	/**
-	 * Constructs an empty list of events for the project
-	 */
-	public RepeatingEventList() {
-	}
-
-	/**
 	 * Adds a single event to the events of the project in the correct order
 	 * Events are listed with furthest in the future at index 0
 	 * 

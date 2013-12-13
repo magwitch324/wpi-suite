@@ -21,12 +21,6 @@ public class CommitmentList extends CalendarObjectList<Commitment> {
 	// Use the super list calendarObjects
 
 	/**
-	 * Constructs an empty list of categories for the project
-	 */
-	public CommitmentList() {
-	}
-
-	/**
 	 * Adds a single commitment to the commitment of the project
 	 * 
 	 * @param newReq
