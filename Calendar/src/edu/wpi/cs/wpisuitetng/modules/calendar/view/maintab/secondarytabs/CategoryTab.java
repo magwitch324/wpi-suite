@@ -9,12 +9,14 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
 
 import javax.swing.SpringLayout;
 import javax.swing.JTree;
@@ -33,8 +35,10 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JRadioButton;
 import javax.swing.BoxLayout;
 import javax.swing.AbstractListModel;
@@ -138,23 +142,60 @@ public class CategoryTab extends JPanel {
 		Box horizontalBox_1 = Box.createHorizontalBox();
 		viewPanel.add(horizontalBox_1);
 		
-		btnDelete = new JButton("Delete");
-		horizontalBox_1.add(btnDelete);
+
+		//New Filter button
+		btnNew = new JButton();
+		try {
+			final Image img = ImageIO.read(getClass().getResource("New_Icon.png"));
+			btnNew = new JButton("New Category", new ImageIcon(img));
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			btnNew.setText("New Category");
+		}
 		
+		horizontalBox_1.add(btnNew);
+
 		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
 		horizontalStrut_1.setMaximumSize(new Dimension(20, 0));
 		horizontalBox_1.add(horizontalStrut_1);
 		
-		btnEdit = new JButton("Edit");
+		//Add Edit button
+		btnEdit = new JButton();
+		try {
+			Image img = ImageIO.read(getClass().getResource("Edit_Icon.png"));
+			btnEdit = new JButton("Edit Category", new ImageIcon(img));
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			btnEdit.setText("Edit Category");
+		}
+		
 		horizontalBox_1.add(btnEdit);
 		
 		Component horizontalStrut_2 = Box.createHorizontalStrut(20);
 		horizontalStrut_2.setMaximumSize(new Dimension(20, 0));
 		horizontalBox_1.add(horizontalStrut_2);
 		
-		btnNew = new JButton("New");
+		// Add Delete Button
+		btnDelete = new JButton();
+		try {
+			final Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
+			btnDelete = new JButton("Delete Category", new ImageIcon(img));
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			btnDelete.setText("Delete Category");
+		}
 		
-		horizontalBox_1.add(btnNew);
+		horizontalBox_1.add(btnDelete);
+		
+		
+//		JButton btnDelete = new JButton("Delete");
+//		horizontalBox_1.add(btnDelete);
+//		
+//		JButton btnEdit = new JButton("Edit");
+//		horizontalBox_1.add(btnEdit);
+//		
+//		JButton btnNew = new JButton("New");
+//		horizontalBox_1.add(btnNew);
 		
 		viewPanelStrut = Box.createHorizontalStrut(600);
 		viewPanelStrut.setMaximumSize(new Dimension(600, 0));
