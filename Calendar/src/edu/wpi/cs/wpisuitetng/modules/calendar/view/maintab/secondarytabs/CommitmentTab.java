@@ -62,6 +62,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.SpinnerUI;
 import javax.swing.plaf.basic.BasicSpinnerUI;
 
 import org.jdesktop.swingx.JXDatePicker;
@@ -460,8 +461,8 @@ public class CommitmentTab extends JPanel {
 		
 		// Create time spinners, hour, minute, and AM_PM
 		hourSpinner = new JSpinner( new SpinnerDateModelHour());
-		hourSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		hourSpinner.setUI(new SpinnerUI());
+		//hourSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		//hourSpinner.setUI(new SpinnerUI());
 		spinnerPanel.add(hourSpinner);
 		hourEditor = new JSpinner.DateEditor(hourSpinner, "hh");
 		hourSpinner.setEditor(hourEditor);
@@ -472,8 +473,8 @@ public class CommitmentTab extends JPanel {
 		spinnerPanel.add(colon);
 		
 		minuteSpinner = new JSpinner( new SpinnerDateModelMinute());
-		minuteSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		minuteSpinner.setUI(new SpinnerUI());
+		//minuteSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		//minuteSpinner.setUI(new SpinnerUI());
 		spinnerPanel.add(minuteSpinner);
 		minuteEditor = new JSpinner.DateEditor(minuteSpinner, "mm");
 		minuteSpinner.setEditor(minuteEditor);
@@ -482,7 +483,7 @@ public class CommitmentTab extends JPanel {
 
 		AMPMSpinner = new JSpinner(new SpinnerDateModelAMPM());
 		AMPMSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		AMPMSpinner.setUI(new SpinnerUI());
+		//AMPMSpinner.setUI(new SpinnerUI());
 		spinnerPanel.add(AMPMSpinner);
 		AMPMEditor = new JSpinner.DateEditor(AMPMSpinner, "a");
 		AMPMEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
@@ -1368,14 +1369,12 @@ public class CommitmentTab extends JPanel {
 		}
 	}
 	
-<<<<<<< HEAD
-	private void checkTimeSpinnerStatus(enumTimeSpinner hour) {
+	
+	private void checkTimeSpinnerStatus(enumTimeSpinner hour) {}
 
-=======
 	private void checkTimeSpinnerStatus(JSpinner spinner, enumTimeSpinner hour) {
 			
 			final DateEditor editor = (DateEditor)spinner.getEditor();
->>>>>>> 47c624fa4d0af60492268fe9ea20fe07af6dadad
 			int currentText = 0;
 			
 			//System.out.println(tempAMPMString);
@@ -1388,20 +1387,17 @@ public class CommitmentTab extends JPanel {
 						lblTimeError.setVisible(true);
 					}
 					else {
-<<<<<<< HEAD
 						hourEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 						if(minuteEditor.getTextField().getBackground().equals(CalendarStandard.CalendarYellow)
 								|| AMPMEditor.getTextField().getBackground().equals(CalendarStandard.CalendarYellow)) {
-=======
 						editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 						if(minuteEditor.getTextField().getBackground().equals(
 								CalendarStandard.CalendarYellow)
 								|| AMPMEditor.getTextField().getBackground().equals(
 										CalendarStandard.CalendarYellow)) {
->>>>>>> 47c624fa4d0af60492268fe9ea20fe07af6dadad
 						lblTimeError.setVisible(false);
 						}
-				}
+				}}
 				break;
 				
 			case MINUTE:
@@ -1414,48 +1410,39 @@ public class CommitmentTab extends JPanel {
 						lblTimeError.setVisible(true);
 					}
 					else {
-<<<<<<< HEAD
 						minuteEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 						if(hourEditor.getTextField().getBackground().equals(CalendarStandard.CalendarYellow)
 								|| AMPMEditor.getTextField().getBackground().equals(CalendarStandard.CalendarYellow)) {
-=======
 						editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 						if(hourEditor.getTextField().getBackground().equals(
 								CalendarStandard.CalendarYellow)
 								|| AMPMEditor.getTextField().getBackground().equals(
 										CalendarStandard.CalendarYellow)) {
->>>>>>> 47c624fa4d0af60492268fe9ea20fe07af6dadad
 						lblTimeError.setVisible(false);
 						}
-				}
+				}}
 				break;
 			case AMPM:
-<<<<<<< HEAD
 				String tempAMPMString = AMPMEditor.getTextField().getText().toUpperCase();
 				System.out.println("Input is " + tempAMPMString);
-=======
-				final String tempAMPMString = editor.getTextField().getText().toUpperCase();
+				//final String tempAMPMString = editor.getTextField().getText().toUpperCase();
 				System.out.println("Input is " + tempAMPMString);
 				if (!tempAMPMString.equals(tempAMPM) || upArrowAction 
 						== true || downArrowAction == true) {
->>>>>>> 47c624fa4d0af60492268fe9ea20fe07af6dadad
 				if(!tempAMPMString.equals("AM") && !tempAMPMString.equals("PM")) {
 					AMPMEditor.getTextField().setText(tempAMPM);
 					AMPMEditor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 					lblTimeError.setVisible(true);
 				}
 				else {
-<<<<<<< HEAD
 					AMPMEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 					if(hourEditor.getTextField().getBackground().equals(CalendarStandard.CalendarYellow)
 							|| minuteEditor.getTextField().getBackground().equals(CalendarStandard.CalendarYellow)) {
-=======
 					editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 					if(hourEditor.getTextField().getBackground().equals(
 							CalendarStandard.CalendarYellow)
 							|| minuteEditor.getTextField().getBackground().equals(
 									CalendarStandard.CalendarYellow)) {
->>>>>>> 47c624fa4d0af60492268fe9ea20fe07af6dadad
 					lblTimeError.setVisible(false);
 					}
 				}
@@ -1508,7 +1495,7 @@ public class CommitmentTab extends JPanel {
 		    return btnDown;  
 		  }  
 	}
-}
+}}}
 
 
 
