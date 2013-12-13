@@ -21,6 +21,7 @@ public class CalendarProps extends AbstractModel {
 	private boolean showMyComm;
 	private boolean showTeamComm;
 	private boolean showTeamData;
+	private int commViewMode;
 
 	/**
 	 * Constructs a CalendarProps with default characteristics
@@ -31,6 +32,7 @@ public class CalendarProps extends AbstractModel {
 		showMyComm = false;
 		showTeamComm = false;
 		showTeamData = false;
+		commViewMode = 0;
 	}
 
 	/**
@@ -99,6 +101,23 @@ public class CalendarProps extends AbstractModel {
 	 */
 	public boolean getShowTeamData(){
 		return showTeamData;
+	}
+	
+	/**
+	 * setter for persisting whether team data should be shown on the personal calendar
+	 * 
+	 * @param showComm
+	 */
+	public void setCommViewMode(int mode){
+		commViewMode = mode;
+	}
+	
+	/**
+	 * getter for setting whether show team data is selected at startup
+	 * 
+	 */
+	public int getCommViewMode(){
+		return commViewMode;
 	}
 	
 	/**
@@ -211,6 +230,7 @@ public class CalendarProps extends AbstractModel {
 		showMyComm = toCopyFrom.getMyShowComm();
 		showTeamComm = toCopyFrom.getTeamShowComm();
 		showTeamData = toCopyFrom.getShowTeamData();
+		commViewMode = toCopyFrom.getCommViewMode();
 	}
 
 	

@@ -103,7 +103,7 @@ public abstract class CalendarView extends JSplitPane {
 		});
 		panel.add(showVisibleButton);
 		
-		JRadioButton showAllButton = new JRadioButton("Show all open commitments");
+		final JRadioButton showAllButton = new JRadioButton("Show all open commitments");
 		showAllButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		showAllButton.setBackground(Color.WHITE);
 		showAllButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this radio button

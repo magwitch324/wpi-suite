@@ -146,23 +146,23 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		});	
 			
 		
-		
+		// Category button Create
 	    manageCategoryButton.setText("<html>Manage<br />Categories</html>");
 	    manageCategoryButton.setFont(CalendarStandard.CalendarFontBold);
 	    manageCategoryButton.setHorizontalAlignment(SwingConstants.CENTER);
 	    manageCategoryButton.setContentAreaFilled(false);
 	    manageCategoryButton.setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 0));
 		manageCategoryButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
-		// the action listener for the Manage Category Button
-//		manageCategoryButton.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// bring up a create requirement pane if not in Multiple Requirement Editing Mode
-//				//if (!ViewEventController.getInstance().getOverviewTable().getEditFlag()) {
-//					GUIEventController.getInstance().manageCategories();
-//			//	}
-//			}
-//		});	
+		//the action listener for the Manage Category Button
+		manageCategoryButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// bring up a create requirement pane if not in Multiple Requirement Editing Mode
+				//if (!ViewEventController.getInstance().getOverviewTable().getEditFlag()) {
+					GUIEventController.getInstance().createManageCategories();
+			//	}
+			}
+		});	
 		
 		
 		

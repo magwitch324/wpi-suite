@@ -77,10 +77,6 @@ import java.awt.Color;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
-/**
- * @author sfp
- *
- */
 public class EventTab extends JPanel {
 	private GregorianCalendar startDate;
 	private GregorianCalendar oldStartTime;
@@ -294,8 +290,6 @@ public class EventTab extends JPanel {
 		//Create category box, add two dummy categories
 		categoryComboBox = new JComboBox<Category>();
 		categoryComboBox.setBackground(CalendarStandard.CalendarYellow);
-		categoryComboBox.addItem(new Category(4, "Cat1"));
-		categoryComboBox.addItem(new Category(5, "Cat2"));
 
 		final GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
 		gbc_categoryComboBox.gridwidth = 3;
@@ -773,7 +767,7 @@ public class EventTab extends JPanel {
 		//Add Cancel button
 
 		try {
-			Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
 			btnCancel = new JButton("Cancel", new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
@@ -1502,7 +1496,8 @@ public class EventTab extends JPanel {
 					//make sure something changed
 					if (nameTextField.getText().equals(editingEvent.getName()) 
 							&& descriptionTextArea.getText().equals(editingEvent.getDescription())
-							&& ((Category)categoryComboBox.getSelectedItem()).getId() == editingEvent.getCategoryID()
+							//TODO uncomment category code
+							//&& ((Category)categoryComboBox.getSelectedItem()).getID() == editingEvent.getCategoryID()
 							&& getStartDate().getTime().equals(editingEvent.getStartTime().getTime())
 							&& getEndDate().getTime().equals(editingEvent.getEndTime().getTime()))
 					{
@@ -1733,7 +1728,7 @@ public class EventTab extends JPanel {
 				newRepEvent.setIsPersonal(true);
 			}
 
-			newRepEvent.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getId());
+			newRepEvent.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getID());
 			newRepEvent.setDescription(descriptionTextArea.getText());
 
 
@@ -1781,7 +1776,12 @@ public class EventTab extends JPanel {
 				newEvent.setIsPersonal(true);
 			}
 
-			newEvent.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getId());
+			//TODO
+			//temporary fix to allow use of events still
+			try{
+				newEvent.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getID());
+			}catch(java.lang.NullPointerException exp){}
+			
 			newEvent.setDescription(descriptionTextArea.getText());
 
 

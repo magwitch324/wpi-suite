@@ -255,7 +255,7 @@ public abstract class AbCalendar extends JPanel {
 	}
 
 	protected JComponent getDatePanel(){
-		JPanel apane = new JPanel();
+		final JPanel apane = new JPanel();
 		apane.setBackground(new Color(0,0,0,0));
 		apane.setOpaque(false);
 		
@@ -404,9 +404,9 @@ public abstract class AbCalendar extends JPanel {
 	/**
 	 * This function is called on Janeway shutdown to save the calendar props.
 	 */
-	public void saveProps(){
+/*	public void saveProps(){
 		UpdatePropsController.getInstance().updateCalendarProps(calProps);
-	}
+	}*/
 
 	public void setViewButtonToActive(AbCalendar.types switchView){
 		final int k = switchView.ordinal();
