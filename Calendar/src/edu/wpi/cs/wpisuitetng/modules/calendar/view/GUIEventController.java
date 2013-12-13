@@ -21,6 +21,7 @@ import javax.swing.ImageIcon;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CategoryTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.EventTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
@@ -178,6 +179,28 @@ public class GUIEventController {
 		main.setSelectedComponent(newCommit);
 	}
 
+	// Creates manage categories tab
+	public void createManageCategories() {
+		int openedFrom = main.getSelectedIndex();
+		if (openedFrom > 2){
+			openedFrom = 0;
+		}
+		final CategoryTab newCat = new CategoryTab();
+		try {
+			final Image img = ImageIO.read(getClass().getResource("NewCommitment_Icon.png"));
+			main.addTab("Manage Categories", new ImageIcon(img), newCat);
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			main.addTab("Manage Category", new ImageIcon(), newCat);
+		}
+		//		main.addTab("New Commitment", null, newCommit, "New Commitment");
+		//		newCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		main.invalidate(); //force the tabbedpane to redraw.
+		main.repaint();
+		main.setSelectedComponent(newCat);
+	}
+
+	
 	/** Edit a commitment in a new tab
 	 * @param comm Commitment to edit
 	 * @param calData CalendarData where commitment is located
