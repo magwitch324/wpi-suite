@@ -26,13 +26,13 @@ public abstract class CalendarObject extends AbstractModel {
     /** the id of the CalendarObject */
     protected int id;
 
-	public CalendarObject() {
+	protected CalendarObject() {
 		name = description = "";
 		isPersonal = false;
 		categoryID = 0;
 	}
 	
-	public CalendarObject(String name, String description, int categoryID, boolean isPersonal) {
+	protected CalendarObject(String name, String description, int categoryID, boolean isPersonal) {
 		this.name = name;
 		this.description = description;
 		this.categoryID = categoryID;

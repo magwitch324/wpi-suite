@@ -80,7 +80,7 @@ public abstract class AbCalendar extends JPanel {
 	protected CommitmentList commitments;
 	protected EventList events;
 
-	public AbCalendar(){
+	protected AbCalendar(){
 		initialized = false;
 		mycal = new GregorianCalendar();
 

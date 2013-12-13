@@ -49,7 +49,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * Constructor
 	 * Sets up the panel with the refresh function
 	 */
-	public CalendarView(GregorianCalendar calendar) {
+	protected CalendarView(GregorianCalendar calendar) {
 		showAllCommFlag = false;
 	}
 	/**

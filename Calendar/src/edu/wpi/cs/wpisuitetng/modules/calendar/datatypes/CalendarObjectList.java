@@ -29,7 +29,7 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 	/**
 	 * Constructor
 	 */
-	public CalendarObjectList() {
+	protected CalendarObjectList() {
 		calendarObjects = new ArrayList<T>();
 		nextID = 0;
 	}
