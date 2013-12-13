@@ -24,6 +24,9 @@ public class CategoryList {
 	 * The list in which all the categories for a single project are contained
 	 */
 	private final List<Category> categories;
+	
+	/** the the id to be used for the next category */
+	private int nextID;
 
 	/**
 	 * Constructs an empty list of categories for the project
@@ -39,8 +42,10 @@ public class CategoryList {
 	 * 
 	 * @param newCat The category to be added to the list of categories in the project
 	 */
-	public void addCategory(Category newCat){
+	public void add(Category newCat){
 		// add the category
+		newCat.setID(nextID);
+		nextID++;
 		categories.add(newCat);
 		sortByAlphabet();
 
@@ -68,7 +73,7 @@ public class CategoryList {
 	 * 
 	 * @param removeId The ID number of the category to be removed from the list of categories in the project
 	 */
-	public void removeCategory(int removeId){
+	public void remove(int removeId){
 		// iterate through list of categories until id of project is found
 		for (int i=0; i < categories.size(); i++){
 			if (categories.get(i).getID() == removeId){

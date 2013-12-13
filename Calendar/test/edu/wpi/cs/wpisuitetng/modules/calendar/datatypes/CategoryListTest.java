@@ -28,12 +28,14 @@ public class CategoryListTest {
     
     @Before
     public void setUp() {
+    	/*
     	categoryList = new CategoryList();
     	categories = new ArrayList<Category>();
         lastYear = new Category(0, "Last Year");
         todayCategory = new Category(3, "Today");
         nextWeek = new Category(4, "Next Week");
         nextYear = new Category(6, "Next Year");
+        */
     }
 
 
@@ -42,9 +44,9 @@ public class CategoryListTest {
 	 */
 	@Test
     public void addCategoryTest() {
-    	categoryList.addCategory(nextWeek);
-    	categoryList.addCategory(todayCategory);
-    	categoryList.addCategory(lastYear);
+    	categoryList.add(nextWeek);
+    	categoryList.add(todayCategory);
+    	categoryList.add(lastYear);
     	assertEquals("Last Year", categoryList.getElementAt(2).getName());
     	assertEquals("Today", categoryList.getElementAt(0).getName());
     }
@@ -54,10 +56,10 @@ public class CategoryListTest {
 	 */
 	@Test
 	public void getCategoryTest() {
-	    categoryList.addCategory(nextWeek);
-	    categoryList.addCategory(todayCategory);
-	    categoryList.addCategory(lastYear);
-	    categoryList.addCategory(nextYear);    	
+	    categoryList.add(nextWeek);
+	    categoryList.add(todayCategory);
+	    categoryList.add(lastYear);
+	    categoryList.add(nextYear);    	
 	    assertEquals("Last Year", categoryList.getCategory(0).getName());
 	    assertEquals("Next Year", categoryList.getCategory(6).getName());
 	    assertEquals("Today", categoryList.getCategory(3).getName());
@@ -68,12 +70,12 @@ public class CategoryListTest {
 	 */
 	 @Test
 	    public void removeCategoryTest() {
-	    	categoryList.addCategory(nextWeek);
-	    	categoryList.addCategory(todayCategory);
-	    	categoryList.addCategory(lastYear);
-	    	categoryList.addCategory(nextYear);    	
-	    	categoryList.removeCategory(0);
-	    	categoryList.removeCategory(3);
+	    	categoryList.add(nextWeek);
+	    	categoryList.add(todayCategory);
+	    	categoryList.add(lastYear);
+	    	categoryList.add(nextYear);    	
+	    	categoryList.remove(0);
+	    	categoryList.remove(3);
 	    	assertEquals(2, categoryList.getSize());
 	    	assertEquals("Next Year", categoryList.getElementAt(0).getName());
 	    	assertEquals("Next Week", categoryList.getElementAt(1).getName());
@@ -84,10 +86,10 @@ public class CategoryListTest {
 	   */
 	 @Test
 	    public void removeAllTest() {
-	    	categoryList.addCategory(nextWeek);
-	    	categoryList.addCategory(todayCategory);
-	    	categoryList.addCategory(lastYear);
-	    	categoryList.addCategory(nextYear);
+	    	categoryList.add(nextWeek);
+	    	categoryList.add(todayCategory);
+	    	categoryList.add(lastYear);
+	    	categoryList.add(nextYear);
 	    	categoryList.removeAll();
 	    	assertEquals(0, categoryList.getSize());
 	    }
@@ -109,10 +111,10 @@ public class CategoryListTest {
 	  */
 	 @Test
 	    public void getCategoriesTest() {
-	    	categoryList.addCategory(nextWeek);
-	    	categoryList.addCategory(todayCategory);
-	    	categoryList.addCategory(lastYear);
-	    	categoryList.addCategory(nextYear);	    	
+	    	categoryList.add(nextWeek);
+	    	categoryList.add(todayCategory);
+	    	categoryList.add(lastYear);
+	    	categoryList.add(nextYear);	    	
 	    	categories = categoryList.getCategorys();	    	
 	    	assertEquals(4, categories.size());
 	    	assertEquals("Next Year", categories.get(2).getName());
@@ -124,10 +126,10 @@ public class CategoryListTest {
 	  */
 	  @Test
 	    public void updateTest() {
-	    	categoryList.addCategory(nextWeek);
-	    	categoryList.addCategory(todayCategory);
-	    	categoryList.addCategory(lastYear);
-	    	categoryList.addCategory(nextYear);
+	    	categoryList.add(nextWeek);
+	    	categoryList.add(todayCategory);
+	    	categoryList.add(lastYear);
+	    	categoryList.add(nextYear);
 	    	todayCategory.setName("abc");
 	    	nextWeek.setID(9);
 	    	categoryList.update(todayCategory);
