@@ -96,7 +96,7 @@ public class HalfHourBlock extends JPanel{
 	 */
 	private JComponent getTeamComPanel(Commitment tochange){
 		final CommitmentCalViewPanel apane = new CommitmentCalViewPanel(tochange);
-		apane.setBackground(new Color(255,255,255));
+		apane.setBackground(Color.white);
 		
 
 		final LineBorder roundedLineBorder = new LineBorder(Color.black, 1, true);
@@ -161,7 +161,7 @@ public class HalfHourBlock extends JPanel{
 	 */
 	private JComponent getPersonalComPanel(Commitment tochange){
 		final CommitmentCalViewPanel apane = new CommitmentCalViewPanel(tochange);
-		apane.setBackground(new Color(255,255,255));
+		apane.setBackground(Color.white);
 		
 
 		final LineBorder roundedLineBorder = new LineBorder(Color.black, 1, true);

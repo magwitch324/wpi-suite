@@ -340,7 +340,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 			active = month == acal.get(Calendar.MONTH);
 
 			if(active){
-				lbl.setForeground(new Color(0,0,0));
+				lbl.setForeground(Color.black);
 				this.setBackground(CalendarStandard.CalendarYellow);
 				
 				bgc_withcomm = new BackgroundColor(CalendarStandard.CalendarYellow, CalendarStandard.HeatMapRed, 10);
