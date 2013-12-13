@@ -62,6 +62,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.SpinnerUI;
 import javax.swing.plaf.basic.BasicSpinnerUI;
 
 import org.jdesktop.swingx.JXDatePicker;
@@ -1368,7 +1369,6 @@ public class CommitmentTab extends JPanel {
 		}
 	}
 	
-
 	private void checkTimeSpinnerStatus(JSpinner spinner, enumTimeSpinner type) {
 
 		final DateEditor editor = (DateEditor)spinner.getEditor();
