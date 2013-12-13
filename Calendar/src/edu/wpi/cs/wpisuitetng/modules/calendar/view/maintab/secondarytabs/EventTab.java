@@ -77,10 +77,6 @@ import java.awt.Color;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
-/**
- * @author sfp
- *
- */
 public class EventTab extends JPanel {
 	private GregorianCalendar startDate;
 	private GregorianCalendar oldStartTime;
