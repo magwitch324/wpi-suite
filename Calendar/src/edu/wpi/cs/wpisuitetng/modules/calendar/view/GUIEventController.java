@@ -20,8 +20,10 @@ import javax.swing.ImageIcon;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdatePropsController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
@@ -318,6 +320,14 @@ public class GUIEventController {
 		
 	}
 	
+	public void removeCategory(Category catToDelete){
+		CalendarData calData;
+		if (catToDelete.getIsPersonal()){
+			calData = myCalendar.getCalData();
+		} else {
+			calData = teamCalendar.getCalData();
+		}
+	}
 
 
 }
