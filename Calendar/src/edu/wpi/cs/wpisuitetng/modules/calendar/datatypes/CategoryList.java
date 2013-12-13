@@ -57,7 +57,7 @@ public class CategoryList {
 		// iterate through list of categories until id is found
 		for (int i=0; i < categories.size(); i++){
 			temp = categories.get(i);
-			if (temp.getId() == id){
+			if (temp.getID() == id){
 				break;
 			}
 		}
@@ -71,7 +71,7 @@ public class CategoryList {
 	public void removeCategory(int removeId){
 		// iterate through list of categories until id of project is found
 		for (int i=0; i < categories.size(); i++){
-			if (categories.get(i).getId() == removeId){
+			if (categories.get(i).getID() == removeId){
 				// remove the id
 				categories.remove(i);
 				break;
@@ -139,7 +139,7 @@ public class CategoryList {
 	 * @param the category to be update
 	 */
 	public void update (Category newCategory) {
-		categories.remove(getCategory(newCategory.getId()));
+		categories.remove(getCategory(newCategory.getID()));
 		categories.add(newCategory);
 		sortByAlphabet();
 	}

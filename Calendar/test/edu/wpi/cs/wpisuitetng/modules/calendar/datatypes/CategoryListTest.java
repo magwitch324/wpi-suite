@@ -129,11 +129,11 @@ public class CategoryListTest {
 	    	categoryList.addCategory(lastYear);
 	    	categoryList.addCategory(nextYear);
 	    	todayCategory.setName("abc");
-	    	nextWeek.setId(9);
+	    	nextWeek.setID(9);
 	    	categoryList.update(todayCategory);
 	    	categoryList.update(nextWeek);	
 	    	assertEquals("abc", categoryList.getCategory(3).getName());
-	    	assertEquals(9, categoryList.getElementAt(1).getId());
+	    	assertEquals(9, categoryList.getElementAt(1).getID());
 	    }
 
 
