@@ -158,6 +158,8 @@ public class CommitmentTab extends JPanel {
 	private String tempAMPM;
 	private boolean upArrowAction;
 	private boolean downArrowAction;
+
+	private Category uncategorized;
 	
 	/**
 	 * Create the panel.
@@ -412,6 +414,9 @@ public class CommitmentTab extends JPanel {
 		//Create category box, add two dummy categories
 		categoryComboBox = new JComboBox<Category>();
 		categoryComboBox.setBackground(CalendarStandard.CalendarYellow);
+		uncategorized = new Category("Uncategorized", Color.WHITE, false);
+		uncategorized.setID(0);
+		categoryComboBox.addItem(uncategorized);
 		
 		final GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
 		gbc_categoryComboBox.fill = GridBagConstraints.HORIZONTAL;
