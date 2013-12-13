@@ -1047,7 +1047,7 @@ public class CommitmentTab extends JPanel {
 			newComm.setIsPersonal(true);
 		}
 
-		newComm.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getId());
+		newComm.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getID());
 		newComm.setDescription(descriptionTextField.getText());
 
 		
@@ -1185,7 +1185,7 @@ public class CommitmentTab extends JPanel {
 					//make sure something changed
 					if (nameTextField.getText().equals(editingCommitment.getName()) 
 							&& descriptionTextField.getText().equals(editingCommitment.getDescription())
-							&& ((Category)categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryID()
+							&& ((Category)categoryComboBox.getSelectedItem()).getID() == editingCommitment.getCategoryID()
 							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
 							&& calDate.getTime().equals(editingCommitment.getDueDate().getTime())
 							&& lblTimeError.isVisible()

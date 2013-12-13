@@ -21,7 +21,7 @@ public class CategoryTest {
 	@Test
 	public void defaultConstructorTest(){
 		Category testCategory = new Category ();
-		assertEquals(0, testCategory.getId());
+		assertEquals(0, testCategory.getID());
 		assertEquals("", testCategory.getName());
 	}
 	
@@ -32,7 +32,7 @@ public class CategoryTest {
 	public void mainConstructorTest(){
 		Category testCategory = new Category (1, "test");
 		assertEquals("test", testCategory.getName());
-		assertEquals(1, testCategory.getId());
+		assertEquals(1, testCategory.getID());
 	}
 	
 	/**
@@ -41,9 +41,9 @@ public class CategoryTest {
 	@Test
 	public void setterConstructorTest(){
 		Category testCategory = new Category (1, "settertest");
-		testCategory.setId(2);
+		testCategory.setID(2);
 		testCategory.setName("setter test");
-		assertEquals(2, testCategory.getId());
+		assertEquals(2, testCategory.getID());
 		assertEquals("setter test", testCategory.getName());		
 	}
 	/**
