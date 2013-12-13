@@ -22,13 +22,16 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEventList;
 
- /* @author CS Anonymous
+ /**
+  * Data model for the calendar. Add/delete objects inside a specific calendar.
+  * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
 public class CalendarData extends AbstractModel {
 
 	/** the ID of the CalendarData */
 	private String id;
+	/** data containers*/
 	private CategoryList categories;
 	private CommitmentList commitments;
 	private EventList events;
