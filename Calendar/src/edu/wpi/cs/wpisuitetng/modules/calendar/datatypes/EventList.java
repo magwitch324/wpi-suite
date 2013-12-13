@@ -13,9 +13,11 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+/**
+ * List of events that will be used by the gui for display.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
 public class EventList extends CalendarObjectList<Event> {
 
 	/**

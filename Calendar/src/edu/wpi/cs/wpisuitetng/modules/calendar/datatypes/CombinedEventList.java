@@ -12,9 +12,12 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
 import java.util.List;
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+/**
+ * When the show both personal and team checkbox is selected,
+ * both data will be stored in this combinedlist for display.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
 public class CombinedEventList extends EventList{
 	/**
 	 * This class is for dealing with combining the list of personal 

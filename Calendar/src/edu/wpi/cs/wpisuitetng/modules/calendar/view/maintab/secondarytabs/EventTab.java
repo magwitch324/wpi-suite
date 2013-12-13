@@ -214,7 +214,7 @@ public class EventTab extends JPanel {
 		formPanel.setLayout(gbl);
 		
 		//Name label
-		final JLabel lblName = new JLabel("Name:");
+		final JLabel lblName = new JLabel("Name*:");
 		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc = new GridBagConstraints();
 		gbc.anchor = GridBagConstraints.EAST;
@@ -340,7 +340,7 @@ public class EventTab extends JPanel {
 		rdbtnTeam.setSelected(true);
 		
 		//Date label
-		final JLabel lblDate_1 = new JLabel("Start Date:");
+		final JLabel lblDate_1 = new JLabel("Start Date*:");
 		lblDate_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblDate_1 = new GridBagConstraints();
 		gbc_lblDate_1.fill = GridBagConstraints.VERTICAL;
@@ -353,7 +353,7 @@ public class EventTab extends JPanel {
 		formPanel.add(lblDate_1, gbc_lblDate_1);
 		
 		//Time label
-		final JLabel lblTime = new JLabel("Start Time:");
+		final JLabel lblTime = new JLabel("Start Time*:");
 		lblTime.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblTime = new GridBagConstraints();
 		gbc_lblTime.anchor = GridBagConstraints.EAST;
@@ -471,7 +471,7 @@ public class EventTab extends JPanel {
 		//End Date/Time Forms
 		
 		//Date label
-		final JLabel lblDate_2 = new JLabel("End Date:");
+		final JLabel lblDate_2 = new JLabel("End Date*:");
 		lblDate_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblDate_2 = new GridBagConstraints();
 		gbc_lblDate_2.fill = GridBagConstraints.VERTICAL;
@@ -484,7 +484,7 @@ public class EventTab extends JPanel {
 		formPanel.add(lblDate_2, gbc_lblDate_2);
 		
 		//Time2 label
-		final JLabel lblTime2 = new JLabel("End Time:");
+		final JLabel lblTime2 = new JLabel("End Time*:");
 		lblTime2.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblTime2 = new GridBagConstraints();
 		gbc_lblTime2.anchor = GridBagConstraints.EAST;

@@ -15,9 +15,11 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Date;
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+/**
+ * Main data storage class for repeating event, is has a number of repetitions and a repeat type.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
 public class RepeatingEvent extends CalendarObject {
 
 	/** the start date of the event */
