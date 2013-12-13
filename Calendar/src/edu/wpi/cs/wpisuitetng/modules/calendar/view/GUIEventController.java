@@ -12,6 +12,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import java.awt.Image;
 import java.io.IOException;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -22,6 +23,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 //import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
@@ -388,12 +390,36 @@ public class GUIEventController {
 	 * @param catToDelete Category
 	 */
 	public void removeCategory(Category catToDelete){
+		//get relevant calendar data
 		CalendarData calData;
 		if (catToDelete.getIsPersonal()){
 			calData = myCalendar.getCalData();
 		} else {
 			calData = teamCalendar.getCalData();
 		}
+		
+		//Scrub the category from any commitment/event that it is assigned to
+		List<Commitment> commitments = calData.getCommitments().getCommitments();
+		for(Commitment tmpComm: commitments){
+			if (tmpComm.getCategoryID() == catToDelete.getID()){
+				tmpComm.setCategoryID(0);
+			}
+		}
+		List<Event> events = calData.getEvents().getEvents();
+		for(Event tmpEvent: events){
+			if (tmpEvent.getCategoryID() == catToDelete.getID()){
+				tmpEvent.setCategoryID(0);
+			}
+		}
+		List<RepeatingEvent> repeatingEvents = calData.getRepeatingEvents().getEvents();
+		for(RepeatingEvent tmpRepEvent: repeatingEvents){
+			if (tmpRepEvent.getCategoryID() == catToDelete.getID()){
+				tmpRepEvent.setCategoryID(0);
+			}
+		}
+		
+		//delete the category
+		calData.getCategories().remove(catToDelete.getID());
 	}
 	
 	
