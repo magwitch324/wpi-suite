@@ -136,7 +136,7 @@ public class CalendarObjectPanel extends JPanel {
 			calobj = event;
 			//if it is a multi day event
 			if(event.getStartTime().get(Calendar.DAY_OF_MONTH) != event.getEndTime().get(Calendar.DAY_OF_MONTH)){
-				SimpleDateFormat dateFormat = new SimpleDateFormat();
+				final SimpleDateFormat dateFormat = new SimpleDateFormat();
 						dateFormat.applyPattern("MM/dd/yy");
 				//if the current day we are adding it to is the first day
 				if(acal.get(Calendar.DAY_OF_MONTH) == event.getStartTime().get(Calendar.DAY_OF_MONTH)){
@@ -358,7 +358,7 @@ public class CalendarObjectPanel extends JPanel {
 	 */
 	public GregorianCalendar getEnd(){
 		if(event != null){
-			GregorianCalendar cal = new GregorianCalendar();
+			final GregorianCalendar cal = new GregorianCalendar();
 			cal.setTime(event.getEndTime().getTime());
 			return cal;
 		}

@@ -45,8 +45,6 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
-import org.jdesktop.swingx.border.MatteBorderExt;
-
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
@@ -384,7 +382,7 @@ public class CommitmentFullView extends JPanel{
 		jDescription.setBackground(CalendarStandard.CalendarRed);
 		if(dessort == 1){
 			try {
-				Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
+				final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
 				jDescription.setIcon(new ImageIcon(img));
 				jDescription.setText("<html><font color='white'><b>"
 						+ "Description" + "</b></font></html>");
@@ -511,7 +509,8 @@ public class CommitmentFullView extends JPanel{
 			CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
 			Image nameImg;
 			Image scaleImg;
-			JLabel name = new JLabel(commitmentList.get(i).getName(),JLabel.CENTER);
+			JLabel name = new JLabel(commitmentList.get(i).getName(),JLabel.LEFT);
+			name.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 			try {
 				if (commitmentList.get(i).getIsPersonal())
 				{	
@@ -531,14 +530,18 @@ public class CommitmentFullView extends JPanel{
 
 			SimpleDateFormat df = new SimpleDateFormat();
 			df.applyPattern("EEEE, MMMM d, y - hh:mm a");
+			
+			JLabel date = new JLabel(""+df.format(commitmentList.get(i).getDueDate().getTime()),JLabel.LEFT);
+			date.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+			JLabel description = new JLabel("<HTML>"+ commitmentList.get(i).getDescription()+"</HTML>",JLabel.LEFT);
+			description.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+			JLabel status = new JLabel(Status.convertToString(commitmentList.get(i).getStatus().id),JLabel.LEFT);
+			status.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
-			JLabel date = new JLabel(""+df.format(commitmentList.get(i).getDueDate().getTime()),JLabel.CENTER);
-			JLabel description = new JLabel("<HTML>"+ commitmentList.get(i).getDescription()+"</HTML>",JLabel.CENTER);
-			JLabel status = new JLabel(Status.convertToString(commitmentList.get(i).getStatus().id),JLabel.CENTER);
 			commitmentPanel.setLayout(experimentLayout);
 			//GridBagConstraints c = new GridBagConstraints();
-			c.anchor = GridBagConstraints.CENTER;
-			c.fill = GridBagConstraints.HORIZONTAL;
+			c.anchor = GridBagConstraints.BASELINE_LEADING;
+			c.fill = GridBagConstraints.BASELINE_LEADING;
 			c.weightx = 1;
 			commitmentPanel.add(name,c);
 			commitmentPanel.add(date,c);

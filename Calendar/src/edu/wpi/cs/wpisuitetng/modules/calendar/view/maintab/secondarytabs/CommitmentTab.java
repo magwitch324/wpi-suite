@@ -800,7 +800,7 @@ public class CommitmentTab extends JPanel {
 				boolean hourFlag;
 				final GregorianCalendar cal = new GregorianCalendar();
 				cal.setTime((Date) minuteSpinner.getValue());
-				int currentHour = cal.get(Calendar.HOUR);
+				final int currentHour = cal.get(Calendar.HOUR);
 				System.out.println("Change ccurent " + currentHour);
 				checkTimeSpinnerStatus(minuteSpinner, enumTimeSpinner.MINUTE);
 				refreshTemp(enumTimeSpinner.MINUTE);
@@ -1044,8 +1044,12 @@ public class CommitmentTab extends JPanel {
 		else{
 			newComm.setIsPersonal(true);
 		}
+		//TODO
+		//temporary fix to allow use of events still
+		try{
+			newComm.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getID());
+		}catch(java.lang.NullPointerException exp){}
 
-		newComm.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getID());
 		newComm.setDescription(descriptionTextField.getText());
 
 		
@@ -1183,7 +1187,8 @@ public class CommitmentTab extends JPanel {
 					//make sure something changed
 					if (nameTextField.getText().equals(editingCommitment.getName()) 
 							&& descriptionTextField.getText().equals(editingCommitment.getDescription())
-							&& ((Category)categoryComboBox.getSelectedItem()).getID() == editingCommitment.getCategoryID()
+							//TODO uncomment category code
+							//&& ((Category)categoryComboBox.getSelectedItem()).getID() == editingCommitment.getCategoryID()
 							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
 							&& calDate.getTime().equals(editingCommitment.getDueDate().getTime())
 							&& lblTimeError.isVisible()
@@ -1253,7 +1258,7 @@ public class CommitmentTab extends JPanel {
 	
 	private void checkTimeSpinnerStatus(JSpinner spinner, enumTimeSpinner hour) {
 			
-			DateEditor editor = (DateEditor)spinner.getEditor();
+			final DateEditor editor = (DateEditor)spinner.getEditor();
 			int currentText = 0;
 			
 			//System.out.println(tempAMPMString);
@@ -1296,7 +1301,7 @@ public class CommitmentTab extends JPanel {
 				}
 				break;
 			case AMPM:
-				String tempAMPMString = editor.getTextField().getText().toUpperCase();
+				final String tempAMPMString = editor.getTextField().getText().toUpperCase();
 				System.out.println("Input is " + tempAMPMString);
 				if (!tempAMPMString.equals(tempAMPM) || upArrowAction == true || downArrowAction == true) {
 				if(!tempAMPMString.equals("AM") && !tempAMPMString.equals("PM")) {
@@ -1319,7 +1324,7 @@ public class CommitmentTab extends JPanel {
 	class SpinnerUI extends BasicSpinnerUI  {
 		protected Component createNextButton()  
 		  {  
-		    JButton btnUp = (JButton)super.createNextButton();  
+		    final JButton btnUp = (JButton)super.createNextButton();  
 		    btnUp.addActionListener(new ActionListener(){  
 		      public void actionPerformed(ActionEvent ae){
 			        System.out.println("Going up");  
@@ -1340,7 +1345,7 @@ public class CommitmentTab extends JPanel {
 		  }  
 		  protected Component createPreviousButton()  
 		  {  
-		    JButton btnDown = (JButton)super.createPreviousButton();  
+		    final JButton btnDown = (JButton)super.createPreviousButton();  
 		    btnDown.addActionListener(new ActionListener(){  
 		      public void actionPerformed(ActionEvent ae){ 
 		    	  try {
