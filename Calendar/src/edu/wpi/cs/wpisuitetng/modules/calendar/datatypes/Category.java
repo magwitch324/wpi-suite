@@ -9,6 +9,7 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
+import java.awt.Color;
 import java.util.Comparator;
 
 import com.google.gson.Gson;
@@ -25,6 +26,11 @@ public class Category extends AbstractModel implements Comparator<Category>{
 	/** the name of the category */
 	private String name;
 	
+	/** the color associated with the category*/
+	private Color categoryColor;
+	
+	/** whether or not the category is personal*/
+	private boolean isPersonal;
 	
 	/**
 	 * Constructs a category with default characteristics
@@ -32,6 +38,8 @@ public class Category extends AbstractModel implements Comparator<Category>{
 	public Category() {
 		super();
 		name = "";
+		categoryColor = new Color(0);
+		isPersonal = false;
 	}
 
 	/**
@@ -44,10 +52,11 @@ public class Category extends AbstractModel implements Comparator<Category>{
 	 *            The name of the category
 	 */
 	// need to phase out supplying the ID
-	public Category(int id, String name) {
+	public Category(String name, Color categoryColor, boolean isPersonal) {
 		this();
-		this.id = id;
 		this.name = name;
+		this.categoryColor = categoryColor;
+		this.isPersonal = isPersonal;
 	}
 
 
@@ -69,7 +78,7 @@ public class Category extends AbstractModel implements Comparator<Category>{
 	 * 
 	
 	 * @return the id */
-	public int getId() {
+	public int getID() {
 		return id;
 	}
 
@@ -79,7 +88,7 @@ public class Category extends AbstractModel implements Comparator<Category>{
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(int id) {
+	public void setID(int id) {
 		this.id = id;
 	}
 
@@ -106,6 +115,49 @@ public class Category extends AbstractModel implements Comparator<Category>{
 			name = n;
 		}
 		
+	}
+
+	/**
+	 * Getter for the color
+	 * 
+	 * @return the categoryColor
+	 */
+	public Color getCategoryColor() {
+		return categoryColor;
+	}
+
+	/**
+	 * Setter for the color
+	 * 
+	 * @param categoryColor the categoryColor to set
+	 */
+	public void setCategoryColor(Color categoryColor) {
+		this.categoryColor = categoryColor;
+	}
+
+	/**
+	 * Getter for isPersonal
+	 * 
+	 * @return the isPersonal
+	 */
+	public boolean getIsPersonal() {
+		return isPersonal;
+	}
+
+	/**
+	 * Setter for isPersonal
+	 * 
+	 * @param isPersonal the isPersonal to set
+	 */
+	public void setPersonal(boolean isPersonal) {
+		this.isPersonal = isPersonal;
+	}
+	
+	public void copyFrom(Category toCopyFrom) {
+		id = toCopyFrom.getID();
+		name = toCopyFrom.getName();
+		categoryColor = toCopyFrom.getCategoryColor();
+		isPersonal = toCopyFrom.getIsPersonal();
 	}
 
 	/**
