@@ -27,7 +27,6 @@ public abstract class CalendarObject extends AbstractModel {
     protected int id;
 
 	public CalendarObject() {
-		super();
 		name = description = "";
 		isPersonal = false;
 		categoryID = 0;

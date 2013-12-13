@@ -24,7 +24,6 @@ public class CommitmentList extends CalendarObjectList<Commitment> {
 	 * Constructs an empty list of categories for the project
 	 */
 	public CommitmentList() {
-		super();
 	}
 
 	/**

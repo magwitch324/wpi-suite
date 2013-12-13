@@ -31,10 +31,7 @@ public class CommitDetailedPane extends JPanel {
 	
 	List<Commitment> commits;
 	GregorianCalendar adate;
-	public CommitDetailedPane(GregorianCalendar adate, List<Commitment> commits){
-
-		super();
-		
+	public CommitDetailedPane(GregorianCalendar adate, List<Commitment> commits){	
 		this.setLayout(new SpringLayout());
 		this.addComponentListener(new ComponentListener() {
 		    public void componentResized(ComponentEvent e) {didResize();}

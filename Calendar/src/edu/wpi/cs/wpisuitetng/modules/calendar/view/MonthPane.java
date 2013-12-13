@@ -57,7 +57,6 @@ public class MonthPane extends JScrollPane implements ICalPane {
 	 *            the date of the month that should be displayed
 	 */
 	public MonthPane(GregorianCalendar acal) {
-		super();
 		mainview = new JPanel();
 		mainview.setMinimumSize(new Dimension(200, 200));
 		mainview.setPreferredSize(new Dimension(200,200));
@@ -239,7 +238,6 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		 * @param month
 		 */
 		public MonthDayPane(GregorianCalendar acal, int month){
-			super();
 			this.acal = (GregorianCalendar)acal.clone();
 			final SpringLayout layout = new SpringLayout();
 			this.setLayout(layout);

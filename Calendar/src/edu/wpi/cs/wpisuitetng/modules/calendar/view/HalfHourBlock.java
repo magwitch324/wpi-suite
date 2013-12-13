@@ -41,7 +41,6 @@ public class HalfHourBlock extends JPanel{
 	 * @param pos Time value position of block (0 - 47)
 	 */
 	public HalfHourBlock(int pos){
-		super();
 		this.pos = pos;
 		size = 0;
 		layout = new GridLayout(1,1,0,1);

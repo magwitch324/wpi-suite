@@ -30,8 +30,7 @@ public class DetailedDay extends JPanel {
 	JComponent secondview = new JPanel();
 	
 
-	public DetailedDay(GregorianCalendar adate){
-		super();	
+	public DetailedDay(GregorianCalendar adate){	
 		this.setMinimumSize(new Dimension(50, 800));
 		this.setPreferredSize(new Dimension(50, 800));
 		this.addComponentListener(new resizeevent());
@@ -55,8 +54,7 @@ public class DetailedDay extends JPanel {
 		this.didResize();
 	}
 	
-	public DetailedDay(GregorianCalendar adate, JComponent secondview){
-		super();		
+	public DetailedDay(GregorianCalendar adate, JComponent secondview){		
 		this.setMinimumSize(new Dimension(50, 800));
 		this.setPreferredSize(new Dimension(50, 800));
 		this.addComponentListener(new resizeevent());

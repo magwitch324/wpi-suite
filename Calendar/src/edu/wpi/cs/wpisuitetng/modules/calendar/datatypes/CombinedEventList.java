@@ -18,7 +18,6 @@ public class CombinedEventList extends EventList{
 	 */
 
 	public CombinedEventList() {
-		super();
 	}
 	
 	public CombinedEventList(List<Event> list) {

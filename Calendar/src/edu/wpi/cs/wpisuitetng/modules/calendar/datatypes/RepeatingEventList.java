@@ -26,7 +26,6 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	 * Constructs an empty list of events for the project
 	 */
 	public RepeatingEventList() {
-		super();
 	}
 
 	/**

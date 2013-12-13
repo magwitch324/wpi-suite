@@ -36,7 +36,6 @@ public class Category extends AbstractModel implements Comparator<Category>{
 	 * Constructs a category with default characteristics
 	 */
 	public Category() {
-		super();
 		name = "";
 		categoryColor = new Color(0);
 		isPersonal = false;

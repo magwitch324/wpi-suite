@@ -81,8 +81,6 @@ public abstract class AbCalendar extends JPanel {
 	protected EventList events;
 
 	public AbCalendar(){
-
-		super();
 		initialized = false;
 		mycal = new GregorianCalendar();
 

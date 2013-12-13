@@ -24,7 +24,6 @@ public class EventList extends CalendarObjectList<Event> {
 	 * Constructs an empty list of events for the project
 	 */
 	public EventList() {
-		super();
 	}
 
 	/**

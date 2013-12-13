@@ -18,7 +18,6 @@ public class CombinedCommitmentList extends CommitmentList {
 	 */
 
 	public CombinedCommitmentList() {
-		super();
 	}
 	
 	public CombinedCommitmentList(List<Commitment> list) {

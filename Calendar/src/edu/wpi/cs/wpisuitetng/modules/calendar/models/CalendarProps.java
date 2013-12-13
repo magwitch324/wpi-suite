@@ -27,7 +27,6 @@ public class CalendarProps extends AbstractModel {
 	 * Constructs a CalendarProps with default characteristics
 	 */
 	public CalendarProps() {
-		super();
 		id = "";
 		showMyComm = false;
 		showTeamComm = false;

@@ -35,7 +35,6 @@ public class RepeatingEvent extends CalendarObject {
 	 * Constructs a Event with default characteristics
 	 */
 	public RepeatingEvent() {
-		super();
 		startTime = new Date(0);
 		endTime = new Date(0);
 		repetitions = 0;

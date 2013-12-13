@@ -35,7 +35,6 @@ public class CalendarData extends AbstractModel {
 	 * Constructs a CalendarData with default characteristics
 	 */
 	public CalendarData() {
-		super();
 		id = "";
 		categories = new CategoryList();
 		commitments = new CommitmentList(); 

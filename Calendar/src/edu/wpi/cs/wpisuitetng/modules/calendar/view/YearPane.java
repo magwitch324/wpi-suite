@@ -53,7 +53,6 @@ public class YearPane extends JScrollPane implements ICalPane{
 	 * @param acal the calendar holding the year to be displayed
 	 */
 	public YearPane(GregorianCalendar acal){
-		super();
 		mainview = new JPanel();
 		mainview.setLayout(new GridLayout(height, width, 2, 2));
 		mainview.setBackground(defaultbackground);
@@ -174,7 +173,6 @@ public class YearPane extends JScrollPane implements ICalPane{
 		 * @param acal the calendar holding the month to be displayed
 		 */
 		public YearMonthPane(GregorianCalendar acal){
-			super();
 			monthstart = (GregorianCalendar)acal.clone();
 			monthstart.set(Calendar.DATE, 1);
 			monthstart.get(Calendar.DATE);
@@ -335,7 +333,6 @@ public class YearPane extends JScrollPane implements ICalPane{
 		 * @param month	the current month, used to decide whether acal is part of the month
 		 */
 		public YearDayPane(final GregorianCalendar acal, int month){
-			super();
 			this.setBorder(BorderFactory.createSoftBevelBorder(BevelBorder.RAISED));
 			scal = (GregorianCalendar)acal.clone();
 			this.setLayout(new GridLayout(1,1));

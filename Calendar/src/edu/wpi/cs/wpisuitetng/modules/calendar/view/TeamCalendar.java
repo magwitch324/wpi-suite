@@ -36,8 +36,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 public class TeamCalendar extends AbCalendar {
 
 	public TeamCalendar() {
-		super();
-
 	}
 
 	protected void drawThis() {

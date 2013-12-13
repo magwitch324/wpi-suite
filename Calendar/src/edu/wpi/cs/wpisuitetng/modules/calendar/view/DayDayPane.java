@@ -52,8 +52,6 @@ public class DayDayPane extends JPanel {
 	 * @param acal the date that is used for displaying
 	 */
 	public DayDayPane(GregorianCalendar acal, AbCalendar.types detailLevel){
-		super();
-		
 		this.detailLevel = detailLevel;
 		
 		this.acal = (GregorianCalendar)acal.clone();

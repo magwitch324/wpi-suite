@@ -43,7 +43,6 @@ public class HourDisplayPort extends JViewport {
 	 * @param reference the jcomponent which heights are referenced off of
 	 */
 	public HourDisplayPort(JComponent reference){
-		super();
 		super.setView(mainpanel);
 
 		mainpanel.setBackground(CalendarStandard.CalendarRed);

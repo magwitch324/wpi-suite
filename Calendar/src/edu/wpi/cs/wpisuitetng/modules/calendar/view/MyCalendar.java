@@ -44,7 +44,6 @@ public class MyCalendar extends AbCalendar {
 	private JCheckBox showteam;
 
 	public MyCalendar() {
-		super();
 		preInitialized = false;
 	}
 

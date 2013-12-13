@@ -24,7 +24,6 @@ public class Commitment extends CalendarObject implements
 	 * Construct a commitment with default characteristics
 	 */
 	public Commitment() {
-		super();
 		dueDate = new Date();
 	}
 
