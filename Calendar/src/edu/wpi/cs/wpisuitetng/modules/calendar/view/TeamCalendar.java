@@ -43,8 +43,10 @@ public class TeamCalendar extends AbCalendar {
 		this.add(viewbtnpanel);
 
 		final JComponent dateswitchpanel = getDatePanel();
-        layout.putConstraint(SpringLayout.NORTH, dateswitchpanel, 0, SpringLayout.SOUTH, viewbtnpanel);
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, dateswitchpanel, 0, SpringLayout.HORIZONTAL_CENTER, this);
+        layout.putConstraint(SpringLayout.NORTH, dateswitchpanel,
+        		0, SpringLayout.SOUTH, viewbtnpanel);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, dateswitchpanel,
+        		0, SpringLayout.HORIZONTAL_CENTER, this);
         this.add(dateswitchpanel);
 
         final JComponent datapanel = getDataDisplayPanel();
@@ -54,7 +56,8 @@ public class TeamCalendar extends AbCalendar {
         this.add(datapanel);
         
         final JComboBox filter = new JComboBox();
-		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filter, 0, SpringLayout.VERTICAL_CENTER, datapanel);
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filter,
+				0, SpringLayout.VERTICAL_CENTER, datapanel);
 		layout.putConstraint(SpringLayout.WEST, filter, 30, SpringLayout.EAST, datapanel);
 		layout.putConstraint(SpringLayout.EAST, filter, -5, SpringLayout.EAST, this);
 		filter.setMaximumSize(new Dimension(200, 20));

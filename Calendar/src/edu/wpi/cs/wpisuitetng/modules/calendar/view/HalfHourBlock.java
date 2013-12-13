@@ -106,7 +106,8 @@ public class HalfHourBlock extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() > 1){
-					GUIEventController.getInstance().editCommitment(((CommitmentCalViewPanel)e.getComponent()).getCommitment());
+					GUIEventController.getInstance().editCommitment(
+							((CommitmentCalViewPanel)e.getComponent()).getCommitment());
 				}
 			}		
 		});
@@ -171,7 +172,8 @@ public class HalfHourBlock extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() > 1){
-					GUIEventController.getInstance().editCommitment(((CommitmentCalViewPanel)e.getComponent()).getCommitment());
+					GUIEventController.getInstance().editCommitment(
+							((CommitmentCalViewPanel)e.getComponent()).getCommitment());
 				}
 			}		
 		});

@@ -102,8 +102,10 @@ public class CommitDetailedPane extends JPanel {
 			{
 				layout.putConstraint(SpringLayout.WEST, halfBlocks[i], 0, SpringLayout.WEST, this);
 				layout.putConstraint(SpringLayout.EAST, halfBlocks[i], 0, SpringLayout.EAST, this);
-				layout.putConstraint(SpringLayout.NORTH, halfBlocks[i], (int)(y / 48.0 * i) + 1, SpringLayout.NORTH, this);
-				layout.putConstraint(SpringLayout.SOUTH, halfBlocks[i], (int)(y / 48.0 * (i + 1)) - 1, SpringLayout.NORTH, this);
+				layout.putConstraint(SpringLayout.NORTH, halfBlocks[i], 
+						(int)(y / 48.0 * i) + 1, SpringLayout.NORTH, this);
+				layout.putConstraint(SpringLayout.SOUTH, halfBlocks[i], 
+						(int)(y / 48.0 * (i + 1)) - 1, SpringLayout.NORTH, this);
 				this.add(halfBlocks[i]);
 			}
 		}

@@ -45,7 +45,8 @@ public class MonthView extends CalendarView {
 			aMonth.add(Calendar.DAY_OF_MONTH, -1);
 		}
 		
-		final String monthName = aMonth.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+		final String monthName = aMonth.getDisplayName(
+				Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
 		
 		setLabel(monthName + " " + aMonth.get(Calendar.YEAR));
 				
@@ -53,7 +54,8 @@ public class MonthView extends CalendarView {
 	}
 
 	@Override
-	public void displayCalData(EventList eventList, CommitmentList commList, boolean showCommOnCal) {
+	public void displayCalData(
+			EventList eventList, CommitmentList commList, boolean showCommOnCal) {
 		if (super.showAllCommFlag){
 			commitmentView.updateCommData(commList.getCommitments());
 		} else {
@@ -73,7 +75,8 @@ public class MonthView extends CalendarView {
 		
 		if (showCommOnCal){
 			try{
-				monthPane.displayCommitments(commList.filter(aMonth, Calendar.MONTH)); //add only commitments on today to DayPane
+				monthPane.displayCommitments(commList.filter(aMonth, Calendar.MONTH)); 
+				//add only commitments on today to DayPane
 			}
 			catch(CalendarException e){
 				monthPane.displayCommitments(null);

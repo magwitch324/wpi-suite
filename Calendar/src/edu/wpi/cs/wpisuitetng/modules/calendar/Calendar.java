@@ -64,7 +64,8 @@ public class Calendar implements IJanewayModule {
 		
 		tabs = new ArrayList<JanewayTabModel>();
 		// Create a tab model that contains the toolBar panel and the main content panel
-		final JanewayTabModel tab1 = new JanewayTabModel(getName(), new ImageIcon(), new ButtonsPanel_Create(), mainPanel);
+		final JanewayTabModel tab1 = new JanewayTabModel(
+				getName(), new ImageIcon(), new ButtonsPanel_Create(), mainPanel);
 
 		// Add the tab to the list of tabs owned by this module
 		tabs.add(tab1);

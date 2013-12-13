@@ -34,7 +34,8 @@ public class UpdateCalendarDataRequestObserver implements RequestObserver {
 	 * Parse the CalendarData that was received from the server then pass them to
 	 * the controller.
 	 * 
-	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseSuccess(edu.wpi.cs.wpisuitetng.network.models.IRequest)
+	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseSuccess
+	 * (edu.wpi.cs.wpisuitetng.network.models.IRequest)
 	 */
 	@Override
 	public void responseSuccess(IRequest iReq) {

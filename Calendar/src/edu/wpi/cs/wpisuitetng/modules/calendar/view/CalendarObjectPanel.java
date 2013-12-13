@@ -99,7 +99,8 @@ public class CalendarObjectPanel extends JPanel {
 	 * @param event
 	 * @param detailLevel
 	 */
-	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal, Event event, AbCalendar.types detailLevel){
+	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal, 
+			Event event, AbCalendar.types detailLevel){
 		this(parent, acal, event);
 		this.detailLevel = detailLevel;
 		setLabel(); 
@@ -111,7 +112,8 @@ public class CalendarObjectPanel extends JPanel {
 	 * @param event
 	 * @param detailLevel
 	 */
-	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal, Commitment comm, AbCalendar.types detailLevel){
+	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal,
+			Commitment comm, AbCalendar.types detailLevel){
 		this(parent, acal, comm);
 		this.detailLevel = detailLevel;
 		setLabel();
@@ -134,29 +136,37 @@ public class CalendarObjectPanel extends JPanel {
 			type = "Event";
 			calobj = event;
 			//if it is a multi day event
-			if(event.getStartTime().get(Calendar.DAY_OF_MONTH) != event.getEndTime().get(Calendar.DAY_OF_MONTH)){
+			if(event.getStartTime().get(Calendar.DAY_OF_MONTH) != 
+					event.getEndTime().get(Calendar.DAY_OF_MONTH)){
 				final SimpleDateFormat dateFormat = new SimpleDateFormat();
 						dateFormat.applyPattern("MM/dd/yy");
 				//if the current day we are adding it to is the first day
-				if(acal.get(Calendar.DAY_OF_MONTH) == event.getStartTime().get(Calendar.DAY_OF_MONTH)){
-					time = tm.format(event.getStartTime().getTime()) + " - " + dateFormat.format(event.getEndTime().getTime());
+				if(acal.get(Calendar.DAY_OF_MONTH) == 
+						event.getStartTime().get(Calendar.DAY_OF_MONTH)){
+					time = tm.format(event.getStartTime().getTime()) + 
+							" - " + dateFormat.format(event.getEndTime().getTime());
 				}
-				else if(acal.get(Calendar.DAY_OF_MONTH) == event.getEndTime().get(Calendar.DAY_OF_MONTH)){
-					time = dateFormat.format(event.getStartTime().getTime())  + " - " + tm.format(event.getEndTime().getTime());
+				else if(acal.get(Calendar.DAY_OF_MONTH) == 
+						event.getEndTime().get(Calendar.DAY_OF_MONTH)){
+					time = dateFormat.format(event.getStartTime().getTime())  + 
+							" - " + tm.format(event.getEndTime().getTime());
 				}
 				else{
-					time = dateFormat.format(event.getStartTime().getTime())  + " - " + dateFormat.format(event.getEndTime().getTime());
+					time = dateFormat.format(event.getStartTime().getTime())  + 
+							" - " + dateFormat.format(event.getEndTime().getTime());
 				}
 			}
 			else{
-				time = tm.format(event.getStartTime().getTime()) + " - " + tm.format(event.getEndTime().getTime());
+				time = tm.format(event.getStartTime().getTime()) + 
+						" - " + tm.format(event.getEndTime().getTime());
 			}
 		}
 		
 		final String name = calobj.getName();
 		String description = calobj.getDescription();
 		
-		String tt = "<html>Name: " + name + "<br>" + time + "<br>Description: " + description + "</html>";
+		String tt = "<html>Name: " + name + "<br>" + time + 
+				"<br>Description: " + description + "</html>";
 		tt = tt.replaceAll("\n", "<br>");
 		setToolTipText(tt);
 		
@@ -243,12 +253,14 @@ public class CalendarObjectPanel extends JPanel {
 	}
 	
 	/**
-	 * refreshes the size of the based on the number of columns, columns spanned, and the length of it
+	 * refreshes the size of the based on the number of columns, 
+	 * columns spanned, and the length of it
 	 */
 	public void refreshSize(){
 		final double par_width = parent.getSize().getWidth();
 		final double par_height = parent.getSize().getHeight();
-		final Dimension new_size = new Dimension((int)((par_width - 3 * columnwidth - 3) / columnwidth * columnspanned), (int)(par_height * this.getRatioDifference()));
+		final Dimension new_size = new Dimension((int)((par_width - 3 * columnwidth - 3) / columnwidth * columnspanned), 
+				(int)(par_height * this.getRatioDifference()));
 		this.setPreferredSize(new_size);
 	}
 	
@@ -299,7 +311,8 @@ public class CalendarObjectPanel extends JPanel {
 		
 		double index = 0;
 		if(!this.getStart().before(tempstart)){
-			index = (( this.getStart().get(Calendar.HOUR_OF_DAY) * 60.0 ) + (this.getStart().get(Calendar.MINUTE))) / (24.0 * 60.0);
+			index = (( this.getStart().get(Calendar.HOUR_OF_DAY) * 60.0 ) + 
+					(this.getStart().get(Calendar.MINUTE))) / (24.0 * 60.0);
 		}
 
 		return index;
@@ -327,7 +340,8 @@ public class CalendarObjectPanel extends JPanel {
 		
 		double index = 1.0;
 		if(!this.getEnd().after(tempend)){
-			index = (( this.getEnd().get(Calendar.HOUR_OF_DAY) * 60.0 ) + (this.getEnd().get(Calendar.MINUTE))) / (24.0 * 60.0);
+			index = (( this.getEnd().get(Calendar.HOUR_OF_DAY) * 60.0 ) + 
+					(this.getEnd().get(Calendar.MINUTE))) / (24.0 * 60.0);
 		}
 
 		return index;

@@ -117,7 +117,8 @@ public class DayPane extends JPanel implements ICalPane {
 		scrollPane.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseExited(MouseEvent e) {
-				GUIEventController.getInstance().setScrollBarValue(((JScrollPane)e.getSource()).getVerticalScrollBar().getValue());
+				GUIEventController.getInstance().setScrollBarValue(
+						((JScrollPane)e.getSource()).getVerticalScrollBar().getValue());
 			}
 
 		});
@@ -127,7 +128,8 @@ public class DayPane extends JPanel implements ICalPane {
 
 
 	public void refresh() {
-   	 	scrollPane.getVerticalScrollBar().setValue(GUIEventController.getInstance().getScrollBarValue());
+   	 	scrollPane.getVerticalScrollBar().setValue(
+   	 			GUIEventController.getInstance().getScrollBarValue());
 	}
 
 

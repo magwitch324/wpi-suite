@@ -57,9 +57,12 @@ public class UpdatePropsController{
 		//refreshes calendar GUI
 		//GUIEventController.getInstance().updateCalData();
 		System.out.println("Updating calprops");
-		final Request request = Network.getInstance().makeRequest("calendar/calendarprops", HttpMethod.POST); // POST == update
-		request.setBody(newCalData.toJSON()); // put the updated CalendarProps in the body of the request
-		request.addObserver(observer); // add an observer to process the response
+		final Request request = Network.getInstance().makeRequest(
+				"calendar/calendarprops", HttpMethod.POST); // POST == update
+		request.setBody(newCalData.toJSON()); 
+		// put the updated CalendarProps in the body of the request
+		request.addObserver(observer); 
+		// add an observer to process the response
 		request.send(); 
 	}
 }

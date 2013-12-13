@@ -112,7 +112,8 @@ public class WeekPane extends JPanel implements ICalPane {
 		scrollPane.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseExited(MouseEvent e) {
-				GUIEventController.getInstance().setScrollBarValue(((JScrollPane)e.getSource()).getVerticalScrollBar().getValue());
+				GUIEventController.getInstance().setScrollBarValue(
+						((JScrollPane)e.getSource()).getVerticalScrollBar().getValue());
 			}
 			
 		});
@@ -222,7 +223,8 @@ public class WeekPane extends JPanel implements ICalPane {
 	}
 	
 	public void refresh() {
-   	 	scrollPane.getVerticalScrollBar().setValue(GUIEventController.getInstance().getScrollBarValue());
+   	 	scrollPane.getVerticalScrollBar().
+   	 	setValue(GUIEventController.getInstance().getScrollBarValue());
 	}
 
 
@@ -237,7 +239,8 @@ public class WeekPane extends JPanel implements ICalPane {
 	    public void mouseClicked(MouseEvent e) {
 	    	if(e.getClickCount() > 1){
 	    		//save scroll bar location
-	    		GUIEventController.getInstance().setScrollBarValue(scrollPane.getVerticalScrollBar().getValue());
+	    		GUIEventController.getInstance().
+	    		setScrollBarValue(scrollPane.getVerticalScrollBar().getValue());
 	    		//switch to day view
 	    		GUIEventController.getInstance().switchView(adate, AbCalendar.types.DAY);
 	    	}

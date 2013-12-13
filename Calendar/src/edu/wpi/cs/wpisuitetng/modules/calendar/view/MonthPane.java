@@ -395,15 +395,18 @@ public class MonthPane extends JScrollPane implements ICalPane {
 						curlab = wrap.getLabel();
 						height += curlab.getPreferredSize().getHeight() + label_spacing;
 						if (lastlab == null) {
-							layout.putConstraint(SpringLayout.NORTH, curlab, 1, SpringLayout.NORTH, big);
+							layout.putConstraint(SpringLayout.NORTH, curlab, 
+									1, SpringLayout.NORTH, big);
 						} 
 						else {
-							layout.putConstraint(SpringLayout.NORTH, curlab, label_spacing, SpringLayout.SOUTH, lastlab);
+							layout.putConstraint(SpringLayout.NORTH, curlab, 
+									label_spacing, SpringLayout.SOUTH, lastlab);
 						}
 						layout.putConstraint(SpringLayout.WEST, curlab, 1, SpringLayout.WEST, big);
 						
 						if (curlab.getPreferredSize().getWidth() > boxwidth) {
-							layout.putConstraint(SpringLayout.EAST, curlab, 0, SpringLayout.EAST, big);
+							layout.putConstraint(SpringLayout.EAST, curlab,
+									0, SpringLayout.EAST, big);
 						}
 						
 						curlab.setBackground(new Color(0, 0, 0, 0));
@@ -425,17 +428,22 @@ public class MonthPane extends JScrollPane implements ICalPane {
 							break;
 						}
 						
-						if(height + curlab.getPreferredSize().getHeight() + label_spacing > boxheight && (wraps.size() - wraps.indexOf(wrap) > 1)){
-							curlab = new JLabel("+" + (wraps.size() - wraps.indexOf(wrap)) + " more");
+						if(height + curlab.getPreferredSize().getHeight() +
+								label_spacing > boxheight && (wraps.size() - wraps.indexOf(wrap) > 1)){
+							curlab = new JLabel("+" + 
+								(wraps.size() - wraps.indexOf(wrap)) + " more");
 						}
 						
 						if (lastlab == null) {
-							layout.putConstraint(SpringLayout.NORTH, curlab, 1, SpringLayout.NORTH, small);
+							layout.putConstraint(SpringLayout.NORTH, curlab,
+									1, SpringLayout.NORTH, small);
 						} 
 						else {
-							layout.putConstraint(SpringLayout.NORTH, curlab, label_spacing, SpringLayout.SOUTH, lastlab);
+							layout.putConstraint(SpringLayout.NORTH, curlab, 
+									label_spacing, SpringLayout.SOUTH, lastlab);
 						}
-						layout.putConstraint(SpringLayout.WEST, curlab, 1, SpringLayout.WEST, small);
+						layout.putConstraint(SpringLayout.WEST, curlab,
+								1, SpringLayout.WEST, small);
 						
 						if (curlab.getPreferredSize().getWidth() > boxwidth) {
 							layout.putConstraint(SpringLayout.EAST, curlab, 0, SpringLayout.EAST, small);
@@ -526,7 +534,8 @@ public class MonthPane extends JScrollPane implements ICalPane {
 					Image nameImg;
 					final Image scaleImg;
 					if (comm.getIsPersonal()) {	
-						nameImg = ImageIO.read(getClass().getResource("PersonalCommitment_Icon.png"));
+						nameImg = ImageIO.read(getClass().
+								getResource("PersonalCommitment_Icon.png"));
 						
 					} else {
 						nameImg = ImageIO.read(getClass().getResource("TeamCommitment_Icon.png"));

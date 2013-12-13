@@ -74,7 +74,8 @@ public abstract class AbCalendar extends JPanel {
 	protected JToggleButton[] viewbtns = new JToggleButton[4];
 	protected JCheckBox showcom;
 
-	protected int[] viewsizeval = {Calendar.DATE, Calendar.WEEK_OF_YEAR, Calendar.MONTH, Calendar.YEAR};
+	protected int[] viewsizeval = {
+			Calendar.DATE,Calendar.WEEK_OF_YEAR, Calendar.MONTH, Calendar.YEAR};
 	protected CalendarView calView;
 	protected CommitmentList commitments;
 	protected EventList events;
@@ -113,7 +114,8 @@ public abstract class AbCalendar extends JPanel {
 			viewbtns[0].setText("Day");
 		} 
 
-		viewbtns[0].setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
+		viewbtns[0].setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this icon
 		viewbtns[0].setBackground(Color.WHITE);
 		viewbtns[0].addActionListener(new ActionListener() {
 
@@ -121,14 +123,16 @@ public abstract class AbCalendar extends JPanel {
 			{
 				//Execute when button is pressed
 				switchview(types.DAY);
-				viewbtns[0].setBorder(BorderFactory.createDashedBorder(CalendarStandard.CalendarRed, 2, 2, 1, true));
+				viewbtns[0].setBorder(BorderFactory.createDashedBorder(
+						CalendarStandard.CalendarRed, 2, 2, 1, true));
 				viewbtns[1].setBorder(BorderFactory.createEmptyBorder());
 				viewbtns[2].setBorder(BorderFactory.createEmptyBorder());
 				viewbtns[3].setBorder(BorderFactory.createEmptyBorder());
 			}
 		});
 
-		viewbtns[0].setBorder(BorderFactory.createDashedBorder(CalendarStandard.CalendarRed, 2, 2, 1, true));
+		viewbtns[0].setBorder(BorderFactory.createDashedBorder(
+				CalendarStandard.CalendarRed, 2, 2, 1, true));
 		apane.add(viewbtns[0]);		
 
 
@@ -145,7 +149,8 @@ public abstract class AbCalendar extends JPanel {
 			viewbtns[1].setText("Week");
 		}
 
-		viewbtns[1].setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
+		viewbtns[1].setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this icon
 		viewbtns[1].setBackground(Color.WHITE);
 		viewbtns[1].addActionListener(new ActionListener() {
 
@@ -153,7 +158,8 @@ public abstract class AbCalendar extends JPanel {
 			{
 				//Execute when button is pressed
 				switchview(types.WEEK);
-				viewbtns[1].setBorder(BorderFactory.createDashedBorder(CalendarStandard.CalendarRed, 2, 2, 1, true));
+				viewbtns[1].setBorder(BorderFactory.createDashedBorder(
+						CalendarStandard.CalendarRed, 2, 2, 1, true));
 				viewbtns[0].setBorder(BorderFactory.createEmptyBorder());
 				viewbtns[2].setBorder(BorderFactory.createEmptyBorder());
 				viewbtns[3].setBorder(BorderFactory.createEmptyBorder());
@@ -176,7 +182,8 @@ public abstract class AbCalendar extends JPanel {
 			viewbtns[2].setText("Month");
 		}
 
-		viewbtns[2].setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
+		viewbtns[2].setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this icon
 		viewbtns[2].setBackground(Color.WHITE);
 		viewbtns[2].addActionListener(new ActionListener() {
 
@@ -184,7 +191,8 @@ public abstract class AbCalendar extends JPanel {
 			{
 				//Execute when button is pressed
 				switchview(types.MONTH);
-				viewbtns[2].setBorder(BorderFactory.createDashedBorder(CalendarStandard.CalendarRed, 2, 2, 1, true));
+				viewbtns[2].setBorder(BorderFactory.createDashedBorder(
+						CalendarStandard.CalendarRed, 2, 2, 1, true));
 				viewbtns[0].setBorder(BorderFactory.createEmptyBorder());
 				viewbtns[1].setBorder(BorderFactory.createEmptyBorder());
 				viewbtns[3].setBorder(BorderFactory.createEmptyBorder());
@@ -207,7 +215,8 @@ public abstract class AbCalendar extends JPanel {
 			viewbtns[3].setText("Year");
 		}
 
-		viewbtns[3].setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
+		viewbtns[3].setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this icon
 		viewbtns[3].setBackground(Color.WHITE);
 		viewbtns[3].addActionListener(new ActionListener() {
 
@@ -215,7 +224,8 @@ public abstract class AbCalendar extends JPanel {
 			{
 				//Execute when button is pressed
 				switchview(types.YEAR);
-				viewbtns[3].setBorder(BorderFactory.createDashedBorder(CalendarStandard.CalendarRed, 2, 2, 1, true));
+				viewbtns[3].setBorder(BorderFactory.createDashedBorder(
+						CalendarStandard.CalendarRed, 2, 2, 1, true));
 				viewbtns[0].setBorder(BorderFactory.createEmptyBorder());
 				viewbtns[1].setBorder(BorderFactory.createEmptyBorder());
 				viewbtns[2].setBorder(BorderFactory.createEmptyBorder());
@@ -272,7 +282,8 @@ public abstract class AbCalendar extends JPanel {
 		backwardbutton.add(backLabel);
 		backwardbutton.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		backwardbutton.setFont(CalendarStandard.CalendarFont);
-		backwardbutton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
+		backwardbutton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
 		backwardbutton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e)
@@ -291,7 +302,8 @@ public abstract class AbCalendar extends JPanel {
 		todaybutton.add(todayLabel);
 		todaybutton.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		todaybutton.setFont(CalendarStandard.CalendarFont);
-		todaybutton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
+		todaybutton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
 		todaybutton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e)
@@ -317,7 +329,8 @@ public abstract class AbCalendar extends JPanel {
 		forwardbutton.add(forwardLabel);
 		forwardbutton.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		forwardbutton.setFont(CalendarStandard.CalendarFont);
-		forwardbutton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
+		forwardbutton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
 		forwardbutton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e)
@@ -410,7 +423,8 @@ public abstract class AbCalendar extends JPanel {
 		int i;
 		for(i = 0; i < 4; i++){
 			if(i == k){
-				viewbtns[i].setBorder(BorderFactory.createDashedBorder(CalendarStandard.CalendarRed, 2, 2, 1, true));
+				viewbtns[i].setBorder(BorderFactory.createDashedBorder(
+						CalendarStandard.CalendarRed, 2, 2, 1, true));
 			}
 			else{
 				viewbtns[i].setBorder(BorderFactory.createEmptyBorder());

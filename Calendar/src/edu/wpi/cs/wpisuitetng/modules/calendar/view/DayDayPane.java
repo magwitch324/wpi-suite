@@ -136,13 +136,17 @@ public class DayDayPane extends JPanel {
 			Color col;
 			if(i % 2 == 0){
 				col = Color.BLACK;
-				layout.putConstraint(SpringLayout.WEST, halfhourmarks[i], 5, SpringLayout.WEST, this);
-				layout.putConstraint(SpringLayout.EAST, halfhourmarks[i], -5, SpringLayout.EAST, this);
+				layout.putConstraint(SpringLayout.WEST, halfhourmarks[i], 
+						5, SpringLayout.WEST, this);
+				layout.putConstraint(SpringLayout.EAST, halfhourmarks[i], 
+						-5, SpringLayout.EAST, this);
 			}
 			else{
 				col = Color.GRAY;
-				layout.putConstraint(SpringLayout.WEST, halfhourmarks[i], 15, SpringLayout.WEST, this);
-				layout.putConstraint(SpringLayout.EAST, halfhourmarks[i], -15, SpringLayout.EAST, this);
+				layout.putConstraint(SpringLayout.WEST, halfhourmarks[i], 
+						15, SpringLayout.WEST, this);
+				layout.putConstraint(SpringLayout.EAST, halfhourmarks[i], 
+						-15, SpringLayout.EAST, this);
 			}
 			
 			halfhourmarks[i].setBackground(col);
@@ -169,7 +173,8 @@ public class DayDayPane extends JPanel {
 	}
 
 	/**
-	 * updates this by setting the lines, and main caller for placing commitments and events in their places
+	 * updates this by setting the lines, 
+	 * and main caller for placing commitments and events in their places
 	 */
 	protected void updatepane(){
 		//the list used to hold the event commitment wrappers in columns and rows based on conflicts
@@ -236,9 +241,11 @@ public class DayDayPane extends JPanel {
 			for(CalendarObjectPanel obj : column){
 				layout.putConstraint(SpringLayout.WEST, obj, 3, SpringLayout.WEST, this);
 				if(displayobjects.indexOf(column) != 0){
-					for(CalendarObjectPanel compobj : displayobjects.get(displayobjects.indexOf(column) - 1)){
+					for(CalendarObjectPanel compobj : 
+						displayobjects.get(displayobjects.indexOf(column) - 1)){
 						if(obj.doesConflict(compobj)){
-							layout.putConstraint(SpringLayout.WEST, obj, 3, SpringLayout.EAST, compobj);
+							layout.putConstraint(SpringLayout.WEST, obj, 
+									3, SpringLayout.EAST, compobj);
 						}
 					}
 				}
@@ -268,7 +275,8 @@ public class DayDayPane extends JPanel {
 	protected void setPos(){
 		final SpringLayout layout = (SpringLayout)this.getLayout();
 		for(CalendarObjectPanel obj : sortedobjects){
-			layout.putConstraint(SpringLayout.NORTH, obj, (int)(this.getHeight() * obj.getStartRatio()), SpringLayout.NORTH, this);
+			layout.putConstraint(SpringLayout.NORTH, obj, 
+					(int)(this.getHeight() * obj.getStartRatio()), SpringLayout.NORTH, this);
 		}
 	}
 	

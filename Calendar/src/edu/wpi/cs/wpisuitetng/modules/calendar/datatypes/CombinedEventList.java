@@ -14,7 +14,8 @@ import java.util.List;
 
 public class CombinedEventList extends EventList{
 	/**
-	 * This class is for dealing with combining the list of personal and team events without overriding the ids of the events
+	 * This class is for dealing with combining the list of personal 
+	 * and team events without overriding the ids of the events
 	 */
 
 	public CombinedEventList() {
@@ -27,7 +28,8 @@ public class CombinedEventList extends EventList{
 	
 	@Override
 	/**
-	 * Adds a single event to the event of the project, while sorting them into the right order by date
+	 * Adds a single event to the event of the project, 
+	 * while sorting them into the right order by date
 	 * 
 	 * @param newEvent The event to be added to the list of events in the project
 	 */

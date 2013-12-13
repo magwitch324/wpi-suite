@@ -47,7 +47,8 @@ public class DayView extends CalendarView {
 		endOfDay.add(Calendar.DATE, 1);
 		endOfDay.add(Calendar.MILLISECOND, -1);
 		
-		final String dayName = day.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
+		final String dayName = day.getDisplayName(
+				Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
 		final int dayNum = day.get(Calendar.DAY_OF_MONTH);
 		final String monthName = day.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
 		final int year = day.get(Calendar.YEAR);
@@ -56,7 +57,8 @@ public class DayView extends CalendarView {
 	}
 
 	@Override
-	public void displayCalData(EventList eventList, CommitmentList commList, boolean showCommOnCal) {
+	public void displayCalData(
+			EventList eventList, CommitmentList commList, boolean showCommOnCal) {
 
 		if (super.showAllCommFlag){
 			commitmentView.updateCommData(commList.getCommitments());

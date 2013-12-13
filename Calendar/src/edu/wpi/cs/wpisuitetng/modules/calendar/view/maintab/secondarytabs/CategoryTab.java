@@ -78,7 +78,8 @@ public class CategoryTab extends JPanel {
 		createBaseUI();
 		
 		//Load category lists from CalendarDataModel
-		teamCategories = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()).getCategories();
+		teamCategories = CalendarDataModel.getInstance().getCalendarData(
+				ConfigManager.getConfig().getProjectName()).getCategories();
 		personalCategories = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName() + "-"
 						+ ConfigManager.getConfig().getUserName()).getCategories();
@@ -229,16 +230,23 @@ public class CategoryTab extends JPanel {
 //			categoryListPanel.add(new CategoryPanel(cat));
 //		}
 		CategoryPanel catPanel = new CategoryPanel(new Category("GUI", Color.red, true));
-		categoryListLayout.putConstraint(SpringLayout.NORTH, catPanel, 1, SpringLayout.NORTH, categoryListPanel);
-		categoryListLayout.putConstraint(SpringLayout.WEST, catPanel, 1, SpringLayout.WEST, categoryListPanel);
-		categoryListLayout.putConstraint(SpringLayout.EAST, catPanel, 1, SpringLayout.EAST, categoryListPanel);
+		categoryListLayout.putConstraint(SpringLayout.NORTH, catPanel, 
+				1, SpringLayout.NORTH, categoryListPanel);
+		categoryListLayout.putConstraint(SpringLayout.WEST, catPanel, 
+				1, SpringLayout.WEST, categoryListPanel);
+		categoryListLayout.putConstraint(SpringLayout.EAST, catPanel,
+				1, SpringLayout.EAST, categoryListPanel);
 		categoryListPanel.add(catPanel);
 		
 		final CategoryPanel oldCatPanel = catPanel;
 		catPanel = new CategoryPanel(new Category("Dev", Color.blue, true));
-		categoryListLayout.putConstraint(SpringLayout.NORTH, catPanel, 1, SpringLayout.SOUTH, oldCatPanel);
-		categoryListLayout.putConstraint(SpringLayout.WEST, catPanel, 1, SpringLayout.WEST, categoryListPanel);
-		categoryListLayout.putConstraint(SpringLayout.EAST, catPanel, 1, SpringLayout.EAST, categoryListPanel);
+		categoryListLayout.putConstraint(SpringLayout.NORTH, catPanel, 
+				1, SpringLayout.SOUTH, oldCatPanel);
+		categoryListLayout.putConstraint(SpringLayout.WEST, catPanel, 
+				1, SpringLayout.WEST, categoryListPanel);
+		categoryListLayout.putConstraint(SpringLayout.EAST, catPanel, 
+				1, SpringLayout.EAST, categoryListPanel);
+		
 		
 
 		categoryListPanel.add(catPanel);

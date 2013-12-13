@@ -185,8 +185,8 @@ public class YearPane extends JScrollPane implements ICalPane{
 			this.setBorder(BorderFactory.createSoftBevelBorder(BevelBorder.RAISED));
 			
 			//Creates the month lbl and a wrapper and places it in this at the top
-			final JLabel monthlbl = new JLabel(acal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()),
-											SwingConstants.CENTER);
+			final JLabel monthlbl = new JLabel(acal.getDisplayName(
+					Calendar.MONTH, Calendar.LONG, Locale.getDefault()),SwingConstants.CENTER);
 			monthlbl.addMouseListener(new AMouseMonthEvent(acal));
 			final JPanel temppane = new JPanel();
 			temppane.setLayout(new GridLayout(1, 1));
@@ -253,11 +253,13 @@ public class YearPane extends JScrollPane implements ICalPane{
 			for(int i = 0; i < 7; i++){
 				lbl = new JLabel(days[i], SwingConstants.CENTER);
 				lbl.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 10));
-				width = width > lbl.getPreferredSize().getWidth()? width : lbl.getPreferredSize().getWidth();
+				width = width > lbl.getPreferredSize().getWidth()? 
+						width : lbl.getPreferredSize().getWidth();
 				lbl.setBackground(defaultbackground);
 				apane.add(lbl);
 			}
-			apane.setPreferredSize(new Dimension((int)width * 9, (int)lbl.getPreferredSize().getHeight()));
+			apane.setPreferredSize(new Dimension(
+					(int)width * 9, (int)lbl.getPreferredSize().getHeight()));
 			apane.setBackground(defaultbackground);
 			return apane;
 		}
@@ -343,8 +345,10 @@ public class YearPane extends JScrollPane implements ICalPane{
 				lbl.setForeground(Color.black);
 				this.setBackground(CalendarStandard.CalendarYellow);
 				
-				bgc_withcomm = new BackgroundColor(CalendarStandard.CalendarYellow, CalendarStandard.HeatMapRed, 10);
-				bgc = new BackgroundColor(CalendarStandard.CalendarYellow, CalendarStandard.HeatMapRed, 5);
+				bgc_withcomm = new BackgroundColor(
+						CalendarStandard.CalendarYellow, CalendarStandard.HeatMapRed, 10);
+				bgc = new BackgroundColor(
+						CalendarStandard.CalendarYellow, CalendarStandard.HeatMapRed, 5);
 				
 				//adds double click feature to the days
 				this.addMouseListener(new MouseAdapter(){
@@ -433,8 +437,10 @@ public class YearPane extends JScrollPane implements ICalPane{
 				}
 				final int red, green, blue;
 				red = (int)((higher.getRed() - lower.getRed()) * (step / steps) + lower.getRed());
-				green = (int)((higher.getGreen() - lower.getGreen()) * (step / steps) + lower.getGreen());
-				blue = (int)((higher.getBlue() - lower.getBlue()) * (step / steps) + lower.getBlue());
+				green = (int)((higher.getGreen() - lower.getGreen())
+						* (step / steps) + lower.getGreen());
+				blue = (int)((higher.getBlue() - lower.getBlue()) 
+						* (step / steps) + lower.getBlue());
 				
 				return new Color(red, green, blue);
 			}

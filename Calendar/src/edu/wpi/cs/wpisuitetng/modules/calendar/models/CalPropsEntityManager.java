@@ -46,7 +46,8 @@ public class CalPropsEntityManager implements EntityManager<CalendarProps> {
 	/**
 	 * Saves a CalendarProps when it is received from a client
 	 * 
-	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#makeEntity(edu.wpi.cs.wpisuitetng.Session, java.lang.String)
+	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#makeEntity
+	 * (edu.wpi.cs.wpisuitetng.Session, java.lang.String)
 	 */
 	@Override
 	public CalendarProps makeEntity(Session s, String content) throws WPISuiteException {
@@ -65,13 +66,16 @@ public class CalPropsEntityManager implements EntityManager<CalendarProps> {
 	
 	
 	
-	 * @return the CalendarProps matching the given id * @throws NotFoundException * @throws NotFoundException * @throws NotFoundException
+	 * @return the CalendarProps matching the given id 
+	 * * @throws NotFoundException * @throws NotFoundException 
+	 * * @throws NotFoundException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getEntity(Session, String) */
 	@Override
 	public CalendarProps[] getEntity(Session s, String id) throws NotFoundException {
 		CalendarProps[] calData = null;
 		try {
-			calData = db.retrieve(CalendarProps.class, "id", id, s.getProject()).toArray(new CalendarProps[0]);
+			calData = db.retrieve(CalendarProps.class, "id", id, 
+					s.getProject()).toArray(new CalendarProps[0]);
 		} catch (WPISuiteException e) {
 			e.printStackTrace();
 		}
@@ -87,7 +91,10 @@ public class CalPropsEntityManager implements EntityManager<CalendarProps> {
 	
 	
 	
-	 * @return array of all stored CalendarProps * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session) * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session) * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session)
+	 * @return array of all stored CalendarProps 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session) 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session) 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session)
 	 */
 	@Override
 	public CalendarProps[] getAll(Session s) {
@@ -125,7 +132,10 @@ public class CalPropsEntityManager implements EntityManager<CalendarProps> {
 	
 	
 	
-	 * @return true if the deletion was successful * @throws WPISuiteException * @throws WPISuiteException * @throws WPISuiteException
+	 * @return true if the deletion was successful 
+	 * * @throws WPISuiteException 
+	 * * @throws WPISuiteException 
+	 * * @throws WPISuiteException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#deleteEntity(Session, String) */
 	@Override
 	public boolean deleteEntity(Session s, String id) throws WPISuiteException {
@@ -138,7 +148,9 @@ public class CalPropsEntityManager implements EntityManager<CalendarProps> {
 	 * @param s the session
 	
 	
-	 * @throws WPISuiteException * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#deleteAll(Session) * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#deleteAll(Session)
+	 * @throws WPISuiteException 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#deleteAll(Session) 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#deleteAll(Session)
 	 */
 	@Override
 	public void deleteAll(Session s) throws WPISuiteException {
@@ -152,7 +164,10 @@ public class CalPropsEntityManager implements EntityManager<CalendarProps> {
 	
 	
 	
-	 * @return number of CalendarProps stored * @throws WPISuiteException * @throws WPISuiteException * @throws WPISuiteException
+	 * @return number of CalendarProps stored 
+	 * * @throws WPISuiteException 
+	 * * @throws WPISuiteException 
+	 * * @throws WPISuiteException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#Count() */
 	@Override
 	public int Count() throws WPISuiteException {
@@ -166,7 +181,10 @@ public class CalPropsEntityManager implements EntityManager<CalendarProps> {
 	
 	
 	
-	 * @return CalendarProps * @throws WPISuiteException * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#update(Session, String) * @throws WPISuiteException
+	 * @return CalendarProps 
+	 * * @throws WPISuiteException 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#update(Session, String) 
+	 * * @throws WPISuiteException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#update(Session, String)
 	 */
 	@Override
@@ -178,7 +196,8 @@ public class CalPropsEntityManager implements EntityManager<CalendarProps> {
 		 * We have to get the original defect from db4o, copy properties from updatedCategory,
 		 * then save the original Category again.
 		 */
-		final List<Model> oldCalData = db.retrieve(CalendarProps.class, "id", updatedCalData.getId(), session.getProject());
+		final List<Model> oldCalData = db.retrieve(CalendarProps.class, "id", 
+				updatedCalData.getId(), session.getProject());
 		if(oldCalData.size() < 1 || oldCalData.get(0) == null) {
 			throw new BadRequestException("CalendarProps with ID does not exist.");
 		}
@@ -202,7 +221,10 @@ public class CalPropsEntityManager implements EntityManager<CalendarProps> {
 	
 	
 	
-	 * @return String * @throws NotImplementedException * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#advancedGet(Session, String[]) * @throws NotImplementedException
+	 * @return String 
+	 * * @throws NotImplementedException 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#advancedGet(Session, String[]) 
+	 * * @throws NotImplementedException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#advancedGet(Session, String[])
 	 */
 	@Override
@@ -218,11 +240,15 @@ public class CalPropsEntityManager implements EntityManager<CalendarProps> {
 	
 	
 	
-	 * @return String * @throws NotImplementedException * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#advancedPost(Session, String, String) * @throws NotImplementedException
+	 * @return String 
+	 * * @throws NotImplementedException 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#advancedPost(Session, String, String) 
+	 * * @throws NotImplementedException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#advancedPost(Session, String, String)
 	 */
 	@Override
-	public String advancedPost(Session arg0, String arg1, String arg2) throws NotImplementedException {
+	public String advancedPost(Session arg0, String arg1, String arg2) 
+			throws NotImplementedException {
 		throw new NotImplementedException();
 	}
 
@@ -234,11 +260,15 @@ public class CalPropsEntityManager implements EntityManager<CalendarProps> {
 	
 	
 	
-	 * @return String * @throws NotImplementedException * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#advancedPut(Session, String[], String) * @throws NotImplementedException
+	 * @return String 
+	 * * @throws NotImplementedException 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#advancedPut(Session, String[], String) 
+	 * * @throws NotImplementedException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#advancedPut(Session, String[], String)
 	 */
 	@Override
-	public String advancedPut(Session arg0, String[] arg1, String arg2) throws NotImplementedException {
+	public String advancedPut(Session arg0, String[] arg1, String arg2) 
+			throws NotImplementedException {
 		throw new NotImplementedException();
 	}
 

@@ -56,8 +56,10 @@ public class MyCalendar extends AbCalendar {
 		this.add(viewbtnpanel);
 
 		final JComponent dateswitchpanel = getDatePanel();
-        layout.putConstraint(SpringLayout.NORTH, dateswitchpanel, 0, SpringLayout.SOUTH, viewbtnpanel);
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, dateswitchpanel, 0, SpringLayout.HORIZONTAL_CENTER, this);
+        layout.putConstraint(SpringLayout.NORTH, dateswitchpanel, 
+        		0, SpringLayout.SOUTH, viewbtnpanel);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, dateswitchpanel, 
+        		0, SpringLayout.HORIZONTAL_CENTER, this);
         this.add(dateswitchpanel);
 
         final JComponent datapanel = getDataDisplayPanel();
@@ -67,7 +69,8 @@ public class MyCalendar extends AbCalendar {
         this.add(datapanel);
         
 		final JComboBox filter = new JComboBox();
-		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filter, 0, SpringLayout.VERTICAL_CENTER, datapanel);
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filter, 
+				0, SpringLayout.VERTICAL_CENTER, datapanel);
 		layout.putConstraint(SpringLayout.WEST, filter, 30, SpringLayout.EAST, datapanel);
 		layout.putConstraint(SpringLayout.EAST, filter, -5, SpringLayout.EAST, this);
 		filter.setMaximumSize(new Dimension(20, 20));
@@ -153,7 +156,8 @@ public class MyCalendar extends AbCalendar {
 			final CalendarData teamData = CalendarDataModel.getInstance()
 					.getCalendarData(ConfigManager.getConfig().getProjectName());
 
-			//if we are supposed to show team data, we need to put the team commitments into the list in the right order
+			//if we are supposed to show team data, 
+			//we need to put the team commitments into the list in the right order
 			if (getShowTeamData()) {
 		
 				// Iterate through team commitments and add each element to
@@ -167,7 +171,8 @@ public class MyCalendar extends AbCalendar {
 				commitments = combinedCommList;
 				
 				//get the combined events for team
-				final CombinedEventList teamRepeatEvents = teamData.getRepeatingEvents().toCombinedEventList();
+				final CombinedEventList teamRepeatEvents = 
+						teamData.getRepeatingEvents().toCombinedEventList();
 				for (int i = 0; i < teamRepeatEvents.getEvents().size(); i++){
 					combinedEventList.add(teamRepeatEvents.getEvents().get(i));
 				}
@@ -184,7 +189,8 @@ public class MyCalendar extends AbCalendar {
 				
 			}
 
-			//if we are not supposed to show team data the CommitmentList should just be straight from the personal data
+			//if we are not supposed to show team data the CommitmentList 
+			//should just be straight from the personal data
 			else {
 				commitments = getCalData().getCommitments();
 				events = combinedEventList;

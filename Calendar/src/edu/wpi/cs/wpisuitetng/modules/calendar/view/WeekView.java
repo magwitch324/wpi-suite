@@ -60,20 +60,24 @@ public class WeekView extends CalendarView {
 		endDate.add(Calendar.MILLISECOND, -1);
 
 		
-		final String startMonthName = startDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
-		final String endMonthName = endDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+		final String startMonthName = startDate.getDisplayName(
+				Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+		final String endMonthName = endDate.getDisplayName(
+				Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
 		final int startDayNum = startDate.get(Calendar.DAY_OF_MONTH);
 		final int endDayNum = endDate.get(Calendar.DAY_OF_MONTH);
 		final int startYear = startDate.get(Calendar.YEAR);
 		final int endYear = endDate.get(Calendar.YEAR);
 		
-		setLabel(startMonthName + " " + startDayNum + ", " + startYear + "<br>---<br>" + endMonthName + " " + endDayNum + ", " + endYear);
+		setLabel(startMonthName + " " + startDayNum + ", "
+		+ startYear + "<br>---<br>" + endMonthName + " " + endDayNum + ", " + endYear);
 
 		refresh();
 	}
 
 	@Override
-	public void displayCalData(EventList eventList, CommitmentList commList, boolean showCommOnCal) {
+	public void displayCalData(
+			EventList eventList, CommitmentList commList, boolean showCommOnCal) {
 
 		if (super.showAllCommFlag){
 			commitmentView.updateCommData(commList.getCommitments());
@@ -82,7 +86,8 @@ public class WeekView extends CalendarView {
 		}
 		// TODO filter commitments
 		if (showCommOnCal){
-			weekPane.displayCommitments(commList.filter(startDate, endDate)); //add only commitments on today to DayPane
+			weekPane.displayCommitments(commList.filter(startDate, endDate)); 
+			//add only commitments on today to DayPane
 			weekPane.displayEvents(eventList.filter(startDate, endDate));
 		}
 		else{

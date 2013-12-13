@@ -44,7 +44,8 @@ public class YearView extends CalendarView {
 	}
 
 	@Override
-	public void displayCalData(EventList eventList, CommitmentList commList, boolean showCommOnCal) {
+	public void displayCalData(
+			EventList eventList, CommitmentList commList, boolean showCommOnCal) {
 		if (super.showAllCommFlag){
 			commitmentView.updateCommData(commList.getCommitments());
 		} else {
@@ -68,7 +69,8 @@ public class YearView extends CalendarView {
 		
 		if (showCommOnCal){
 			try{
-				yearpane.displayCommitments(commList.filter(ayear, Calendar.YEAR)); //add only commitments on today to DayPane
+				yearpane.displayCommitments(commList.filter(ayear, Calendar.YEAR)); 
+				//add only commitments on today to DayPane
 			}
 			catch(CalendarException e){
 				yearpane.displayCommitments(null);

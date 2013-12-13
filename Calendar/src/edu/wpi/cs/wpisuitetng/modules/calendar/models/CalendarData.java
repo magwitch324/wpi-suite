@@ -187,7 +187,8 @@ public class CalendarData extends AbstractModel {
 	 * Method toJSON.
 	
 	
-	 * @return String * @see edu.wpi.cs.wpisuitetng.modules.Model#toJSON() * @see edu.wpi.cs.wpisuitetng.modules.Model#toJSON()
+	 * @return String * @see edu.wpi.cs.wpisuitetng.modules.Model#toJSON() 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.Model#toJSON()
 	 */
 	@Override
 	/**This returns a Json encoded String representation of this CalendarData object.
@@ -217,7 +218,9 @@ public class CalendarData extends AbstractModel {
 	 * @param o Object
 	
 	
-	 * @return Boolean * @see edu.wpi.cs.wpisuitetng.modules.Model#identify(Object) * @see edu.wpi.cs.wpisuitetng.modules.Model#identify(Object)
+	 * @return Boolean
+	 * * @see edu.wpi.cs.wpisuitetng.modules.Model#identify(Object) 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.Model#identify(Object)
 	 */
 	@Override
 	public Boolean identify(Object o) {
@@ -229,7 +232,9 @@ public class CalendarData extends AbstractModel {
 	 * Method toString.
 	
 	
-	 * @return String * @see edu.wpi.cs.wpisuitetng.modules.Model#toString() * @see edu.wpi.cs.wpisuitetng.modules.Model#toString()
+	 * @return String 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.Model#toString() 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.Model#toString()
 	 */
 	@Override
 	public String toString() {

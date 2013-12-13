@@ -76,7 +76,8 @@ public class CommitmentView extends JPanel {
 
 
 
-		/*  String testData = new String("Commitment1: did a commitment here it is move on to next");
+		/*  String testData = new String(
+		 * "Commitment1: did a commitment here it is move on to next");
 	        for(int i = 0; i< 150; i++){
 	        	JLabel commit = new JLabel(testData);
 	        	JLabel line = new JLabel("\n");
@@ -101,7 +102,8 @@ public class CommitmentView extends JPanel {
 		
 		// print something when we do not  have any commitments
 		if(commitmentList.size() == 0) {			
-			final JLabel message = new JLabel("<html><body style='width: 100%'><center>There are no commitments to display</center></html>", SwingConstants.CENTER);
+			final JLabel message = new JLabel("<html><body style='width: 100%'><center>"
+					+ "There are no commitments to display</center></html>", SwingConstants.CENTER);
 			message.setBackground(Color.WHITE);
 			message.setAlignmentX(CENTER_ALIGNMENT);
 			message.setOpaque(true);
@@ -111,7 +113,8 @@ public class CommitmentView extends JPanel {
 		
 		for(int i = 0; i < commitmentList.size(); i++){
 			if (commitmentList.get(i).getStatus().id != 2) {//Skips over completed commitments
-				CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
+				CommitmentViewPanel commitmentPanel = 
+						new CommitmentViewPanel(commitmentList.get(i));
 				commitmentPanel.setBackground(CalendarStandard.CalendarYellow);
 //				commitmentPanel.setBackground(Color.LIGHT_GRAY.brighter());
 
@@ -121,14 +124,16 @@ public class CommitmentView extends JPanel {
 				try {
 						if (commitmentList.get(i).getIsPersonal())
 						{	
-							nameImg = ImageIO.read(getClass().getResource("PersonalCommitment_Icon.png"));
+							nameImg = ImageIO.read(getClass().getResource(
+									"PersonalCommitment_Icon.png"));
 							scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 							tag.setText("[Personal]");
 							tag.setIcon(new ImageIcon(scaleImg));
 						}
 						else
 						{
-							nameImg = ImageIO.read(getClass().getResource("TeamCommitment_Icon.png"));
+							nameImg = ImageIO.read(getClass().getResource(
+									"TeamCommitment_Icon.png"));
 							scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 							tag.setText("[Team]");
 							tag.setIcon(new ImageIcon(scaleImg));
@@ -148,7 +153,6 @@ public class CommitmentView extends JPanel {
 				
 				Commitment comm = commitmentList.get(i);
 				
-//				JLabel tag = new JLabel(commitmentList.get(i).getIsPersonal() ? "[Personal]" : "[Team]");
 				JLabel name = new JLabel("Name: " + comm.getName());
 				
 				// Setting up date string
@@ -159,8 +163,10 @@ public class CommitmentView extends JPanel {
 				JLabel date = new JLabel("Due Date: " + df.format(comm.getDueDate().getTime()));
 				
 				// Description and status 
-				JLabel description = new JLabel("<HTML>Description: " + comm.getDescription() + "</HTML>");
-				JLabel status = new JLabel("Status: " + Status.convertToString(comm.getStatus().id));
+				JLabel description = new JLabel("<HTML>Description: " 
+				+ comm.getDescription() + "</HTML>");
+				JLabel status = new JLabel("Status: " 
+				+ Status.convertToString(comm.getStatus().id));
 				
 				// Setting up time string
 				SimpleDateFormat tm = new SimpleDateFormat();
@@ -183,41 +189,54 @@ public class CommitmentView extends JPanel {
 				commitmentPanel.add(status, c);
 				//  description.setMaximumSize(new Dimension(285,300));
 				commitmentPanel.setBorder(new EmptyBorder(10, 5, 10, 20));
-				commitmentPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over the commitment
+				commitmentPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+				// To change cursor as it moves over the commitment
 				// commitmentPanel.setPreferredSize(new Dimension(280,300));
 				// commitmentPanel.setMinimumSize(new Dimension(290, 400));
 				// commitmentPanel.setMaximumSize(new Dimension(3000,1000));
 				//  SpringLayout layoutDescription = new SpringLayout();
 				//   description.setLayout(layoutDescription);
-				// layoutDescription.putConstraint(SpringLayout.WEST, description, 0, SpringLayout.WEST, commitmentPanel);
-				//  layoutDescription.putConstraint(SpringLayout.EAST, description, 0, SpringLayout.EAST, commitmentPanel);
-				//  layoutDescription.putConstraint(SpringLayout.NORTH, description, 0, SpringLayout.NORTH, commitmentPanel);
-				//   layoutDescription.putConstraint(SpringLayout.SOUTH, description, 0, SpringLayout.SOUTH, commitmentPanel);
+				/* layoutDescription.putConstraint(SpringLayout.WEST, description, 
+				0, SpringLayout.WEST, commitmentPanel);*/
+				/* layoutDescription.putConstraint(SpringLayout.EAST, description,
+				0, SpringLayout.EAST, commitmentPanel);*/
+				/* layoutDescription.putConstraint(SpringLayout.NORTH, description, 
+				 * 0, SpringLayout.NORTH, commitmentPanel);*/
+				/*  layoutDescription.putConstraint(SpringLayout.SOUTH, description, 
+				 * 0, SpringLayout.SOUTH, commitmentPanel);*/
 				//	        commitmentPanelList.add(i,commitmentPanel);
 				commitmentPanel.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						if (e.getClickCount() >= 1)
-							GUIEventController.getInstance().editCommitment(((CommitmentViewPanel)e.getComponent()).getCommitment());
+							GUIEventController.getInstance().editCommitment(
+									((CommitmentViewPanel)e.getComponent()).getCommitment());
 					}		
 				});
 
 				commPanelList.add(n, commitmentPanel);
 				commitmentPanel.setMaximumSize(new Dimension(2000, 100));
 				if(n > 0)
-					commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 1, SpringLayout.SOUTH, commPanelList.get(n - 1));
+					commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 
+							1, SpringLayout.SOUTH, commPanelList.get(n - 1));
 				else
-					commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 0, SpringLayout.NORTH, commitPanel);
+					commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 
+							0, SpringLayout.NORTH, commitPanel);
 
-				commPanelLayout.putConstraint(SpringLayout.WEST, commitmentPanel, 0, SpringLayout.WEST, commitPanel);
-				commPanelLayout.putConstraint(SpringLayout.EAST, commitmentPanel, 0, SpringLayout.EAST, commitPanel);
+				commPanelLayout.putConstraint(SpringLayout.WEST, commitmentPanel, 
+						0, SpringLayout.WEST, commitPanel);
+				commPanelLayout.putConstraint(SpringLayout.EAST, commitmentPanel,
+						0, SpringLayout.EAST, commitPanel);
 
 				commitPanel.add(commitmentPanel);
 				JSeparator separator = new JSeparator();
 				separator.setOrientation(JSplitPane.VERTICAL_SPLIT);
-				commPanelLayout.putConstraint(SpringLayout.NORTH, separator, 1, SpringLayout.SOUTH, commitmentPanel);
-				commPanelLayout.putConstraint(SpringLayout.WEST, separator, 0, SpringLayout.WEST, commitPanel);
-				commPanelLayout.putConstraint(SpringLayout.EAST, separator, 0, SpringLayout.EAST, commitPanel);
+				commPanelLayout.putConstraint(SpringLayout.NORTH, separator, 
+						1, SpringLayout.SOUTH, commitmentPanel);
+				commPanelLayout.putConstraint(SpringLayout.WEST, separator,
+						0, SpringLayout.WEST, commitPanel);
+				commPanelLayout.putConstraint(SpringLayout.EAST, separator, 
+						0, SpringLayout.EAST, commitPanel);
 
 				commitPanel.add(separator);
 				if (n == commitmentList.size() - 1)

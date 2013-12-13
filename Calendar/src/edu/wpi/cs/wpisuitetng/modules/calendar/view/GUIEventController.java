@@ -56,7 +56,8 @@ public class GUIEventController {
 			instance = new GUIEventController();
 
 			/**
-			 * we add this shutdown hook in order to avoid server communication every time someone clicks a checkbox
+			 * we add this shutdown hook in order to 
+			 * avoid server communication every time someone clicks a checkbox
 			 */
 			Runtime.getRuntime().addShutdownHook(new Thread() {
 				@Override

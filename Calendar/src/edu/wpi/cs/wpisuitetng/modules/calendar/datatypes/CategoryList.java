@@ -69,7 +69,7 @@ public class CategoryList {
 	/**
 	 * Removes the category with the given ID
 	 * 
-	 * @param removeId The ID number of the category to be removed from the list of categories in the project
+	 * @param removeId The ID number of the category to be removed from the list of categories
 	 */
 	public void remove(int removeId){
 		// iterate through list of categories until id of project is found
@@ -85,7 +85,8 @@ public class CategoryList {
 	/**
 	 * Provides the number of elements in the list of categories for the project. 
 	 * 
-	 * @return the number of categories in the project * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize()
+	 * @return the number of categories in the project * @see javax.swing.ListModel#getSize() 
+	 * * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize()
 	 */
 	public int getSize() {
 		return categories.size();
@@ -100,7 +101,10 @@ public class CategoryList {
 
 
 
-	 * @return the category associated with the provided index * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int)
+	 * @return the category associated with the provided index 
+	 * * @see javax.swing.ListModel#getElementAt(int) 
+	 * * @see javax.swing.ListModel#getElementAt(int) 
+	 * * @see javax.swing.ListModel#getElementAt(int)
 	 */
 	public Category getElementAt(int index) {
 		return categories.get(categories.size() - 1 - index);

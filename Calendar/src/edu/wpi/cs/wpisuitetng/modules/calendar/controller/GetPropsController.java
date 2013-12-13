@@ -60,7 +60,8 @@ public class GetPropsController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Send a request to the core to get this CalendarProps
-		final Request request = Network.getInstance().makeRequest("calendar/CalendarProps", HttpMethod.GET); // GET == read
+		final Request request = Network.getInstance().makeRequest(
+				"calendar/CalendarProps", HttpMethod.GET); // GET == read
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); // send the request
 	}
@@ -69,7 +70,8 @@ public class GetPropsController implements ActionListener {
 	 * Sends an HTTP request to retrieve all CalendarPropss
 	 */
 	public void retrieveCalendarProps() {
-		final Request request = Network.getInstance().makeRequest("calendar/calendarprops", HttpMethod.GET); // GET == read
+		final Request request = Network.getInstance().makeRequest(
+				"calendar/calendarprops", HttpMethod.GET); // GET == read
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); // send the request
 	}

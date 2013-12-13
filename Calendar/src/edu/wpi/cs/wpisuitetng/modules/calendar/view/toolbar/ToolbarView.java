@@ -52,7 +52,9 @@ public class ToolbarView  extends DefaultToolbarView {
 		ToolbarGroupView toolbarGroup = new ToolbarGroupView("Home", contentPanel);
 		
 		// Calculate the width of the toolbar
-		Double toolbarGroupWidth = createCommitButton.getPreferredSize().getWidth() + createEventButton.getPreferredSize().getWidth() + 40; // 40 accounts for margins between the buttons
+		Double toolbarGroupWidth = createCommitButton.getPreferredSize().getWidth() +
+		 createEventButton.getPreferredSize().getWidth() + 40; 
+		 // 40 accounts for margins between the buttons
 		toolbarGroup.setPreferredWidth(toolbarGroupWidth.intValue());
 		addGroup(toolbarGroup);
 		*/

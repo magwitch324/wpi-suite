@@ -115,7 +115,8 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	 * @param start
 	 * @param end
 	 * @return
-	 * @deprecated function isn't useful for this datatype use {@link toCombinedEventList()} to convert to CombinedEventList
+	 * @deprecated function isn't useful for this datatype 
+	 * use {@link toCombinedEventList()} to convert to CombinedEventList
 	 */
 	@Deprecated
 	public List<RepeatingEvent> filter(GregorianCalendar start, GregorianCalendar end) {

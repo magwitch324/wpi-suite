@@ -56,7 +56,8 @@ public class AddPropsController{
 	 */
 	public void addCalendarProps(CalendarProps newCalProps) 
 	{
-		final Request request = Network.getInstance().makeRequest("calendar/calendarprops", HttpMethod.PUT); // PUT == create
+		final Request request = Network.getInstance().makeRequest(
+				"calendar/calendarprops", HttpMethod.PUT); // PUT == create
 		request.setBody(newCalProps.toJSON()); // put the new calData in the body of the request
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); 
