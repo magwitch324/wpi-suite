@@ -18,8 +18,7 @@ import javax.swing.AbstractListModel;
 
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddCalendarDataController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
+
 
 public class CalendarDataModel extends AbstractListModel {
 

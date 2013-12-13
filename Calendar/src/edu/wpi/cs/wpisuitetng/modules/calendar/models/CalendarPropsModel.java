@@ -17,8 +17,8 @@ import javax.swing.AbstractListModel;
 
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddPropsController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
+
+
 
 public class CalendarPropsModel extends AbstractListModel {
 

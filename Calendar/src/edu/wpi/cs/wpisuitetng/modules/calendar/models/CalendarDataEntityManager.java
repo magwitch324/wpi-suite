@@ -9,7 +9,6 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 
 import java.util.List;
 

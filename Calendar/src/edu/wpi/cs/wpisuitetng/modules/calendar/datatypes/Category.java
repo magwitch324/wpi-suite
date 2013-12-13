@@ -15,7 +15,7 @@ import java.util.Comparator;
 import com.google.gson.Gson;
 
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
+
 
 
 public class Category extends AbstractModel implements Comparator<Category>{
