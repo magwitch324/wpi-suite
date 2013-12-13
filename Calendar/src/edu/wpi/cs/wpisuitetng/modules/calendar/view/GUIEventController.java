@@ -10,8 +10,6 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.GregorianCalendar;
 
@@ -22,6 +20,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab2;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.EventTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 
@@ -164,12 +163,15 @@ public class GUIEventController {
 			openedFrom = 0;
 		}
 		final CommitmentTab newCommit = new CommitmentTab(openedFrom);
+		final CommitmentTab2 newCommit2 = new CommitmentTab2(openedFrom);
 		try {
 			final Image img = ImageIO.read(getClass().getResource("NewCommitment_Icon.png"));
 			main.addTab("New Commitment", new ImageIcon(img), newCommit);
+			main.addTab("New Commitment2", new ImageIcon(img), newCommit2);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
 			main.addTab("New Commitment", new ImageIcon(), newCommit);
+			main.addTab("New Commitment2", new ImageIcon(), newCommit2);
 		}
 		//		main.addTab("New Commitment", null, newCommit, "New Commitment");
 		//		newCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
