@@ -107,8 +107,8 @@ public class CommitmentFullView extends JPanel{
 		header = new JPanel();
 		header.setBackground(Color.WHITE);
 		header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
-		header.setBorder(new EmptyBorder(5,5,5,5));
-		header.setBorder(new MatteBorder(0,0,2,0, Color.BLACK));
+		header.setBorder(new EmptyBorder(5, 5, 5, 5));
+		header.setBorder(new MatteBorder(0, 0, 2, 0, Color.BLACK));
 
 		scrollPane = new JScrollPane(commitPanel, 
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
@@ -233,8 +233,8 @@ public class CommitmentFullView extends JPanel{
 		if (mode == ViewingMode.BOTH){
 			bothRadioButton.setSelected(true);
 		}
-		bothRadioButton.setMinimumSize(new Dimension(100,50));
-		bothRadioButton.setMaximumSize(new Dimension(100,50));
+		bothRadioButton.setMinimumSize(new Dimension(100, 50));
+		bothRadioButton.setMaximumSize(new Dimension(100, 50));
 		bothRadioButton.setAlignmentX(CENTER_ALIGNMENT);
 
 		viewSwitchGroup = new ButtonGroup();
@@ -249,14 +249,14 @@ public class CommitmentFullView extends JPanel{
 
 
 
-		viewSwitcher.setPreferredSize(new Dimension(300,50));
+		viewSwitcher.setPreferredSize(new Dimension(300, 50));
 		viewSwitcher.setMaximumSize(new Dimension(20000, 50));
 
 		header.add(viewSwitcher);
 
 		final JPanel topButtons = new JPanel();
 
-		final GridLayout experimentLayout = new GridLayout(0,4);
+		final GridLayout experimentLayout = new GridLayout(0, 4);
 		topButtons.setLayout(experimentLayout);
 		//topButtons.setLayout(new BoxLayout(topButtons, BoxLayout.X_AXIS));
 		jName = new JButton("<html><font color='white'><b>"
@@ -490,15 +490,15 @@ public class CommitmentFullView extends JPanel{
 		c.anchor = GridBagConstraints.LINE_START;
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
-		topButtons.add(jName,c);
-		topButtons.add(jDueDate,c);
-		topButtons.add(jDescription,c);
-		topButtons.add(jStatus,c);
-		topButtons.setPreferredSize(new Dimension(300,50));
+		topButtons.add(jName, c);
+		topButtons.add(jDueDate, c);
+		topButtons.add(jDescription, c);
+		topButtons.add(jStatus, c);
+		topButtons.setPreferredSize(new Dimension(300, 50));
 		topButtons.setMaximumSize(new Dimension(20000, 50));
 		final Border loweredbevel1 = BorderFactory.createLoweredBevelBorder();
 		topButtons.setBorder(loweredbevel1);
-		topButtons.setBorder(new MatteBorder(5,5,5,5, Color.WHITE));
+		topButtons.setBorder(new MatteBorder(5, 5, 5, 5, Color.WHITE));
 
 		header.add(topButtons);
 
@@ -509,19 +509,19 @@ public class CommitmentFullView extends JPanel{
 			CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
 			Image nameImg;
 			Image scaleImg;
-			JLabel name = new JLabel(commitmentList.get(i).getName(),JLabel.LEFT);
+			JLabel name = new JLabel(commitmentList.get(i).getName(), JLabel.LEFT);
 			name.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 			try {
 				if (commitmentList.get(i).getIsPersonal())
 				{	
 					nameImg = ImageIO.read(getClass().getResource("PersonalCommitment_Icon.png"));
-					scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
+					scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 					name.setIcon(new ImageIcon(scaleImg));
 				}
 				else
 				{
 					nameImg = ImageIO.read(getClass().getResource("TeamCommitment_Icon.png"));
-					scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
+					scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 					name.setIcon(new ImageIcon(scaleImg));
 				}
 			} catch (IOException | IllegalArgumentException e) {
@@ -531,11 +531,11 @@ public class CommitmentFullView extends JPanel{
 			SimpleDateFormat df = new SimpleDateFormat();
 			df.applyPattern("EEEE, MMMM d, y - hh:mm a");
 			
-			JLabel date = new JLabel(""+df.format(commitmentList.get(i).getDueDate().getTime()),JLabel.LEFT);
+			JLabel date = new JLabel(""+df.format(commitmentList.get(i).getDueDate().getTime()), JLabel.LEFT);
 			date.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 			JLabel description = new JLabel("<HTML>"+ commitmentList.get(i).getDescription()+"</HTML>",JLabel.LEFT);
 			description.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
-			JLabel status = new JLabel(Status.convertToString(commitmentList.get(i).getStatus().id),JLabel.LEFT);
+			JLabel status = new JLabel(Status.convertToString(commitmentList.get(i).getStatus().id), JLabel.LEFT);
 			status.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
 			commitmentPanel.setLayout(experimentLayout);
@@ -543,14 +543,14 @@ public class CommitmentFullView extends JPanel{
 			c.anchor = GridBagConstraints.BASELINE_LEADING;
 			c.fill = GridBagConstraints.BASELINE_LEADING;
 			c.weightx = 1;
-			commitmentPanel.add(name,c);
-			commitmentPanel.add(date,c);
-			commitmentPanel.add(description,c);
-			commitmentPanel.add(status,c);
+			commitmentPanel.add(name, c);
+			commitmentPanel.add(date, c);
+			commitmentPanel.add(description, c);
+			commitmentPanel.add(status, c);
 			commitmentPanel.setBackground(CalendarStandard.CalendarYellow);
 			//			commitmentPanel.setBackground(new Color(222,184,135));
-			commitmentPanel.setPreferredSize(new Dimension(300,75));
-			commitmentPanel.setMaximumSize(new Dimension(20000,75));
+			commitmentPanel.setPreferredSize(new Dimension(300, 75));
+			commitmentPanel.setMaximumSize(new Dimension(20000, 75));
 			Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 			commitmentPanel.setBorder(loweredbevel);
 			commitmentPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this commitment pannel

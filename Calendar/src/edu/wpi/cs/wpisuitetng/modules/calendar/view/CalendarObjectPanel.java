@@ -178,7 +178,7 @@ public class CalendarObjectPanel extends JPanel {
 			} else {
 				nameImg = ImageIO.read(getClass().getResource("Team" + type + "_Icon.png"));
 			}
-			scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
+			scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 			final ImageIcon imageIcon = new ImageIcon(scaleImg);
 			iconL.setIcon(imageIcon);
 			iconL.setSize(imageIcon.getIconHeight(), imageIcon.getIconWidth());

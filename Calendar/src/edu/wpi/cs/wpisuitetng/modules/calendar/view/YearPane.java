@@ -61,7 +61,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 		this.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		this.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
-		this.setMinimumSize(new Dimension(100,100));
+		this.setMinimumSize(new Dimension(100, 100));
 		
 		supcal = (GregorianCalendar)acal.clone();
 		supcal.set(supcal.get(Calendar.YEAR), Calendar.JANUARY, 1);
@@ -189,7 +189,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 											SwingConstants.CENTER);
 			monthlbl.addMouseListener(new AMouseMonthEvent(acal));
 			final JPanel temppane = new JPanel();
-			temppane.setLayout(new GridLayout(1,1));
+			temppane.setLayout(new GridLayout(1, 1));
 			temppane.setBackground(CalendarStandard.CalendarRed);
 			
 			monthlbl.setBackground(CalendarStandard.CalendarRed);
@@ -211,7 +211,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 			
 			//Create the days pane and set the grid layout
 			final JPanel days = new JPanel();
-			days.setLayout(new GridLayout(6,7,1,1));
+			days.setLayout(new GridLayout(6, 7, 1, 1));
 			
 			final GregorianCalendar temp = (GregorianCalendar)monthpanestart.clone();
 			
@@ -247,7 +247,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 		protected JPanel getDayNames(){
 			final String[] days = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 			final JPanel apane = new JPanel();
-			apane.setLayout(new GridLayout(1,7));
+			apane.setLayout(new GridLayout(1, 7));
 			double width = 0;
 			JLabel lbl = null;
 			for(int i = 0; i < 7; i++){
@@ -335,7 +335,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 		public YearDayPane(final GregorianCalendar acal, int month){
 			this.setBorder(BorderFactory.createSoftBevelBorder(BevelBorder.RAISED));
 			scal = (GregorianCalendar)acal.clone();
-			this.setLayout(new GridLayout(1,1));
+			this.setLayout(new GridLayout(1, 1));
 			final JLabel lbl = new JLabel("" + scal.get(Calendar.DATE), SwingConstants.CENTER);
 			active = month == acal.get(Calendar.MONTH);
 
@@ -356,8 +356,8 @@ public class YearPane extends JScrollPane implements ICalPane{
 				});
 			}
 			else{
-				lbl.setForeground(new Color(180,180,180));
-				this.setBackground(new Color(220,220,220));
+				lbl.setForeground(new Color(180, 180, 180));
+				this.setBackground(new Color(220, 220, 220));
 			}
 			this.add(lbl);
 			this.setPreferredSize(lbl.getPreferredSize());

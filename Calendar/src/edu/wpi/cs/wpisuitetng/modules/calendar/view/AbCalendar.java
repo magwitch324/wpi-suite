@@ -99,7 +99,7 @@ public abstract class AbCalendar extends JPanel {
 	protected JComponent getViewButtonPanel(){
 		final JPanel apane = new JPanel();
 		apane.setBackground(Color.WHITE);
-		apane.setLayout(new GridLayout(1,4,15,0));
+		apane.setLayout(new GridLayout(1, 4, 15, 0));
 
 		viewbtns[0] = new JToggleButton();
 
@@ -254,7 +254,7 @@ public abstract class AbCalendar extends JPanel {
 
 	protected JComponent getDatePanel(){
 		final JPanel apane = new JPanel();
-		apane.setBackground(new Color(0,0,0,0));
+		apane.setBackground(new Color(0, 0, 0, 0));
 		apane.setOpaque(false);
 		
 		final JButton backwardbutton = new JButton();
@@ -269,7 +269,7 @@ public abstract class AbCalendar extends JPanel {
 		}
 		backLabel.setBackground(CalendarStandard.CalendarRed);
 		backLabel.setOpaque(true);
-		backLabel.setBorder(new EmptyBorder(5,5,5,5));
+		backLabel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		backwardbutton.add(backLabel);
 		backwardbutton.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		backwardbutton.setFont(CalendarStandard.CalendarFont);
@@ -287,7 +287,7 @@ public abstract class AbCalendar extends JPanel {
 		final JLabel todayLabel = new JLabel("Today");
 		todayLabel.setBackground(CalendarStandard.CalendarRed);
 		todayLabel.setOpaque(true);
-		todayLabel.setBorder(new EmptyBorder(5,5,5,5));
+		todayLabel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		todayLabel.setForeground(Color.WHITE);
 		todaybutton.add(todayLabel);
 		todaybutton.setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -314,7 +314,7 @@ public abstract class AbCalendar extends JPanel {
 		}
 		forwardLabel.setBackground(CalendarStandard.CalendarRed);
 		forwardLabel.setOpaque(true);
-		forwardLabel.setBorder(new EmptyBorder(5,5,5,5));
+		forwardLabel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		forwardbutton.add(forwardLabel);
 		forwardbutton.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		forwardbutton.setFont(CalendarStandard.CalendarFont);
@@ -341,7 +341,7 @@ public abstract class AbCalendar extends JPanel {
 	protected void setView(){
 		viewpanel.removeAll();
 		//System.out.println("Cal COUNT start: " + viewpanel.getComponentCount());
-		viewpanel.setLayout(new GridLayout(1,1));
+		viewpanel.setLayout(new GridLayout(1, 1));
 		//TODO do views
 		switch(currenttype.getCurrentType()){
 		case(0):
@@ -361,7 +361,7 @@ public abstract class AbCalendar extends JPanel {
 			break;
 		}
 		viewpanel.removeAll();
-		viewpanel.setLayout(new GridLayout(1,1));
+		viewpanel.setLayout(new GridLayout(1, 1));
 		displayCalData();
 		viewpanel.add(calView);
 		

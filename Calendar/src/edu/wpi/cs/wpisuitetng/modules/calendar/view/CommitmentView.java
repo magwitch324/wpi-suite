@@ -123,14 +123,14 @@ public class CommitmentView extends JPanel {
 						if (commitmentList.get(i).getIsPersonal())
 						{	
 							nameImg = ImageIO.read(getClass().getResource("PersonalCommitment_Icon.png"));
-							scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
+							scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 							tag.setText("[Personal]");
 							tag.setIcon(new ImageIcon(scaleImg));
 						}
 						else
 						{
 							nameImg = ImageIO.read(getClass().getResource("TeamCommitment_Icon.png"));
-							scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
+							scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 							tag.setText("[Team]");
 							tag.setIcon(new ImageIcon(scaleImg));
 						}
@@ -177,11 +177,11 @@ public class CommitmentView extends JPanel {
 				c.weightx = 1;
 				c.gridx = n;
 				commitmentPanel.add(tag, c);
-				commitmentPanel.add(name,c);
-				commitmentPanel.add(date,c);
-				commitmentPanel.add(time,c);
-				commitmentPanel.add(description,c);
-				commitmentPanel.add(status,c);
+				commitmentPanel.add(name, c);
+				commitmentPanel.add(date, c);
+				commitmentPanel.add(time, c);
+				commitmentPanel.add(description, c);
+				commitmentPanel.add(status, c);
 				//  description.setMaximumSize(new Dimension(285,300));
 				commitmentPanel.setBorder(new EmptyBorder(10, 5, 10 , 20));
 				commitmentPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over the commitment
@@ -204,7 +204,7 @@ public class CommitmentView extends JPanel {
 				});
 
 				commPanelList.add(n, commitmentPanel);
-				commitmentPanel.setMaximumSize(new Dimension(2000,100));
+				commitmentPanel.setMaximumSize(new Dimension(2000, 100));
 				if(n > 0)
 					commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 1, SpringLayout.SOUTH, commPanelList.get(n-1));
 				else

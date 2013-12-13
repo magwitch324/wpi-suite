@@ -78,7 +78,7 @@ public class WeekView extends CalendarView {
 		if (super.showAllCommFlag){
 			commitmentView.updateCommData(commList.getCommitments());
 		} else {
-			commitmentView.updateCommData(commList.filter(startDate,endDate));
+			commitmentView.updateCommData(commList.filter(startDate, endDate));
 		}
 		// TODO filter commitments
 		if (showCommOnCal){
@@ -100,7 +100,7 @@ public class WeekView extends CalendarView {
 		if (super.showAllCommFlag){
 			commitmentView.updateCommData(commList.getCommitments());
 		} else {
-			commitmentView.updateCommData(commList.filter(startDate,endDate));
+			commitmentView.updateCommData(commList.filter(startDate, endDate));
 		}
 		revalidate();
 		repaint();

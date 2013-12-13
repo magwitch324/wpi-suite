@@ -61,7 +61,7 @@ public class WeekPane extends JPanel implements ICalPane {
 		mydate.setTime(datecalendar.getTime());
 		mydate.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 
-	   	setLayout(new GridLayout(1,1));
+	   	setLayout(new GridLayout(1, 1));
 		this.add(scrollPane);
 		
 	   	scrollPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
@@ -92,7 +92,7 @@ public class WeekPane extends JPanel implements ICalPane {
 
 
 		mainPanel.setPreferredSize(new Dimension(30, 2000));
-		mainPanel.setLayout(new GridLayout(1,7));
+		mainPanel.setLayout(new GridLayout(1, 7));
 		
 		final GregorianCalendar temp = new GregorianCalendar();
 		temp.setTime(mydate.getTime());
@@ -130,13 +130,13 @@ public class WeekPane extends JPanel implements ICalPane {
     	final JPanel apane = new JPanel();
     	port.setView(apane);
     	apane.setBackground(CalendarStandard.CalendarRed);
-	    apane.setBorder(new EmptyBorder(5,0,10,0));
-    	apane.setLayout(new GridLayout(1,7));
+	    apane.setBorder(new EmptyBorder(5, 0, 10, 0));
+    	apane.setLayout(new GridLayout(1, 7));
     	
     	final String[][] weekdays = {{"Sunday, ", "Monday, ", "Tuesday, ",
     						"Wednesday, ", "Thursday, ", "Friday, ", "Saturday, " },
-    						{"Sun, ", "Mon, ", "Tue, ","Wed, ", "Thu, ", "Fri, ", "Sat, " },
-    						{"Sun", "Mon", "Tue","Wed", "Thu", "Fri", "Sat" }};
+    						{"Sun, ", "Mon, ", "Tue, ", "Wed, ", "Thu, ", "Fri, ", "Sat, " },
+    						{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }};
     	
     	final GregorianCalendar acal = (GregorianCalendar)mydate.clone();
 		for(int i=0; i < 7; i++) {

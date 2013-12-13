@@ -101,13 +101,13 @@ public class GUIEventController {
 			main.addTab("Team Calendar", new ImageIcon(img), teamCalendar);
 
 			img = ImageIO.read(getClass().getResource("All_Icon.png"));
-			main.addTab("All Commitments", new ImageIcon(img),commitFullView);
+			main.addTab("All Commitments", new ImageIcon(img), commitFullView);
 
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
 			main.addTab("My Calendar", new ImageIcon(), myCalendar);
 			main.addTab("Team Calendar", new ImageIcon(), teamCalendar);
-			main.addTab("All Commitments", new ImageIcon(),commitFullView);
+			main.addTab("All Commitments", new ImageIcon(), commitFullView);
 		}
 
 	}

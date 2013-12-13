@@ -359,7 +359,7 @@ public class CommitmentTab extends JPanel {
 		gbc_lblStatus.gridy = 9;
 		gbc_lblStatus.weightx = 1;
 		gbc_lblStatus.weighty = 3;
-		formPanel.add(lblStatus,gbc_lblStatus);
+		formPanel.add(lblStatus, gbc_lblStatus);
 		
 
 	}
@@ -508,7 +508,7 @@ public class CommitmentTab extends JPanel {
 		gbc_statusComboBox.gridy = 9;
 		gbc_statusComboBox.weightx = 1;
 		gbc_statusComboBox.weighty = 3;
-		formPanel.add(statusComboBox,gbc_statusComboBox);
+		formPanel.add(statusComboBox,  gbc_statusComboBox);
 	}
 	
 	/**
@@ -594,7 +594,7 @@ public class CommitmentTab extends JPanel {
 		/**
 		 * Initialize button panel instance and its constraints.
 		 */
-		buttonPanel = new JPanel(new BorderLayout(30,0));
+		buttonPanel = new JPanel(new BorderLayout(30, 0));
 		buttonPanel.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_btnPanel = new GridBagConstraints();
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;

@@ -55,7 +55,7 @@ public class DayPane extends JPanel implements ICalPane {
 		day = new GregorianCalendar();
 		day.setTime(datecalendar.getTime());
 		
-		setLayout(new GridLayout(1,1));
+		setLayout(new GridLayout(1, 1));
 
 
 		// HOURS
@@ -104,7 +104,7 @@ public class DayPane extends JPanel implements ICalPane {
 		
 		scrollPane.setColumnHeaderView(header);
 		
-		mainPanel.setLayout(new GridLayout(1,1));
+		mainPanel.setLayout(new GridLayout(1, 1));
 		daypane = new DayDayPane(day, AbCalendar.types.DAY);
 		mainPanel.add(daypane);
 		mainPanel.setBackground(CalendarStandard.CalendarYellow);

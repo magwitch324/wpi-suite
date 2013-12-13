@@ -114,7 +114,7 @@ public class FilterTab extends JPanel{
 		
 		formPanel = new JPanel();
 		formPanel.setBackground(Color.WHITE);
-		formPanel.setPreferredSize(new Dimension(500,600));
+		formPanel.setPreferredSize(new Dimension(500, 600));
 		formPanel.setMinimumSize(new Dimension(500, 600));	
 		formPanel.setLayout(gbl);
 		
@@ -130,7 +130,7 @@ public class FilterTab extends JPanel{
 	
 	private void addButtonPanel(){
 		
-		buttonPanel = new JPanel(new BorderLayout(30,0));
+		buttonPanel = new JPanel(new BorderLayout(30, 0));
 		buttonPanel.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_btnPanel = new GridBagConstraints();
 		gbc_btnPanel.insets = new Insets(0, 0, 0, 5);

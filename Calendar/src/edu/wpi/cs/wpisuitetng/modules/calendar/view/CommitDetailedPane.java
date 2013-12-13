@@ -52,7 +52,7 @@ public class CommitDetailedPane extends JPanel {
 		
 		this.didResize();
 
-		this.setBackground(new Color(0,0,0,0));
+		this.setBackground(new Color(0, 0, 0, 0));
 	}
 	
 	protected void didResize(){

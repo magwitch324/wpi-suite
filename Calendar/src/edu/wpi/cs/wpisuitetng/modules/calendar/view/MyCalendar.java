@@ -255,7 +255,7 @@ public class MyCalendar extends AbCalendar {
 	@Override
 	protected JComponent getDataDisplayPanel() {
 		final JPanel panel = new JPanel();
-		panel.setBackground(new Color(0,0,0,0));
+		panel.setBackground(new Color(0, 0, 0, 0));
 		final SpringLayout layout = new SpringLayout();
 		panel.setLayout(layout);
 		

@@ -59,7 +59,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 	public MonthPane(GregorianCalendar acal) {
 		mainview = new JPanel();
 		mainview.setMinimumSize(new Dimension(200, 200));
-		mainview.setPreferredSize(new Dimension(200,200));
+		mainview.setPreferredSize(new Dimension(200, 200));
 		mainview.setLayout(new GridLayout(6, 7, 1, 1));
 		
 		this.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -269,14 +269,14 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				layout.putConstraint(SpringLayout.WEST, scroll, 0, SpringLayout.WEST, this);
 				layout.putConstraint(SpringLayout.SOUTH, scroll, -5, SpringLayout.SOUTH, this);
 				layout.putConstraint(SpringLayout.EAST, scroll, 0, SpringLayout.EAST, this);
-				scroll.setPreferredSize(new Dimension(10,10));
+				scroll.setPreferredSize(new Dimension(10, 10));
 				scroll.setBorder(BorderFactory.createEmptyBorder());
 				scroll.addMouseListener(new scrollcheck());
 				this.add(scroll);
 				
 				small.setLayout(new SpringLayout());
 				small.setBackground(CalendarStandard.CalendarYellow);
-				small.setPreferredSize(new Dimension(10,10));
+				small.setPreferredSize(new Dimension(10, 10));
 				
 				big.setLayout(new SpringLayout());
 				big.setBackground(CalendarStandard.CalendarYellow);

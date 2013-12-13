@@ -71,7 +71,7 @@ public abstract class CalendarView extends JSplitPane {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
 		final JPanel labelPanel = new JPanel();
-		labelPanel.setLayout(new GridLayout(1,1,0,0));
+		labelPanel.setLayout(new GridLayout(1, 1, 0, 0));
 		labelPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.GRAY));
 //		labelPanel.setBorder(new EmptyBorder(0, 10, 0 , 10));
 //		labelPanel.setMinimumSize(new Dimension(330, 50));

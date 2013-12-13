@@ -43,9 +43,9 @@ public class HalfHourBlock extends JPanel{
 	public HalfHourBlock(int pos){
 		this.pos = pos;
 		size = 0;
-		layout = new GridLayout(1,1,0,1);
+		layout = new GridLayout(1, 1, 0, 1);
 		this.setLayout(layout);
-		this.setBackground(new Color(0,0,0,0));
+		this.setBackground(new Color(0, 0, 0, 0));
 	}
 	
 	/** Add a team commitment panel

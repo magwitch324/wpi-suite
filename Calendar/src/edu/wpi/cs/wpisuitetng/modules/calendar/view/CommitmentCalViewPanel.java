@@ -68,7 +68,7 @@ public class CommitmentCalViewPanel extends JPanel {
 			{
 				nameImg = ImageIO.read(getClass().getResource("TeamCommitment_Icon.png"));
 			}
-			scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
+			scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 			alab = new JLabel(name, new ImageIcon(scaleImg), JLabel.CENTER);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

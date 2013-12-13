@@ -175,7 +175,7 @@ public class EventTab extends JPanel {
 		final JPanel spacePanel2 = new JPanel();
 		formPanel = new JPanel();
 		formPanel.setBackground(Color.WHITE);
-		formPanel.setPreferredSize(new Dimension(500,600));
+		formPanel.setPreferredSize(new Dimension(500, 600));
 		formPanel.setMinimumSize(new Dimension(500, 600));
 		spacePanel1.setMinimumSize(formPanel.getSize());
 		spacePanel1.setBackground(Color.WHITE);
@@ -271,8 +271,8 @@ public class EventTab extends JPanel {
         gbc.gridwidth = 3;
         descriptionScrollPane = new JScrollPane(descriptionTextArea);
 		formPanel.add(descriptionScrollPane, gbc_descriptionTextField);
-		descriptionScrollPane.setMaximumSize(new Dimension(10000000,10));
-		descriptionScrollPane.getViewport().setMaximumSize(new Dimension(10000000,10));
+		descriptionScrollPane.setMaximumSize(new Dimension(10000000, 10));
+		descriptionScrollPane.getViewport().setMaximumSize(new Dimension(10000000, 10));
 		
 		
 		//Category label
@@ -728,7 +728,7 @@ public class EventTab extends JPanel {
 		});
 		
 		
-		buttonPanel = new JPanel(new BorderLayout(30,0));
+		buttonPanel = new JPanel(new BorderLayout(30, 0));
 		buttonPanel.setBackground(Color.WHITE);
 		//Add Event button
 		
