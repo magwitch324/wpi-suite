@@ -832,11 +832,11 @@ public class EventTab extends JPanel {
 					
 					checkStartDatePickerStatus();
 					checkSaveBtnStatus();
-					checkEndBeforeStart();
+					setEndDateOnStartDateChange();
 				} catch (ParseException e1) {
 					checkStartDatePickerStatus();
 					checkSaveBtnStatus();
-					checkEndBeforeStart();
+					setEndDateOnStartDateChange();
 				}
 
 			}
@@ -855,9 +855,12 @@ public class EventTab extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				checkSaveBtnStatus();
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+					checkStartDatePickerStatus();
+					checkSaveBtnStatus();
+					setEndDateOnStartDateChange();
+				}
 			}
-
 		});
 		
 		startDatePicker.getEditor().addKeyListener(new KeyAdapter() {
@@ -892,7 +895,7 @@ public class EventTab extends JPanel {
 				// TODO Auto-generated method stub
 				checkStartDatePickerStatus();
 				checkSaveBtnStatus();
-				checkEndBeforeStart();
+				setEndDateOnStartDateChange();
 			}
 		});
 	
@@ -1190,8 +1193,6 @@ public class EventTab extends JPanel {
 		
 	}
 	
-	
-	
 	private void addEndTimeSpinnerListeners() {
 		endHourEditor.getTextField().addFocusListener(new FocusListener() {
 
@@ -1396,7 +1397,10 @@ public class EventTab extends JPanel {
 		}
 	}
 
-
+	protected void setEndDateOnStartDateChange() {
+		setEndDate(getStartDate());
+	}
+	
 	/**
 	 * Method updateEndTime.
 	 */
