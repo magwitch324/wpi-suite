@@ -294,8 +294,6 @@ public class EventTab extends JPanel {
 		//Create category box, add two dummy categories
 		categoryComboBox = new JComboBox<Category>();
 		categoryComboBox.setBackground(CalendarStandard.CalendarYellow);
-		//categoryComboBox.addItem(new Category(4, "Cat1"));
-		//categoryComboBox.addItem(new Category(5, "Cat2"));
 
 		final GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
 		gbc_categoryComboBox.gridwidth = 3;
@@ -773,7 +771,7 @@ public class EventTab extends JPanel {
 		//Add Cancel button
 
 		try {
-			Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
 			btnCancel = new JButton("Cancel", new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){

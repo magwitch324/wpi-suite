@@ -253,7 +253,7 @@ public abstract class AbCalendar extends JPanel {
 	}
 
 	protected JComponent getDatePanel(){
-		JPanel apane = new JPanel();
+		final JPanel apane = new JPanel();
 		apane.setBackground(new Color(0,0,0,0));
 		apane.setOpaque(false);
 		

@@ -75,7 +75,7 @@ public class GUIEventController {
 		//teamCalendar.saveProps();
 		//myCalendar.saveProps();
 		//commitFullView.saveProps();
-		CalendarProps calProps = CalendarPropsModel.getInstance().getCalendarProps(
+		final CalendarProps calProps = CalendarPropsModel.getInstance().getCalendarProps(
 				ConfigManager.getConfig().getProjectName() + "-"
 						+ ConfigManager.getConfig().getUserName() + "-PROPS");
 		UpdatePropsController.getInstance().updateCalendarProps(calProps);
@@ -221,7 +221,7 @@ public class GUIEventController {
 		if (openedFrom > 2){
 			openedFrom = 0;
 		}
-		CommitmentTab editCommit = new CommitmentTab(comm, openedFrom);
+		final CommitmentTab editCommit = new CommitmentTab(comm, openedFrom);
 		try {
 			final Image img = ImageIO.read(getClass().getResource("EditCommitment_Icon.png"));
 			main.addTab("Edit Commitment", new ImageIcon(img), editCommit);
@@ -243,7 +243,7 @@ public class GUIEventController {
 		}
 		final EventTab newEvent = new EventTab(openedFrom);
 		try {
-			Image img = ImageIO.read(getClass().getResource("NewEvent_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource("NewEvent_Icon.png"));
 			main.addTab("New Event", new ImageIcon(img), newEvent);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){

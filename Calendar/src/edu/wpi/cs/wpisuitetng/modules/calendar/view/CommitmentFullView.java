@@ -384,7 +384,7 @@ public class CommitmentFullView extends JPanel{
 		jDescription.setBackground(CalendarStandard.CalendarRed);
 		if(dessort == 1){
 			try {
-				Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
+				final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
 				jDescription.setIcon(new ImageIcon(img));
 				jDescription.setText("<html><font color='white'><b>"
 						+ "Description" + "</b></font></html>");
