@@ -44,6 +44,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
@@ -64,10 +66,11 @@ public class CategoryTab extends JPanel {
 	private JPanel viewPanel;
 	private CategoryMode mode;
 	private Component viewPanelStrut;
+	private JTextField textFieldName;
 
 	/**
 	 */
-	private enum CategoryMode {
+	public enum CategoryMode {
 		ADDING(0),
 		EDITING(1),
 		VIEWING(2);
@@ -86,17 +89,20 @@ public class CategoryTab extends JPanel {
 		createBaseUI();
 		
 		//Load category lists from CalendarDataModel
-		teamCategories = CalendarDataModel.getInstance().getCalendarData(
-				ConfigManager.getConfig().getProjectName()).getCategories();
-		personalCategories = CalendarDataModel.getInstance().getCalendarData(
-				ConfigManager.getConfig().getProjectName() + "-"
-						+ ConfigManager.getConfig().getUserName()).getCategories();
-		
+//		teamCategories = CalendarDataModel.getInstance().getCalendarData(
+//				ConfigManager.getConfig().getProjectName()).getCategories();
+//		personalCategories = CalendarDataModel.getInstance().getCalendarData(
+//				ConfigManager.getConfig().getProjectName() + "-"
+//						+ ConfigManager.getConfig().getUserName()).getCategories();
+		teamCategories = new CategoryList();
+		personalCategories = new CategoryList();
+
 		populateCategoryList();
 		addListeners();
 		
 		//initialize in "viewing" mode
 		setupViewingView();
+		
 		
 	}
 
@@ -201,8 +207,7 @@ public class CategoryTab extends JPanel {
 		viewPanelStrut.setMaximumSize(new Dimension(600, 0));
 		viewPanel.add(viewPanelStrut);
 		
-		addEditPanel = new JPanel();
-		addEditPanel.setLayout(new GridLayout(0, 1, 0, 0));
+		addEditPanel = new AddEditCategoryPanel(CategoryMode.ADDING);
 	}
 	
 	/**
@@ -301,7 +306,8 @@ public class CategoryTab extends JPanel {
 		gbc_addEditPanel.fill = GridBagConstraints.BOTH;
 		gbc_addEditPanel.gridx = 1;
 		gbc_addEditPanel.gridy = 0;
-		add(addEditPanel, gbc_addEditPanel);
+		add(addEditPanel, gbc_addEditPanel);		
+		
 		
 		//set size of view panel
 		viewPanel.remove(viewPanelStrut);
@@ -341,6 +347,4 @@ public class CategoryTab extends JPanel {
 		viewPanel.add(viewPanelStrut);
 		
 	}
-	
-	
 }

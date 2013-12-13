@@ -33,10 +33,16 @@ import edu.wpi.cs.wpisuitetng.janeway.gui.container.toolbar.ToolbarGroupView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
+/**
+ * Button panel that contains the large buttons on
+ * the very top of the main tab.
+ */
+
 
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
+
 @SuppressWarnings("serial")
 public class ButtonsPanel_Create extends ToolbarGroupView{
 	

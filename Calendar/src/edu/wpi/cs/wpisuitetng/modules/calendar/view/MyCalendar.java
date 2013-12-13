@@ -81,6 +81,7 @@ public class MyCalendar extends AbCalendar {
 		layout.putConstraint(SpringLayout.WEST, filter, 30, SpringLayout.EAST, datapanel);
 		layout.putConstraint(SpringLayout.EAST, filter, -5, SpringLayout.EAST, this);
 		filter.setMaximumSize(new Dimension(20, 20));
+		filter.setBackground(CalendarStandard.CalendarYellow);
 		this.add(filter);
 
 		

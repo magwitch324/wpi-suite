@@ -29,15 +29,12 @@ public class AddPropsController{
 	
 	/**
 	 * Construct an AddCalendarPropsController for the given model, view pair
-	
-	
 	 */
 	private AddPropsController() {
 		observer = new AddPropsRequestObserver(this);
 	}
 	
 	/**
-	
 	 * @return the instance of the AddCalendarPropsController or creates one if it does not
 	 * exist. */
 	public static AddPropsController getInstance()
