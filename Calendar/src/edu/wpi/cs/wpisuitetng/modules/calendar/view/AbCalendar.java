@@ -448,9 +448,9 @@ public abstract class AbCalendar extends JPanel {
 	/**
 	 * This function is called on Janeway shutdown to save the calendar props.
 	 */
-	public void saveProps(){
+/*	public void saveProps(){
 		UpdatePropsController.getInstance().updateCalendarProps(calProps);
-	}
+	}*/
 
 	public void setViewButtonToActive(AbCalendar.types switchView){
 		final int k = switchView.ordinal();
