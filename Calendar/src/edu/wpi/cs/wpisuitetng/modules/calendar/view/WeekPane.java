@@ -138,7 +138,7 @@ public class WeekPane extends JPanel implements ICalPane {
     						{"Sun, ", "Mon, ", "Tue, ","Wed, ", "Thu, ", "Fri, ", "Sat, " },
     						{"Sun", "Mon", "Tue","Wed", "Thu", "Fri", "Sat" }};
     	
-    	GregorianCalendar acal = (GregorianCalendar)mydate.clone();
+    	final GregorianCalendar acal = (GregorianCalendar)mydate.clone();
 		for(int i=0; i < 7; i++) {
 			weekdays[0][i] += acal.get(Calendar.DATE);
 			weekdays[1][i] += acal.get(Calendar.DATE);
@@ -188,7 +188,7 @@ public class WeekPane extends JPanel implements ICalPane {
 			}
     	}
     	else{
-			GregorianCalendar temp = new GregorianCalendar();
+			final GregorianCalendar temp = new GregorianCalendar();
 			final CombinedCommitmentList alist = new CombinedCommitmentList(commList);
 			temp.setTime(mydate.getTime());
 			for(int i = 0; i < 7; i++){
