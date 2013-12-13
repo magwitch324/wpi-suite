@@ -19,6 +19,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons.ButtonsPanel
 
 /**
  * Sets up upper toolbar of RequirementManager tab
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
 public class ToolbarView  extends DefaultToolbarView {

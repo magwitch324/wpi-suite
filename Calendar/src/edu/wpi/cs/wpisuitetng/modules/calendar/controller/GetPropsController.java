@@ -23,6 +23,8 @@ import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
  * This controller coordinates retrieving all of the categories
  * from the server.
  *
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class GetPropsController implements ActionListener {
 
@@ -80,7 +82,8 @@ public class GetPropsController implements ActionListener {
 	 * Add the given CalendarPropss to the local model (they were received from the core).
 	 * This method is called by the GetCalendarPropsRequestObserver
 	 * 
-	 * @param categories array of categories received from the server
+	
+	 * @param calData CalendarProps[]
 	 */
 	public void receivedCalendarProps(CalendarProps[] calData) {
 		// Empty the local model to eliminate duplications

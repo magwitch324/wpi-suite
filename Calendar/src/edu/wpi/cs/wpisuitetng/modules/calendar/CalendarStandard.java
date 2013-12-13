@@ -22,6 +22,8 @@ import java.util.Locale;
 /**
  * CalendarStandard sets standards in the calendar
  * module such as colors and fonts. 
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
 public abstract class CalendarStandard {
@@ -32,6 +34,10 @@ public abstract class CalendarStandard {
 	public static final Font  CalendarFont = new Font("SansSerif", 1, 12);
 	public static final Font  CalendarFontBold = new Font("SansSerif", Font.BOLD, 12);
 	
+	/**
+	 * Method printcalendar.
+	 * @param cal GregorianCalendar
+	 */
 	public static void printcalendar(GregorianCalendar cal) {
 		final String dayName = cal.getDisplayName(GregorianCalendar.DAY_OF_WEEK,
 				LONG, Locale.ENGLISH);

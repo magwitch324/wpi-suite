@@ -34,6 +34,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.EventT
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class GUIEventController {
 	private static GUIEventController instance = null;
 	private int scrollBarValue;
@@ -158,6 +161,11 @@ public class GUIEventController {
 		return main;
 	}
 
+	/**
+	 * Method removeCommTab.
+	 * @param commTab CommitmentTab
+	 * @param goTo int
+	 */
 	public void removeCommTab(CommitmentTab commTab, int goTo)
 	{
 
@@ -172,6 +180,9 @@ public class GUIEventController {
 			}
 	}
 
+	/**
+	 * Method createCommitment.
+	 */
 	public void createCommitment() {
 		int openedFrom = main.getSelectedIndex();
 		if (openedFrom > 2){
@@ -198,7 +209,7 @@ public class GUIEventController {
 	
 	/** Edit a commitment in a new tab
 	 * @param comm Commitment to edit
-	 * @param calData CalendarData where commitment is located
+	
 	 */
 	public void editCommitment(Commitment comm) {
 		int openedFrom = main.getSelectedIndex();
@@ -220,6 +231,9 @@ public class GUIEventController {
 		main.setSelectedComponent(editCommit);
 	}
 
+	/**
+	 * Method createEvent.
+	 */
 	public void createEvent() {
 		int openedFrom = main.getSelectedIndex();
 		if (openedFrom > 2){
@@ -239,8 +253,9 @@ public class GUIEventController {
 	}
 
 	/** Edit a commitment in a new tab
-	 * @param comm Commitment to edit
-	 * @param calData CalendarData where commitment is located
+	
+	
+	 * @param event Event
 	 */
 	public void editEvent(Event event) {
 		int openedFrom = main.getSelectedIndex();
@@ -263,6 +278,9 @@ public class GUIEventController {
 	
 	
 	// Creates manage categories tab
+	/**
+	 * Method createManageCategories.
+	 */
 	public void createManageCategories() {
 		int openedFrom = main.getSelectedIndex();
 		if (openedFrom > 2){
@@ -284,6 +302,9 @@ public class GUIEventController {
 	
 	
 //	 Creates manage filters tab
+	/**
+	 * Method createManageFilters.
+	 */
 	public void createManageFilters() {
 		int openedFrom = main.getSelectedIndex();
 		if (openedFrom > 2){
@@ -304,12 +325,20 @@ public class GUIEventController {
 	}
 
 
+	/**
+	 * Method switchView.
+	 * @param acal GregorianCalendar
+	 * @param switchtype AbCalendar.types
+	 */
 	public void switchView(GregorianCalendar acal, AbCalendar.types switchtype){
 		getSelectedCalendar().setCalsetView(acal, switchtype);
 		getSelectedCalendar().setViewButtonToActive(switchtype);
 
 	}
 
+	/**
+	 * Method updateCalData.
+	 */
 	public void updateCalData() {
 		teamCalendar.updateCalData();
 		myCalendar.updateCalData();
@@ -329,12 +358,20 @@ public class GUIEventController {
 		return scrollBarValue;
 	}
 
+	/**
+	 * Method applyCalProps.
+	 */
 	public void applyCalProps(){
 		myCalendar.applyCalProps();
 		teamCalendar.applyCalProps();
 		commitFullView.applyCalProps();
 	}
 
+	/**
+	 * Method removeEventTab.
+	 * @param eventTab EventTab
+	 * @param goTo int
+	 */
 	public void removeEventTab(EventTab eventTab, int goTo) {
 		main.remove(eventTab);
 		switch(goTo){
@@ -346,6 +383,10 @@ public class GUIEventController {
 		
 	}
 	
+	/**
+	 * Method removeCategory.
+	 * @param catToDelete Category
+	 */
 	public void removeCategory(Category catToDelete){
 		CalendarData calData;
 		if (catToDelete.getIsPersonal()){

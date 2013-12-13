@@ -43,6 +43,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class MonthPane extends JScrollPane implements ICalPane {
 	JPanel mainview;
@@ -84,8 +87,8 @@ public class MonthPane extends JScrollPane implements ICalPane {
 	 * 
 	 * @param acal
 	 *            the calendar to rewind
-	 * @return the modified calendar
-	 */
+	
+	 * @return the modified calendar */
 	protected GregorianCalendar rewindcal(GregorianCalendar acal) {
 		final GregorianCalendar ret = (GregorianCalendar) acal.clone();
 
@@ -193,6 +196,10 @@ public class MonthPane extends JScrollPane implements ICalPane {
 	}
 	
 	// Displays events on month pane
+	/**
+	 * Method displayEvents.
+	 * @param eventList List<Event>
+	 */
 	public void displayEvents(List<Event> eventList) {
 		// if we are supposed to display commitments
 		if (eventList != null) {
@@ -220,6 +227,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 	
 	/** The internal class for representing an individual day
 	 * 
+	 * @author Tianci
 	 */
 	protected class MonthDayPane extends JPanel {
 		List<Commitment> commlist = new ArrayList<Commitment>();
@@ -292,8 +300,8 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		}
 		/**
 		 * Change this' commList to the given list
-		 * @param commList
-		 *            the list to change to
+		
+		 * @param commlist *            the list to change to
 		 */
 		public void addCommitments(List<Commitment> commlist) {
 			if(enabled){
@@ -378,6 +386,9 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			}
 		}
 		
+		/**
+		 * Method didResize.
+		 */
 		protected void didResize(){
 			if(enabled){
 				small.removeAll();
@@ -489,14 +500,24 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			this.repaint();
 		}
 		
+		/**
+		 */
 		protected class wrapper{
 			Commitment comm = null;
 			Event event = null;
 			
+			/**
+			 * Constructor for wrapper.
+			 * @param comm Commitment
+			 */
 			public wrapper(Commitment comm){
 				this.comm = comm;
 			}
 			
+			/**
+			 * Constructor for wrapper.
+			 * @param event Event
+			 */
 			public wrapper(Event event){
 				this.event = event;
 			}
@@ -522,10 +543,17 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			}
 		}
 		
+		/**
+		 */
 		protected class LabelWrapper extends JLabel{
 			Commitment comm = null;
 			Event event = null;
 			
+			/**
+			 * Constructor for LabelWrapper.
+			 * @param comm Commitment
+			 * @param text String
+			 */
 			public LabelWrapper(Commitment comm, String text){
 				super(text);
 				this.comm = comm;
@@ -551,6 +579,11 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				this.setPreferredSize(super.getPreferredSize());
 			}
 			
+			/**
+			 * Constructor for LabelWrapper.
+			 * @param event Event
+			 * @param text String
+			 */
 			public LabelWrapper(Event event, String text){
 				super(text);
 				this.event = event;
@@ -575,6 +608,9 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				this.setPreferredSize(super.getPreferredSize());
 			}
 			
+			/**
+			 * Method edit.
+			 */
 			public void edit(){
 				if(comm != null){
 					GUIEventController.getInstance().editCommitment(comm);
@@ -586,6 +622,8 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			
 		}
 	
+		/**
+		 */
 		protected class wholecheck extends MouseAdapter{
 			public void mouseClicked(MouseEvent e){
 				if(e.getClickCount() > 1){
@@ -598,6 +636,8 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			}
 		}
 
+		/**
+		 */
 		protected class scrollcheck extends MouseAdapter{
 			
 			public void mouseClicked(MouseEvent e){
@@ -630,10 +670,15 @@ public class MonthPane extends JScrollPane implements ICalPane {
 	/**
 	 * Mouse listener class that will listen for double clicking on a day then
 	 * go to the that specific day in the day pane.
+	 * @author Tianci
 	 */
 	protected class AMouseEvent extends MouseAdapter {
 		GregorianCalendar adate;
 
+		/**
+		 * Constructor for AMouseEvent.
+		 * @param adate GregorianCalendar
+		 */
 		public AMouseEvent(GregorianCalendar adate) {
 			this.adate = (GregorianCalendar) adate.clone();
 		}

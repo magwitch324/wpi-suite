@@ -37,6 +37,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public abstract class CalendarView extends JSplitPane {
 	
@@ -48,6 +51,7 @@ public abstract class CalendarView extends JSplitPane {
 	/**
 	 * Constructor
 	 * Sets up the panel with the refresh function
+	 * @param calendar GregorianCalendar
 	 */
 	protected CalendarView(GregorianCalendar calendar) {
 		showAllCommFlag = false;
@@ -198,18 +202,30 @@ public abstract class CalendarView extends JSplitPane {
 	
 	/** Display calendar data in internal panels, decides what commitments 
 	 * fall within range
-	 * @param showCommsOnCalPane 
-	 * @param calData Calendar Data to be displayed
-	 * @param showTeamData 
-	 * @param showCommitments 
+	
+	
+	
+	
+	 * @param eventList EventList
+	 * @param commList CommitmentList
+	 * @param showCommOnCal boolean
 	 */
 	abstract public void displayCalData(EventList eventList, 
 			CommitmentList commList, boolean showCommOnCal);
 	
+	/**
+	 * Method updateScrollPosition.
+	 * @param value int
+	 */
 	public void updateScrollPosition(int value){
 		calPane.updateScrollPosition(value);
 	}
 
+	/**
+	 * Method updateCommPane.
+	 * @param commList CommitmentList
+	 * @param showCommOnCal boolean
+	 */
 	abstract public void updateCommPane(CommitmentList commList, boolean showCommOnCal);
 	
 }

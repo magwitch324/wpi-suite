@@ -23,14 +23,21 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 
 /** 
  * JPanel overlayed on the left side of the DetailedDay view, used to display commitments
- * @author 
+
  *
+ * @author  CS Anonymous
+ * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
 public class CommitDetailedPane extends JPanel {
 	
 	List<Commitment> commits;
 	GregorianCalendar adate;
+	/**
+	 * Constructor for CommitDetailedPane.
+	 * @param adate GregorianCalendar
+	 * @param commits List<Commitment>
+	 */
 	public CommitDetailedPane(GregorianCalendar adate, List<Commitment> commits){	
 		this.setLayout(new SpringLayout());
 		this.addComponentListener(new ComponentListener() {
@@ -55,6 +62,9 @@ public class CommitDetailedPane extends JPanel {
 		this.setBackground(new Color(0, 0, 0, 0));
 	}
 	
+	/**
+	 * Method didResize.
+	 */
 	protected void didResize(){
 		final HalfHourBlock[] halfBlocks = new HalfHourBlock[48];
 		this.removeAll();

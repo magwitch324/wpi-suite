@@ -44,12 +44,17 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
  */
 
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public abstract class AbCalendar extends JPanel {
 	protected boolean initialized;
 	protected CalendarData calData;
 	protected CalendarProps calProps;
 
+	/**
+	 */
 	protected enum types {
 		DAY(0),
 		WEEK(1),
@@ -80,6 +85,9 @@ public abstract class AbCalendar extends JPanel {
 	protected CommitmentList commitments;
 	protected EventList events;
 
+	/**
+	 * Constructor for AbCalendar.
+	 */
 	protected AbCalendar(){
 		initialized = false;
 		mycal = new GregorianCalendar();
@@ -92,6 +100,9 @@ public abstract class AbCalendar extends JPanel {
 	}
 
 
+	/**
+	 * Method drawThis.
+	 */
 	abstract void drawThis();
 	
 	abstract JComponent getDataDisplayPanel();
@@ -237,6 +248,10 @@ public abstract class AbCalendar extends JPanel {
 		return apane;
 	}
 
+	/**
+	 * Method stepCalendar.
+	 * @param step int
+	 */
 	protected void stepCalendar(int step){
 		if(step == 0){
 			mycal = new GregorianCalendar();
@@ -247,6 +262,10 @@ public abstract class AbCalendar extends JPanel {
 		setView();
 	}
 
+	/**
+	 * Method switchview.
+	 * @param changeto types
+	 */
 	protected void switchview(types changeto){
 		if(currenttype != changeto){
 
@@ -350,6 +369,9 @@ public abstract class AbCalendar extends JPanel {
 		return this; 
 	}
 
+	/**
+	 * Method setView.
+	 */
 	protected void setView(){
 		viewpanel.removeAll();
 		//System.out.println("Cal COUNT start: " + viewpanel.getComponentCount());
@@ -388,6 +410,11 @@ public abstract class AbCalendar extends JPanel {
 		setView();
 	}
 
+	/**
+	 * Method setCalsetView.
+	 * @param acal GregorianCalendar
+	 * @param switchtype TeamCalendar.types
+	 */
 	public void setCalsetView(GregorianCalendar acal, TeamCalendar.types switchtype)
 	{
 		mycal.setTime(acal.getTime());
@@ -404,10 +431,22 @@ public abstract class AbCalendar extends JPanel {
 	}
 
 
+	/**
+	 * Method updateCalData.
+	 */
 	abstract void updateCalData();
+	/**
+	 * Method displayCalData.
+	 */
 	abstract protected void displayCalData();
+	/**
+	 * Method updateCommPane.
+	 */
 	abstract protected void updateCommPane();
 	abstract public boolean getShowTeamData();
+	/**
+	 * Method applyCalProps.
+	 */
 	abstract void applyCalProps();
 
 

@@ -13,10 +13,14 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class EventList extends CalendarObjectList<Event> {
 
 	/**
 	 * The list in which all the events for a single project are contained
+	 * @param newEvent Event
 	 */
 	// Use the super list calendarObjects
 	
@@ -51,8 +55,8 @@ public class EventList extends CalendarObjectList<Event> {
 	 * @param id
 	 *            The ID number of the event to be returned
 	 * 
-	 * @return the event for the id or null if the event is not found
-	 */
+	
+	 * @return the event for the id or null if the event is not found */
 	public Event getEvent(int id) {
 		return get(id);
 	}
@@ -60,9 +64,8 @@ public class EventList extends CalendarObjectList<Event> {
 	/**
 	 * Removes the event with the given ID
 	 * 
-	 * @param removeId
-	 *            The ID number of the event to be removed from the list of
-	 *            events in the project
+	
+	 * @param id int
 	 */
 	public void removeEvent(int id) {
 		remove(id);
@@ -80,8 +83,8 @@ public class EventList extends CalendarObjectList<Event> {
 	/**
 	 * Adds the given array of events to the list
 	 * 
-	 * @param events
-	 *            the array of events to add
+	
+	 * @param array Event[]
 	 */
 	public void addEvents(Event[] array) {
 		addCalendarObjects(array);
@@ -126,7 +129,8 @@ public class EventList extends CalendarObjectList<Event> {
 	/**
 	 * Update the calendarObject list
 	 * 
-	 * @param the CalendarObject to be updated
+	
+	 * @param newObject Event
 	 */
 	public void update(Event newObject) {
 		final Event tmp = get(newObject.getID());

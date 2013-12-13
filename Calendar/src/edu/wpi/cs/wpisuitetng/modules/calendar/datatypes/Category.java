@@ -18,6 +18,9 @@ import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 
 
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class Category extends AbstractModel implements Comparator<Category>{
 
 	/** the ID of the category */
@@ -45,10 +48,11 @@ public class Category extends AbstractModel implements Comparator<Category>{
 	 * Construct a Category with required properties provided and others set
 	 * to default
 	 * 
-	 * @param id
-	 *            The ID number of the category
+	
 	 * @param name
 	 *            The name of the category
+	 * @param categoryColor Color
+	 * @param isPersonal boolean
 	 */
 	// need to phase out supplying the ID
 	public Category(String name, Color categoryColor, boolean isPersonal) {
@@ -152,6 +156,10 @@ public class Category extends AbstractModel implements Comparator<Category>{
 		this.isPersonal = isPersonal;
 	}
 	
+	/**
+	 * Method copyFrom.
+	 * @param toCopyFrom Category
+	 */
 	public void copyFrom(Category toCopyFrom) {
 		id = toCopyFrom.getID();
 		name = toCopyFrom.getName();
@@ -235,6 +243,12 @@ public class Category extends AbstractModel implements Comparator<Category>{
 		return name;
 	}
 	
+	/**
+	 * Method compare.
+	 * @param c1 Category
+	 * @param c2 Category
+	 * @return int
+	 */
 	@Override
 	public int compare(Category c1, Category c2) {
 		return c1.getName().compareToIgnoreCase(c2.getName());

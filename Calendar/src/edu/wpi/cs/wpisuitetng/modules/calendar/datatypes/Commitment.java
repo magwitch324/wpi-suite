@@ -12,6 +12,9 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class Commitment extends CalendarObject implements
 		Comparable<Commitment> {
 
@@ -37,10 +40,10 @@ public class Commitment extends CalendarObject implements
 	 *            The due date number of the commitment
 	 * @param description
 	 *            A brief description of the commitment
-	 * @param category
-	 *            The category ID number of the commitment
+	
 	 * @param isPersonal
 	 *            A boolean stating that the commitment is personal
+	 * @param categoryID int
 	 */
 	public Commitment(String name, GregorianCalendar dueDate,
 			String description, int categoryID, boolean isPersonal) {
@@ -60,6 +63,11 @@ public class Commitment extends CalendarObject implements
 		status = toCopyFrom.getStatus();
 	}
 
+	/**
+	 * Method compareTo.
+	 * @param person Commitment
+	 * @return int
+	 */
 	public int compareTo(Commitment person) {
 		if (name != null && person.name != null) {
 			return name.compareToIgnoreCase(person.name);

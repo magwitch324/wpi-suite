@@ -36,12 +36,18 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class MyCalendar extends AbCalendar {
 
 	private boolean preInitialized;
 	private JCheckBox showteam;
 
+	/**
+	 * Constructor for MyCalendar.
+	 */
 	public MyCalendar() {
 		preInitialized = false;
 	}

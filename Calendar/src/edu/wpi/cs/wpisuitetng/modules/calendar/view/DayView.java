@@ -17,6 +17,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class DayView extends CalendarView {
 
@@ -25,6 +28,10 @@ public class DayView extends CalendarView {
 	private final DayPane dayPane;
 	private GregorianCalendar endOfDay;
 	
+	/**
+	 * Constructor for DayView.
+	 * @param datecalendar GregorianCalendar
+	 */
 	public DayView(GregorianCalendar datecalendar) {
 		super(datecalendar);
 		dayPane = new DayPane(datecalendar);

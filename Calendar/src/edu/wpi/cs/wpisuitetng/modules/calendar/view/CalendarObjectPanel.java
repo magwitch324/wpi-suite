@@ -34,6 +34,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CalendarObject;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class CalendarObjectPanel extends JPanel {
 	Event event = null;
@@ -109,8 +112,9 @@ public class CalendarObjectPanel extends JPanel {
 	 * Constructor where level of detail is specified, for commitment
 	 * @param parent
 	 * @param acal
-	 * @param event
+	
 	 * @param detailLevel
+	 * @param comm Commitment
 	 */
 	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal,
 			Commitment comm, AbCalendar.types detailLevel){
@@ -267,8 +271,8 @@ public class CalendarObjectPanel extends JPanel {
 	/**
 	 * Sets the number
 	 * @param columnwidth the number of columns
-	 * @return the new column width
-	 */
+	
+	 * @return the new column width */
 	public int setColumnWidth(int columnwidth){
 		return (this.columnwidth = columnwidth);
 	}
@@ -284,7 +288,8 @@ public class CalendarObjectPanel extends JPanel {
 	/**
 	 * Sets the columns spanned
 	 * @param columnspanned the number of columns that this should span
-	 * @return
+	
+	 * @return int
 	 */
 	public int setColumnSpan(int columnspanned){
 		return (this.columnspanned = columnspanned);
@@ -387,8 +392,8 @@ public class CalendarObjectPanel extends JPanel {
 	/**
 	 * Detmines if this and the given COP conflict
 	 * @param other the other COP to compare
-	 * @return whether this and other conflict in time
-	 */
+	
+	 * @return whether this and other conflict in time */
 	public boolean doesConflict(CalendarObjectPanel other){
 		final double thisstart = this.getStartRatio();
 		final double thisend = this.getEndRatio();

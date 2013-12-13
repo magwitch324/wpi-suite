@@ -38,6 +38,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class YearPane extends JScrollPane implements ICalPane{
 	GregorianCalendar supcal = null;
@@ -160,6 +163,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 	 * The inner class for a month representation on the year view.
 	 * Creates the header for the month name, the weekday names, and then the
 	 * 42 individual days.
+	 * @author Tianci
 	 */
 	protected class YearMonthPane extends JPanel{
 		GregorianCalendar monthpanestart;
@@ -320,6 +324,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 	
 	/**
 	 *The internal class for a single day
+	 * @author Tianci
 	 */
 	protected class YearDayPane extends JPanel{
 		GregorianCalendar scal;
@@ -409,6 +414,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 		
 		/**
 		 * Internal class used to calculate color in incremental steps between a range of colors
+		 * @author Tianci
 		 */
 		protected class BackgroundColor{
 			protected Color lower;
@@ -429,8 +435,8 @@ public class YearPane extends JScrollPane implements ICalPane{
 			/**
 			 * Find the color at the the given step in the color range
 			 * @param step the step desired to find the color
-			 * @return the color at the specific step
-			 */
+			
+			 * @return the color at the specific step */
 			public Color getColoratStep(int step){
 				if(step > steps){
 					step = (int)steps;
@@ -447,9 +453,15 @@ public class YearPane extends JScrollPane implements ICalPane{
 		}
 	}
 	
+	/**
+	 */
 	protected class AMouseMonthEvent extends MouseAdapter{
 		GregorianCalendar adate = new GregorianCalendar();
 		
+		/**
+		 * Constructor for AMouseMonthEvent.
+		 * @param adate GregorianCalendar
+		 */
 		public AMouseMonthEvent(GregorianCalendar adate){
 			this.adate.setTime(adate.getTime());
 

@@ -28,6 +28,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 
 /** JPanel containing however many CommitmentCalViewPanels fall on a certain half hour
  *
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
 public class HalfHourBlock extends JPanel{

@@ -34,6 +34,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class ButtonsPanel_Create extends ToolbarGroupView{
 	
@@ -46,6 +49,9 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 
 //	
 	
+	/**
+	 * Constructor for ButtonsPanel_Create.
+	 */
 	public ButtonsPanel_Create(){
 		super("");
 		createEventButton= new JButton();

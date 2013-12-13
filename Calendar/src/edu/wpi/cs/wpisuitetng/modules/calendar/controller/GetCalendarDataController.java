@@ -83,7 +83,8 @@ public class GetCalendarDataController implements ActionListener {
 	 * Add the given calendarDatas to the local model (they were received from the core).
 	 * This method is called by the GetCalendarDataRequestObserver
 	 * 
-	 * @param categories array of categories received from the server
+	
+	 * @param calData CalendarData[]
 	 */
 	public void receivedCalendarData(CalendarData[] calData) {
 		// Empty the local model to eliminate duplications

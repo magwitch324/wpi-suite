@@ -17,6 +17,8 @@ import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 /**
  * This observer handles responses to requests for all categories
  *
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class GetPropsRequestObserver implements RequestObserver {
 	

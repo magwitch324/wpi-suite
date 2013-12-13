@@ -12,6 +12,9 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
 import java.util.List;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class CombinedEventList extends EventList{
 	/**
 	 * This class is for dealing with combining the list of personal 
@@ -21,6 +24,10 @@ public class CombinedEventList extends EventList{
 	public CombinedEventList() {
 	}
 	
+	/**
+	 * Constructor for CombinedEventList.
+	 * @param list List<Event>
+	 */
 	public CombinedEventList(List<Event> list) {
 		this();
 		calendarObjects = list;

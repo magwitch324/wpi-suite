@@ -26,6 +26,9 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.Role;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class CalPropsEntityManager implements EntityManager<CalendarProps> {
 
 	/** The database */

@@ -26,6 +26,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons.ButtonsPanel
 /**
  * A dummy module to demonstrate the Janeway client
  *
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class Calendar implements IJanewayModule {
 	
@@ -34,6 +36,9 @@ public class Calendar implements IJanewayModule {
 	//public final MainTabController mainTabController;
 	//public ToolbarController toolbarController;
 
+	/**
+	 * Constructor for Calendar.
+	 */
 	public Calendar() {
 		//MainTab
 		final MainTabView mainPanel = new MainTabView(); 

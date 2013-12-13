@@ -39,6 +39,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class CommitmentView extends JPanel {
 
@@ -49,6 +52,9 @@ public class CommitmentView extends JPanel {
 
 //	private List<CommitmentViewPanel> commitmentPanelList;
 	
+	/**
+	 * Constructor for CommitmentView.
+	 */
 	public CommitmentView() {
 		
 
@@ -86,11 +92,18 @@ public class CommitmentView extends JPanel {
 		 */
 	}
 
+	/**
+	 * Method updateCommData.
+	 * @param commitmentList List<Commitment>
+	 */
 	public void updateCommData(List<Commitment> commitmentList) {
 		this.commitmentList = commitmentList;
 		update();
 	}
 
+	/**
+	 * Method update.
+	 */
 	public void update(){
 		 
 		commitPanel.removeAll();

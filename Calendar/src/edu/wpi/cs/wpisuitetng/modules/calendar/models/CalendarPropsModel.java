@@ -20,6 +20,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddPropsController;
 
 
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class CalendarPropsModel extends AbstractListModel {
 
 	/**
@@ -159,7 +162,8 @@ public class CalendarPropsModel extends AbstractListModel {
 	/**
 	 * Adds the given array of CalendarProps to the list
 	 * 
-	 * @param categories the array of categories to add
+	
+	 * @param calData CalendarProps[]
 	 */
 	public void addCalendarProps(CalendarProps[] calData) {
 		for (int i = 0; i < calData.length; i++) {

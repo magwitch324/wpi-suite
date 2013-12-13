@@ -21,6 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SpringLayout;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class DetailedDay extends JPanel {
 	
@@ -30,6 +33,10 @@ public class DetailedDay extends JPanel {
 	JComponent secondview = new JPanel();
 	
 
+	/**
+	 * Constructor for DetailedDay.
+	 * @param adate GregorianCalendar
+	 */
 	public DetailedDay(GregorianCalendar adate){	
 		this.setMinimumSize(new Dimension(50, 800));
 		this.setPreferredSize(new Dimension(50, 800));
@@ -58,6 +65,11 @@ public class DetailedDay extends JPanel {
 		this.didResize();
 	}
 	
+	/**
+	 * Constructor for DetailedDay.
+	 * @param adate GregorianCalendar
+	 * @param secondview JComponent
+	 */
 	public DetailedDay(GregorianCalendar adate, JComponent secondview){		
 		this.setMinimumSize(new Dimension(50, 800));
 		this.setPreferredSize(new Dimension(50, 800));
@@ -105,7 +117,10 @@ public class DetailedDay extends JPanel {
 //		
 //	}
 	
-	protected void makelines(){
+	/**
+ * Method makelines.
+ */
+protected void makelines(){
 		//half hour marks code
 
 		for(int i = 0; i < 48; i++){
@@ -124,6 +139,9 @@ public class DetailedDay extends JPanel {
 		layout.putConstraint(SpringLayout.NORTH, halfhourmarks[0], 0, SpringLayout.NORTH, this);
 	}
 	
+	/**
+	 * Method didResize.
+	 */
 	protected void didResize(){
 		
 		int x = (int)(((this.getSize().getWidth()) * 0.01) * ((this.getSize().getWidth()) * 0.01));
@@ -150,6 +168,8 @@ public class DetailedDay extends JPanel {
 	}
 	
 	
+	/**
+	 */
 	protected class resizeevent implements ComponentListener {
 	    public void componentResized(ComponentEvent e) {
 	        // do stuff    

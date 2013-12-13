@@ -30,6 +30,9 @@ import javax.swing.JTextField;
 
 import javax.swing.JScrollPane;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class FilterTab extends JPanel{
 
 	private final int openedFrom;
@@ -46,6 +49,8 @@ public class FilterTab extends JPanel{
 	private JScrollPane inactiveFilterPane;
 	private JScrollPane activeFilterPane;
 
+	/**
+	 */
 	private enum EditingMode {
 		VIEWING(0),
 		EDITING(1);
@@ -57,6 +62,7 @@ public class FilterTab extends JPanel{
 	}
 	/**
 	 * Create the panel.
+	 * @param openedFrom int
 	 */
 	public FilterTab(int openedFrom) {
 		this.openedFrom = openedFrom;
@@ -128,6 +134,9 @@ public class FilterTab extends JPanel{
 		formPanel.add(buttonPanel, gbc_btnPanel);
 	}	
 	
+	/**
+	 * Method addCategoryList.
+	 */
 	public void addCategoryList(){
 		scrollPane = new JScrollPane(categoryList, 
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
@@ -141,6 +150,9 @@ public class FilterTab extends JPanel{
 		formPanel.add(scrollPane, gbc_scrollPane);
 	}
 	
+	/**
+	 * Method editingMode.
+	 */
 	public void editingMode(){
 		final JButton makeNewFilter = new JButton();
 		makeNewFilter.setText("New Filter");

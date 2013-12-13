@@ -15,6 +15,9 @@ import java.util.List;
 
 
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class CategoryList {
 
 	/**
@@ -101,11 +104,9 @@ public class CategoryList {
 
 
 
-	 * @return the category associated with the provided index 
-	 * * @see javax.swing.ListModel#getElementAt(int) 
-	 * * @see javax.swing.ListModel#getElementAt(int) 
-	 * * @see javax.swing.ListModel#getElementAt(int)
-	 */
+	el#getElementAt(int) 
+	 * * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) 
+	 * * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) */
 	public Category getElementAt(int index) {
 		return categories.get(categories.size() - 1 - index);
 	}
@@ -125,7 +126,8 @@ public class CategoryList {
 	/**
 	 * Adds the given array of categories to the list
 	 * 
-	 * @param categories the array of categories to add
+	
+	 * @param array Category[]
 	 */
 	public void addCategories(Category[] array) {
 		Collections.addAll(categories, array);
@@ -143,7 +145,8 @@ public class CategoryList {
 	/**
 	 * Update the category list
 	 * 
-	 * @param the category to be update
+	
+	 * @param newCategory Category
 	 */
 	public void update (Category newCategory) {
 		categories.remove(getCategory(newCategory.getID()));

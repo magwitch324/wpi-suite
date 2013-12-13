@@ -20,6 +20,8 @@ import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
  * This controller responds when the user clicks the Update button by
  * updating the contents of the calendarData text fields to the model of an existing
  * calendarData.
+ * @author Tianci
+ * @version $Revision: 1.0 $
  */
 public class UpdateCalendarDataController{
 	

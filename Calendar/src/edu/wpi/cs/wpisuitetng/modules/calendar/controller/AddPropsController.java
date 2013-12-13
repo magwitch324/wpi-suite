@@ -52,7 +52,8 @@ public class AddPropsController{
 
 	/**
 	 * This method adds a CalendarProps to the server.
-	 * @param newCalData is the CalendarProps to be added to the server.
+	
+	 * @param newCalProps CalendarProps
 	 */
 	public void addCalendarProps(CalendarProps newCalProps) 
 	{

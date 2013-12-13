@@ -13,10 +13,14 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class CommitmentList extends CalendarObjectList<Commitment> {
 
 	/**
 	 * The list in which all the commitment for a single project are contained
+	 * @param newCommitment Commitment
 	 */
 	// Use the super list calendarObjects
 
@@ -50,8 +54,8 @@ public class CommitmentList extends CalendarObjectList<Commitment> {
 	 * @param id
 	 *            The ID number of the Commitment to be returned
 	 * 
-	 * @return the Commitment for the id or null if the commitment is not found
-	 */
+	
+	 * @return the Commitment for the id or null if the commitment is not found */
 	public Commitment getCommitment(int id) {
 		return get(id);
 	}
@@ -59,9 +63,8 @@ public class CommitmentList extends CalendarObjectList<Commitment> {
 	/**
 	 * Removes the Commitment with the given ID
 	 * 
-	 * @param removeId
-	 *            The ID number of the commitment to be removed from the list of
-	 *            commitments in the project
+	
+	 * @param id int
 	 */
 	public void removeCommmitment(int id) {
 		remove(id);
@@ -79,8 +82,8 @@ public class CommitmentList extends CalendarObjectList<Commitment> {
 	/**
 	 * Adds the given array of commitments to the list
 	 * 
-	 * @param categories
-	 *            the array of commitments to add
+	
+	 * @param array Commitment[]
 	 */
 	public void addCommitments(Commitment[] array) {
 		addCalendarObjects(array);
@@ -89,7 +92,8 @@ public class CommitmentList extends CalendarObjectList<Commitment> {
 	/**
 	 * Update the calendarObject list
 	 * 
-	 * @param the CalendarObject to be updated
+	
+	 * @param newObject Commitment
 	 */
 	public void update(Commitment newObject) {
 		final Commitment tmp = get(newObject.getID());

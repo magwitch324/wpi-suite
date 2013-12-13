@@ -16,11 +16,18 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class YearView extends CalendarView {
 
 	private final GregorianCalendar ayear;
 	private final YearPane yearpane;
 	
+	/**
+	 * Constructor for YearView.
+	 * @param datecalendar GregorianCalendar
+	 */
 	public YearView(GregorianCalendar datecalendar) {
 
 		super(datecalendar);

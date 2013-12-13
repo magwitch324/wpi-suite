@@ -35,6 +35,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class DayPane extends JPanel implements ICalPane {
 	/**
 	 * 
@@ -49,6 +52,7 @@ public class DayPane extends JPanel implements ICalPane {
 	
 	/**
 	 * Create the panel.
+	 * @param datecalendar GregorianCalendar
 	 */
 	public DayPane(GregorianCalendar datecalendar) {
 		
@@ -135,7 +139,7 @@ public class DayPane extends JPanel implements ICalPane {
 
 	/** Displays commitments on DetailedDay
 	 * @param commList List of commitments to be displayed
-	 * @param dayTeamCommList 
+	
 	 */
 	public void displayCommitments(List<Commitment> commList) {
 		if(commList == null){
@@ -150,6 +154,10 @@ public class DayPane extends JPanel implements ICalPane {
 		daypane.displayCommitments(commList);
 	}
 	
+	/**
+	 * Method displayEvents.
+	 * @param eventList List<Event>
+	 */
 	public void displayEvents(List<Event> eventList) {
 		//if we are supposed to display commitments
 		daypane.displayEvents(eventList);

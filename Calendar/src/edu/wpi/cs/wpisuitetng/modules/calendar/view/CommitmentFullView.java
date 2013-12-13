@@ -62,6 +62,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
  * 
  * */
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class CommitmentFullView extends JPanel{
 
@@ -88,6 +91,8 @@ public class CommitmentFullView extends JPanel{
 	JRadioButton teamRadioButton;
 	ButtonGroup viewSwitchGroup;
 
+	/**
+	 */
 	public enum ViewingMode {
 		TEAM, PERSONAL, BOTH;		
 	};
@@ -95,6 +100,11 @@ public class CommitmentFullView extends JPanel{
 
 	/*Constructor creates main scrolling Panel and 
 	 * sets tcalendar which will grab teams commitments*/
+	/**
+	 * Constructor for CommitmentFullView.
+	 * @param teamCalendar AbCalendar
+	 * @param personalCalendar AbCalendar
+	 */
 	public CommitmentFullView(AbCalendar teamCalendar, AbCalendar personalCalendar) {
 		initialized = false;
 		tcalendar = teamCalendar;
@@ -590,12 +600,18 @@ public class CommitmentFullView extends JPanel{
 		}
 	}
 
+	/**
+	 * Method updateList.
+	 */
 	public void updateList(){
 		commitPanel.removeAll();
 		setCommitlist();
 		setupPanels();
 	}
 
+	/**
+	 * Method updateView.
+	 */
 	public void updateView(){
 		commitPanel.removeAll();
 		setupPanels();

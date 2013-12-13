@@ -15,10 +15,14 @@ import java.util.List;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatType;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 
 	/**
 	 * The list in which all the events for a single project are contained
+	 * @param newEvent RepeatingEvent
 	 */
 	// Use the super list calendarObjects
 
@@ -53,8 +57,8 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	 * @param id
 	 *            The ID number of the event to be returned
 	 * 
-	 * @return the event for the id or null if the event is not found
-	 */
+	
+	 * @return the event for the id or null if the event is not found */
 	public RepeatingEvent getEvent(int id) {
 		return get(id);
 	}
@@ -62,9 +66,8 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	/**
 	 * Removes the event with the given ID
 	 * 
-	 * @param removeId
-	 *            The ID number of the event to be removed from the list of
-	 *            events in the project
+	
+	 * @param id int
 	 */
 	public void removeEvent(int id) {
 		remove(id);
@@ -82,8 +85,8 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	/**
 	 * Adds the given array of events to the list
 	 * 
-	 * @param events
-	 *            the array of events to add
+	
+	 * @param array RepeatingEvent[]
 	 */
 	public void addEvents(RepeatingEvent[] array) {
 		addCalendarObjects(array);
@@ -92,7 +95,8 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	/**
 	 * Update the calendarObject list
 	 * 
-	 * @param the CalendarObject to be updated
+	
+	 * @param newObject RepeatingEvent
 	 */
 	public void update(RepeatingEvent newObject) {
 		final RepeatingEvent tmp = get(newObject.getID());
@@ -127,8 +131,8 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	/**
 	 * Converts the list into an equivalent CombinedEvent list
 	 * 
-	 * @return equivalent list of events
-	 */
+	
+	 * @return equivalent list of events */
 	public CombinedEventList toCombinedEventList(){
 		final CombinedEventList eventList = new CombinedEventList();
 		GregorianCalendar eventStart = new GregorianCalendar();

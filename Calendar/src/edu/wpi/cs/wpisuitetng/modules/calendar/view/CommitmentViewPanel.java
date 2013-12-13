@@ -15,20 +15,34 @@ import javax.swing.JPanel;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class CommitmentViewPanel extends JPanel {
 
 	private Commitment comm;
 	
+	/**
+	 * Constructor for CommitmentViewPanel.
+	 */
 	public CommitmentViewPanel() {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Constructor for CommitmentViewPanel.
+	 * @param layout LayoutManager
+	 */
 	public CommitmentViewPanel(LayoutManager layout) {
 		super(layout);
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Constructor for CommitmentViewPanel.
+	 * @param commitment Commitment
+	 */
 	public CommitmentViewPanel(Commitment commitment) {
 		// TODO Auto-generated constructor stub
 		comm = commitment;

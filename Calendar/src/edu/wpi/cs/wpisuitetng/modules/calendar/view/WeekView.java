@@ -17,6 +17,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class WeekView extends CalendarView {
 
@@ -25,6 +28,10 @@ public class WeekView extends CalendarView {
 	private final WeekPane weekPane;
 	
 
+	/**
+	 * Constructor for WeekView.
+	 * @param datecalendar GregorianCalendar
+	 */
 	public WeekView(GregorianCalendar datecalendar) {
 		super(datecalendar);
 		weekPane = new WeekPane(datecalendar);

@@ -42,6 +42,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class WeekPane extends JPanel implements ICalPane {
 	JPanel mainPanel = new JPanel();
@@ -54,6 +57,7 @@ public class WeekPane extends JPanel implements ICalPane {
 
 	/**
 	 * Create the panel.
+	 * @param datecalendar GregorianCalendar
 	 */
 
 	public WeekPane(GregorianCalendar datecalendar) {
@@ -180,7 +184,7 @@ public class WeekPane extends JPanel implements ICalPane {
 	
 	/** Displays commitments on DetailedDays
      * @param commList List of commitments to be displayed
-	 * @param dayTeamCommList 
+	
      */
     public void displayCommitments(List<Commitment> commList) {
     	if(commList == null){
@@ -202,6 +206,10 @@ public class WeekPane extends JPanel implements ICalPane {
     	}
 	}
     
+    /**
+     * Method displayEvents.
+     * @param eventList List<Event>
+     */
     public void displayEvents(List<Event> eventList) {
     	if(eventList == null){
     		for(int i = 0; i < 7; i++){
@@ -228,9 +236,15 @@ public class WeekPane extends JPanel implements ICalPane {
 	}
 
 
+	/**
+	 */
 	protected class AMouseEvent extends MouseAdapter{
 		GregorianCalendar adate = new GregorianCalendar();
 		
+		/**
+		 * Constructor for AMouseEvent.
+		 * @param adate GregorianCalendar
+		 */
 		public AMouseEvent(GregorianCalendar adate){
 			this.adate.setTime(adate.getTime());
 

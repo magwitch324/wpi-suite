@@ -15,6 +15,9 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Date;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class Event extends CalendarObject {
 
 	/** the start date of the event */

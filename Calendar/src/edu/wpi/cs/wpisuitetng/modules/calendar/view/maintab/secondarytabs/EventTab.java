@@ -73,6 +73,9 @@ import java.awt.Color;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class EventTab extends JPanel {
 	private GregorianCalendar startDate;
 	private GregorianCalendar oldStartTime;
@@ -151,6 +154,8 @@ public class EventTab extends JPanel {
 	
 	
 	
+	/**
+	 */
 	private enum EditingMode {
 		ADDING(0),
 		EDITING(1);
@@ -163,6 +168,7 @@ public class EventTab extends JPanel {
 	
 	/**
 	 * Create the panel.
+	 * @param openedFrom int
 	 */
 	public EventTab(int openedFrom) {
 		this.openedFrom = openedFrom;
@@ -1380,6 +1386,9 @@ public class EventTab extends JPanel {
 
 
 
+	/**
+	 * Method checkEndBeforeStart.
+	 */
 	protected void checkEndBeforeStart() {
 		if(initFlag){
 		if(getEndDate().getTime().before(getStartDate().getTime()))
@@ -1388,6 +1397,9 @@ public class EventTab extends JPanel {
 	}
 
 
+	/**
+	 * Method updateEndTime.
+	 */
 	protected void updateEndTime() {
 		final long diff = getStartDate().getTime().getTime() - oldStartTime.getTime().getTime();
 		final GregorianCalendar cal = getEndDate();
@@ -1538,6 +1550,8 @@ public class EventTab extends JPanel {
 
 	/**
 	 * Create a event tab in editing mode.
+	 * @param event Event
+	 * @param openedFrom int
 	 */
 	public EventTab(Event event, int openedFrom) {
 		this(openedFrom);
@@ -1638,6 +1652,7 @@ public class EventTab extends JPanel {
 
 	/**
 	 * Close this event tab
+	 * @param goTo int
 	 */
 	protected void removeTab(int goTo) {
 		GUIEventController.getInstance().removeEventTab(this, goTo);
@@ -1824,6 +1839,9 @@ public class EventTab extends JPanel {
 	}
 	
 
+	/**
+	 * Method deleteEvent.
+	 */
 	protected void deleteEvent() {
 
 		CalendarData calData;

@@ -29,6 +29,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class TeamCalendar extends AbCalendar {
 
@@ -80,6 +83,9 @@ public class TeamCalendar extends AbCalendar {
 		return false;
 	}
 	
+	/**
+	 * Method setCommEventList.
+	 */
 	public void setCommEventList() {
 		//if we dont have the caldata dont do anything
 		if (initialized && getCalData() != null) {

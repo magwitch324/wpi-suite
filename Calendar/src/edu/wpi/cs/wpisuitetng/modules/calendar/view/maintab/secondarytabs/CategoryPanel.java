@@ -33,6 +33,8 @@ import java.awt.GridLayout;
  * Custom JPanel for each category in the category list
  * within CategoryTab
  *
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class CategoryPanel extends JPanel {
 
@@ -41,6 +43,9 @@ public class CategoryPanel extends JPanel {
 	private JLabel lblCategoryName;
 	private JPanel colorBox;
 	
+	/**
+	 * Constructor for CategoryPanel.
+	 */
 	public CategoryPanel() {
 		setPreferredSize(new Dimension(80, 50));
 		setBackground(CalendarStandard.CalendarYellow);
@@ -72,6 +77,10 @@ public class CategoryPanel extends JPanel {
 		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	 * Constructor for CategoryPanel.
+	 * @param cat Category
+	 */
 	public CategoryPanel(Category cat) {
 		this();
 		category = cat;
@@ -87,16 +96,29 @@ public class CategoryPanel extends JPanel {
 		colorBox.setBackground(categoryColor);
 	}
 
+	/**
+	 * Constructor for CategoryPanel.
+	 * @param layout LayoutManager
+	 */
 	public CategoryPanel(LayoutManager layout) {
 		super(layout);
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Constructor for CategoryPanel.
+	 * @param isDoubleBuffered boolean
+	 */
 	public CategoryPanel(boolean isDoubleBuffered) {
 		super(isDoubleBuffered);
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Constructor for CategoryPanel.
+	 * @param layout LayoutManager
+	 * @param isDoubleBuffered boolean
+	 */
 	public CategoryPanel(LayoutManager layout, boolean isDoubleBuffered) {
 		super(layout, isDoubleBuffered);
 		// TODO Auto-generated constructor stub

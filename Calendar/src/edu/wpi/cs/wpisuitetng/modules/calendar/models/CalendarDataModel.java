@@ -20,6 +20,9 @@ import javax.swing.AbstractListModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddCalendarDataController;
 
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class CalendarDataModel extends AbstractListModel {
 
 	/**
@@ -159,7 +162,8 @@ public class CalendarDataModel extends AbstractListModel {
 	/**
 	 * Adds the given array of CalendarData to the list
 	 * 
-	 * @param categories the array of categories to add
+	
+	 * @param calData CalendarData[]
 	 */
 	public void addCalendarData(CalendarData[] calData) {
 		for (int i = 0; i < calData.length; i++) {

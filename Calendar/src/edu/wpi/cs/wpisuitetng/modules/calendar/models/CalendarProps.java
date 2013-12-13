@@ -14,6 +14,9 @@ import com.google.gson.Gson;
 
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class CalendarProps extends AbstractModel {
 
 	/** the ID of the CalendarProps */
@@ -40,8 +43,7 @@ public class CalendarProps extends AbstractModel {
 	 * 
 	 * @param id
 	 *            The ID number of the CalendarProps
-	 * @param name
-	 *            The name of the CalendarProps
+	
 	 */
 	// need to phase out supplying the ID
 	public CalendarProps(String id) {
@@ -230,6 +232,10 @@ public class CalendarProps extends AbstractModel {
 		return id;
 	}
 
+	/**
+	 * Method copyFrom.
+	 * @param toCopyFrom CalendarProps
+	 */
 	public void copyFrom(CalendarProps toCopyFrom){
 		id = toCopyFrom.getId();
 		showMyComm = toCopyFrom.getMyShowComm();

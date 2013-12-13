@@ -13,6 +13,9 @@ import com.google.gson.Gson;
 
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public abstract class CalendarObject extends AbstractModel {
 
 	/** the Name of the CalendarObject */
@@ -26,12 +29,22 @@ public abstract class CalendarObject extends AbstractModel {
     /** the id of the CalendarObject */
     protected int id;
 
+	/**
+	 * Constructor for CalendarObject.
+	 */
 	protected CalendarObject() {
 		name = description = "";
 		isPersonal = false;
 		categoryID = 0;
 	}
 	
+	/**
+	 * Constructor for CalendarObject.
+	 * @param name String
+	 * @param description String
+	 * @param categoryID int
+	 * @param isPersonal boolean
+	 */
 	protected CalendarObject(String name, String description, int categoryID, boolean isPersonal) {
 		this.name = name;
 		this.description = description;
@@ -39,6 +52,10 @@ public abstract class CalendarObject extends AbstractModel {
 		this.isPersonal = isPersonal;
 	}
 	
+	/**
+	 * Method copyFrom.
+	 * @param toCopyFrom CalendarObject
+	 */
 	public void copyFrom(CalendarObject toCopyFrom) {
 		name = toCopyFrom.getName();
 		description = toCopyFrom.getDescription();
@@ -55,8 +72,8 @@ public abstract class CalendarObject extends AbstractModel {
 	 * @param json
 	 *            JSON-encoded CalendarObject to deserialize
 	 * 
-	 * @return the CalendarObject contained in the given JSON
-	 */
+	
+	 * @return the CalendarObject contained in the given JSON */
 	public static CalendarObject fromJson(String json) {
 		final Gson parser = new Gson();
 		return parser.fromJson(json, CalendarObject.class);
@@ -79,8 +96,8 @@ public abstract class CalendarObject extends AbstractModel {
 	 * @param json
 	 *            string containing a JSON-encoded array of CalendarObject
 	 * 
-	 * @return an array of CalendarObject deserialized from the given JSON string
-	 */
+	
+	 * @return an array of CalendarObject deserialized from the given JSON string */
 	public static CalendarObject[] fromJsonArray(String json) {
 		final Gson parser = new Gson();
 		return parser.fromJson(json, CalendarObject[].class);

@@ -45,6 +45,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class CategoryTab extends JPanel {
 
 	private final CategoryList teamCategories;
@@ -62,6 +65,8 @@ public class CategoryTab extends JPanel {
 	private CategoryMode mode;
 	private Component viewPanelStrut;
 
+	/**
+	 */
 	private enum CategoryMode {
 		ADDING(0),
 		EDITING(1),
@@ -73,6 +78,9 @@ public class CategoryTab extends JPanel {
 		}
 	}
 	
+	/**
+	 * Constructor for CategoryTab.
+	 */
 	public CategoryTab() {
 		
 		createBaseUI();

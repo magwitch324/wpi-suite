@@ -25,6 +25,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 
 /**
  * Viewport class for handling the creation of equal distance times
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class HourDisplayPort extends JViewport {
 	JComponent reference = null;

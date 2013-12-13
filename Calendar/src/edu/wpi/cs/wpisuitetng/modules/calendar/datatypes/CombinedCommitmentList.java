@@ -11,6 +11,9 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
 import java.util.List;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class CombinedCommitmentList extends CommitmentList {
 	
 	/**
@@ -21,6 +24,10 @@ public class CombinedCommitmentList extends CommitmentList {
 	public CombinedCommitmentList() {
 	}
 	
+	/**
+	 * Constructor for CombinedCommitmentList.
+	 * @param list List<Commitment>
+	 */
 	public CombinedCommitmentList(List<Commitment> list) {
 		this();
 		calendarObjects = list;

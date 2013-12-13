@@ -22,6 +22,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEventList;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class CalendarData extends AbstractModel {
 
 	/** the ID of the CalendarData */
@@ -48,8 +51,7 @@ public class CalendarData extends AbstractModel {
 	 * 
 	 * @param id
 	 *            The ID number of the CalendarData
-	 * @param name
-	 *            The name of the CalendarData
+	
 	 */
 	// need to phase out supplying the ID
 	public CalendarData(String id) {
@@ -98,7 +100,8 @@ public class CalendarData extends AbstractModel {
 	/**
 	 * Adds a event to the calendar
 	 * 
-	 * @param event
+	
+	 * @param newEvent Event
 	 */
 	public void addEvent(Event newEvent){
 		events.add(newEvent);
@@ -107,7 +110,8 @@ public class CalendarData extends AbstractModel {
 	/**
 	 * Adds a commitment to the calendar
 	 * 
-	 * @param commitment
+	
+	 * @param newCommitment Commitment
 	 */
 	public void addCommitment(Commitment newCommitment){
 		commitments.add(newCommitment);
@@ -116,7 +120,8 @@ public class CalendarData extends AbstractModel {
 	/**
 	 * Adds a category to the calendar
 	 * 
-	 * @param category
+	
+	 * @param newCategory Category
 	 */
 	public void addCategory(Category newCategory){
 		categories.add(newCategory);
@@ -125,7 +130,8 @@ public class CalendarData extends AbstractModel {
 	/**
 	 * Adds a repeating event to the calendar
 	 * 
-	 * @param repeatingEvent
+	
+	 * @param newEvent RepeatingEvent
 	 */
 	public void addRepeatingEvent(RepeatingEvent newEvent){
 		repeatingEvents.add(newEvent);
@@ -241,6 +247,10 @@ public class CalendarData extends AbstractModel {
 		return id;
 	}
 
+	/**
+	 * Method copyFrom.
+	 * @param toCopyFrom CalendarData
+	 */
 	public void copyFrom(CalendarData toCopyFrom){
 		id = toCopyFrom.getId();
 		categories = toCopyFrom.getCategories();

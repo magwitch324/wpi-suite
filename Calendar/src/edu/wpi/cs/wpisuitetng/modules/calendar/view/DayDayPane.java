@@ -26,6 +26,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
 /**
  * The class for a day containing event commitments and the half hour marks
+ *@author CS Anonymous
+ *@version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
 public class DayDayPane extends JPanel {
@@ -41,6 +43,7 @@ public class DayDayPane extends JPanel {
 	/**
 	 * Constructor for daydaypane
 	 * @param acal the date that is used for displaying
+	 * @param detailLevel AbCalendar.types
 	 */
 	public DayDayPane(GregorianCalendar acal, AbCalendar.types detailLevel){
 		this.detailLevel = detailLevel;
@@ -284,8 +287,8 @@ public class DayDayPane extends JPanel {
 	 * Gets the number of columns that should be associated with the object
 	 * @param column_index the index of the column based on the 
 	 * @param cop the object to check for width
-	 * @return the number of columns conflicting with the object
-	 */
+	
+	 * @return the number of columns conflicting with the object */
 	protected int getWidth(int column_index, CalendarObjectPanel cop){
 		int width = 1;
 		width += this.getWidth(column_index, cop, -1);
@@ -298,8 +301,8 @@ public class DayDayPane extends JPanel {
 	 * @param column_index the index of the column to check
 	 * @param cop the object to check for width
 	 * @param value the direction that the width check should go
-	 * @return the width going the given direction
-	 */
+	
+	 * @return the width going the given direction */
 	protected int getWidth(int column_index, CalendarObjectPanel cop, int value){
 		int width = 0;
 		int max = 0;
@@ -322,8 +325,8 @@ public class DayDayPane extends JPanel {
 	 * Finds the number of columns an COP should span
 	 * @param column_index the index of the column to check
 	 * @param cop the COP to check for span
-	 * @return the number of columns an object should span
-	 */
+	
+	 * @return the number of columns an object should span */
 	protected int getSpan(int column_index, CalendarObjectPanel cop){
 		int span = 0;
 		for(int i = 1 + column_index; i < displayobjects.size(); i++){

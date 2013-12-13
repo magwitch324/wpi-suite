@@ -9,15 +9,27 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
-/** the status of the commitment */
+/** the status of the commitment 
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public enum Status {
 	NEW(0), IN_PROGRESS(1), COMPLETED(2);
 	public int id;
 
+	/**
+	 * Constructor for Status.
+	 * @param id int
+	 */
 	Status(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * Method getStatusValue.
+	 * @param id int
+	 * @return Status
+	 */
 	public static Status getStatusValue(int id) {
 		Status result;
 		result = Status.NEW;
@@ -36,6 +48,11 @@ public enum Status {
 		return result;
 	}
 
+	/**
+	 * Method convertToString.
+	 * @param id int
+	 * @return String
+	 */
 	public static String convertToString(int id) {
 		String result;
 		result = "";

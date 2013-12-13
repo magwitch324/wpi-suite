@@ -76,6 +76,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class CommitmentTab extends JPanel {
 	
@@ -135,11 +138,15 @@ public class CommitmentTab extends JPanel {
 	private Component glue;
 	private Component glue_1;
 	
+	/**
+	 */
 	public enum EditingMode {
 		ADDING,
 		EDITING;
 	}
 	
+	/**
+	 */
 	public enum enumTimeSpinner {
 		HOUR,
 		MINUTE,
@@ -154,7 +161,8 @@ public class CommitmentTab extends JPanel {
 	
 	/**
 	 * Create the panel.
-	 * @wbp.parser.constructor
+	
+	 * @param openedFrom int
 	 */
 	public CommitmentTab(int openedFrom) {
 		this.openedFrom = openedFrom;
@@ -195,6 +203,8 @@ public class CommitmentTab extends JPanel {
 
 	/**
 	 * Create a commitment tab in editing mode.
+	 * @param commToEdit Commitment
+	 * @param openedFrom int
 	 */
 	public CommitmentTab(Commitment commToEdit, int openedFrom) {
 		this(openedFrom);
@@ -1005,6 +1015,7 @@ public class CommitmentTab extends JPanel {
 	
 	/**
 	 * Close this commitment tab
+	 * @param goTo int
 	 */
 	protected void removeTab(int goTo) {
 		GUIEventController.getInstance().removeCommTab(this, goTo);
@@ -1347,6 +1358,8 @@ public class CommitmentTab extends JPanel {
 			}
 	}
 	
+	/**
+	 */
 	class SpinnerUI extends BasicSpinnerUI  {
 		protected Component createNextButton()  
 		  {  
