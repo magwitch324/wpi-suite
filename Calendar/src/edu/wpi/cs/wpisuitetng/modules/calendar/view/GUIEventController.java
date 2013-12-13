@@ -18,9 +18,14 @@ import java.util.GregorianCalendar;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdatePropsController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CategoryTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.EventTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
@@ -65,8 +70,13 @@ public class GUIEventController {
 	 * Called on Janeway shutdown to save props
 	 */
 	public void saveProps(){
-		teamCalendar.saveProps();
-		myCalendar.saveProps();
+		//teamCalendar.saveProps();
+		//myCalendar.saveProps();
+		//commitFullView.saveProps();
+		CalendarProps calProps = CalendarPropsModel.getInstance().getCalendarProps(
+				ConfigManager.getConfig().getProjectName() + "-"
+						+ ConfigManager.getConfig().getUserName() + "-PROPS");
+		UpdatePropsController.getInstance().updateCalendarProps(calProps);
 	}
 
 	/**
@@ -178,6 +188,28 @@ public class GUIEventController {
 		main.setSelectedComponent(newCommit);
 	}
 
+	// Creates manage categories tab
+	public void createManageCategories() {
+		int openedFrom = main.getSelectedIndex();
+		if (openedFrom > 2){
+			openedFrom = 0;
+		}
+		final CategoryTab newCat = new CategoryTab();
+		try {
+			final Image img = ImageIO.read(getClass().getResource("NewCommitment_Icon.png"));
+			main.addTab("Manage Categories", new ImageIcon(img), newCat);
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			main.addTab("Manage Category", new ImageIcon(), newCat);
+		}
+		//		main.addTab("New Commitment", null, newCommit, "New Commitment");
+		//		newCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		main.invalidate(); //force the tabbedpane to redraw.
+		main.repaint();
+		main.setSelectedComponent(newCat);
+	}
+
+	
 	/** Edit a commitment in a new tab
 	 * @param comm Commitment to edit
 	 * @param calData CalendarData where commitment is located
@@ -255,7 +287,7 @@ public class GUIEventController {
 		myCalendar.updateCalData();
 		teamCalendar.calView.commitmentView.update();
 		myCalendar.calView.commitmentView.update();
-		commitFullView.update();
+		commitFullView.updateList();
 	}
 
 	public void setScrollBarValue(int value) {
@@ -272,6 +304,7 @@ public class GUIEventController {
 	public void applyCalProps(){
 		myCalendar.applyCalProps();
 		teamCalendar.applyCalProps();
+		commitFullView.applyCalProps();
 	}
 
 	public void removeEventTab(EventTab eventTab, int goTo) {

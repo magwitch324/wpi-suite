@@ -338,7 +338,7 @@ public class CommitmentTab extends JPanel {
 		lblDateError = new JLabel("<html><font color='red'>Please enter a valid date (MM/DD/YYYY).</font></html>");
 		lblDateError.setVisible(false);
 		lblDateError.setHorizontalAlignment(SwingConstants.LEFT);
-		GridBagConstraints gbc_lblDateError = new GridBagConstraints();
+		final GridBagConstraints gbc_lblDateError = new GridBagConstraints();
 		gbc_lblDateError.insets = new Insets(0, 0, 5, 0);
 		gbc_lblDateError.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblDateError.gridx = 1;
@@ -401,9 +401,7 @@ public class CommitmentTab extends JPanel {
 		//Create category box, add two dummy categories
 		categoryComboBox = new JComboBox<Category>();
 		categoryComboBox.setBackground(CalendarStandard.CalendarYellow);
-		categoryComboBox.addItem(new Category(4, "Cat1"));
-		categoryComboBox.addItem(new Category(5, "Cat2"));
-
+		
 		final GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
 		gbc_categoryComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_categoryComboBox.insets = new Insets(0, 0, 5, 0);
@@ -800,7 +798,7 @@ public class CommitmentTab extends JPanel {
 			public void stateChanged(ChangeEvent e) {
 
 				boolean hourFlag;
-				GregorianCalendar cal = new GregorianCalendar();
+				final GregorianCalendar cal = new GregorianCalendar();
 				cal.setTime((Date) minuteSpinner.getValue());
 				int currentHour = cal.get(Calendar.HOUR);
 				System.out.println("Change ccurent " + currentHour);
@@ -1047,7 +1045,7 @@ public class CommitmentTab extends JPanel {
 			newComm.setIsPersonal(true);
 		}
 
-		newComm.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getId());
+		newComm.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getID());
 		newComm.setDescription(descriptionTextField.getText());
 
 		
@@ -1185,7 +1183,7 @@ public class CommitmentTab extends JPanel {
 					//make sure something changed
 					if (nameTextField.getText().equals(editingCommitment.getName()) 
 							&& descriptionTextField.getText().equals(editingCommitment.getDescription())
-							&& ((Category)categoryComboBox.getSelectedItem()).getId() == editingCommitment.getCategoryID()
+							&& ((Category)categoryComboBox.getSelectedItem()).getID() == editingCommitment.getCategoryID()
 							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
 							&& calDate.getTime().equals(editingCommitment.getDueDate().getTime())
 							&& lblTimeError.isVisible()
