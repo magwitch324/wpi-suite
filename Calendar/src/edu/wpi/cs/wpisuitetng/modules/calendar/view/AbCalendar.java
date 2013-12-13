@@ -80,7 +80,7 @@ public abstract class AbCalendar extends JPanel {
 	protected JCheckBox showcom;
 
 	protected int[] viewsizeval = {
-			Calendar.DATE,Calendar.WEEK_OF_YEAR, Calendar.MONTH, Calendar.YEAR};
+			Calendar.DATE, Calendar.WEEK_OF_YEAR, Calendar.MONTH, Calendar.YEAR};
 	protected CalendarView calView;
 	protected CommitmentList commitments;
 	protected EventList events;

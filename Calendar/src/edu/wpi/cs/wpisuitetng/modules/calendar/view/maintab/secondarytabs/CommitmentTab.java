@@ -1161,8 +1161,8 @@ public class CommitmentTab extends JPanel {
 			isTeamComm = false;
 	}
 	else{
-		calData = CalendarDataModel.getInstance().
-				getCalendarData(ConfigManager.getConfig().getProjectName()); 
+		calData = CalendarDataModel.getInstance().getCalendarData(
+				ConfigManager.getConfig().getProjectName()); 
 		isTeamComm = true;
 	}
 		calData.getCommitments().removeCommmitment(editingCommitment.getID());
@@ -1213,13 +1213,13 @@ public class CommitmentTab extends JPanel {
 					
 					//make sure something changed
 					if (nameTextField.getText().equals(editingCommitment.getName()) 
-							&& descriptionTextField.getText().
-							equals(editingCommitment.getDescription())
+							&& descriptionTextField.getText().equals(
+									editingCommitment.getDescription())
 							//TODO uncomment category code
 							//&& ((Category)categoryComboBox.getSelectedItem()).
 							//getID() == editingCommitment.getCategoryID()
-							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).
-							equals(editingCommitment.getStatus())
+							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(
+									editingCommitment.getStatus())
 							&& calDate.getTime().equals(editingCommitment.getDueDate().getTime())
 							&& lblTimeError.isVisible()
 							&& lblDateError.isVisible()
@@ -1303,10 +1303,10 @@ public class CommitmentTab extends JPanel {
 					}
 					else {
 						editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-						if(minuteEditor.getTextField().getBackground().
-								equals(CalendarStandard.CalendarYellow)
-								|| AMPMEditor.getTextField().getBackground().
-								equals(CalendarStandard.CalendarYellow)) {
+						if(minuteEditor.getTextField().getBackground().equals(
+								CalendarStandard.CalendarYellow)
+								|| AMPMEditor.getTextField().getBackground().equals(
+										CalendarStandard.CalendarYellow)) {
 						lblTimeError.setVisible(false);
 						}
 					}
@@ -1325,10 +1325,10 @@ public class CommitmentTab extends JPanel {
 					}
 					else {
 						editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-						if(hourEditor.getTextField().getBackground().
-								equals(CalendarStandard.CalendarYellow)
-								|| AMPMEditor.getTextField().getBackground().
-								equals(CalendarStandard.CalendarYellow)) {
+						if(hourEditor.getTextField().getBackground().equals(
+								CalendarStandard.CalendarYellow)
+								|| AMPMEditor.getTextField().getBackground().equals(
+										CalendarStandard.CalendarYellow)) {
 						lblTimeError.setVisible(false);
 						}
 					}
@@ -1346,10 +1346,10 @@ public class CommitmentTab extends JPanel {
 				}
 				else {
 					editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-					if(hourEditor.getTextField().getBackground().
-							equals(CalendarStandard.CalendarYellow)
-							|| minuteEditor.getTextField().getBackground().
-							equals(CalendarStandard.CalendarYellow)) {
+					if(hourEditor.getTextField().getBackground().equals(
+							CalendarStandard.CalendarYellow)
+							|| minuteEditor.getTextField().getBackground().equals(
+									CalendarStandard.CalendarYellow)) {
 					lblTimeError.setVisible(false);
 					}
 				}

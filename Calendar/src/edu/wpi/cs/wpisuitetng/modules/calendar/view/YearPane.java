@@ -190,7 +190,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 			
 			//Creates the month lbl and a wrapper and places it in this at the top
 			final JLabel monthlbl = new JLabel(acal.getDisplayName(
-					Calendar.MONTH, Calendar.LONG, Locale.getDefault()),SwingConstants.CENTER);
+					Calendar.MONTH, Calendar.LONG, Locale.getDefault()), SwingConstants.CENTER);
 			monthlbl.addMouseListener(new AMouseMonthEvent(acal));
 			final JPanel temppane = new JPanel();
 			temppane.setLayout(new GridLayout(1, 1));

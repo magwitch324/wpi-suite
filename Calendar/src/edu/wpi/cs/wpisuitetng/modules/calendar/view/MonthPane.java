@@ -562,8 +562,8 @@ public class MonthPane extends JScrollPane implements ICalPane {
 					Image nameImg;
 					final Image scaleImg;
 					if (comm.getIsPersonal()) {	
-						nameImg = ImageIO.read(getClass().
-								getResource("PersonalCommitment_Icon.png"));
+						nameImg = ImageIO.read(getClass().getResource(
+								"PersonalCommitment_Icon.png"));
 						
 					} else {
 						nameImg = ImageIO.read(getClass().getResource("TeamCommitment_Icon.png"));

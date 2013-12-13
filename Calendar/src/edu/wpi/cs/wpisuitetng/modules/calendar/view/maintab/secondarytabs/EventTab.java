@@ -1035,8 +1035,8 @@ public class EventTab extends JPanel {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				checkSaveBtnStatus();
-				startTempHour = Integer.parseInt(startHourEditor.
-						getTextField().getText().toString());
+				startTempHour = Integer.parseInt(
+						startHourEditor.getTextField().getText().toString());
 				checkStartTimeSpinnerStatus(startHourSpinner);
 
 				updateEndTime();
@@ -1096,8 +1096,8 @@ public class EventTab extends JPanel {
 				final GregorianCalendar cal = new GregorianCalendar();
 				cal.setTime((Date) startMinuteSpinner.getValue());
 				final int currentHour = cal.get(Calendar.HOUR);
-				startTempMin = Integer.parseInt(startMinuteEditor.
-						getTextField().getText().toString());
+				startTempMin = Integer.parseInt(
+						startMinuteEditor.getTextField().getText().toString());
 				checkStartTimeSpinnerStatus(startMinuteSpinner);
 				
 				if(currentHour == 1) {
@@ -1520,10 +1520,10 @@ public class EventTab extends JPanel {
 							//TODO uncomment category code
 							//&& ((Category)categoryComboBox.getSelectedItem()).getID() 
 							//== editingEvent.getCategoryID()
-							&& getStartDate().getTime().
-							equals(editingEvent.getStartTime().getTime())
-							&& getEndDate().getTime().
-							equals(editingEvent.getEndTime().getTime()))
+							&& getStartDate().getTime().equals(
+									editingEvent.getStartTime().getTime())
+							&& getEndDate().getTime().equals(
+									editingEvent.getEndTime().getTime()))
 					{
 						btnAddEvent.setEnabled(false);
 						return;
@@ -1593,8 +1593,8 @@ public class EventTab extends JPanel {
 				isTeamEvent = false;
 			}
 			else{
-				calData = CalendarDataModel.getInstance().
-						getCalendarData(ConfigManager.getConfig().getProjectName()); 
+				calData = CalendarDataModel.getInstance().getCalendarData(
+						ConfigManager.getConfig().getProjectName()); 
 				isTeamEvent = true;
 			}
 			editingRepeatingEvent = calData.getRepeatingEvents().get(event.getID());
@@ -1733,8 +1733,8 @@ public class EventTab extends JPanel {
 			isTeamEvent = false;
 		}
 		else{
-			calData = CalendarDataModel.getInstance().
-					getCalendarData(ConfigManager.getConfig().getProjectName()); 
+			calData = CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName()); 
 			isTeamEvent = true;
 		}
 		//		for(Event event: calData.getEvents().getEvents())
@@ -1846,14 +1846,14 @@ public class EventTab extends JPanel {
 
 		CalendarData calData;
 		if (rdbtnPersonal.isSelected()){
-			calData = CalendarDataModel.getInstance().
-					getCalendarData(ConfigManager.getConfig().getProjectName() +
+			calData = CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName() +
 							"-" + ConfigManager.getConfig().getUserName()); 
 			isTeamEvent = false;
 		}
 		else{
-			calData = CalendarDataModel.getInstance().
-					getCalendarData(ConfigManager.getConfig().getProjectName()); 
+			calData = CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName()); 
 			isTeamEvent = true;
 		}
 

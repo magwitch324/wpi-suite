@@ -163,8 +163,8 @@ public class CommitmentFullView extends JPanel{
 		} else if(tcalendar.getCalData() != null && pcalendar.getCalData() != null) { 
 			// here mode == ViewingMode.BOTH
 			final CombinedCommitmentList combinedList = new CombinedCommitmentList(
-					new ArrayList<Commitment>(pcalendar.getCalData().
-							getCommitments().getCommitments()));
+					new ArrayList<Commitment>(
+							pcalendar.getCalData().getCommitments().getCommitments()));
 			final CalendarData teamData = CalendarDataModel.getInstance()
 					.getCalendarData(ConfigManager.getConfig().getProjectName());
 
@@ -499,8 +499,8 @@ public class CommitmentFullView extends JPanel{
 
 					@Override 
 					public int compare(Commitment c1, Commitment c2) {
-						return c1.getStatus().convertToString(c1.getStatus().getId()).
-							compareTo(c2.getStatus().convertToString(c2.getStatus().getId()));
+						return c1.getStatus().convertToString(c1.getStatus().getId()).compareTo(
+								c2.getStatus().convertToString(c2.getStatus().getId()));
 
 					}		
 				});
