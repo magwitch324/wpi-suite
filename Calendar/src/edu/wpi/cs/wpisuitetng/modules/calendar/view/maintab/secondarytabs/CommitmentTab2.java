@@ -37,16 +37,16 @@ public class CommitmentTab2 extends JPanel {
 	 * @param openedFrom
 	 */
 	public CommitmentTab2(int openedFrom) {
-		SpringLayout mainLayout = new SpringLayout();
+		final SpringLayout mainLayout = new SpringLayout();
 		setLayout(mainLayout);
 		
 		// Populate all the fields
-		JPanel nameField = getNameField();
-		JPanel descField = getDescField();
-		JPanel categoryField = getCategoryField();
-		JPanel typeField = getTypeField();
-		JPanel dueField = getDueField();
-		JPanel statusField = getStatusField();
+		final JPanel nameField = getNameField();
+		final JPanel descField = getDescField();
+		final JPanel categoryField = getCategoryField();
+		final JPanel typeField = getTypeField();
+		final JPanel dueField = getDueField();
+		final JPanel statusField = getStatusField();
 		
 		nameField.setBackground(Color.RED);
 		
@@ -61,19 +61,19 @@ public class CommitmentTab2 extends JPanel {
 	//TODO Add a constructor for editing a commitment tab -- CommitmentTab line 200
 	
 	private JPanel getNameField() {
-		JPanel nameField = new JPanel();
-		SpringLayout layout = new SpringLayout();
+		final JPanel nameField = new JPanel();
+		final SpringLayout layout = new SpringLayout();
 		nameField.setLayout(layout);
 		
 		// Create and add Label to the nameField
-		JLabel label = new JLabel("Name: ");
+		final JLabel label = new JLabel("Name: ");
 		nameField.add(label);
 		layout.putConstraint(WEST, label, 5, WEST, nameField);
 		layout.putConstraint(NORTH, label, 5, NORTH, nameField);
 		layout.putConstraint(SOUTH, label, -5, SOUTH, nameField);
 		
 		// Create and add textField to the nameField
-		JTextField textField = new JTextField();
+		final JTextField textField = new JTextField();
 		nameField.add(textField);
 		layout.putConstraint(WEST, textField, 5, EAST, label);
 		layout.putConstraint(NORTH, textField, 5, NORTH, nameField);

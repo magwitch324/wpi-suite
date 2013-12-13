@@ -56,18 +56,18 @@ public class MyCalendar extends AbCalendar {
         layout.putConstraint(SpringLayout.NORTH, viewbtnpanel, 5, SpringLayout.NORTH, this);
 		this.add(viewbtnpanel);
 
-		JComponent dateswitchpanel = getDatePanel();
+		final JComponent dateswitchpanel = getDatePanel();
         layout.putConstraint(SpringLayout.NORTH, dateswitchpanel, 0, SpringLayout.SOUTH, viewbtnpanel);
         layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, dateswitchpanel, 0, SpringLayout.HORIZONTAL_CENTER, this);
         this.add(dateswitchpanel);
 
-        JComponent datapanel = getDataDisplayPanel();
+        final JComponent datapanel = getDataDisplayPanel();
         layout.putConstraint(SpringLayout.NORTH, datapanel, 0, SpringLayout.NORTH, viewbtnpanel);
         layout.putConstraint(SpringLayout.WEST, datapanel, 30, SpringLayout.EAST, viewbtnpanel);
         layout.putConstraint(SpringLayout.SOUTH, datapanel, 0, SpringLayout.SOUTH, viewbtnpanel);
         this.add(datapanel);
         
-		JComboBox filter = new JComboBox();
+		final JComboBox filter = new JComboBox();
 		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filter, 0, SpringLayout.VERTICAL_CENTER, datapanel);
 		layout.putConstraint(SpringLayout.WEST, filter, 30, SpringLayout.EAST, datapanel);
 		layout.putConstraint(SpringLayout.EAST, filter, -5, SpringLayout.EAST, this);
@@ -254,9 +254,9 @@ public class MyCalendar extends AbCalendar {
 
 	@Override
 	protected JComponent getDataDisplayPanel() {
-		JPanel panel = new JPanel();
+		final JPanel panel = new JPanel();
 		panel.setBackground(new Color(0,0,0,0));
-		SpringLayout layout = new SpringLayout();
+		final SpringLayout layout = new SpringLayout();
 		panel.setLayout(layout);
 		
 		showcom = new JCheckBox("Show Commitments");
@@ -294,8 +294,8 @@ public class MyCalendar extends AbCalendar {
         layout.putConstraint(SpringLayout.SOUTH, showteam, 0, SpringLayout.SOUTH, panel);
         panel.add(showteam);
         
-		int width = showcom.getPreferredSize().width + 30 + showteam.getPreferredSize().width;
-        int height = showcom.getPreferredSize().height;
+        final int width = showcom.getPreferredSize().width + 30 + showteam.getPreferredSize().width;
+        final int height = showcom.getPreferredSize().height;
         panel.setPreferredSize(new Dimension(width, height));
         
 		return panel;

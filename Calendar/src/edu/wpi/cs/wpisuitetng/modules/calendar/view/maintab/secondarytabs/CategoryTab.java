@@ -56,8 +56,8 @@ import java.awt.event.ActionEvent;
 
 public class CategoryTab extends JPanel {
 
-	private CategoryList teamCategories;
-	private CategoryList personalCategories;
+	private final CategoryList teamCategories;
+	private final CategoryList personalCategories;
 	private JRadioButton rdbtnPersonal;
 	private JRadioButton rdbtnBoth;
 	private JButton btnDelete;
@@ -113,9 +113,9 @@ public class CategoryTab extends JPanel {
 		
 		viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
 		
-		Box horizontalBox = Box.createHorizontalBox();
+		final Box horizontalBox = Box.createHorizontalBox();
 		viewPanel.add(horizontalBox);
-		ButtonGroup teamPersonalRadioButtons = new ButtonGroup();
+		final ButtonGroup teamPersonalRadioButtons = new ButtonGroup();
 		
 		rdbtnTeam = new JRadioButton("Team");
 		teamPersonalRadioButtons.add(rdbtnTeam);
@@ -130,7 +130,7 @@ public class CategoryTab extends JPanel {
 		teamPersonalRadioButtons.add(rdbtnBoth);
 		horizontalBox.add(rdbtnBoth);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		final JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		viewPanel.add(scrollPane);
 		
@@ -139,7 +139,7 @@ public class CategoryTab extends JPanel {
 		categoryListLayout = new SpringLayout();
 		categoryListPanel.setLayout(categoryListLayout);
 		
-		Box horizontalBox_1 = Box.createHorizontalBox();
+		final Box horizontalBox_1 = Box.createHorizontalBox();
 		viewPanel.add(horizontalBox_1);
 		
 
@@ -155,14 +155,14 @@ public class CategoryTab extends JPanel {
 		
 		horizontalBox_1.add(btnNew);
 
-		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
+		final Component horizontalStrut_1 = Box.createHorizontalStrut(20);
 		horizontalStrut_1.setMaximumSize(new Dimension(20, 0));
 		horizontalBox_1.add(horizontalStrut_1);
 		
 		//Add Edit button
 		btnEdit = new JButton();
 		try {
-			Image img = ImageIO.read(getClass().getResource("Edit_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource("Edit_Icon.png"));
 			btnEdit = new JButton("Edit Category", new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
@@ -171,7 +171,7 @@ public class CategoryTab extends JPanel {
 		
 		horizontalBox_1.add(btnEdit);
 		
-		Component horizontalStrut_2 = Box.createHorizontalStrut(20);
+		final Component horizontalStrut_2 = Box.createHorizontalStrut(20);
 		horizontalStrut_2.setMaximumSize(new Dimension(20, 0));
 		horizontalBox_1.add(horizontalStrut_2);
 		
@@ -210,7 +210,7 @@ public class CategoryTab extends JPanel {
 	 */
 	private void populateCategoryList() {
 		
-		List<Category> catList = new ArrayList<Category>();
+		final List<Category> catList = new ArrayList<Category>();
 		if(rdbtnPersonal.isSelected())
 		{
 			catList.addAll(personalCategories.getCategories());
@@ -221,7 +221,7 @@ public class CategoryTab extends JPanel {
 		}
 		else
 		{
-			Category[] teamCatArray = new Category[teamCategories.getSize()];
+			final Category[] teamCatArray = new Category[teamCategories.getSize()];
 			catList.addAll(teamCategories.getCategories());
 			for(int i = 0; i < catList.size(); i++)
 			{
@@ -243,7 +243,7 @@ public class CategoryTab extends JPanel {
 		categoryListLayout.putConstraint(SpringLayout.EAST, catPanel, 1, SpringLayout.EAST, categoryListPanel);
 		categoryListPanel.add(catPanel);
 		
-		CategoryPanel oldCatPanel = catPanel;
+		final CategoryPanel oldCatPanel = catPanel;
 		catPanel = new CategoryPanel(new Category("Dev", Color.blue, true));
 		categoryListLayout.putConstraint(SpringLayout.NORTH, catPanel, 1, SpringLayout.SOUTH, oldCatPanel);
 		categoryListLayout.putConstraint(SpringLayout.WEST, catPanel, 1, SpringLayout.WEST, categoryListPanel);
@@ -276,21 +276,21 @@ public class CategoryTab extends JPanel {
 	{
 		mode = CategoryMode.ADDING;
 		this.removeAll();
-		GridBagLayout gridBagLayout = new GridBagLayout();
+		final GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		GridBagConstraints gbc_viewPanel = new GridBagConstraints();
+		final GridBagConstraints gbc_viewPanel = new GridBagConstraints();
 		gbc_viewPanel.insets = new Insets(0, 0, 0, 5);
 		gbc_viewPanel.fill = GridBagConstraints.BOTH;
 		gbc_viewPanel.gridx = 0;
 		gbc_viewPanel.gridy = 0;
 		add(viewPanel, gbc_viewPanel);
 		
-		GridBagConstraints gbc_addEditPanel = new GridBagConstraints();
+		final GridBagConstraints gbc_addEditPanel = new GridBagConstraints();
 		gbc_addEditPanel.fill = GridBagConstraints.BOTH;
 		gbc_addEditPanel.gridx = 1;
 		gbc_addEditPanel.gridy = 0;
@@ -313,14 +313,14 @@ public class CategoryTab extends JPanel {
 	{
 		mode = CategoryMode.VIEWING;
 		this.removeAll();
-		GridBagLayout gridBagLayout = new GridBagLayout();
+		final GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		GridBagConstraints gbc_viewPanel = new GridBagConstraints();
+		final GridBagConstraints gbc_viewPanel = new GridBagConstraints();
 		gbc_viewPanel.insets = new Insets(0, 0, 0, 5);
 		gbc_viewPanel.fill = GridBagConstraints.BOTH;
 		gbc_viewPanel.gridx = 1;

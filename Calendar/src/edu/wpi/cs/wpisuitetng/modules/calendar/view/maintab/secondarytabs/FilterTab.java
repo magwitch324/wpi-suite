@@ -77,11 +77,11 @@ import javax.swing.JScrollPane;
 
 public class FilterTab extends JPanel{
 
-	private int openedFrom;
+	private final int openedFrom;
 	private JPanel buttonPanel;
 	private JButton btnAddFilter;
 	private AbstractButton btnCancel;
-	private Container formPanel;
+	private final Container formPanel;
 	private JButton btnDelete;
 	private Component btnEdit;
 	private Component btnNewFilter;
@@ -150,7 +150,7 @@ public class FilterTab extends JPanel{
 
 		//Add Edit button
 		try {
-			Image img = ImageIO.read(getClass().getResource("Edit_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource("Edit_Icon.png"));
 			btnEdit = new JButton("Edit Filter", new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
@@ -177,7 +177,7 @@ public class FilterTab extends JPanel{
 		scrollPane = new JScrollPane(categoryList, 
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		final GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridheight = 6;
@@ -187,17 +187,17 @@ public class FilterTab extends JPanel{
 	}
 	
 	public void editingMode(){
-		JButton makeNewFilter = new JButton();
+		final JButton makeNewFilter = new JButton();
 		makeNewFilter.setText("New Filter");
-		GridBagConstraints gbc_newFilter = new GridBagConstraints();
+		final GridBagConstraints gbc_newFilter = new GridBagConstraints();
 		gbc_newFilter.insets = new Insets(0, 0, 5, 5);
 		gbc_newFilter.fill = GridBagConstraints.CENTER;
 		gbc_newFilter.gridx = 2;
 		gbc_newFilter.gridy = 1;
 		formPanel.add(makeNewFilter, gbc_newFilter);
 		
-		JTextField filterName = new JTextField();
-		GridBagConstraints gbc_filterName = new GridBagConstraints();
+		final JTextField filterName = new JTextField();
+		final GridBagConstraints gbc_filterName = new GridBagConstraints();
 		gbc_filterName.insets = new Insets(0, 0, 5, 5);
 		gbc_filterName.fill = GridBagConstraints.BOTH;
 		gbc_filterName.gridx = 2;
@@ -205,7 +205,7 @@ public class FilterTab extends JPanel{
 		formPanel.add(filterName, gbc_filterName);
 		
 		inactiveFilterPane = new JScrollPane();
-		GridBagConstraints gbc_inactiveFilter = new GridBagConstraints();
+		final GridBagConstraints gbc_inactiveFilter = new GridBagConstraints();
 		gbc_inactiveFilter.insets = new Insets(0, 0, 5, 5);
 		gbc_inactiveFilter.fill = GridBagConstraints.BOTH;
 		gbc_inactiveFilter.gridx = 2;
@@ -213,7 +213,7 @@ public class FilterTab extends JPanel{
 		formPanel.add(inactiveFilterPane, gbc_inactiveFilter);
 		
 		activeFilterPane = new JScrollPane();
-		GridBagConstraints gbc_activeFilter = new GridBagConstraints();
+		final GridBagConstraints gbc_activeFilter = new GridBagConstraints();
 		gbc_activeFilter.insets = new Insets(0, 0, 5, 5);
 		gbc_activeFilter.fill = GridBagConstraints.BOTH;
 		gbc_activeFilter.gridx = 2;

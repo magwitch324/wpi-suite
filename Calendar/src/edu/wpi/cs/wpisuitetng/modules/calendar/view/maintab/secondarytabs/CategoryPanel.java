@@ -49,11 +49,11 @@ public class CategoryPanel extends JPanel {
 	public CategoryPanel() {
 		setPreferredSize(new Dimension(80, 50));
 		setBackground(CalendarStandard.CalendarYellow);
-		Border loweredbevel = BorderFactory.createLoweredBevelBorder();
+		final Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 		setBorder(loweredbevel);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
-		Box horizontalBox = Box.createHorizontalBox();
+		final Box horizontalBox = Box.createHorizontalBox();
 		add(horizontalBox);
 		
 		colorBox = new JPanel();
@@ -61,9 +61,9 @@ public class CategoryPanel extends JPanel {
 		horizontalBox.add(colorBox);
 		colorBox.setBackground(Color.RED);
 		
-		Component horizontalStrut = Box.createHorizontalStrut(12);
+		final Component horizontalStrut = Box.createHorizontalStrut(12);
 		colorBox.add(horizontalStrut);
-		JPanel panel_1 = new JPanel();
+		final JPanel panel_1 = new JPanel();
 		panel_1.setPreferredSize(new Dimension(100, 10));
 		panel_1.setOpaque(false);
 		horizontalBox.add(panel_1);
