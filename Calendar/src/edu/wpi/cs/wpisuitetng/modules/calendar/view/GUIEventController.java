@@ -10,19 +10,24 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.GregorianCalendar;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdatePropsController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CategoryTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab2;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.EventTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 
@@ -66,8 +71,13 @@ public class GUIEventController {
 	 * Called on Janeway shutdown to save props
 	 */
 	public void saveProps(){
-		teamCalendar.saveProps();
-		myCalendar.saveProps();
+		//teamCalendar.saveProps();
+		//myCalendar.saveProps();
+		//commitFullView.saveProps();
+		final CalendarProps calProps = CalendarPropsModel.getInstance().getCalendarProps(
+				ConfigManager.getConfig().getProjectName() + "-"
+						+ ConfigManager.getConfig().getUserName() + "-PROPS");
+		UpdatePropsController.getInstance().updateCalendarProps(calProps);
 	}
 
 	/**
@@ -165,12 +175,15 @@ public class GUIEventController {
 			openedFrom = 0;
 		}
 		final CommitmentTab newCommit = new CommitmentTab(openedFrom);
+		final CommitmentTab2 newCommit2 = new CommitmentTab2(openedFrom);
 		try {
 			final Image img = ImageIO.read(getClass().getResource("NewCommitment_Icon.png"));
 			main.addTab("New Commitment", new ImageIcon(img), newCommit);
+			main.addTab("New Commitment2", new ImageIcon(img), newCommit2);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
 			main.addTab("New Commitment", new ImageIcon(), newCommit);
+			main.addTab("New Commitment2", new ImageIcon(), newCommit2);
 		}
 		//		main.addTab("New Commitment", null, newCommit, "New Commitment");
 		//		newCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -210,7 +223,7 @@ public class GUIEventController {
 		if (openedFrom > 2){
 			openedFrom = 0;
 		}
-		CommitmentTab editCommit = new CommitmentTab(comm, openedFrom);
+		final CommitmentTab editCommit = new CommitmentTab(comm, openedFrom);
 		try {
 			final Image img = ImageIO.read(getClass().getResource("EditCommitment_Icon.png"));
 			main.addTab("Edit Commitment", new ImageIcon(img), editCommit);
@@ -232,7 +245,7 @@ public class GUIEventController {
 		}
 		final EventTab newEvent = new EventTab(openedFrom);
 		try {
-			Image img = ImageIO.read(getClass().getResource("NewEvent_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource("NewEvent_Icon.png"));
 			main.addTab("New Event", new ImageIcon(img), newEvent);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
@@ -278,7 +291,7 @@ public class GUIEventController {
 		myCalendar.updateCalData();
 		teamCalendar.calView.commitmentView.update();
 		myCalendar.calView.commitmentView.update();
-		commitFullView.update();
+		commitFullView.updateList();
 	}
 
 	public void setScrollBarValue(int value) {
@@ -295,6 +308,7 @@ public class GUIEventController {
 	public void applyCalProps(){
 		myCalendar.applyCalProps();
 		teamCalendar.applyCalProps();
+		commitFullView.applyCalProps();
 	}
 
 	public void removeEventTab(EventTab eventTab, int goTo) {
@@ -308,6 +322,14 @@ public class GUIEventController {
 		
 	}
 	
+	public void removeCategory(Category catToDelete){
+		CalendarData calData;
+		if (catToDelete.getIsPersonal()){
+			calData = myCalendar.getCalData();
+		} else {
+			calData = teamCalendar.getCalData();
+		}
+	}
 
 
 }

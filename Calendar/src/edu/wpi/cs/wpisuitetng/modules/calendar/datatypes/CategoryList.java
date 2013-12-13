@@ -33,6 +33,7 @@ public class CategoryList {
 	 */
 	public CategoryList (){
 		categories = new ArrayList<Category>();
+		nextID = 1;
 	}
 
 
@@ -117,7 +118,7 @@ public class CategoryList {
 	 * from the model.
 	 */
 	public void removeAll() {
-		categories.removeAll(getCategorys());
+		categories.removeAll(getCategories());
 	}
 
 	/**
@@ -125,7 +126,7 @@ public class CategoryList {
 	 * 
 	 * @param categories the array of categories to add
 	 */
-	public void addCategorys(Category[] array) {
+	public void addCategories(Category[] array) {
 		Collections.addAll(categories, array);
 		sortByAlphabet();
 	}
@@ -134,7 +135,7 @@ public class CategoryList {
 	 * Returns the list of the categories
 
 	 * @return the categories held within the CategoryList. */
-	public List<Category> getCategorys() {
+	public List<Category> getCategories() {
 		return categories;
 	}
 	
