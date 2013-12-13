@@ -14,7 +14,10 @@ import com.google.gson.Gson;
 
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 
- /* @author CS Anonymous
+ /**
+  * Calendar properties will help gui display and hide commitments/events
+  * and determine the view mode. (Can be year/month/week/day).
+  * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
 public class CalendarProps extends AbstractModel {

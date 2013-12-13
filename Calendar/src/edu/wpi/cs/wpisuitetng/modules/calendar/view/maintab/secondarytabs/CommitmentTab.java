@@ -466,8 +466,8 @@ public class CommitmentTab extends JPanel {
 		
 		// Create time spinners, hour, minute, and AM_PM
 		hourSpinner = new JSpinner( new SpinnerDateModelHour());
-		//hourSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		//hourSpinner.setUI(new SpinnerUI());
+		hourSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		hourSpinner.setUI(new SpinnerUI());
 		spinnerPanel.add(hourSpinner);
 		hourEditor = new JSpinner.DateEditor(hourSpinner, "hh");
 		hourSpinner.setEditor(hourEditor);
@@ -478,8 +478,8 @@ public class CommitmentTab extends JPanel {
 		spinnerPanel.add(colon);
 		
 		minuteSpinner = new JSpinner( new SpinnerDateModelMinute());
-		//minuteSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		//minuteSpinner.setUI(new SpinnerUI());
+		minuteSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		minuteSpinner.setUI(new SpinnerUI());
 		spinnerPanel.add(minuteSpinner);
 		minuteEditor = new JSpinner.DateEditor(minuteSpinner, "mm");
 		minuteSpinner.setEditor(minuteEditor);
@@ -488,7 +488,7 @@ public class CommitmentTab extends JPanel {
 
 		AMPMSpinner = new JSpinner(new SpinnerDateModelAMPM());
 		AMPMSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		//AMPMSpinner.setUI(new SpinnerUI());
+		AMPMSpinner.setUI(new SpinnerUI());
 		spinnerPanel.add(AMPMSpinner);
 		AMPMEditor = new JSpinner.DateEditor(AMPMSpinner, "a");
 		AMPMEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
@@ -802,7 +802,7 @@ public class CommitmentTab extends JPanel {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				lastInput = hourEditor.getTextField().getText();
-				checkTimeSpinnerStatus(enumTimeSpinner.HOUR);
+				checkTimeSpinnerStatus(hourSpinner, enumTimeSpinner.HOUR);
 				refreshTemp(enumTimeSpinner.HOUR);
 				System.out.println("State changed, check and refreshTemp, current temp is " + tempHour + "  and text field is " + hourEditor.getTextField().getText() + "Error is : " + lblTimeError.isVisible() + "last input is " + lastInput);
 				checkSaveBtnStatus();
@@ -880,7 +880,7 @@ public class CommitmentTab extends JPanel {
 				cal.setTime((Date) minuteSpinner.getValue());
 				final int currentHour = cal.get(Calendar.HOUR);
 				System.out.println("Change ccurent " + currentHour);
-				checkTimeSpinnerStatus(enumTimeSpinner.MINUTE);
+				checkTimeSpinnerStatus(minuteSpinner, enumTimeSpinner.MINUTE);
 				refreshTemp(enumTimeSpinner.MINUTE);
 				if(Integer.parseInt(minuteEditor.getTextField().getText()) > 59)
 					hourFlag = true;
@@ -974,7 +974,7 @@ public class CommitmentTab extends JPanel {
 		AMPMSpinner.addChangeListener(new ChangeListener(){
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				checkTimeSpinnerStatus(enumTimeSpinner.AMPM);
+				checkTimeSpinnerStatus(AMPMSpinner, enumTimeSpinner.AMPM);
 				refreshTemp(enumTimeSpinner.AMPM);
 				checkSaveBtnStatus();
 			}
@@ -1374,89 +1374,74 @@ public class CommitmentTab extends JPanel {
 		}
 	}
 	
-	
-	private void checkTimeSpinnerStatus(enumTimeSpinner hour) {}
+	private void checkTimeSpinnerStatus(JSpinner spinner, enumTimeSpinner type) {
 
-	private void checkTimeSpinnerStatus(JSpinner spinner, enumTimeSpinner hour) {
-			
-			final DateEditor editor = (DateEditor)spinner.getEditor();
-			int currentText = 0;
-			
-			//System.out.println(tempAMPMString);
-			switch (hour) {
-			case HOUR:
-				currentText = Integer.parseInt(hourEditor.getTextField().getText());
-					if(currentText < 1 || currentText > 12) {
-						hourEditor.getTextField().setText(Integer.toString(tempHour));
-						hourEditor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
-						lblTimeError.setVisible(true);
-					}
-					else {
-						hourEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-						if(minuteEditor.getTextField().getBackground().equals(CalendarStandard.CalendarYellow)
-								|| AMPMEditor.getTextField().getBackground().equals(CalendarStandard.CalendarYellow)) {
-						editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-						if(minuteEditor.getTextField().getBackground().equals(
-								CalendarStandard.CalendarYellow)
-								|| AMPMEditor.getTextField().getBackground().equals(
-										CalendarStandard.CalendarYellow)) {
-						lblTimeError.setVisible(false);
-						}
-				}}
-				break;
-				
-			case MINUTE:
-				currentText = Integer.parseInt(minuteEditor.getTextField().getText());
-				System.out.println("curent text before check" + currentText);
-				System.out.println("curent temp before check" + tempMin);
-					if(currentText < 0 || currentText > 59) {
-						minuteEditor.getTextField().setText(Integer.toString(tempMin));
-						minuteEditor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
-						lblTimeError.setVisible(true);
-					}
-					else {
-						minuteEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-						if(hourEditor.getTextField().getBackground().equals(CalendarStandard.CalendarYellow)
-								|| AMPMEditor.getTextField().getBackground().equals(CalendarStandard.CalendarYellow)) {
-						editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-						if(hourEditor.getTextField().getBackground().equals(
-								CalendarStandard.CalendarYellow)
-								|| AMPMEditor.getTextField().getBackground().equals(
-										CalendarStandard.CalendarYellow)) {
-						lblTimeError.setVisible(false);
-						}
-				}}
-				break;
-			case AMPM:
-				String tempAMPMString = AMPMEditor.getTextField().getText().toUpperCase();
-				System.out.println("Input is " + tempAMPMString);
-				//final String tempAMPMString = editor.getTextField().getText().toUpperCase();
-				System.out.println("Input is " + tempAMPMString);
-				if (!tempAMPMString.equals(tempAMPM) || upArrowAction 
-						== true || downArrowAction == true) {
+		final DateEditor editor = (DateEditor)spinner.getEditor();
+		int currentText = 0;
+
+		//System.out.println(tempAMPMString);
+		switch (type) {
+		case HOUR:
+			currentText = Integer.parseInt(hourEditor.getTextField().getText());
+			if(currentText < 1 || currentText > 12) {
+				hourEditor.getTextField().setText(Integer.toString(tempHour));
+				hourEditor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
+				lblTimeError.setVisible(true);
+			}
+			else {
+				hourEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
+				if(minuteEditor.getTextField().getBackground().equals(
+						CalendarStandard.CalendarYellow)
+						|| AMPMEditor.getTextField().getBackground().equals(
+								CalendarStandard.CalendarYellow)) {
+					lblTimeError.setVisible(false);
+				}
+			}
+			break;
+
+		case MINUTE:
+			currentText = Integer.parseInt(minuteEditor.getTextField().getText());
+			System.out.println("curent text before check" + currentText);
+			System.out.println("curent temp before check" + tempMin);
+			if(currentText < 0 || currentText > 59) {
+				minuteEditor.getTextField().setText(Integer.toString(tempMin));
+				minuteEditor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
+				lblTimeError.setVisible(true);
+			}
+			else {
+				editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
+				if(hourEditor.getTextField().getBackground().equals(
+						CalendarStandard.CalendarYellow)
+						|| AMPMEditor.getTextField().getBackground().equals(
+								CalendarStandard.CalendarYellow)) {
+					lblTimeError.setVisible(false);
+				}
+			}
+			break;
+		case AMPM:
+			final String tempAMPMString = editor.getTextField().getText().toUpperCase();
+			System.out.println("Input is " + tempAMPMString);
+			if (!tempAMPMString.equals(tempAMPM) || upArrowAction 
+					== true || downArrowAction == true) {
 				if(!tempAMPMString.equals("AM") && !tempAMPMString.equals("PM")) {
 					AMPMEditor.getTextField().setText(tempAMPM);
 					AMPMEditor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 					lblTimeError.setVisible(true);
 				}
 				else {
-					AMPMEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-					if(hourEditor.getTextField().getBackground().equals(CalendarStandard.CalendarYellow)
-							|| minuteEditor.getTextField().getBackground().equals(CalendarStandard.CalendarYellow)) {
 					editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 					if(hourEditor.getTextField().getBackground().equals(
 							CalendarStandard.CalendarYellow)
 							|| minuteEditor.getTextField().getBackground().equals(
 									CalendarStandard.CalendarYellow)) {
-					lblTimeError.setVisible(false);
+						lblTimeError.setVisible(false);
 					}
 				}
 				break;
 			}
+		}
 	}
 	
-	/**
-	 */
 	class SpinnerUI extends BasicSpinnerUI  {
 		protected Component createNextButton()  
 		  {  
@@ -1500,7 +1485,7 @@ public class CommitmentTab extends JPanel {
 		    return btnDown;  
 		  }  
 	}
-}}}
 
+}
 
 

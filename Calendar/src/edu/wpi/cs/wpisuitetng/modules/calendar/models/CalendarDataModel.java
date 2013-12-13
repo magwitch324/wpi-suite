@@ -20,7 +20,9 @@ import javax.swing.AbstractListModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddCalendarDataController;
 
 
- /* @author CS Anonymous
+ /**
+  * List of calendar data, team/personal.
+  * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
 public class CalendarDataModel extends AbstractListModel {
