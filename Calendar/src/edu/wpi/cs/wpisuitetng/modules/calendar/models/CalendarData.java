@@ -10,6 +10,10 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import com.google.gson.Gson;
 
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
@@ -138,6 +142,60 @@ public class CalendarData extends AbstractModel {
 	 */
 	public void addRepeatingEvent(RepeatingEvent newEvent){
 		repeatingEvents.add(newEvent);
+	}
+	
+	/**
+	 * Removes all old data
+	 */
+	public void removeYearOld(){
+		GregorianCalendar yearOld = new GregorianCalendar();
+		yearOld.setTime(new Date());
+		yearOld.add(Calendar.YEAR, -1);
+		int i = 0;
+		//remove all events that are a year old
+		while(i < events.getEvents().size()){
+			Event e = events.getEvents().get(i);
+			if(e.getStartTime().before(yearOld)){
+				System.out.println("REMOVING: " + e.getName());
+				events.getEvents().remove(e);
+			}
+			else{
+				break;
+			}
+		}
+		
+		//remove all commitments that are a year old
+		while(i < commitments.getCommitments().size()){
+			Commitment c = commitments.getCommitments().get(i);
+			if(c.getDueDate().before(yearOld)){
+				commitments.getCommitments().remove(c);
+			}
+			else{
+				break;
+			}
+		}
+		
+		//remove all repevents that have the last event older than a year
+		while(i < repeatingEvents.getEvents().size()){
+			RepeatingEvent r = repeatingEvents.getEvents().get(i);
+			GregorianCalendar tmp = new GregorianCalendar();
+			tmp.setTime(r.getStartTime().getTime());
+			switch(r.getRepType().ordinal()){
+			case 0: tmp.add(Calendar.DATE, r.getRepetitions());
+					break;
+			case 1: tmp.add(Calendar.WEEK_OF_YEAR, r.getRepetitions());
+					break;
+			case 2: tmp.add(Calendar.MONTH, r.getRepetitions());
+					break;
+			}
+			if(tmp.before(yearOld)){
+				repeatingEvents.getEvents().remove(r);
+			}
+			else{
+				i++;
+			}
+			
+		}
 	}
 	
 	/**
