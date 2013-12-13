@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+/**
+ * List of commitments that will be used by the gui for display.
+ */
 public class CommitmentList extends CalendarObjectList<Commitment> {
 
 	/**

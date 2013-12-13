@@ -24,7 +24,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons.ButtonsPanel
 
 
 /**
- * A dummy module to demonstrate the Janeway client
+ * Main constructor for the Janeway calendar tab.
  *
  */
 public class Calendar implements IJanewayModule {

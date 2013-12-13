@@ -21,6 +21,12 @@ import java.util.Locale;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 
+/**
+ * Abstract list class that is currently used to
+ * create commitmentlist, combined commitmentlist,
+ * repeatingeventlist,
+ * eventlist, and combined eventlist.
+ */
 public abstract class CalendarObjectList<T extends CalendarObject> {
 
 	protected List<T> calendarObjects;

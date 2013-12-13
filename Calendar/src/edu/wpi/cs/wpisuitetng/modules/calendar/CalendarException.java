@@ -9,6 +9,9 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar;
 
+/**
+ * customized wrapper class to distinguish calendar exception from others.
+ */
 public class CalendarException extends Exception {
 
 	/**

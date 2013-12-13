@@ -16,7 +16,7 @@ import java.util.GregorianCalendar;
 import javax.swing.SpinnerDateModel;
 
 /**
- * SpinnerDateModel Increments time value by 30 minutes
+ * SpinnerDateModel Increments and decrements hour value by 12 to emulate AMPM change
  */
 public class SpinnerDateModelAMPM extends SpinnerDateModel {
 

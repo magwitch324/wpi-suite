@@ -17,6 +17,9 @@ import java.util.List;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatType;
 
+/**
+ * List of repeating events that will be used by the gui for display.
+ */
 public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 
 	/**

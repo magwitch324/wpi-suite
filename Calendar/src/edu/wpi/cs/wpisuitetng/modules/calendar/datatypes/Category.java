@@ -16,7 +16,9 @@ import com.google.gson.Gson;
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 
-
+/**
+ * Category is used for filtering events and commitments.
+ */
 public class Category extends AbstractModel implements Comparator<Category>{
 
 	/** the ID of the category */

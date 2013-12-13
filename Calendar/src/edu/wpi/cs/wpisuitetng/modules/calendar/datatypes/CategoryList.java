@@ -18,6 +18,10 @@ import java.util.List;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
 
+/**
+ * List of category is design for the users to
+ * be able to create their own category.
+ */
 public class CategoryList {
 
 	/**

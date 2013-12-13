@@ -13,6 +13,10 @@ import com.google.gson.Gson;
 
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 
+/**
+ * Abstract data container class that currently is used to
+ * be extended to commitment class and event class.
+ */
 public abstract class CalendarObject extends AbstractModel {
 
 	/** the Name of the CalendarObject */
