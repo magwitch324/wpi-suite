@@ -32,9 +32,12 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 
 
 @SuppressWarnings("serial")
@@ -44,6 +47,7 @@ public abstract class CalendarView extends JSplitPane {
 	protected CommitmentView commitmentView;
 	private String dateRange;
 	public boolean showAllCommFlag;
+	private CalendarProps calProps;
 	
 	/**
 	 * Constructor
@@ -67,6 +71,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * @return
 	 */
 	private JPanel makeRightView() {
+		
 		final JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
@@ -97,6 +102,7 @@ public abstract class CalendarView extends JSplitPane {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				showAllCommFlag = false;
+				calProps.setShowAllComm(false);
 				GUIEventController.getInstance().getSelectedCalendar().updateCommPane();
 			}
 			
@@ -116,7 +122,8 @@ public abstract class CalendarView extends JSplitPane {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				showAllCommFlag = true;
-				GUIEventController.getInstance().getSelectedCalendar().updateCommPane();
+				calProps.setShowAllComm(true);
+				GUIEventController.getInstance().updateCommPane();
 			}
 			
 		});
@@ -205,5 +212,12 @@ public abstract class CalendarView extends JSplitPane {
 	}
 
 	abstract public void updateCommPane(CommitmentList commList, boolean showCommOnCal);
+	
+	public void applyCalProps(CalendarProps calProps){
+		this.calProps = calProps;
+		showAllCommFlag = calProps.getShowAllComm();
+		GUIEventController.getInstance().updateCommPane();
+		
+	}
 	
 }
