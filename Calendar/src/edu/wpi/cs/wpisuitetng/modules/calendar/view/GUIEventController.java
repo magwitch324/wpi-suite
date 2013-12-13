@@ -175,15 +175,15 @@ public class GUIEventController {
 			openedFrom = 0;
 		}
 		final CommitmentTab newCommit = new CommitmentTab(openedFrom);
-		final CommitmentTab2 newCommit2 = new CommitmentTab2(openedFrom);
+//		final CommitmentTab2 newCommit2 = new CommitmentTab2(openedFrom);
 		try {
 			final Image img = ImageIO.read(getClass().getResource("NewCommitment_Icon.png"));
 			main.addTab("New Commitment", new ImageIcon(img), newCommit);
-			main.addTab("New Commitment2", new ImageIcon(img), newCommit2);
+//			main.addTab("New Commitment2", new ImageIcon(img), newCommit2);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
 			main.addTab("New Commitment", new ImageIcon(), newCommit);
-			main.addTab("New Commitment2", new ImageIcon(), newCommit2);
+//			main.addTab("New Commitment2", new ImageIcon(), newCommit2);
 		}
 		//		main.addTab("New Commitment", null, newCommit, "New Commitment");
 		//		newCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
