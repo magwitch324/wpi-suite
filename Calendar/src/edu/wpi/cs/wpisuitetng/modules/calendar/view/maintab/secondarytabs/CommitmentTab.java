@@ -401,7 +401,7 @@ public class CommitmentTab extends JPanel {
 		//Create category box, add two dummy categories
 		categoryComboBox = new JComboBox<Category>();
 		categoryComboBox.setBackground(CalendarStandard.CalendarYellow);
-
+		
 		final GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
 		gbc_categoryComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_categoryComboBox.insets = new Insets(0, 0, 5, 0);
