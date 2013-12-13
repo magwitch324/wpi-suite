@@ -771,7 +771,7 @@ public class EventTab extends JPanel {
 		//Add Cancel button
 
 		try {
-			Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
 			btnCancel = new JButton("Cancel", new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
