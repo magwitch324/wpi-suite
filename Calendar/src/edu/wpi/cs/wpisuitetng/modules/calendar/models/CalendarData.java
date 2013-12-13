@@ -120,7 +120,7 @@ public class CalendarData extends AbstractModel {
 	 * @param category
 	 */
 	public void addCategory(Category newCategory){
-		//TODO add correct call
+		categories.add(newCategory);
 	}
 	
 	/**
