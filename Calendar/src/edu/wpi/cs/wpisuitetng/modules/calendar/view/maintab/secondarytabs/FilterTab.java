@@ -88,6 +88,8 @@ public class FilterTab {
 	private boolean initFlag;
 	private JScrollPane scrollPane;
 	private Component categoryList;
+	private JScrollPane inactiveFilterPane;
+	private JScrollPane activeFilterPane;
 
 	private enum EditingMode {
 		VIEWING(0),
@@ -105,10 +107,10 @@ public class FilterTab {
 		this.openedFrom = openedFrom;
 		initFlag = false;
 		final GridBagLayout gbl = new GridBagLayout();
-		gbl.rowWeights = new double[]{0.0, 0.0, 1.0, 1.0};
-		gbl.columnWeights = new double[]{0.0, 1.0};
-		gbl.rowHeights = new int[] {0, 0, 0, 0};
-		gbl.columnWidths = new int[] {0, 0};
+		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0};
+		gbl.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0};
+		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl.columnWidths = new int[] {0, 272, 0, 0};
 		
 		formPanel = new JPanel();
 		formPanel.setBackground(Color.WHITE);
@@ -122,6 +124,7 @@ public class FilterTab {
 		addEditableElementsListeners();*/
 		addButtonPanel();	
 		addCategoryList();
+		editingMode();
 		initFlag = true;
 		}
 	
@@ -130,10 +133,11 @@ public class FilterTab {
 		buttonPanel = new JPanel(new BorderLayout(30,0));
 		buttonPanel.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_btnPanel = new GridBagConstraints();
+		gbc_btnPanel.insets = new Insets(0, 0, 0, 5);
 		gbc_btnPanel.gridwidth = 2;
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
 		gbc_btnPanel.gridx = 1;
-		gbc_btnPanel.gridy = 4;
+		gbc_btnPanel.gridy = 9;
 		
 		//New Filter button
 		try {
@@ -144,14 +148,6 @@ public class FilterTab {
 			btnCancel.setText("New Filter");
 		}
 
-		/*btnNewFilter.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
-		btnNewFilter.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				newFilter();
-			}
-		});*/
-
 		//Add Edit button
 		try {
 			Image img = ImageIO.read(getClass().getResource("Edit_Icon.png"));
@@ -160,15 +156,7 @@ public class FilterTab {
 		catch(IllegalArgumentException ex){
 		btnCancel.setText("Edit");
 		}
-	
-		/*btnEdit.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
-		btnEdit.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				removeTabCancel();
-			}
-		});*/
-	
+		
 		// Add Delete Button
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
@@ -177,17 +165,7 @@ public class FilterTab {
 		catch(IllegalArgumentException ex){
 			btnDelete.setText("Delete Filter");
 		}
-	
-		/*btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
-		btnDelete.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				deleteFilter();
-			}	
-		});*/
-		
-		//addEditableElementsListeners();
-	
+			
 		buttonPanel.add(btnNewFilter, BorderLayout.WEST);
 		buttonPanel.add(btnEdit, BorderLayout.CENTER);
 		buttonPanel.add(btnDelete, BorderLayout.LINE_END);
@@ -202,22 +180,45 @@ public class FilterTab {
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridheight = 2;
+		gbc_scrollPane.gridheight = 6;
 		gbc_scrollPane.gridx = 1;
 		gbc_scrollPane.gridy = 2;
 		formPanel.add(scrollPane, gbc_scrollPane);
 	}
-		/**
-		 * Close this filter tab
-		 */
-		/*protected void removeTab(int goTo) {
-			GUIEventController.getInstance().removeFilterTab(this, goTo);
-		}
-		/**
-		 * Close this filter tab when cancel is hit
-		 */
-		/*protected void removeTabCancel() {
-			GUIEventController.getInstance().removeFilterTab(this, openedFrom);
-		}*/
 	
+	public void editingMode(){
+		JButton makeNewFilter = new JButton();
+		makeNewFilter.setText("New Filter");
+		GridBagConstraints gbc_newFilter = new GridBagConstraints();
+		gbc_newFilter.insets = new Insets(0, 0, 5, 5);
+		gbc_newFilter.fill = GridBagConstraints.CENTER;
+		gbc_newFilter.gridx = 2;
+		gbc_newFilter.gridy = 1;
+		formPanel.add(makeNewFilter, gbc_newFilter);
+		
+		JTextField filterName = new JTextField();
+		GridBagConstraints gbc_filterName = new GridBagConstraints();
+		gbc_filterName.insets = new Insets(0, 0, 5, 5);
+		gbc_filterName.fill = GridBagConstraints.BOTH;
+		gbc_filterName.gridx = 2;
+		gbc_filterName.gridy = 3;
+		formPanel.add(filterName, gbc_filterName);
+		
+		inactiveFilterPane = new JScrollPane();
+		GridBagConstraints gbc_inactiveFilter = new GridBagConstraints();
+		gbc_inactiveFilter.insets = new Insets(0, 0, 5, 5);
+		gbc_inactiveFilter.fill = GridBagConstraints.BOTH;
+		gbc_inactiveFilter.gridx = 2;
+		gbc_inactiveFilter.gridy = 5;
+		formPanel.add(inactiveFilterPane, gbc_inactiveFilter);
+		
+		activeFilterPane = new JScrollPane();
+		GridBagConstraints gbc_activeFilter = new GridBagConstraints();
+		gbc_activeFilter.insets = new Insets(0, 0, 5, 5);
+		gbc_activeFilter.fill = GridBagConstraints.BOTH;
+		gbc_activeFilter.gridx = 2;
+		gbc_activeFilter.gridy = 7;
+		formPanel.add(activeFilterPane, gbc_activeFilter);
+	}
+
 }
