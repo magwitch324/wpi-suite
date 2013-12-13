@@ -13,11 +13,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
-
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+/**
+ * List of category is design for the users to
+ * be able to create their own category.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
 public class CategoryList {
 
 	/**
