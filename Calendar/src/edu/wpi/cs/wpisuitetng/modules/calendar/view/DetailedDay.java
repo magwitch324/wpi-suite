@@ -102,7 +102,7 @@ public class DetailedDay extends JPanel {
 		for(int i = 0; i < 48; i++){
 			halfhourmarks[i] = new JSeparator();
 			Color col;
-			if(i%2==0){
+			if(i % 2 == 0){
 				col = Color.BLACK;
 			}
 			else{
@@ -117,7 +117,7 @@ public class DetailedDay extends JPanel {
 	
 	protected void didResize(){
 		
-		int x = (int)(((this.getSize().getWidth())*0.01)*((this.getSize().getWidth())*0.01));
+		int x = (int)(((this.getSize().getWidth()) * 0.01) * ((this.getSize().getWidth()) * 0.01));
 		x = x > 5 ? x : 5;
 		x = x < 15 ? x : 15;
 		layout.putConstraint(SpringLayout.WEST, halfhourmarks[0], x, SpringLayout.WEST, this);
@@ -125,10 +125,10 @@ public class DetailedDay extends JPanel {
 		
 		for(int i = 1; i < 48; i++){
 			int val = x;
-			if(i%2==1)
+			if(i % 2 == 1)
 				val*=2;
 			layout.putConstraint(SpringLayout.VERTICAL_CENTER, halfhourmarks[i], 
-								(int)((this.getSize().getHeight())*i/48.0),
+								(int)((this.getSize().getHeight()) * i / 48.0),
 								SpringLayout.NORTH, this);
 			layout.putConstraint(SpringLayout.WEST, halfhourmarks[i], val, SpringLayout.WEST, this);
 			layout.putConstraint(SpringLayout.EAST, halfhourmarks[i], -val, SpringLayout.EAST, this);

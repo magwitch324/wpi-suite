@@ -156,7 +156,7 @@ public class WeekPane extends JPanel implements ICalPane {
     		public void componentResized(ComponentEvent e){
     			int touse = 0;
     			do{
-				    for(int i = 0; i<7; i++){
+				    for(int i = 0; i < 7; i++){
 				    	labels[i].setText(weekdays[touse][i]);
 				    }
 				    touse++;

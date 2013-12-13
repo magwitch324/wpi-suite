@@ -168,7 +168,7 @@ public class CommitmentFullView extends JPanel{
 	/*commit panel is populated with all events which are in separate panels that can be scrolled and clicked*/
 	private void setupPanels() {
 		commitPanel.setLayout(new BoxLayout(commitPanel, BoxLayout.Y_AXIS));
-		commitPanel.setBorder(new EmptyBorder(5, 5, 10 , 5));
+		commitPanel.setBorder(new EmptyBorder(5, 5, 10, 5));
 		commitPanel.setBackground(Color.WHITE);
 
 		header.removeAll();
@@ -531,9 +531,9 @@ public class CommitmentFullView extends JPanel{
 			SimpleDateFormat df = new SimpleDateFormat();
 			df.applyPattern("EEEE, MMMM d, y - hh:mm a");
 			
-			JLabel date = new JLabel(""+df.format(commitmentList.get(i).getDueDate().getTime()), JLabel.LEFT);
+			JLabel date = new JLabel("" + df.format(commitmentList.get(i).getDueDate().getTime()), JLabel.LEFT);
 			date.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
-			JLabel description = new JLabel("<HTML>"+ commitmentList.get(i).getDescription()+"</HTML>",JLabel.LEFT);
+			JLabel description = new JLabel("<HTML>" + commitmentList.get(i).getDescription() + "</HTML>", JLabel.LEFT);
 			description.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 			JLabel status = new JLabel(Status.convertToString(commitmentList.get(i).getStatus().id), JLabel.LEFT);
 			status.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));

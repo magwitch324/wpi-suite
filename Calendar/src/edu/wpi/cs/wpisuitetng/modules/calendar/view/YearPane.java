@@ -93,7 +93,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 			    		break;
 			    	}
 		    	}
-	    		height = 12/width;
+	    		height = 12 / width;
 	    		final GridLayout layout = (GridLayout)mainview.getLayout();
 	    		layout.setColumns(width);
 	    		layout.setRows(height);
@@ -231,7 +231,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 			
 			//sets the proffered size based on all the children
 			int height = 0;
-			height += daypanes[0].getPreferredSize().getHeight()*6;
+			height += daypanes[0].getPreferredSize().getHeight() * 6;
 			height += names.getPreferredSize().getHeight();
 			height += monthlbl.getPreferredSize().getHeight();
 			height += extra_height;
@@ -257,7 +257,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 				lbl.setBackground(defaultbackground);
 				apane.add(lbl);
 			}
-			apane.setPreferredSize(new Dimension((int)width*9, (int)lbl.getPreferredSize().getHeight()));
+			apane.setPreferredSize(new Dimension((int)width * 9, (int)lbl.getPreferredSize().getHeight()));
 			apane.setBackground(defaultbackground);
 			return apane;
 		}
@@ -432,9 +432,9 @@ public class YearPane extends JScrollPane implements ICalPane{
 					step = (int)steps;
 				}
 				final int red, green, blue;
-				red = (int)((higher.getRed() - lower.getRed()) *(step/steps) + lower.getRed());
-				green = (int)((higher.getGreen() - lower.getGreen()) *(step/steps) + lower.getGreen());
-				blue = (int)((higher.getBlue() - lower.getBlue()) *(step/steps) + lower.getBlue());
+				red = (int)((higher.getRed() - lower.getRed()) * (step / steps) + lower.getRed());
+				green = (int)((higher.getGreen() - lower.getGreen()) * (step / steps) + lower.getGreen());
+				blue = (int)((higher.getBlue() - lower.getBlue()) * (step / steps) + lower.getBlue());
 				
 				return new Color(red, green, blue);
 			}

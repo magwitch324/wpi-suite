@@ -248,7 +248,7 @@ public class CalendarObjectPanel extends JPanel {
 	public void refreshSize(){
 		final double par_width = parent.getSize().getWidth();
 		final double par_height = parent.getSize().getHeight();
-		final Dimension new_size = new Dimension((int)((par_width-3*columnwidth - 3)/columnwidth * columnspanned), (int)(par_height* this.getRatioDifference()));
+		final Dimension new_size = new Dimension((int)((par_width - 3 * columnwidth - 3) / columnwidth * columnspanned), (int)(par_height * this.getRatioDifference()));
 		this.setPreferredSize(new_size);
 	}
 	

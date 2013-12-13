@@ -1026,7 +1026,7 @@ public class CommitmentTab extends JPanel {
 		}
 		for(Commitment comm: calData.getCommitments().getCommitments())
 		{
-			System.out.println("Commitment name: " + comm.getName()+", id: "+ comm.getID());
+			System.out.println("Commitment name: " + comm.getName() + ", id: " + comm.getID());
 		}
 		Commitment newComm;
 		if(mode == EditingMode.ADDING)

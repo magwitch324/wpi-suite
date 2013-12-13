@@ -134,7 +134,7 @@ public class DayDayPane extends JPanel {
 			halfhourmarks[i] = new JSeparator();
 			
 			Color col;
-			if(i%2==0){
+			if(i % 2 == 0){
 				col = Color.BLACK;
 				layout.putConstraint(SpringLayout.WEST, halfhourmarks[i], 5, SpringLayout.WEST, this);
 				layout.putConstraint(SpringLayout.EAST, halfhourmarks[i], -5, SpringLayout.EAST, this);
@@ -163,7 +163,7 @@ public class DayDayPane extends JPanel {
 		final SpringLayout layout = (SpringLayout)this.getLayout();
 		for(int i = 1; i < 49; i++){
 			layout.putConstraint(SpringLayout.VERTICAL_CENTER, halfhourmarks[i], 
-								(int)((this.getSize().getHeight())*i/48.0),
+								(int)((this.getSize().getHeight()) * i / 48.0),
 								SpringLayout.NORTH, this);
 		}
 	}
@@ -297,7 +297,7 @@ public class DayDayPane extends JPanel {
 		int max = 0;
 		//Calculate width to the value
 		try{
-			for(CalendarObjectPanel obj :displayobjects.get(column_index+value)){
+			for(CalendarObjectPanel obj :displayobjects.get(column_index + value)){
 				if(obj.doesConflict(cop)){
 					width = 1;
 					int temp = getWidth(column_index + value, obj, value);
@@ -324,7 +324,7 @@ public class DayDayPane extends JPanel {
 			for(CalendarObjectPanel obj : displayobjects.get(i)){
 				if(obj.doesConflict(cop)){
 					if(max_width < obj.getColumnWidth()){
-						span = i-column_index;
+						span = i - column_index;
 						max_width = obj.getColumnWidth();
 						cop.setColumnWidth(obj.getColumnWidth());
 					}

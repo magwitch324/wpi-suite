@@ -19,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JViewport;
 import javax.swing.SpringLayout;
-import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
@@ -85,8 +84,8 @@ public class HourDisplayPort extends JViewport {
 			max = labels[i].getPreferredSize().width > max ? labels[i].getPreferredSize().width : max;
 		}
 		
-		mainpanel.setPreferredSize(new Dimension(max+5, (int)height));
-		mainpanel.setSize(new Dimension(max+5, (int)height));
+		mainpanel.setPreferredSize(new Dimension(max + 5, (int)height));
+		mainpanel.setSize(new Dimension(max + 5, (int)height));
 	}
 	
 }

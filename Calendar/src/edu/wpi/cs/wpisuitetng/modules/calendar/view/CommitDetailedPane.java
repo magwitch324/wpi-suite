@@ -90,7 +90,7 @@ public class CommitDetailedPane extends JPanel {
 			{
 				Calendar cal = new GregorianCalendar();
 				cal.setTime(comm.getDueDate().getTime());
-				int pos = cal.get(Calendar.HOUR_OF_DAY)*2;
+				int pos = cal.get(Calendar.HOUR_OF_DAY) * 2;
 				pos += (cal.get(Calendar.MINUTE) == 30) ? 1 : 0;
 				if (halfBlocks[pos] == null)
 					halfBlocks[pos] = new HalfHourBlock(pos);
@@ -98,12 +98,12 @@ public class CommitDetailedPane extends JPanel {
 			}
 			
 		for( int i = 0; i < 48; i ++){
-			if(halfBlocks[i]!=null)
+			if(halfBlocks[i] != null)
 			{
 				layout.putConstraint(SpringLayout.WEST, halfBlocks[i], 0, SpringLayout.WEST, this);
 				layout.putConstraint(SpringLayout.EAST, halfBlocks[i], 0, SpringLayout.EAST, this);
-				layout.putConstraint(SpringLayout.NORTH, halfBlocks[i], (int)(y/48.0*i) + 1, SpringLayout.NORTH, this);
-				layout.putConstraint(SpringLayout.SOUTH, halfBlocks[i], (int)(y/48.0*(i+1)) - 1, SpringLayout.NORTH, this);
+				layout.putConstraint(SpringLayout.NORTH, halfBlocks[i], (int)(y / 48.0 * i) + 1, SpringLayout.NORTH, this);
+				layout.putConstraint(SpringLayout.SOUTH, halfBlocks[i], (int)(y / 48.0 * (i + 1)) - 1, SpringLayout.NORTH, this);
 				this.add(halfBlocks[i]);
 			}
 		}

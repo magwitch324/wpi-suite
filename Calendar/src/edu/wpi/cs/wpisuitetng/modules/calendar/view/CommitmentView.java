@@ -149,17 +149,17 @@ public class CommitmentView extends JPanel {
 				Commitment comm = commitmentList.get(i);
 				
 //				JLabel tag = new JLabel(commitmentList.get(i).getIsPersonal() ? "[Personal]" : "[Team]");
-				JLabel name = new JLabel("Name: "+ comm.getName());
+				JLabel name = new JLabel("Name: " + comm.getName());
 				
 				// Setting up date string
 				SimpleDateFormat df = new SimpleDateFormat();
 				df.applyPattern("EEEE, MMMM d, y");
 				
 				// Date
-				JLabel date = new JLabel("Due Date: "+ df.format(comm.getDueDate().getTime()));
+				JLabel date = new JLabel("Due Date: " + df.format(comm.getDueDate().getTime()));
 				
 				// Description and status 
-				JLabel description = new JLabel("<HTML>Description: "+ comm.getDescription()+"</HTML>");
+				JLabel description = new JLabel("<HTML>Description: " + comm.getDescription() + "</HTML>");
 				JLabel status = new JLabel("Status: " + Status.convertToString(comm.getStatus().id));
 				
 				// Setting up time string
@@ -167,7 +167,7 @@ public class CommitmentView extends JPanel {
 				tm.applyPattern("hh:mm a");
 				
 				// Get time
-				JLabel time = new JLabel("Due Time: "+ tm.format(comm.getDueDate().getTime()));
+				JLabel time = new JLabel("Due Time: " + tm.format(comm.getDueDate().getTime()));
 
 				commitmentPanel.setLayout(new GridBagLayout());
 				GridBagConstraints c = new GridBagConstraints();
@@ -182,7 +182,7 @@ public class CommitmentView extends JPanel {
 				commitmentPanel.add(description, c);
 				commitmentPanel.add(status, c);
 				//  description.setMaximumSize(new Dimension(285,300));
-				commitmentPanel.setBorder(new EmptyBorder(10, 5, 10 , 20));
+				commitmentPanel.setBorder(new EmptyBorder(10, 5, 10, 20));
 				commitmentPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over the commitment
 				// commitmentPanel.setPreferredSize(new Dimension(280,300));
 				// commitmentPanel.setMinimumSize(new Dimension(290, 400));
@@ -205,7 +205,7 @@ public class CommitmentView extends JPanel {
 				commPanelList.add(n, commitmentPanel);
 				commitmentPanel.setMaximumSize(new Dimension(2000, 100));
 				if(n > 0)
-					commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 1, SpringLayout.SOUTH, commPanelList.get(n-1));
+					commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 1, SpringLayout.SOUTH, commPanelList.get(n - 1));
 				else
 					commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 0, SpringLayout.NORTH, commitPanel);
 
