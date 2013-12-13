@@ -9,12 +9,14 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
 
 import javax.swing.SpringLayout;
 import javax.swing.JTree;
@@ -31,8 +33,10 @@ import javax.swing.Box;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.io.IOException;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JRadioButton;
 import javax.swing.BoxLayout;
 import javax.swing.AbstractListModel;
@@ -102,14 +106,51 @@ public class CategoryTab extends JPanel {
 		Box horizontalBox_1 = Box.createHorizontalBox();
 		panel.add(horizontalBox_1);
 		
-		JButton btnDelete = new JButton("Delete");
-		horizontalBox_1.add(btnDelete);
+		//New Filter button
+		JButton btnNew = new JButton();
+		try {
+			final Image img = ImageIO.read(getClass().getResource("New_Icon.png"));
+			btnNew = new JButton("New Category", new ImageIcon(img));
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			btnNew.setText("New Category");
+		}
 		
-		JButton btnEdit = new JButton("Edit");
+		horizontalBox_1.add(btnNew);
+
+		//Add Edit button
+		JButton btnEdit = new JButton();
+		try {
+			Image img = ImageIO.read(getClass().getResource("Edit_Icon.png"));
+			btnEdit = new JButton("Edit Category", new ImageIcon(img));
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			btnEdit.setText("Edit Category");
+		}
+		
 		horizontalBox_1.add(btnEdit);
 		
-		JButton btnNew = new JButton("New");
-		horizontalBox_1.add(btnNew);
+		// Add Delete Button
+		JButton btnDelete = new JButton();
+		try {
+			final Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
+			btnDelete = new JButton("Delete Category", new ImageIcon(img));
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			btnDelete.setText("Delete Category");
+		}
+		
+		horizontalBox_1.add(btnDelete);
+		
+		
+//		JButton btnDelete = new JButton("Delete");
+//		horizontalBox_1.add(btnDelete);
+//		
+//		JButton btnEdit = new JButton("Edit");
+//		horizontalBox_1.add(btnEdit);
+//		
+//		JButton btnNew = new JButton("New");
+//		horizontalBox_1.add(btnNew);
 		
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();

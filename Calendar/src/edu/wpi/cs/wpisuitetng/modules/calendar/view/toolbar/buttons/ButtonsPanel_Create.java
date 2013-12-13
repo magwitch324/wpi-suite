@@ -157,8 +157,6 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		manageCategoryButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// bring up a create requirement pane if not in Multiple Requirement Editing Mode
-				//if (!ViewEventController.getInstance().getOverviewTable().getEditFlag()) {
 					GUIEventController.getInstance().createManageCategories();
 			//	}
 			}
@@ -173,15 +171,13 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	    manageFilterButton.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 		manageFilterButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
 		// the action listener for the Manage Filter Button
-//		manageFilterButton.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// bring up a create requirement pane if not in Multiple Requirement Editing Mode
-//				//if (!ViewEventController.getInstance().getOverviewTable().getEditFlag()) {
-//					GUIEventController.getInstance().manageFilters();
-//			//	}
-//			}
-//		});	
+		manageFilterButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+					GUIEventController.getInstance().createManageFilters();
+			//	}
+			}
+		});	
 		
 		
 		
@@ -216,17 +212,4 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		
 		this.add(contentPanel);
 	}
-	
-//	/**
-//	 * Method getCreateCommitButton.
-//	
-//	 * @return JButton */
-//	public JButton getCreateCommitButton() {
-//		return createCommitButton;
-//	}
-//
-//	/**
-//	 * Method getCreateEventButton.
-//	
-//	 * @return JButton */
 }

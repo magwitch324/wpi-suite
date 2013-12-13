@@ -75,7 +75,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 import javax.swing.JScrollPane;
 
-public class FilterTab {
+public class FilterTab extends JPanel{
 
 	private int openedFrom;
 	private JPanel buttonPanel;
@@ -151,10 +151,10 @@ public class FilterTab {
 		//Add Edit button
 		try {
 			Image img = ImageIO.read(getClass().getResource("Edit_Icon.png"));
-			btnEdit = new JButton("Edit", new ImageIcon(img));
+			btnEdit = new JButton("Edit Filter", new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-		btnCancel.setText("Edit");
+		btnCancel.setText("Edit Filter");
 		}
 		
 		// Add Delete Button

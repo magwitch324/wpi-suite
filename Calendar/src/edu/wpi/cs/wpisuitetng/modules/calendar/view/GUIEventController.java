@@ -27,7 +27,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CategoryTab;
-//import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.FilterTab;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.FilterTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab2;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.EventTab;
@@ -282,25 +282,25 @@ public class GUIEventController {
 
 	
 	
-	// Creates manage filters tab
-//	public void createManageFilters() {
-//		int openedFrom = main.getSelectedIndex();
-//		if (openedFrom > 2){
-//			openedFrom = 0;
-//		}
-//		final FilterTab newFilter = new FilterTab();
-//		try {
-//			final Image img = ImageIO.read(getClass().getResource("ManageFilter_Icon.png"));
-//			main.addTab("Manage Filters", new ImageIcon(img), newFilter);
-//		} catch (IOException ex) {}
-//		catch(IllegalArgumentException ex){
-//			main.addTab("Manage Filters", new ImageIcon(), newFilter);
-//		}
-//		
-//		main.invalidate(); //force the tabbedpane to redraw.
-//		main.repaint();
-//		main.setSelectedComponent(newFilter);
-//	}
+//	 Creates manage filters tab
+	public void createManageFilters() {
+		int openedFrom = main.getSelectedIndex();
+		if (openedFrom > 2){
+			openedFrom = 0;
+		}
+		final FilterTab newFilter = new FilterTab(openedFrom);
+		try {
+			final Image img = ImageIO.read(getClass().getResource("ManageFilter_Icon.png"));
+			main.addTab("Manage Filters", new ImageIcon(img), newFilter);
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			main.addTab("Manage Filters", new ImageIcon(), newFilter);
+		}
+		
+		main.invalidate(); //force the tabbedpane to redraw.
+		main.repaint();
+		main.setSelectedComponent(newFilter);
+	}
 
 
 	public void switchView(GregorianCalendar acal, AbCalendar.types switchtype){
