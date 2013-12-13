@@ -95,6 +95,8 @@ public abstract class AbCalendar extends JPanel {
 
 
 	abstract void drawThis();
+	
+	abstract JComponent getDataDisplayPanel();
 
 	protected JComponent getViewButtonPanel(){
 		final JPanel apane = new JPanel();
@@ -333,52 +335,6 @@ public abstract class AbCalendar extends JPanel {
 		apane.add(forwardbutton);
 		return apane;
 	}
-
-
-	// Adds create new commitment button
-	//	protected JComponent ButtonsPanelCreate(){
-	//		JPanel apane = new JPanel();
-	//		apane.setBackground(Color.WHITE);
-	//		
-	//		//apane.setLayout(new BoxLayout(apane, BoxLayout.X_AXIS));
-	//		//this.setPreferredWidth(1200);
-	//		
-	//		JButton createCommitButton= new JButton();
-	//		createCommitButton.setBackground(Color.WHITE);
-	//		createCommitButton.setFont(CalendarStandard.CalendarFont);
-	//		createCommitButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
-	//		//createCommitButton.setPreferredSize(new Dimension(400, 800));
-	//		//createCommitButton.setHorizontalAlignment(SwingConstants.CENTER);
-	//		
-	//		try {
-	//			Image img = ImageIO.read(getClass().getResource("AddCommitment_Icon.png"));
-	//		    createCommitButton.setIcon(new ImageIcon(img));
-	//		    createCommitButton.setBorder(BorderFactory.createEmptyBorder());
-	//		    createCommitButton.setContentAreaFilled(false);
-	//		    
-	//		} catch (IOException ex) {}
-	//		catch(IllegalArgumentException ex){
-	//			createCommitButton.setIcon(new ImageIcon());
-	//			createCommitButton.setText("Commitment");
-	//		}
-	//		
-	//		// the action listener for the Create Requirement Button
-	//		createCommitButton.addActionListener(new ActionListener() {
-	//			@Override
-	//			public void actionPerformed(ActionEvent e) {
-	//				// bring up a create requirement pane if not in Multiple Requirement Editing Mode
-	//				//if (!ViewEventController.getInstance().getOverviewTable().getEditFlag()) {
-	//					GUIEventController.getInstance().createCommitment();
-	//			//	}
-	//			}
-	//		});		
-	//		
-	//		//createCommitButton.setBorder(new EmptyBorder(0, 0, 0, 15));
-	//		//contentPanel.setOpaque(false);
-	//		
-	//		apane.add(createCommitButton);
-	//		return apane;
-	//	}
 
 	public JComponent getComponent() {
 		return this; 
