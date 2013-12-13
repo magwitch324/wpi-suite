@@ -23,7 +23,13 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.SwingConstants;
 import javax.swing.BoxLayout;
+import java.awt.GridLayout;
 
+/**
+ * Custom JPanel for each category in the category list
+ * within CategoryTab
+ *
+ */
 public class CategoryPanel extends JPanel {
 
 	private Category category;
@@ -36,33 +42,27 @@ public class CategoryPanel extends JPanel {
 		setBackground(CalendarStandard.CalendarYellow);
 		Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 		setBorder(loweredbevel);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] {};
-		gridBagLayout.rowHeights = new int[]{0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0};
-		gridBagLayout.rowWeights = new double[]{1.0, Double.MIN_VALUE};
-		setLayout(gridBagLayout);
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
 		Box horizontalBox = Box.createHorizontalBox();
-		GridBagConstraints gbc_horizontalBox = new GridBagConstraints();
-		gbc_horizontalBox.gridx = 0;
-		gbc_horizontalBox.gridy = 0;
-		add(horizontalBox, gbc_horizontalBox);
+		add(horizontalBox);
 		
 		colorBox = new JPanel();
+		colorBox.setMaximumSize(new Dimension(20, 32767));
 		horizontalBox.add(colorBox);
 		colorBox.setBackground(Color.RED);
 		
 		Component horizontalStrut = Box.createHorizontalStrut(12);
 		colorBox.add(horizontalStrut);
-		
-		Component horizontalStrut_1 = Box.createHorizontalStrut(8);
-		horizontalBox.add(horizontalStrut_1);
 		JPanel panel_1 = new JPanel();
+		panel_1.setPreferredSize(new Dimension(100, 10));
 		panel_1.setOpaque(false);
 		horizontalBox.add(panel_1);
-		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
+		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
 		lblCategoryName = new JLabel();
+		lblCategoryName.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblCategoryName.setHorizontalAlignment(SwingConstants.CENTER);
+		
 		panel_1.add(lblCategoryName);
 		lblCategoryName.setFont(CalendarStandard.CalendarFontBold);
 		// TODO Auto-generated constructor stub

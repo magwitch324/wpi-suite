@@ -81,8 +81,8 @@ public class CategoryTab extends JPanel {
 	public CategoryTab() {
 		
 		createBaseUI();
-//		setupAddEditView();
-		setupViewingView();
+		
+		//Load category lists from CalendarDataModel
 		teamCategories = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()).getCategories();
 		personalCategories = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName() + "-"
@@ -91,15 +91,17 @@ public class CategoryTab extends JPanel {
 		populateCategoryList();
 		addListeners();
 		
-		//load right pane
-		
-		
+		//initialize in "viewing" mode
+		setupViewingView();
 		
 	}
 
 
 
 
+	/**
+	 * Instantiate components of UI
+	 */
 	private void createBaseUI() {
 		
 		
@@ -154,14 +156,17 @@ public class CategoryTab extends JPanel {
 		
 		horizontalBox_1.add(btnNew);
 		
-		viewPanelStrut = Box.createHorizontalStrut(300);
-		viewPanelStrut.setMaximumSize(new Dimension(300, 0));
+		viewPanelStrut = Box.createHorizontalStrut(600);
+		viewPanelStrut.setMaximumSize(new Dimension(600, 0));
 		viewPanel.add(viewPanelStrut);
 		
 		addEditPanel = new JPanel();
 		addEditPanel.setLayout(new GridLayout(0, 1, 0, 0));
 	}
 	
+	/**
+	 * Populate the list of categories with data from team and personal category lists
+	 */
 	private void populateCategoryList() {
 		
 		List<Category> catList = new ArrayList<Category>();
@@ -210,6 +215,9 @@ public class CategoryTab extends JPanel {
 	}
 	
 
+	/**
+	 * Add event handlers to GUI components
+	 */
 	private void addListeners() {
 		// TODO Auto-generated method stub
 		btnNew.addActionListener(new ActionListener() {
@@ -219,6 +227,10 @@ public class CategoryTab extends JPanel {
 		});
 	}
 	
+	/**
+	 * Setup the Adding view, where a user will create a new Category and save it.
+	 * The category list will still be visible on the left
+	 */
 	void setupAddView()
 	{
 		mode = CategoryMode.ADDING;
@@ -244,11 +256,18 @@ public class CategoryTab extends JPanel {
 		add(addEditPanel, gbc_addEditPanel);
 		
 		//set size of view panel
-		viewPanelStrut.setMaximumSize(new Dimension(300, 0));
+		viewPanel.remove(viewPanelStrut);
+		viewPanelStrut = Box.createHorizontalStrut(400);
+		viewPanelStrut.setMaximumSize(new Dimension(400, 0));
+		viewPanel.add(viewPanelStrut);
 
 		
 	}
 	
+	/**
+	 * Set up the view for "viewing" mode, where the user can browse and
+	 * interact with the list of categories
+	 */
 	void setupViewingView()
 	{
 		mode = CategoryMode.VIEWING;
@@ -268,8 +287,10 @@ public class CategoryTab extends JPanel {
 		add(viewPanel, gbc_viewPanel);
 
 		//set size of view panel
-		viewPanelStrut.setMaximumSize(new Dimension(500, 0));
-		
+		viewPanel.remove(viewPanelStrut);
+		viewPanelStrut = Box.createHorizontalStrut(600);
+		viewPanelStrut.setMaximumSize(new Dimension(600, 0));
+		viewPanel.add(viewPanelStrut);
 		
 	}
 	
