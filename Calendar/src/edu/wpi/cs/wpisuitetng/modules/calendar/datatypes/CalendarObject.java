@@ -24,7 +24,7 @@ public abstract class CalendarObject extends AbstractModel {
 	protected String description;
 	/** the flag to differentiate between personal and team CalendarObject */
 	protected boolean isPersonal;
-	/** the categoryID of the CalendarObject */        
+	/** the categoryID of the CalendarObject, 0 is treated as null */        
     protected int categoryID;
     /** the id of the CalendarObject */
     protected int id;

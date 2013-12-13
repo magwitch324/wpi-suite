@@ -23,7 +23,7 @@ import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
   */
 public class Category extends AbstractModel implements Comparator<Category>{
 
-	/** the ID of the category */
+	/** the ID of the category, if the ID is zero it is treated as null */
 	private int id;
 
 	/** the name of the category */

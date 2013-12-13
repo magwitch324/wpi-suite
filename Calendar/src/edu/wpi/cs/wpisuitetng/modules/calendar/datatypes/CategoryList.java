@@ -33,7 +33,7 @@ public class CategoryList {
 	 */
 	public CategoryList (){
 		categories = new ArrayList<Category>();
-		nextID = 1;
+		nextID = 1; // ID of zero is for no category
 	}
 
 
