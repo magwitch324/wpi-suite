@@ -45,8 +45,6 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
-import org.jdesktop.swingx.border.MatteBorderExt;
-
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
@@ -64,6 +62,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
  * 
  * */
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class CommitmentFullView extends JPanel{
 
@@ -90,12 +91,20 @@ public class CommitmentFullView extends JPanel{
 	JRadioButton teamRadioButton;
 	ButtonGroup viewSwitchGroup;
 
+	/**
+	 */
 	public enum ViewingMode {
 		TEAM, PERSONAL, BOTH;		
 	};
 	ViewingMode mode;
 
-	/*Constructor creates main scrolling Panel and sets tcalendar which will grab teams commitments*/
+	/*Constructor creates main scrolling Panel and 
+	 * sets tcalendar which will grab teams commitments*/
+	/**
+	 * Constructor for CommitmentFullView.
+	 * @param teamCalendar AbCalendar
+	 * @param personalCalendar AbCalendar
+	 */
 	public CommitmentFullView(AbCalendar teamCalendar, AbCalendar personalCalendar) {
 		initialized = false;
 		tcalendar = teamCalendar;
@@ -109,8 +118,8 @@ public class CommitmentFullView extends JPanel{
 		header = new JPanel();
 		header.setBackground(Color.WHITE);
 		header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
-		header.setBorder(new EmptyBorder(5,5,5,5));
-		header.setBorder(new MatteBorder(0,0,2,0, Color.BLACK));
+		header.setBorder(new EmptyBorder(5, 5, 5, 5));
+		header.setBorder(new MatteBorder(0, 0, 2, 0, Color.BLACK));
 
 		scrollPane = new JScrollPane(commitPanel, 
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
@@ -151,13 +160,16 @@ public class CommitmentFullView extends JPanel{
 			if(pcalendar.getCalData() != null){
 			commitmentList = pcalendar.getCalData().getCommitments().getCommitments();
 			}
-		} else if(tcalendar.getCalData() != null && pcalendar.getCalData() != null) { // here mode == ViewingMode.BOTH
+		} else if(tcalendar.getCalData() != null && pcalendar.getCalData() != null) { 
+			// here mode == ViewingMode.BOTH
 			final CombinedCommitmentList combinedList = new CombinedCommitmentList(
-					new ArrayList<Commitment>(pcalendar.getCalData().getCommitments().getCommitments()));
+					new ArrayList<Commitment>(
+							pcalendar.getCalData().getCommitments().getCommitments()));
 			final CalendarData teamData = CalendarDataModel.getInstance()
 					.getCalendarData(ConfigManager.getConfig().getProjectName());
 
-			//if we are supposed to show team data, we need to put the team commitments into the list in the right order
+			/*if we are supposed to show team data, 
+			 * we need to put the team commitments into the list in the right order*/
 			for (int i = 0; i < teamData.getCommitments()
 					.getCommitments().size(); i++) {
 				combinedList.add(teamData.getCommitments()
@@ -167,10 +179,11 @@ public class CommitmentFullView extends JPanel{
 		}
 	}
 
-	/*commit panel is populated with all events which are in separate panels that can be scrolled and clicked*/
+	/*commit panel is populated with all events 
+	 * which are in separate panels that can be scrolled and clicked*/
 	private void setupPanels() {
 		commitPanel.setLayout(new BoxLayout(commitPanel, BoxLayout.Y_AXIS));
-		commitPanel.setBorder(new EmptyBorder(5, 5, 10 , 5));
+		commitPanel.setBorder(new EmptyBorder(5, 5, 10, 5));
 		commitPanel.setBackground(Color.WHITE);
 
 		header.removeAll();
@@ -185,7 +198,8 @@ public class CommitmentFullView extends JPanel{
 
 		teamRadioButton = new JRadioButton("Team");
 		teamRadioButton.setBackground(Color.WHITE);
-		teamRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this radio button
+		teamRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this radio button
 		teamRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -202,7 +216,8 @@ public class CommitmentFullView extends JPanel{
 
 		personalRadioButton = new JRadioButton("Personal");
 		personalRadioButton.setBackground(Color.WHITE);
-		personalRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this radio button
+		personalRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this radio button
 		personalRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -217,12 +232,15 @@ public class CommitmentFullView extends JPanel{
 		}
 
 
-		switcherLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, personalRadioButton, 0, SpringLayout.HORIZONTAL_CENTER, viewSwitcher);
-		switcherLayout.putConstraint(SpringLayout.VERTICAL_CENTER, personalRadioButton, 0, SpringLayout.VERTICAL_CENTER, viewSwitcher);
+		switcherLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, personalRadioButton,
+				0, SpringLayout.HORIZONTAL_CENTER, viewSwitcher);
+		switcherLayout.putConstraint(SpringLayout.VERTICAL_CENTER, personalRadioButton, 
+				0, SpringLayout.VERTICAL_CENTER, viewSwitcher);
 
 		bothRadioButton = new JRadioButton("Both");
 		bothRadioButton.setBackground(Color.WHITE);
-		bothRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this radio button
+		bothRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this radio button
 		bothRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -235,8 +253,8 @@ public class CommitmentFullView extends JPanel{
 		if (mode == ViewingMode.BOTH){
 			bothRadioButton.setSelected(true);
 		}
-		bothRadioButton.setMinimumSize(new Dimension(100,50));
-		bothRadioButton.setMaximumSize(new Dimension(100,50));
+		bothRadioButton.setMinimumSize(new Dimension(100, 50));
+		bothRadioButton.setMaximumSize(new Dimension(100, 50));
 		bothRadioButton.setAlignmentX(CENTER_ALIGNMENT);
 
 		viewSwitchGroup = new ButtonGroup();
@@ -244,21 +262,25 @@ public class CommitmentFullView extends JPanel{
 		viewSwitchGroup.add(personalRadioButton);
 		viewSwitchGroup.add(bothRadioButton);
 
-		switcherLayout.putConstraint(SpringLayout.EAST, teamRadioButton, 0, SpringLayout.WEST, personalRadioButton);
-		switcherLayout.putConstraint(SpringLayout.VERTICAL_CENTER, teamRadioButton, 0, SpringLayout.VERTICAL_CENTER, viewSwitcher);
-		switcherLayout.putConstraint(SpringLayout.WEST, bothRadioButton, 0, SpringLayout.EAST, personalRadioButton);
-		switcherLayout.putConstraint(SpringLayout.VERTICAL_CENTER, bothRadioButton, 0, SpringLayout.VERTICAL_CENTER, viewSwitcher);
+		switcherLayout.putConstraint(SpringLayout.EAST, teamRadioButton, 
+				0, SpringLayout.WEST, personalRadioButton);
+		switcherLayout.putConstraint(SpringLayout.VERTICAL_CENTER, teamRadioButton, 
+				0, SpringLayout.VERTICAL_CENTER, viewSwitcher);
+		switcherLayout.putConstraint(SpringLayout.WEST, bothRadioButton,
+				0, SpringLayout.EAST, personalRadioButton);
+		switcherLayout.putConstraint(SpringLayout.VERTICAL_CENTER, bothRadioButton,
+				0, SpringLayout.VERTICAL_CENTER, viewSwitcher);
 
 
 
-		viewSwitcher.setPreferredSize(new Dimension(300,50));
+		viewSwitcher.setPreferredSize(new Dimension(300, 50));
 		viewSwitcher.setMaximumSize(new Dimension(20000, 50));
 
 		header.add(viewSwitcher);
 
 		final JPanel topButtons = new JPanel();
 
-		final GridLayout experimentLayout = new GridLayout(0,4);
+		final GridLayout experimentLayout = new GridLayout(0, 4);
 		topButtons.setLayout(experimentLayout);
 		//topButtons.setLayout(new BoxLayout(topButtons, BoxLayout.X_AXIS));
 		jName = new JButton("<html><font color='white'><b>"
@@ -291,7 +313,8 @@ public class CommitmentFullView extends JPanel{
 
 		//		jName.setContentAreaFilled(false);
 		jName.setBackground(CalendarStandard.CalendarRed);
-		jName.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
+		jName.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
 		//sort by name
 		jName.addMouseListener(new MouseAdapter() {
 			@Override
@@ -345,7 +368,8 @@ public class CommitmentFullView extends JPanel{
 		}
 		//jDueDate.setContentAreaFilled(false);
 
-		jDueDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
+		jDueDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
 
 		// sort by date 
 		jDueDate.addMouseListener(new MouseAdapter() {
@@ -408,7 +432,8 @@ public class CommitmentFullView extends JPanel{
 		}
 		//jDescription.setContentAreaFilled(false);
 
-		jDescription.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
+		jDescription.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		// To change cursor as it moves over this button
 		jDescription.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -461,7 +486,8 @@ public class CommitmentFullView extends JPanel{
 		}
 		//		jStatus.setContentAreaFilled(false);
 		jStatus.setBackground(CalendarStandard.CalendarRed);
-		jStatus.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this button
+		jStatus.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
 
 		jStatus.addMouseListener(new MouseAdapter() {
 			@Override
@@ -473,7 +499,8 @@ public class CommitmentFullView extends JPanel{
 
 					@Override 
 					public int compare(Commitment c1, Commitment c2) {
-						return c1.getStatus().convertToString(c1.getStatus().getId()).compareTo(c2.getStatus().convertToString(c2.getStatus().getId()));
+						return c1.getStatus().convertToString(c1.getStatus().getId()).compareTo(
+								c2.getStatus().convertToString(c2.getStatus().getId()));
 
 					}		
 				});
@@ -492,15 +519,15 @@ public class CommitmentFullView extends JPanel{
 		c.anchor = GridBagConstraints.LINE_START;
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
-		topButtons.add(jName,c);
-		topButtons.add(jDueDate,c);
-		topButtons.add(jDescription,c);
-		topButtons.add(jStatus,c);
-		topButtons.setPreferredSize(new Dimension(300,50));
+		topButtons.add(jName, c);
+		topButtons.add(jDueDate, c);
+		topButtons.add(jDescription, c);
+		topButtons.add(jStatus, c);
+		topButtons.setPreferredSize(new Dimension(300, 50));
 		topButtons.setMaximumSize(new Dimension(20000, 50));
 		final Border loweredbevel1 = BorderFactory.createLoweredBevelBorder();
 		topButtons.setBorder(loweredbevel1);
-		topButtons.setBorder(new MatteBorder(5,5,5,5, Color.WHITE));
+		topButtons.setBorder(new MatteBorder(5, 5, 5, 5, Color.WHITE));
 
 		header.add(topButtons);
 
@@ -511,18 +538,19 @@ public class CommitmentFullView extends JPanel{
 			CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
 			Image nameImg;
 			Image scaleImg;
-			JLabel name = new JLabel(commitmentList.get(i).getName(),JLabel.CENTER);
+			JLabel name = new JLabel(commitmentList.get(i).getName(), JLabel.LEFT);
+			name.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 			try {
 				if (commitmentList.get(i).getIsPersonal())
 				{	
 					nameImg = ImageIO.read(getClass().getResource("PersonalCommitment_Icon.png"));
-					scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
+					scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 					name.setIcon(new ImageIcon(scaleImg));
 				}
 				else
 				{
 					nameImg = ImageIO.read(getClass().getResource("TeamCommitment_Icon.png"));
-					scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
+					scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 					name.setIcon(new ImageIcon(scaleImg));
 				}
 			} catch (IOException | IllegalArgumentException e) {
@@ -531,31 +559,40 @@ public class CommitmentFullView extends JPanel{
 
 			SimpleDateFormat df = new SimpleDateFormat();
 			df.applyPattern("EEEE, MMMM d, y - hh:mm a");
+			
+			JLabel date = new JLabel("" + 
+			df.format(commitmentList.get(i).getDueDate().getTime()), JLabel.LEFT);
+			date.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+			JLabel description = new JLabel("<HTML>" + 
+			commitmentList.get(i).getDescription() + "</HTML>", JLabel.LEFT);
+			description.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+			JLabel status = new JLabel(Status.convertToString(
+					commitmentList.get(i).getStatus().id), JLabel.LEFT);
+			status.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
-			JLabel date = new JLabel(""+df.format(commitmentList.get(i).getDueDate().getTime()),JLabel.CENTER);
-			JLabel description = new JLabel("<HTML>"+ commitmentList.get(i).getDescription()+"</HTML>",JLabel.CENTER);
-			JLabel status = new JLabel(Status.convertToString(commitmentList.get(i).getStatus().id),JLabel.CENTER);
 			commitmentPanel.setLayout(experimentLayout);
 			//GridBagConstraints c = new GridBagConstraints();
-			c.anchor = GridBagConstraints.CENTER;
-			c.fill = GridBagConstraints.HORIZONTAL;
+			c.anchor = GridBagConstraints.BASELINE_LEADING;
+			c.fill = GridBagConstraints.BASELINE_LEADING;
 			c.weightx = 1;
-			commitmentPanel.add(name,c);
-			commitmentPanel.add(date,c);
-			commitmentPanel.add(description,c);
-			commitmentPanel.add(status,c);
+			commitmentPanel.add(name, c);
+			commitmentPanel.add(date, c);
+			commitmentPanel.add(description, c);
+			commitmentPanel.add(status, c);
 			commitmentPanel.setBackground(CalendarStandard.CalendarYellow);
 			//			commitmentPanel.setBackground(new Color(222,184,135));
-			commitmentPanel.setPreferredSize(new Dimension(300,75));
-			commitmentPanel.setMaximumSize(new Dimension(20000,75));
+			commitmentPanel.setPreferredSize(new Dimension(300, 75));
+			commitmentPanel.setMaximumSize(new Dimension(20000, 75));
 			Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 			commitmentPanel.setBorder(loweredbevel);
-			commitmentPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this commitment pannel
+			commitmentPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+			// To change cursor as it moves over this commitment pannel
 			commitmentPanel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					if (e.getClickCount() >= 1)
-						GUIEventController.getInstance().editCommitment(((CommitmentViewPanel)e.getComponent()).getCommitment());
+						GUIEventController.getInstance().editCommitment(
+								((CommitmentViewPanel)e.getComponent()).getCommitment());
 				}		
 			});
 
@@ -563,12 +600,18 @@ public class CommitmentFullView extends JPanel{
 		}
 	}
 
+	/**
+	 * Method updateList.
+	 */
 	public void updateList(){
 		commitPanel.removeAll();
 		setCommitlist();
 		setupPanels();
 	}
 
+	/**
+	 * Method updateView.
+	 */
 	public void updateView(){
 		commitPanel.removeAll();
 		setupPanels();

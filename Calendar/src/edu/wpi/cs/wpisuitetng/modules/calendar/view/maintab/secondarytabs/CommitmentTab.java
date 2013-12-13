@@ -10,7 +10,8 @@
 	/*
 	 * Sources:
 	 * Icons were developed using images obtained at: 
-	 * [1] https://svn.apache.org/repos/asf/openoffice/symphony/trunk/main/extras/source/gallery/symbols/
+	 * [1] https://svn.apache.org/repos/asf/openoffice/
+	 * symphony/trunk/main/extras/source/gallery/symbols/
 	 * [2] http://www.clker.com/clipart-red-round.html
 	 * [3] http://www.iconsdb.com/red-icons/delete-icon.html
 	 */
@@ -41,7 +42,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -71,12 +71,14 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class CommitmentTab extends JPanel {
 	
@@ -136,11 +138,15 @@ public class CommitmentTab extends JPanel {
 	private Component glue;
 	private Component glue_1;
 	
+	/**
+	 */
 	public enum EditingMode {
 		ADDING,
 		EDITING;
 	}
 	
+	/**
+	 */
 	public enum enumTimeSpinner {
 		HOUR,
 		MINUTE,
@@ -155,7 +161,8 @@ public class CommitmentTab extends JPanel {
 	
 	/**
 	 * Create the panel.
-	 * @wbp.parser.constructor
+	
+	 * @param openedFrom int
 	 */
 	public CommitmentTab(int openedFrom) {
 		this.openedFrom = openedFrom;
@@ -196,6 +203,8 @@ public class CommitmentTab extends JPanel {
 
 	/**
 	 * Create a commitment tab in editing mode.
+	 * @param commToEdit Commitment
+	 * @param openedFrom int
 	 */
 	public CommitmentTab(Commitment commToEdit, int openedFrom) {
 		this(openedFrom);
@@ -307,7 +316,8 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(lblTime, gbc_lblTime);
 		
 		//Invalid Time label
-		lblTimeError = new JLabel("<html><font color='red'>Please enter a valid time (12 hour format).</font></html>");
+		lblTimeError = new JLabel("<html><font color='red'>"
+				+ "Please enter a valid time (12 hour format).</font></html>");
 		lblTimeError.setVisible(false);
 		lblTimeError.setHorizontalAlignment(SwingConstants.LEFT);
 		final GridBagConstraints gbc_lblTimeError = new GridBagConstraints();
@@ -335,7 +345,8 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(lblDate, gbc_lblDate);
 		
 		//Invalid Date label
-		lblDateError = new JLabel("<html><font color='red'>Please enter a valid date (MM/DD/YYYY).</font></html>");
+		lblDateError = new JLabel("<html><font color='red'>"
+				+ "Please enter a valid date (MM/DD/YYYY).</font></html>");
 		lblDateError.setVisible(false);
 		lblDateError.setHorizontalAlignment(SwingConstants.LEFT);
 		final GridBagConstraints gbc_lblDateError = new GridBagConstraints();
@@ -359,7 +370,7 @@ public class CommitmentTab extends JPanel {
 		gbc_lblStatus.gridy = 9;
 		gbc_lblStatus.weightx = 1;
 		gbc_lblStatus.weighty = 3;
-		formPanel.add(lblStatus,gbc_lblStatus);
+		formPanel.add(lblStatus, gbc_lblStatus);
 		
 
 	}
@@ -508,12 +519,13 @@ public class CommitmentTab extends JPanel {
 		gbc_statusComboBox.gridy = 9;
 		gbc_statusComboBox.weightx = 1;
 		gbc_statusComboBox.weighty = 3;
-		formPanel.add(statusComboBox,gbc_statusComboBox);
+		formPanel.add(statusComboBox,  gbc_statusComboBox);
 	}
 	
 	/**
 	 * Adds listeners for all editable elements in commitment tab.
-	 * Calls addTimeSpinnerListeners() and addDatePickerListeners() which are helper functions defined outside this method.
+	 * Calls addTimeSpinnerListeners() and addDatePickerListeners() 
+	 * which are helper functions defined outside this method.
 	 */
 	private void addEditableElementsListeners() {
 		nameTextField.addKeyListener(new KeyListener() {
@@ -564,7 +576,8 @@ public class CommitmentTab extends JPanel {
 	
 	/**
 	 * Sets default values like date and time for spinners and date picker.
-	 * Must set values after listeners are added because automatic rounding of the minute spinner is done by a listener.
+	 * Must set values after listeners are added because 
+	 * automatic rounding of the minute spinner is done by a listener.
 	 */
 	private void setDefaultValuesForEditableElements() {
 		rdbtnTeam.setSelected(true);
@@ -594,7 +607,7 @@ public class CommitmentTab extends JPanel {
 		/**
 		 * Initialize button panel instance and its constraints.
 		 */
-		buttonPanel = new JPanel(new BorderLayout(30,0));
+		buttonPanel = new JPanel(new BorderLayout(30, 0));
 		buttonPanel.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_btnPanel = new GridBagConstraints();
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
@@ -810,7 +823,8 @@ public class CommitmentTab extends JPanel {
 					hourFlag = false;
 
 				
-				System.out.println("curent text after check" + Integer.parseInt(minuteEditor.getTextField().getText()));
+				System.out.println("curent text after check" + 
+				Integer.parseInt(minuteEditor.getTextField().getText()));
 				System.out.println("curent temp after check" + tempMin);
 				
 				if (hourFlag) {
@@ -1001,6 +1015,7 @@ public class CommitmentTab extends JPanel {
 	
 	/**
 	 * Close this commitment tab
+	 * @param goTo int
 	 */
 	protected void removeTab(int goTo) {
 		GUIEventController.getInstance().removeCommTab(this, goTo);
@@ -1019,16 +1034,18 @@ public class CommitmentTab extends JPanel {
 
 		CalendarData calData;
 		if (rdbtnPersonal.isSelected()){
-			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
+			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() 
+					+ "-" + ConfigManager.getConfig().getUserName()); 
 			isTeamComm = false;
 		}
 		else{
-			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
+			calData = CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName()); 
 			isTeamComm = true;
 		}
 		for(Commitment comm: calData.getCommitments().getCommitments())
 		{
-			System.out.println("Commitment name: " + comm.getName()+", id: "+ comm.getID());
+			System.out.println("Commitment name: " + comm.getName() + ", id: " + comm.getID());
 		}
 		Commitment newComm;
 		if(mode == EditingMode.ADDING)
@@ -1044,8 +1061,12 @@ public class CommitmentTab extends JPanel {
 		else{
 			newComm.setIsPersonal(true);
 		}
+		//TODO
+		//temporary fix to allow use of events still
+		try{
+			newComm.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getID());
+		}catch(java.lang.NullPointerException exp){}
 
-		newComm.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getID());
 		newComm.setDescription(descriptionTextField.getText());
 
 		
@@ -1088,7 +1109,8 @@ public class CommitmentTab extends JPanel {
 //			lastDay.add(Calendar.YEAR, 1);
 //			Random rnd = new Random();
 //			String[] commitments = {"Meeting", "Party", "Shindig", "Meal"};
-//			String[] names = {"Anthony", "Andrew", "Frank", "Julie", "Pavel", "Sam", "Sean", "Seiichiro", "Thom", "Teresa", "Tim", "Tucker", "Coach Mike"};
+//			String[] names = {"Anthony", "Andrew", "Frank", "Julie", 
+//			"Pavel", "Sam", "Sean", "Seiichiro", "Thom", "Teresa", "Tim", "Tucker", "Coach Mike"};
 //			while (day.before(lastDay)) {
 //				CalendarStandard.printcalendar(lastDay);
 //				GregorianCalendar set = new GregorianCalendar();
@@ -1100,12 +1122,15 @@ public class CommitmentTab extends JPanel {
 //					GregorianCalendar endTime = new GregorianCalendar();
 //					endTime.setTime(set.getTime());
 //					endTime.add(Calendar.HOUR, rnd.nextInt(4)+1);
-//					String[] people = {names[rnd.nextInt(13)], names[rnd.nextInt(13)], names[rnd.nextInt(13)]};
-//					Event newEvent = new Event("A long " + commitment, "Event with " + people[0] + ", " + people[1] + ", and " + people[2],
+//					String[] people = {names[rnd.nextInt(13)], 
+//			names[rnd.nextInt(13)], names[rnd.nextInt(13)]};
+//					Event newEvent = new Event("A long " + 
+//			commitment, "Event with " + people[0] + ", " + people[1] + ", and " + people[2],
 //												set, endTime, people, 0, false);
 //					calData.addEvent(newEvent);
 //				} else {
-//					Commitment newCommitment = new Commitment(commitment + " with " + name, set, "No Description", 0, false);
+//					Commitment newCommitment = 
+//			new Commitment(commitment + " with " + name, set, "No Description", 0, false);
 //					calData.addCommitment(newCommitment);
 //				}
 //				
@@ -1130,11 +1155,14 @@ public class CommitmentTab extends JPanel {
 		// TODO Auto-generated method stub
 		CalendarData calData;
 	if (rdbtnPersonal.isSelected()){
-			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
+			calData = CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName() + 
+					"-" + ConfigManager.getConfig().getUserName()); 
 			isTeamComm = false;
 	}
 	else{
-		calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
+		calData = CalendarDataModel.getInstance().getCalendarData(
+				ConfigManager.getConfig().getProjectName()); 
 		isTeamComm = true;
 	}
 		calData.getCommitments().removeCommmitment(editingCommitment.getID());
@@ -1143,7 +1171,8 @@ public class CommitmentTab extends JPanel {
 	}
 
 	/**
-	 * Controls the enable state of the save button by checking all user editable elements in commitment tab.
+	 * Controls the enable state of the save button 
+	 * by checking all user editable elements in commitment tab.
 	 */
 	private void checkSaveBtnStatus(){
 		
@@ -1176,15 +1205,21 @@ public class CommitmentTab extends JPanel {
 					calDate.set(Calendar.AM_PM, calAMPM.get(Calendar.AM_PM));
 					//System.out.println("AMPM is " + calAMPM.get(Calendar.AM_PM));
 					//System.out.println("Hour of day is " + calHour.get(Calendar.HOUR_OF_DAY));
-					//System.out.println("Current commit hour is " + editingCommitment.getDueDate().get(Calendar.HOUR_OF_DAY));
+					//System.out.println("Current commit hour is "
+					//+ editingCommitment.getDueDate().get(Calendar.HOUR_OF_DAY));
 					//System.out.println("Time in milli is " + calDate.getTimeInMillis());
-					//System.out.println("Commit time in milli is " + editingCommitment.getDueDate().getTimeInMillis());
+					//System.out.println("Commit time in milli is "
+					//+ editingCommitment.getDueDate().getTimeInMillis());
 					
 					//make sure something changed
 					if (nameTextField.getText().equals(editingCommitment.getName()) 
-							&& descriptionTextField.getText().equals(editingCommitment.getDescription())
-							&& ((Category)categoryComboBox.getSelectedItem()).getID() == editingCommitment.getCategoryID()
-							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
+							&& descriptionTextField.getText().equals(
+									editingCommitment.getDescription())
+							//TODO uncomment category code
+							//&& ((Category)categoryComboBox.getSelectedItem()).
+							//getID() == editingCommitment.getCategoryID()
+							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(
+									editingCommitment.getStatus())
 							&& calDate.getTime().equals(editingCommitment.getDueDate().getTime())
 							&& lblTimeError.isVisible()
 							&& lblDateError.isVisible()
@@ -1268,8 +1303,10 @@ public class CommitmentTab extends JPanel {
 					}
 					else {
 						editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-						if(minuteEditor.getTextField().getBackground().equals(CalendarStandard.CalendarYellow)
-								|| AMPMEditor.getTextField().getBackground().equals(CalendarStandard.CalendarYellow)) {
+						if(minuteEditor.getTextField().getBackground().equals(
+								CalendarStandard.CalendarYellow)
+								|| AMPMEditor.getTextField().getBackground().equals(
+										CalendarStandard.CalendarYellow)) {
 						lblTimeError.setVisible(false);
 						}
 					}
@@ -1288,8 +1325,10 @@ public class CommitmentTab extends JPanel {
 					}
 					else {
 						editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-						if(hourEditor.getTextField().getBackground().equals(CalendarStandard.CalendarYellow)
-								|| AMPMEditor.getTextField().getBackground().equals(CalendarStandard.CalendarYellow)) {
+						if(hourEditor.getTextField().getBackground().equals(
+								CalendarStandard.CalendarYellow)
+								|| AMPMEditor.getTextField().getBackground().equals(
+										CalendarStandard.CalendarYellow)) {
 						lblTimeError.setVisible(false);
 						}
 					}
@@ -1298,7 +1337,8 @@ public class CommitmentTab extends JPanel {
 			case AMPM:
 				final String tempAMPMString = editor.getTextField().getText().toUpperCase();
 				System.out.println("Input is " + tempAMPMString);
-				if (!tempAMPMString.equals(tempAMPM) || upArrowAction == true || downArrowAction == true) {
+				if (!tempAMPMString.equals(tempAMPM) || upArrowAction 
+						== true || downArrowAction == true) {
 				if(!tempAMPMString.equals("AM") && !tempAMPMString.equals("PM")) {
 					AMPMEditor.getTextField().setText(tempAMPM);
 					AMPMEditor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
@@ -1306,8 +1346,10 @@ public class CommitmentTab extends JPanel {
 				}
 				else {
 					editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-					if(hourEditor.getTextField().getBackground().equals(CalendarStandard.CalendarYellow)
-							|| minuteEditor.getTextField().getBackground().equals(CalendarStandard.CalendarYellow)) {
+					if(hourEditor.getTextField().getBackground().equals(
+							CalendarStandard.CalendarYellow)
+							|| minuteEditor.getTextField().getBackground().equals(
+									CalendarStandard.CalendarYellow)) {
 					lblTimeError.setVisible(false);
 					}
 				}
@@ -1316,6 +1358,8 @@ public class CommitmentTab extends JPanel {
 			}
 	}
 	
+	/**
+	 */
 	class SpinnerUI extends BasicSpinnerUI  {
 		protected Component createNextButton()  
 		  {  

@@ -10,31 +10,24 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ArrayList;
-
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SpringLayout;
-
-import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
 /**
  * The class for a day containing event commitments and the half hour marks
+ *@author CS Anonymous
+ *@version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
 public class DayDayPane extends JPanel {
@@ -50,10 +43,9 @@ public class DayDayPane extends JPanel {
 	/**
 	 * Constructor for daydaypane
 	 * @param acal the date that is used for displaying
+	 * @param detailLevel AbCalendar.types
 	 */
 	public DayDayPane(GregorianCalendar acal, AbCalendar.types detailLevel){
-		super();
-		
 		this.detailLevel = detailLevel;
 		
 		this.acal = (GregorianCalendar)acal.clone();
@@ -145,15 +137,19 @@ public class DayDayPane extends JPanel {
 			halfhourmarks[i] = new JSeparator();
 			
 			Color col;
-			if(i%2==0){
+			if(i % 2 == 0){
 				col = Color.BLACK;
-				layout.putConstraint(SpringLayout.WEST, halfhourmarks[i], 5, SpringLayout.WEST, this);
-				layout.putConstraint(SpringLayout.EAST, halfhourmarks[i], -5, SpringLayout.EAST, this);
+				layout.putConstraint(SpringLayout.WEST, halfhourmarks[i], 
+						5, SpringLayout.WEST, this);
+				layout.putConstraint(SpringLayout.EAST, halfhourmarks[i], 
+						-5, SpringLayout.EAST, this);
 			}
 			else{
 				col = Color.GRAY;
-				layout.putConstraint(SpringLayout.WEST, halfhourmarks[i], 15, SpringLayout.WEST, this);
-				layout.putConstraint(SpringLayout.EAST, halfhourmarks[i], -15, SpringLayout.EAST, this);
+				layout.putConstraint(SpringLayout.WEST, halfhourmarks[i], 
+						15, SpringLayout.WEST, this);
+				layout.putConstraint(SpringLayout.EAST, halfhourmarks[i], 
+						-15, SpringLayout.EAST, this);
 			}
 			
 			halfhourmarks[i].setBackground(col);
@@ -174,13 +170,14 @@ public class DayDayPane extends JPanel {
 		final SpringLayout layout = (SpringLayout)this.getLayout();
 		for(int i = 1; i < 49; i++){
 			layout.putConstraint(SpringLayout.VERTICAL_CENTER, halfhourmarks[i], 
-								(int)((this.getSize().getHeight())*i/48.0),
+								(int)((this.getSize().getHeight()) * i / 48.0),
 								SpringLayout.NORTH, this);
 		}
 	}
 
 	/**
-	 * updates this by setting the lines, and main caller for placing commitments and events in their places
+	 * updates this by setting the lines, 
+	 * and main caller for placing commitments and events in their places
 	 */
 	protected void updatepane(){
 		//the list used to hold the event commitment wrappers in columns and rows based on conflicts
@@ -247,9 +244,11 @@ public class DayDayPane extends JPanel {
 			for(CalendarObjectPanel obj : column){
 				layout.putConstraint(SpringLayout.WEST, obj, 3, SpringLayout.WEST, this);
 				if(displayobjects.indexOf(column) != 0){
-					for(CalendarObjectPanel compobj : displayobjects.get(displayobjects.indexOf(column) - 1)){
+					for(CalendarObjectPanel compobj : 
+						displayobjects.get(displayobjects.indexOf(column) - 1)){
 						if(obj.doesConflict(compobj)){
-							layout.putConstraint(SpringLayout.WEST, obj, 3, SpringLayout.EAST, compobj);
+							layout.putConstraint(SpringLayout.WEST, obj, 
+									3, SpringLayout.EAST, compobj);
 						}
 					}
 				}
@@ -279,7 +278,8 @@ public class DayDayPane extends JPanel {
 	protected void setPos(){
 		final SpringLayout layout = (SpringLayout)this.getLayout();
 		for(CalendarObjectPanel obj : sortedobjects){
-			layout.putConstraint(SpringLayout.NORTH, obj, (int)(this.getHeight() * obj.getStartRatio()), SpringLayout.NORTH, this);
+			layout.putConstraint(SpringLayout.NORTH, obj, 
+					(int)(this.getHeight() * obj.getStartRatio()), SpringLayout.NORTH, this);
 		}
 	}
 	
@@ -287,8 +287,8 @@ public class DayDayPane extends JPanel {
 	 * Gets the number of columns that should be associated with the object
 	 * @param column_index the index of the column based on the 
 	 * @param cop the object to check for width
-	 * @return the number of columns conflicting with the object
-	 */
+	
+	 * @return the number of columns conflicting with the object */
 	protected int getWidth(int column_index, CalendarObjectPanel cop){
 		int width = 1;
 		width += this.getWidth(column_index, cop, -1);
@@ -301,14 +301,14 @@ public class DayDayPane extends JPanel {
 	 * @param column_index the index of the column to check
 	 * @param cop the object to check for width
 	 * @param value the direction that the width check should go
-	 * @return the width going the given direction
-	 */
+	
+	 * @return the width going the given direction */
 	protected int getWidth(int column_index, CalendarObjectPanel cop, int value){
 		int width = 0;
 		int max = 0;
 		//Calculate width to the value
 		try{
-			for(CalendarObjectPanel obj :displayobjects.get(column_index+value)){
+			for(CalendarObjectPanel obj :displayobjects.get(column_index + value)){
 				if(obj.doesConflict(cop)){
 					width = 1;
 					int temp = getWidth(column_index + value, obj, value);
@@ -325,8 +325,8 @@ public class DayDayPane extends JPanel {
 	 * Finds the number of columns an COP should span
 	 * @param column_index the index of the column to check
 	 * @param cop the COP to check for span
-	 * @return the number of columns an object should span
-	 */
+	
+	 * @return the number of columns an object should span */
 	protected int getSpan(int column_index, CalendarObjectPanel cop){
 		int span = 0;
 		for(int i = 1 + column_index; i < displayobjects.size(); i++){
@@ -335,7 +335,7 @@ public class DayDayPane extends JPanel {
 			for(CalendarObjectPanel obj : displayobjects.get(i)){
 				if(obj.doesConflict(cop)){
 					if(max_width < obj.getColumnWidth()){
-						span = i-column_index;
+						span = i - column_index;
 						max_width = obj.getColumnWidth();
 						cop.setColumnWidth(obj.getColumnWidth());
 					}

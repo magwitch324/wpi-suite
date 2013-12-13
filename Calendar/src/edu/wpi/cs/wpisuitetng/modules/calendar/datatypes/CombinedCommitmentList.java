@@ -11,16 +11,23 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
 import java.util.List;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class CombinedCommitmentList extends CommitmentList {
 	
 	/**
-	 * This class is for dealing with combining the list of personal and team commitments without overriding the ids of the commitments
+	 * This class is for dealing with combining the list of personal 
+	 * and team commitments without overriding the ids of the commitments
 	 */
 
 	public CombinedCommitmentList() {
-		super();
 	}
 	
+	/**
+	 * Constructor for CombinedCommitmentList.
+	 * @param list List<Commitment>
+	 */
 	public CombinedCommitmentList(List<Commitment> list) {
 		this();
 		calendarObjects = list;
@@ -28,7 +35,8 @@ public class CombinedCommitmentList extends CommitmentList {
 	
 	@Override
 	/**
-	 * Adds a single commitment to the commitment of the project, while sorting them into the right order by date
+	 * Adds a single commitment to the commitment of the project, 
+	 * while sorting them into the right order by date
 	 * 
 	 * @param newReq The commitment to be added to the list of commitments in the project
 	 */

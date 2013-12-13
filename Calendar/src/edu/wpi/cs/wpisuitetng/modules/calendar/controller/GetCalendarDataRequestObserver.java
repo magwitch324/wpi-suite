@@ -17,6 +17,8 @@ import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 /**
  * This observer handles responses to requests for all categories
  *
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class GetCalendarDataRequestObserver implements RequestObserver {
 	
@@ -33,7 +35,8 @@ public class GetCalendarDataRequestObserver implements RequestObserver {
 	/**
 	 * Parse the CalendarData out of the response body and pass them to the controller
 	 * 
-	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseSuccess(edu.wpi.cs.wpisuitetng.network.models.IRequest)
+	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseSuccess
+	 * (edu.wpi.cs.wpisuitetng.network.models.IRequest)
 	 */
 	@Override
 	public void responseSuccess(IRequest iReq) {
@@ -46,7 +49,8 @@ public class GetCalendarDataRequestObserver implements RequestObserver {
 	}
 
 	/**
-	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseError(edu.wpi.cs.wpisuitetng.network.models.IRequest)
+	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseError
+	 * (edu.wpi.cs.wpisuitetng.network.models.IRequest)
 	 */
 	@Override
 	public void responseError(IRequest iReq) {
@@ -56,7 +60,8 @@ public class GetCalendarDataRequestObserver implements RequestObserver {
 	/**
 	 * 
 	 * 
-	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#fail(edu.wpi.cs.wpisuitetng.network.models.IRequest, java.lang.Exception)
+	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#fail
+	 * (edu.wpi.cs.wpisuitetng.network.models.IRequest, java.lang.Exception)
 	 */
 	@Override
 	public void fail(IRequest iReq, Exception exception) {

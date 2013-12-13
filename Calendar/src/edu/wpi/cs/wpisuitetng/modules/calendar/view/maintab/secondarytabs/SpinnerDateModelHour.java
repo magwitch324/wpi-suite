@@ -17,15 +17,27 @@ import javax.swing.SpinnerDateModel;
 
 /**
  * SpinnerDateModel Increments time value by 30 minutes
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class SpinnerDateModelHour extends SpinnerDateModel {
 
 
+	/**
+	 * Constructor for SpinnerDateModelHour.
+	 */
 	public SpinnerDateModelHour() {
 		// TODO Auto-generated constructor stub
 		super(new Date(0), null, null, Calendar.HOUR);
 	}
 
+	/**
+	 * Constructor for SpinnerDateModelHour.
+	 * @param value Date
+	 * @param start Comparable
+	 * @param end Comparable
+	 * @param calendarField int
+	 */
 	public SpinnerDateModelHour(Date value, Comparable start,
 			Comparable end, int calendarField) {
 		super(value, start, end, calendarField);

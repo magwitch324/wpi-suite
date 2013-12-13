@@ -23,6 +23,8 @@ import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
  * This controller coordinates retrieving all of the categories
  * from the server.
  *
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class GetPropsController implements ActionListener {
 
@@ -60,7 +62,8 @@ public class GetPropsController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Send a request to the core to get this CalendarProps
-		final Request request = Network.getInstance().makeRequest("calendar/CalendarProps", HttpMethod.GET); // GET == read
+		final Request request = Network.getInstance().makeRequest(
+				"calendar/CalendarProps", HttpMethod.GET); // GET == read
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); // send the request
 	}
@@ -69,7 +72,8 @@ public class GetPropsController implements ActionListener {
 	 * Sends an HTTP request to retrieve all CalendarPropss
 	 */
 	public void retrieveCalendarProps() {
-		final Request request = Network.getInstance().makeRequest("calendar/calendarprops", HttpMethod.GET); // GET == read
+		final Request request = Network.getInstance().makeRequest(
+				"calendar/calendarprops", HttpMethod.GET); // GET == read
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); // send the request
 	}
@@ -78,7 +82,8 @@ public class GetPropsController implements ActionListener {
 	 * Add the given CalendarPropss to the local model (they were received from the core).
 	 * This method is called by the GetCalendarPropsRequestObserver
 	 * 
-	 * @param categories array of categories received from the server
+	
+	 * @param calData CalendarProps[]
 	 */
 	public void receivedCalendarProps(CalendarProps[] calData) {
 		// Empty the local model to eliminate duplications

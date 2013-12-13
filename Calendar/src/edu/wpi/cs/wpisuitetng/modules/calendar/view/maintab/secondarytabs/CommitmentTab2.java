@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * Copyright (c) 2013 WPI-Suite
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: CS Anonymous
+ ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import static javax.swing.SpringLayout.EAST;
@@ -15,10 +24,8 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
-
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab.SpinnerUI;
-
 public class CommitmentTab2 extends JPanel {
 
 	/**
@@ -34,16 +41,16 @@ public class CommitmentTab2 extends JPanel {
 	 * @param openedFrom
 	 */
 	public CommitmentTab2(int openedFrom) {
-		SpringLayout mainLayout = new SpringLayout();
+		final SpringLayout mainLayout = new SpringLayout();
 		setLayout(mainLayout);
 		
 		// Populate all the fields
-		JPanel nameField = getNameField();
-		JPanel descField = getDescField();
-		JPanel categoryField = getCategoryField();
-		JPanel typeField = getTypeField();
-		JPanel dueField = getDueField();
-		JPanel statusField = getStatusField();
+		final JPanel nameField = getNameField();
+		final JPanel descField = getDescField();
+		final JPanel categoryField = getCategoryField();
+		final JPanel typeField = getTypeField();
+		final JPanel dueField = getDueField();
+		final JPanel statusField = getStatusField();
 		
 		add(nameField);
 		mainLayout.putConstraint(WEST, nameField, 5, WEST, this);
@@ -61,12 +68,12 @@ public class CommitmentTab2 extends JPanel {
 	//TODO Add a constructor for editing a commitment tab -- CommitmentTab line 200
 	
 	private JPanel getNameField() {
-		JPanel nameField = new JPanel();
-		SpringLayout layout = new SpringLayout();
+		final JPanel nameField = new JPanel();
+		final SpringLayout layout = new SpringLayout();
 		nameField.setLayout(layout);
 		
 		// Create and add Label to the nameField
-		JLabel label = new JLabel("Name*: ");
+		final JLabel label = new JLabel("Name*: ");
 		nameField.add(label);
 		layout.putConstraint(WEST, label, 0, WEST, nameField);
 		layout.putConstraint(NORTH, label, 0, NORTH, nameField);

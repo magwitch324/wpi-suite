@@ -17,6 +17,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class WeekView extends CalendarView {
 
@@ -25,6 +28,10 @@ public class WeekView extends CalendarView {
 	private final WeekPane weekPane;
 	
 
+	/**
+	 * Constructor for WeekView.
+	 * @param datecalendar GregorianCalendar
+	 */
 	public WeekView(GregorianCalendar datecalendar) {
 		super(datecalendar);
 		weekPane = new WeekPane(datecalendar);
@@ -60,29 +67,34 @@ public class WeekView extends CalendarView {
 		endDate.add(Calendar.MILLISECOND, -1);
 
 		
-		final String startMonthName = startDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
-		final String endMonthName = endDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+		final String startMonthName = startDate.getDisplayName(
+				Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+		final String endMonthName = endDate.getDisplayName(
+				Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
 		final int startDayNum = startDate.get(Calendar.DAY_OF_MONTH);
 		final int endDayNum = endDate.get(Calendar.DAY_OF_MONTH);
 		final int startYear = startDate.get(Calendar.YEAR);
 		final int endYear = endDate.get(Calendar.YEAR);
 		
-		setLabel(startMonthName + " " + startDayNum + ", " + startYear + "<br>---<br>" + endMonthName + " " + endDayNum + ", " + endYear);
+		setLabel(startMonthName + " " + startDayNum + ", "
+		+ startYear + "<br>---<br>" + endMonthName + " " + endDayNum + ", " + endYear);
 
 		refresh();
 	}
 
 	@Override
-	public void displayCalData(EventList eventList, CommitmentList commList, boolean showCommOnCal) {
+	public void displayCalData(
+			EventList eventList, CommitmentList commList, boolean showCommOnCal) {
 
 		if (super.showAllCommFlag){
 			commitmentView.updateCommData(commList.getCommitments());
 		} else {
-			commitmentView.updateCommData(commList.filter(startDate,endDate));
+			commitmentView.updateCommData(commList.filter(startDate, endDate));
 		}
 		// TODO filter commitments
 		if (showCommOnCal){
-			weekPane.displayCommitments(commList.filter(startDate, endDate)); //add only commitments on today to DayPane
+			weekPane.displayCommitments(commList.filter(startDate, endDate)); 
+			//add only commitments on today to DayPane
 			weekPane.displayEvents(eventList.filter(startDate, endDate));
 		}
 		else{
@@ -100,7 +112,7 @@ public class WeekView extends CalendarView {
 		if (super.showAllCommFlag){
 			commitmentView.updateCommData(commList.getCommitments());
 		} else {
-			commitmentView.updateCommData(commList.filter(startDate,endDate));
+			commitmentView.updateCommData(commList.filter(startDate, endDate));
 		}
 		revalidate();
 		repaint();

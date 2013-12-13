@@ -11,6 +11,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -18,7 +19,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
@@ -28,20 +31,24 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetPropsController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class MyCalendar extends AbCalendar {
 
 	private boolean preInitialized;
 	private JCheckBox showteam;
 
+	/**
+	 * Constructor for MyCalendar.
+	 */
 	public MyCalendar() {
-		super();
 		preInitialized = false;
 	}
 
@@ -54,67 +61,32 @@ public class MyCalendar extends AbCalendar {
         layout.putConstraint(SpringLayout.NORTH, viewbtnpanel, 5, SpringLayout.NORTH, this);
 		this.add(viewbtnpanel);
 
-		final JComponent datepanel = getDatePanel();
-        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datepanel, 0, SpringLayout.HORIZONTAL_CENTER, this);
-        layout.putConstraint(SpringLayout.SOUTH, datepanel, 0, SpringLayout.SOUTH, viewbtnpanel);
-        this.add(datepanel);
-		
+		final JComponent dateswitchpanel = getDatePanel();
+        layout.putConstraint(SpringLayout.NORTH, dateswitchpanel, 
+        		0, SpringLayout.SOUTH, viewbtnpanel);
+        layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, dateswitchpanel, 
+        		0, SpringLayout.HORIZONTAL_CENTER, this);
+        this.add(dateswitchpanel);
 
-		showcom = new JCheckBox("Show Commitments");
-		showcom.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        showcom.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14f));
-		showcom.setBackground(Color.WHITE);
-		showcom.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				calProps.setMyShowComm(showcom.isSelected());
-				setView();
-			}
-		});
-		
-        layout.putConstraint(SpringLayout.NORTH, showcom, 0, SpringLayout.NORTH, viewbtnpanel);
-        layout.putConstraint(SpringLayout.SOUTH, showcom, 0, SpringLayout.SOUTH, viewbtnpanel);
-		this.add(showcom);
-
-		
-		showteam = new JCheckBox("Show Team Data");
-		showteam.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        showteam.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14f));
-		showteam.setBackground(Color.WHITE);
-		showteam.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				calProps.setShowTeamData(showteam.isSelected());
-				//update the commitments to either include or not include team data
-				updateCalData();
-				setView();
-			}
-		});
-		
-        layout.putConstraint(SpringLayout.EAST, showteam, -10, SpringLayout.EAST, this);
-        layout.putConstraint(SpringLayout.NORTH, showteam, 0, SpringLayout.NORTH, viewbtnpanel);
-        layout.putConstraint(SpringLayout.SOUTH, showteam, 0, SpringLayout.SOUTH, viewbtnpanel);
-		this.add(showteam);
-		
-        layout.putConstraint(SpringLayout.EAST, showcom, -10, SpringLayout.WEST, showteam);
-	
-		
-	
-		// COMMENTED THIS FILTER MENU OUT FOR THE TIME BEING
-		/*JComboBox filter = new JComboBox();
-		layout.putConstraint(SpringLayout.WEST, filter, 30, SpringLayout.EAST,
-				showteam);
-		layout.putConstraint(SpringLayout.NORTH, filter, 0, SpringLayout.NORTH,
-				viewbtnpanel);
-		layout.putConstraint(SpringLayout.EAST, filter, -5, SpringLayout.EAST,
-				this);
-		layout.putConstraint(SpringLayout.SOUTH, showcom, 0,
-				SpringLayout.SOUTH, viewbtnpanel);
+        final JComponent datapanel = getDataDisplayPanel();
+        layout.putConstraint(SpringLayout.NORTH, datapanel, 0, SpringLayout.NORTH, viewbtnpanel);
+        layout.putConstraint(SpringLayout.WEST, datapanel, 30, SpringLayout.EAST, viewbtnpanel);
+        layout.putConstraint(SpringLayout.SOUTH, datapanel, 0, SpringLayout.SOUTH, viewbtnpanel);
+        this.add(datapanel);
+        
+		final JComboBox filter = new JComboBox();
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filter, 
+				0, SpringLayout.VERTICAL_CENTER, datapanel);
+		layout.putConstraint(SpringLayout.WEST, filter, 30, SpringLayout.EAST, datapanel);
+		layout.putConstraint(SpringLayout.EAST, filter, -5, SpringLayout.EAST, this);
+		filter.setMaximumSize(new Dimension(20, 20));
 		this.add(filter);
-*/
+
 		
 		
 		
         layout.putConstraint(SpringLayout.WEST, viewpanel, 5, SpringLayout.WEST, this);
-        layout.putConstraint(SpringLayout.NORTH, viewpanel, 5, SpringLayout.SOUTH, datepanel);
+        layout.putConstraint(SpringLayout.NORTH, viewpanel, 5, SpringLayout.SOUTH, dateswitchpanel);
         layout.putConstraint(SpringLayout.EAST, viewpanel, -5, SpringLayout.EAST, this);
         layout.putConstraint(SpringLayout.SOUTH, viewpanel, -5, SpringLayout.SOUTH, this);
 
@@ -190,7 +162,8 @@ public class MyCalendar extends AbCalendar {
 			final CalendarData teamData = CalendarDataModel.getInstance()
 					.getCalendarData(ConfigManager.getConfig().getProjectName());
 
-			//if we are supposed to show team data, we need to put the team commitments into the list in the right order
+			//if we are supposed to show team data, 
+			//we need to put the team commitments into the list in the right order
 			if (getShowTeamData()) {
 		
 				// Iterate through team commitments and add each element to
@@ -204,7 +177,8 @@ public class MyCalendar extends AbCalendar {
 				commitments = combinedCommList;
 				
 				//get the combined events for team
-				final CombinedEventList teamRepeatEvents = teamData.getRepeatingEvents().toCombinedEventList();
+				final CombinedEventList teamRepeatEvents = 
+						teamData.getRepeatingEvents().toCombinedEventList();
 				for (int i = 0; i < teamRepeatEvents.getEvents().size(); i++){
 					combinedEventList.add(teamRepeatEvents.getEvents().get(i));
 				}
@@ -221,7 +195,8 @@ public class MyCalendar extends AbCalendar {
 				
 			}
 
-			//if we are not supposed to show team data the CommitmentList should just be straight from the personal data
+			//if we are not supposed to show team data the CommitmentList 
+			//should just be straight from the personal data
 			else {
 				commitments = getCalData().getCommitments();
 				events = combinedEventList;
@@ -286,6 +261,55 @@ public class MyCalendar extends AbCalendar {
 			calView.updateCommPane(commitments, this.getShowCommitments());
 		}
 		
+	}
+
+	@Override
+	protected JComponent getDataDisplayPanel() {
+		final JPanel panel = new JPanel();
+		panel.setBackground(new Color(0, 0, 0, 0));
+		final SpringLayout layout = new SpringLayout();
+		panel.setLayout(layout);
+		
+		showcom = new JCheckBox("Show Commitments");
+		showcom.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        showcom.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14f));
+		showcom.setBackground(Color.WHITE);
+		showcom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				calProps.setMyShowComm(showcom.isSelected());
+				setView();
+			}
+		});
+		
+        layout.putConstraint(SpringLayout.NORTH, showcom, 0, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.WEST, showcom, 0, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.SOUTH, showcom, 0, SpringLayout.SOUTH, panel);
+        panel.add(showcom);
+
+		
+		showteam = new JCheckBox("Show Team Data");
+		showteam.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        showteam.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14f));
+		showteam.setBackground(Color.WHITE);
+		showteam.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				calProps.setShowTeamData(showteam.isSelected());
+				//update the commitments to either include or not include team data
+				updateCalData();
+				setView();
+			}
+		});
+		
+        layout.putConstraint(SpringLayout.NORTH, showteam, 0, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.WEST, showteam, 15, SpringLayout.EAST, showcom);
+        layout.putConstraint(SpringLayout.SOUTH, showteam, 0, SpringLayout.SOUTH, panel);
+        panel.add(showteam);
+        
+        final int width = showcom.getPreferredSize().width + 30 + showteam.getPreferredSize().width;
+        final int height = showcom.getPreferredSize().height;
+        panel.setPreferredSize(new Dimension(width, height));
+        
+		return panel;
 	}
 
 }

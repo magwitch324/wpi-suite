@@ -12,15 +12,22 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
 import java.util.List;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class CombinedEventList extends EventList{
 	/**
-	 * This class is for dealing with combining the list of personal and team events without overriding the ids of the events
+	 * This class is for dealing with combining the list of personal 
+	 * and team events without overriding the ids of the events
 	 */
 
 	public CombinedEventList() {
-		super();
 	}
 	
+	/**
+	 * Constructor for CombinedEventList.
+	 * @param list List<Event>
+	 */
 	public CombinedEventList(List<Event> list) {
 		this();
 		calendarObjects = list;
@@ -28,7 +35,8 @@ public class CombinedEventList extends EventList{
 	
 	@Override
 	/**
-	 * Adds a single event to the event of the project, while sorting them into the right order by date
+	 * Adds a single event to the event of the project, 
+	 * while sorting them into the right order by date
 	 * 
 	 * @param newEvent The event to be added to the list of events in the project
 	 */

@@ -15,6 +15,9 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Date;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class RepeatingEvent extends CalendarObject {
 
 	/** the start date of the event */
@@ -25,6 +28,8 @@ public class RepeatingEvent extends CalendarObject {
 	private List<String> participants = new ArrayList<String>();
 	/** the number of repetitions */
 	private int repetitions;
+	/**
+	 */
 	public enum RepeatType{
 		DAY,WEEK,MONTH;
 	};
@@ -35,7 +40,6 @@ public class RepeatingEvent extends CalendarObject {
 	 * Constructs a Event with default characteristics
 	 */
 	public RepeatingEvent() {
-		super();
 		startTime = new Date(0);
 		endTime = new Date(0);
 		repetitions = 0;
@@ -60,10 +64,10 @@ public class RepeatingEvent extends CalendarObject {
 	 *            The Category of the Event
 	 * @param isPersonal
 	 *            A boolean stating that the Event is personal    
-	 * @param finalRepeat
-	 * 			  A date Representing the final repeat day
+	
 	 * @param repType
 	 *			  A Repeat type indicating the event's repeat type
+	 * @param repetitions int
 	 */
 	public RepeatingEvent(String name, String description, GregorianCalendar startTime,
 			GregorianCalendar endTime, String[] people, int categoryID,

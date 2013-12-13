@@ -17,6 +17,8 @@ import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
 /**
  * This observer is called when a response is received from a request
  * to the server to update a CalendarData.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class UpdateCalendarDataRequestObserver implements RequestObserver {
 	
@@ -34,7 +36,8 @@ public class UpdateCalendarDataRequestObserver implements RequestObserver {
 	 * Parse the CalendarData that was received from the server then pass them to
 	 * the controller.
 	 * 
-	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseSuccess(edu.wpi.cs.wpisuitetng.network.models.IRequest)
+	 * @see edu.wpi.cs.wpisuitetng.network.RequestObserver#responseSuccess
+	 * (edu.wpi.cs.wpisuitetng.network.models.IRequest)
 	 */
 	@Override
 	public void responseSuccess(IRequest iReq) {
