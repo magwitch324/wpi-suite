@@ -100,7 +100,7 @@ public class CategoryListTest {
 	 @Test
 	    public void addCategoriesTest() {
 	    	Category[] categoryArray = new Category[]{lastYear, todayCategory, nextYear};
-	    	categoryList.addCategorys(categoryArray);
+	    	categoryList.addCategories(categoryArray);
 	    	assertEquals(3, categoryList.getSize());
 	    	assertEquals("Last Year", categoryList.getElementAt(2).getName());
 	    	assertEquals("Today", categoryList.getElementAt(0).getName());
@@ -115,7 +115,7 @@ public class CategoryListTest {
 	    	categoryList.add(todayCategory);
 	    	categoryList.add(lastYear);
 	    	categoryList.add(nextYear);	    	
-	    	categories = categoryList.getCategorys();	    	
+	    	categories = categoryList.getCategories();	    	
 	    	assertEquals(4, categories.size());
 	    	assertEquals("Next Year", categories.get(2).getName());
 	    	assertEquals("Last Year", categories.get(0).getName());
