@@ -338,7 +338,7 @@ public class CommitmentTab extends JPanel {
 		lblDateError = new JLabel("<html><font color='red'>Please enter a valid date (MM/DD/YYYY).</font></html>");
 		lblDateError.setVisible(false);
 		lblDateError.setHorizontalAlignment(SwingConstants.LEFT);
-		GridBagConstraints gbc_lblDateError = new GridBagConstraints();
+		final GridBagConstraints gbc_lblDateError = new GridBagConstraints();
 		gbc_lblDateError.insets = new Insets(0, 0, 5, 0);
 		gbc_lblDateError.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblDateError.gridx = 1;
@@ -800,7 +800,7 @@ public class CommitmentTab extends JPanel {
 			public void stateChanged(ChangeEvent e) {
 
 				boolean hourFlag;
-				GregorianCalendar cal = new GregorianCalendar();
+				final GregorianCalendar cal = new GregorianCalendar();
 				cal.setTime((Date) minuteSpinner.getValue());
 				int currentHour = cal.get(Calendar.HOUR);
 				System.out.println("Change ccurent " + currentHour);
