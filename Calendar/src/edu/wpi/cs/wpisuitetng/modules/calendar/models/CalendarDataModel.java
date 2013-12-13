@@ -18,9 +18,11 @@ import javax.swing.AbstractListModel;
 
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddCalendarDataController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 
+
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class CalendarDataModel extends AbstractListModel {
 
 	/**
@@ -93,7 +95,7 @@ public class CalendarDataModel extends AbstractListModel {
 	/**
 	 * Removes the CalendarData with the given ID
 	 * 
-	 * @param removeId The ID number of the CalendarData to be removed from the list of CalendarDatas in the project
+	 * @param removeId The ID number of the CalendarData to be removed from the list of CalendarDatas
 	 */
 	public void removeCalendarData(String removeId){
 		// iterate through list of CalendarDatas until id of project is found
@@ -110,7 +112,10 @@ public class CalendarDataModel extends AbstractListModel {
 	/**
 	 * Provides the number of elements in the list of CalendarData for the project. 
 	 * 
-	 * @return the number of CalendarDatas in the project * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize()
+	 * @return the number of CalendarDatas in the project 
+	 * * @see javax.swing.ListModel#getSize() 
+	 * * @see javax.swing.ListModel#getSize() 
+	 * * @see javax.swing.ListModel#getSize()
 	 */
 	public int getSize() {
 		return calendarDatas.size();
@@ -126,7 +131,10 @@ public class CalendarDataModel extends AbstractListModel {
 	
 	
 	
-	 * @return the CalendarData associated with the provided index * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int)
+	 * @return the CalendarData associated with the provided index 
+	 * * @see javax.swing.ListModel#getElementAt(int) 
+	 * * @see javax.swing.ListModel#getElementAt(int) 
+	 * * @see javax.swing.ListModel#getElementAt(int)
 	 */
 	public CalendarData getElementAt(int index) {
 		return calendarDatas.get(calendarDatas.size() - 1 - index);
@@ -154,7 +162,8 @@ public class CalendarDataModel extends AbstractListModel {
 	/**
 	 * Adds the given array of CalendarData to the list
 	 * 
-	 * @param categories the array of categories to add
+	
+	 * @param calData CalendarData[]
 	 */
 	public void addCalendarData(CalendarData[] calData) {
 		for (int i = 0; i < calData.length; i++) {

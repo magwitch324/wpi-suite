@@ -19,8 +19,11 @@ import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
 /**
  * This controller responds when the user clicks the Update button by
  * updating the contents of the calendarData text fields to the model of an existing
- * calendarData.@@@
- */
+ * calendarData.
+ * @author Tianci
+ * @version $Revision: 1.0 $
+*/
+
 public class UpdateCalendarDataController{
 	
 	private static UpdateCalendarDataController instance;
@@ -58,9 +61,12 @@ public class UpdateCalendarDataController{
 		//refreshes calendar GUI
 		GUIEventController.getInstance().updateCalData();
 		System.out.println("Updating caldata");
-		final Request request = Network.getInstance().makeRequest("calendar/calendardata", HttpMethod.POST); // POST == update
-		request.setBody(newCalData.toJSON()); // put the updated CalendarData in the body of the request
-		request.addObserver(observer); // add an observer to process the response
+		final Request request = Network.getInstance().makeRequest(
+				"calendar/calendardata", HttpMethod.POST); // POST == update
+		request.setBody(newCalData.toJSON()); 
+		// put the updated CalendarData in the body of the request
+		request.addObserver(observer); 
+		// add an observer to process the response
 		request.send(); 
 	}
 }

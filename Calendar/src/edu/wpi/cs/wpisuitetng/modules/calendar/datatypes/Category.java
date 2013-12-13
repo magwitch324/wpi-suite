@@ -9,15 +9,18 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
+import java.awt.Color;
 import java.util.Comparator;
 
 import com.google.gson.Gson;
 
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
+
 
 /**
  * Category is used for filtering events and commitments.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class Category extends AbstractModel implements Comparator<Category>{
 
@@ -27,29 +30,37 @@ public class Category extends AbstractModel implements Comparator<Category>{
 	/** the name of the category */
 	private String name;
 	
+	/** the color associated with the category*/
+	private Color categoryColor;
+	
+	/** whether or not the category is personal*/
+	private boolean isPersonal;
 	
 	/**
 	 * Constructs a category with default characteristics
 	 */
 	public Category() {
-		super();
 		name = "";
+		categoryColor = new Color(0);
+		isPersonal = false;
 	}
 
 	/**
 	 * Construct a Category with required properties provided and others set
 	 * to default
 	 * 
-	 * @param id
-	 *            The ID number of the category
+	
 	 * @param name
 	 *            The name of the category
+	 * @param categoryColor Color
+	 * @param isPersonal boolean
 	 */
 	// need to phase out supplying the ID
-	public Category(int id, String name) {
+	public Category(String name, Color categoryColor, boolean isPersonal) {
 		this();
-		this.id = id;
 		this.name = name;
+		this.categoryColor = categoryColor;
+		this.isPersonal = isPersonal;
 	}
 
 
@@ -71,7 +82,7 @@ public class Category extends AbstractModel implements Comparator<Category>{
 	 * 
 	
 	 * @return the id */
-	public int getId() {
+	public int getID() {
 		return id;
 	}
 
@@ -81,7 +92,7 @@ public class Category extends AbstractModel implements Comparator<Category>{
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(int id) {
+	public void setID(int id) {
 		this.id = id;
 	}
 
@@ -111,6 +122,53 @@ public class Category extends AbstractModel implements Comparator<Category>{
 	}
 
 	/**
+	 * Getter for the color
+	 * 
+	 * @return the categoryColor
+	 */
+	public Color getCategoryColor() {
+		return categoryColor;
+	}
+
+	/**
+	 * Setter for the color
+	 * 
+	 * @param categoryColor the categoryColor to set
+	 */
+	public void setCategoryColor(Color categoryColor) {
+		this.categoryColor = categoryColor;
+	}
+
+	/**
+	 * Getter for isPersonal
+	 * 
+	 * @return the isPersonal
+	 */
+	public boolean getIsPersonal() {
+		return isPersonal;
+	}
+
+	/**
+	 * Setter for isPersonal
+	 * 
+	 * @param isPersonal the isPersonal to set
+	 */
+	public void setPersonal(boolean isPersonal) {
+		this.isPersonal = isPersonal;
+	}
+	
+	/**
+	 * Method copyFrom.
+	 * @param toCopyFrom Category
+	 */
+	public void copyFrom(Category toCopyFrom) {
+		id = toCopyFrom.getID();
+		name = toCopyFrom.getName();
+		categoryColor = toCopyFrom.getCategoryColor();
+		isPersonal = toCopyFrom.getIsPersonal();
+	}
+
+	/**
 	 * Method save.
 	 * @see edu.wpi.cs.wpisuitetng.modules.Model#save()
 	 */
@@ -134,7 +192,8 @@ public class Category extends AbstractModel implements Comparator<Category>{
 	 * Method toJSON.
 	
 	
-	 * @return String * @see edu.wpi.cs.wpisuitetng.modules.Model#toJSON() * @see edu.wpi.cs.wpisuitetng.modules.Model#toJSON()
+	 * @return String * @see edu.wpi.cs.wpisuitetng.modules.Model#toJSON() 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.Model#toJSON()
 	 */
 	@Override
 	/**This returns a Json encoded String representation of this category object.
@@ -164,7 +223,8 @@ public class Category extends AbstractModel implements Comparator<Category>{
 	 * @param o Object
 	
 	
-	 * @return Boolean * @see edu.wpi.cs.wpisuitetng.modules.Model#identify(Object) * @see edu.wpi.cs.wpisuitetng.modules.Model#identify(Object)
+	 * @return Boolean * @see edu.wpi.cs.wpisuitetng.modules.Model#identify(Object) 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.Model#identify(Object)
 	 */
 	@Override
 	public Boolean identify(Object o) {
@@ -176,13 +236,20 @@ public class Category extends AbstractModel implements Comparator<Category>{
 	 * Method toString.
 	
 	
-	 * @return String * @see edu.wpi.cs.wpisuitetng.modules.Model#toString() * @see edu.wpi.cs.wpisuitetng.modules.Model#toString()
+	 * @return String * @see edu.wpi.cs.wpisuitetng.modules.Model#toString() 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.Model#toString()
 	 */
 	@Override
 	public String toString() {
 		return name;
 	}
 	
+	/**
+	 * Method compare.
+	 * @param c1 Category
+	 * @param c2 Category
+	 * @return int
+	 */
 	@Override
 	public int compare(Category c1, Category c2) {
 		return c1.getName().compareToIgnoreCase(c2.getName());

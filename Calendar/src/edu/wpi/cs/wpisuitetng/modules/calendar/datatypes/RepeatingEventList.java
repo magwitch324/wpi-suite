@@ -9,8 +9,6 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -19,20 +17,16 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatTy
 
 /**
  * List of repeating events that will be used by the gui for display.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 
 	/**
 	 * The list in which all the events for a single project are contained
+	 * @param newEvent RepeatingEvent
 	 */
 	// Use the super list calendarObjects
-
-	/**
-	 * Constructs an empty list of events for the project
-	 */
-	public RepeatingEventList() {
-		super();
-	}
 
 	/**
 	 * Adds a single event to the events of the project in the correct order
@@ -65,8 +59,8 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	 * @param id
 	 *            The ID number of the event to be returned
 	 * 
-	 * @return the event for the id or null if the event is not found
-	 */
+	
+	 * @return the event for the id or null if the event is not found */
 	public RepeatingEvent getEvent(int id) {
 		return get(id);
 	}
@@ -74,9 +68,8 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	/**
 	 * Removes the event with the given ID
 	 * 
-	 * @param removeId
-	 *            The ID number of the event to be removed from the list of
-	 *            events in the project
+	
+	 * @param id int
 	 */
 	public void removeEvent(int id) {
 		remove(id);
@@ -94,8 +87,8 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	/**
 	 * Adds the given array of events to the list
 	 * 
-	 * @param events
-	 *            the array of events to add
+	
+	 * @param array RepeatingEvent[]
 	 */
 	public void addEvents(RepeatingEvent[] array) {
 		addCalendarObjects(array);
@@ -104,7 +97,8 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	/**
 	 * Update the calendarObject list
 	 * 
-	 * @param the CalendarObject to be updated
+	
+	 * @param newObject RepeatingEvent
 	 */
 	public void update(RepeatingEvent newObject) {
 		final RepeatingEvent tmp = get(newObject.getID());
@@ -127,7 +121,8 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	 * @param start
 	 * @param end
 	 * @return
-	 * @deprecated function isn't useful for this datatype use {@link toCombinedEventList()} to convert to CombinedEventList
+	 * @deprecated function isn't useful for this datatype 
+	 * use {@link toCombinedEventList()} to convert to CombinedEventList
 	 */
 	@Deprecated
 	public List<RepeatingEvent> filter(GregorianCalendar start, GregorianCalendar end) {
@@ -138,8 +133,8 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 	/**
 	 * Converts the list into an equivalent CombinedEvent list
 	 * 
-	 * @return equivalent list of events
-	 */
+	
+	 * @return equivalent list of events */
 	public CombinedEventList toCombinedEventList(){
 		final CombinedEventList eventList = new CombinedEventList();
 		GregorianCalendar eventStart = new GregorianCalendar();

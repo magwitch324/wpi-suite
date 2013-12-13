@@ -42,6 +42,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class WeekPane extends JPanel implements ICalPane {
 	JPanel mainPanel = new JPanel();
@@ -54,6 +57,7 @@ public class WeekPane extends JPanel implements ICalPane {
 
 	/**
 	 * Create the panel.
+	 * @param datecalendar GregorianCalendar
 	 */
 
 	public WeekPane(GregorianCalendar datecalendar) {
@@ -61,7 +65,7 @@ public class WeekPane extends JPanel implements ICalPane {
 		mydate.setTime(datecalendar.getTime());
 		mydate.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 
-	   	setLayout(new GridLayout(1,1));
+	   	setLayout(new GridLayout(1, 1));
 		this.add(scrollPane);
 		
 	   	scrollPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
@@ -92,7 +96,7 @@ public class WeekPane extends JPanel implements ICalPane {
 
 
 		mainPanel.setPreferredSize(new Dimension(30, 2000));
-		mainPanel.setLayout(new GridLayout(1,7));
+		mainPanel.setLayout(new GridLayout(1, 7));
 		
 		final GregorianCalendar temp = new GregorianCalendar();
 		temp.setTime(mydate.getTime());
@@ -112,7 +116,8 @@ public class WeekPane extends JPanel implements ICalPane {
 		scrollPane.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseExited(MouseEvent e) {
-				GUIEventController.getInstance().setScrollBarValue(((JScrollPane)e.getSource()).getVerticalScrollBar().getValue());
+				GUIEventController.getInstance().setScrollBarValue(
+						((JScrollPane)e.getSource()).getVerticalScrollBar().getValue());
 			}
 			
 		});
@@ -130,15 +135,15 @@ public class WeekPane extends JPanel implements ICalPane {
     	final JPanel apane = new JPanel();
     	port.setView(apane);
     	apane.setBackground(CalendarStandard.CalendarRed);
-	    apane.setBorder(new EmptyBorder(5,0,10,0));
-    	apane.setLayout(new GridLayout(1,7));
+	    apane.setBorder(new EmptyBorder(5, 0, 10, 0));
+    	apane.setLayout(new GridLayout(1, 7));
     	
     	final String[][] weekdays = {{"Sunday, ", "Monday, ", "Tuesday, ",
     						"Wednesday, ", "Thursday, ", "Friday, ", "Saturday, " },
-    						{"Sun, ", "Mon, ", "Tue, ","Wed, ", "Thu, ", "Fri, ", "Sat, " },
-    						{"Sun", "Mon", "Tue","Wed", "Thu", "Fri", "Sat" }};
+    						{"Sun, ", "Mon, ", "Tue, ", "Wed, ", "Thu, ", "Fri, ", "Sat, " },
+    						{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }};
     	
-    	GregorianCalendar acal = (GregorianCalendar)mydate.clone();
+    	final GregorianCalendar acal = (GregorianCalendar)mydate.clone();
 		for(int i=0; i < 7; i++) {
 			weekdays[0][i] += acal.get(Calendar.DATE);
 			weekdays[1][i] += acal.get(Calendar.DATE);
@@ -156,7 +161,7 @@ public class WeekPane extends JPanel implements ICalPane {
     		public void componentResized(ComponentEvent e){
     			int touse = 0;
     			do{
-				    for(int i = 0; i<7; i++){
+				    for(int i = 0; i < 7; i++){
 				    	labels[i].setText(weekdays[touse][i]);
 				    }
 				    touse++;
@@ -179,7 +184,7 @@ public class WeekPane extends JPanel implements ICalPane {
 	
 	/** Displays commitments on DetailedDays
      * @param commList List of commitments to be displayed
-	 * @param dayTeamCommList 
+	
      */
     public void displayCommitments(List<Commitment> commList) {
     	if(commList == null){
@@ -188,7 +193,7 @@ public class WeekPane extends JPanel implements ICalPane {
 			}
     	}
     	else{
-			GregorianCalendar temp = new GregorianCalendar();
+			final GregorianCalendar temp = new GregorianCalendar();
 			final CombinedCommitmentList alist = new CombinedCommitmentList(commList);
 			temp.setTime(mydate.getTime());
 			for(int i = 0; i < 7; i++){
@@ -201,6 +206,10 @@ public class WeekPane extends JPanel implements ICalPane {
     	}
 	}
     
+    /**
+     * Method displayEvents.
+     * @param eventList List<Event>
+     */
     public void displayEvents(List<Event> eventList) {
     	if(eventList == null){
     		for(int i = 0; i < 7; i++){
@@ -222,13 +231,20 @@ public class WeekPane extends JPanel implements ICalPane {
 	}
 	
 	public void refresh() {
-   	 	scrollPane.getVerticalScrollBar().setValue(GUIEventController.getInstance().getScrollBarValue());
+   	 	scrollPane.getVerticalScrollBar().setValue(
+   	 			GUIEventController.getInstance().getScrollBarValue());
 	}
 
 
+	/**
+	 */
 	protected class AMouseEvent extends MouseAdapter{
 		GregorianCalendar adate = new GregorianCalendar();
 		
+		/**
+		 * Constructor for AMouseEvent.
+		 * @param adate GregorianCalendar
+		 */
 		public AMouseEvent(GregorianCalendar adate){
 			this.adate.setTime(adate.getTime());
 
@@ -237,7 +253,8 @@ public class WeekPane extends JPanel implements ICalPane {
 	    public void mouseClicked(MouseEvent e) {
 	    	if(e.getClickCount() > 1){
 	    		//save scroll bar location
-	    		GUIEventController.getInstance().setScrollBarValue(scrollPane.getVerticalScrollBar().getValue());
+	    		GUIEventController.getInstance().setScrollBarValue(
+	    				scrollPane.getVerticalScrollBar().getValue());
 	    		//switch to day view
 	    		GUIEventController.getInstance().switchView(adate, AbCalendar.types.DAY);
 	    	}

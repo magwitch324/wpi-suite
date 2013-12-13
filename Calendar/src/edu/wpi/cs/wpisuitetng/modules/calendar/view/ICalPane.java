@@ -13,13 +13,22 @@ import javax.swing.JPanel;
 
 /**
  *
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public interface ICalPane {
 
 	public JPanel getPane();
 	
+	/**
+	 * Method updateScrollPosition.
+	 * @param value int
+	 */
 	public void updateScrollPosition(int value);
 	
+	/**
+	 * Method refresh.
+	 */
 	public void refresh();
 	
 }

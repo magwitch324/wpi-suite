@@ -12,8 +12,6 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab;
 
 import java.awt.Color;
 import java.awt.Component;
-
-import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JTabbedPane;
 
@@ -24,10 +22,15 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentFullView;
 /**
  * This tabbed pane will appear as the main content of the Calendar tab.
  * It starts out showing the Team Calendar and My Calendar tabs. 
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
 public class MainTabView extends JTabbedPane {
 
+	/**
+	 * Constructor for MainTabView.
+	 */
 	public MainTabView() {
 		setTabPlacement(TOP);
 		setTabLayoutPolicy(SCROLL_TAB_LAYOUT);

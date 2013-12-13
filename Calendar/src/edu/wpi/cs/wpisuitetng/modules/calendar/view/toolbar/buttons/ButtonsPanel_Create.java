@@ -33,10 +33,17 @@ import edu.wpi.cs.wpisuitetng.janeway.gui.container.toolbar.ToolbarGroupView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
+<<<<<<< HEAD
 /**
  * Button panel that contains the large buttons on
  * the very top of the main tab.
  */
+=======
+
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
+>>>>>>> 47c624fa4d0af60492268fe9ea20fe07af6dadad
 @SuppressWarnings("serial")
 public class ButtonsPanel_Create extends ToolbarGroupView{
 	
@@ -49,6 +56,9 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 
 //	
 	
+	/**
+	 * Constructor for ButtonsPanel_Create.
+	 */
 	public ButtonsPanel_Create(){
 		super("");
 		createEventButton= new JButton();
@@ -123,7 +133,8 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	    createEventButton.setHorizontalAlignment(SwingConstants.CENTER);
 	    createEventButton.setContentAreaFilled(false);
 	    createEventButton.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		createEventButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
+		createEventButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this icon
 		// the action listener for the Create Event Button
 		createEventButton.addActionListener(new ActionListener() {
 			@Override
@@ -139,7 +150,8 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	    createCommitButton.setHorizontalAlignment(SwingConstants.CENTER);
 	    createCommitButton.setContentAreaFilled(false);
 	    createCommitButton.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		createCommitButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
+		createCommitButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this icon
 		// the action listener for the Create Commitment Button
 		createCommitButton.addActionListener(new ActionListener() {
 			@Override
@@ -149,23 +161,22 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		});	
 			
 		
-		
+		// Category button Create
 	    manageCategoryButton.setText("<html>Manage<br />Categories</html>");
 	    manageCategoryButton.setFont(CalendarStandard.CalendarFontBold);
 	    manageCategoryButton.setHorizontalAlignment(SwingConstants.CENTER);
 	    manageCategoryButton.setContentAreaFilled(false);
 	    manageCategoryButton.setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 0));
-		manageCategoryButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
-		// the action listener for the Manage Category Button
-//		manageCategoryButton.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// bring up a create requirement pane if not in Multiple Requirement Editing Mode
-//				//if (!ViewEventController.getInstance().getOverviewTable().getEditFlag()) {
-//					GUIEventController.getInstance().manageCategories();
-//			//	}
-//			}
-//		});	
+		manageCategoryButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this icon
+		//the action listener for the Manage Category Button
+		manageCategoryButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+					GUIEventController.getInstance().createManageCategories();
+			//	}
+			}
+		});	
 		
 		
 		
@@ -174,17 +185,16 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	    manageFilterButton.setHorizontalAlignment(SwingConstants.CENTER);
 	    manageFilterButton.setContentAreaFilled(false);
 	    manageFilterButton.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		manageFilterButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
+		manageFilterButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this icon
 		// the action listener for the Manage Filter Button
-//		manageFilterButton.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// bring up a create requirement pane if not in Multiple Requirement Editing Mode
-//				//if (!ViewEventController.getInstance().getOverviewTable().getEditFlag()) {
-//					GUIEventController.getInstance().manageFilters();
-//			//	}
-//			}
-//		});	
+		manageFilterButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+					GUIEventController.getInstance().createManageFilters();
+			//	}
+			}
+		});	
 		
 		
 		
@@ -192,13 +202,15 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	    helpButton.setFont(CalendarStandard.CalendarFontBold);
 	    helpButton.setContentAreaFilled(false);
 	    helpButton.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 30));
-		helpButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
+		helpButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this icon
 		// the action listener for the Help Button
 		helpButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Desktop.getDesktop().browse(new URL("https://github.com/magwitch324/wpi-suite/wiki/Calendar-Module").toURI());
+					Desktop.getDesktop().browse(new URL(
+							"https://github.com/magwitch324/wpi-suite/wiki/Calendar-Module").toURI());
 				} catch (MalformedURLException e1) {
 					e1.printStackTrace();
 				} catch (IOException e1) {
@@ -219,17 +231,4 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 		
 		this.add(contentPanel);
 	}
-	
-//	/**
-//	 * Method getCreateCommitButton.
-//	
-//	 * @return JButton */
-//	public JButton getCreateCommitButton() {
-//		return createCommitButton;
-//	}
-//
-//	/**
-//	 * Method getCreateEventButton.
-//	
-//	 * @return JButton */
 }

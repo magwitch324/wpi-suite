@@ -21,11 +21,14 @@ import java.util.Locale;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 
+
 /**
  * Abstract list class that is currently used to
  * create commitmentlist, combined commitmentlist,
  * repeatingeventlist,
  * eventlist, and combined eventlist.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public abstract class CalendarObjectList<T extends CalendarObject> {
 
@@ -35,11 +38,15 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 	/**
 	 * Constructor
 	 */
-	public CalendarObjectList() {
+	protected CalendarObjectList() {
 		calendarObjects = new ArrayList<T>();
 		nextID = 0;
 	}
 
+	/**
+	 * Method add.
+	 * @param newObject T
+	 */
 	public abstract void add(T newObject);
 
 	/**
@@ -48,9 +55,9 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 	 * @param id
 	 *            The ID number of the CalendarObject to be returned
 	 * 
+	
 	 * @return the CalendarObject for the id or null if the CalendarObject is
-	 *         not found
-	 */
+	 *         not found */
 	public T get(int id) {
 		T temp = null;
 		// iterate through list of CalendarObjects until id is found
@@ -109,8 +116,8 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 	 * @param index
 	 *            The index of the CalnedarObject to be returned
 	 *  
-	 * @return the CalnedarObject associated with the provided index 
-	 */
+	
+	 * @return the CalnedarObject associated with the provided index  */
 	public T getElementAt(int index) {
 		return calendarObjects.get(calendarObjects.size() - 1 - index);
 	}
@@ -152,7 +159,8 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 	/**
 	 * Update the calendarObject list
 	 * 
-	 * @param the CalendarObject to be updated
+	
+	 * @param newObject T
 	 */
 	abstract void update(T newObject);
 	
@@ -160,7 +168,8 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 	 * Filter the calendarObject list to data on a specific date
 	 * 
 	 * @param date
-	 * @return ArrayList of calendarObject on date
+	
+	 * @return ArrayList of calendarObject on date * @throws CalendarException
 	 */
 	public List<T> filter(GregorianCalendar date) throws CalendarException {
 
@@ -174,7 +183,8 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 	 * 
 	 * @param start
 	 * @param end
-	 * @return
+	
+	 * @return List<T>
 	 */
 	public abstract List<T> filter(GregorianCalendar start,
 			GregorianCalendar end);
@@ -186,9 +196,10 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 	 * 
 	 * @param date
 	 * @param amount
-	 * @return
-	 * @throws CalendarException
-	 */
+	
+	
+	 * @return List<T>
+	 * @throws CalendarException */
 	public List<T> filter(GregorianCalendar date, int amount)
 			throws CalendarException {
 		final GregorianCalendar start = new GregorianCalendar();
@@ -244,6 +255,10 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 		return filter(start, end);
 	}
 
+	/**
+	 * Method printcalendar.
+	 * @param cal GregorianCalendar
+	 */
 	public void printcalendar(GregorianCalendar cal) {
 		final String dayName = cal.getDisplayName(GregorianCalendar.DAY_OF_WEEK,
 				LONG, Locale.ENGLISH);

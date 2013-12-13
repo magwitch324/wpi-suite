@@ -17,6 +17,8 @@ import java.util.Date;
 
 /**
  * Main data storage class for event.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class Event extends CalendarObject {
 
@@ -33,7 +35,6 @@ public class Event extends CalendarObject {
 	 * Constructs a Event with default characteristics
 	 */
 	public Event() {
-		super();
 		startTime = new Date(0);
 		endTime = new Date(0);
 		isRepeating = false;

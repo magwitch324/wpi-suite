@@ -37,6 +37,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public abstract class CalendarView extends JSplitPane {
 	
@@ -48,8 +51,9 @@ public abstract class CalendarView extends JSplitPane {
 	/**
 	 * Constructor
 	 * Sets up the panel with the refresh function
+	 * @param calendar GregorianCalendar
 	 */
-	public CalendarView(GregorianCalendar calendar) {
+	protected CalendarView(GregorianCalendar calendar) {
 		showAllCommFlag = false;
 	}
 	/**
@@ -71,12 +75,13 @@ public abstract class CalendarView extends JSplitPane {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
 		final JPanel labelPanel = new JPanel();
-		labelPanel.setLayout(new GridLayout(1,1,0,0));
+		labelPanel.setLayout(new GridLayout(1, 1, 0, 0));
 		labelPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.GRAY));
 //		labelPanel.setBorder(new EmptyBorder(0, 10, 0 , 10));
 //		labelPanel.setMinimumSize(new Dimension(330, 50));
 		labelPanel.setBackground(CalendarStandard.CalendarRed);			
-		final JLabel dateLabel = new JLabel("<html><font color='white'><body style='width: 100%'><center>" + dateRange + "</center></html>", SwingConstants.CENTER);
+		final JLabel dateLabel = new JLabel("<html><font color='white'><body style='width: 100%'><center>" + 
+		dateRange + "</center></html>", SwingConstants.CENTER);
 		dateLabel.setFont(CalendarStandard.CalendarFontBold.deriveFont(Font.BOLD, 16));
 		dateLabel.setBorder(new EmptyBorder(5, 0, 5, 0));
 		
@@ -84,10 +89,12 @@ public abstract class CalendarView extends JSplitPane {
 		
 		panel.add(labelPanel);
 		//radio buttons for controlling the filter in the commitment pane
-		final JRadioButton showVisibleButton = new JRadioButton("Show all open commitments in visible range");
+		final JRadioButton showVisibleButton = new JRadioButton(
+				"Show all open commitments in visible range");
 		showVisibleButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		showVisibleButton.setBackground(Color.WHITE);
-		showVisibleButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this radio button
+		showVisibleButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this radio button
 		if(!showAllCommFlag){// need to check due to how refreshing works
 			showVisibleButton.setSelected(true);
 		}
@@ -103,10 +110,11 @@ public abstract class CalendarView extends JSplitPane {
 		});
 		panel.add(showVisibleButton);
 		
-		JRadioButton showAllButton = new JRadioButton("Show all open commitments");
+		final JRadioButton showAllButton = new JRadioButton("Show all open commitments");
 		showAllButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		showAllButton.setBackground(Color.WHITE);
-		showAllButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this radio button
+		showAllButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this radio button
 		if (showAllCommFlag){
 			showAllButton.setSelected(true);
 		}
@@ -136,7 +144,8 @@ public abstract class CalendarView extends JSplitPane {
 		    viewAllCommitmentsButton.setIcon(new ImageIcon(img));
 		    viewAllCommitmentsButton.setText("View All Commitments");
 		    viewAllCommitmentsButton.setBackground(Color.WHITE);
-		    viewAllCommitmentsButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this icon
+		    viewAllCommitmentsButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		    // To change cursor as it moves over this icon
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
 			viewAllCommitmentsButton.setIcon(new ImageIcon());
@@ -193,17 +202,30 @@ public abstract class CalendarView extends JSplitPane {
 	
 	/** Display calendar data in internal panels, decides what commitments 
 	 * fall within range
-	 * @param showCommsOnCalPane 
-	 * @param calData Calendar Data to be displayed
-	 * @param showTeamData 
-	 * @param showCommitments 
-	 */
-	abstract public void displayCalData(EventList eventList, CommitmentList commList, boolean showCommOnCal);
 	
+	
+	
+	
+	 * @param eventList EventList
+	 * @param commList CommitmentList
+	 * @param showCommOnCal boolean
+	 */
+	abstract public void displayCalData(EventList eventList, 
+			CommitmentList commList, boolean showCommOnCal);
+	
+	/**
+	 * Method updateScrollPosition.
+	 * @param value int
+	 */
 	public void updateScrollPosition(int value){
 		calPane.updateScrollPosition(value);
 	}
 
+	/**
+	 * Method updateCommPane.
+	 * @param commList CommitmentList
+	 * @param showCommOnCal boolean
+	 */
 	abstract public void updateCommPane(CommitmentList commList, boolean showCommOnCal);
 	
 }

@@ -16,16 +16,32 @@ import java.util.GregorianCalendar;
 import javax.swing.SpinnerDateModel;
 
 /**
+<<<<<<< HEAD
  * SpinnerDateModel Increments/decrements minute value by 1.
+=======
+ * SpinnerDateModel Increments time value by 30 minutes
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+>>>>>>> 47c624fa4d0af60492268fe9ea20fe07af6dadad
  */
 public class SpinnerDateModelMinute extends SpinnerDateModel {
 
 
+	/**
+	 * Constructor for SpinnerDateModelMinute.
+	 */
 	public SpinnerDateModelMinute() {
 		// TODO Auto-generated constructor stub
 		super(new Date(0), null, null, Calendar.MINUTE);
 	}
 
+	/**
+	 * Constructor for SpinnerDateModelMinute.
+	 * @param value Date
+	 * @param start Comparable
+	 * @param end Comparable
+	 * @param calendarField int
+	 */
 	public SpinnerDateModelMinute(Date value, Comparable start,
 			Comparable end, int calendarField) {
 		super(value, start, end, calendarField);

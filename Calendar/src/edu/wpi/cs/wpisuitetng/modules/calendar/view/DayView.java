@@ -17,6 +17,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class DayView extends CalendarView {
 
@@ -25,6 +28,10 @@ public class DayView extends CalendarView {
 	private final DayPane dayPane;
 	private GregorianCalendar endOfDay;
 	
+	/**
+	 * Constructor for DayView.
+	 * @param datecalendar GregorianCalendar
+	 */
 	public DayView(GregorianCalendar datecalendar) {
 		super(datecalendar);
 		dayPane = new DayPane(datecalendar);
@@ -47,7 +54,8 @@ public class DayView extends CalendarView {
 		endOfDay.add(Calendar.DATE, 1);
 		endOfDay.add(Calendar.MILLISECOND, -1);
 		
-		final String dayName = day.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
+		final String dayName = day.getDisplayName(
+				Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH);
 		final int dayNum = day.get(Calendar.DAY_OF_MONTH);
 		final String monthName = day.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
 		final int year = day.get(Calendar.YEAR);
@@ -56,7 +64,8 @@ public class DayView extends CalendarView {
 	}
 
 	@Override
-	public void displayCalData(EventList eventList, CommitmentList commList, boolean showCommOnCal) {
+	public void displayCalData(
+			EventList eventList, CommitmentList commList, boolean showCommOnCal) {
 
 		if (super.showAllCommFlag){
 			commitmentView.updateCommData(commList.getCommitments());

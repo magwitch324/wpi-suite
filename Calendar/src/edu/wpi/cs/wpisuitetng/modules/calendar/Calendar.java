@@ -26,6 +26,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.buttons.ButtonsPanel
 /**
  * Main constructor for the Janeway calendar tab.
  *
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class Calendar implements IJanewayModule {
 	
@@ -34,6 +36,9 @@ public class Calendar implements IJanewayModule {
 	//public final MainTabController mainTabController;
 	//public ToolbarController toolbarController;
 
+	/**
+	 * Constructor for Calendar.
+	 */
 	public Calendar() {
 		//MainTab
 		final MainTabView mainPanel = new MainTabView(); 
@@ -64,7 +69,8 @@ public class Calendar implements IJanewayModule {
 		
 		tabs = new ArrayList<JanewayTabModel>();
 		// Create a tab model that contains the toolBar panel and the main content panel
-		final JanewayTabModel tab1 = new JanewayTabModel(getName(), new ImageIcon(), new ButtonsPanel_Create(), mainPanel);
+		final JanewayTabModel tab1 = new JanewayTabModel(
+				getName(), new ImageIcon(), new ButtonsPanel_Create(), mainPanel);
 
 		// Add the tab to the list of tabs owned by this module
 		tabs.add(tab1);

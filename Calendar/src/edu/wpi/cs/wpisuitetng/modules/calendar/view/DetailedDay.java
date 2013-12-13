@@ -21,6 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SpringLayout;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class DetailedDay extends JPanel {
 	
@@ -30,8 +33,11 @@ public class DetailedDay extends JPanel {
 	JComponent secondview = new JPanel();
 	
 
-	public DetailedDay(GregorianCalendar adate){
-		super();	
+	/**
+	 * Constructor for DetailedDay.
+	 * @param adate GregorianCalendar
+	 */
+	public DetailedDay(GregorianCalendar adate){	
 		this.setMinimumSize(new Dimension(50, 800));
 		this.setPreferredSize(new Dimension(50, 800));
 		this.addComponentListener(new resizeevent());
@@ -41,22 +47,30 @@ public class DetailedDay extends JPanel {
 		layout.putConstraint(SpringLayout.NORTH, mainview, 0, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.EAST, mainview, 2, SpringLayout.HORIZONTAL_CENTER, this);
 		layout.putConstraint(SpringLayout.SOUTH, mainview, 0, SpringLayout.SOUTH, this);
-		mainview.setBackground(new Color(0,0,0,0));
+		mainview.setBackground(new Color(0, 0, 0, 0));
 		this.add(mainview, JLayeredPane.DEFAULT_LAYER);
 	
-		layout.putConstraint(SpringLayout.WEST, secondview, 2, SpringLayout.HORIZONTAL_CENTER, this);
-		layout.putConstraint(SpringLayout.NORTH, secondview, 0, SpringLayout.NORTH, this);
-		layout.putConstraint(SpringLayout.EAST, secondview, -10, SpringLayout.EAST, this);
-		layout.putConstraint(SpringLayout.SOUTH, secondview, 0, SpringLayout.SOUTH, this);
-		secondview.setBackground(new Color(0,0,0,0));
+		layout.putConstraint(SpringLayout.WEST, secondview, 
+				2, SpringLayout.HORIZONTAL_CENTER, this);
+		layout.putConstraint(SpringLayout.NORTH, secondview,
+				0, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.EAST, secondview, 
+				-10, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.SOUTH, secondview, 
+				0, SpringLayout.SOUTH, this);
+		secondview.setBackground(new Color(0, 0, 0, 0));
 		this.add(secondview, JLayeredPane.PALETTE_LAYER);
 		
 		this.makelines();
 		this.didResize();
 	}
 	
-	public DetailedDay(GregorianCalendar adate, JComponent secondview){
-		super();		
+	/**
+	 * Constructor for DetailedDay.
+	 * @param adate GregorianCalendar
+	 * @param secondview JComponent
+	 */
+	public DetailedDay(GregorianCalendar adate, JComponent secondview){		
 		this.setMinimumSize(new Dimension(50, 800));
 		this.setPreferredSize(new Dimension(50, 800));
 		this.addComponentListener(new resizeevent());
@@ -67,14 +81,18 @@ public class DetailedDay extends JPanel {
 		layout.putConstraint(SpringLayout.NORTH, mainview, 0, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.EAST, mainview, 2, SpringLayout.HORIZONTAL_CENTER, this);
 		layout.putConstraint(SpringLayout.SOUTH, mainview, 0, SpringLayout.SOUTH, this);
-		mainview.setBackground(new Color(0,0,0,0));
+		mainview.setBackground(new Color(0, 0, 0, 0));
 		this.add(mainview);
 		
-		layout.putConstraint(SpringLayout.WEST, this.secondview, 2, SpringLayout.HORIZONTAL_CENTER, this);
-		layout.putConstraint(SpringLayout.NORTH, this.secondview, 0, SpringLayout.NORTH, this);
-		layout.putConstraint(SpringLayout.EAST, this.secondview, -10, SpringLayout.EAST, this);
-		layout.putConstraint(SpringLayout.SOUTH, this.secondview, 0, SpringLayout.SOUTH, this);
-		this.secondview.setBackground(new Color(0,0,0,0));
+		layout.putConstraint(SpringLayout.WEST, this.secondview, 
+				2, SpringLayout.HORIZONTAL_CENTER, this);
+		layout.putConstraint(SpringLayout.NORTH, this.secondview, 
+				0, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.EAST, this.secondview, 
+				-10, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.SOUTH, this.secondview,
+				0, SpringLayout.SOUTH, this);
+		this.secondview.setBackground(new Color(0, 0, 0, 0));
 		this.add(this.secondview);
 	
 		this.makelines();
@@ -84,7 +102,8 @@ public class DetailedDay extends JPanel {
 //	public void setSecondView(JComponent secondView)
 //	{
 //		this.secondview = secondView;
-//		layout.putConstraint(SpringLayout.WEST, this.secondview, 2, SpringLayout.HORIZONTAL_CENTER, this);
+/*		layout.putConstraint(SpringLayout.WEST, this.secondview, 
+	2, SpringLayout.HORIZONTAL_CENTER, this);*/
 //		layout.putConstraint(SpringLayout.NORTH, this.secondview, 0, SpringLayout.NORTH, this);
 //		layout.putConstraint(SpringLayout.EAST, this.secondview, -10, SpringLayout.EAST, this);
 //		layout.putConstraint(SpringLayout.SOUTH, this.secondview, 0, SpringLayout.SOUTH, this);
@@ -98,13 +117,16 @@ public class DetailedDay extends JPanel {
 //		
 //	}
 	
-	protected void makelines(){
+	/**
+ * Method makelines.
+ */
+protected void makelines(){
 		//half hour marks code
 
 		for(int i = 0; i < 48; i++){
 			halfhourmarks[i] = new JSeparator();
 			Color col;
-			if(i%2==0){
+			if(i % 2 == 0){
 				col = Color.BLACK;
 			}
 			else{
@@ -117,9 +139,12 @@ public class DetailedDay extends JPanel {
 		layout.putConstraint(SpringLayout.NORTH, halfhourmarks[0], 0, SpringLayout.NORTH, this);
 	}
 	
+	/**
+	 * Method didResize.
+	 */
 	protected void didResize(){
 		
-		int x = (int)(((this.getSize().getWidth())*0.01)*((this.getSize().getWidth())*0.01));
+		int x = (int)(((this.getSize().getWidth()) * 0.01) * ((this.getSize().getWidth()) * 0.01));
 		x = x > 5 ? x : 5;
 		x = x < 15 ? x : 15;
 		layout.putConstraint(SpringLayout.WEST, halfhourmarks[0], x, SpringLayout.WEST, this);
@@ -127,13 +152,14 @@ public class DetailedDay extends JPanel {
 		
 		for(int i = 1; i < 48; i++){
 			int val = x;
-			if(i%2==1)
+			if(i % 2 == 1)
 				val*=2;
 			layout.putConstraint(SpringLayout.VERTICAL_CENTER, halfhourmarks[i], 
-								(int)((this.getSize().getHeight())*i/48.0),
+								(int)((this.getSize().getHeight()) * i / 48.0),
 								SpringLayout.NORTH, this);
 			layout.putConstraint(SpringLayout.WEST, halfhourmarks[i], val, SpringLayout.WEST, this);
-			layout.putConstraint(SpringLayout.EAST, halfhourmarks[i], -val, SpringLayout.EAST, this);
+			layout.putConstraint(SpringLayout.EAST, 
+					halfhourmarks[i], -val, SpringLayout.EAST, this);
 		}
 		
 		this.revalidate();
@@ -142,6 +168,8 @@ public class DetailedDay extends JPanel {
 	}
 	
 	
+	/**
+	 */
 	protected class resizeevent implements ComponentListener {
 	    public void componentResized(ComponentEvent e) {
 	        // do stuff    
@@ -183,13 +211,15 @@ public class DetailedDay extends JPanel {
 //		commPanel.setBackground(Color.white);
 //		commPanel.add(new JLabel(comm.getName()));
 //		this.add(commPanel);				
-//		layout.putConstraint(SpringLayout.NORTH, commPanel, 0, SpringLayout.NORTH, halfhourmarks[loc]);
+/*		layout.putConstraint(SpringLayout.NORTH, commPanel, 
+	0, SpringLayout.NORTH, halfhourmarks[loc]);*/
 //		layout.putConstraint(SpringLayout.EAST, commPanel, 0, SpringLayout.EAST, this);
 //		layout.putConstraint(SpringLayout.WEST, commPanel, 0, SpringLayout.WEST, this);
 //		if (loc == 47)
 //			layout.putConstraint(SpringLayout.SOUTH, commPanel, 0, SpringLayout.SOUTH, this);
 //		else
-//			layout.putConstraint(SpringLayout.SOUTH, commPanel, 0, SpringLayout.NORTH, halfhourmarks[loc+1]);
+/*			layout.putConstraint(SpringLayout.SOUTH, commPanel, 
+	0, SpringLayout.NORTH, halfhourmarks[loc+1]);*/
 //	}
 //
 //	/** Displays previously created commitments on DetailedDay

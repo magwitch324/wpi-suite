@@ -13,14 +13,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-//import edu.wpi.cs.wpisuitetng.modules.requirementmanager.controller.AddRequirementController;
-
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
-
 /**
  * List of category is design for the users to
  * be able to create their own category.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class CategoryList {
 
@@ -28,12 +25,16 @@ public class CategoryList {
 	 * The list in which all the categories for a single project are contained
 	 */
 	private final List<Category> categories;
+	
+	/** the the id to be used for the next category */
+	private int nextID;
 
 	/**
 	 * Constructs an empty list of categories for the project
 	 */
 	public CategoryList (){
 		categories = new ArrayList<Category>();
+		nextID = 1;
 	}
 
 
@@ -43,8 +44,10 @@ public class CategoryList {
 	 * 
 	 * @param newCat The category to be added to the list of categories in the project
 	 */
-	public void addCategory(Category newCat){
+	public void add(Category newCat){
 		// add the category
+		newCat.setID(nextID);
+		nextID++;
 		categories.add(newCat);
 		sortByAlphabet();
 
@@ -61,7 +64,7 @@ public class CategoryList {
 		// iterate through list of categories until id is found
 		for (int i=0; i < categories.size(); i++){
 			temp = categories.get(i);
-			if (temp.getId() == id){
+			if (temp.getID() == id){
 				break;
 			}
 		}
@@ -70,12 +73,12 @@ public class CategoryList {
 	/**
 	 * Removes the category with the given ID
 	 * 
-	 * @param removeId The ID number of the category to be removed from the list of categories in the project
+	 * @param removeId The ID number of the category to be removed from the list of categories
 	 */
-	public void removeCategory(int removeId){
+	public void remove(int removeId){
 		// iterate through list of categories until id of project is found
 		for (int i=0; i < categories.size(); i++){
-			if (categories.get(i).getId() == removeId){
+			if (categories.get(i).getID() == removeId){
 				// remove the id
 				categories.remove(i);
 				break;
@@ -86,7 +89,8 @@ public class CategoryList {
 	/**
 	 * Provides the number of elements in the list of categories for the project. 
 	 * 
-	 * @return the number of categories in the project * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize()
+	 * @return the number of categories in the project * @see javax.swing.ListModel#getSize() 
+	 * * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize()
 	 */
 	public int getSize() {
 		return categories.size();
@@ -101,8 +105,9 @@ public class CategoryList {
 
 
 
-	 * @return the category associated with the provided index * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int)
-	 */
+	el#getElementAt(int) 
+	 * * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) 
+	 * * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) */
 	public Category getElementAt(int index) {
 		return categories.get(categories.size() - 1 - index);
 	}
@@ -116,15 +121,16 @@ public class CategoryList {
 	 * from the model.
 	 */
 	public void removeAll() {
-		categories.removeAll(getCategorys());
+		categories.removeAll(getCategories());
 	}
 
 	/**
 	 * Adds the given array of categories to the list
 	 * 
-	 * @param categories the array of categories to add
+	
+	 * @param array Category[]
 	 */
-	public void addCategorys(Category[] array) {
+	public void addCategories(Category[] array) {
 		Collections.addAll(categories, array);
 		sortByAlphabet();
 	}
@@ -133,17 +139,18 @@ public class CategoryList {
 	 * Returns the list of the categories
 
 	 * @return the categories held within the CategoryList. */
-	public List<Category> getCategorys() {
+	public List<Category> getCategories() {
 		return categories;
 	}
 	
 	/**
 	 * Update the category list
 	 * 
-	 * @param the category to be update
+	
+	 * @param newCategory Category
 	 */
 	public void update (Category newCategory) {
-		categories.remove(getCategory(newCategory.getId()));
+		categories.remove(getCategory(newCategory.getID()));
 		categories.add(newCategory);
 		sortByAlphabet();
 	}

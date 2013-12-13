@@ -19,21 +19,22 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JViewport;
 import javax.swing.SpringLayout;
-import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 
 /**
  * Viewport class for handling the creation of equal distance times
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class HourDisplayPort extends JViewport {
 	JComponent reference = null;
 	JPanel mainpanel = new JPanel();
-	String[] times = {"12:00", "01 AM","02:00","03:00","04:00","05:00","06:00",
-			"07:00","08:00","09:00","10:00","11:00","12 PM",
-			"01:00","02:00","03:00","04:00","05:00","06:00",
-			"07:00","08:00","09:00","10:00","11:00"};
+	String[] times = {"12:00", "01 AM", "02:00", "03:00", "04:00", "05:00", "06:00",
+			"07:00", "08:00", "09:00", "10:00", "11:00", "12 PM",
+			"01:00", "02:00", "03:00", "04:00", "05:00", "06:00",
+			"07:00", "08:00", "09:00", "10:00", "11:00"};
 	
 	JLabel[] labels = new JLabel[24];
 	SpringLayout layout = new SpringLayout();
@@ -43,7 +44,6 @@ public class HourDisplayPort extends JViewport {
 	 * @param reference the jcomponent which heights are referenced off of
 	 */
 	public HourDisplayPort(JComponent reference){
-		super();
 		super.setView(mainpanel);
 
 		mainpanel.setBackground(CalendarStandard.CalendarRed);
@@ -82,12 +82,14 @@ public class HourDisplayPort extends JViewport {
 		int max = 0;
 		final double height = reference.getHeight();
 		for(int i = 1; i < 24; i++){
-			layout.putConstraint(SpringLayout.VERTICAL_CENTER, labels[i], (int) (height * i / 24.0), SpringLayout.NORTH, mainpanel);
-			max = labels[i].getPreferredSize().width > max ? labels[i].getPreferredSize().width : max;
+			layout.putConstraint(SpringLayout.VERTICAL_CENTER, labels[i], 
+					(int) (height * i / 24.0), SpringLayout.NORTH, mainpanel);
+			max = labels[i].getPreferredSize().width > 
+			max ? labels[i].getPreferredSize().width : max;
 		}
 		
-		mainpanel.setPreferredSize(new Dimension(max+5, (int)height));
-		mainpanel.setSize(new Dimension(max+5, (int)height));
+		mainpanel.setPreferredSize(new Dimension(max + 5, (int)height));
+		mainpanel.setSize(new Dimension(max + 5, (int)height));
 	}
 	
 }
