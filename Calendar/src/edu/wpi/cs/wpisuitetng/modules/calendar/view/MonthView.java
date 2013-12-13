@@ -16,7 +16,6 @@ import java.util.Locale;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 
 @SuppressWarnings("serial")
 public class MonthView extends CalendarView {

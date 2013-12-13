@@ -31,7 +31,6 @@ import javax.swing.JToggleButton;
 import javax.swing.border.EmptyBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
-import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdatePropsController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;

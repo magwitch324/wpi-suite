@@ -12,8 +12,6 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab;
 
 import java.awt.Color;
 import java.awt.Component;
-
-import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JTabbedPane;
 

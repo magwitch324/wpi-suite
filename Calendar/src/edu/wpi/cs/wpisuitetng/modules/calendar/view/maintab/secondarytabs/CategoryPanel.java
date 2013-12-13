@@ -21,15 +21,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 
 import javax.swing.JLabel;
 
-import java.awt.Font;
-
 import javax.swing.Box;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
 import javax.swing.SwingConstants;
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;

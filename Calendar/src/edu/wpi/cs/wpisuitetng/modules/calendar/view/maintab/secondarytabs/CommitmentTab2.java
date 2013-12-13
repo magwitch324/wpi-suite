@@ -15,7 +15,6 @@ import static javax.swing.SpringLayout.WEST;
 import static javax.swing.SpringLayout.SOUTH;
 
 import java.awt.Color;
-import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;

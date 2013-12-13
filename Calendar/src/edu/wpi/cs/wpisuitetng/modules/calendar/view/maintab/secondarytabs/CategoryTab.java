@@ -11,7 +11,6 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,12 +18,6 @@ import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.SpringLayout;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.JTable;
-import javax.swing.JList;
-import javax.swing.JLabel;
 
 import java.awt.Component;
 
@@ -41,7 +34,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JRadioButton;
 import javax.swing.BoxLayout;
-import javax.swing.AbstractListModel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
@@ -49,7 +41,6 @@ import javax.swing.JButton;
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
