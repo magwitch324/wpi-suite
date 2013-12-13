@@ -248,7 +248,7 @@ public class CommitmentTab extends JPanel {
 	 */
 	private void addLabels() {
 		//Name label
-		lblName = new JLabel("Name:");
+		lblName = new JLabel("Name*:");
 //		lblName.setBackground(CalendarStandard.CalendarRed);
 //		lblName.setForeground(Color.WHITE);
 		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -301,7 +301,7 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(lblType, gbc_lblType);
 		
 		//Time label
-		lblTime = new JLabel("Time:");
+		lblTime = new JLabel("Time*:");
 //		lblTime.setBackground(CalendarStandard.CalendarRed);
 //		lblTime.setForeground(Color.WHITE);
 		lblTime.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -330,7 +330,7 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(lblTimeError, gbc_lblTimeError);
 		
 		//Date label
-		lblDate = new JLabel("Date:");
+		lblDate = new JLabel("Date*:");
 //		lblDate.setBackground(CalendarStandard.CalendarRed);
 //		lblDate.setForeground(Color.WHITE);
 		lblDate.setHorizontalAlignment(SwingConstants.RIGHT);
