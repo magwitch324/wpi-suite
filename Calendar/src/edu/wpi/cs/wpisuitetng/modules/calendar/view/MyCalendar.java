@@ -297,6 +297,14 @@ public class MyCalendar extends AbCalendar {
 		showcom.setSelected(calProps.getMyShowComm());
 		//showteam.setSelected(calProps.getShowTeamData());
 		calView.applyCalProps(calProps);
+		switch(calProps.getMyTeamBoth()){
+		case 0: myCalendar.setSelected(true);
+		break;
+		case 1: teamCalendar.setSelected(true);
+		break;
+		case 2: bothCalendar.setSelected(true);
+		break;
+		}
 
 	}
 
@@ -341,6 +349,7 @@ public class MyCalendar extends AbCalendar {
 		myCalendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//update the commitments to either include or not include team data
+				calProps.setMyTeamBoth(0);
 				updateCalData();
 				setView();
 			}
@@ -360,6 +369,7 @@ public class MyCalendar extends AbCalendar {
 		teamCalendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//update the commitments to either include or not include team data
+				calProps.setMyTeamBoth(1);
 				updateCalData();
 				setView();
 			}
@@ -378,6 +388,7 @@ public class MyCalendar extends AbCalendar {
 		bothCalendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//update the commitments to either include or not include team data
+				calProps.setMyTeamBoth(2);
 				updateCalData();
 				setView();
 			}

@@ -25,7 +25,7 @@ public class CalendarProps extends AbstractModel {
 	/** the ID of the CalendarProps */
 	private String id;
 	private boolean showMyComm;
-	private boolean showTeamComm;
+	private int myTeamBoth;
 	private boolean showTeamData;
 	private int commViewMode;
 	private boolean showCommRange;
@@ -36,7 +36,7 @@ public class CalendarProps extends AbstractModel {
 	public CalendarProps() {
 		id = "";
 		showMyComm = false;
-		showTeamComm = false;
+		myTeamBoth = 0;
 		showTeamData = false;
 		showCommRange = false;
 		commViewMode = 0;
@@ -79,16 +79,16 @@ public class CalendarProps extends AbstractModel {
 	 * 
 	 * @param showComm
 	 */
-	public void setTeamShowComm(boolean showComm){
-		showTeamComm = showComm;
+	public void setMyTeamBoth(int myTeamBoth){
+		this.myTeamBoth = myTeamBoth;
 	}
 	
 	/**
 	 * getter for setting whether show comm is selected at startup
 	 * 
 	 */
-	public boolean getTeamShowComm(){
-		return showTeamComm;
+	public int getMyTeamBoth(){
+		return myTeamBoth;
 	}
 
 	
@@ -261,7 +261,7 @@ public class CalendarProps extends AbstractModel {
 	public void copyFrom(CalendarProps toCopyFrom){
 		id = toCopyFrom.getId();
 		showMyComm = toCopyFrom.getMyShowComm();
-		showTeamComm = toCopyFrom.getTeamShowComm();
+		myTeamBoth = toCopyFrom.getMyTeamBoth();
 		showTeamData = toCopyFrom.getShowTeamData();
 		commViewMode = toCopyFrom.getCommViewMode();
 		showCommRange = toCopyFrom.getShowCommRange();
