@@ -136,6 +136,7 @@ public class MyCalendar extends AbCalendar {
 	protected void displayCalData() {
 		if (initialized) {
 			calView.displayCalData(events, commitments, this.getShowCommitments());
+			calView.applyCalProps(calProps);
 		}
 	}
 
@@ -260,6 +261,7 @@ public class MyCalendar extends AbCalendar {
 		//set the comm list to the new data
 		showcom.setSelected(calProps.getMyShowComm());
 		showteam.setSelected(calProps.getShowTeamData());
+		calView.applyCalProps(calProps);
 		
 	}
 

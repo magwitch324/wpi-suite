@@ -133,6 +133,7 @@ public class TeamCalendar extends AbCalendar {
 	protected void displayCalData() {
 		if(initialized){
 			calView.displayCalData(events, commitments, getShowCommitments());
+			calView.applyCalProps(calProps);
 		}
 	}
 	
