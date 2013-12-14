@@ -197,7 +197,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * set the new date range for the calendar
 	 * @param calendar
 	 */
-	abstract public void setRange(GregorianCalendar calendar);
+	public abstract void setRange(GregorianCalendar calendar);
 	
 	public void setCalPane(ICalPane pane) {
 		// TODO Auto-generated method stub
@@ -219,7 +219,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * @param commList CommitmentList
 	 * @param showCommOnCal boolean
 	 */
-	abstract public void displayCalData(EventList eventList, 
+     public abstract void displayCalData(EventList eventList, 
 			CommitmentList commList, boolean showCommOnCal);
 	
 	/**
@@ -235,7 +235,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * @param commList CommitmentList
 	 * @param showCommOnCal boolean
 	 */
-	abstract public void updateCommPane(CommitmentList commList, boolean showCommOnCal);
+	public abstract void updateCommPane(CommitmentList commList, boolean showCommOnCal);
 	
 	/**
 	 * Method applyCalProps.

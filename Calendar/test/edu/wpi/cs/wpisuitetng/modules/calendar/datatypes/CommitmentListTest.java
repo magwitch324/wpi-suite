@@ -35,7 +35,7 @@ public class CommitmentListTest {
 	private final GregorianCalendar start = new GregorianCalendar();
 	private final GregorianCalendar end   = new GregorianCalendar();
 	
-	private final static GregorianCalendar today = 
+	private static final GregorianCalendar today = 
 			new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00);
 	
 	/**

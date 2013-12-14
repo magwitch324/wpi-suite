@@ -32,11 +32,11 @@ public class CombinedEventListTest {
 	private static CombinedEventList combinedEventList;
 	private static List<Event> eventList;
 	
-	private final static String[] people = new String[]{"John", "Mary", "Jack" };
+	private static final String[] people = new String[]{"John", "Mary", "Jack" };
 	
-	private final static GregorianCalendar today = 
+	private static final GregorianCalendar today = 
 			new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00);
-	private final static GregorianCalendar today13 = 
+	private static final GregorianCalendar today13 = 
 			new GregorianCalendar(2013, NOVEMBER, 23, 13, 00, 00);
 	
 	private final Event lastYear   = new Event("Last Year",  

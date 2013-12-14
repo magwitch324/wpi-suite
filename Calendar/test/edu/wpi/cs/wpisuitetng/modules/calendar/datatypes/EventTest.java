@@ -25,11 +25,11 @@ import java.util.List;
  */
 public class EventTest {
 	
-	private final static GregorianCalendar _20120129 = new GregorianCalendar(2012, JANUARY, 29);
-	private final static GregorianCalendar _20120130 = new GregorianCalendar(2012, JANUARY, 30);
-	private final static GregorianCalendar _20131209 = new GregorianCalendar(2013, DECEMBER, 9);
-	private final static GregorianCalendar _20131214 = new GregorianCalendar(2013, DECEMBER, 14);
-	private final static String[] people1 = new String[]{"John", "Mary", "Jack" };
+	private static final GregorianCalendar _20120129 = new GregorianCalendar(2012, JANUARY, 29);
+	private static final GregorianCalendar _20120130 = new GregorianCalendar(2012, JANUARY, 30);
+	private static final GregorianCalendar _20131209 = new GregorianCalendar(2013, DECEMBER, 9);
+	private static final GregorianCalendar _20131214 = new GregorianCalendar(2013, DECEMBER, 14);
+	private static final String[] people1 = new String[]{"John", "Mary", "Jack" };
 	/**
 	 * Tests to ensure that a new event is created with default values
 	 */

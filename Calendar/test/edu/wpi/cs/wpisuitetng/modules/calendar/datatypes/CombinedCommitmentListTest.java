@@ -32,7 +32,7 @@ public class CombinedCommitmentListTest {
 	private static CombinedCommitmentList combinedCommitmentList;
 	private static List<Commitment> commitmentList;
 	
-	private final static GregorianCalendar today = 
+	private static final GregorianCalendar today = 
 			new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00);
 	private final Commitment lastYear   = 
 			new Commitment("Last Year", new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00), 

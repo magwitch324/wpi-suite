@@ -441,12 +441,12 @@ public abstract class AbCalendar extends JPanel {
 	/**
 	 * Method displayCalData.
 	 */
-	abstract protected void displayCalData();
+	protected abstract void displayCalData();
 	/**
 	 * Method updateCommPane.
 	 */
-	abstract protected void updateCommPane();
-	abstract public boolean getShowTeamData();
+	protected abstract void updateCommPane();
+	public abstract boolean getShowTeamData();
 	/**
 	 * Method applyCalProps.
 	 */
