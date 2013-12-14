@@ -140,6 +140,7 @@ public class EventTab extends JPanel {
 	private int endTempMin = 1;
 	private int endTempHour = 1;
 	private int openedFrom;
+	private Category uncategorized;
 	
 	
 	
@@ -295,6 +296,9 @@ public class EventTab extends JPanel {
 		//Create category box, add two dummy categories
 		categoryComboBox = new JComboBox<Category>();
 		categoryComboBox.setBackground(CalendarStandard.CalendarYellow);
+		uncategorized = new Category("Uncategorized", Color.WHITE, false);
+		uncategorized.setID(0);
+		categoryComboBox.addItem(uncategorized);
 
 		final GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
 		gbc_categoryComboBox.gridwidth = 3;
