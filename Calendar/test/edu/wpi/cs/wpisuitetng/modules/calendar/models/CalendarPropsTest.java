@@ -13,29 +13,42 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
 public class CalendarPropsTest {
 
+	/**
+	 * Method defaultConstuctorTest.
+	 */
 	@Test
 	public void defaultConstuctorTest(){
-		CalendarProps props = new CalendarProps();
+		final CalendarProps props = new CalendarProps();
 		assertEquals("", props.getId());
 		assertFalse(props.getMyShowComm());
 		assertFalse(props.getShowTeamData());
 		assertFalse(props.getTeamShowComm());
 	}
 	
+	/**
+	 * Method idConstuctorTest.
+	 */
 	@Test
 	public void idConstuctorTest(){
-		CalendarProps props = new CalendarProps("test-id");
+		final CalendarProps props = new CalendarProps("test-id");
 		assertEquals("test-id", props.getId());
 		assertFalse(props.getMyShowComm());
 		assertFalse(props.getShowTeamData());
 		assertFalse(props.getTeamShowComm());
 	}
 
+	/**
+	 * Method SetterTest.
+	 */
 	@Test
 	public void SetterTest(){
-		CalendarProps props = new CalendarProps();
+		final CalendarProps props = new CalendarProps();
 		props.setId("test-id");
 		props.setMyShowComm(true);
 		props.setShowTeamData(true);
@@ -46,10 +59,13 @@ public class CalendarPropsTest {
 		assertTrue(props.getTeamShowComm());
 	}
 	
+	/**
+	 * Method CopyFromTest.
+	 */
 	@Test
 	public void CopyFromTest(){
-		CalendarProps props1 = new CalendarProps();
-		CalendarProps props2 = new CalendarProps();
+		final CalendarProps props1 = new CalendarProps();
+		final CalendarProps props2 = new CalendarProps();
 		props1.setId("test-id");
 		props1.setMyShowComm(true);
 		props1.setShowTeamData(true);

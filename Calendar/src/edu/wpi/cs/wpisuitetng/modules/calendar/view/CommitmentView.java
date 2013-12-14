@@ -42,7 +42,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
+/**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
+ @SuppressWarnings("serial")
 public class CommitmentView extends JPanel {
 
 	JPanel commitPanel;
@@ -114,7 +118,7 @@ public class CommitmentView extends JPanel {
 		int n = 0;//adjusted index to take hidden commitments into account
 		
 		// print something when we do not  have any commitments
-		if(commitmentList.size() == 0) {			
+		if(commitmentList.size() == 0) {
 			final JLabel message = new JLabel("<html><body style='width: 100%'><center>"
 					+ "There are no commitments to display</center></html>", SwingConstants.CENTER);
 			message.setBackground(Color.WHITE);
@@ -136,7 +140,7 @@ public class CommitmentView extends JPanel {
 				JLabel tag = new JLabel();
 				try {
 						if (commitmentList.get(i).getIsPersonal())
-						{	
+						{
 							nameImg = ImageIO.read(getClass().getResource(
 									"PersonalCommitment_Icon.png"));
 							scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
@@ -222,19 +226,25 @@ public class CommitmentView extends JPanel {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						if (e.getClickCount() >= 1)
+							{
 							GUIEventController.getInstance().editCommitment(
 									((CommitmentViewPanel)e.getComponent()).getCommitment());
-					}		
+							}
+					}
 				});
 
 				commPanelList.add(n, commitmentPanel);
 				commitmentPanel.setMaximumSize(new Dimension(2000, 100));
 				if(n > 0)
+					{
 					commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 
 							1, SpringLayout.SOUTH, commPanelList.get(n - 1));
+					}
 				else
+					{
 					commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 
 							0, SpringLayout.NORTH, commitPanel);
+					}
 
 				commPanelLayout.putConstraint(SpringLayout.WEST, commitmentPanel, 
 						0, SpringLayout.WEST, commitPanel);
@@ -253,7 +263,10 @@ public class CommitmentView extends JPanel {
 
 				commitPanel.add(separator);
 				if (n == commitmentList.size() - 1)
-					commPanelLayout.putConstraint(SpringLayout.SOUTH, commitPanel, 0, SpringLayout.SOUTH, separator);
+					{
+					commPanelLayout.putConstraint(
+							SpringLayout.SOUTH, commitPanel, 0, SpringLayout.SOUTH, separator);
+					}
 
 				n++;
 			}

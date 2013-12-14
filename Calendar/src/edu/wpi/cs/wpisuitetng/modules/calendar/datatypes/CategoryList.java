@@ -34,7 +34,7 @@ public class CategoryList {
 	 */
 	public CategoryList (){
 		categories = new ArrayList<Category>();
-		nextID = 1;
+		nextID = 1; // ID of zero is for no category
 	}
 
 
@@ -106,8 +106,12 @@ public class CategoryList {
 
 
 	el#getElementAt(int) 
-	 * * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) 
-	 * * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) */
+	 *.ListModel#getElementAt(int) 
+	 *.ListModel#getElementAt(int) 
+	 * * @see javax.swing.ListModel#getElementAt(int) 
+       * @see javax.swing.ListModel#getElementAt(int) 
+	 * * @see javax.swing.ListModel#getElementAt(int) 
+       * @see javax.swing.ListModel#getElementAt(int) */
 	public Category getElementAt(int index) {
 		return categories.get(categories.size() - 1 - index);
 	}

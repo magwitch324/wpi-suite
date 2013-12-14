@@ -29,7 +29,11 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-public class CalPropsEntityManager implements EntityManager<CalendarProps> {
+/**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
+ public class CalPropsEntityManager implements EntityManager<CalendarProps> {
 
 	/** The database */
 	Data db;
@@ -205,7 +209,7 @@ public class CalPropsEntityManager implements EntityManager<CalendarProps> {
 			throw new BadRequestException("CalendarProps with ID does not exist.");
 		}
 				
-		final CalendarProps existingCalData = (CalendarProps)oldCalData.get(0);		
+		final CalendarProps existingCalData = (CalendarProps)oldCalData.get(0);
 
 		// copy values to old CalendarProps and fill in our changeset appropriately
 		existingCalData.copyFrom(updatedCalData);

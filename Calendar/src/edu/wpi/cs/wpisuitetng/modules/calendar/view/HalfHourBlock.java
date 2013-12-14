@@ -65,7 +65,7 @@ public class HalfHourBlock extends JPanel{
 				if (e.getClickCount() == 1){
 					setFull(e.getComponent());
 				}
-			}		
+			}
 		});
 		teamComPanels.add(comPanel);
 	}
@@ -85,7 +85,7 @@ public class HalfHourBlock extends JPanel{
 				if (e.getClickCount() == 1){
 					setFull(e.getComponent());
 				}
-			}		
+			}
 		});
 		personalComPanels.add(comPanel);
 		
@@ -111,7 +111,7 @@ public class HalfHourBlock extends JPanel{
 					GUIEventController.getInstance().editCommitment(
 							((CommitmentCalViewPanel)e.getComponent()).getCommitment());
 				}
-			}		
+			}
 		});
 		
 		
@@ -131,7 +131,7 @@ public class HalfHourBlock extends JPanel{
 			@Override
 			public void mouseExited(MouseEvent e) {
 				restoreDefault();
-			}		
+			}
 		});
 		this.revalidate();
 		this.repaint();
@@ -140,7 +140,7 @@ public class HalfHourBlock extends JPanel{
 	/**
 	 * Restore the half hour block to its normal appearance after one component is maximized
 	 */
-	protected void restoreDefault() {		
+	protected void restoreDefault() {
 		size = teamComPanels.size() + personalComPanels.size();
 		layout.setColumns(size);
 		this.setLayout(layout);
@@ -177,7 +177,7 @@ public class HalfHourBlock extends JPanel{
 					GUIEventController.getInstance().editCommitment(
 							((CommitmentCalViewPanel)e.getComponent()).getCommitment());
 				}
-			}		
+			}
 		});
 		
 		

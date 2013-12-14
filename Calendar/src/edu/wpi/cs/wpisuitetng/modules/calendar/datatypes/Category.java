@@ -24,7 +24,7 @@ import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
  */
 public class Category extends AbstractModel implements Comparator<Category>{
 
-	/** the ID of the category */
+	/** the ID of the category, if the ID is zero it is treated as null */
 	private int id;
 
 	/** the name of the category */
@@ -107,9 +107,7 @@ public class Category extends AbstractModel implements Comparator<Category>{
 
 	/**
 	 * setter for the name
-	 * 
-	 * @param name
-	 *            the name to set
+	 * the name to set
 	 */
 	public void setName(String n) {
 
@@ -248,8 +246,8 @@ public class Category extends AbstractModel implements Comparator<Category>{
 	 * Method compare.
 	 * @param c1 Category
 	 * @param c2 Category
-	 * @return int
-	 */
+	
+	 * @return int */
 	@Override
 	public int compare(Category c1, Category c2) {
 		return c1.getName().compareToIgnoreCase(c2.getName());

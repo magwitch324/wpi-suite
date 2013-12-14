@@ -16,9 +16,12 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import org.junit.Test;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 
+/**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
 public class CommitmentTest {
 	// did not test save(),delete(),toJSON(),fromJsonArray(String),identify(Object)
 	// I suspect that the untested functions are unnecessary
@@ -29,13 +32,14 @@ public class CommitmentTest {
 	 */
 	@Test
 	public void defaultConstructorTest(){
-		GregorianCalendar tmpCal = new GregorianCalendar();
+		final GregorianCalendar tmpCal = new GregorianCalendar();
 		tmpCal.setTime(new Date());
-		Commitment testComm = new Commitment();
+		final Commitment testComm = new Commitment();
 		assertEquals(0, testComm.getID());
 		assertEquals("", testComm.getName());
 		assertEquals("", testComm.getDescription());
-		//TODO: see if this line can be reworked somehow //assertEquals(tmpCal.getTime(), testComm.getDueDate().getTime());
+		//TODO: see if this line can be reworked somehow 
+		//assertEquals(tmpCal.getTime(), testComm.getDueDate().getTime());
 		//It should test that the dueDate field got initialized properly
 		assertEquals(Status.NEW, testComm.getStatus());
 		assertEquals(false, testComm.getIsPersonal());
@@ -47,9 +51,9 @@ public class CommitmentTest {
 	 */
 	@Test
 	public void mainConstructorTest(){
-		GregorianCalendar tmpCal = new GregorianCalendar(1, DECEMBER, 2013);
+		final GregorianCalendar tmpCal = new GregorianCalendar(1, DECEMBER, 2013);
 		//tmpCal.setTime(new Date());
-		Commitment testComm = new Commitment("test",tmpCal,"test description",2,true);
+		final Commitment testComm = new Commitment("test", tmpCal, "test description", 2, true);
 		assertEquals(0, testComm.getID());
 		assertEquals("test", testComm.getName());
 		assertEquals("test description", testComm.getDescription());
@@ -64,9 +68,9 @@ public class CommitmentTest {
 	 */
 	@Test
 	public void setterConstructorTest(){
-		GregorianCalendar tmpCal = new GregorianCalendar(1, DECEMBER, 2013);
-		GregorianCalendar tmpCal2 = new GregorianCalendar(2, DECEMBER, 2013);
-		Commitment testComm = new Commitment("test",tmpCal,"test description",2,true);
+		final GregorianCalendar tmpCal = new GregorianCalendar(1, DECEMBER, 2013);
+		final GregorianCalendar tmpCal2 = new GregorianCalendar(2, DECEMBER, 2013);
+		final Commitment testComm = new Commitment("test", tmpCal, "test description", 2, true);
 		testComm.setID(2);
 		testComm.setName("such testing");
 		testComm.setDueDate(tmpCal2);
@@ -88,11 +92,11 @@ public class CommitmentTest {
 	 */
 	@Test
 	public void copyFromTest(){
-		GregorianCalendar tmpCal = new GregorianCalendar(1, DECEMBER, 2013);
-		Commitment testComm2 = new Commitment("test",tmpCal,"test description",2,true);
+		final GregorianCalendar tmpCal = new GregorianCalendar(1, DECEMBER, 2013);
+		final Commitment testComm2 = new Commitment("test", tmpCal, "test description", 2, true);
 		testComm2.setID(2);
 		testComm2.setStatus(Status.COMPLETED);
-		Commitment testComm = new Commitment();
+		final Commitment testComm = new Commitment();
 		testComm.copyFrom(testComm2);
 		assertEquals(2, testComm.getID());
 		assertEquals("test", testComm.getName());
@@ -109,8 +113,8 @@ public class CommitmentTest {
 	@Test
 	public void toStringTest(){
 		// Not sure if necessary, but here for code coverage
-		GregorianCalendar tmpCal = new GregorianCalendar(1, DECEMBER, 2013);
-		Commitment testComm = new Commitment("test",tmpCal,"test description",2,true);
+		final GregorianCalendar tmpCal = new GregorianCalendar(1, DECEMBER, 2013);
+		final Commitment testComm = new Commitment("test", tmpCal, "test description", 2, true);
 		assertEquals("test", testComm.toString());
 	}
 

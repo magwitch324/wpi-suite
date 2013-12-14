@@ -46,7 +46,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
+/**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
+ @SuppressWarnings("serial")
 public class MonthPane extends JScrollPane implements ICalPane {
 	JPanel mainview;
 	MonthDayPane[] days = new MonthDayPane[42];
@@ -136,7 +140,9 @@ public class MonthPane extends JScrollPane implements ICalPane {
 					label[i].setText(text[0][i]);
 					if (label[i].getPreferredSize().getWidth() > label[i]
 							.getParent().getSize().getWidth())
+						{
 						toobig = true;
+						}
 				}
 				if (toobig) {
 					for (int i = 0; i < 7; i++) {
@@ -440,7 +446,8 @@ public class MonthPane extends JScrollPane implements ICalPane {
 						}
 						
 						if(height + curlab.getPreferredSize().getHeight() +
-								label_spacing > boxheight && (wraps.size() - wraps.indexOf(wrap) > 1)){
+								label_spacing > boxheight && (
+										wraps.size() - wraps.indexOf(wrap) > 1)){
 							curlab = new JLabel("+" + 
 								(wraps.size() - wraps.indexOf(wrap)) + " more");
 						}
@@ -457,7 +464,8 @@ public class MonthPane extends JScrollPane implements ICalPane {
 								1, SpringLayout.WEST, small);
 						
 						if (curlab.getPreferredSize().getWidth() > boxwidth) {
-							layout.putConstraint(SpringLayout.EAST, curlab, 0, SpringLayout.EAST, small);
+							layout.putConstraint(SpringLayout.EAST, curlab, 
+									0, SpringLayout.EAST, small);
 						}
 						
 						curlab.setBackground(new Color(0, 0, 0, 0));
@@ -501,6 +509,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		}
 		
 		/**
+		 * @author Tianci
 		 */
 		protected class wrapper{
 			Commitment comm = null;
@@ -544,6 +553,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		}
 		
 		/**
+		 * @author Tianci
 		 */
 		protected class LabelWrapper extends JLabel{
 			Commitment comm = null;
@@ -561,7 +571,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				try {
 					Image nameImg;
 					final Image scaleImg;
-					if (comm.getIsPersonal()) {	
+					if (comm.getIsPersonal()) {
 						nameImg = ImageIO.read(getClass().getResource(
 								"PersonalCommitment_Icon.png"));
 						
@@ -591,7 +601,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				try {
 					Image nameImg;
 					final Image scaleImg;
-					if (event.getIsPersonal()) {	
+					if (event.getIsPersonal()) {
 						nameImg = ImageIO.read(getClass().getResource("PersonalEvent_Icon.png"));
 						
 					} else {
@@ -623,6 +633,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		}
 	
 		/**
+		 * @author Tianci
 		 */
 		protected class wholecheck extends MouseAdapter{
 			public void mouseClicked(MouseEvent e){
@@ -637,6 +648,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		}
 
 		/**
+		 * @author Tianci
 		 */
 		protected class scrollcheck extends MouseAdapter{
 			
