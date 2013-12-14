@@ -47,6 +47,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Cursor;
@@ -58,6 +59,8 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
@@ -297,9 +300,9 @@ public class EventTab extends JPanel {
 		categoryComboBox = new JComboBox<Category>();
 		categoryComboBox.setRenderer(new CategoryComboBoxRenderer());
 		categoryComboBox.setBackground(CalendarStandard.CalendarYellow);
-		uncategorized = new Category("Uncategorized", Color.WHITE, false);
+		uncategorized = new Category("[None]", Color.WHITE, false);
 		uncategorized.setID(0);
-		categoryComboBox.addItem(uncategorized);
+
 
 		final GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
 		gbc_categoryComboBox.gridwidth = 3;
@@ -343,6 +346,8 @@ public class EventTab extends JPanel {
 		panel_1.add(rdbtnTeam);
 		
 		rdbtnTeam.setSelected(true);
+		
+		updateCategoryList();
 		
 		//Date label
 		final JLabel lblDate_1 = new JLabel("Start Date*:");
@@ -1581,6 +1586,8 @@ public class EventTab extends JPanel {
 		rdbtnTeam.setEnabled(false);
 		rdbtnPersonal.setEnabled(false);
 		
+		updateCategoryList();
+		
 
 		setStartDate(editingEvent.getStartTime());
 		startDatePicker.setDate(editingEvent.getStartTime().getTime());
@@ -1653,6 +1660,38 @@ public class EventTab extends JPanel {
 		initFlag = true;
 
 	}
+
+	/**
+	 * Updates the category list in the CategoryComboBox
+	 */
+	protected void updateCategoryList(){
+		//removes the current data from the ComboBox
+		categoryComboBox.removeAllItems();
+		
+		//adds the "none" category
+		categoryComboBox.addItem(uncategorized);
+		
+		// gets Caldata
+		CalendarData calData;
+		if (rdbtnPersonal.isSelected()){
+				calData = CalendarDataModel.getInstance().getCalendarData(
+						ConfigManager.getConfig().getProjectName() + 
+						"-" + ConfigManager.getConfig().getUserName()); 
+		}
+		else{
+			calData = CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName()); 
+		}
+		
+		//extracts the category list
+		List<Category> categories = calData.getCategories().getCategories();
+		
+		//adds the categories to the comboBox
+		for (Category cat:categories){
+			categoryComboBox.addItem(cat);
+		}
+		
+	}
 	
 
 	/**
@@ -1717,6 +1756,56 @@ public class EventTab extends JPanel {
 		addEndTimeSpinnerListeners();
 		addEndDatePickerListeners();
 		
+		
+		rdbtnTeam.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				updateCategoryList();
+				
+			}
+			
+		});
+		
+		rdbtnPersonal.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				updateCategoryList();
+				
+			}
+			
+		});
+		
+		//Adds a listener to the tab so we can refresh the category list if it was edited
+		addComponentListener(new ComponentListener(){
+
+			@Override
+			public void componentResized(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void componentMoved(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void componentShown(ComponentEvent e) {
+
+				updateCategoryList();
+				
+			}
+
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 	}
 
 	
