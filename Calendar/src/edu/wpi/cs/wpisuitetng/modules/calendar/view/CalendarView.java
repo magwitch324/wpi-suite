@@ -51,6 +51,8 @@ public abstract class CalendarView extends JSplitPane {
 	private String dateRange;
 	public boolean showAllCommFlag;
 	private CalendarProps calProps;
+	JRadioButton showAllButton;
+	JRadioButton showVisibleButton;
 	
 	/**
 	 * Constructor
@@ -94,7 +96,7 @@ public abstract class CalendarView extends JSplitPane {
 		
 		panel.add(labelPanel);
 		//radio buttons for controlling the filter in the commitment pane
-		final JRadioButton showVisibleButton = new JRadioButton(
+		showVisibleButton = new JRadioButton(
 				"Show all open commitments in visible range");
 		showVisibleButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		showVisibleButton.setBackground(Color.WHITE);
@@ -109,14 +111,14 @@ public abstract class CalendarView extends JSplitPane {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				showAllCommFlag = false;
-				calProps.setShowAllComm(false);
+				calProps.setShowCommRange(false);
 				GUIEventController.getInstance().getSelectedCalendar().updateCommPane();
 			}
 			
 		});
 		panel.add(showVisibleButton);
 		
-		final JRadioButton showAllButton = new JRadioButton("Show all open commitments");
+		showAllButton = new JRadioButton("Show all open commitments");
 		showAllButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		showAllButton.setBackground(Color.WHITE);
 		showAllButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
@@ -130,7 +132,7 @@ public abstract class CalendarView extends JSplitPane {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				showAllCommFlag = true;
-				calProps.setShowAllComm(true);
+				calProps.setShowCommRange(true);
 				GUIEventController.getInstance().getSelectedCalendar().updateCommPane();
 			}
 			
@@ -237,7 +239,13 @@ public abstract class CalendarView extends JSplitPane {
 	
 	public void applyCalProps(CalendarProps calProps){
 		this.calProps = calProps;
-		showAllCommFlag = calProps.getShowAllComm();
+		showAllCommFlag = calProps.getShowCommRange();
+		if(!showAllCommFlag){
+			showVisibleButton.setSelected(true);
+		}
+		else{
+			showAllButton.setSelected(true);
+		}
 		GUIEventController.getInstance().getSelectedCalendar().updateCommPane();
 		
 	}

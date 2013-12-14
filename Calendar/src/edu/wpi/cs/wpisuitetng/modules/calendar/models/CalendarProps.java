@@ -28,7 +28,7 @@ public class CalendarProps extends AbstractModel {
 	private boolean showTeamComm;
 	private boolean showTeamData;
 	private int commViewMode;
-	private boolean showAllComm;
+	private boolean showCommRange;
 
 	/**
 	 * Constructs a CalendarProps with default characteristics
@@ -38,7 +38,7 @@ public class CalendarProps extends AbstractModel {
 		showMyComm = false;
 		showTeamComm = false;
 		showTeamData = false;
-		showAllComm = false;
+		showCommRange = false;
 		commViewMode = 0;
 	}
 
@@ -131,16 +131,16 @@ public class CalendarProps extends AbstractModel {
 	 * 
 	 * @param showComm
 	 */
-	public void setShowAllComm(boolean showAll){
-		showAllComm = showAll;
+	public void setShowCommRange(boolean showAll){
+		showCommRange = showAll;
 	}
 	
 	/**
 	 * getter for setting whether commitpane is showing in range or all
 	 * 
 	 */
-	public boolean getShowAllComm(){
-		return showAllComm;
+	public boolean getShowCommRange(){
+		return showCommRange;
 	}
 	
 	/**
@@ -264,6 +264,7 @@ public class CalendarProps extends AbstractModel {
 		showTeamComm = toCopyFrom.getTeamShowComm();
 		showTeamData = toCopyFrom.getShowTeamData();
 		commViewMode = toCopyFrom.getCommViewMode();
+		showCommRange = toCopyFrom.getShowCommRange();
 	}
 
 	
