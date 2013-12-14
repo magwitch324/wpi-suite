@@ -16,10 +16,13 @@ import edu.wpi.cs.wpisuitetng.network.Request;
 import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
 
 /**
+ * category.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  * This controller responds when the user clicks the Update button by
  * adding the contents of the CalendarData text fields to the model as a new
- * category.
  */
+
 public class AddCalendarDataController{
 	
 	private static AddCalendarDataController instance;
@@ -27,8 +30,6 @@ public class AddCalendarDataController{
 	
 	/**
 	 * Construct an AddCalendarDataController for the given model, view pair
-	
-	
 	 */
 	private AddCalendarDataController() {
 		observer = new AddCalendarDataRequestObserver(this);
@@ -54,7 +55,8 @@ public class AddCalendarDataController{
 	 */
 	public void addCalendarData(CalendarData newCalData) 
 	{
-		final Request request = Network.getInstance().makeRequest("calendar/calendardata", HttpMethod.PUT); // PUT == create
+		final Request request = Network.getInstance().makeRequest(
+				"calendar/calendardata", HttpMethod.PUT); // PUT == create
 		request.setBody(newCalData.toJSON()); // put the new calData in the body of the request
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); 

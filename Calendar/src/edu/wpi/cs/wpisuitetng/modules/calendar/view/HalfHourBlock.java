@@ -28,6 +28,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 
 /** JPanel containing however many CommitmentCalViewPanels fall on a certain half hour
  *
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
 public class HalfHourBlock extends JPanel{
@@ -41,12 +43,11 @@ public class HalfHourBlock extends JPanel{
 	 * @param pos Time value position of block (0 - 47)
 	 */
 	public HalfHourBlock(int pos){
-		super();
 		this.pos = pos;
 		size = 0;
-		layout = new GridLayout(1,1,0,1);
+		layout = new GridLayout(1, 1, 0, 1);
 		this.setLayout(layout);
-		this.setBackground(new Color(0,0,0,0));
+		this.setBackground(new Color(0, 0, 0, 0));
 	}
 	
 	/** Add a team commitment panel
@@ -97,7 +98,7 @@ public class HalfHourBlock extends JPanel{
 	 */
 	private JComponent getTeamComPanel(Commitment tochange){
 		final CommitmentCalViewPanel apane = new CommitmentCalViewPanel(tochange);
-		apane.setBackground(new Color(255,255,255));
+		apane.setBackground(Color.white);
 		
 
 		final LineBorder roundedLineBorder = new LineBorder(Color.black, 1, true);
@@ -107,7 +108,8 @@ public class HalfHourBlock extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() > 1){
-					GUIEventController.getInstance().editCommitment(((CommitmentCalViewPanel)e.getComponent()).getCommitment());
+					GUIEventController.getInstance().editCommitment(
+							((CommitmentCalViewPanel)e.getComponent()).getCommitment());
 				}
 			}		
 		});
@@ -162,7 +164,7 @@ public class HalfHourBlock extends JPanel{
 	 */
 	private JComponent getPersonalComPanel(Commitment tochange){
 		final CommitmentCalViewPanel apane = new CommitmentCalViewPanel(tochange);
-		apane.setBackground(new Color(255,255,255));
+		apane.setBackground(Color.white);
 		
 
 		final LineBorder roundedLineBorder = new LineBorder(Color.black, 1, true);
@@ -172,7 +174,8 @@ public class HalfHourBlock extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() > 1){
-					GUIEventController.getInstance().editCommitment(((CommitmentCalViewPanel)e.getComponent()).getCommitment());
+					GUIEventController.getInstance().editCommitment(
+							((CommitmentCalViewPanel)e.getComponent()).getCommitment());
 				}
 			}		
 		});

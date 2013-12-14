@@ -10,9 +10,7 @@
 
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
-import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.IOException;
 import java.util.Calendar;
@@ -27,11 +25,18 @@ import javax.swing.SwingConstants;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class CommitmentCalViewPanel extends JPanel {
 
 	private final Commitment comm;
 	
+	/**
+	 * Constructor for CommitmentCalViewPanel.
+	 * @param comm Commitment
+	 */
 	public CommitmentCalViewPanel(Commitment comm)
 	{
 		//TODO add function for clicking to go to the editor
@@ -68,7 +73,7 @@ public class CommitmentCalViewPanel extends JPanel {
 			{
 				nameImg = ImageIO.read(getClass().getResource("TeamCommitment_Icon.png"));
 			}
-			scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
+			scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 			alab = new JLabel(name, new ImageIcon(scaleImg), JLabel.CENTER);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -23,18 +23,22 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 
 /** 
  * JPanel overlayed on the left side of the DetailedDay view, used to display commitments
- * @author 
+
  *
+ * @author  CS Anonymous
+ * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
 public class CommitDetailedPane extends JPanel {
 	
 	List<Commitment> commits;
 	GregorianCalendar adate;
-	public CommitDetailedPane(GregorianCalendar adate, List<Commitment> commits){
-
-		super();
-		
+	/**
+	 * Constructor for CommitDetailedPane.
+	 * @param adate GregorianCalendar
+	 * @param commits List<Commitment>
+	 */
+	public CommitDetailedPane(GregorianCalendar adate, List<Commitment> commits){	
 		this.setLayout(new SpringLayout());
 		this.addComponentListener(new ComponentListener() {
 		    public void componentResized(ComponentEvent e) {didResize();}
@@ -55,9 +59,12 @@ public class CommitDetailedPane extends JPanel {
 		
 		this.didResize();
 
-		this.setBackground(new Color(0,0,0,0));
+		this.setBackground(new Color(0, 0, 0, 0));
 	}
 	
+	/**
+	 * Method didResize.
+	 */
 	protected void didResize(){
 		final HalfHourBlock[] halfBlocks = new HalfHourBlock[48];
 		this.removeAll();
@@ -93,7 +100,7 @@ public class CommitDetailedPane extends JPanel {
 			{
 				Calendar cal = new GregorianCalendar();
 				cal.setTime(comm.getDueDate().getTime());
-				int pos = cal.get(Calendar.HOUR_OF_DAY)*2;
+				int pos = cal.get(Calendar.HOUR_OF_DAY) * 2;
 				pos += (cal.get(Calendar.MINUTE) == 30) ? 1 : 0;
 				if (halfBlocks[pos] == null)
 					halfBlocks[pos] = new HalfHourBlock(pos);
@@ -101,12 +108,14 @@ public class CommitDetailedPane extends JPanel {
 			}
 			
 		for( int i = 0; i < 48; i ++){
-			if(halfBlocks[i]!=null)
+			if(halfBlocks[i] != null)
 			{
 				layout.putConstraint(SpringLayout.WEST, halfBlocks[i], 0, SpringLayout.WEST, this);
 				layout.putConstraint(SpringLayout.EAST, halfBlocks[i], 0, SpringLayout.EAST, this);
-				layout.putConstraint(SpringLayout.NORTH, halfBlocks[i], (int)(y/48.0*i) + 1, SpringLayout.NORTH, this);
-				layout.putConstraint(SpringLayout.SOUTH, halfBlocks[i], (int)(y/48.0*(i+1)) - 1, SpringLayout.NORTH, this);
+				layout.putConstraint(SpringLayout.NORTH, halfBlocks[i], 
+						(int)(y / 48.0 * i) + 1, SpringLayout.NORTH, this);
+				layout.putConstraint(SpringLayout.SOUTH, halfBlocks[i], 
+						(int)(y / 48.0 * (i + 1)) - 1, SpringLayout.NORTH, this);
 				this.add(halfBlocks[i]);
 			}
 		}

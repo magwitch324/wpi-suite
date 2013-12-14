@@ -19,6 +19,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
 /**
  * A wrapper class for MainTabView that can be given to components within that view
  * in order to allow them to easily change their titles and icons.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class Tab {
 

@@ -34,6 +34,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CalendarObject;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class CalendarObjectPanel extends JPanel {
 	Event event = null;
@@ -51,7 +54,6 @@ public class CalendarObjectPanel extends JPanel {
 	 * @param acal	the current date to be displayed
 	 */
 	private CalendarObjectPanel(JComponent parent, GregorianCalendar acal){
-		super();
 		this.parent = parent;
 		this.acal.setTime(acal.getTime());
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
@@ -100,7 +102,8 @@ public class CalendarObjectPanel extends JPanel {
 	 * @param event
 	 * @param detailLevel
 	 */
-	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal, Event event, AbCalendar.types detailLevel){
+	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal, 
+			Event event, AbCalendar.types detailLevel){
 		this(parent, acal, event);
 		this.detailLevel = detailLevel;
 		setLabel(); 
@@ -109,10 +112,12 @@ public class CalendarObjectPanel extends JPanel {
 	 * Constructor where level of detail is specified, for commitment
 	 * @param parent
 	 * @param acal
-	 * @param event
+	
 	 * @param detailLevel
+	 * @param comm Commitment
 	 */
-	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal, Commitment comm, AbCalendar.types detailLevel){
+	public CalendarObjectPanel(JComponent parent, GregorianCalendar acal,
+			Commitment comm, AbCalendar.types detailLevel){
 		this(parent, acal, comm);
 		this.detailLevel = detailLevel;
 		setLabel();
@@ -135,29 +140,37 @@ public class CalendarObjectPanel extends JPanel {
 			type = "Event";
 			calobj = event;
 			//if it is a multi day event
-			if(event.getStartTime().get(Calendar.DAY_OF_MONTH) != event.getEndTime().get(Calendar.DAY_OF_MONTH)){
+			if(event.getStartTime().get(Calendar.DAY_OF_MONTH) != 
+					event.getEndTime().get(Calendar.DAY_OF_MONTH)){
 				final SimpleDateFormat dateFormat = new SimpleDateFormat();
 						dateFormat.applyPattern("MM/dd/yy");
 				//if the current day we are adding it to is the first day
-				if(acal.get(Calendar.DAY_OF_MONTH) == event.getStartTime().get(Calendar.DAY_OF_MONTH)){
-					time = tm.format(event.getStartTime().getTime()) + " - " + dateFormat.format(event.getEndTime().getTime());
+				if(acal.get(Calendar.DAY_OF_MONTH) == 
+						event.getStartTime().get(Calendar.DAY_OF_MONTH)){
+					time = tm.format(event.getStartTime().getTime()) + 
+							" - " + dateFormat.format(event.getEndTime().getTime());
 				}
-				else if(acal.get(Calendar.DAY_OF_MONTH) == event.getEndTime().get(Calendar.DAY_OF_MONTH)){
-					time = dateFormat.format(event.getStartTime().getTime())  + " - " + tm.format(event.getEndTime().getTime());
+				else if(acal.get(Calendar.DAY_OF_MONTH) == 
+						event.getEndTime().get(Calendar.DAY_OF_MONTH)){
+					time = dateFormat.format(event.getStartTime().getTime())  + 
+							" - " + tm.format(event.getEndTime().getTime());
 				}
 				else{
-					time = dateFormat.format(event.getStartTime().getTime())  + " - " + dateFormat.format(event.getEndTime().getTime());
+					time = dateFormat.format(event.getStartTime().getTime())  + 
+							" - " + dateFormat.format(event.getEndTime().getTime());
 				}
 			}
 			else{
-				time = tm.format(event.getStartTime().getTime()) + " - " + tm.format(event.getEndTime().getTime());
+				time = tm.format(event.getStartTime().getTime()) + 
+						" - " + tm.format(event.getEndTime().getTime());
 			}
 		}
 		
 		final String name = calobj.getName();
 		String description = calobj.getDescription();
 		
-		String tt = "<html>Name: " + name + "<br>" + time + "<br>Description: " + description + "</html>";
+		String tt = "<html>Name: " + name + "<br>" + time + 
+				"<br>Description: " + description + "</html>";
 		tt = tt.replaceAll("\n", "<br>");
 		setToolTipText(tt);
 		
@@ -179,7 +192,7 @@ public class CalendarObjectPanel extends JPanel {
 			} else {
 				nameImg = ImageIO.read(getClass().getResource("Team" + type + "_Icon.png"));
 			}
-			scaleImg = nameImg.getScaledInstance(25,25, Image.SCALE_SMOOTH);
+			scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 			final ImageIcon imageIcon = new ImageIcon(scaleImg);
 			iconL.setIcon(imageIcon);
 			iconL.setSize(imageIcon.getIconHeight(), imageIcon.getIconWidth());
@@ -244,20 +257,22 @@ public class CalendarObjectPanel extends JPanel {
 	}
 	
 	/**
-	 * refreshes the size of the based on the number of columns, columns spanned, and the length of it
+	 * refreshes the size of the based on the number of columns, 
+	 * columns spanned, and the length of it
 	 */
 	public void refreshSize(){
 		final double par_width = parent.getSize().getWidth();
 		final double par_height = parent.getSize().getHeight();
-		final Dimension new_size = new Dimension((int)((par_width-3*columnwidth - 3)/columnwidth * columnspanned), (int)(par_height* this.getRatioDifference()));
+		final Dimension new_size = new Dimension((int)((par_width - 3 * columnwidth - 3) / columnwidth * columnspanned), 
+				(int)(par_height * this.getRatioDifference()));
 		this.setPreferredSize(new_size);
 	}
 	
 	/**
 	 * Sets the number
 	 * @param columnwidth the number of columns
-	 * @return the new column width
-	 */
+	
+	 * @return the new column width */
 	public int setColumnWidth(int columnwidth){
 		return (this.columnwidth = columnwidth);
 	}
@@ -273,7 +288,8 @@ public class CalendarObjectPanel extends JPanel {
 	/**
 	 * Sets the columns spanned
 	 * @param columnspanned the number of columns that this should span
-	 * @return
+	
+	 * @return int
 	 */
 	public int setColumnSpan(int columnspanned){
 		return (this.columnspanned = columnspanned);
@@ -300,7 +316,8 @@ public class CalendarObjectPanel extends JPanel {
 		
 		double index = 0;
 		if(!this.getStart().before(tempstart)){
-			index = (( this.getStart().get(Calendar.HOUR_OF_DAY) * 60.0 ) + (this.getStart().get(Calendar.MINUTE))) / (24.0 * 60.0);
+			index = (( this.getStart().get(Calendar.HOUR_OF_DAY) * 60.0 ) + 
+					(this.getStart().get(Calendar.MINUTE))) / (24.0 * 60.0);
 		}
 
 		return index;
@@ -328,7 +345,8 @@ public class CalendarObjectPanel extends JPanel {
 		
 		double index = 1.0;
 		if(!this.getEnd().after(tempend)){
-			index = (( this.getEnd().get(Calendar.HOUR_OF_DAY) * 60.0 ) + (this.getEnd().get(Calendar.MINUTE))) / (24.0 * 60.0);
+			index = (( this.getEnd().get(Calendar.HOUR_OF_DAY) * 60.0 ) + 
+					(this.getEnd().get(Calendar.MINUTE))) / (24.0 * 60.0);
 		}
 
 		return index;
@@ -374,8 +392,8 @@ public class CalendarObjectPanel extends JPanel {
 	/**
 	 * Detmines if this and the given COP conflict
 	 * @param other the other COP to compare
-	 * @return whether this and other conflict in time
-	 */
+	
+	 * @return whether this and other conflict in time */
 	public boolean doesConflict(CalendarObjectPanel other){
 		final double thisstart = this.getStartRatio();
 		final double thisend = this.getEndRatio();

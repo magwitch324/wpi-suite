@@ -19,6 +19,8 @@ import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
  * This controller responds when the user clicks the Update button by
  * updating the contents of the CalendarProps text fields to the model of an existing
  * CalendarProps.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class UpdatePropsController{
 	
@@ -57,9 +59,12 @@ public class UpdatePropsController{
 		//refreshes calendar GUI
 		//GUIEventController.getInstance().updateCalData();
 		System.out.println("Updating calprops");
-		final Request request = Network.getInstance().makeRequest("calendar/calendarprops", HttpMethod.POST); // POST == update
-		request.setBody(newCalData.toJSON()); // put the updated CalendarProps in the body of the request
-		request.addObserver(observer); // add an observer to process the response
+		final Request request = Network.getInstance().makeRequest(
+				"calendar/calendarprops", HttpMethod.POST); // POST == update
+		request.setBody(newCalData.toJSON()); 
+		// put the updated CalendarProps in the body of the request
+		request.addObserver(observer); 
+		// add an observer to process the response
 		request.send(); 
 	}
 }

@@ -9,7 +9,6 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 
 import java.util.List;
 
@@ -26,6 +25,11 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.Role;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 
+ /**
+  * Entity manager for database communication. Add/delete/edit in unit of calendar.
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class CalendarDataEntityManager implements EntityManager<CalendarData> {
 
 	/** The database */
@@ -46,7 +50,8 @@ public class CalendarDataEntityManager implements EntityManager<CalendarData> {
 	/**
 	 * Saves a CalendarData when it is received from a client
 	 * 
-	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#makeEntity(edu.wpi.cs.wpisuitetng.Session, java.lang.String)
+	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#makeEntity
+	 * (edu.wpi.cs.wpisuitetng.Session, java.lang.String)
 	 */
 	@Override
 	public CalendarData makeEntity(Session s, String content) throws WPISuiteException {
@@ -65,13 +70,16 @@ public class CalendarDataEntityManager implements EntityManager<CalendarData> {
 	
 	
 	
-	 * @return the CalendarData matching the given id * @throws NotFoundException * @throws NotFoundException * @throws NotFoundException
+	 * @return the CalendarData matching the given id 
+	 * * @throws NotFoundException * @throws NotFoundException 
+	 * * @throws NotFoundException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getEntity(Session, String) */
 	@Override
 	public CalendarData[] getEntity(Session s, String id) throws NotFoundException {
 		CalendarData[] calData = null;
 		try {
-			calData = db.retrieve(CalendarData.class, "id", id, s.getProject()).toArray(new CalendarData[0]);
+			calData = db.retrieve(CalendarData.class, "id", id, 
+					s.getProject()).toArray(new CalendarData[0]);
 		} catch (WPISuiteException e) {
 			e.printStackTrace();
 		}
@@ -87,7 +95,10 @@ public class CalendarDataEntityManager implements EntityManager<CalendarData> {
 	
 	
 	
-	 * @return array of all stored CalendarData * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session) * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session) * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session)
+	 * @return array of all stored CalendarData 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session) 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session) 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session)
 	 */
 	@Override
 	public CalendarData[] getAll(Session s) {
@@ -125,7 +136,10 @@ public class CalendarDataEntityManager implements EntityManager<CalendarData> {
 	
 	
 	
-	 * @return true if the deletion was successful * @throws WPISuiteException * @throws WPISuiteException * @throws WPISuiteException
+	 * @return true if the deletion was successful 
+	 * * @throws WPISuiteException 
+	 * * @throws WPISuiteException 
+	 * * @throws WPISuiteException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#deleteEntity(Session, String) */
 	@Override
 	public boolean deleteEntity(Session s, String id) throws WPISuiteException {
@@ -138,7 +152,9 @@ public class CalendarDataEntityManager implements EntityManager<CalendarData> {
 	 * @param s the session
 	
 	
-	 * @throws WPISuiteException * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#deleteAll(Session) * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#deleteAll(Session)
+	 * @throws WPISuiteException 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#deleteAll(Session) 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#deleteAll(Session)
 	 */
 	@Override
 	public void deleteAll(Session s) throws WPISuiteException {
@@ -152,7 +168,10 @@ public class CalendarDataEntityManager implements EntityManager<CalendarData> {
 	
 	
 	
-	 * @return number of CalendarData stored * @throws WPISuiteException * @throws WPISuiteException * @throws WPISuiteException
+	 * @return number of CalendarData stored 
+	 * * @throws WPISuiteException 
+	 * * @throws WPISuiteException 
+	 * * @throws WPISuiteException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#Count() */
 	@Override
 	public int Count() throws WPISuiteException {
@@ -166,7 +185,10 @@ public class CalendarDataEntityManager implements EntityManager<CalendarData> {
 	
 	
 	
-	 * @return CalendarData * @throws WPISuiteException * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#update(Session, String) * @throws WPISuiteException
+	 * @return CalendarData 
+	 * * @throws WPISuiteException 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#update(Session, String) 
+	 * * @throws WPISuiteException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#update(Session, String)
 	 */
 	@Override
@@ -178,7 +200,8 @@ public class CalendarDataEntityManager implements EntityManager<CalendarData> {
 		 * We have to get the original defect from db4o, copy properties from updatedCategory,
 		 * then save the original Category again.
 		 */
-		final List<Model> oldCalData = db.retrieve(CalendarData.class, "id", updatedCalData.getId(), session.getProject());
+		final List<Model> oldCalData = db.retrieve(CalendarData.class, "id", 
+				updatedCalData.getId(), session.getProject());
 		if(oldCalData.size() < 1 || oldCalData.get(0) == null) {
 			throw new BadRequestException("CalendarData with ID does not exist.");
 		}
@@ -202,7 +225,10 @@ public class CalendarDataEntityManager implements EntityManager<CalendarData> {
 	
 	
 	
-	 * @return String * @throws NotImplementedException * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#advancedGet(Session, String[]) * @throws NotImplementedException
+	 * @return String 
+	 * * @throws NotImplementedException 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#advancedGet(Session, String[]) 
+	 * * @throws NotImplementedException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#advancedGet(Session, String[])
 	 */
 	@Override
@@ -218,11 +244,15 @@ public class CalendarDataEntityManager implements EntityManager<CalendarData> {
 	
 	
 	
-	 * @return String * @throws NotImplementedException * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#advancedPost(Session, String, String) * @throws NotImplementedException
+	 * @return String 
+	 * * @throws NotImplementedException 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#advancedPost(Session, String, String) 
+	 * * @throws NotImplementedException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#advancedPost(Session, String, String)
 	 */
 	@Override
-	public String advancedPost(Session arg0, String arg1, String arg2) throws NotImplementedException {
+	public String advancedPost(Session arg0, String arg1, String arg2) 
+			throws NotImplementedException {
 		throw new NotImplementedException();
 	}
 
@@ -234,11 +264,15 @@ public class CalendarDataEntityManager implements EntityManager<CalendarData> {
 	
 	
 	
-	 * @return String * @throws NotImplementedException * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#advancedPut(Session, String[], String) * @throws NotImplementedException
+	 * @return String 
+	 * * @throws NotImplementedException 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#advancedPut(Session, String[], String) 
+	 * * @throws NotImplementedException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#advancedPut(Session, String[], String)
 	 */
 	@Override
-	public String advancedPut(Session arg0, String[] arg1, String arg2) throws NotImplementedException {
+	public String advancedPut(Session arg0, String[] arg1, String arg2) 
+			throws NotImplementedException {
 		throw new NotImplementedException();
 	}
 

@@ -38,6 +38,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class YearPane extends JScrollPane implements ICalPane{
 	GregorianCalendar supcal = null;
@@ -53,7 +56,6 @@ public class YearPane extends JScrollPane implements ICalPane{
 	 * @param acal the calendar holding the year to be displayed
 	 */
 	public YearPane(GregorianCalendar acal){
-		super();
 		mainview = new JPanel();
 		mainview.setLayout(new GridLayout(height, width, 2, 2));
 		mainview.setBackground(defaultbackground);
@@ -62,7 +64,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 		this.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		this.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
-		this.setMinimumSize(new Dimension(100,100));
+		this.setMinimumSize(new Dimension(100, 100));
 		
 		supcal = (GregorianCalendar)acal.clone();
 		supcal.set(supcal.get(Calendar.YEAR), Calendar.JANUARY, 1);
@@ -94,7 +96,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 			    		break;
 			    	}
 		    	}
-	    		height = 12/width;
+	    		height = 12 / width;
 	    		final GridLayout layout = (GridLayout)mainview.getLayout();
 	    		layout.setColumns(width);
 	    		layout.setRows(height);
@@ -161,6 +163,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 	 * The inner class for a month representation on the year view.
 	 * Creates the header for the month name, the weekday names, and then the
 	 * 42 individual days.
+	 * @author Tianci
 	 */
 	protected class YearMonthPane extends JPanel{
 		GregorianCalendar monthpanestart;
@@ -174,7 +177,6 @@ public class YearPane extends JScrollPane implements ICalPane{
 		 * @param acal the calendar holding the month to be displayed
 		 */
 		public YearMonthPane(GregorianCalendar acal){
-			super();
 			monthstart = (GregorianCalendar)acal.clone();
 			monthstart.set(Calendar.DATE, 1);
 			monthstart.get(Calendar.DATE);
@@ -187,11 +189,11 @@ public class YearPane extends JScrollPane implements ICalPane{
 			this.setBorder(BorderFactory.createSoftBevelBorder(BevelBorder.RAISED));
 			
 			//Creates the month lbl and a wrapper and places it in this at the top
-			final JLabel monthlbl = new JLabel(acal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()),
-											SwingConstants.CENTER);
+			final JLabel monthlbl = new JLabel(acal.getDisplayName(
+					Calendar.MONTH, Calendar.LONG, Locale.getDefault()), SwingConstants.CENTER);
 			monthlbl.addMouseListener(new AMouseMonthEvent(acal));
 			final JPanel temppane = new JPanel();
-			temppane.setLayout(new GridLayout(1,1));
+			temppane.setLayout(new GridLayout(1, 1));
 			temppane.setBackground(CalendarStandard.CalendarRed);
 			
 			monthlbl.setBackground(CalendarStandard.CalendarRed);
@@ -213,7 +215,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 			
 			//Create the days pane and set the grid layout
 			final JPanel days = new JPanel();
-			days.setLayout(new GridLayout(6,7,1,1));
+			days.setLayout(new GridLayout(6, 7, 1, 1));
 			
 			final GregorianCalendar temp = (GregorianCalendar)monthpanestart.clone();
 			
@@ -233,7 +235,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 			
 			//sets the proffered size based on all the children
 			int height = 0;
-			height += daypanes[0].getPreferredSize().getHeight()*6;
+			height += daypanes[0].getPreferredSize().getHeight() * 6;
 			height += names.getPreferredSize().getHeight();
 			height += monthlbl.getPreferredSize().getHeight();
 			height += extra_height;
@@ -249,17 +251,19 @@ public class YearPane extends JScrollPane implements ICalPane{
 		protected JPanel getDayNames(){
 			final String[] days = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 			final JPanel apane = new JPanel();
-			apane.setLayout(new GridLayout(1,7));
+			apane.setLayout(new GridLayout(1, 7));
 			double width = 0;
 			JLabel lbl = null;
 			for(int i = 0; i < 7; i++){
 				lbl = new JLabel(days[i], SwingConstants.CENTER);
 				lbl.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 10));
-				width = width > lbl.getPreferredSize().getWidth()? width : lbl.getPreferredSize().getWidth();
+				width = width > lbl.getPreferredSize().getWidth()? 
+						width : lbl.getPreferredSize().getWidth();
 				lbl.setBackground(defaultbackground);
 				apane.add(lbl);
 			}
-			apane.setPreferredSize(new Dimension((int)width*9, (int)lbl.getPreferredSize().getHeight()));
+			apane.setPreferredSize(new Dimension(
+					(int)width * 9, (int)lbl.getPreferredSize().getHeight()));
 			apane.setBackground(defaultbackground);
 			return apane;
 		}
@@ -320,6 +324,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 	
 	/**
 	 *The internal class for a single day
+	 * @author Tianci
 	 */
 	protected class YearDayPane extends JPanel{
 		GregorianCalendar scal;
@@ -335,19 +340,20 @@ public class YearPane extends JScrollPane implements ICalPane{
 		 * @param month	the current month, used to decide whether acal is part of the month
 		 */
 		public YearDayPane(final GregorianCalendar acal, int month){
-			super();
 			this.setBorder(BorderFactory.createSoftBevelBorder(BevelBorder.RAISED));
 			scal = (GregorianCalendar)acal.clone();
-			this.setLayout(new GridLayout(1,1));
+			this.setLayout(new GridLayout(1, 1));
 			final JLabel lbl = new JLabel("" + scal.get(Calendar.DATE), SwingConstants.CENTER);
 			active = month == acal.get(Calendar.MONTH);
 
 			if(active){
-				lbl.setForeground(new Color(0,0,0));
+				lbl.setForeground(Color.black);
 				this.setBackground(CalendarStandard.CalendarYellow);
 				
-				bgc_withcomm = new BackgroundColor(CalendarStandard.CalendarYellow, CalendarStandard.HeatMapRed, 10);
-				bgc = new BackgroundColor(CalendarStandard.CalendarYellow, CalendarStandard.HeatMapRed, 5);
+				bgc_withcomm = new BackgroundColor(
+						CalendarStandard.CalendarYellow, CalendarStandard.HeatMapRed, 10);
+				bgc = new BackgroundColor(
+						CalendarStandard.CalendarYellow, CalendarStandard.HeatMapRed, 5);
 				
 				//adds double click feature to the days
 				this.addMouseListener(new MouseAdapter(){
@@ -359,8 +365,8 @@ public class YearPane extends JScrollPane implements ICalPane{
 				});
 			}
 			else{
-				lbl.setForeground(new Color(180,180,180));
-				this.setBackground(new Color(220,220,220));
+				lbl.setForeground(new Color(180, 180, 180));
+				this.setBackground(new Color(220, 220, 220));
 			}
 			this.add(lbl);
 			this.setPreferredSize(lbl.getPreferredSize());
@@ -408,6 +414,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 		
 		/**
 		 * Internal class used to calculate color in incremental steps between a range of colors
+		 * @author Tianci
 		 */
 		protected class BackgroundColor{
 			protected Color lower;
@@ -428,25 +435,33 @@ public class YearPane extends JScrollPane implements ICalPane{
 			/**
 			 * Find the color at the the given step in the color range
 			 * @param step the step desired to find the color
-			 * @return the color at the specific step
-			 */
+			
+			 * @return the color at the specific step */
 			public Color getColoratStep(int step){
 				if(step > steps){
 					step = (int)steps;
 				}
 				final int red, green, blue;
-				red = (int)((higher.getRed() - lower.getRed()) *(step/steps) + lower.getRed());
-				green = (int)((higher.getGreen() - lower.getGreen()) *(step/steps) + lower.getGreen());
-				blue = (int)((higher.getBlue() - lower.getBlue()) *(step/steps) + lower.getBlue());
+				red = (int)((higher.getRed() - lower.getRed()) * (step / steps) + lower.getRed());
+				green = (int)((higher.getGreen() - lower.getGreen())
+						* (step / steps) + lower.getGreen());
+				blue = (int)((higher.getBlue() - lower.getBlue()) 
+						* (step / steps) + lower.getBlue());
 				
 				return new Color(red, green, blue);
 			}
 		}
 	}
 	
+	/**
+	 */
 	protected class AMouseMonthEvent extends MouseAdapter{
 		GregorianCalendar adate = new GregorianCalendar();
 		
+		/**
+		 * Constructor for AMouseMonthEvent.
+		 * @param adate GregorianCalendar
+		 */
 		public AMouseMonthEvent(GregorianCalendar adate){
 			this.adate.setTime(adate.getTime());
 

@@ -35,6 +35,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class DayPane extends JPanel implements ICalPane {
 	/**
 	 * 
@@ -49,13 +52,14 @@ public class DayPane extends JPanel implements ICalPane {
 	
 	/**
 	 * Create the panel.
+	 * @param datecalendar GregorianCalendar
 	 */
 	public DayPane(GregorianCalendar datecalendar) {
 		
 		day = new GregorianCalendar();
 		day.setTime(datecalendar.getTime());
 		
-		setLayout(new GridLayout(1,1));
+		setLayout(new GridLayout(1, 1));
 
 
 		// HOURS
@@ -104,7 +108,7 @@ public class DayPane extends JPanel implements ICalPane {
 		
 		scrollPane.setColumnHeaderView(header);
 		
-		mainPanel.setLayout(new GridLayout(1,1));
+		mainPanel.setLayout(new GridLayout(1, 1));
 		daypane = new DayDayPane(day, AbCalendar.types.DAY);
 		mainPanel.add(daypane);
 		mainPanel.setBackground(CalendarStandard.CalendarYellow);
@@ -117,7 +121,8 @@ public class DayPane extends JPanel implements ICalPane {
 		scrollPane.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseExited(MouseEvent e) {
-				GUIEventController.getInstance().setScrollBarValue(((JScrollPane)e.getSource()).getVerticalScrollBar().getValue());
+				GUIEventController.getInstance().setScrollBarValue(
+						((JScrollPane)e.getSource()).getVerticalScrollBar().getValue());
 			}
 
 		});
@@ -127,13 +132,14 @@ public class DayPane extends JPanel implements ICalPane {
 
 
 	public void refresh() {
-   	 	scrollPane.getVerticalScrollBar().setValue(GUIEventController.getInstance().getScrollBarValue());
+   	 	scrollPane.getVerticalScrollBar().setValue(
+   	 			GUIEventController.getInstance().getScrollBarValue());
 	}
 
 
 	/** Displays commitments on DetailedDay
 	 * @param commList List of commitments to be displayed
-	 * @param dayTeamCommList 
+	
 	 */
 	public void displayCommitments(List<Commitment> commList) {
 		if(commList == null){
@@ -148,6 +154,10 @@ public class DayPane extends JPanel implements ICalPane {
 		daypane.displayCommitments(commList);
 	}
 	
+	/**
+	 * Method displayEvents.
+	 * @param eventList List<Event>
+	 */
 	public void displayEvents(List<Event> eventList) {
 		//if we are supposed to display commitments
 		daypane.displayEvents(eventList);

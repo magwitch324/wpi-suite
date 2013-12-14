@@ -14,6 +14,12 @@ import com.google.gson.Gson;
 
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 
+ /**
+  * Calendar properties will help gui display and hide commitments/events
+  * and determine the view mode. (Can be year/month/week/day).
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class CalendarProps extends AbstractModel {
 
 	/** the ID of the CalendarProps */
@@ -28,7 +34,6 @@ public class CalendarProps extends AbstractModel {
 	 * Constructs a CalendarProps with default characteristics
 	 */
 	public CalendarProps() {
-		super();
 		id = "";
 		showMyComm = false;
 		showTeamComm = false;
@@ -43,8 +48,7 @@ public class CalendarProps extends AbstractModel {
 	 * 
 	 * @param id
 	 *            The ID number of the CalendarProps
-	 * @param name
-	 *            The name of the CalendarProps
+	
 	 */
 	// need to phase out supplying the ID
 	public CalendarProps(String id) {
@@ -195,7 +199,9 @@ public class CalendarProps extends AbstractModel {
 	 * Method toJSON.
 	
 	
-	 * @return String * @see edu.wpi.cs.wpisuitetng.modules.Model#toJSON() * @see edu.wpi.cs.wpisuitetng.modules.Model#toJSON()
+	 * @return String 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.Model#toJSON() 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.Model#toJSON()
 	 */
 	@Override
 	/**This returns a Json encoded String representation of this calendarProps object.
@@ -225,7 +231,9 @@ public class CalendarProps extends AbstractModel {
 	 * @param o Object
 	
 	
-	 * @return Boolean * @see edu.wpi.cs.wpisuitetng.modules.Model#identify(Object) * @see edu.wpi.cs.wpisuitetng.modules.Model#identify(Object)
+	 * @return Boolean 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.Model#identify(Object) 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.Model#identify(Object)
 	 */
 	@Override
 	public Boolean identify(Object o) {
@@ -237,13 +245,19 @@ public class CalendarProps extends AbstractModel {
 	 * Method toString.
 	
 	
-	 * @return String * @see edu.wpi.cs.wpisuitetng.modules.Model#toString() * @see edu.wpi.cs.wpisuitetng.modules.Model#toString()
+	 * @return String 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.Model#toString() 
+	 * * @see edu.wpi.cs.wpisuitetng.modules.Model#toString()
 	 */
 	@Override
 	public String toString() {
 		return id;
 	}
 
+	/**
+	 * Method copyFrom.
+	 * @param toCopyFrom CalendarProps
+	 */
 	public void copyFrom(CalendarProps toCopyFrom){
 		id = toCopyFrom.getId();
 		showMyComm = toCopyFrom.getMyShowComm();

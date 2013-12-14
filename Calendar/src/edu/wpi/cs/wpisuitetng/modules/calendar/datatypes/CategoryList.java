@@ -13,11 +13,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-//import edu.wpi.cs.wpisuitetng.modules.requirementmanager.controller.AddRequirementController;
-
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
-
+/**
+ * List of category is design for the users to
+ * be able to create their own category.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
 public class CategoryList {
 
 	/**
@@ -33,7 +34,7 @@ public class CategoryList {
 	 */
 	public CategoryList (){
 		categories = new ArrayList<Category>();
-		nextID = 1;
+		nextID = 1; // ID of zero is for no category
 	}
 
 
@@ -72,7 +73,7 @@ public class CategoryList {
 	/**
 	 * Removes the category with the given ID
 	 * 
-	 * @param removeId The ID number of the category to be removed from the list of categories in the project
+	 * @param removeId The ID number of the category to be removed from the list of categories
 	 */
 	public void remove(int removeId){
 		// iterate through list of categories until id of project is found
@@ -88,7 +89,8 @@ public class CategoryList {
 	/**
 	 * Provides the number of elements in the list of categories for the project. 
 	 * 
-	 * @return the number of categories in the project * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize()
+	 * @return the number of categories in the project * @see javax.swing.ListModel#getSize() 
+	 * * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize()
 	 */
 	public int getSize() {
 		return categories.size();
@@ -103,8 +105,9 @@ public class CategoryList {
 
 
 
-	 * @return the category associated with the provided index * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int)
-	 */
+	el#getElementAt(int) 
+	 * * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) 
+	 * * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) */
 	public Category getElementAt(int index) {
 		return categories.get(categories.size() - 1 - index);
 	}
@@ -124,7 +127,8 @@ public class CategoryList {
 	/**
 	 * Adds the given array of categories to the list
 	 * 
-	 * @param categories the array of categories to add
+	
+	 * @param array Category[]
 	 */
 	public void addCategories(Category[] array) {
 		Collections.addAll(categories, array);
@@ -142,7 +146,8 @@ public class CategoryList {
 	/**
 	 * Update the category list
 	 * 
-	 * @param the category to be update
+	
+	 * @param newCategory Category
 	 */
 	public void update (Category newCategory) {
 		categories.remove(getCategory(newCategory.getID()));

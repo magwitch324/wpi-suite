@@ -17,9 +17,12 @@ import javax.swing.AbstractListModel;
 
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddPropsController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 
+
+
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 public class CalendarPropsModel extends AbstractListModel {
 
 	/**
@@ -92,7 +95,7 @@ public class CalendarPropsModel extends AbstractListModel {
 	/**
 	 * Removes the CalendarProps with the given ID
 	 * 
-	 * @param removeId The ID number of the CalendarProps to be removed from the list of CalendarPropss in the project
+	 * @param removeId The ID number of the CalendarProps to be removed from the list of CalendarPropss
 	 */
 	public void removeCalendarProps(String removeId){
 		// iterate through list of CalendarPropss until id of project is found
@@ -109,7 +112,10 @@ public class CalendarPropsModel extends AbstractListModel {
 	/**
 	 * Provides the number of elements in the list of CalendarProps for the project. 
 	 * 
-	 * @return the number of CalendarPropss in the project * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize() * @see javax.swing.ListModel#getSize()
+	 * @return the number of CalendarPropss in the project 
+	 * * @see javax.swing.ListModel#getSize() 
+	 * * @see javax.swing.ListModel#getSize() 
+	 * * @see javax.swing.ListModel#getSize()
 	 */
 	public int getSize() {
 		return CalendarPropss.size();
@@ -125,7 +131,10 @@ public class CalendarPropsModel extends AbstractListModel {
 	
 	
 	
-	 * @return the CalendarProps associated with the provided index * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int)
+	 * @return the CalendarProps associated with the provided index 
+	 * * @see javax.swing.ListModel#getElementAt(int) 
+	 * * @see javax.swing.ListModel#getElementAt(int) 
+	 * * @see javax.swing.ListModel#getElementAt(int)
 	 */
 	public CalendarProps getElementAt(int index) {
 		return CalendarPropss.get(CalendarPropss.size() - 1 - index);
@@ -153,7 +162,8 @@ public class CalendarPropsModel extends AbstractListModel {
 	/**
 	 * Adds the given array of CalendarProps to the list
 	 * 
-	 * @param categories the array of categories to add
+	
+	 * @param calData CalendarProps[]
 	 */
 	public void addCalendarProps(CalendarProps[] calData) {
 		for (int i = 0; i < calData.length; i++) {
