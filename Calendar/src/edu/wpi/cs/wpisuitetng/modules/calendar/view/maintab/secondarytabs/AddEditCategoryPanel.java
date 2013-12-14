@@ -160,8 +160,8 @@ public class AddEditCategoryPanel extends JPanel {
 		btnCancel.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Yes I hit the button");
-				GUIEventController.getInstance().getMainView().setSelectedComponent(new CategoryTab());
+				int tabIndex = GUIEventController.getInstance().getMainView().getSelectedIndex();
+				GUIEventController.getInstance().getMainView().setComponentAt(tabIndex, new CategoryTab());
 			}
 			
 			
