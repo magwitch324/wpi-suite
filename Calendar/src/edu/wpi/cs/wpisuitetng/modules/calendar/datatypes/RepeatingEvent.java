@@ -31,6 +31,7 @@ public class RepeatingEvent extends CalendarObject {
 	/** the number of repetitions */
 	private int repetitions;
 	/**
+	 * @author Tianci
 	 */
 	public enum RepeatType{
 		DAY,WEEK,MONTH;

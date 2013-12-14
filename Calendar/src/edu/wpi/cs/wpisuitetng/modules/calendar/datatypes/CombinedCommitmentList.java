@@ -55,6 +55,6 @@ public class CombinedCommitmentList extends CommitmentList {
 		}
 		// add the commitment
 		calendarObjects.add(i, newCommitment);
-	}	
+	}
 }
 

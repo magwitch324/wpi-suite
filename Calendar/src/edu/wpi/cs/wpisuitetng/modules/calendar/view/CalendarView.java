@@ -13,7 +13,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -32,18 +31,20 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 
 
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
+/**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
+ @SuppressWarnings("serial")
 public abstract class CalendarView extends JSplitPane {
 	
 	private ICalPane calPane;
@@ -86,8 +87,9 @@ public abstract class CalendarView extends JSplitPane {
 		labelPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.GRAY));
 //		labelPanel.setBorder(new EmptyBorder(0, 10, 0 , 10));
 //		labelPanel.setMinimumSize(new Dimension(330, 50));
-		labelPanel.setBackground(CalendarStandard.CalendarRed);			
-		final JLabel dateLabel = new JLabel("<html><font color='white'><body style='width: 100%'><center>" + 
+		labelPanel.setBackground(CalendarStandard.CalendarRed);
+		final JLabel dateLabel = new JLabel(
+				"<html><font color='white'><body style='width: 100%'><center>" + 
 		dateRange + "</center></html>", SwingConstants.CENTER);
 		dateLabel.setFont(CalendarStandard.CalendarFontBold.deriveFont(Font.BOLD, 16));
 		dateLabel.setBorder(new EmptyBorder(5, 0, 5, 0));
@@ -197,7 +199,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * set the new date range for the calendar
 	 * @param calendar
 	 */
-	abstract public void setRange(GregorianCalendar calendar);
+	public abstract void setRange(GregorianCalendar calendar);
 	
 	public void setCalPane(ICalPane pane) {
 		// TODO Auto-generated method stub
@@ -219,7 +221,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * @param commList CommitmentList
 	 * @param showCommOnCal boolean
 	 */
-	abstract public void displayCalData(EventList eventList, 
+     public abstract void displayCalData(EventList eventList, 
 			CommitmentList commList, boolean showCommOnCal);
 	
 	/**
@@ -235,8 +237,12 @@ public abstract class CalendarView extends JSplitPane {
 	 * @param commList CommitmentList
 	 * @param showCommOnCal boolean
 	 */
-	abstract public void updateCommPane(CommitmentList commList, boolean showCommOnCal);
+	public abstract void updateCommPane(CommitmentList commList, boolean showCommOnCal);
 	
+	/**
+	 * Method applyCalProps.
+	 * @param calProps CalendarProps
+	 */
 	public void applyCalProps(CalendarProps calProps){
 		this.calProps = calProps;
 		showAllCommFlag = calProps.getShowCommRange();

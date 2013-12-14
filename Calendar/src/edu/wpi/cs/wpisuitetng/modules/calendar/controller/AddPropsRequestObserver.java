@@ -45,7 +45,7 @@ public class AddPropsRequestObserver implements RequestObserver {
 		final ResponseModel response = iReq.getResponse();
 		
 		// Parse the CalendarProps out of the response body
-		final CalendarProps calprops = CalendarProps.fromJson(response.getBody());	
+		final CalendarProps calprops = CalendarProps.fromJson(response.getBody());
 	}
 
 	/**

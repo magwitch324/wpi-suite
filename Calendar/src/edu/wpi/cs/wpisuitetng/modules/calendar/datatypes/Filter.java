@@ -24,7 +24,7 @@ public class Filter implements Comparator<Filter>{
 	private int id;
 
 	/** the name of the filter */
-	private String name;	
+	private String name;
 	
 	/** the list of categories to filter*/
 	private CategoryList catList;
@@ -84,9 +84,7 @@ public class Filter implements Comparator<Filter>{
 
 	/**
 	 * setter for the name
-	 * 
-	 * @param name
-	 *            the name to set
+	 * the name to set
 	 */
 	public void setName(String n) {
 
@@ -122,9 +120,9 @@ public class Filter implements Comparator<Filter>{
 	 * Method toJSON.
 	
 	
+	
 	 * @return String * @see edu.wpi.cs.wpisuitetng.modules.Model#toJSON() 
-	 * * @see edu.wpi.cs.wpisuitetng.modules.Model#toJSON()
-	 */
+	 * * @see edu.wpi.cs.wpisuitetng.modules.Model#toJSON() */
 	
 	/**This returns a Json encoded String representation of this filter object.
 	 * 
@@ -155,9 +153,9 @@ public class Filter implements Comparator<Filter>{
 	 * @param o Object
 	
 	
+	
 	 * @return Boolean * @see edu.wpi.cs.wpisuitetng.modules.Model#identify(Object) 
-	 * * @see edu.wpi.cs.wpisuitetng.modules.Model#identify(Object)
-	 */
+	 * * @see edu.wpi.cs.wpisuitetng.modules.Model#identify(Object) */
 	public Boolean identify(Object o) {
 		// TODO Auto-generated method stub
 		return null;
@@ -179,8 +177,8 @@ public class Filter implements Comparator<Filter>{
 	 * Method compare.
 	 * @param f1 Filter
 	 * @param f2 Filter
-	 * @return int
-	 */
+	
+	 * @return int */
 	public int compare(Filter f1, Filter f2) {
 		return f1.getName().compareToIgnoreCase(f2.getName());
 	}
