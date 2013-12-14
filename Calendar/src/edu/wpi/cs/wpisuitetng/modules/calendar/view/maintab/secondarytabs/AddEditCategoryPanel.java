@@ -67,6 +67,7 @@ public class AddEditCategoryPanel extends JPanel {
 	private JTextField textFieldName;
 	private JRadioButton rdbtnTeam;
 	ColorPickerPanel colorPickerPanel;
+	private JRadioButton rdbtnPersonal;
 
 
 	/**
@@ -131,12 +132,14 @@ public class AddEditCategoryPanel extends JPanel {
 		
 		final ButtonGroup teamPersonalRadioButtons = new ButtonGroup();
 		
+		// Team radio button
 		rdbtnTeam = new JRadioButton("Team");
 		horizontalBox.add(rdbtnTeam);
 		teamPersonalRadioButtons.add(rdbtnTeam);
-
+		rdbtnTeam.setSelected(true);	//sets default to team
 		
-		final JRadioButton rdbtnPersonal = new JRadioButton("Personal");
+		// Personal radio button
+		rdbtnPersonal = new JRadioButton("Personal");
 		rdbtnPersonal.setBackground(Color.WHITE);
 		horizontalBox.add(rdbtnPersonal);
 		teamPersonalRadioButtons.add(rdbtnPersonal);
