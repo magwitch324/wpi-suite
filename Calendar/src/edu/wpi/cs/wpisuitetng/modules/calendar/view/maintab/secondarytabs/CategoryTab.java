@@ -309,8 +309,8 @@ import javax.swing.JTextField;
 	protected void refreshCategoryListPanel() {
 		categoryListPanel.removeAll();
 		populateCategoryList();
-		categoryListPanel.revalidate();
-		categoryListPanel.repaint();
+		scrollPane.revalidate();
+		scrollPane.repaint();
 
 	}
 
