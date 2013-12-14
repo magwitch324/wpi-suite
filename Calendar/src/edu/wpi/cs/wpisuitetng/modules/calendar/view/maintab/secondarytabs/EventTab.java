@@ -1688,6 +1688,8 @@ import javax.swing.ButtonGroup;
 	 * Updates the category list in the CategoryComboBox
 	 */
 	protected void updateCategoryList(){
+		initFlag = false; //prevents listeners from running
+		
 		//removes the current data from the ComboBox
 		categoryComboBox.removeAllItems();
 		
@@ -1714,6 +1716,7 @@ import javax.swing.ButtonGroup;
 			categoryComboBox.addItem(cat);
 		}
 		
+		initFlag = true;
 	}
 	
 

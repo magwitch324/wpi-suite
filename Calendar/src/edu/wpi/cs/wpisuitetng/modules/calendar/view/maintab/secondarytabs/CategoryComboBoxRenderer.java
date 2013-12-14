@@ -52,31 +52,32 @@ public class CategoryComboBoxRenderer extends JLabel implements
 	@Override
 	public Component getListCellRendererComponent(JList<? extends Category> list,
 			Category value, int index, boolean isSelected, boolean cellHasFocus) {
-		//gets the drawing area ready
-		colorImage = new BufferedImage(20, 20, BufferedImage.TYPE_BYTE_INDEXED);
-		final Graphics2D graphics = colorImage.createGraphics();
-		
-		//Fills in the image with the desired color
-		graphics.setPaint(value.getCategoryColor());
-		graphics.fillRect(0, 0, colorImage.getWidth(), colorImage.getHeight());
-		
-		//Draws a black border on around the image, 
-		//the "-1"s are to keep it from going out of bounds
-		graphics.setPaint(Color.BLACK);
-		graphics.drawLine(0, 0, 0, colorImage.getHeight());
-		graphics.drawLine(0, 0, colorImage.getWidth(), 0);
-		graphics.drawLine(colorImage.getWidth() - 1, 0, 
-				colorImage.getWidth() - 1, colorImage.getHeight() - 1);
-		graphics.drawLine(0, colorImage.getHeight() - 1, 
-				colorImage.getWidth() - 1, colorImage.getHeight() - 1);
-		
-		//Create Icon from image
-		colorIcon = new ImageIcon(colorImage);
-		
-		//sets the fields of the label
-		setText(value.getName());
-		setIcon(colorIcon);
-		
+		if(value != null){
+			//gets the drawing area ready
+			colorImage = new BufferedImage(20, 20, BufferedImage.TYPE_BYTE_INDEXED);
+			final Graphics2D graphics = colorImage.createGraphics();
+
+			//Fills in the image with the desired color
+			graphics.setPaint(value.getCategoryColor());
+			graphics.fillRect(0, 0, colorImage.getWidth(), colorImage.getHeight());
+
+			//Draws a black border on around the image, 
+			//the "-1"s are to keep it from going out of bounds
+			graphics.setPaint(Color.BLACK);
+			graphics.drawLine(0, 0, 0, colorImage.getHeight());
+			graphics.drawLine(0, 0, colorImage.getWidth(), 0);
+			graphics.drawLine(colorImage.getWidth() - 1, 0, 
+					colorImage.getWidth() - 1, colorImage.getHeight() - 1);
+			graphics.drawLine(0, colorImage.getHeight() - 1, 
+					colorImage.getWidth() - 1, colorImage.getHeight() - 1);
+
+			//Create Icon from image
+			colorIcon = new ImageIcon(colorImage);
+
+			//sets the fields of the label
+			setText(value.getName());
+			setIcon(colorIcon);
+		}
 		//sets the proper background color for the label
         if (isSelected) {
             setBackground(list.getSelectionBackground());
