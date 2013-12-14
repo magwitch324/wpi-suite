@@ -118,7 +118,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 
 		try {
 			Image img = ImageIO.read(getClass().getResource("Personal_Icon.png"));
-			main.addTab("My Calendar", new ImageIcon(img), myCalendar);
+			main.addTab("Calendar", new ImageIcon(img), myCalendar);
 
 			//img = ImageIO.read(getClass().getResource("Team_Icon.png"));
 			//main.addTab("Team Calendar", new ImageIcon(img), teamCalendar);

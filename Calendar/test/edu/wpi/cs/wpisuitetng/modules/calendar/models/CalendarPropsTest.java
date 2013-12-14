@@ -28,7 +28,7 @@ public class CalendarPropsTest {
 		assertEquals("", props.getId());
 		assertFalse(props.getMyShowComm());
 		assertFalse(props.getShowTeamData());
-		assertFalse(props.getTeamShowComm());
+		assertEquals(0, props.getMyTeamBoth());
 	}
 	
 	/**
@@ -40,7 +40,7 @@ public class CalendarPropsTest {
 		assertEquals("test-id", props.getId());
 		assertFalse(props.getMyShowComm());
 		assertFalse(props.getShowTeamData());
-		assertFalse(props.getTeamShowComm());
+		assertEquals(0, props.getMyTeamBoth());
 	}
 
 	/**
@@ -52,11 +52,11 @@ public class CalendarPropsTest {
 		props.setId("test-id");
 		props.setMyShowComm(true);
 		props.setShowTeamData(true);
-		props.setTeamShowComm(true);
+		props.setMyTeamBoth(2);
 		assertEquals("test-id", props.getId());
 		assertTrue(props.getMyShowComm());
 		assertTrue(props.getShowTeamData());
-		assertTrue(props.getTeamShowComm());
+		assertEquals(2, props.getMyTeamBoth());
 	}
 	
 	/**
@@ -69,12 +69,12 @@ public class CalendarPropsTest {
 		props1.setId("test-id");
 		props1.setMyShowComm(true);
 		props1.setShowTeamData(true);
-		props1.setTeamShowComm(true);
+		props1.setMyTeamBoth(1);
 		props2.copyFrom(props1);
 		assertEquals("test-id", props2.getId());
 		assertTrue(props2.getMyShowComm());
 		assertTrue(props2.getShowTeamData());
-		assertTrue(props2.getTeamShowComm());
+		assertEquals(1, props2.getMyTeamBoth());
 	}
 
 }

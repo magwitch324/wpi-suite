@@ -68,6 +68,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 		this.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		this.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
+		this.getVerticalScrollBar().setUnitIncrement(20);
 		this.setMinimumSize(new Dimension(100, 100));
 		
 		supcal = (GregorianCalendar)acal.clone();
