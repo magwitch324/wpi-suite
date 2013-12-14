@@ -768,12 +768,8 @@ import javax.swing.ButtonGroup;
 			}
 		});
 		
-		
-		
 		btnAddEvent.setEnabled(false);
-		
-		
-		
+	
 		final GridBagConstraints gbc_btnPanel = new GridBagConstraints();
 		gbc_btnPanel.gridwidth = 3;
 		gbc_btnPanel.insets = new Insets(0, 0, 0, 5);
@@ -782,7 +778,6 @@ import javax.swing.ButtonGroup;
 		gbc_btnPanel.gridy = 10;
 		
 		//Add Cancel button
-
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
 			btnCancel = new JButton("Cancel", new ImageIcon(img));
