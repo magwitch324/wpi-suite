@@ -295,6 +295,7 @@ public class EventTab extends JPanel {
 		
 		//Create category box, add two dummy categories
 		categoryComboBox = new JComboBox<Category>();
+		categoryComboBox.setRenderer(new CategoryComboBoxRenderer());
 		categoryComboBox.setBackground(CalendarStandard.CalendarYellow);
 		uncategorized = new Category("Uncategorized", Color.WHITE, false);
 		uncategorized.setID(0);
