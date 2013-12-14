@@ -73,6 +73,7 @@ import javax.swing.JTextField;
 	private CategoryMode mode;
 	private Component viewPanelStrut;
 	private JTextField textFieldName;
+	private JScrollPane scrollPane;
 
 	/**
 	 * @author Tianci
@@ -146,8 +147,9 @@ import javax.swing.JTextField;
 		teamPersonalRadioButtons.add(rdbtnBoth);
 		horizontalBox.add(rdbtnBoth);
 		
-		final JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBackground(Color.WHITE);
 		viewPanel.add(scrollPane);
 		
@@ -207,14 +209,6 @@ import javax.swing.JTextField;
 		
 		horizontalBox_1.add(btnDelete);
 		
-//		JButton btnDelete = new JButton("Delete");
-//		horizontalBox_1.add(btnDelete);
-//		
-//		JButton btnEdit = new JButton("Edit");
-//		horizontalBox_1.add(btnEdit);
-//		
-//		JButton btnNew = new JButton("New");
-//		horizontalBox_1.add(btnNew);
 		
 		viewPanelStrut = Box.createHorizontalStrut(600);
 		viewPanelStrut.setMaximumSize(new Dimension(600, 0));
@@ -296,9 +290,39 @@ import javax.swing.JTextField;
 				setupAddView();
 			}
 		});
+		
+		rdbtnTeam.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refreshCategoryListPanel();				
+			}
+		});
+		
+		rdbtnPersonal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refreshCategoryListPanel();				
+			}
+		});
+		
+		rdbtnBoth.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refreshCategoryListPanel();				
+			}
+		});
 	}
 	
-	
+
+	protected void refreshCategoryListPanel() {
+		categoryListPanel.removeAll();
+		populateCategoryList();
+		categoryListPanel.revalidate();
+		categoryListPanel.repaint();	
+//		scrollPane.revalidate();
+//		scrollPane.repaint();
+	}
+
+
+
+
 	/**
 	 * Setup the Adding view, where a user will create a new Category and save it.
 	 * The category list will still be visible on the left
