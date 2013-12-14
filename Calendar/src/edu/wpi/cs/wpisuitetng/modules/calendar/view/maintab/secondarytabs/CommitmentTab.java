@@ -266,9 +266,9 @@ public class CommitmentTab extends JPanel {
 	 */
 	private void addLabels() {
 		//Name label
-		lblName = new JLabel("Name*:");
-//		lblName.setBackground(CalendarStandard.CalendarRed);
-//		lblName.setForeground(Color.WHITE);
+		final JLabel lblName = new JLabel("<html><font>" + "Name" + "</font>" 
+											+ "<font color=red>" + "*" + "</font>" 
+											+ "<font>" + ":" + "</font></html>");
 		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc = new GridBagConstraints();
 		gbc.anchor = GridBagConstraints.EAST;
@@ -282,8 +282,6 @@ public class CommitmentTab extends JPanel {
 		
 		//Description label
 		lblDesc = new JLabel("Description:");
-//		lblDesc.setBackground(CalendarStandard.CalendarRed);
-//		lblDesc.setForeground(Color.WHITE);
 		lblDesc.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblDesc = new GridBagConstraints();
 		gbc_lblDesc.fill = GridBagConstraints.BOTH;
@@ -294,8 +292,6 @@ public class CommitmentTab extends JPanel {
 		
 		//Category label
 		lblCategory = new JLabel("Category:");
-//		lblCategory.setBackground(CalendarStandard.CalendarRed);
-//		lblCategory.setForeground(Color.WHITE);
 		lblCategory.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblCategory = new GridBagConstraints();
 		gbc_lblCategory.anchor = GridBagConstraints.EAST;
@@ -308,8 +304,6 @@ public class CommitmentTab extends JPanel {
 		
 		//Type label
 		lblType = new JLabel("Type:");
-//		lblType.setBackground(CalendarStandard.CalendarRed);
-//		lblType.setForeground(Color.WHITE);
 		lblType.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblType = new GridBagConstraints();
 		gbc_lblType.anchor = GridBagConstraints.EAST;
@@ -319,9 +313,9 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(lblType, gbc_lblType);
 		
 		//Time label
-		lblTime = new JLabel("Time*:");
-//		lblTime.setBackground(CalendarStandard.CalendarRed);
-//		lblTime.setForeground(Color.WHITE);
+		final JLabel lblTime = new JLabel("<html><font>" + "Time" + "</font>" 
+											+ "<font color=red>" + "*" + "</font>" 
+											+ "<font>" + ":" + "</font></html>");
 		lblTime.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblTime = new GridBagConstraints();
 		gbc_lblTime.anchor = GridBagConstraints.EAST;
@@ -348,9 +342,9 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(lblTimeError, gbc_lblTimeError);
 		
 		//Date label
-		lblDate = new JLabel("Date*:");
-//		lblDate.setBackground(CalendarStandard.CalendarRed);
-//		lblDate.setForeground(Color.WHITE);
+		final JLabel lblDate = new JLabel("<html><font>" + "Date" + "</font>" 
+											+ "<font color=red>" + "*" + "</font>" 
+											+ "<font>" + ":" + "</font></html>");
 		lblDate.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblDate = new GridBagConstraints();
 		gbc_lblDate.fill = GridBagConstraints.VERTICAL;

@@ -23,6 +23,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -208,8 +209,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		gbc_scrollPane.gridy = 2;
 		formPanel.add(scrollPane, gbc_scrollPane);
 		
-		final JLabel filterList = new JLabel();
-		filterList.setText("List of Filters");
+		final JLabel filterList = new JLabel("List of Filters", SwingConstants.CENTER);
+		filterList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+//		filterList.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		filterList.setForeground(Color.WHITE);
 		filterList.setBackground(CalendarStandard.CalendarRed);
 		filterList.setOpaque(true);
@@ -224,8 +226,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 	 * Method editingMode.
 	 */
 	public void editingMode(){
-		final JLabel filterNamelbl = new JLabel();
-		filterNamelbl.setText("Filter Name*:");
+		final JLabel filterNamelbl = new JLabel("<html><font>" + "Filter Name" + "</font>" 
+												+ "<font color=red>" + "*" + "</font>" 
+												+ "<font>" + ":" + "</font></html>");
 		filterNamelbl.setBackground(Color.WHITE);
 		filterNamelbl.setOpaque(true);
 		filterNamelbl.setHorizontalAlignment(SwingConstants.RIGHT);
