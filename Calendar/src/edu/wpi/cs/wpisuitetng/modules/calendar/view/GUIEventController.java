@@ -139,9 +139,9 @@ public class GUIEventController {
 	{
 		final int index = main.getSelectedIndex();
 		if (index == 0)
-			return myCalendar;
+			{return myCalendar;}
 		else if (index == 1)
-			return teamCalendar;
+			{return teamCalendar;}
 		else
 		{
 			System.out.println("Error getting calendar; calendar tab not selected.");

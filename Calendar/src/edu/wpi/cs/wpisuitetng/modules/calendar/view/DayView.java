@@ -78,13 +78,13 @@ public class DayView extends CalendarView {
 		}
 
 		if (showCommOnCal)
-			try {
+			{try {
 				
 				dayPane.displayEvents(eventList.filter(day));
 				dayPane.displayCommitments(commList.filter(day));
 			} catch (CalendarException e) {
 				e.printStackTrace();
-			}
+			}}
 		else{
 			dayPane.displayCommitments(null); //show no commitments on DayPane
 			try {

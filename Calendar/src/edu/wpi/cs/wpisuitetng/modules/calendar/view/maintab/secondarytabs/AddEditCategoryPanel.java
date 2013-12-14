@@ -226,7 +226,7 @@ public class AddEditCategoryPanel extends JPanel {
 					ColorBox colorBox = new ColorBox(Color.red);
 					colorBox.setBorder(new LineBorder(new Color(240, 240, 240), 2));
 					if (i == 0)
-						selectedBox = colorBox;
+						{selectedBox = colorBox;}
 					
 					colorBox.addMouseListener(new MouseAdapter() {
 						@Override

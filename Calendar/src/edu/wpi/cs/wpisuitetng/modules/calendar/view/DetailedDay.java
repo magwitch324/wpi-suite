@@ -153,7 +153,7 @@ protected void makelines(){
 		for(int i = 1; i < 48; i++){
 			int val = x;
 			if(i % 2 == 1)
-				val*=2;
+				{val*=2;}
 			layout.putConstraint(SpringLayout.VERTICAL_CENTER, halfhourmarks[i], 
 								(int)((this.getSize().getHeight()) * i / 48.0),
 								SpringLayout.NORTH, this);
