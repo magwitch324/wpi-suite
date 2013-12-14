@@ -63,6 +63,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 	private JPanel editPanel;
 	private JButton addCategoryBttn;
 	private JButton moveCategoryBttn;
+	private JPanel moveCatBttnPanel;
+	private JButton addCatBttn;
+	private JButton removeCatBttn;
+	private JPanel catBttnPanel;
 
 	/**
 	 * @author Tianci
@@ -116,7 +120,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		setDefaultValuesForEditableElements();
 		addEditableElementsListeners();*/
 		addFilterList();
-		//editingMode();
+		editingFilterMode();
 		initFlag = true;
 		}
 	
@@ -126,7 +130,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 	public void addFilterList(){
 		scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.getViewport().setBackground(CalendarStandard.CalendarYellow);
+		scrollPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
@@ -222,7 +226,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		editPanel.add(filterName, gbc_filterName);
 		
 		inactiveFilterPane = new JScrollPane();
-		inactiveFilterPane.getViewport().setBackground(CalendarStandard.CalendarYellow);
+		inactiveFilterPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_inactiveFilter = new GridBagConstraints();
 		gbc_inactiveFilter.fill = GridBagConstraints.BOTH;
 		gbc_inactiveFilter.insets = new Insets(5, 0, 5, 15);
@@ -232,7 +236,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		editPanel.add(inactiveFilterPane, gbc_inactiveFilter);
 		
 		activeFilterPane = new JScrollPane();
-		activeFilterPane.getViewport().setBackground(CalendarStandard.CalendarYellow);
+		activeFilterPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_activeFilter = new GridBagConstraints();
 		gbc_activeFilter.fill = GridBagConstraints.BOTH;
 		gbc_activeFilter.insets = new Insets(5, 0, 5, 15);
@@ -241,15 +245,23 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		gbc_activeFilter.gridy = 3;
 		editPanel.add(activeFilterPane, gbc_activeFilter);
 		
-		moveCategoryBttn = new JButton();
-		moveCategoryBttn.setText("Move Category");
-		final GridBagConstraints gbc_moveCategory = new GridBagConstraints();
-		gbc_moveCategory.fill = GridBagConstraints.BOTH;
-		gbc_moveCategory.anchor = GridBagConstraints.CENTER;
-		gbc_moveCategory.insets = new Insets(5, 0, 5, 0);
-		gbc_moveCategory.gridx = 2;
-		gbc_moveCategory.gridy = 2;
-		editPanel.add(moveCategoryBttn, gbc_moveCategory);
+		catBttnPanel = new JPanel(new BorderLayout(20, 0));
+		catBttnPanel.setBackground(Color.WHITE);
+		final GridBagConstraints gbc_catBttnPanel = new GridBagConstraints();
+		gbc_catBttnPanel.anchor = GridBagConstraints.CENTER;
+		gbc_catBttnPanel.insets = new Insets(5, 0, 5, 0);
+		gbc_catBttnPanel.gridx = 2;
+		gbc_catBttnPanel.gridy = 2;
+		
+		addCatBttn = new JButton();
+		addCatBttn.setText("Add Category");
+		
+		removeCatBttn = new JButton();
+		removeCatBttn.setText("Remove Category");
+		
+		catBttnPanel.add(addCatBttn, BorderLayout.WEST);
+		catBttnPanel.add(removeCatBttn, BorderLayout.EAST);
+		editPanel.add(catBttnPanel, gbc_catBttnPanel);
 		
 		addButtonPanel2();
 	}
