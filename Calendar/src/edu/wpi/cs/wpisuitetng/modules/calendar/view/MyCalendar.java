@@ -156,6 +156,7 @@ public class MyCalendar extends AbCalendar {
 	protected void displayCalData() {
 		if (initialized) {
 			calView.displayCalData(events, commitments, this.getShowCommitments());
+			calView.applyCalProps(calProps);
 		}
 	}
 

@@ -137,6 +137,7 @@ public class TeamCalendar extends AbCalendar {
 		// TODO Auto-generated method stub
 		if(initialized){
 			calView.displayCalData(events, commitments, getShowCommitments());
+			calView.applyCalProps(calProps);
 		}
 	}
 	

@@ -331,11 +331,5 @@ public class GUIEventController {
 		}
 	}
 
-	public void updateCommPane() {
-		myCalendar.updateCommPane();
-		teamCalendar.updateCommPane();
-		
-	}
-
 
 }

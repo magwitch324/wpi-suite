@@ -123,7 +123,7 @@ public abstract class CalendarView extends JSplitPane {
 				// TODO Auto-generated method stub
 				showAllCommFlag = true;
 				calProps.setShowAllComm(true);
-				GUIEventController.getInstance().updateCommPane();
+				GUIEventController.getInstance().getSelectedCalendar().updateCommPane();
 			}
 			
 		});
@@ -216,7 +216,7 @@ public abstract class CalendarView extends JSplitPane {
 	public void applyCalProps(CalendarProps calProps){
 		this.calProps = calProps;
 		showAllCommFlag = calProps.getShowAllComm();
-		GUIEventController.getInstance().updateCommPane();
+		GUIEventController.getInstance().getSelectedCalendar().updateCommPane();
 		
 	}
 	
