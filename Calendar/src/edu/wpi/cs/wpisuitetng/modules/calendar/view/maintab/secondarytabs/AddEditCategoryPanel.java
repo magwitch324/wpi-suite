@@ -234,15 +234,12 @@ public class AddEditCategoryPanel extends JPanel {
 			}
 		});
 	}
-
 	
-	private void addListeners() {
-		
-	}
-
 	/**
 	 * Controls the enable state of the save button 
 	 * by checking all user editable elements in commitment tab.
+	 * 
+	 * STILL IN PROGRESS - DOESN'T WORK/NOT IMPLEMENTED
 	 */
 	private void checkSaveBtnStatus(){
 		
