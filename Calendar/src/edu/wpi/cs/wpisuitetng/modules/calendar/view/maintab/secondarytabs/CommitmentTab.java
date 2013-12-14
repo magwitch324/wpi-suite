@@ -30,6 +30,8 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
@@ -42,6 +44,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -233,6 +236,7 @@ public class CommitmentTab extends JPanel {
 		rdbtnTeam.setEnabled(false);
 		rdbtnPersonal.setEnabled(false);
 		
+		updateCategoryList();
 
 		hourSpinner.setValue(editingCommitment.getDueDate().getTime());
 		minuteSpinner.setValue(editingCommitment.getDueDate().getTime());
@@ -420,7 +424,7 @@ public class CommitmentTab extends JPanel {
 		categoryComboBox.setBackground(CalendarStandard.CalendarYellow);
 		uncategorized = new Category("Uncategorized", Color.WHITE, false);
 		uncategorized.setID(0);
-		categoryComboBox.addItem(uncategorized);
+
 		
 		final GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
 		gbc_categoryComboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -529,6 +533,10 @@ public class CommitmentTab extends JPanel {
 		gbc_statusComboBox.weightx = 1;
 		gbc_statusComboBox.weighty = 3;
 		formPanel.add(statusComboBox,  gbc_statusComboBox);
+		
+		//updates the list of categories
+		// this is here to avoid a NullPointerException
+		updateCategoryList();
 	}
 	
 	/**
@@ -580,6 +588,56 @@ public class CommitmentTab extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				checkSaveBtnStatus();
 			}
+		});
+		
+		rdbtnTeam.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				updateCategoryList();
+				
+			}
+			
+		});
+		
+		rdbtnPersonal.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				updateCategoryList();
+				
+			}
+			
+		});
+		
+		//Adds a listener to the tab so we can refresh the category list if it was edited
+		addComponentListener(new ComponentListener(){
+
+			@Override
+			public void componentResized(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void componentMoved(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void componentShown(ComponentEvent e) {
+
+				updateCategoryList();
+				
+			}
+
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
 		});
 	}
 	
@@ -1100,6 +1158,38 @@ public class CommitmentTab extends JPanel {
 			}
 		});
 	
+	}
+	
+	/**
+	 * Updates the category list in the CategoryComboBox
+	 */
+	protected void updateCategoryList(){
+		//removes the current data from the ComboBox
+		categoryComboBox.removeAllItems();
+		
+		//adds the "none" category
+		categoryComboBox.addItem(uncategorized);
+		
+		// gets Caldata
+		CalendarData calData;
+		if (rdbtnPersonal.isSelected()){
+				calData = CalendarDataModel.getInstance().getCalendarData(
+						ConfigManager.getConfig().getProjectName() + 
+						"-" + ConfigManager.getConfig().getUserName()); 
+		}
+		else{
+			calData = CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName()); 
+		}
+		
+		//extracts the category list
+		List<Category> categories = calData.getCategories().getCategories();
+		
+		//adds the categories to the comboBox
+		for (Category cat:categories){
+			categoryComboBox.addItem(cat);
+		}
+		
 	}
 	
 	/**
