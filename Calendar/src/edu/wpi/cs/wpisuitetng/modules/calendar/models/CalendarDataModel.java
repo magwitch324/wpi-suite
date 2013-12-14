@@ -97,7 +97,8 @@ public class CalendarDataModel extends AbstractListModel {
 	/**
 	 * Removes the CalendarData with the given ID
 	 * 
-	 * @param removeId The ID number of the CalendarData to be removed from the list of CalendarDatas
+	 * @param removeId The ID number of the CalendarData 
+	 * to be removed from the list of CalendarDatas
 	 */
 	public void removeCalendarData(String removeId){
 		// iterate through list of CalendarDatas until id of project is found

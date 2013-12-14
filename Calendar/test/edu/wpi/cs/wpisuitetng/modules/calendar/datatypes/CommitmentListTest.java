@@ -21,6 +21,10 @@ import org.junit.Test;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 
+/**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
 public class CommitmentListTest {
 
 	/*
@@ -33,23 +37,42 @@ public class CommitmentListTest {
 	private final GregorianCalendar start = new GregorianCalendar();
 	private final GregorianCalendar end   = new GregorianCalendar();
 	
-	private final static GregorianCalendar today = new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00);
+	private static final GregorianCalendar today = 
+			new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00);
 	
+	/**
+	 * Method setup.
+	 */
 	@BeforeClass
 	public static void setup() {
 		commitments = new CommitmentList();
-		commitments.add(new Commitment("Last Year", new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00), "A commitment from last year", 1, true));
-		commitments.add(new Commitment("Last Month", new GregorianCalendar(2013, OCTOBER, 12, 12, 00, 00), "A commitment from last month", 1, true));
-		commitments.add(new Commitment("Last Week", new GregorianCalendar(2013, NOVEMBER, 16, 12, 00, 00), "A commitment for a week ago", 1, true));
+		commitments.add(new Commitment("Last Year",
+				new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00),
+				"A commitment from last year", 1, true));
+		commitments.add(new Commitment("Last Month", 
+				new GregorianCalendar(2013, OCTOBER, 12, 12, 00, 00),
+				"A commitment from last month", 1, true));
+		commitments.add(new Commitment("Last Week", 
+				new GregorianCalendar(2013, NOVEMBER, 16, 12, 00, 00), 
+				"A commitment for a week ago", 1, true));
 		commitments.add(new Commitment("Today", today, "A commitment from today", 1, true));
-		commitments.add(new Commitment("Next Week", new GregorianCalendar(2013, NOVEMBER, 24, 12, 00, 00), "A commitment for next week (tomorrow)", 1, true));
-		commitments.add(new Commitment("Next Month", new GregorianCalendar(2013, DECEMBER, 23, 12, 00, 00), "A commitment for next month", 1, true));
-		commitments.add(new Commitment("Next Year", new GregorianCalendar(2014, JANUARY, 1, 12, 00, 00), "A commitment for next year", 1, true));
+		commitments.add(new Commitment("Next Week",
+				new GregorianCalendar(2013, NOVEMBER, 24, 12, 00, 00),
+				"A commitment for next week (tomorrow)", 1, true));
+		commitments.add(new Commitment("Next Month",
+				new GregorianCalendar(2013, DECEMBER, 23, 12, 00, 00),
+				"A commitment for next month", 1, true));
+		commitments.add(new Commitment("Next Year", 
+				new GregorianCalendar(2014, JANUARY, 1, 12, 00, 00), 
+				"A commitment for next year", 1, true));
 		
 		printlist(commitments.getCommitments());
 		
 	}
 	
+	/**
+	 * Method filterAroundTwoCalendars.
+	 */
 	@Test
 	public void filterAroundTwoCalendars() {
 		start.set(2013, NOVEMBER, 18);
@@ -60,6 +83,9 @@ public class CommitmentListTest {
 		assertEquals(2, newData.size());
 	}
 	
+	/**
+	 * Method filterAroundLargeSection.
+	 */
 	@Test
 	public void filterAroundLargeSection() {
 		start.set(2000, NOVEMBER, 12);
@@ -68,6 +94,10 @@ public class CommitmentListTest {
 		assertEquals(7, newData.size());
 	}
 	
+	/**
+	 * Method filterAroundWeek.
+	
+	 * @throws CalendarException */
 	@Test
 	public void filterAroundWeek() throws CalendarException {
 		System.out.println("Filter around week...");
@@ -76,6 +106,10 @@ public class CommitmentListTest {
 		assertEquals(1, newData.size());
 	}
 	
+	/**
+	 * Method filterAroundMonth.
+	
+	 * @throws CalendarException */
 	@Test
 	public void filterAroundMonth() throws CalendarException {
 		System.out.println("Filter around month...");
@@ -83,6 +117,10 @@ public class CommitmentListTest {
 		assertEquals(3, newData.size());
 	}
 	
+	/**
+	 * Method filterAroundYear.
+	
+	 * @throws CalendarException */
 	@Test
 	public void filterAroundYear() throws CalendarException {
 		System.out.println("Filter around year...");
@@ -91,6 +129,10 @@ public class CommitmentListTest {
 	}
 	
 	// Helper function
+	/**
+	 * Method printlist.
+	 * @param commits List<Commitment>
+	 */
 	public static void printlist(List<Commitment> commits) {
 		System.out.println("Commitments: ");
 		
@@ -101,8 +143,13 @@ public class CommitmentListTest {
 		System.out.println("\n");
 	}
 	
+	/**
+	 * Method printcalendar.
+	 * @param cal GregorianCalendar
+	 */
 	public void printcalendar(GregorianCalendar cal) {
-		final String dayName = cal.getDisplayName(GregorianCalendar.DAY_OF_WEEK, LONG, Locale.ENGLISH);
+		final String dayName = cal.getDisplayName(
+				GregorianCalendar.DAY_OF_WEEK, LONG, Locale.ENGLISH);
 		final int dayNum = cal.get(DAY_OF_MONTH);
 		final String monthName = cal.getDisplayName(GregorianCalendar.MONTH, LONG, Locale.ENGLISH);
 		final int year = cal.get(YEAR);

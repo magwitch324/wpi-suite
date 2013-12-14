@@ -23,6 +23,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -37,7 +38,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-public class FilterTab extends JPanel{
+/**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
+ public class FilterTab extends JPanel{
 
 	private final int openedFrom;
 	private JPanel buttonPanel;
@@ -60,6 +65,7 @@ public class FilterTab extends JPanel{
 	private JButton moveCategoryBttn;
 
 	/**
+	 * @author Tianci
 	 */
 	private enum EditingMode {
 		VIEWING(0),
@@ -84,6 +90,7 @@ public class FilterTab extends JPanel{
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0};
 		gridBagLayout.rowWeights = new double[]{0.0};
 		setLayout(gridBagLayout);
+
 		//final JPanel aPanel = new JPanel();
 		viewPanel = new JPanel();
 		viewPanel.setBackground(Color.WHITE);
@@ -113,8 +120,6 @@ public class FilterTab extends JPanel{
 		initFlag = true;
 		}
 	
-	
-	
 	/**
 	 * Method FilterList.
 	 */
@@ -129,8 +134,9 @@ public class FilterTab extends JPanel{
 		gbc_scrollPane.gridy = 1;
 		viewPanel.add(scrollPane, gbc_scrollPane);
 		
-		final JLabel filterList = new JLabel();
-		filterList.setText("List of Filters");
+		final JLabel filterList = new JLabel("List of Filters", SwingConstants.CENTER);
+		filterList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+//		filterList.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		filterList.setForeground(Color.WHITE);
 		filterList.setBackground(CalendarStandard.CalendarRed);
 		filterList.setOpaque(true);
@@ -168,8 +174,9 @@ public class FilterTab extends JPanel{
 		constraints.fill = GridBagConstraints.BOTH;
 		add(editPanel, constraints);
 		
-		final JLabel filterNamelbl = new JLabel();
-		filterNamelbl.setText("Filter Name*:");
+		final JLabel filterNamelbl = new JLabel("<html><font>" + "Filter Name" + "</font>" 
+												+ "<font color=red>" + "*" + "</font>" 
+												+ "<font>" + ":" + "</font></html>");
 		filterNamelbl.setBackground(Color.WHITE);
 		filterNamelbl.setOpaque(true);
 		filterNamelbl.setHorizontalAlignment(SwingConstants.RIGHT);

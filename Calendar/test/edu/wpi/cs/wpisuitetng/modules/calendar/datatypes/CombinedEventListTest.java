@@ -20,6 +20,10 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
 public class CombinedEventListTest {
 	/*
 	 * NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE
@@ -30,15 +34,27 @@ public class CombinedEventListTest {
 	private static CombinedEventList combinedEventList;
 	private static List<Event> eventList;
 	
-	private final static String[] people = new String[]{"John", "Mary", "Jack" };
+	private static final String[] people = new String[]{"John", "Mary", "Jack" };
 	
-	private final static GregorianCalendar today = new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00);
-	private final static GregorianCalendar today13 = new GregorianCalendar(2013, NOVEMBER, 23, 13, 00, 00);
+	private static final GregorianCalendar today = 
+			new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00);
+	private static final GregorianCalendar today13 = 
+			new GregorianCalendar(2013, NOVEMBER, 23, 13, 00, 00);
 	
-	private final Event lastYear   = new Event("Last Year",  "A Event from last year",  new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00),  new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), people , 1, true);
-	private final Event todayEvent = new Event("Today",      "A Event from today", today, today13, people, 2, true);
-	private final Event nextWeek   = new Event("Next Week",  "A Event for next week",   new GregorianCalendar(2013, NOVEMBER, 24, 12, 00, 00), new GregorianCalendar(2013, NOVEMBER, 24, 13, 00, 00), people, 1, true);
-	private final Event nextMonth  = new Event("Next Month", "A Event for next month",  new GregorianCalendar(2013, DECEMBER, 23, 12, 00, 00), new GregorianCalendar(2013, DECEMBER, 23, 13, 00, 00), people, 1, true);
+	private final Event lastYear   = new Event("Last Year",  
+			"A Event from last year",  new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00), 
+			new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), people, 1, true);
+	private final Event todayEvent = new Event("Today",     
+			"A Event from today", today, today13, people, 2, true);
+	private final Event nextWeek   = new Event("Next Week",  "A Event for next week",
+			new GregorianCalendar(2013, NOVEMBER, 24, 12, 00, 00), 
+			new GregorianCalendar(2013, NOVEMBER, 24, 13, 00, 00), people, 1, true);
+	private final Event nextMonth  = new Event("Next Month", "A Event for next month",
+			new GregorianCalendar(2013, DECEMBER, 23, 12, 00, 00), 
+			new GregorianCalendar(2013, DECEMBER, 23, 13, 00, 00), people, 1, true);
+	/**
+	 * Method setup.
+	 */
 	@Before
 	public void setup() {
 		eventList = new ArrayList<Event>();
@@ -50,6 +66,9 @@ public class CombinedEventListTest {
 	/*
 	 * Test to ensure addEmptyList works correctly
 	 */
+	/**
+	 * Method addEmptyListTest.
+	 */
 	@Test
 	public void addEmptyListTest() {
 		combinedEventList = new CombinedEventList();
@@ -60,6 +79,9 @@ public class CombinedEventListTest {
 	
 	/*
 	 * Test to ensure addNonEmptyList works correctly
+	 */
+	/**
+	 * Method addNonEmptyListTest.
 	 */
 	@Test
 	public void addNonEmptyListTest() {

@@ -24,7 +24,11 @@ import javax.swing.SpringLayout;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
+/**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
+ @SuppressWarnings("serial")
 public class DetailedDay extends JPanel {
 	
 	JSeparator[] halfhourmarks= new JSeparator[48];
@@ -37,7 +41,7 @@ public class DetailedDay extends JPanel {
 	 * Constructor for DetailedDay.
 	 * @param adate GregorianCalendar
 	 */
-	public DetailedDay(GregorianCalendar adate){	
+	public DetailedDay(GregorianCalendar adate){
 		this.setMinimumSize(new Dimension(50, 800));
 		this.setPreferredSize(new Dimension(50, 800));
 		this.addComponentListener(new resizeevent());
@@ -70,7 +74,7 @@ public class DetailedDay extends JPanel {
 	 * @param adate GregorianCalendar
 	 * @param secondview JComponent
 	 */
-	public DetailedDay(GregorianCalendar adate, JComponent secondview){		
+	public DetailedDay(GregorianCalendar adate, JComponent secondview){
 		this.setMinimumSize(new Dimension(50, 800));
 		this.setPreferredSize(new Dimension(50, 800));
 		this.addComponentListener(new resizeevent());
@@ -153,7 +157,9 @@ protected void makelines(){
 		for(int i = 1; i < 48; i++){
 			int val = x;
 			if(i % 2 == 1)
+				{
 				val*=2;
+				}
 			layout.putConstraint(SpringLayout.VERTICAL_CENTER, halfhourmarks[i], 
 								(int)((this.getSize().getHeight()) * i / 48.0),
 								SpringLayout.NORTH, this);
@@ -169,6 +175,7 @@ protected void makelines(){
 	
 	
 	/**
+	 * @author Tianci
 	 */
 	protected class resizeevent implements ComponentListener {
 	    public void componentResized(ComponentEvent e) {

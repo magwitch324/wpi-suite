@@ -36,7 +36,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
+/**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
+ @SuppressWarnings("serial")
 public class CalendarObjectPanel extends JPanel {
 	Event event = null;
 	Commitment comm = null;
@@ -185,7 +189,7 @@ public class CalendarObjectPanel extends JPanel {
 		Image nameImg;
 		final Image scaleImg;
 		try {
-			if (calobj.getIsPersonal()) {	
+			if (calobj.getIsPersonal()) {
 				nameImg = ImageIO.read(getClass().getResource("Personal" + type + "_Icon.png"));
 				
 			} else {
@@ -262,7 +266,8 @@ public class CalendarObjectPanel extends JPanel {
 	public void refreshSize(){
 		final double par_width = parent.getSize().getWidth();
 		final double par_height = parent.getSize().getHeight();
-		final Dimension new_size = new Dimension((int)((par_width - 3 * columnwidth - 3) / columnwidth * columnspanned), 
+		final Dimension new_size = new Dimension((int)(
+				(par_width - 3 * columnwidth - 3) / columnwidth * columnspanned), 
 				(int)(par_height * this.getRatioDifference()));
 		this.setPreferredSize(new_size);
 	}
@@ -288,8 +293,8 @@ public class CalendarObjectPanel extends JPanel {
 	 * Sets the columns spanned
 	 * @param columnspanned the number of columns that this should span
 	
-	 * @return int
-	 */
+	
+	 * @return int */
 	public int setColumnSpan(int columnspanned){
 		return (this.columnspanned = columnspanned);
 	}

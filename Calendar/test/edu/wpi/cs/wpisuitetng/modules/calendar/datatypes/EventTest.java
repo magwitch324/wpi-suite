@@ -21,13 +21,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
 public class EventTest {
 	
-	private final static GregorianCalendar _20120129 = new GregorianCalendar(2012, JANUARY, 29);
-	private final static GregorianCalendar _20120130 = new GregorianCalendar(2012, JANUARY, 30);
-	private final static GregorianCalendar _20131209 = new GregorianCalendar(2013, DECEMBER, 9);
-	private final static GregorianCalendar _20131214 = new GregorianCalendar(2013, DECEMBER, 14);
-	private final static String[] people1 = new String[]{"John", "Mary", "Jack" };
+	private static final GregorianCalendar _20120129 = new GregorianCalendar(2012, JANUARY, 29);
+	private static final GregorianCalendar _20120130 = new GregorianCalendar(2012, JANUARY, 30);
+	private static final GregorianCalendar _20131209 = new GregorianCalendar(2013, DECEMBER, 9);
+	private static final GregorianCalendar _20131214 = new GregorianCalendar(2013, DECEMBER, 14);
+	private static final String[] people1 = new String[]{"John", "Mary", "Jack" };
 	/**
 	 * Tests to ensure that a new event is created with default values
 	 */
@@ -50,7 +54,8 @@ public class EventTest {
 	@Test
 	public void mainConstructorTest(){
 		//tmpCal.setTime(new Date());
-		final Event testEvent = new Event ("test","test description",_20120129,_20120130,people1,1, true);
+		final Event testEvent = new Event (
+				"test", "test description", _20120129, _20120130, people1, 1, true);
 		//add Participants 
 		final List<String> people = new ArrayList<String>();
 		//testing
@@ -70,7 +75,8 @@ public class EventTest {
 	 */
 	@Test
 	public void setterConstructorTest(){
-		final Event testEvent = new Event("test","test description",_20120129,_20120130,people1,1, true);
+		final Event testEvent = new Event(
+				"test", "test description", _20120129, _20120130, people1, 1, true);
 		testEvent.setName("setter testing");
 		testEvent.setDescription("setter test description");
 		testEvent.setStartTime(_20131209);
@@ -96,7 +102,8 @@ public class EventTest {
 	 */
 	@Test
 	public void copyFromTest(){
-		final Event testEvent2 = new Event ("test","test description",_20120129,_20120130,people1,1, true);
+		final Event testEvent2 = new Event (
+				"test", "test description", _20120129, _20120130, people1, 1, true);
 		testEvent2.setCategoryID(2);
 		final List<String> people = new ArrayList<String>();
 		people.add("John");

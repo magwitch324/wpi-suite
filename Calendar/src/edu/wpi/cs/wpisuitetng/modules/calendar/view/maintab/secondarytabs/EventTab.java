@@ -79,7 +79,11 @@ import javax.swing.ButtonGroup;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-public class EventTab extends JPanel {
+/**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
+ public class EventTab extends JPanel {
 	private GregorianCalendar startDate;
 	private GregorianCalendar oldStartTime;
 	private JTextField nameTextField;
@@ -159,6 +163,7 @@ public class EventTab extends JPanel {
 	
 	
 	/**
+	 * @author Tianci
 	 */
 	private enum EditingMode {
 		ADDING(0),
@@ -218,7 +223,9 @@ public class EventTab extends JPanel {
 		formPanel.setLayout(gbl);
 		
 		//Name label
-		final JLabel lblName = new JLabel("Name*:");
+		final JLabel lblName = new JLabel("<html><font>" + "Name" + "</font>" 
+											+ "<font color=red>" + "*" + "</font>" 
+											+ "<font>" + ":" + "</font></html>");
 		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc = new GridBagConstraints();
 		gbc.anchor = GridBagConstraints.EAST;
@@ -350,7 +357,9 @@ public class EventTab extends JPanel {
 		updateCategoryList();
 		
 		//Date label
-		final JLabel lblDate_1 = new JLabel("Start Date*:");
+		final JLabel lblDate_1 = new JLabel("<html><font>" + "Start Date" + "</font>" 
+												+ "<font color=red>" + "*" + "</font>" 
+												+ "<font>" + ":" + "</font></html>");
 		lblDate_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblDate_1 = new GridBagConstraints();
 		gbc_lblDate_1.fill = GridBagConstraints.VERTICAL;
@@ -363,7 +372,9 @@ public class EventTab extends JPanel {
 		formPanel.add(lblDate_1, gbc_lblDate_1);
 		
 		//Time label
-		final JLabel lblTime = new JLabel("Start Time*:");
+		final JLabel lblTime = new JLabel("<html><font>" + "Start Time" + "</font>" 
+				+ "<font color=red>" + "*" + "</font>" 
+				+ "<font>" + ":" + "</font></html>");
 		lblTime.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblTime = new GridBagConstraints();
 		gbc_lblTime.anchor = GridBagConstraints.EAST;
@@ -434,7 +445,7 @@ public class EventTab extends JPanel {
 		gbc_lblTimeError.gridx = 3;
 		gbc_lblTimeError.gridy = 5;
 		gbc_lblTimeError.weightx = 1;
-		gbc_lblTimeError.weighty = 1;		
+		gbc_lblTimeError.weighty = 1;
 		formPanel.add(lblTimeError, gbc_lblTimeError);
 		
 		//Invalid Date label
@@ -448,7 +459,7 @@ public class EventTab extends JPanel {
 		gbc_lblDateError.gridx = 1;
 		gbc_lblDateError.gridy = 5;
 		gbc_lblDateError.weightx = 1;
-		gbc_lblDateError.weighty = 1;		
+		gbc_lblDateError.weighty = 1;
 		formPanel.add(lblDateError, gbc_lblDateError);
 		
 		
@@ -481,7 +492,9 @@ public class EventTab extends JPanel {
 		//End Date/Time Forms
 		
 		//Date label
-		final JLabel lblDate_2 = new JLabel("End Date*:");
+		final JLabel lblDate_2 = new JLabel("<html><font>" + "End Date" + "</font>" 
+												+ "<font color=red>" + "*" + "</font>" 
+												+ "<font>" + ":" + "</font></html>");
 		lblDate_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblDate_2 = new GridBagConstraints();
 		gbc_lblDate_2.fill = GridBagConstraints.VERTICAL;
@@ -494,7 +507,9 @@ public class EventTab extends JPanel {
 		formPanel.add(lblDate_2, gbc_lblDate_2);
 		
 		//Time2 label
-		final JLabel lblTime2 = new JLabel("End Time*:");
+		final JLabel lblTime2 = new JLabel("<html><font>" + "End Time" + "</font>" 
+												+ "<font color=red>" + "*" + "</font>" 
+												+ "<font>" + ":" + "</font></html>");
 		lblTime2.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblTime2 = new GridBagConstraints();
 		gbc_lblTime2.anchor = GridBagConstraints.EAST;
@@ -565,7 +580,7 @@ public class EventTab extends JPanel {
 		gbc_lblTimeError2.gridx = 3;
 		gbc_lblTimeError2.gridy = 7;
 		gbc_lblTimeError2.weightx = 1;
-		gbc_lblTimeError2.weighty = 1;		
+		gbc_lblTimeError2.weighty = 1;
 		formPanel.add(lblTimeError2, gbc_lblTimeError2);
 		
 		//Invalid Date label
@@ -579,7 +594,7 @@ public class EventTab extends JPanel {
 		gbc_lblDateError2.gridx = 1;
 		gbc_lblDateError2.gridy = 7;
 		gbc_lblDateError2.weightx = 1;
-		gbc_lblDateError2.weighty = 1;		
+		gbc_lblDateError2.weighty = 1;
 		formPanel.add(lblDateError2, gbc_lblDateError2);
 		
 		
@@ -1403,7 +1418,9 @@ public class EventTab extends JPanel {
 	protected void checkEndBeforeStart() {
 		if(initFlag){
 		if(getEndDate().getTime().before(getStartDate().getTime()))
-				setEndDate(getStartDate());
+				{
+			setEndDate(getStartDate());
+			}
 		}
 	}
 	
@@ -1503,7 +1520,7 @@ public class EventTab extends JPanel {
 	private void checkSaveBtnStatus(){
 		
 		if (initFlag){
-			if(		nameTextField.getText().equals("") ||
+			if(nameTextField.getText().equals("") ||
 					startDatePicker.getDate() == null || //data validation
 					endDatePicker.getDate() == null || //data validation
 
@@ -1542,7 +1559,7 @@ public class EventTab extends JPanel {
 				if(repeatCheckBox.isSelected()){
 					try {
 						if (Integer.parseInt(repeatAmt.getText()) > 1){
-							btnAddEvent.setEnabled(true);	
+							btnAddEvent.setEnabled(true);
 						} else {
 							btnAddEvent.setEnabled(false);
 						}
@@ -1578,9 +1595,13 @@ public class EventTab extends JPanel {
 		
 		
 		if(!editingEvent.getIsPersonal())
+			{
 			rdbtnTeam.setSelected(true);
+			}
 		else
+			{
 			rdbtnPersonal.setSelected(true);
+			}
 		
 		
 		rdbtnTeam.setEnabled(false);
@@ -1601,7 +1622,9 @@ public class EventTab extends JPanel {
 			// the event that the tab was opened with is just a dummy event so that the GUI
 			// can display it
 			if (rdbtnPersonal.isSelected()){
-				calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
+				calData = CalendarDataModel.getInstance().getCalendarData(
+						ConfigManager.getConfig().getProjectName() + 
+						"-" + ConfigManager.getConfig().getUserName()); 
 				isTeamEvent = false;
 			}
 			else{
@@ -1878,9 +1901,13 @@ public class EventTab extends JPanel {
 
 
 			if (mode == EditingMode.ADDING)
+				{
 				calData.addRepeatingEvent(newRepEvent);
+				}
 			else
+				{
 				calData.getRepeatingEvents().update(newRepEvent);
+				}
 
 			UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 
@@ -1895,7 +1922,9 @@ public class EventTab extends JPanel {
 				newEvent = new Event();
 			}
 			else
+				{
 				newEvent = editingEvent;
+				}
 
 			if(isTeamEvent){
 				newEvent.setIsPersonal(false);
@@ -1921,9 +1950,13 @@ public class EventTab extends JPanel {
 			newEvent.setName(nameTextField.getText());
 
 			if (mode == EditingMode.ADDING)
+				{
 				calData.addEvent(newEvent);
+				}
 			else
+				{
 				calData.getEvents().update(newEvent);
+				}
 
 			UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 

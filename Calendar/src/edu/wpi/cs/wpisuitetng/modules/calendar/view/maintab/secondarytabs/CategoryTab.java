@@ -38,16 +38,23 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JTextField;
 
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-public class CategoryTab extends JPanel {
+/**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
+ public class CategoryTab extends JPanel {
 
 	private final CategoryList teamCategories;
 	private final CategoryList personalCategories;
@@ -66,6 +73,7 @@ public class CategoryTab extends JPanel {
 	private JTextField textFieldName;
 
 	/**
+	 * @author Tianci
 	 */
 	public enum CategoryMode {
 		ADDING(0),
@@ -99,7 +107,7 @@ public class CategoryTab extends JPanel {
 		
 		//initialize in "viewing" mode
 		setupViewingView();
-		
+		setBackground(Color.WHITE);
 		
 	}
 
@@ -115,30 +123,36 @@ public class CategoryTab extends JPanel {
 		viewPanel = new JPanel();
 		
 		viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
+		viewPanel.setBackground(Color.WHITE);
 		
 		final Box horizontalBox = Box.createHorizontalBox();
 		viewPanel.add(horizontalBox);
 		final ButtonGroup teamPersonalRadioButtons = new ButtonGroup();
 		
 		rdbtnTeam = new JRadioButton("Team");
+		rdbtnTeam.setBackground(Color.WHITE);
 		teamPersonalRadioButtons.add(rdbtnTeam);
 		horizontalBox.add(rdbtnTeam);
 		
 		rdbtnPersonal = new JRadioButton("Personal");
+		rdbtnPersonal.setBackground(Color.WHITE);
 		teamPersonalRadioButtons.add(rdbtnPersonal);
 		horizontalBox.add(rdbtnPersonal);
 		
 		rdbtnBoth = new JRadioButton("Both");
+		rdbtnBoth.setBackground(Color.WHITE);
 		rdbtnBoth.setSelected(true);
 		teamPersonalRadioButtons.add(rdbtnBoth);
 		horizontalBox.add(rdbtnBoth);
 		
 		final JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBackground(Color.WHITE);
 		viewPanel.add(scrollPane);
 		
 		categoryListPanel = new JPanel();
 		scrollPane.setViewportView(categoryListPanel);
+		categoryListPanel.setBackground(Color.WHITE);
 		categoryListLayout = new SpringLayout();
 		categoryListPanel.setLayout(categoryListLayout);
 		
@@ -303,7 +317,7 @@ public class CategoryTab extends JPanel {
 		gbc_addEditPanel.fill = GridBagConstraints.BOTH;
 		gbc_addEditPanel.gridx = 1;
 		gbc_addEditPanel.gridy = 0;
-		add(addEditPanel, gbc_addEditPanel);		
+		add(addEditPanel, gbc_addEditPanel);
 		
 		
 		//set size of view panel
@@ -311,7 +325,6 @@ public class CategoryTab extends JPanel {
 		viewPanelStrut = Box.createHorizontalStrut(400);
 		viewPanelStrut.setMaximumSize(new Dimension(400, 0));
 		viewPanel.add(viewPanelStrut);
-
 		
 	}
 	

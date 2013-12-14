@@ -47,6 +47,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
+/**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
 @SuppressWarnings("serial")
 public abstract class AbCalendar extends JPanel {
 	protected boolean initialized;
@@ -54,6 +58,7 @@ public abstract class AbCalendar extends JPanel {
 	protected CalendarProps calProps;
 
 	/**
+	 * @author Tianci
 	 */
 	protected enum types {
 		DAY(0),
@@ -144,7 +149,7 @@ public abstract class AbCalendar extends JPanel {
 
 		viewbtns[0].setBorder(BorderFactory.createDashedBorder(
 				CalendarStandard.CalendarRed, 2, 2, 1, true));
-		apane.add(viewbtns[0]);		
+		apane.add(viewbtns[0]);
 
 
 		viewbtns[1] = new JToggleButton();
@@ -184,7 +189,7 @@ public abstract class AbCalendar extends JPanel {
 
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Month_Icon.png"));
-			viewbtns[2].setIcon(new ImageIcon(img));	
+			viewbtns[2].setIcon(new ImageIcon(img));
 			viewbtns[2].setBorder(BorderFactory.createEmptyBorder());
 			viewbtns[2].setContentAreaFilled(false);
 		} catch (IOException ex) {}
@@ -438,12 +443,12 @@ public abstract class AbCalendar extends JPanel {
 	/**
 	 * Method displayCalData.
 	 */
-	abstract protected void displayCalData();
+	protected abstract void displayCalData();
 	/**
 	 * Method updateCommPane.
 	 */
-	abstract protected void updateCommPane();
-	abstract public boolean getShowTeamData();
+	protected abstract void updateCommPane();
+	public abstract boolean getShowTeamData();
 	/**
 	 * Method applyCalProps.
 	 */

@@ -29,6 +29,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.Commit
 
 /**
  * New time spinner which has error checking ability.
+ * @author Tianci
+ * @version $Revision: 1.0 $
  */
 public class TimeSpinner extends JSpinner {
 	
@@ -40,6 +42,11 @@ public class TimeSpinner extends JSpinner {
 	private String fallBackValueStr;
 	private boolean errorVisible;
 	
+	/**
+	 * Constructor for TimeSpinner.
+	 * @param type enumTimeSpinner
+	 * @param model SpinnerDateModel
+	 */
 	public TimeSpinner(enumTimeSpinner type, SpinnerDateModel model) {
 		super(model);
 		myType = type;
@@ -78,16 +85,22 @@ public class TimeSpinner extends JSpinner {
 			fallBackValueInt = Integer.parseInt(editor.getTextField().getText());
 			if (upArrowAction) {
 				if (fallBackValueInt == 12)
+					{
 					fallBackValueInt = 1;
+					}
 				else {
 					fallBackValueInt++;
 				}
 			}
 			else if (downArrowAction)
+				{
 				if (fallBackValueInt == 1)
+					{
 					fallBackValueInt = 12;
+					}
 				else {
 					fallBackValueInt--;
+				}
 				}
 			break;
 		case MINUTE:
@@ -95,16 +108,22 @@ public class TimeSpinner extends JSpinner {
 			System.out.println("before increment tempMin" + fallBackValueInt);
 			if (upArrowAction) {
 				if (fallBackValueInt == 59)
+					{
 					fallBackValueInt = 0;
+					}
 				else {
 					fallBackValueInt++;
 				}
 			}
 			else if (downArrowAction)
+				{
 				if (fallBackValueInt == 0)
+					{
 					fallBackValueInt = 59;
+					}
 				else {
 					fallBackValueInt--;
+				}
 				}
 			break;
 		case AMPM:
@@ -166,6 +185,9 @@ public class TimeSpinner extends JSpinner {
 		}
 }
 	
+	/**
+	 * @author CS Anonymous
+	 */
 	class SpinnerUI extends BasicSpinnerUI  {
 		protected Component createNextButton()  
 		  {  

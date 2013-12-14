@@ -15,6 +15,8 @@ import javax.swing.JSpinner;
 /**
  * Time Spinner Panel that contains the hour, minute, and AMPM spinners to be
  * ready for import into gui.
+ * @author Tianci
+ * @version $Revision: 1.0 $
  */
 public class TimeSpinnerPanel {
 	private JSpinner hourSpinner;

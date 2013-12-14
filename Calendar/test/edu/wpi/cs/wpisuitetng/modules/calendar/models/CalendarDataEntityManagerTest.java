@@ -28,6 +28,10 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.Project;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 
+/**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
 public class CalendarDataEntityManagerTest {
 	
 	CalendarData calendarData;
@@ -39,6 +43,9 @@ public class CalendarDataEntityManagerTest {
 	String mockSsid;
 	String id;
 	
+	/**
+	 * Method setUp.
+	 */
 	@Before
 	public void setUp() {
 		mockSsid = "abc123";
@@ -54,6 +61,10 @@ public class CalendarDataEntityManagerTest {
 		manager = new CalendarDataEntityManager(db);
 	}
 	
+	/**
+	 * Method testMakeEntity.
+	
+	 * @throws WPISuiteException */
 	@Test
 	public void testMakeEntity() throws WPISuiteException {
 		final CalendarData created = manager.makeEntity(defaultSession, calendarData.toJSON());

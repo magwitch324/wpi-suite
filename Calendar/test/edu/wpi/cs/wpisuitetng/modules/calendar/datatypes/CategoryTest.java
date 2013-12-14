@@ -13,6 +13,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
 public class CategoryTest {
 
 	/**
@@ -44,7 +48,7 @@ public class CategoryTest {
 		testCategory.setID(2);
 		testCategory.setName("setter test");
 		assertEquals(2, testCategory.getID());
-		assertEquals("setter test", testCategory.getName());		
+		assertEquals("setter test", testCategory.getName());
 	}
 	/**
 	 * Tests to ensure that compare function work correctly
@@ -53,7 +57,7 @@ public class CategoryTest {
 	public void compareTest(){
 		final Category c1 = null;//new Category (1, "C1");
 		final Category c2 = null;//new Category (2, "C2");
-		assertEquals(-1, c1.getName().compareToIgnoreCase(c2.getName()));			
+		assertEquals(-1, c1.getName().compareToIgnoreCase(c2.getName()));
 	}
 	
 	

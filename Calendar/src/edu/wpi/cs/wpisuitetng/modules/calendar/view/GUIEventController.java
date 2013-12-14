@@ -38,7 +38,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-public class GUIEventController {
+/**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
+ public class GUIEventController {
 	private static GUIEventController instance = null;
 	private int scrollBarValue;
 	private MainTabView main = null;
@@ -139,9 +143,13 @@ public class GUIEventController {
 	{
 		final int index = main.getSelectedIndex();
 		if (index == 0)
+			{
 			return myCalendar;
+			}
 		else if (index == 1)
+			{
 			return teamCalendar;
+			}
 		else
 		{
 			System.out.println("Error getting calendar; calendar tab not selected.");

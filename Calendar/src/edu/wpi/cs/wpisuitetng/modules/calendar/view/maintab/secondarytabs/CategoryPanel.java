@@ -85,7 +85,7 @@ public class CategoryPanel extends JPanel {
 		this();
 		category = cat;
 		setColorBox(cat.getCategoryColor());
-		setCategoryName(cat.getName());	
+		setCategoryName(cat.getName());
 	}
 
 	private void setCategoryName(String name) {
