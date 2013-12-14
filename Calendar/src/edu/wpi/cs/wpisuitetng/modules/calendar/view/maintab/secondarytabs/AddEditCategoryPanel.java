@@ -68,6 +68,8 @@ public class AddEditCategoryPanel extends JPanel {
 	private JRadioButton rdbtnTeam;
 	ColorPickerPanel colorPickerPanel;
 	private JRadioButton rdbtnPersonal;
+	private JButton btnSave;
+	private JButton btnCancel;
 
 
 	/**
@@ -170,7 +172,7 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_horizontalBox_1.gridy = 3;
 		addEditFormPanel.add(horizontalBox_1, gbc_horizontalBox_1);
 		
-		final JButton btnCancel = new JButton();
+		btnCancel = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
 			btnCancel.setIcon(new ImageIcon(img));
@@ -186,7 +188,7 @@ public class AddEditCategoryPanel extends JPanel {
 
 		horizontalBox_1.add(horizontalStrut);
 		
-		final JButton btnSave = new JButton();
+		btnSave = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Save_Icon.png"));
 			btnSave.setIcon(new ImageIcon(img));
@@ -209,7 +211,6 @@ public class AddEditCategoryPanel extends JPanel {
 		
 		btnCancel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		
 		// Action listener for cancel button 
 		btnCancel.addActionListener(new ActionListener() {
 			
@@ -227,26 +228,61 @@ public class AddEditCategoryPanel extends JPanel {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				addCategory();
+				
+				final int tabIndex = GUIEventController.getInstance().getMainView().getSelectedIndex();
+				GUIEventController.getInstance().getMainView().setComponentAt(tabIndex, new CategoryTab());
 			}
 		});
 	}
-
 	
-	private void addListeners() {
+	/**
+	 * Controls the enable state of the save button 
+	 * by checking all user editable elements in commitment tab.
+	 * 
+	 * STILL IN PROGRESS - DOESN'T WORK/NOT IMPLEMENTED
+	 */
+	private void checkSaveBtnStatus(){
 		
-	}
-
-
+		if(textFieldName.getText().equals("")) { 
+			btnSave.setEnabled(false);
+		} else {
+			btnSave.setEnabled(true);
+		}
+			
+			/*else {
+				if (mode == EditingMode.EDITING) {
+			
+					//make sure something changed
+					if (textFieldName.getText().equals(editingEvent.getName())) {
+						btnSave.setEnabled(false);
+						return;
+					}
+				}
+				if(repeatCheckBox.isSelected()){
+					try {
+						if (Integer.parseInt(repeatAmt.getText()) > 1){
+							btnSave.setEnabled(true);
+						} else {
+							btnSave.setEnabled(false);
+						}
+					} catch (Exception ex){
+						btnSave.setEnabled(false);
+					}
+					return;
+				}
+				btnSave.setEnabled(true);
+			}
+		}*/
+	}	
+	
 	/**
 	 * Adds new category with information contained in fields
 	 */
 	private void addCategory() {
 
 		CalendarData calData;
-		
 		// Name
 		String name = textFieldName.getText();
-		
 		// Team/Personal
 		boolean isPersonal;
 		
@@ -255,10 +291,8 @@ public class AddEditCategoryPanel extends JPanel {
 					ConfigManager.getConfig().getProjectName() + 
 					"-" + ConfigManager.getConfig().getUserName()); 
 			isPersonal = true;
-		}
-		else{
-			calData = CalendarDataModel.getInstance().getCalendarData(
-					ConfigManager.getConfig().getProjectName()); 
+		} else {
+			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
 			isPersonal = false;
 		}
 		
@@ -270,7 +304,6 @@ public class AddEditCategoryPanel extends JPanel {
 		calData.addCategory(newCat);
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 	}
-	
 	
 	/*
 	 * Color picker class consisting of a 4 x 4 matrix of colors
@@ -339,7 +372,6 @@ public class AddEditCategoryPanel extends JPanel {
 			selectedBox = (ColorBox) component;
 			selectedBox.setBorder(new LineBorder(Color.black, 2));
 			color = selectedBox.getColor();
-			
 		}
 		
 		public Color getColor() {
@@ -371,5 +403,4 @@ public class AddEditCategoryPanel extends JPanel {
 			}
 		}
 	}
-
 }

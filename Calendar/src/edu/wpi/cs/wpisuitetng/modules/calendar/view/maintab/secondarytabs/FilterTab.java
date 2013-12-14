@@ -37,6 +37,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab.EditingMode;
 
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
@@ -70,16 +71,15 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 	private JButton addCatBttn;
 	private JButton removeCatBttn;
 	private JPanel catBttnPanel;
+	private FilterMode mode;
 
-	/**
-	 * @author Tianci
-	 */
-	private enum EditingMode {
-		VIEWING(0),
-		EDITING(1);
+	private enum FilterMode {
+		ADDING(0),
+		EDITING(1),
+		VIEWING(2);
 		private final int currentMode;
 		
-		private EditingMode(int currentMode) {
+		private FilterMode(int currentMode) {
 			this.currentMode = currentMode;
 		}
 	}
@@ -90,6 +90,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 	public FilterTab(int openedFrom) {
 		this.openedFrom = openedFrom;
 		initFlag = false;
+		mode = FilterMode.VIEWING;
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0};
@@ -98,8 +99,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		gridBagLayout.rowWeights = new double[]{0.0};
 		setLayout(gridBagLayout);
 
-			
-		
 		addFilterList();
 		addListeners();
 		//editFilterMode();
@@ -314,9 +313,7 @@ private void addButtonPanel(){
 		}
 		btnNewFilter.setText("New Filter");
 		btnNewFilter.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
-		// To change cursor as it moves over this button
-
-		btnNewFilter.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		// To change cursor as it moves over this button	
 		
 		//Add Edit button
 		btnEdit = new JButton();
@@ -330,6 +327,7 @@ private void addButtonPanel(){
 		btnEdit.setText("Edit Filter");
 		btnEdit.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
+		
 		
 		// Add Delete Button
 		btnDelete = new JButton();
@@ -397,7 +395,28 @@ private void addButtonPanel(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				editFilterMode();
+				mode = FilterMode.ADDING;
 			}
 		});
+		
+		btnEdit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				editFilterMode();
+			}
+		});
+		
+		btnDelete.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				//deleteFilter();
+			}
+		});
+	}
+	
+	public void editDeleteBtnStatus(){
+		
 	}
 }
