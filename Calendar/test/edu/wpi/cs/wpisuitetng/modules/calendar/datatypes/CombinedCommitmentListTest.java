@@ -30,11 +30,19 @@ public class CombinedCommitmentListTest {
 	private static CombinedCommitmentList combinedCommitmentList;
 	private static List<Commitment> commitmentList;
 	
-	private final static GregorianCalendar today = new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00);
-	private final Commitment lastYear   = new Commitment("Last Year", new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00), "A commitment from last year", 1, true);
-	private final Commitment todayCommitment = new Commitment("Today", today, "A commitment from today", 1, true);
-	private final Commitment nextWeek   = new Commitment("Next Week", new GregorianCalendar(2013, NOVEMBER, 24, 12, 00, 00), "A commitment for next week (tomorrow)", 1, true);
-	private final Commitment nextMonth  = new Commitment("Next Month", new GregorianCalendar(2013, DECEMBER, 23, 12, 00, 00), "A commitment for next month", 1, true);
+	private final static GregorianCalendar today = 
+			new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00);
+	private final Commitment lastYear   = 
+			new Commitment("Last Year", new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00), 
+					"A commitment from last year", 1, true);
+	private final Commitment todayCommitment = 
+			new Commitment("Today", today, "A commitment from today", 1, true);
+	private final Commitment nextWeek   = 
+			new Commitment("Next Week", new GregorianCalendar(2013, NOVEMBER, 24, 12, 00, 00), 
+					"A commitment for next week (tomorrow)", 1, true);
+	private final Commitment nextMonth  = 
+			new Commitment("Next Month", new GregorianCalendar(2013, DECEMBER, 23, 12, 00, 00),
+					"A commitment for next month", 1, true);
 	@Before
 	public void setup() {
 		commitmentList = new ArrayList<Commitment>();

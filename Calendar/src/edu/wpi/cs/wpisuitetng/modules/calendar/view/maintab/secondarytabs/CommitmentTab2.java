@@ -78,14 +78,16 @@ public class CommitmentTab2 extends JPanel {
 		
 		// Create and add textField to the nameField
 		final JTextField textField = new JTextField(50);
-		textField.setPreferredSize(new Dimension(textField.getPreferredSize().width, textField.getPreferredSize().height + 5));
+		textField.setPreferredSize(new Dimension(
+				textField.getPreferredSize().width, textField.getPreferredSize().height + 5));
 		nameField.add(textField);
 		layout.putConstraint(WEST, textField, 5, EAST, label);
 		layout.putConstraint(NORTH, textField, 0, NORTH, nameField);
 		layout.putConstraint(EAST, textField, 0, EAST, nameField);
 		layout.putConstraint(SOUTH, textField, 0, SOUTH, nameField);		
 		
-		nameField.setPreferredSize(new Dimension(label.getPreferredSize().width + 5 + textField.getPreferredSize().width, textField.getPreferredSize().height));
+		nameField.setPreferredSize(new Dimension(label.getPreferredSize().width
+				+ 5 + textField.getPreferredSize().width, textField.getPreferredSize().height));
 		
 		return nameField;
 	}
@@ -162,7 +164,9 @@ public class CommitmentTab2 extends JPanel {
 		
 		timePanel.setPreferredSize(new Dimension(
 				// width (buffers + sizes)
-				14 + timeLabel.getPreferredSize().width + hourSpinner.getPreferredSize().width + colon.getPreferredSize().width + minuteSpinner.getPreferredSize().width + AMPMSpinner.getPreferredSize().width,
+				14 + timeLabel.getPreferredSize().width + 
+				hourSpinner.getPreferredSize().width + colon.getPreferredSize().width + 
+				minuteSpinner.getPreferredSize().width + AMPMSpinner.getPreferredSize().width,
 				// height (height of tallest)
 				AMPMSpinner.getPreferredSize().height
 				));

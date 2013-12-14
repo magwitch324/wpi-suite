@@ -170,8 +170,10 @@ public class AddEditCategoryPanel extends JPanel {
 		btnCancel.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				final int tabIndex = GUIEventController.getInstance().getMainView().getSelectedIndex();
-				GUIEventController.getInstance().getMainView().setComponentAt(tabIndex, new CategoryTab());
+				final int tabIndex = 
+						GUIEventController.getInstance().getMainView().getSelectedIndex();
+				GUIEventController.getInstance().getMainView().setComponentAt(
+						tabIndex, new CategoryTab());
 			}
 			
 			

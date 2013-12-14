@@ -34,7 +34,8 @@ public class CommitmentTest {
 		assertEquals(0, testComm.getID());
 		assertEquals("", testComm.getName());
 		assertEquals("", testComm.getDescription());
-		//TODO: see if this line can be reworked somehow //assertEquals(tmpCal.getTime(), testComm.getDueDate().getTime());
+		//TODO: see if this line can be reworked somehow 
+		//assertEquals(tmpCal.getTime(), testComm.getDueDate().getTime());
 		//It should test that the dueDate field got initialized properly
 		assertEquals(Status.NEW, testComm.getStatus());
 		assertEquals(false, testComm.getIsPersonal());

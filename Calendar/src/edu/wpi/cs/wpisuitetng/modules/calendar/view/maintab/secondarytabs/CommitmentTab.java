@@ -781,13 +781,20 @@ public class CommitmentTab extends JPanel {
 	 * (When input is within range) Focus gained -> Focus lost -> commit edit -> State changed
 	 * (When input is out of range) Focus gained -> Focus lost -> commit edit -> State changed
 	 * If hit enter key to submit change:
-	 * (When input has not changed) focus gained -> enter key -> focus colon -> action performed -> focus lost -> commit edit
-	 * (When input is within range) focus gained -> enter key -> focus colon -> state changed -> ActionPerformed -> Focus lost -> commit edit
-	 * (When input is out of range) focus gained -> enter key -> focus colon -> state changed -> ActionPerformed -> Focus lost -> commit edit -> state changed
+	 * (When input has not changed) focus gained -> enter key -> 
+	 * focus colon -> action performed -> focus lost -> commit edit
+	 * (When input is within range) focus gained -> enter key -> 
+	 * focus colon -> state changed -> ActionPerformed -> Focus lost -> commit edit
+	 * (When input is out of range) focus gained -> enter key -> 
+	 * focus colon -> state changed -> ActionPerformed -> Focus lost -> commit edit -> state changed
 	 * If arrow button to submit change:
-	 * (When input has not changed) up/down button started -> up/down button finished -> state changed ->focus lost -> commit edit
-	 * (When input is within range) up/down button started -> state changed -> up/down button finished -> state changed -> focus lost -> commit edit
-	 * (When input is out of range) up/down button started -> state changed -> up/down button finished -> state changed ->state changed -> focus lost -> commit edit
+	 * (When input has not changed) up/down button started -> 
+	 * up/down button finished -> state changed ->focus lost -> commit edit
+	 * (When input is within range) up/down button started -> 
+	 * state changed -> up/down button finished -> state changed -> focus lost -> commit edit
+	 * (When input is out of range) up/down button started -> 
+	 * state changed -> up/down button finished -> state changed ->
+	 * state changed -> focus lost -> commit edit
 	 */
 	
 	private void addTimeSpinnerListeners() {
@@ -795,14 +802,18 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("ActionPerformed. refresh text field, tempHour is " + tempHour  + "  and text field is " + hourEditor.getTextField().getText() + "Error is : " + lblTimeError.isVisible() + "last input is " + lastInput);
+				System.out.println("ActionPerformed. refresh text field, tempHour is "
+			+ tempHour  + "  and text field is " + hourEditor.getTextField().getText() 
+			+ "Error is : " + lblTimeError.isVisible() + "last input is " + lastInput);
 				
 				if(tempHour < 10)
 					{hourEditor.getTextField().setText("0" + Integer.toString(tempHour));}
 				else
 					{hourEditor.getTextField().setText(Integer.toString(tempHour));}
 				
-				System.out.println("ActionPerformed. refresh text field, tempHour is " + tempHour  + "  and text field is " + hourEditor.getTextField().getText() + "Error is : " + lblTimeError.isVisible() + "last input is " + lastInput);
+				System.out.println("ActionPerformed. refresh text field, tempHour is "
+				+ tempHour  + "  and text field is " + hourEditor.getTextField().getText() 
+				+ "Error is : " + lblTimeError.isVisible() + "last input is " + lastInput);
 				
 			}
 			
@@ -816,7 +827,9 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				System.out.println("Focus lost, run commit edit temphour is " + tempHour  + "  and text field is " + hourEditor.getTextField().getText() + "Error is : " + lblTimeError.isVisible() + "last input is " + lastInput);
+				System.out.println("Focus lost, run commit edit temphour is " 
+			+ tempHour  + "  and text field is " + hourEditor.getTextField().getText() 
+			+ "Error is : " + lblTimeError.isVisible() + "last input is " + lastInput);
 				try {
 					upArrowAction = false;
 					downArrowAction = false;
@@ -862,7 +875,9 @@ public class CommitmentTab extends JPanel {
 				lastInput = hourEditor.getTextField().getText();
 				checkTimeSpinnerStatus(hourSpinner, enumTimeSpinner.HOUR);
 				refreshTemp(enumTimeSpinner.HOUR);
-				System.out.println("State changed, check and refreshTemp, current temp is " + tempHour + "  and text field is " + hourEditor.getTextField().getText() + "Error is : " + lblTimeError.isVisible() + "last input is " + lastInput);
+				System.out.println("State changed, check and refreshTemp, current temp is "
+				+ tempHour + "  and text field is " + hourEditor.getTextField().getText()
+				+ "Error is : " + lblTimeError.isVisible() + "last input is " + lastInput);
 				checkSaveBtnStatus();
 			}
 		});
@@ -871,14 +886,18 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("ActionPerformed. refresh text field, tempHour is " + tempHour  + "  and text field is " + hourEditor.getTextField().getText() + "Error is : " + lblTimeError.isVisible());
+				System.out.println("ActionPerformed. refresh text field, tempHour is "
+			+ tempHour  + "  and text field is " + hourEditor.getTextField().getText() 
+			+ "Error is : " + lblTimeError.isVisible());
 				
 				if(tempMin < 10)
 					{minuteEditor.getTextField().setText("0" + Integer.toString(tempMin));}
 				else
 					{minuteEditor.getTextField().setText(Integer.toString(tempMin));}
 				
-				System.out.println("ActionPerformed. refresh text field, tempHour is " + tempHour  + "  and text field is " + hourEditor.getTextField().getText() + "Error is : " + lblTimeError.isVisible());
+				System.out.println("ActionPerformed. refresh text field, tempHour is "
+				+ tempHour  + "  and text field is " + hourEditor.getTextField().getText()
+				+ "Error is : " + lblTimeError.isVisible());
 				
 			}
 			
@@ -970,14 +989,16 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("ActionPerformed. refresh text field, tempHour is " + tempHour  + "  and text field is " + hourEditor.getTextField().getText());
+				System.out.println("ActionPerformed. refresh text field, tempHour is "
+			+ tempHour  + "  and text field is " + hourEditor.getTextField().getText());
 				
 				if(tempMin < 10)
 					{minuteEditor.getTextField().setText("0" + Integer.toString(tempMin));}
 				else
 					{minuteEditor.getTextField().setText(Integer.toString(tempMin));}
 				
-				System.out.println("ActionPerformed. refresh text field, tempHour is " + tempHour  + "  and text field is " + hourEditor.getTextField().getText());
+				System.out.println("ActionPerformed. refresh text field, tempHour is "
+				+ tempHour  + "  and text field is " + hourEditor.getTextField().getText());
 				
 			}
 			
@@ -1212,7 +1233,8 @@ public class CommitmentTab extends JPanel {
 
 		CalendarData calData;
 		if (rdbtnPersonal.isSelected()){
-			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() 
+			calData = CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName() 
 					+ "-" + ConfigManager.getConfig().getUserName()); 
 			isTeamComm = false;
 		}

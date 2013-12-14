@@ -47,12 +47,15 @@ public class CategoryComboBoxRenderer extends JLabel implements
 		graphics.setPaint(value.getCategoryColor());
 		graphics.fillRect(0, 0, colorImage.getWidth(), colorImage.getHeight());
 		
-		//Draws a black border on around the image, the "-1"s are to keep it from going out of bounds
+		//Draws a black border on around the image, 
+		//the "-1"s are to keep it from going out of bounds
 		graphics.setPaint(Color.BLACK);
 		graphics.drawLine(0, 0, 0, colorImage.getHeight());
 		graphics.drawLine(0, 0, colorImage.getWidth(), 0);
-		graphics.drawLine(colorImage.getWidth()-1, 0, colorImage.getWidth()-1, colorImage.getHeight()-1);
-		graphics.drawLine(0, colorImage.getHeight()-1, colorImage.getWidth()-1, colorImage.getHeight()-1);
+		graphics.drawLine(colorImage.getWidth()-1, 0, 
+				colorImage.getWidth()-1, colorImage.getHeight()-1);
+		graphics.drawLine(0, colorImage.getHeight()-1, 
+				colorImage.getWidth()-1, colorImage.getHeight()-1);
 		
 		//Create Icon from image
 		colorIcon = new ImageIcon(colorImage);

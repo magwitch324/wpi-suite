@@ -32,13 +32,22 @@ public class CombinedEventListTest {
 	
 	private final static String[] people = new String[]{"John", "Mary", "Jack" };
 	
-	private final static GregorianCalendar today = new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00);
-	private final static GregorianCalendar today13 = new GregorianCalendar(2013, NOVEMBER, 23, 13, 00, 00);
+	private final static GregorianCalendar today = 
+			new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00);
+	private final static GregorianCalendar today13 = 
+			new GregorianCalendar(2013, NOVEMBER, 23, 13, 00, 00);
 	
-	private final Event lastYear   = new Event("Last Year",  "A Event from last year",  new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00),  new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), people , 1, true);
-	private final Event todayEvent = new Event("Today",      "A Event from today", today, today13, people, 2, true);
-	private final Event nextWeek   = new Event("Next Week",  "A Event for next week",   new GregorianCalendar(2013, NOVEMBER, 24, 12, 00, 00), new GregorianCalendar(2013, NOVEMBER, 24, 13, 00, 00), people, 1, true);
-	private final Event nextMonth  = new Event("Next Month", "A Event for next month",  new GregorianCalendar(2013, DECEMBER, 23, 12, 00, 00), new GregorianCalendar(2013, DECEMBER, 23, 13, 00, 00), people, 1, true);
+	private final Event lastYear   = new Event("Last Year",  
+			"A Event from last year",  new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00), 
+			new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), people , 1, true);
+	private final Event todayEvent = new Event("Today",     
+			"A Event from today", today, today13, people, 2, true);
+	private final Event nextWeek   = new Event("Next Week",  "A Event for next week",
+			new GregorianCalendar(2013, NOVEMBER, 24, 12, 00, 00), 
+			new GregorianCalendar(2013, NOVEMBER, 24, 13, 00, 00), people, 1, true);
+	private final Event nextMonth  = new Event("Next Month", "A Event for next month",
+			new GregorianCalendar(2013, DECEMBER, 23, 12, 00, 00), 
+			new GregorianCalendar(2013, DECEMBER, 23, 13, 00, 00), people, 1, true);
 	@Before
 	public void setup() {
 		eventList = new ArrayList<Event>();

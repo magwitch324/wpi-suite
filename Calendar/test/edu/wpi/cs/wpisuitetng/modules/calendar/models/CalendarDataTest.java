@@ -21,20 +21,26 @@ public class CalendarDataTest {
 	@Test
 	public void test() {
 		final CalendarData data = new CalendarData();
-		final Commitment com1 = new Commitment("com1", new GregorianCalendar(2013, 1, 1), "the first commitment", 0, true);
-		final Commitment com2 = new Commitment("com2", new GregorianCalendar(2013, 2, 2), "the second commitment", 0, true);
-		final Commitment com3 = new Commitment("com3", new GregorianCalendar(2013, 3, 3), "the third commitment", 0, true);
+		final Commitment com1 = new Commitment("com1",
+				new GregorianCalendar(2013, 1, 1), "the first commitment", 0, true);
+		final Commitment com2 = new Commitment("com2", 
+				new GregorianCalendar(2013, 2, 2), "the second commitment", 0, true);
+		final Commitment com3 = new Commitment("com3", 
+				new GregorianCalendar(2013, 3, 3), "the third commitment", 0, true);
 		data.addCommitment(com1);
 		data.addCommitment(com2);
 		data.addCommitment(com3);
 		
 		final CommitmentList list = data.getCommitments();
-		System.out.println(list.getCommitments().get(1).getDescription() + data.getCommitments().getCommitments().get(1).getID());
+		System.out.println(list.getCommitments().get(1).getDescription() 
+				+ data.getCommitments().getCommitments().get(1).getID());
 		helper(list);
 		//System.out.println(data.getCommitments().getCommitments().get(0).getDescription());
-		System.out.println(data.getCommitments().getCommitments().get(1).getDescription() + data.getCommitments().getCommitments().get(1).getID());
+		System.out.println(data.getCommitments().getCommitments().get(1).getDescription()
+				+ data.getCommitments().getCommitments().get(1).getID());
 		helper2(data.getCommitments().getCommitments().get(1));
-		System.out.println(data.getCommitments().getCommitments().get(1).getDescription() + data.getCommitments().getCommitments().get(1).getID());
+		System.out.println(data.getCommitments().getCommitments().get(1).getDescription() 
+				+ data.getCommitments().getCommitments().get(1).getID());
 	}
 	
 	public void helper(CommitmentList list){

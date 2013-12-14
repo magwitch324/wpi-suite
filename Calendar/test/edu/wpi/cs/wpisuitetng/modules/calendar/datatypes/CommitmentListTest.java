@@ -33,18 +33,31 @@ public class CommitmentListTest {
 	private final GregorianCalendar start = new GregorianCalendar();
 	private final GregorianCalendar end   = new GregorianCalendar();
 	
-	private final static GregorianCalendar today = new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00);
+	private final static GregorianCalendar today = 
+			new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00);
 	
 	@BeforeClass
 	public static void setup() {
 		commitments = new CommitmentList();
-		commitments.add(new Commitment("Last Year", new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00), "A commitment from last year", 1, true));
-		commitments.add(new Commitment("Last Month", new GregorianCalendar(2013, OCTOBER, 12, 12, 00, 00), "A commitment from last month", 1, true));
-		commitments.add(new Commitment("Last Week", new GregorianCalendar(2013, NOVEMBER, 16, 12, 00, 00), "A commitment for a week ago", 1, true));
+		commitments.add(new Commitment("Last Year",
+				new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00),
+				"A commitment from last year", 1, true));
+		commitments.add(new Commitment("Last Month", 
+				new GregorianCalendar(2013, OCTOBER, 12, 12, 00, 00),
+				"A commitment from last month", 1, true));
+		commitments.add(new Commitment("Last Week", 
+				new GregorianCalendar(2013, NOVEMBER, 16, 12, 00, 00), 
+				"A commitment for a week ago", 1, true));
 		commitments.add(new Commitment("Today", today, "A commitment from today", 1, true));
-		commitments.add(new Commitment("Next Week", new GregorianCalendar(2013, NOVEMBER, 24, 12, 00, 00), "A commitment for next week (tomorrow)", 1, true));
-		commitments.add(new Commitment("Next Month", new GregorianCalendar(2013, DECEMBER, 23, 12, 00, 00), "A commitment for next month", 1, true));
-		commitments.add(new Commitment("Next Year", new GregorianCalendar(2014, JANUARY, 1, 12, 00, 00), "A commitment for next year", 1, true));
+		commitments.add(new Commitment("Next Week",
+				new GregorianCalendar(2013, NOVEMBER, 24, 12, 00, 00),
+				"A commitment for next week (tomorrow)", 1, true));
+		commitments.add(new Commitment("Next Month",
+				new GregorianCalendar(2013, DECEMBER, 23, 12, 00, 00),
+				"A commitment for next month", 1, true));
+		commitments.add(new Commitment("Next Year", 
+				new GregorianCalendar(2014, JANUARY, 1, 12, 00, 00), 
+				"A commitment for next year", 1, true));
 		
 		printlist(commitments.getCommitments());
 		
@@ -102,7 +115,8 @@ public class CommitmentListTest {
 	}
 	
 	public void printcalendar(GregorianCalendar cal) {
-		final String dayName = cal.getDisplayName(GregorianCalendar.DAY_OF_WEEK, LONG, Locale.ENGLISH);
+		final String dayName = cal.getDisplayName(
+				GregorianCalendar.DAY_OF_WEEK, LONG, Locale.ENGLISH);
 		final int dayNum = cal.get(DAY_OF_MONTH);
 		final String monthName = cal.getDisplayName(GregorianCalendar.MONTH, LONG, Locale.ENGLISH);
 		final int year = cal.get(YEAR);

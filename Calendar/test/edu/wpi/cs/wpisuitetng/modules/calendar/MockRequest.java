@@ -18,7 +18,8 @@ public class MockRequest extends Request {
 	
 	protected boolean sent = false;
 
-	public MockRequest(NetworkConfiguration networkConfiguration, String path, HttpMethod requestMethod) {
+	public MockRequest(NetworkConfiguration networkConfiguration,
+			String path, HttpMethod requestMethod) {
 		super(networkConfiguration, path, requestMethod);
 	}
 

@@ -84,7 +84,8 @@ public abstract class CalendarView extends JSplitPane {
 //		labelPanel.setBorder(new EmptyBorder(0, 10, 0 , 10));
 //		labelPanel.setMinimumSize(new Dimension(330, 50));
 		labelPanel.setBackground(CalendarStandard.CalendarRed);			
-		final JLabel dateLabel = new JLabel("<html><font color='white'><body style='width: 100%'><center>" + 
+		final JLabel dateLabel = new JLabel(
+				"<html><font color='white'><body style='width: 100%'><center>" + 
 		dateRange + "</center></html>", SwingConstants.CENTER);
 		dateLabel.setFont(CalendarStandard.CalendarFontBold.deriveFont(Font.BOLD, 16));
 		dateLabel.setBorder(new EmptyBorder(5, 0, 5, 0));

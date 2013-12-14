@@ -253,7 +253,8 @@ public class CommitmentView extends JPanel {
 
 				commitPanel.add(separator);
 				if (n == commitmentList.size() - 1)
-					{commPanelLayout.putConstraint(SpringLayout.SOUTH, commitPanel, 0, SpringLayout.SOUTH, separator);}
+					{commPanelLayout.putConstraint(
+							SpringLayout.SOUTH, commitPanel, 0, SpringLayout.SOUTH, separator);}
 
 				n++;
 			}

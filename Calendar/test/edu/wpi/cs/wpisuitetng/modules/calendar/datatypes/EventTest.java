@@ -50,7 +50,8 @@ public class EventTest {
 	@Test
 	public void mainConstructorTest(){
 		//tmpCal.setTime(new Date());
-		final Event testEvent = new Event ("test","test description",_20120129,_20120130,people1,1, true);
+		final Event testEvent = new Event (
+				"test","test description",_20120129,_20120130,people1,1, true);
 		//add Participants 
 		final List<String> people = new ArrayList<String>();
 		//testing
@@ -70,7 +71,8 @@ public class EventTest {
 	 */
 	@Test
 	public void setterConstructorTest(){
-		final Event testEvent = new Event("test","test description",_20120129,_20120130,people1,1, true);
+		final Event testEvent = new Event(
+				"test","test description",_20120129,_20120130,people1,1, true);
 		testEvent.setName("setter testing");
 		testEvent.setDescription("setter test description");
 		testEvent.setStartTime(_20131209);
@@ -96,7 +98,8 @@ public class EventTest {
 	 */
 	@Test
 	public void copyFromTest(){
-		final Event testEvent2 = new Event ("test","test description",_20120129,_20120130,people1,1, true);
+		final Event testEvent2 = new Event (
+				"test","test description",_20120129,_20120130,people1,1, true);
 		testEvent2.setCategoryID(2);
 		final List<String> people = new ArrayList<String>();
 		people.add("John");

@@ -95,7 +95,8 @@ public class CalendarPropsModel extends AbstractListModel {
 	/**
 	 * Removes the CalendarProps with the given ID
 	 * 
-	 * @param removeId The ID number of the CalendarProps to be removed from the list of CalendarPropss
+	 * @param removeId The ID number of the CalendarProps 
+	 * to be removed from the list of CalendarPropss
 	 */
 	public void removeCalendarProps(String removeId){
 		// iterate through list of CalendarPropss until id of project is found

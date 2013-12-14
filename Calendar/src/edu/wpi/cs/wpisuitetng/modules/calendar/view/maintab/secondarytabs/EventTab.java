@@ -1601,7 +1601,9 @@ public class EventTab extends JPanel {
 			// the event that the tab was opened with is just a dummy event so that the GUI
 			// can display it
 			if (rdbtnPersonal.isSelected()){
-				calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
+				calData = CalendarDataModel.getInstance().getCalendarData(
+						ConfigManager.getConfig().getProjectName() + 
+						"-" + ConfigManager.getConfig().getUserName()); 
 				isTeamEvent = false;
 			}
 			else{

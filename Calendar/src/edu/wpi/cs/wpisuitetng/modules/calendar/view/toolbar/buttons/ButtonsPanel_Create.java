@@ -209,7 +209,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Desktop.getDesktop().browse(new URL(
-							"https://github.com/magwitch324/wpi-suite/wiki/Calendar-Module").toURI());
+				"https://github.com/magwitch324/wpi-suite/wiki/Calendar-Module").toURI());
 				} catch (MalformedURLException e1) {
 					e1.printStackTrace();
 				} catch (IOException e1) {
