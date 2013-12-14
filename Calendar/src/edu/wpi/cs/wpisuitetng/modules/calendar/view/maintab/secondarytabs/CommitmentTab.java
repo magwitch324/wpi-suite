@@ -1303,11 +1303,8 @@ public class CommitmentTab extends JPanel {
 		else{
 			newComm.setIsPersonal(true);
 		}
-		//TODO
-		//temporary fix to allow use of events still
-		try{
-			newComm.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getID());
-		}catch(java.lang.NullPointerException exp){}
+
+		newComm.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getID());
 
 		newComm.setDescription(descriptionTextField.getText());
 
@@ -1396,7 +1393,6 @@ public class CommitmentTab extends JPanel {
 	 * Delete a commitment.
 	 */
 	protected void deleteCommitment() {
-		// TODO Auto-generated method stub
 		CalendarData calData;
 	if (rdbtnPersonal.isSelected()){
 			calData = CalendarDataModel.getInstance().getCalendarData(
@@ -1459,9 +1455,8 @@ public class CommitmentTab extends JPanel {
 					if (nameTextField.getText().equals(editingCommitment.getName()) 
 							&& descriptionTextField.getText().equals(
 									editingCommitment.getDescription())
-							//TODO uncomment category code
-							//&& ((Category)categoryComboBox.getSelectedItem()).
-							//getID() == editingCommitment.getCategoryID()
+							&& ((Category)categoryComboBox.getSelectedItem()).
+							getID() == editingCommitment.getCategoryID()
 							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(
 									editingCommitment.getStatus())
 							&& calDate.getTime().equals(editingCommitment.getDueDate().getTime())

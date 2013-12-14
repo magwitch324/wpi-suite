@@ -1544,9 +1544,9 @@ import javax.swing.ButtonGroup;
 					//make sure something changed
 					if (nameTextField.getText().equals(editingEvent.getName()) 
 							&& descriptionTextArea.getText().equals(editingEvent.getDescription())
-							//TODO uncomment category code
-							//&& ((Category)categoryComboBox.getSelectedItem()).getID() 
-							//== editingEvent.getCategoryID()
+
+							&& ((Category)categoryComboBox.getSelectedItem()).getID() 
+							== editingEvent.getCategoryID()
 							&& getStartDate().getTime().equals(
 									editingEvent.getStartTime().getTime())
 							&& getEndDate().getTime().equals(
@@ -1933,11 +1933,9 @@ import javax.swing.ButtonGroup;
 				newEvent.setIsPersonal(true);
 			}
 
-			//TODO
-			//temporary fix to allow use of events still
-			try{
-				newEvent.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getID());
-			}catch(java.lang.NullPointerException exp){}
+
+			newEvent.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getID());
+
 			
 			newEvent.setDescription(descriptionTextArea.getText());
 
