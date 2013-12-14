@@ -176,20 +176,7 @@ public class AddEditCategoryPanel extends JPanel {
 			btnCancel.setIcon(new ImageIcon());
 		}
 		btnCancel.setText("Cancel");
-		btnCancel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
-		// To change cursor as it moves over this button
 		
-		
-		// Action listener for cancel button 
-		btnCancel.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				final int tabIndex = 
-						GUIEventController.getInstance().getMainView().getSelectedIndex();
-				GUIEventController.getInstance().getMainView().setComponentAt(
-						tabIndex, new CategoryTab());
-			}
-		});
 		horizontalBox_1.add(btnCancel);
 		
 		Component horizontalStrut = Box.createHorizontalStrut(20);
@@ -209,6 +196,28 @@ public class AddEditCategoryPanel extends JPanel {
 		// To change cursor as it moves over this button		
 		horizontalBox_1.add(btnSave);
 
+		
+				
+		Component horizontalGlue_1 = Box.createHorizontalGlue();
+
+		add(horizontalGlue_1);
+		
+		//LISTENERS
+		
+		btnCancel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
+		
+		// Action listener for cancel button 
+		btnCancel.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				final int tabIndex = 
+						GUIEventController.getInstance().getMainView().getSelectedIndex();
+				GUIEventController.getInstance().getMainView().setComponentAt(
+						tabIndex, new CategoryTab());
+			}
+		});
+		
 		// Action listener for save button 
 		btnSave.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
@@ -217,13 +226,14 @@ public class AddEditCategoryPanel extends JPanel {
 				addCategory();
 			}
 		});
-				
-		Component horizontalGlue_1 = Box.createHorizontalGlue();
-
-		add(horizontalGlue_1);
 	}
 
 	
+	private void addListeners() {
+		
+	}
+
+
 	/**
 	 * Adds new category with information contained in fields
 	 */
