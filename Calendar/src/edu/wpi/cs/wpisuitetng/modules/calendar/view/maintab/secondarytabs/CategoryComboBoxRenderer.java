@@ -30,7 +30,6 @@ public class CategoryComboBoxRenderer extends JLabel implements
 	private ImageIcon colorIcon;
 	
 	public CategoryComboBoxRenderer(){
-		super();
 		setOpaque(true);
 		setHorizontalAlignment(LEFT);
 		setVerticalAlignment(CENTER);

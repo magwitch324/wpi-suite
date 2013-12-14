@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * Copyright (c) 2013 WPI-Suite
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: CS Anonymous
+ ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import java.awt.Color;
@@ -183,7 +192,6 @@ public class AddEditCategoryPanel extends JPanel {
 		
 		Component horizontalGlue_1 = Box.createHorizontalGlue();
 		add(horizontalGlue_1);
-		if(mode == CategoryTab.CategoryMode.EDITING);
 	}
 
 	
@@ -196,7 +204,6 @@ public class AddEditCategoryPanel extends JPanel {
 		Color color;
 		ColorBox selectedBox;
 		public ColorPickerPanel() {
-			super();
 			
 			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 			
@@ -260,7 +267,6 @@ public class AddEditCategoryPanel extends JPanel {
 			private Color boxColor;
 			public ColorBox(Color color)
 			{
-				super();
 				boxColor = color;
 				setBackground(color);
 				
