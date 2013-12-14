@@ -1658,8 +1658,8 @@ public class EventTab extends JPanel {
 	 * Close this event tab
 	 * @param goTo int
 	 */
-	protected void removeTab(int goTo) {
-		GUIEventController.getInstance().removeEventTab(this, goTo);
+	protected void removeTab() {
+		GUIEventController.getInstance().removeEventTab(this, openedFrom);
 	}
 	/**
 	 * Close this event tab when cancel is hit
@@ -1795,7 +1795,7 @@ public class EventTab extends JPanel {
 			UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 
 
-			this.removeTab(isTeamEvent ? 1 : 0);
+			this.removeTab();
 
 		} else {
 
@@ -1838,7 +1838,7 @@ public class EventTab extends JPanel {
 			UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 
 
-			this.removeTab(isTeamEvent ? 1 : 0);
+			this.removeTab();
 		}
 	}
 	
@@ -1869,7 +1869,7 @@ public class EventTab extends JPanel {
 		}
 		
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
-		removeTab(isTeamEvent ? 1 : 0);
+		removeTab();
 	}
 
 
