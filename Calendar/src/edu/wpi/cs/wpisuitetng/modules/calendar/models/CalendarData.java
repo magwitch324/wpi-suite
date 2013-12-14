@@ -148,7 +148,7 @@ public class CalendarData extends AbstractModel {
 	 * Removes all old data
 	 */
 	public void removeYearOld(){
-		GregorianCalendar yearOld = new GregorianCalendar();
+		final GregorianCalendar yearOld = new GregorianCalendar();
 		yearOld.setTime(new Date());
 		yearOld.add(Calendar.YEAR, -1);
 		int i = 0;

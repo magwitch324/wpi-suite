@@ -28,7 +28,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
+/**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
+ @SuppressWarnings("serial")
 public class CommitmentCalViewPanel extends JPanel {
 
 	private final Commitment comm;
@@ -65,7 +69,7 @@ public class CommitmentCalViewPanel extends JPanel {
 		
 		try {
 			if (comm.getIsPersonal())
-			{	
+			{
 				nameImg = ImageIO.read(getClass().getResource("PersonalCommitment_Icon.png"));
 				
 			}

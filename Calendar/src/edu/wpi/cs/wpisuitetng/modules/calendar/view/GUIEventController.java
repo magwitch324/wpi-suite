@@ -18,7 +18,6 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
-import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdatePropsController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 //import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
@@ -32,7 +31,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CategoryTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.FilterTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab2;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.EventTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 
@@ -40,7 +38,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-public class GUIEventController {
+/**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
+ public class GUIEventController {
 	private static GUIEventController instance = null;
 	private int scrollBarValue;
 	private MainTabView main = null;
@@ -121,14 +123,13 @@ public class GUIEventController {
 			//img = ImageIO.read(getClass().getResource("Team_Icon.png"));
 			//main.addTab("Team Calendar", new ImageIcon(img), teamCalendar);
 
-			img = ImageIO.read(getClass().getResource("All_Icon.png"));
-			main.addTab("All Commitments", new ImageIcon(img), commitFullView);
+			img = ImageIO.read(getClass().getResource("Agenda_Icon.png"));
+			main.addTab("Agenda", new ImageIcon(img), commitFullView);
 
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
 			main.addTab("My Calendar", new ImageIcon(), myCalendar);
-			//main.addTab("Team Calendar", new ImageIcon(), teamCalendar);
-			main.addTab("All Commitments", new ImageIcon(), commitFullView);
+			main.addTab("Agenda", new ImageIcon(), commitFullView);
 		}
 
 	}
@@ -140,7 +141,7 @@ public class GUIEventController {
 	public AbCalendar getCalendar()
 	{
 			return myCalendar;
-		
+
 	}
 
 
@@ -400,19 +401,19 @@ public class GUIEventController {
 		}
 		
 		//Scrub the category from any commitment/event that it is assigned to
-		List<Commitment> commitments = calData.getCommitments().getCommitments();
+		final List<Commitment> commitments = calData.getCommitments().getCommitments();
 		for(Commitment tmpComm: commitments){
 			if (tmpComm.getCategoryID() == catToDelete.getID()){
 				tmpComm.setCategoryID(0);
 			}
 		}
-		List<Event> events = calData.getEvents().getEvents();
+		final List<Event> events = calData.getEvents().getEvents();
 		for(Event tmpEvent: events){
 			if (tmpEvent.getCategoryID() == catToDelete.getID()){
 				tmpEvent.setCategoryID(0);
 			}
 		}
-		List<RepeatingEvent> repeatingEvents = calData.getRepeatingEvents().getEvents();
+		final List<RepeatingEvent> repeatingEvents = calData.getRepeatingEvents().getEvents();
 		for(RepeatingEvent tmpRepEvent: repeatingEvents){
 			if (tmpRepEvent.getCategoryID() == catToDelete.getID()){
 				tmpRepEvent.setCategoryID(0);

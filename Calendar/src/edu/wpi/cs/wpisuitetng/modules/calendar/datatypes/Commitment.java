@@ -68,8 +68,8 @@ public class Commitment extends CalendarObject implements
 	/**
 	 * Method compareTo.
 	 * @param person Commitment
-	 * @return int
-	 */
+	
+	 * @return int */
 	public int compareTo(Commitment person) {
 		if (name != null && person.name != null) {
 			return name.compareToIgnoreCase(person.name);

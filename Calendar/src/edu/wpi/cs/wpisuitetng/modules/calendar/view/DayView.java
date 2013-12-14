@@ -20,7 +20,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
+/**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
+ @SuppressWarnings("serial")
 public class DayView extends CalendarView {
 
 
@@ -78,12 +82,14 @@ public class DayView extends CalendarView {
 		}
 
 		if (showCommOnCal)
+			{
 			try {
 				
 				dayPane.displayEvents(eventList.filter(day));
 				dayPane.displayCommitments(commList.filter(day));
 			} catch (CalendarException e) {
 				e.printStackTrace();
+			}
 			}
 		else{
 			dayPane.displayCommitments(null); //show no commitments on DayPane
