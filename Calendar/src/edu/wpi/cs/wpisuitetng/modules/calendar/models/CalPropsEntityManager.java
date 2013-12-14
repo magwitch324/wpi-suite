@@ -30,6 +30,8 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
   * @version $Revision: 1.0 $
   */
 /**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
   */
  public class CalPropsEntityManager implements EntityManager<CalendarProps> {
 

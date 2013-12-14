@@ -14,6 +14,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class CategoryTest {
 

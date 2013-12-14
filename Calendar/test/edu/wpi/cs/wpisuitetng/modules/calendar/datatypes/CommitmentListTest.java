@@ -22,6 +22,8 @@ import org.junit.Test;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 
 /**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class CommitmentListTest {
 
@@ -94,8 +96,8 @@ public class CommitmentListTest {
 	
 	/**
 	 * Method filterAroundWeek.
-	 * @throws CalendarException
-	 */
+	
+	 * @throws CalendarException */
 	@Test
 	public void filterAroundWeek() throws CalendarException {
 		System.out.println("Filter around week...");
@@ -106,8 +108,8 @@ public class CommitmentListTest {
 	
 	/**
 	 * Method filterAroundMonth.
-	 * @throws CalendarException
-	 */
+	
+	 * @throws CalendarException */
 	@Test
 	public void filterAroundMonth() throws CalendarException {
 		System.out.println("Filter around month...");
@@ -117,8 +119,8 @@ public class CommitmentListTest {
 	
 	/**
 	 * Method filterAroundYear.
-	 * @throws CalendarException
-	 */
+	
+	 * @throws CalendarException */
 	@Test
 	public void filterAroundYear() throws CalendarException {
 		System.out.println("Filter around year...");

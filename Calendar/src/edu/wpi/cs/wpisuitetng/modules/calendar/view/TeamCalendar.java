@@ -34,6 +34,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
   * @version $Revision: 1.0 $
   */
 /**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
   */
  @SuppressWarnings("serial")
 public class TeamCalendar extends AbCalendar {

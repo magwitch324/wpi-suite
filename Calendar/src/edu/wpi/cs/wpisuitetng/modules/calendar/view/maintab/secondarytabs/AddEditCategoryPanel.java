@@ -75,6 +75,8 @@ import javax.swing.border.LineBorder;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 /**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class AddEditCategoryPanel extends JPanel {
 
@@ -204,6 +206,7 @@ public class AddEditCategoryPanel extends JPanel {
 	 * 
 	 */
 	/**
+	 * @author Tianci
 	 */
 	class ColorPickerPanel extends JPanel {
 
@@ -275,6 +278,7 @@ public class AddEditCategoryPanel extends JPanel {
 		 * JPanel for each color box
 		 */
 		/**
+		 * @author Tianci
 		 */
 		private class ColorBox extends JPanel {
 			private final Color boxColor;

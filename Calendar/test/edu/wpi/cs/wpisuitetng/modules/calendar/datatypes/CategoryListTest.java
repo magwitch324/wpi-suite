@@ -18,6 +18,8 @@ import java.util.List;
 import org.junit.Before;
 
 /**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class CategoryListTest {
 

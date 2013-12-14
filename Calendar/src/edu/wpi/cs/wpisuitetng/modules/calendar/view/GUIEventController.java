@@ -39,6 +39,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
   * @version $Revision: 1.0 $
   */
 /**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
   */
  public class GUIEventController {
 	private static GUIEventController instance = null;

@@ -38,6 +38,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
   * @version $Revision: 1.0 $
   */
 /**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
   */
  public class FilterTab extends JPanel{
 

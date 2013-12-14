@@ -47,6 +47,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
   * @version $Revision: 1.0 $
   */
 /**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
   */
  @SuppressWarnings("serial")
 public class MonthPane extends JScrollPane implements ICalPane {

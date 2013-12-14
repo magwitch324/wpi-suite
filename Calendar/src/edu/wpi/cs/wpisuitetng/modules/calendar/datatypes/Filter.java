@@ -84,9 +84,7 @@ public class Filter implements Comparator<Filter>{
 
 	/**
 	 * setter for the name
-	 * 
-	 * @param name
-	 *            the name to set
+	 * the name to set
 	 */
 	public void setName(String n) {
 

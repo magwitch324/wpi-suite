@@ -61,11 +61,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
  * that have been completed.
  * 
  * */
-
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
-/**
+/**@author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
 public class CommitmentFullView extends JPanel{

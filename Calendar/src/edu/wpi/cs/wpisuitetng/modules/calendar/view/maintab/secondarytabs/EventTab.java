@@ -80,6 +80,8 @@ import javax.swing.ButtonGroup;
   * @version $Revision: 1.0 $
   */
 /**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
   */
  public class EventTab extends JPanel {
 	private GregorianCalendar startDate;

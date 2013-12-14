@@ -27,6 +27,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatTy
 import static edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatType.*;
 
 /**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class RepeatingEventListTest {
 

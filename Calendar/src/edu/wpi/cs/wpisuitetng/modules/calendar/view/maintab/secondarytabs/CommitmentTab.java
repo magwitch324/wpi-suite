@@ -83,6 +83,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
   * @version $Revision: 1.0 $
   */
 /**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
   */
  @SuppressWarnings("serial")
 public class CommitmentTab extends JPanel {
@@ -1603,6 +1605,7 @@ public class CommitmentTab extends JPanel {
 	}
 	
 	/**
+	 * @author Tianci
 	 */
 	class SpinnerUI extends BasicSpinnerUI  {
 		protected Component createNextButton()  

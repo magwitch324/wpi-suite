@@ -22,6 +22,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class EventTest {
 	

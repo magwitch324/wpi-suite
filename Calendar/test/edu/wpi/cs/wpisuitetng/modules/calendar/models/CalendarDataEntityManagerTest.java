@@ -29,6 +29,8 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 
 /**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class CalendarDataEntityManagerTest {
 	
@@ -61,8 +63,8 @@ public class CalendarDataEntityManagerTest {
 	
 	/**
 	 * Method testMakeEntity.
-	 * @throws WPISuiteException
-	 */
+	
+	 * @throws WPISuiteException */
 	@Test
 	public void testMakeEntity() throws WPISuiteException {
 		final CalendarData created = manager.makeEntity(defaultSession, calendarData.toJSON());

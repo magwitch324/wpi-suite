@@ -19,6 +19,8 @@ import org.junit.Test;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 
 /**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class CommitmentTest {
 	// did not test save(),delete(),toJSON(),fromJsonArray(String),identify(Object)

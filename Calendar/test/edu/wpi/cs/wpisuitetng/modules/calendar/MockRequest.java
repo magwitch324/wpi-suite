@@ -15,6 +15,8 @@ import edu.wpi.cs.wpisuitetng.network.configuration.NetworkConfiguration;
 import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
 
 /**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class MockRequest extends Request {
 	

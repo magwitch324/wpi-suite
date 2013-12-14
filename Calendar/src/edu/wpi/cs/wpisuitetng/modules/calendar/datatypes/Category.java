@@ -107,9 +107,7 @@ public class Category extends AbstractModel implements Comparator<Category>{
 
 	/**
 	 * setter for the name
-	 * 
-	 * @param name
-	 *            the name to set
+	 * the name to set
 	 */
 	public void setName(String n) {
 

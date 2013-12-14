@@ -186,6 +186,7 @@ public class TimeSpinner extends JSpinner {
 }
 	
 	/**
+	 * @author CS Anonymous
 	 */
 	class SpinnerUI extends BasicSpinnerUI  {
 		protected Component createNextButton()  

@@ -22,6 +22,8 @@ import javax.swing.ListCellRenderer;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 
 /**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class CategoryComboBoxRenderer extends JLabel implements
 		ListCellRenderer<Category> {
@@ -45,8 +47,8 @@ public class CategoryComboBoxRenderer extends JLabel implements
 	 * @param index int
 	 * @param isSelected boolean
 	 * @param cellHasFocus boolean
-	 * @return Component
-	 */
+	
+	 * @return Component */
 	@Override
 	public Component getListCellRendererComponent(JList<? extends Category> list,
 			Category value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -63,10 +65,10 @@ public class CategoryComboBoxRenderer extends JLabel implements
 		graphics.setPaint(Color.BLACK);
 		graphics.drawLine(0, 0, 0, colorImage.getHeight());
 		graphics.drawLine(0, 0, colorImage.getWidth(), 0);
-		graphics.drawLine(colorImage.getWidth()-1, 0, 
-				colorImage.getWidth()-1, colorImage.getHeight()-1);
-		graphics.drawLine(0, colorImage.getHeight()-1, 
-				colorImage.getWidth()-1, colorImage.getHeight()-1);
+		graphics.drawLine(colorImage.getWidth() - 1, 0, 
+				colorImage.getWidth() - 1, colorImage.getHeight() - 1);
+		graphics.drawLine(0, colorImage.getHeight() - 1, 
+				colorImage.getWidth() - 1, colorImage.getHeight() - 1);
 		
 		//Create Icon from image
 		colorIcon = new ImageIcon(colorImage);
