@@ -300,7 +300,7 @@ public class EventTab extends JPanel {
 		categoryComboBox = new JComboBox<Category>();
 		categoryComboBox.setRenderer(new CategoryComboBoxRenderer());
 		categoryComboBox.setBackground(CalendarStandard.CalendarYellow);
-		uncategorized = new Category("Uncategorized", Color.WHITE, false);
+		uncategorized = new Category("[None]", Color.WHITE, false);
 		uncategorized.setID(0);
 
 
