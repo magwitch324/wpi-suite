@@ -28,6 +28,7 @@ import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetPropsController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
@@ -100,6 +101,7 @@ public class MyCalendar extends AbCalendar {
 
 	@Override
 	public void updateCalData() {
+		boolean startup = false;
 		//if we are initializing check for the data and set initialized to true
 		if (!initialized){
 			//check if the personal cal data exists, if not create it
@@ -113,9 +115,9 @@ public class MyCalendar extends AbCalendar {
 				CalendarDataModel.getInstance().addCalendarData(createdCal);
 			}
 
-
-
+			startup = true;
 			initialized = true;
+			
 		}
 		calData = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName() + "-"
@@ -123,12 +125,18 @@ public class MyCalendar extends AbCalendar {
 
 		setCommEventList();
 		setView();
+		if(startup){
+			//used to check for and remove old data. runs only on startup
+			calData.removeYearOld();
+			UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+		}
 
 	}
 
 	protected void displayCalData() {
 		if (initialized) {
 			calView.displayCalData(events, commitments, this.getShowCommitments());
+			calView.applyCalProps(calProps);
 		}
 	}
 
@@ -253,6 +261,7 @@ public class MyCalendar extends AbCalendar {
 		//set the comm list to the new data
 		showcom.setSelected(calProps.getMyShowComm());
 		showteam.setSelected(calProps.getShowTeamData());
+		calView.applyCalProps(calProps);
 		
 	}
 

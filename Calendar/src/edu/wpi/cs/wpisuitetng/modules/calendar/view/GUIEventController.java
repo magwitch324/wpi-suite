@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdatePropsController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 //import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
@@ -47,6 +48,7 @@ public class GUIEventController {
 	private TeamCalendar teamCalendar;
 	private MyCalendar myCalendar;
 	private CommitmentFullView commitFullView;
+	
 	/**
 	 * Default constructor for ViewEventController.  Is protected to prevent instantiation.
 	 */
@@ -68,6 +70,7 @@ public class GUIEventController {
 				@Override
 				public void run() {
 					GUIEventController.getInstance().saveProps();
+					
 				}
 			});
 
@@ -85,7 +88,19 @@ public class GUIEventController {
 		final CalendarProps calProps = CalendarPropsModel.getInstance().getCalendarProps(
 				ConfigManager.getConfig().getProjectName() + "-"
 						+ ConfigManager.getConfig().getUserName() + "-PROPS");
-		UpdatePropsController.getInstance().updateCalendarProps(calProps);
+		if(calProps != null){
+			UpdatePropsController.getInstance().updateCalendarProps(calProps);
+		}
+	}
+	/**
+	 * Called on Janeway shutdown to remove year old items
+	 */
+	public void removeYearOld(){
+		//teamCalendar.saveProps();
+		//myCalendar.saveProps();
+		//commitFullView.saveProps();
+		
+		
 	}
 
 	/**
@@ -284,6 +299,7 @@ public class GUIEventController {
 	 * Method createManageCategories.
 	 */
 	public void createManageCategories() {
+		
 		int openedFrom = main.getSelectedIndex();
 		if (openedFrom > 2){
 			openedFrom = 0;
@@ -320,13 +336,12 @@ public class GUIEventController {
 		catch(IllegalArgumentException ex){
 			main.addTab("Manage Filters", new ImageIcon(), newFilter);
 		}
-		
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(newFilter);
 	}
 
-
+	
 	/**
 	 * Method switchView.
 	 * @param acal GregorianCalendar
@@ -417,9 +432,6 @@ public class GUIEventController {
 				tmpRepEvent.setCategoryID(0);
 			}
 		}
-		
-		//delete the category
-		calData.getCategories().remove(catToDelete.getID());
 	}
 	
 	

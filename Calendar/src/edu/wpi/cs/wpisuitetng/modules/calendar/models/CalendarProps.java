@@ -14,7 +14,10 @@ import com.google.gson.Gson;
 
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 
- /* @author CS Anonymous
+ /**
+  * Calendar properties will help gui display and hide commitments/events
+  * and determine the view mode. (Can be year/month/week/day).
+  * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
 public class CalendarProps extends AbstractModel {
@@ -25,6 +28,7 @@ public class CalendarProps extends AbstractModel {
 	private boolean showTeamComm;
 	private boolean showTeamData;
 	private int commViewMode;
+	private boolean showCommRange;
 
 	/**
 	 * Constructs a CalendarProps with default characteristics
@@ -34,6 +38,7 @@ public class CalendarProps extends AbstractModel {
 		showMyComm = false;
 		showTeamComm = false;
 		showTeamData = false;
+		showCommRange = false;
 		commViewMode = 0;
 	}
 
@@ -105,7 +110,7 @@ public class CalendarProps extends AbstractModel {
 	}
 	
 	/**
-	 * setter for persisting whether team data should be shown on the personal calendar
+	 * getter for setting what is selected in all comm view
 	 * 
 	 * @param showComm
 	 */
@@ -114,11 +119,28 @@ public class CalendarProps extends AbstractModel {
 	}
 	
 	/**
-	 * getter for setting whether show team data is selected at startup
+	 * getter for setting what is selected in all comm view
 	 * 
 	 */
 	public int getCommViewMode(){
 		return commViewMode;
+	}
+	
+	/**
+	 * getter for setting whether commitpane is showing in range or all
+	 * 
+	 * @param showComm
+	 */
+	public void setShowCommRange(boolean showAll){
+		showCommRange = showAll;
+	}
+	
+	/**
+	 * getter for setting whether commitpane is showing in range or all
+	 * 
+	 */
+	public boolean getShowCommRange(){
+		return showCommRange;
 	}
 	
 	/**
@@ -242,6 +264,7 @@ public class CalendarProps extends AbstractModel {
 		showTeamComm = toCopyFrom.getTeamShowComm();
 		showTeamData = toCopyFrom.getShowTeamData();
 		commViewMode = toCopyFrom.getCommViewMode();
+		showCommRange = toCopyFrom.getShowCommRange();
 	}
 
 	

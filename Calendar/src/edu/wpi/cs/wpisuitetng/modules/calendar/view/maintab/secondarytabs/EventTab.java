@@ -140,6 +140,7 @@ public class EventTab extends JPanel {
 	private int endTempMin = 1;
 	private int endTempHour = 1;
 	private int openedFrom;
+	private Category uncategorized;
 	
 	
 	
@@ -295,6 +296,9 @@ public class EventTab extends JPanel {
 		//Create category box, add two dummy categories
 		categoryComboBox = new JComboBox<Category>();
 		categoryComboBox.setBackground(CalendarStandard.CalendarYellow);
+		uncategorized = new Category("Uncategorized", Color.WHITE, false);
+		uncategorized.setID(0);
+		categoryComboBox.addItem(uncategorized);
 
 		final GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
 		gbc_categoryComboBox.gridwidth = 3;
@@ -832,11 +836,11 @@ public class EventTab extends JPanel {
 					
 					checkStartDatePickerStatus();
 					checkSaveBtnStatus();
-					checkEndBeforeStart();
+					updateEndTimeAndDate();
 				} catch (ParseException e1) {
 					checkStartDatePickerStatus();
 					checkSaveBtnStatus();
-					checkEndBeforeStart();
+					updateEndTimeAndDate();
 				}
 
 			}
@@ -855,9 +859,12 @@ public class EventTab extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				checkSaveBtnStatus();
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+					checkStartDatePickerStatus();
+					checkSaveBtnStatus();
+					updateEndTimeAndDate();
+				}
 			}
-
 		});
 		
 		startDatePicker.getEditor().addKeyListener(new KeyAdapter() {
@@ -892,7 +899,7 @@ public class EventTab extends JPanel {
 				// TODO Auto-generated method stub
 				checkStartDatePickerStatus();
 				checkSaveBtnStatus();
-				checkEndBeforeStart();
+				updateEndTimeAndDate();
 			}
 		});
 	
@@ -1039,7 +1046,7 @@ public class EventTab extends JPanel {
 						startHourEditor.getTextField().getText().toString());
 				checkStartTimeSpinnerStatus(startHourSpinner);
 
-				updateEndTime();
+				updateEndTimeAndDate();
 			}
 		});
 		
@@ -1112,7 +1119,7 @@ public class EventTab extends JPanel {
 					setStartDate(cal);
 				}
 				checkSaveBtnStatus();
-				updateEndTime();
+				updateEndTimeAndDate();
 
 			}
 		});
@@ -1171,7 +1178,7 @@ public class EventTab extends JPanel {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				checkSaveBtnStatus();
-				updateEndTime();
+				updateEndTimeAndDate();
 			}
 		});
 		
@@ -1189,8 +1196,6 @@ public class EventTab extends JPanel {
 		});
 		
 	}
-	
-	
 	
 	private void addEndTimeSpinnerListeners() {
 		endHourEditor.getTextField().addFocusListener(new FocusListener() {
@@ -1395,12 +1400,11 @@ public class EventTab extends JPanel {
 				setEndDate(getStartDate());
 		}
 	}
-
-
+	
 	/**
-	 * Method updateEndTime.
+	 * Method updateEndTimeAndDate.
 	 */
-	protected void updateEndTime() {
+	protected void updateEndTimeAndDate() {
 		final long diff = getStartDate().getTime().getTime() - oldStartTime.getTime().getTime();
 		final GregorianCalendar cal = getEndDate();
 		cal.setTime(new Date(cal.getTime().getTime() + diff));
