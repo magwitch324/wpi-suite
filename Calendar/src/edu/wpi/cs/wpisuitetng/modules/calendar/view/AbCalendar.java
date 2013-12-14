@@ -421,7 +421,7 @@ public abstract class AbCalendar extends JPanel {
 	 * @param acal GregorianCalendar
 	 * @param switchtype TeamCalendar.types
 	 */
-	public void setCalsetView(GregorianCalendar acal, TeamCalendar.types switchtype)
+	public void setCalsetView(GregorianCalendar acal, AbCalendar.types switchtype)
 	{
 		mycal.setTime(acal.getTime());
 		switchview(switchtype);
