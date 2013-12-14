@@ -163,7 +163,7 @@ import javax.swing.JTextField;
 		viewPanel.add(horizontalBox_1);
 		
 
-		//New Filter button
+		//New Category button
 		btnNew = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("New_Icon.png"));
@@ -188,6 +188,8 @@ import javax.swing.JTextField;
 		catch(IllegalArgumentException ex){
 			btnEdit.setText("Edit Category");
 		}
+		
+		
 		
 		horizontalBox_1.add(btnEdit);
 		
@@ -280,8 +282,13 @@ import javax.swing.JTextField;
 	 * Add event handlers to GUI components
 	 */
 	private void addListeners() {
-		// TODO Auto-generated method stub
 		btnNew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setupAddView();
+			}
+		});
+		
+		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setupAddView();
 			}
@@ -306,6 +313,7 @@ import javax.swing.JTextField;
 		});
 	}
 	
+
 	protected void refreshCategoryListPanel() {
 		categoryListPanel.removeAll();
 		populateCategoryList();
