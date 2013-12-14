@@ -111,6 +111,6 @@ public class RepeatingEventTest {
 		assertEquals(2, testRepeatingEvent.getCategoryID());
 		assertTrue(testRepeatingEvent.getIsPersonal());
 		assertEquals(3, testRepeatingEvent.getRepetitions());
-		assertEquals(RepeatType.WEEK, testRepeatingEvent.getRepType());		
+		assertEquals(RepeatType.WEEK, testRepeatingEvent.getRepType());
 	}
 }

@@ -144,7 +144,7 @@ public abstract class AbCalendar extends JPanel {
 
 		viewbtns[0].setBorder(BorderFactory.createDashedBorder(
 				CalendarStandard.CalendarRed, 2, 2, 1, true));
-		apane.add(viewbtns[0]);		
+		apane.add(viewbtns[0]);
 
 
 		viewbtns[1] = new JToggleButton();
@@ -184,7 +184,7 @@ public abstract class AbCalendar extends JPanel {
 
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Month_Icon.png"));
-			viewbtns[2].setIcon(new ImageIcon(img));	
+			viewbtns[2].setIcon(new ImageIcon(img));
 			viewbtns[2].setBorder(BorderFactory.createEmptyBorder());
 			viewbtns[2].setContentAreaFilled(false);
 		} catch (IOException ex) {}

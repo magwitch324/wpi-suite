@@ -400,7 +400,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 					numevent = 0;
 				}
 				else{
-					numevent = eventList.size();	
+					numevent = eventList.size();
 				}
 				
 				if(numcomm == -1){

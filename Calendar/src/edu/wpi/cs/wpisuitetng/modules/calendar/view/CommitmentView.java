@@ -114,7 +114,7 @@ public class CommitmentView extends JPanel {
 		int n = 0;//adjusted index to take hidden commitments into account
 		
 		// print something when we do not  have any commitments
-		if(commitmentList.size() == 0) {			
+		if(commitmentList.size() == 0) {
 			final JLabel message = new JLabel("<html><body style='width: 100%'><center>"
 					+ "There are no commitments to display</center></html>", SwingConstants.CENTER);
 			message.setBackground(Color.WHITE);
@@ -136,7 +136,7 @@ public class CommitmentView extends JPanel {
 				JLabel tag = new JLabel();
 				try {
 						if (commitmentList.get(i).getIsPersonal())
-						{	
+						{
 							nameImg = ImageIO.read(getClass().getResource(
 									"PersonalCommitment_Icon.png"));
 							scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
@@ -224,7 +224,7 @@ public class CommitmentView extends JPanel {
 						if (e.getClickCount() >= 1)
 							{GUIEventController.getInstance().editCommitment(
 									((CommitmentViewPanel)e.getComponent()).getCommitment());}
-					}		
+					}
 				});
 
 				commPanelList.add(n, commitmentPanel);

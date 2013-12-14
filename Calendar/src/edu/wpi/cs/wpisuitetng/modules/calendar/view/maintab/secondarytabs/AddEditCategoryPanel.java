@@ -234,7 +234,7 @@ public class AddEditCategoryPanel extends JPanel {
 						@Override
 						public void mousePressed(MouseEvent e) {
 							setSelectedColorBox(e.getComponent());
-						}		
+						}
 					});
 					colorPicker.add(colorBox);
 			}

@@ -84,7 +84,7 @@ public class CommitmentTab2 extends JPanel {
 		layout.putConstraint(WEST, textField, 5, EAST, label);
 		layout.putConstraint(NORTH, textField, 0, NORTH, nameField);
 		layout.putConstraint(EAST, textField, 0, EAST, nameField);
-		layout.putConstraint(SOUTH, textField, 0, SOUTH, nameField);		
+		layout.putConstraint(SOUTH, textField, 0, SOUTH, nameField);
 		
 		nameField.setPreferredSize(new Dimension(label.getPreferredSize().width
 				+ 5 + textField.getPreferredSize().width, textField.getPreferredSize().height));

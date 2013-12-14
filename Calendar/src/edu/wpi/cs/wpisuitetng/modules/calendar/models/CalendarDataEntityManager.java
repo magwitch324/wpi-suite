@@ -206,7 +206,7 @@ public class CalendarDataEntityManager implements EntityManager<CalendarData> {
 			throw new BadRequestException("CalendarData with ID does not exist.");
 		}
 				
-		final CalendarData existingCalData = (CalendarData)oldCalData.get(0);		
+		final CalendarData existingCalData = (CalendarData)oldCalData.get(0);
 
 		// copy values to old CalendarData and fill in our changeset appropriately
 		existingCalData.copyFrom(updatedCalData);

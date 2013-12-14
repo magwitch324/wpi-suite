@@ -205,7 +205,7 @@ public class CalPropsEntityManager implements EntityManager<CalendarProps> {
 			throw new BadRequestException("CalendarProps with ID does not exist.");
 		}
 				
-		final CalendarProps existingCalData = (CalendarProps)oldCalData.get(0);		
+		final CalendarProps existingCalData = (CalendarProps)oldCalData.get(0);
 
 		// copy values to old CalendarProps and fill in our changeset appropriately
 		existingCalData.copyFrom(updatedCalData);

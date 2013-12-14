@@ -59,7 +59,7 @@ public class CategoryListTest {
 	    categoryList.add(nextWeek);
 	    categoryList.add(todayCategory);
 	    categoryList.add(lastYear);
-	    categoryList.add(nextYear);    	
+	    categoryList.add(nextYear);
 	    assertEquals("Last Year", categoryList.getCategory(0).getName());
 	    assertEquals("Next Year", categoryList.getCategory(6).getName());
 	    assertEquals("Today", categoryList.getCategory(3).getName());
@@ -73,7 +73,7 @@ public class CategoryListTest {
 	    	categoryList.add(nextWeek);
 	    	categoryList.add(todayCategory);
 	    	categoryList.add(lastYear);
-	    	categoryList.add(nextYear);    	
+	    	categoryList.add(nextYear);
 	    	categoryList.remove(0);
 	    	categoryList.remove(3);
 	    	assertEquals(2, categoryList.getSize());
@@ -114,8 +114,8 @@ public class CategoryListTest {
 	    	categoryList.add(nextWeek);
 	    	categoryList.add(todayCategory);
 	    	categoryList.add(lastYear);
-	    	categoryList.add(nextYear);	    	
-	    	categories = categoryList.getCategories();	    	
+	    	categoryList.add(nextYear);
+	    	categories = categoryList.getCategories();
 	    	assertEquals(4, categories.size());
 	    	assertEquals("Next Year", categories.get(2).getName());
 	    	assertEquals("Last Year", categories.get(0).getName());
@@ -133,7 +133,7 @@ public class CategoryListTest {
 	    	todayCategory.setName("abc");
 	    	nextWeek.setID(9);
 	    	categoryList.update(todayCategory);
-	    	categoryList.update(nextWeek);	
+	    	categoryList.update(nextWeek);
 	    	assertEquals("abc", categoryList.getCategory(3).getName());
 	    	assertEquals(9, categoryList.getElementAt(1).getID());
 	    }

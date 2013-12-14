@@ -334,7 +334,7 @@ public class CommitmentTab extends JPanel {
 		gbc_lblTimeError.gridx = 1;
 		gbc_lblTimeError.gridy = 5;
 		gbc_lblTimeError.weightx = 1;
-		gbc_lblTimeError.weighty = 1;		
+		gbc_lblTimeError.weighty = 1;
 		formPanel.add(lblTimeError, gbc_lblTimeError);
 		
 		//Date label
@@ -363,7 +363,7 @@ public class CommitmentTab extends JPanel {
 		gbc_lblDateError.gridx = 1;
 		gbc_lblDateError.gridy = 8;
 		gbc_lblDateError.weightx = 1;
-		gbc_lblDateError.weighty = 1;		
+		gbc_lblDateError.weighty = 1;
 		formPanel.add(lblDateError, gbc_lblDateError);
 		
 		//Status label
@@ -527,7 +527,7 @@ public class CommitmentTab extends JPanel {
 		final GridBagConstraints gbc_statusComboBox = new GridBagConstraints();
 		gbc_statusComboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_statusComboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_statusComboBox.gridx = 1;		
+		gbc_statusComboBox.gridx = 1;
 		gbc_statusComboBox.gridy = 9;
 		gbc_statusComboBox.weightx = 1;
 		gbc_statusComboBox.weighty = 3;
@@ -1032,7 +1032,7 @@ public class CommitmentTab extends JPanel {
 					System.out.println("keyPress Entered, focus colon.");
 					colon.requestFocus();
 				}
-			}	
+			}
             public void keyTyped(KeyEvent e) {
             	final char vChar = e.getKeyChar();
                 if (!((vChar == 'A')
@@ -1377,7 +1377,7 @@ public class CommitmentTab extends JPanel {
 	private void checkSaveBtnStatus(){
 		
 		if (initFlag){
-			if(		nameTextField.getText().equals("")
+			if(nameTextField.getText().equals("")
 					|| datePicker.getDate() == null
 					|| nameTextField.getText().trim().length() == 0
 					|| lblTimeError.isVisible()

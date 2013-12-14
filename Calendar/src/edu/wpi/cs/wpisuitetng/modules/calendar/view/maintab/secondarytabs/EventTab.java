@@ -434,7 +434,7 @@ public class EventTab extends JPanel {
 		gbc_lblTimeError.gridx = 3;
 		gbc_lblTimeError.gridy = 5;
 		gbc_lblTimeError.weightx = 1;
-		gbc_lblTimeError.weighty = 1;		
+		gbc_lblTimeError.weighty = 1;
 		formPanel.add(lblTimeError, gbc_lblTimeError);
 		
 		//Invalid Date label
@@ -448,7 +448,7 @@ public class EventTab extends JPanel {
 		gbc_lblDateError.gridx = 1;
 		gbc_lblDateError.gridy = 5;
 		gbc_lblDateError.weightx = 1;
-		gbc_lblDateError.weighty = 1;		
+		gbc_lblDateError.weighty = 1;
 		formPanel.add(lblDateError, gbc_lblDateError);
 		
 		
@@ -565,7 +565,7 @@ public class EventTab extends JPanel {
 		gbc_lblTimeError2.gridx = 3;
 		gbc_lblTimeError2.gridy = 7;
 		gbc_lblTimeError2.weightx = 1;
-		gbc_lblTimeError2.weighty = 1;		
+		gbc_lblTimeError2.weighty = 1;
 		formPanel.add(lblTimeError2, gbc_lblTimeError2);
 		
 		//Invalid Date label
@@ -579,7 +579,7 @@ public class EventTab extends JPanel {
 		gbc_lblDateError2.gridx = 1;
 		gbc_lblDateError2.gridy = 7;
 		gbc_lblDateError2.weightx = 1;
-		gbc_lblDateError2.weighty = 1;		
+		gbc_lblDateError2.weighty = 1;
 		formPanel.add(lblDateError2, gbc_lblDateError2);
 		
 		
@@ -1503,7 +1503,7 @@ public class EventTab extends JPanel {
 	private void checkSaveBtnStatus(){
 		
 		if (initFlag){
-			if(		nameTextField.getText().equals("") ||
+			if(nameTextField.getText().equals("") ||
 					startDatePicker.getDate() == null || //data validation
 					endDatePicker.getDate() == null || //data validation
 
@@ -1542,7 +1542,7 @@ public class EventTab extends JPanel {
 				if(repeatCheckBox.isSelected()){
 					try {
 						if (Integer.parseInt(repeatAmt.getText()) > 1){
-							btnAddEvent.setEnabled(true);	
+							btnAddEvent.setEnabled(true);
 						} else {
 							btnAddEvent.setEnabled(false);
 						}

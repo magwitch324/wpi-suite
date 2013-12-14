@@ -65,7 +65,7 @@ public class CommitmentCalViewPanel extends JPanel {
 		
 		try {
 			if (comm.getIsPersonal())
-			{	
+			{
 				nameImg = ImageIO.read(getClass().getResource("PersonalCommitment_Icon.png"));
 				
 			}

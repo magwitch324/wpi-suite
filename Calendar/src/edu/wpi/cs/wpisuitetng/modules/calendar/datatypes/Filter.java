@@ -24,7 +24,7 @@ public class Filter implements Comparator<Filter>{
 	private int id;
 
 	/** the name of the filter */
-	private String name;	
+	private String name;
 	
 	/** the list of categories to filter*/
 	private CategoryList catList;

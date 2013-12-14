@@ -81,7 +81,7 @@ public class FilterTab extends JPanel{
 		formPanel = new JPanel();
 		formPanel.setBackground(Color.WHITE);
 		formPanel.setPreferredSize(new Dimension(500, 600));
-		formPanel.setMinimumSize(new Dimension(500, 600));	
+		formPanel.setMinimumSize(new Dimension(500, 600));
 		final GridBagConstraints constraints = new GridBagConstraints();
 		constraints.weightx = 1;
 		constraints.gridx = 1;
@@ -150,7 +150,7 @@ public class FilterTab extends JPanel{
 		buttonPanel.add(btnDelete, BorderLayout.LINE_END);
 		// Set the horizontal gap
 		formPanel.add(buttonPanel, gbc_btnPanel);
-	}	
+	}
 	
 	public void addButtonPanel2(){
 		buttonPanel2 = new JPanel(new BorderLayout(30, 0));

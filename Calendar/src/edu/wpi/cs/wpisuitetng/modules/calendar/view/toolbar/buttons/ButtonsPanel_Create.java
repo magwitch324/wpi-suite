@@ -157,7 +157,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 			public void actionPerformed(ActionEvent e) {
 					GUIEventController.getInstance().createCommitment();
 			}
-		});	
+		});
 			
 		
 		// Category button Create
@@ -175,7 +175,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 					GUIEventController.getInstance().createManageCategories();
 			//	}
 			}
-		});	
+		});
 		
 		
 		
@@ -193,7 +193,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 					GUIEventController.getInstance().createManageFilters();
 			//	}
 			}
-		});	
+		});
 		
 		
 		
@@ -218,7 +218,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 					e1.printStackTrace();
 				}
 			}
-		});	
+		});
 		
 
 		contentPanel.add(createEventButton, cons1);

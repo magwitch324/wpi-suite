@@ -303,7 +303,7 @@ public class CategoryTab extends JPanel {
 		gbc_addEditPanel.fill = GridBagConstraints.BOTH;
 		gbc_addEditPanel.gridx = 1;
 		gbc_addEditPanel.gridy = 0;
-		add(addEditPanel, gbc_addEditPanel);		
+		add(addEditPanel, gbc_addEditPanel);
 		
 		
 		//set size of view panel

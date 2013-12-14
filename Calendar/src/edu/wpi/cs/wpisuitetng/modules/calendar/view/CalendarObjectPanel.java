@@ -185,7 +185,7 @@ public class CalendarObjectPanel extends JPanel {
 		Image nameImg;
 		final Image scaleImg;
 		try {
-			if (calobj.getIsPersonal()) {	
+			if (calobj.getIsPersonal()) {
 				nameImg = ImageIO.read(getClass().getResource("Personal" + type + "_Icon.png"));
 				
 			} else {
