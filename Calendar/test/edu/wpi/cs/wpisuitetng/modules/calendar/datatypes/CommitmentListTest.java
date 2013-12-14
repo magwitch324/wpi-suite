@@ -32,8 +32,8 @@ public class CommitmentListTest {
 	 */
 	
 	private static CommitmentList commitments;
-	private GregorianCalendar start = new GregorianCalendar();
-	private GregorianCalendar end   = new GregorianCalendar();
+	private final GregorianCalendar start = new GregorianCalendar();
+	private final GregorianCalendar end   = new GregorianCalendar();
 	
 	private final static GregorianCalendar today = new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00);
 	
@@ -57,7 +57,7 @@ public class CommitmentListTest {
 		start.set(2013, NOVEMBER, 18);
 		end.set(2013, NOVEMBER, 25);
 		
-		List<Commitment> newData = commitments.filter(start, end);
+		final List<Commitment> newData = commitments.filter(start, end);
 //		printlist(newData);
 		assertEquals(2, newData.size());
 	}
@@ -66,14 +66,14 @@ public class CommitmentListTest {
 	public void filterAroundLargeSection() {
 		start.set(2000, NOVEMBER, 12);
 		end.set(2100, JULY, 31);
-		List<Commitment> newData = commitments.filter(start, end);
+		final List<Commitment> newData = commitments.filter(start, end);
 		assertEquals(7, newData.size());
 	}
 	
 	@Test
 	public void filterAroundWeek() throws CalendarException {
 		System.out.println("Filter around week...");
-		List<Commitment> newData = commitments.filter(today, WEEK_OF_YEAR);
+		final List<Commitment> newData = commitments.filter(today, WEEK_OF_YEAR);
 		printlist(newData);
 		assertEquals(1, newData.size());
 	}
@@ -81,14 +81,14 @@ public class CommitmentListTest {
 	@Test
 	public void filterAroundMonth() throws CalendarException {
 		System.out.println("Filter around month...");
-		List<Commitment> newData = commitments.filter(today, MONTH);
+		final List<Commitment> newData = commitments.filter(today, MONTH);
 		assertEquals(3, newData.size());
 	}
 	
 	@Test
 	public void filterAroundYear() throws CalendarException {
 		System.out.println("Filter around year...");
-		List<Commitment> newData = commitments.filter(today, YEAR);
+		final List<Commitment> newData = commitments.filter(today, YEAR);
 		assertEquals(5, newData.size());
 	}
 	
@@ -104,10 +104,10 @@ public class CommitmentListTest {
 	}
 	
 	public void printcalendar(GregorianCalendar cal) {
-		String dayName = cal.getDisplayName(GregorianCalendar.DAY_OF_WEEK, LONG, Locale.ENGLISH);
-		int dayNum = cal.get(DAY_OF_MONTH);
-		String monthName = cal.getDisplayName(GregorianCalendar.MONTH, LONG, Locale.ENGLISH);
-		int year = cal.get(YEAR);
+		final String dayName = cal.getDisplayName(GregorianCalendar.DAY_OF_WEEK, LONG, Locale.ENGLISH);
+		final int dayNum = cal.get(DAY_OF_MONTH);
+		final String monthName = cal.getDisplayName(GregorianCalendar.MONTH, LONG, Locale.ENGLISH);
+		final int year = cal.get(YEAR);
 		System.out.println(dayName + ", " + monthName + " " + dayNum + ", " + year);
 	}
 	

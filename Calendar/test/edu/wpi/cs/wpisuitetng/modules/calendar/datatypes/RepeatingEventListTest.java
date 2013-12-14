@@ -75,11 +75,11 @@ public class RepeatingEventListTest {
 	public void addOneRepeatingEventTest() {
 		repeatingEventList1.add(nextMonth);
 		repeatingEventList1.add(lastYear);
-		List<String> peopletest = new ArrayList<String>();
+		final List<String> peopletest = new ArrayList<String>();
 		peopletest.add("John");
 		peopletest.add("Mary");
 		peopletest.add("Jack");
-		List<RepeatingEvent> repeatingEvents = repeatingEventList1.getEvents();
+		final List<RepeatingEvent> repeatingEvents = repeatingEventList1.getEvents();
 		assertEquals(1, repeatingEvents.get(0).getCategoryID());
 		assertEquals("A RepeatingEvent from last year", repeatingEvents.get(0).getDescription());
 		assertEquals(peopletest, repeatingEvents.get(0).getParticipants());
@@ -93,11 +93,11 @@ public class RepeatingEventListTest {
 	@Test
 	public void addTwoRepeatingEventTest() {
 		repeatingEventList1.add(lastYear);
-		List<String> people = new ArrayList<String>();
+		final List<String> people = new ArrayList<String>();
 		people.add("John");
 		people.add("Mary");
 		people.add("Jack");
-		List<RepeatingEvent> repeatingEvents = repeatingEventList1.getEvents();
+		final List<RepeatingEvent> repeatingEvents = repeatingEventList1.getEvents();
 		assertEquals(1, repeatingEvents.get(0).getCategoryID());
 		assertEquals("A RepeatingEvent from last year", repeatingEvents.get(0).getDescription());
 		assertEquals(new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), repeatingEvents.get(0).getEndTime());

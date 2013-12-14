@@ -64,11 +64,11 @@ public class EventListTest {
 	public void addOneEventTest() {
 		eventList1.add(nextMonth);
 		eventList1.add(lastYear);
-		List<String> peopletest = new ArrayList<String>();
+		final List<String> peopletest = new ArrayList<String>();
 		peopletest.add("John");
 		peopletest.add("Mary");
 		peopletest.add("Jack");
-		List<Event> events = eventList1.getEvents();
+		final List<Event> events = eventList1.getEvents();
 		assertEquals(1, events.get(0).getCategoryID());
 		assertEquals("A Event from last year", events.get(0).getDescription());
 		assertEquals(peopletest, events.get(0).getParticipants());
@@ -82,11 +82,11 @@ public class EventListTest {
 	@Test
 	public void addTwoEventTest() {
 		eventList1.add(lastYear);
-		List<String> people = new ArrayList<String>();
+		final List<String> people = new ArrayList<String>();
 		people.add("John");
 		people.add("Mary");
 		people.add("Jack");
-		List<Event> events = eventList1.getEvents();
+		final List<Event> events = eventList1.getEvents();
 		assertEquals(1, events.get(0).getCategoryID());
 		assertEquals("A Event from last year", events.get(0).getDescription());
 		assertEquals(new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), events.get(0).getEndTime());
@@ -139,7 +139,7 @@ public class EventListTest {
 	
 	@Test
 	public void addsTest() {
-		Event[] events = new Event[]{nextMonth, nextYear, lastYear};
+		final Event[] events = new Event[]{nextMonth, nextYear, lastYear};
 		eventList1.addEvents(events);
 		assertEquals(3, eventList1.getSize());
 	}
@@ -156,17 +156,17 @@ public class EventListTest {
 	
 	@Test
 	public void filterEventHalfInRange() {
-		EventList events = new EventList();
+		final EventList events = new EventList();
 		events.add(new Event("Test", "Bug", new GregorianCalendar(2013, NOVEMBER, 23, 10, 00, 00), new GregorianCalendar(2013, NOVEMBER, 23, 23, 00, 00), people, 1, true));
-		List<Event> newData = events.filter(new GregorianCalendar(2013, NOVEMBER, 23, 1, 00, 00), new GregorianCalendar(2013, NOVEMBER, 23, 13, 00, 00));
+		final List<Event> newData = events.filter(new GregorianCalendar(2013, NOVEMBER, 23, 1, 00, 00), new GregorianCalendar(2013, NOVEMBER, 23, 13, 00, 00));
 		assertEquals(1, newData.size());
 	}
 	
 	@Test
 	public void filterEventAroundRange() {
-		EventList events = new EventList();
+		final EventList events = new EventList();
 		events.add(new Event("Test", "Bug", new GregorianCalendar(2013, NOVEMBER, 23, 10, 00, 00), new GregorianCalendar(2013, NOVEMBER, 23, 23, 00, 00), people, 1, true));
-		List<Event> newData = events.filter(new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00), new GregorianCalendar(2013, NOVEMBER, 23, 13, 00, 00));
+		final List<Event> newData = events.filter(new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00), new GregorianCalendar(2013, NOVEMBER, 23, 13, 00, 00));
 		assertEquals(1, newData.size());
 	}
 

@@ -99,7 +99,7 @@ public class CategoryListTest {
 	  */
 	 @Test
 	    public void addCategoriesTest() {
-	    	Category[] categoryArray = new Category[]{lastYear, todayCategory, nextYear};
+	    	final Category[] categoryArray = new Category[]{lastYear, todayCategory, nextYear};
 	    	categoryList.addCategories(categoryArray);
 	    	assertEquals(3, categoryList.getSize());
 	    	assertEquals("Last Year", categoryList.getElementAt(2).getName());

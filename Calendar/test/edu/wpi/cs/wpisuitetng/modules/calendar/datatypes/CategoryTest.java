@@ -20,7 +20,7 @@ public class CategoryTest {
 	 */
 	@Test
 	public void defaultConstructorTest(){
-		Category testCategory = new Category ();
+		final Category testCategory = new Category ();
 		assertEquals(0, testCategory.getID());
 		assertEquals("", testCategory.getName());
 	}
@@ -30,7 +30,7 @@ public class CategoryTest {
 	 */
 	@Test
 	public void mainConstructorTest(){
-		Category testCategory = null;//new Category (1, "test");
+		final Category testCategory = null;//new Category (1, "test");
 		assertEquals("test", testCategory.getName());
 		assertEquals(1, testCategory.getID());
 	}
@@ -40,7 +40,7 @@ public class CategoryTest {
 	 */
 	@Test
 	public void setterConstructorTest(){
-		Category testCategory = null;//new Category (1, "settertest");
+		final Category testCategory = null;//new Category (1, "settertest");
 		testCategory.setID(2);
 		testCategory.setName("setter test");
 		assertEquals(2, testCategory.getID());
@@ -51,8 +51,8 @@ public class CategoryTest {
 	 */
 	@Test
 	public void compareTest(){
-		Category c1 = null;//new Category (1, "C1");
-		Category c2 = null;//new Category (2, "C2");
+		final Category c1 = null;//new Category (1, "C1");
+		final Category c2 = null;//new Category (2, "C2");
 		assertEquals(-1, c1.getName().compareToIgnoreCase(c2.getName()));			
 	}
 	

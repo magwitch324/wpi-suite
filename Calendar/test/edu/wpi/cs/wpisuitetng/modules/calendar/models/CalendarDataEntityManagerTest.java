@@ -56,8 +56,8 @@ public class CalendarDataEntityManagerTest {
 	
 	@Test
 	public void testMakeEntity() throws WPISuiteException {
-		CalendarData created = manager.makeEntity(defaultSession, calendarData.toJSON());
-		List<CalendarData> list = new ArrayList<CalendarData>();
+		final CalendarData created = manager.makeEntity(defaultSession, calendarData.toJSON());
+		final List<CalendarData> list = new ArrayList<CalendarData>();
 		Collections.addAll(list, manager.getEntity(defaultSession, "1"));
 		assertEquals("1", created.getId());
 		assertSame(2, manager.getAll(defaultSession).length);

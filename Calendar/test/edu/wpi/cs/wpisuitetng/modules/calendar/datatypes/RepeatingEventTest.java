@@ -29,10 +29,10 @@ public class RepeatingEventTest {
 	 */
 	@Test
 	public void defaultConstructorTest(){
-		GregorianCalendar tmpCal = new GregorianCalendar();
+		final GregorianCalendar tmpCal = new GregorianCalendar();
 		tmpCal.setTime(new Date());
-		Date adate = new Date(0);
-		RepeatingEvent testRepeatingEvent = new RepeatingEvent();
+		final Date adate = new Date(0);
+		final RepeatingEvent testRepeatingEvent = new RepeatingEvent();
 		assertEquals("", testRepeatingEvent.getName());
 		assertEquals("", testRepeatingEvent.getDescription());
 		assertEquals(0, testRepeatingEvent.getCategoryID());
@@ -46,8 +46,8 @@ public class RepeatingEventTest {
 	 */
 	@Test
 	public void mainConstructorTest(){
-		RepeatingEvent testRepeatingEvent = new RepeatingEvent("test","test for repeating event", _20120129, _20120130, people1, 1, true, 3, RepeatType.WEEK);
-		List<String> people = new ArrayList<String>();
+		final RepeatingEvent testRepeatingEvent = new RepeatingEvent("test","test for repeating event", _20120129, _20120130, people1, 1, true, 3, RepeatType.WEEK);
+		final List<String> people = new ArrayList<String>();
 		people.add("John");
 		people.add("Mary");
 		people.add("Jack");
@@ -66,10 +66,10 @@ public class RepeatingEventTest {
 	 */
 	@Test
 	public void setterConstructorTest(){
-		RepeatingEvent testRepeatingEvent = new RepeatingEvent("test","test for repeating event", _20120129, _20120130, people1, 1, true, 3, RepeatType.WEEK);
+		final RepeatingEvent testRepeatingEvent = new RepeatingEvent("test","test for repeating event", _20120129, _20120130, people1, 1, true, 3, RepeatType.WEEK);
 		testRepeatingEvent.setStartTime(_20131209);
 		testRepeatingEvent.setEndTime(_20131214);
-		List<String> people = new ArrayList<String>();
+		final List<String> people = new ArrayList<String>();
 		people.add("John");
 		people.add("Mary");
 		people.add("Jack");
@@ -88,14 +88,14 @@ public class RepeatingEventTest {
 	 */
 	@Test
 	public void copyFromTest(){
-		RepeatingEvent testRepeatingEvent2 = new RepeatingEvent("test","test for repeating event", _20120129, _20120130, people1, 1, true, 3, RepeatType.WEEK);
+		final RepeatingEvent testRepeatingEvent2 = new RepeatingEvent("test","test for repeating event", _20120129, _20120130, people1, 1, true, 3, RepeatType.WEEK);
 		testRepeatingEvent2.setCategoryID(2);
-		List<String> people = new ArrayList<String>();
+		final List<String> people = new ArrayList<String>();
 		people.add("John");
 		people.add("Mary");
 		people.add("Jack");
 		testRepeatingEvent2.setParticipants(people);
-		RepeatingEvent testRepeatingEvent = new RepeatingEvent();
+		final RepeatingEvent testRepeatingEvent = new RepeatingEvent();
 		testRepeatingEvent.copyFrom(testRepeatingEvent2);
 		assertEquals("test", testRepeatingEvent.getName());
 		assertEquals("test for repeating event", testRepeatingEvent.getDescription());

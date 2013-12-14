@@ -33,10 +33,10 @@ public class EventTest {
 	 */
 	@Test
 	public void defaultConstructorTest(){
-		GregorianCalendar tmpCal = new GregorianCalendar();
+		final GregorianCalendar tmpCal = new GregorianCalendar();
 		tmpCal.setTime(new Date());
-		Date adate = new Date(0);
-		Event testEvent = new Event();
+		final Date adate = new Date(0);
+		final Event testEvent = new Event();
 		assertEquals(adate, testEvent.getStartTime().getTime());
 		assertEquals(adate, testEvent.getEndTime().getTime());
 		assertEquals("", testEvent.getName());
@@ -50,9 +50,9 @@ public class EventTest {
 	@Test
 	public void mainConstructorTest(){
 		//tmpCal.setTime(new Date());
-		Event testEvent = new Event ("test","test description",_20120129,_20120130,people1,1, true);
+		final Event testEvent = new Event ("test","test description",_20120129,_20120130,people1,1, true);
 		//add Participants 
-		List<String> people = new ArrayList<String>();
+		final List<String> people = new ArrayList<String>();
 		//testing
 		people.add("John");
 		people.add("Mary");
@@ -70,13 +70,13 @@ public class EventTest {
 	 */
 	@Test
 	public void setterConstructorTest(){
-		Event testEvent = new Event("test","test description",_20120129,_20120130,people1,1, true);
+		final Event testEvent = new Event("test","test description",_20120129,_20120130,people1,1, true);
 		testEvent.setName("setter testing");
 		testEvent.setDescription("setter test description");
 		testEvent.setStartTime(_20131209);
 		testEvent.setEndTime(_20131214);
 		testEvent.setCategoryID(2);
-		List<String> people = new ArrayList<String>();
+		final List<String> people = new ArrayList<String>();
 		people.add("John");
 		people.add("Mary");
 		people.add("Jack");
@@ -96,15 +96,15 @@ public class EventTest {
 	 */
 	@Test
 	public void copyFromTest(){
-		Event testEvent2 = new Event ("test","test description",_20120129,_20120130,people1,1, true);
+		final Event testEvent2 = new Event ("test","test description",_20120129,_20120130,people1,1, true);
 		testEvent2.setCategoryID(2);
-		List<String> people = new ArrayList<String>();
+		final List<String> people = new ArrayList<String>();
 		people.add("John");
 		people.add("Mary");
 		people.add("Jack");
 		people.add("Lucy");
 		testEvent2.setParticipants(people);
-		Event testEvent = new Event();
+		final Event testEvent = new Event();
 		testEvent.copyFrom(testEvent2);
 		assertEquals("test", testEvent.getName());
 		assertEquals("test description", testEvent.getDescription());
