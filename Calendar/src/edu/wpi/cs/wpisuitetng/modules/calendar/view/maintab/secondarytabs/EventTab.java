@@ -530,8 +530,7 @@ import javax.swing.ButtonGroup;
 		endSpinnerPanel.setBackground(Color.WHITE);
 		
 		endSpinnerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-				
-		
+					
 		// Create time spinners, hour, minute, and AM_PM
 		endHourSpinner = new JSpinner( new SpinnerDateModelHour());
 		endHourSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -568,9 +567,6 @@ import javax.swing.ButtonGroup;
 		gbc_spinner2.weighty = 3;
 		formPanel.add(endSpinnerPanel, gbc_spinner2);
 		
-		
-		
-		
 		//Invalid Time label
 		lblTimeError2 = new JLabel(" ");
 		lblTimeError2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -597,10 +593,6 @@ import javax.swing.ButtonGroup;
 		gbc_lblDateError2.weighty = 1;
 		formPanel.add(lblDateError2, gbc_lblDateError2);
 		
-		
-		
-		
-		
 		//DatePicker box
 		endDatePicker = new JXDatePicker();
 		endDatePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
@@ -624,12 +616,7 @@ import javax.swing.ButtonGroup;
 		endDatePicker.setDate(c.getTime());
 	    startDate = c;
 		startDatePicker.setDate(c.getTime());
-		
-		
-		
-/////////////////////////////////////////		
-
-		
+				
 		//Sets time value of end and start spinners
 		oldStartTime = new GregorianCalendar();
 		setStartDate(oldStartTime);
@@ -637,7 +624,6 @@ import javax.swing.ButtonGroup;
 		oldStartTime.add(Calendar.MINUTE, 30);
 		setEndDate(oldStartTime);
 		oldStartTime = new GregorianCalendar();
-
 
 		//Add Repeat Label
 		lblRepeat = new JLabel("Repetition:");
@@ -776,13 +762,10 @@ import javax.swing.ButtonGroup;
 		btnAddEvent.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
 		btnAddEvent.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				addEvent();
 			}
-			
-			
 		});
 		
 		
