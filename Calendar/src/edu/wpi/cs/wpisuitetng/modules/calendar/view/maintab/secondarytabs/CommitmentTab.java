@@ -231,7 +231,7 @@ public class CommitmentTab extends JPanel {
 		
 		nameTextField.setText(editingCommitment.getName());
 		descriptionTextField.setText(editingCommitment.getDescription());
-		categoryComboBox.setSelectedItem(editingCommitment.getCategoryID());
+
 		
 		if(!editingCommitment.getIsPersonal())
 			{
@@ -245,7 +245,9 @@ public class CommitmentTab extends JPanel {
 		rdbtnTeam.setEnabled(false);
 		rdbtnPersonal.setEnabled(false);
 		
-		updateCategoryList();
+		//updateCategoryList();
+		
+		//categoryComboBox.setSelectedItem(editingCommitment);
 
 		hourSpinner.setValue(editingCommitment.getDueDate().getTime());
 		minuteSpinner.setValue(editingCommitment.getDueDate().getTime());
@@ -1224,8 +1226,13 @@ public class CommitmentTab extends JPanel {
 	 * Updates the category list in the CategoryComboBox
 	 */
 	protected void updateCategoryList(){
+		
+		initFlag = false;// prevents Listeners from running
+		
 		//removes the current data from the ComboBox
 		categoryComboBox.removeAllItems();
+		
+
 		
 		//adds the "none" category
 		categoryComboBox.addItem(uncategorized);
@@ -1249,6 +1256,8 @@ public class CommitmentTab extends JPanel {
 		for (Category cat:categories){
 			categoryComboBox.addItem(cat);
 		}
+		
+		initFlag = true;
 		
 	}
 	
