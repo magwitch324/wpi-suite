@@ -48,7 +48,9 @@ import javax.swing.border.MatteBorder;
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
@@ -56,8 +58,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 
 /*
- * This class is used for creating the commitment View 
- * tab that shows all commitments including those 
+ * This class is used for creating the event View 
+ * tab that shows all events including those 
  * that have been completed.
  * 
  * */
@@ -65,22 +67,24 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
  * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
-public class CommitmentFullView extends JPanel{
+public class EventFullView extends JPanel{
 
 	AbCalendar pcalendar;
-	JPanel commitPanel;
+	JPanel eventPanel;
 	JScrollPane scrollPane;
 	JPanel header;
 	private CalendarProps calProps;
 	private boolean initialized;
 
-	List<Commitment> commitmentList = new ArrayList<Commitment>();
+	List<Event> eventList = new ArrayList<Event>();
 	private int namesort = 0;
-	private int datesort = 0;
+	private int startDatesort = 0;
+	private int endDatesort = 0;
 	private int dessort = 0;
 	private int statussort = 0;
 	JButton jName;
-	JButton jDueDate;
+	JButton jStartDate;
+	JButton jEndDate;
 	JButton jDescription;
 	JButton jStatus;
 
@@ -98,19 +102,19 @@ public class CommitmentFullView extends JPanel{
 	ViewingMode mode;
 
 	/*Constructor creates main scrolling Panel and 
-	 * sets tcalendar which will grab teams commitments*/
+	 * sets calendar which will grab teams events*/
 	/**
-	 * Constructor for CommitmentFullView.
+	 * Constructor for EventFullView.
 	 * @param teamCalendar AbCalendar
 	 * @param personalCalendar AbCalendar
 	 */
-	public CommitmentFullView(AbCalendar personalCalendar) {
+	public EventFullView(AbCalendar personalCalendar) {
 		initialized = false;
 		pcalendar = personalCalendar;
 
 		mode = ViewingMode.TEAM;
 
-		commitPanel = new JPanel();
+		eventPanel = new JPanel();
 
 		// Header panel
 		header = new JPanel();
@@ -119,7 +123,7 @@ public class CommitmentFullView extends JPanel{
 		header.setBorder(new EmptyBorder(5, 5, 5, 5));
 		header.setBorder(new MatteBorder(0, 0, 2, 0, Color.BLACK));
 
-		scrollPane = new JScrollPane(commitPanel, 
+		scrollPane = new JScrollPane(eventPanel, 
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		add(scrollPane, BorderLayout.CENTER );
@@ -140,48 +144,48 @@ public class CommitmentFullView extends JPanel{
 		layout.putConstraint(SpringLayout.EAST, scrollPane, 0, SpringLayout.EAST, this);
 		layout.putConstraint(SpringLayout.NORTH, scrollPane, 0, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.SOUTH, scrollPane, 0, SpringLayout.SOUTH, this);
-		scrollPane.setViewportView(commitPanel);
+		scrollPane.setViewportView(eventPanel);
 
-		setCommitlist();
+		setEventList();
 		setupPanels();
 		initialized = true;
 		applyCalProps();
 	}
-	/*Sets the calendars commitments to the commitmentList array to populate panel*/
-	private void setCommitlist() {
+	/*Sets the calendars events to the eventList array to populate panel*/
+	private void setEventList() {
 
 		if (mode == ViewingMode.TEAM){
 			if(pcalendar.getTeamCalData() != null){
-				commitmentList = pcalendar.getTeamCalData().getCommitments().getCommitments();
+				eventList = pcalendar.getTeamCalData().getEvents().getEvents();
 			}
 		} else if (mode == ViewingMode.PERSONAL){
 			if(pcalendar.getMyCalData() != null){
-			commitmentList = pcalendar.getMyCalData().getCommitments().getCommitments();
+			eventList = pcalendar.getMyCalData().getEvents().getEvents();
 			}
 		} else if(pcalendar.getTeamCalData() != null && pcalendar.getMyCalData() != null) { 
 			// here mode == ViewingMode.BOTH
-			final CombinedCommitmentList combinedList = new CombinedCommitmentList(
-					new ArrayList<Commitment>(
-							pcalendar.getMyCalData().getCommitments().getCommitments()));
+			final CombinedEventList combinedList = new CombinedEventList(
+					new ArrayList<Event>(
+							pcalendar.getMyCalData().getEvents().getEvents()));
 			final CalendarData teamData = pcalendar.getTeamCalData();
 
 			/*if we are supposed to show team data, 
-			 * we need to put the team commitments into the list in the right order*/
-			for (int i = 0; i < teamData.getCommitments()
-					.getCommitments().size(); i++) {
-				combinedList.add(teamData.getCommitments()
-						.getCommitments().get(i));
+			 * we need to put the team events into the list in the right order*/
+			for (int i = 0; i < teamData.getEvents()
+					.getEvents().size(); i++) {
+				combinedList.add(teamData.getEvents()
+						.getEvents().get(i));
 			}
-			commitmentList = combinedList.getCommitments();
+			eventList = combinedList.getEvents();
 		}
 	}
 
-	/*commit panel is populated with all events 
+	/*event panel is populated with all events 
 	 * which are in separate panels that can be scrolled and clicked*/
 	private void setupPanels() {
-		commitPanel.setLayout(new BoxLayout(commitPanel, BoxLayout.Y_AXIS));
-		commitPanel.setBorder(new EmptyBorder(5, 5, 10, 5));
-		commitPanel.setBackground(Color.WHITE);
+		eventPanel.setLayout(new BoxLayout(eventPanel, BoxLayout.Y_AXIS));
+		eventPanel.setBorder(new EmptyBorder(5, 5, 10, 5));
+		eventPanel.setBackground(Color.WHITE);
 
 		header.removeAll();
 
@@ -316,13 +320,14 @@ public class CommitmentFullView extends JPanel{
 		jName.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				datesort = 0;
+				startDatesort = 0;
+				endDatesort = 0;
 				dessort = 0;
 				statussort = 0;
-				Collections.sort(commitmentList);
+				Collections.sort(eventList);
 				if(namesort == 1){
 					namesort = 2;
-					Collections.reverse(commitmentList);
+					Collections.reverse(eventList);
 				}
 				else if(namesort == 2 || namesort == 0){
 					namesort = 1;
@@ -334,56 +339,54 @@ public class CommitmentFullView extends JPanel{
 
 
 
-		jDueDate = new JButton("<html><font color='white'><b>"
-				+ "Due Date" + "</b></font></html>");
-		//		jDueDate.setContentAreaFilled(false);
-		jDueDate.setBackground(CalendarStandard.CalendarRed);
+		jStartDate = new JButton("<html><font color='white'><b>"
+				+ "Start Date" + "</b></font></html>");
+		jStartDate.setBackground(CalendarStandard.CalendarRed);
 
-		if(datesort == 1){
+		if(startDatesort == 1){
 			try {
 				final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
-				jDueDate.setIcon(new ImageIcon(img));
-				jDueDate.setText("<html><font color='white'><b>"
-						+ "Due Date" + "</b></font></html>");
+				jStartDate.setIcon(new ImageIcon(img));
+				jStartDate.setText("<html><font color='white'><b>"
+						+ "Start Date" + "</b></font></html>");
 			} catch (IOException ex) {}
 			catch(IllegalArgumentException ex){
-				jDueDate.setText("<html><font color='white'><b>"
-						+ "Due Date ^" + "</b></font></html>");
+				jStartDate.setText("<html><font color='white'><b>"
+						+ "Start Date ^" + "</b></font></html>");
 			}
 		}
-		else if(datesort == 2){
+		else if(startDatesort == 2){
 			try {
 				final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
-				jDueDate.setIcon(new ImageIcon(img));
-				jDueDate.setText("<html><font color='white'><b>"
-						+ "Due Date" + "</b></font></html>");
+				jStartDate.setIcon(new ImageIcon(img));
+				jStartDate.setText("<html><font color='white'><b>"
+						+ "Start Date" + "</b></font></html>");
 			} catch (IOException ex) {}
 			catch(IllegalArgumentException ex){
-				jDueDate.setText("<html><font color='white'><b>"
-						+ "Due Date v" + "</b></font></html>");
+				jStartDate.setText("<html><font color='white'><b>"
+						+ "Start Date v" + "</b></font></html>");
 			}
 		}
-		//jDueDate.setContentAreaFilled(false);
 
-		jDueDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		jStartDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
 
 		// sort by date 
-		jDueDate.addMouseListener(new MouseAdapter() {
+		jStartDate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				namesort = 0;
 				dessort = 0;
 				statussort = 0;
-				Collections.sort(commitmentList, new Comparator<Commitment>() {
+				Collections.sort(eventList, new Comparator<Event>() {
 
 					@Override 
-					public int compare(Commitment c1, Commitment c2) {
-						if(c1.getDueDate().before(c2.getDueDate()))
+					public int compare(Event e1, Event e2) {
+						if(e1.getStartTime().before(e2.getStartTime()))
 							{
 							return -1;
 							}
-						else if(c1.getDueDate().after(c2.getDueDate())) 
+						else if(e1.getStartTime().after(e2.getStartTime())) 
 							{
 							return 1;
 							}
@@ -393,12 +396,82 @@ public class CommitmentFullView extends JPanel{
 							}
 					}
 				});
-				if(datesort == 1){
-					datesort = 2;
-					Collections.reverse(commitmentList);
+				if(startDatesort == 1){
+					startDatesort = 2;
+					Collections.reverse(eventList);
 				}
-				else if(datesort == 2 || datesort == 0){
-					datesort = 1;
+				else if(startDatesort == 2 || startDatesort == 0){
+					startDatesort = 1;
+				}
+				updateView();
+			}
+		});
+		
+		
+		
+		jEndDate = new JButton("<html><font color='white'><b>"
+				+ "End Date" + "</b></font></html>");
+		jEndDate.setBackground(CalendarStandard.CalendarRed);
+
+		if(endDatesort == 1){
+			try {
+				final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
+				jEndDate.setIcon(new ImageIcon(img));
+				jEndDate.setText("<html><font color='white'><b>"
+						+ "End Date" + "</b></font></html>");
+			} catch (IOException ex) {}
+			catch(IllegalArgumentException ex){
+				jEndDate.setText("<html><font color='white'><b>"
+						+ "End Date ^" + "</b></font></html>");
+			}
+		}
+		else if(endDatesort == 2){
+			try {
+				final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+				jEndDate.setIcon(new ImageIcon(img));
+				jEndDate.setText("<html><font color='white'><b>"
+						+ "End Date" + "</b></font></html>");
+			} catch (IOException ex) {}
+			catch(IllegalArgumentException ex){
+				jEndDate.setText("<html><font color='white'><b>"
+						+ "End Date v" + "</b></font></html>");
+			}
+		}
+
+		jEndDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
+
+		// sort by date 
+		jEndDate.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				namesort = 0;
+				dessort = 0;
+				statussort = 0;
+				Collections.sort(eventList, new Comparator<Event>() {
+
+					@Override 
+					public int compare(Event e1, Event e2) {
+						if(e1.getEndTime().before(e2.getEndTime()))
+							{
+							return -1;
+							}
+						else if(e1.getEndTime().after(e2.getEndTime())) 
+							{
+							return 1;
+							}
+						else
+							{
+							return 0;
+							}
+					}
+				});
+				if(endDatesort == 1){
+					endDatesort = 2;
+					Collections.reverse(eventList);
+				}
+				else if(endDatesort == 2 || endDatesort == 0){
+					endDatesort = 1;
 				}
 				updateView();
 			}
@@ -441,18 +514,19 @@ public class CommitmentFullView extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				namesort = 0;
-				datesort = 0;
+				startDatesort = 0;
+				endDatesort = 0;
 				statussort = 0;
-				Collections.sort(commitmentList, new Comparator<Commitment>() {
+				Collections.sort(eventList, new Comparator<Event>() {
 
 					@Override 
-					public int compare(Commitment c1, Commitment c2) {
-						return c1.getDescription().compareTo(c2.getDescription());
+					public int compare(Event e1, Event e2) {
+						return e1.getDescription().compareTo(e2.getDescription());
 					}
 				});
 				if(dessort == 1){
 					dessort = 2;
-					Collections.reverse(commitmentList);
+					Collections.reverse(eventList);
 				}
 				else if(dessort == 2 || dessort == 0){
 					dessort = 1;
@@ -461,71 +535,16 @@ public class CommitmentFullView extends JPanel{
 			}
 		});
 
-		jStatus = new JButton("<html><font color='white'><b>"
-				+ "Status" + "</b></font></html>");
-		if(statussort == 1){
-			try {
-				final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
-				jStatus.setIcon(new ImageIcon(img));
-				jStatus.setText("<html><font color='white'><b>"
-						+ "Status" + "</b></font></html>");
-			} catch (IOException ex) {}
-			catch(IllegalArgumentException ex){
-				jStatus.setText("<html><font color='white'><b>"
-						+ "Status ^" + "</b></font></html>");
-			}
-		}
-		else if(statussort == 2){
-			try {
-				final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
-				jStatus.setIcon(new ImageIcon(img));
-				jStatus.setText("<html><font color='white'><b>"
-						+ "Status" + "</b></font></html>");
-			} catch (IOException ex) {}
-			catch(IllegalArgumentException ex){
-				jStatus.setText("<html><font color='white'><b>"
-						+ "Status v" + "</b></font></html>");
-			}
-		}
-		//		jStatus.setContentAreaFilled(false);
-		jStatus.setBackground(CalendarStandard.CalendarRed);
-		jStatus.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
-		// To change cursor as it moves over this button
-
-		jStatus.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				namesort = 0;
-				datesort = 0;
-				dessort = 0;
-				Collections.sort(commitmentList, new Comparator<Commitment>() {
-
-					@Override 
-					public int compare(Commitment c1, Commitment c2) {
-						return c1.getStatus().convertToString(c1.getStatus().getId()).compareTo(
-								c2.getStatus().convertToString(c2.getStatus().getId()));
-
-					}
-				});
-				if(statussort == 1){
-					statussort = 2;
-					Collections.reverse(commitmentList);
-				}
-				else if(statussort == 2 || statussort == 0){
-					statussort = 1;
-				}
-				updateView();
-			}
-		});
+		
 
 		final GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.LINE_START;
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
 		topButtons.add(jName, c);
-		topButtons.add(jDueDate, c);
+		topButtons.add(jStartDate, c);
+		topButtons.add(jEndDate, c);
 		topButtons.add(jDescription, c);
-		topButtons.add(jStatus, c);
 		topButtons.setPreferredSize(new Dimension(300, 50));
 		topButtons.setMaximumSize(new Dimension(20000, 50));
 		final Border loweredbevel1 = BorderFactory.createLoweredBevelBorder();
@@ -537,22 +556,22 @@ public class CommitmentFullView extends JPanel{
 		scrollPane.setColumnHeaderView(header);
 		//JSeparator sep = new JSeparator();
 		//commitPanel.add(sep);
-		for(int i = 0; i < commitmentList.size(); i++){
-			CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
+		for(int i = 0; i < eventList.size(); i++){
+			EventViewPanel eventPanel = new EventViewPanel(eventList.get(i));
 			Image nameImg;
 			Image scaleImg;
-			JLabel name = new JLabel(commitmentList.get(i).getName(), JLabel.LEFT);
+			JLabel name = new JLabel(eventList.get(i).getName(), JLabel.LEFT);
 			name.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 			try {
-				if (commitmentList.get(i).getIsPersonal())
+				if (eventList.get(i).getIsPersonal())
 				{
-					nameImg = ImageIO.read(getClass().getResource("PersonalCommitment_Icon.png"));
+					nameImg = ImageIO.read(getClass().getResource("PersonalEvent_Icon.png"));
 					scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 					name.setIcon(new ImageIcon(scaleImg));
 				}
 				else
 				{
-					nameImg = ImageIO.read(getClass().getResource("TeamCommitment_Icon.png"));
+					nameImg = ImageIO.read(getClass().getResource("TeamEvent_Icon.png"));
 					scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 					name.setIcon(new ImageIcon(scaleImg));
 				}
@@ -563,45 +582,45 @@ public class CommitmentFullView extends JPanel{
 			SimpleDateFormat df = new SimpleDateFormat();
 			df.applyPattern("EEEE, MMMM d, y - hh:mm a");
 			
-			JLabel date = new JLabel("" + 
-			df.format(commitmentList.get(i).getDueDate().getTime()), JLabel.LEFT);
-			date.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+			JLabel dateStart = new JLabel("" + 
+			df.format(eventList.get(i).getStartTime().getTime()), JLabel.LEFT);
+			dateStart.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+			JLabel dateEnd = new JLabel("" + 
+			df.format(eventList.get(i).getEndTime().getTime()), JLabel.LEFT);
+			dateEnd.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 			JLabel description = new JLabel("<HTML>" + 
-			commitmentList.get(i).getDescription() + "</HTML>", JLabel.LEFT);
+			eventList.get(i).getDescription() + "</HTML>", JLabel.LEFT);
 			description.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
-			JLabel status = new JLabel(Status.convertToString(
-					commitmentList.get(i).getStatus().id), JLabel.LEFT);
-			status.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
-			commitmentPanel.setLayout(experimentLayout);
+			eventPanel.setLayout(experimentLayout);
 			//GridBagConstraints c = new GridBagConstraints();
 			c.anchor = GridBagConstraints.BASELINE_LEADING;
 			c.fill = GridBagConstraints.BASELINE_LEADING;
 			c.weightx = 1;
-			commitmentPanel.add(name, c);
-			commitmentPanel.add(date, c);
-			commitmentPanel.add(description, c);
-			commitmentPanel.add(status, c);
-			commitmentPanel.setBackground(CalendarStandard.CalendarYellow);
+			eventPanel.add(name, c);
+			eventPanel.add(dateStart, c);
+			eventPanel.add(dateEnd, c);
+			eventPanel.add(description, c);
+			eventPanel.setBackground(CalendarStandard.CalendarYellow);
 			//			commitmentPanel.setBackground(new Color(222,184,135));
-			commitmentPanel.setPreferredSize(new Dimension(300, 75));
-			commitmentPanel.setMaximumSize(new Dimension(20000, 75));
+			eventPanel.setPreferredSize(new Dimension(300, 75));
+			eventPanel.setMaximumSize(new Dimension(20000, 75));
 			Border loweredbevel = BorderFactory.createLoweredBevelBorder();
-			commitmentPanel.setBorder(loweredbevel);
-			commitmentPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
-			// To change cursor as it moves over this commitment pannel
-			commitmentPanel.addMouseListener(new MouseAdapter() {
+			eventPanel.setBorder(loweredbevel);
+			eventPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+			// To change cursor as it moves over this event pannel
+			eventPanel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					if (e.getClickCount() >= 1)
 						{
-						GUIEventController.getInstance().editCommitment(
-								((CommitmentViewPanel)e.getComponent()).getCommitment());
+						GUIEventController.getInstance().editEvent(
+								((EventViewPanel)e.getComponent()).getEvent());
 						}
 				}
 			});
 
-			commitPanel.add(commitmentPanel);
+			eventPanel.add(eventPanel);
 		}
 	}
 
@@ -609,8 +628,8 @@ public class CommitmentFullView extends JPanel{
 	 * Method updateList.
 	 */
 	public void updateList(){
-		commitPanel.removeAll();
-		setCommitlist();
+		eventPanel.removeAll();
+		setEventList();
 		setupPanels();
 	}
 
@@ -618,13 +637,13 @@ public class CommitmentFullView extends JPanel{
 	 * Method updateView.
 	 */
 	public void updateView(){
-		commitPanel.removeAll();
+		eventPanel.removeAll();
 		setupPanels();
 	}
 
 	private void switchView(ViewingMode newMode){
 		mode = newMode;
-		calProps.setCommViewMode(mode.ordinal());
+		calProps.setEventViewMode(mode.ordinal());
 		this.updateList();
 	}
 

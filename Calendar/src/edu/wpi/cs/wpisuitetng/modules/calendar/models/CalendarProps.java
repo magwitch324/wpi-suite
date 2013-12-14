@@ -25,9 +25,11 @@ public class CalendarProps extends AbstractModel {
 	/** the ID of the CalendarProps */
 	private String id;
 	private boolean showMyComm;
+	private boolean showMyEvent;
 	private int myTeamBoth;
 	private boolean showTeamData;
 	private int commViewMode;
+	private int eventViewMode;
 	private boolean showCommRange;
 
 	/**
@@ -36,10 +38,12 @@ public class CalendarProps extends AbstractModel {
 	public CalendarProps() {
 		id = "";
 		showMyComm = false;
+		showMyEvent = false;
 		myTeamBoth = 0;
 		showTeamData = false;
 		showCommRange = false;
 		commViewMode = 0;
+		eventViewMode = 0;
 	}
 
 	/**
@@ -73,6 +77,25 @@ public class CalendarProps extends AbstractModel {
 	public boolean getMyShowComm(){
 		return showMyComm;
 	}
+	
+	
+	/**
+	 * setter for persisting whether event should be shown on the calendar
+	 * 
+	 * @param showEvent
+	 */
+	public void setMyShowEvent(boolean showEvent){
+		showMyEvent = showEvent;
+	}
+	
+	/**
+	 * getter for setting whether show event is selected at startup
+	 * 
+	 */
+	public boolean getMyShowEvent(){
+		return showMyEvent;
+	}
+	
 	
 	/**
 	 * setter for persisting whether commitments should be shown on the calendar
@@ -125,6 +148,27 @@ public class CalendarProps extends AbstractModel {
 	public int getCommViewMode(){
 		return commViewMode;
 	}
+	
+	
+	/**
+	 * setter for setting what is selected in all event view
+	 * 
+	 * @param showComm
+	 */
+	public void setEventViewMode(int mode){
+		eventViewMode = mode;
+	}
+	
+	
+	/**
+	 * getter for setting what is selected in all event view
+	 * 
+	 */
+	public int getEventViewMode(){
+		return eventViewMode;
+	}
+
+	
 	
 	/**
 	 * getter for setting whether commitpane is showing in range or all

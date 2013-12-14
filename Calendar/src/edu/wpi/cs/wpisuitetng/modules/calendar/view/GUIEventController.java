@@ -20,7 +20,7 @@ import javax.swing.ImageIcon;
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdatePropsController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
-//import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent;
@@ -49,7 +49,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	private ToolbarView toolbar = null;
 	//private TeamCalendar teamCalendar;
 	private MyCalendar myCalendar;
+	private EventFullView eventFullView;
 	private CommitmentFullView commitFullView;
+
 	
 	/**
 	 * Default constructor for ViewEventController.  Is protected to prevent instantiation.
@@ -114,6 +116,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 		main = mainview;
 		//teamCalendar = new TeamCalendar();
 		myCalendar = new MyCalendar();
+		eventFullView = new EventFullView(myCalendar);
 		commitFullView = new CommitmentFullView(myCalendar);
 
 		try {
@@ -124,12 +127,16 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 			//main.addTab("Team Calendar", new ImageIcon(img), teamCalendar);
 
 			img = ImageIO.read(getClass().getResource("Agenda_Icon.png"));
-			main.addTab("Agenda", new ImageIcon(img), commitFullView);
+			main.addTab("Events Agenda", new ImageIcon(img), eventFullView);
+			
+			img = ImageIO.read(getClass().getResource("All_Icon.png"));
+			main.addTab("All Commitments", new ImageIcon(img), commitFullView);
 
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
 			main.addTab("My Calendar", new ImageIcon(), myCalendar);
-			main.addTab("Agenda", new ImageIcon(), commitFullView);
+			main.addTab("Events Agenda", new ImageIcon(), eventFullView);
+			main.addTab("All Commitmets", new ImageIcon(), commitFullView);
 		}
 
 	}
@@ -182,7 +189,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 			switch(goTo){
 				case 0 : main.setSelectedComponent(myCalendar);
 						break;
-				case 1 : main.setSelectedComponent(commitFullView);
+				case 1 : main.setSelectedComponent(eventFullView);
+						break;
+				case 2 : main.setSelectedComponent(commitFullView);
 						break;
 			}
 	}
@@ -349,7 +358,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	public void updateCalData() {
 		myCalendar.updateCalData();
 		myCalendar.calView.commitmentView.update();
+		eventFullView.updateList();
 		commitFullView.updateList();
+
 	}
 
 	public void setScrollBarValue(int value) {
@@ -367,6 +378,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 */
 	public void applyCalProps(){
 		myCalendar.applyCalProps();
+		eventFullView.applyCalProps();
 		commitFullView.applyCalProps();
 	}
 
@@ -380,7 +392,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 		switch(goTo){
 		case 0: main.setSelectedComponent(myCalendar);
 		break;
-		case 1: main.setSelectedComponent(commitFullView);
+		case 1: main.setSelectedComponent(eventFullView);
+		break;
+		case 2: main.setSelectedComponent(commitFullView);
 		break;
 		}
 		
