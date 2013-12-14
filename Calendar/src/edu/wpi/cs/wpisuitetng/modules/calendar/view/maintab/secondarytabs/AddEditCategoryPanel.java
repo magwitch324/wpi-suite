@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.Box;
+import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -122,11 +123,15 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_horizontalBox.gridy = 1;
 		addEditFormPanel.add(horizontalBox, gbc_horizontalBox);
 		
+		final ButtonGroup teamPersonalRadioButtons = new ButtonGroup();
+		
 		rdbtnTeam_1 = new JRadioButton("Team");
 		horizontalBox.add(rdbtnTeam_1);
+		teamPersonalRadioButtons.add(rdbtnTeam_1);
 		
 		JRadioButton rdbtnPersonal = new JRadioButton("Personal");
 		horizontalBox.add(rdbtnPersonal);
+		teamPersonalRadioButtons.add(rdbtnPersonal);
 		
 		JLabel lblColor = new JLabel("Color:");
 		GridBagConstraints gbc_lblColor = new GridBagConstraints();
