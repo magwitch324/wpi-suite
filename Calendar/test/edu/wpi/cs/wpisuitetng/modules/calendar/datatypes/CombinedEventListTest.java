@@ -41,7 +41,7 @@ public class CombinedEventListTest {
 	
 	private final Event lastYear   = new Event("Last Year",  
 			"A Event from last year",  new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00), 
-			new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), people , 1, true);
+			new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), people, 1, true);
 	private final Event todayEvent = new Event("Today",     
 			"A Event from today", today, today13, people, 2, true);
 	private final Event nextWeek   = new Event("Next Week",  "A Event for next week",

@@ -49,7 +49,7 @@ public class RepeatingEventListTest {
 	final RepeatingEvent lastYear   = 
 			new RepeatingEvent("Last Year",  "A RepeatingEvent from last year",  
 			new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00),  
-			new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), people , 1, true, 7, WEEK);
+			new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), people, 1, true, 7, WEEK);
 	final RepeatingEvent lastMonth  = 
 			new RepeatingEvent("Last Month", "A RepeatingEvent from last month", 
 			new GregorianCalendar(2013, OCTOBER, 12, 12, 00, 00),  
@@ -74,7 +74,7 @@ public class RepeatingEventListTest {
 	final RepeatingEvent nextYear   = 
 			new RepeatingEvent("Next Year",  "A RepeatingEvent for next year",   
 			new GregorianCalendar(2014, JANUARY, 1, 12, 00, 00),  
-			new GregorianCalendar(2014, JANUARY, 1, 13, 00, 00) , people, 3, true, 3, null);
+			new GregorianCalendar(2014, JANUARY, 1, 13, 00, 00), people, 3, true, 3, null);
 	/**
 	 * Method setup.
 	 */
@@ -227,7 +227,7 @@ public class RepeatingEventListTest {
 		final RepeatingEvent newLastYear = 
 				new RepeatingEvent("Last Year",  "A RepeatingEvent from last year",  
 				new GregorianCalendar(2012, JANUARY, 29, 12, 00, 00),  
-				new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), people , 1, true, 7, WEEK);
+				new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), people, 1, true, 7, WEEK);
 		repeatingEventList1.add(nextMonth);
 		repeatingEventList1.add(nextYear);
 		repeatingEventList1.add(lastYear);

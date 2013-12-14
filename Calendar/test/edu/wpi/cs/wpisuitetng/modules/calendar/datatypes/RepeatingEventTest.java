@@ -49,7 +49,7 @@ public class RepeatingEventTest {
 	@Test
 	public void mainConstructorTest(){
 		final RepeatingEvent testRepeatingEvent = new RepeatingEvent(
-				"test","test for repeating event", _20120129, _20120130,
+				"test", "test for repeating event", _20120129, _20120130,
 				people1, 1, true, 3, RepeatType.WEEK);
 		final List<String> people = new ArrayList<String>();
 		people.add("John");
@@ -71,7 +71,7 @@ public class RepeatingEventTest {
 	@Test
 	public void setterConstructorTest(){
 		final RepeatingEvent testRepeatingEvent = new RepeatingEvent(
-				"test","test for repeating event", _20120129, _20120130,
+				"test", "test for repeating event", _20120129, _20120130,
 				people1, 1, true, 3, RepeatType.WEEK);
 		testRepeatingEvent.setStartTime(_20131209);
 		testRepeatingEvent.setEndTime(_20131214);
@@ -95,7 +95,7 @@ public class RepeatingEventTest {
 	@Test
 	public void copyFromTest(){
 		final RepeatingEvent testRepeatingEvent2 = new RepeatingEvent(
-				"test","test for repeating event", _20120129, _20120130,
+				"test", "test for repeating event", _20120129, _20120130,
 				people1, 1, true, 3, RepeatType.WEEK);
 		testRepeatingEvent2.setCategoryID(2);
 		final List<String> people = new ArrayList<String>();

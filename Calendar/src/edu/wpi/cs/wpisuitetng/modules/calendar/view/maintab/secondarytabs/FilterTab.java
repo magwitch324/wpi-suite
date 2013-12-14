@@ -96,7 +96,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0};
 		gbl.columnWeights = new double[]{0.5, 3.0, 0.5, 7.0, 0.5};
 		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl.columnWidths = new int[] {0, 0, 0, 0,0};
+		gbl.columnWidths = new int[] {0, 0, 0, 0, 0};
 		formPanel.setLayout(gbl);
 		
 		

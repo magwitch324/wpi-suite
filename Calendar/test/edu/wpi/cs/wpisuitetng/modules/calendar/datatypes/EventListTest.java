@@ -43,7 +43,7 @@ public class EventListTest {
 	
 	Event lastYear   = new Event("Last Year",  "A Event from last year", 
 			new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00), 
-			new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), people , 1, true);
+			new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), people, 1, true);
 	Event lastMonth  = new Event("Last Month", "A Event from last month",
 			new GregorianCalendar(2013, OCTOBER, 12, 12, 00, 00),  
 			new GregorianCalendar(2013, OCTOBER, 12, 13, 00, 00), people, 1, true);
@@ -60,7 +60,7 @@ public class EventListTest {
 			new GregorianCalendar(2013, DECEMBER, 23, 13, 00, 00), people, 1, true);
 	Event nextYear   = new Event("Next Year",  "A Event for next year",
 			new GregorianCalendar(2014, JANUARY, 1, 12, 00, 00),
-			new GregorianCalendar(2014, JANUARY, 1, 13, 00, 00) , people, 3, true);
+			new GregorianCalendar(2014, JANUARY, 1, 13, 00, 00), people, 3, true);
 	/**
 	 * Method setup.
 	 */

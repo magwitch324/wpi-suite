@@ -51,7 +51,7 @@ public class CommitmentTest {
 	public void mainConstructorTest(){
 		final GregorianCalendar tmpCal = new GregorianCalendar(1, DECEMBER, 2013);
 		//tmpCal.setTime(new Date());
-		final Commitment testComm = new Commitment("test",tmpCal,"test description",2,true);
+		final Commitment testComm = new Commitment("test", tmpCal, "test description", 2, true);
 		assertEquals(0, testComm.getID());
 		assertEquals("test", testComm.getName());
 		assertEquals("test description", testComm.getDescription());
@@ -68,7 +68,7 @@ public class CommitmentTest {
 	public void setterConstructorTest(){
 		final GregorianCalendar tmpCal = new GregorianCalendar(1, DECEMBER, 2013);
 		final GregorianCalendar tmpCal2 = new GregorianCalendar(2, DECEMBER, 2013);
-		final Commitment testComm = new Commitment("test",tmpCal,"test description",2,true);
+		final Commitment testComm = new Commitment("test", tmpCal, "test description", 2, true);
 		testComm.setID(2);
 		testComm.setName("such testing");
 		testComm.setDueDate(tmpCal2);
@@ -91,7 +91,7 @@ public class CommitmentTest {
 	@Test
 	public void copyFromTest(){
 		final GregorianCalendar tmpCal = new GregorianCalendar(1, DECEMBER, 2013);
-		final Commitment testComm2 = new Commitment("test",tmpCal,"test description",2,true);
+		final Commitment testComm2 = new Commitment("test", tmpCal, "test description", 2, true);
 		testComm2.setID(2);
 		testComm2.setStatus(Status.COMPLETED);
 		final Commitment testComm = new Commitment();
@@ -112,7 +112,7 @@ public class CommitmentTest {
 	public void toStringTest(){
 		// Not sure if necessary, but here for code coverage
 		final GregorianCalendar tmpCal = new GregorianCalendar(1, DECEMBER, 2013);
-		final Commitment testComm = new Commitment("test",tmpCal,"test description",2,true);
+		final Commitment testComm = new Commitment("test", tmpCal, "test description", 2, true);
 		assertEquals("test", testComm.toString());
 	}
 
