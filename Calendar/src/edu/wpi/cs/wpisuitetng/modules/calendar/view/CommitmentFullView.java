@@ -65,6 +65,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
+/**
+ */
 @SuppressWarnings("serial")
 public class CommitmentFullView extends JPanel{
 
@@ -92,6 +94,7 @@ public class CommitmentFullView extends JPanel{
 	ButtonGroup viewSwitchGroup;
 
 	/**
+	 * @author Tianci
 	 */
 	public enum ViewingMode {
 		TEAM, PERSONAL, BOTH;

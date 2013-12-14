@@ -23,6 +23,8 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+/**
+ */
 public class CommitmentTab2 extends JPanel {
 
 	/**

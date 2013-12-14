@@ -21,6 +21,8 @@ import org.junit.Test;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 
+/**
+ */
 public class CommitmentListTest {
 
 	/*
@@ -36,6 +38,9 @@ public class CommitmentListTest {
 	private final static GregorianCalendar today = 
 			new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00);
 	
+	/**
+	 * Method setup.
+	 */
 	@BeforeClass
 	public static void setup() {
 		commitments = new CommitmentList();
@@ -63,6 +68,9 @@ public class CommitmentListTest {
 		
 	}
 	
+	/**
+	 * Method filterAroundTwoCalendars.
+	 */
 	@Test
 	public void filterAroundTwoCalendars() {
 		start.set(2013, NOVEMBER, 18);
@@ -73,6 +81,9 @@ public class CommitmentListTest {
 		assertEquals(2, newData.size());
 	}
 	
+	/**
+	 * Method filterAroundLargeSection.
+	 */
 	@Test
 	public void filterAroundLargeSection() {
 		start.set(2000, NOVEMBER, 12);
@@ -81,6 +92,10 @@ public class CommitmentListTest {
 		assertEquals(7, newData.size());
 	}
 	
+	/**
+	 * Method filterAroundWeek.
+	 * @throws CalendarException
+	 */
 	@Test
 	public void filterAroundWeek() throws CalendarException {
 		System.out.println("Filter around week...");
@@ -89,6 +104,10 @@ public class CommitmentListTest {
 		assertEquals(1, newData.size());
 	}
 	
+	/**
+	 * Method filterAroundMonth.
+	 * @throws CalendarException
+	 */
 	@Test
 	public void filterAroundMonth() throws CalendarException {
 		System.out.println("Filter around month...");
@@ -96,6 +115,10 @@ public class CommitmentListTest {
 		assertEquals(3, newData.size());
 	}
 	
+	/**
+	 * Method filterAroundYear.
+	 * @throws CalendarException
+	 */
 	@Test
 	public void filterAroundYear() throws CalendarException {
 		System.out.println("Filter around year...");
@@ -104,6 +127,10 @@ public class CommitmentListTest {
 	}
 	
 	// Helper function
+	/**
+	 * Method printlist.
+	 * @param commits List<Commitment>
+	 */
 	public static void printlist(List<Commitment> commits) {
 		System.out.println("Commitments: ");
 		
@@ -114,6 +141,10 @@ public class CommitmentListTest {
 		System.out.println("\n");
 	}
 	
+	/**
+	 * Method printcalendar.
+	 * @param cal GregorianCalendar
+	 */
 	public void printcalendar(GregorianCalendar cal) {
 		final String dayName = cal.getDisplayName(
 				GregorianCalendar.DAY_OF_WEEK, LONG, Locale.ENGLISH);

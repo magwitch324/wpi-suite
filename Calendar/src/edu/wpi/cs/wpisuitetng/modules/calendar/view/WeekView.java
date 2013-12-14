@@ -20,7 +20,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
+/**
+  */
+ @SuppressWarnings("serial")
 public class WeekView extends CalendarView {
 
 	private GregorianCalendar startDate;

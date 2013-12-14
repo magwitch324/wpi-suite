@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ */
 public class EventTest {
 	
 	private final static GregorianCalendar _20120129 = new GregorianCalendar(2012, JANUARY, 29);

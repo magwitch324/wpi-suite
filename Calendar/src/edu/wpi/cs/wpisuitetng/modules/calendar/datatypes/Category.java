@@ -248,8 +248,8 @@ public class Category extends AbstractModel implements Comparator<Category>{
 	 * Method compare.
 	 * @param c1 Category
 	 * @param c2 Category
-	 * @return int
-	 */
+	
+	 * @return int */
 	@Override
 	public int compare(Category c1, Category c2) {
 		return c1.getName().compareToIgnoreCase(c2.getName());

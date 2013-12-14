@@ -20,6 +20,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ */
 public class CombinedEventListTest {
 	/*
 	 * NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE
@@ -48,6 +50,9 @@ public class CombinedEventListTest {
 	private final Event nextMonth  = new Event("Next Month", "A Event for next month",
 			new GregorianCalendar(2013, DECEMBER, 23, 12, 00, 00), 
 			new GregorianCalendar(2013, DECEMBER, 23, 13, 00, 00), people, 1, true);
+	/**
+	 * Method setup.
+	 */
 	@Before
 	public void setup() {
 		eventList = new ArrayList<Event>();
@@ -59,6 +64,9 @@ public class CombinedEventListTest {
 	/*
 	 * Test to ensure addEmptyList works correctly
 	 */
+	/**
+	 * Method addEmptyListTest.
+	 */
 	@Test
 	public void addEmptyListTest() {
 		combinedEventList = new CombinedEventList();
@@ -69,6 +77,9 @@ public class CombinedEventListTest {
 	
 	/*
 	 * Test to ensure addNonEmptyList works correctly
+	 */
+	/**
+	 * Method addNonEmptyListTest.
 	 */
 	@Test
 	public void addNonEmptyListTest() {

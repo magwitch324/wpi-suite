@@ -19,7 +19,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-public class YearView extends CalendarView {
+/**
+  */
+ public class YearView extends CalendarView {
 
 	private final GregorianCalendar ayear;
 	private final YearPane yearpane;

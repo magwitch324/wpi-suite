@@ -13,8 +13,13 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ */
 public class CalendarPropsTest {
 
+	/**
+	 * Method defaultConstuctorTest.
+	 */
 	@Test
 	public void defaultConstuctorTest(){
 		final CalendarProps props = new CalendarProps();
@@ -24,6 +29,9 @@ public class CalendarPropsTest {
 		assertFalse(props.getTeamShowComm());
 	}
 	
+	/**
+	 * Method idConstuctorTest.
+	 */
 	@Test
 	public void idConstuctorTest(){
 		final CalendarProps props = new CalendarProps("test-id");
@@ -33,6 +41,9 @@ public class CalendarPropsTest {
 		assertFalse(props.getTeamShowComm());
 	}
 
+	/**
+	 * Method SetterTest.
+	 */
 	@Test
 	public void SetterTest(){
 		final CalendarProps props = new CalendarProps();
@@ -46,6 +57,9 @@ public class CalendarPropsTest {
 		assertTrue(props.getTeamShowComm());
 	}
 	
+	/**
+	 * Method CopyFromTest.
+	 */
 	@Test
 	public void CopyFromTest(){
 		final CalendarProps props1 = new CalendarProps();

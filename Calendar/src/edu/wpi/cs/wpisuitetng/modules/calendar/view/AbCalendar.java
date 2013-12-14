@@ -47,6 +47,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
+/**
+ */
 @SuppressWarnings("serial")
 public abstract class AbCalendar extends JPanel {
 	protected boolean initialized;
@@ -54,6 +56,7 @@ public abstract class AbCalendar extends JPanel {
 	protected CalendarProps calProps;
 
 	/**
+	 * @author Tianci
 	 */
 	protected enum types {
 		DAY(0),

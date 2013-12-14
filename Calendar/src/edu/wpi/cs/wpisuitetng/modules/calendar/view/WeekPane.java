@@ -42,7 +42,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
+/**
+  */
+ @SuppressWarnings("serial")
 public class WeekPane extends JPanel implements ICalPane {
 	JPanel mainPanel = new JPanel();
 	
@@ -234,6 +236,7 @@ public class WeekPane extends JPanel implements ICalPane {
 
 
 	/**
+	 * @author Tianci
 	 */
 	protected class AMouseEvent extends MouseAdapter{
 		GregorianCalendar adate = new GregorianCalendar();

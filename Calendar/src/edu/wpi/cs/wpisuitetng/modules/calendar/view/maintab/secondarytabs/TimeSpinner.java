@@ -29,6 +29,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.Commit
 
 /**
  * New time spinner which has error checking ability.
+ * @author Tianci
+ * @version $Revision: 1.0 $
  */
 public class TimeSpinner extends JSpinner {
 	
@@ -40,6 +42,11 @@ public class TimeSpinner extends JSpinner {
 	private String fallBackValueStr;
 	private boolean errorVisible;
 	
+	/**
+	 * Constructor for TimeSpinner.
+	 * @param type enumTimeSpinner
+	 * @param model SpinnerDateModel
+	 */
 	public TimeSpinner(enumTimeSpinner type, SpinnerDateModel model) {
 		super(model);
 		myType = type;
@@ -166,6 +173,8 @@ public class TimeSpinner extends JSpinner {
 		}
 }
 	
+	/**
+	 */
 	class SpinnerUI extends BasicSpinnerUI  {
 		protected Component createNextButton()  
 		  {  

@@ -16,8 +16,13 @@ import org.junit.Test;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 
+/**
+ */
 public class CalendarDataTest {
 
+	/**
+	 * Method test.
+	 */
 	@Test
 	public void test() {
 		final CalendarData data = new CalendarData();
@@ -43,12 +48,20 @@ public class CalendarDataTest {
 				+ data.getCommitments().getCommitments().get(1).getID());
 	}
 	
+	/**
+	 * Method helper.
+	 * @param list CommitmentList
+	 */
 	public void helper(CommitmentList list){
 		final Commitment toEdit = list.getCommitments().get(1);
 		toEdit.setDescription(toEdit.getDescription() + "IT WORKS?!?");
 		list.update(toEdit);
 	}
 	
+	/**
+	 * Method helper2.
+	 * @param com Commitment
+	 */
 	public void helper2(Commitment com){
 		com.setDescription(com.getDescription() + "Still working!?!");
 	}

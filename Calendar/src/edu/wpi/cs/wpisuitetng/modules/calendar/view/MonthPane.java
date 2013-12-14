@@ -46,7 +46,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
+/**
+  */
+ @SuppressWarnings("serial")
 public class MonthPane extends JScrollPane implements ICalPane {
 	JPanel mainview;
 	MonthDayPane[] days = new MonthDayPane[42];
@@ -503,6 +505,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		}
 		
 		/**
+		 * @author Tianci
 		 */
 		protected class wrapper{
 			Commitment comm = null;
@@ -546,6 +549,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		}
 		
 		/**
+		 * @author Tianci
 		 */
 		protected class LabelWrapper extends JLabel{
 			Commitment comm = null;
@@ -625,6 +629,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		}
 	
 		/**
+		 * @author Tianci
 		 */
 		protected class wholecheck extends MouseAdapter{
 			public void mouseClicked(MouseEvent e){
@@ -639,6 +644,7 @@ public class MonthPane extends JScrollPane implements ICalPane {
 		}
 
 		/**
+		 * @author Tianci
 		 */
 		protected class scrollcheck extends MouseAdapter{
 			

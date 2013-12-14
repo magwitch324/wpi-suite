@@ -18,6 +18,8 @@ import java.util.Date;
 import java.util.List;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatType;
 
+/**
+ */
 public class RepeatingEventTest {
 	private final static GregorianCalendar _20120129 = new GregorianCalendar(2012, JANUARY, 29);
 	private final static GregorianCalendar _20120130 = new GregorianCalendar(2012, JANUARY, 30);

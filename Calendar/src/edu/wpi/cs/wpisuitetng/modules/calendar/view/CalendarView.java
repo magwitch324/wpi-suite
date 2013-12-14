@@ -40,7 +40,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
+/**
+  */
+ @SuppressWarnings("serial")
 public abstract class CalendarView extends JSplitPane {
 	
 	private ICalPane calPane;
@@ -235,6 +237,10 @@ public abstract class CalendarView extends JSplitPane {
 	 */
 	abstract public void updateCommPane(CommitmentList commList, boolean showCommOnCal);
 	
+	/**
+	 * Method applyCalProps.
+	 * @param calProps CalendarProps
+	 */
 	public void applyCalProps(CalendarProps calProps){
 		this.calProps = calProps;
 		showAllCommFlag = calProps.getShowCommRange();

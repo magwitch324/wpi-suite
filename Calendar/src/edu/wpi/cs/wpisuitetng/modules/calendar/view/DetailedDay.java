@@ -24,7 +24,9 @@ import javax.swing.SpringLayout;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
+/**
+  */
+ @SuppressWarnings("serial")
 public class DetailedDay extends JPanel {
 	
 	JSeparator[] halfhourmarks= new JSeparator[48];
@@ -169,6 +171,7 @@ protected void makelines(){
 	
 	
 	/**
+	 * @author Tianci
 	 */
 	protected class resizeevent implements ComponentListener {
 	    public void componentResized(ComponentEvent e) {

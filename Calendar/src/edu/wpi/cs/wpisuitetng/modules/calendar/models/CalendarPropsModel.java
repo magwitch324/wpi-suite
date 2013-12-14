@@ -23,7 +23,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddPropsController;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-public class CalendarPropsModel extends AbstractListModel {
+/**
+  */
+ public class CalendarPropsModel extends AbstractListModel {
 
 	/**
 	 * The list in which all the CalendarProps for a single project are contained

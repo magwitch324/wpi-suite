@@ -41,7 +41,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
+/**
+  */
+ @SuppressWarnings("serial")
 public class YearPane extends JScrollPane implements ICalPane{
 	GregorianCalendar supcal = null;
 	YearMonthPane[] monthpanes = new YearMonthPane[12];
@@ -454,6 +456,7 @@ public class YearPane extends JScrollPane implements ICalPane{
 	}
 	
 	/**
+	 * @author Tianci
 	 */
 	protected class AMouseMonthEvent extends MouseAdapter{
 		GregorianCalendar adate = new GregorianCalendar();

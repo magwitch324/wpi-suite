@@ -21,6 +21,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ */
 public class EventListTest {
 
 	/*
@@ -59,6 +61,9 @@ public class EventListTest {
 	Event nextYear   = new Event("Next Year",  "A Event for next year",
 			new GregorianCalendar(2014, JANUARY, 1, 12, 00, 00),
 			new GregorianCalendar(2014, JANUARY, 1, 13, 00, 00) , people, 3, true);
+	/**
+	 * Method setup.
+	 */
 	@Before
 	public void setup() {
 		Events = new EventList();
@@ -75,6 +80,9 @@ public class EventListTest {
 		
 	}
 	
+	/**
+	 * Method addOneEventTest.
+	 */
 	@Test
 	public void addOneEventTest() {
 		eventList1.add(nextMonth);
@@ -89,11 +97,17 @@ public class EventListTest {
 		assertEquals(peopletest, events.get(0).getParticipants());
 	}
 	
+	/**
+	 * Method afterTest.
+	 */
 	@After
 	public void afterTest() {
 		printlist(eventList1.getEvents());
 	}
 	
+	/**
+	 * Method addTwoEventTest.
+	 */
 	@Test
 	public void addTwoEventTest() {
 		eventList1.add(lastYear);
@@ -112,6 +126,9 @@ public class EventListTest {
 		assertEquals(0, events.get(0).getID());
 	}
 	
+	/**
+	 * Method getEventTest.
+	 */
 	@Test
 	public void getEventTest() {
 		eventList1.add(nextMonth);
@@ -120,6 +137,9 @@ public class EventListTest {
 		assertNotNull(eventList1.getEvent(1));
 	}
 	
+	/**
+	 * Method removeEventTest1.
+	 */
 	@Test
 	public void removeEventTest1() {
 		eventList1.add(nextMonth);
@@ -129,6 +149,9 @@ public class EventListTest {
 		assertEquals("Last Year", eventList1.getEvent(0).getName());
 	}
 
+	/**
+	 * Method removeAllEventTest.
+	 */
 	@Test
 	public void removeAllEventTest() {
 		eventList1.add(nextMonth);
@@ -137,6 +160,9 @@ public class EventListTest {
 		assertEquals(0, eventList1.getSize());
 	}
 	
+	/**
+	 * Method getElementAtTest.
+	 */
 	@Test
 	public void getElementAtTest() {
 		eventList1.add(nextMonth);
@@ -146,6 +172,9 @@ public class EventListTest {
 	}
 	
 	
+	/**
+	 * Method getNextIDTest.
+	 */
 	@Test
 	public void getNextIDTest() {
 		eventList1.add(nextMonth);
@@ -154,6 +183,9 @@ public class EventListTest {
 		assertEquals(3, eventList1.getNextID());
 	}
 	
+	/**
+	 * Method addsTest.
+	 */
 	@Test
 	public void addsTest() {
 		final Event[] events = new Event[]{nextMonth, nextYear, lastYear};
@@ -161,6 +193,9 @@ public class EventListTest {
 		assertEquals(3, eventList1.getSize());
 	}
 	
+	/**
+	 * Method updateTest.
+	 */
 	@Test
 	public void updateTest() {
 		eventList1.add(nextMonth);
@@ -171,6 +206,9 @@ public class EventListTest {
 		assertEquals("Changed Last Year", eventList1.getElementAt(2).getName());
 	}
 	
+	/**
+	 * Method filterEventHalfInRange.
+	 */
 	@Test
 	public void filterEventHalfInRange() {
 		final EventList events = new EventList();
@@ -183,6 +221,9 @@ public class EventListTest {
 		assertEquals(1, newData.size());
 	}
 	
+	/**
+	 * Method filterEventAroundRange.
+	 */
 	@Test
 	public void filterEventAroundRange() {
 		final EventList events = new EventList();

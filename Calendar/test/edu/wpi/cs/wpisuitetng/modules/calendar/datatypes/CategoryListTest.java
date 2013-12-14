@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
 
+/**
+ */
 public class CategoryListTest {
 
 	private  CategoryList categoryList;
@@ -26,6 +28,9 @@ public class CategoryListTest {
     private Category nextWeek;
     private Category nextYear;
     
+    /**
+     * Method setUp.
+     */
     @Before
     public void setUp() {
     	/*

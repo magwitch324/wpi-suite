@@ -20,6 +20,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ */
 public class CombinedCommitmentListTest {
 	/*
 	 * NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE
@@ -43,6 +45,9 @@ public class CombinedCommitmentListTest {
 	private final Commitment nextMonth  = 
 			new Commitment("Next Month", new GregorianCalendar(2013, DECEMBER, 23, 12, 00, 00),
 					"A commitment for next month", 1, true);
+	/**
+	 * Method setup.
+	 */
 	@Before
 	public void setup() {
 		commitmentList = new ArrayList<Commitment>();
@@ -55,6 +60,9 @@ public class CombinedCommitmentListTest {
 	/*
 	 * Test to ensure addEmptyList works correctly
 	 */
+	/**
+	 * Method addEmptyListTest.
+	 */
 	@Test
 	public void addEmptyListTest() {
 		combinedCommitmentList = new CombinedCommitmentList();
@@ -65,6 +73,9 @@ public class CombinedCommitmentListTest {
 	
 	/*
 	 * Test to ensure addNonEmptyList works correctly
+	 */
+	/**
+	 * Method addNonEmptyListTest.
 	 */
 	@Test
 	public void addNonEmptyListTest() {

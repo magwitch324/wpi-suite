@@ -36,7 +36,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
+/**
+  */
+ @SuppressWarnings("serial")
 public class CalendarObjectPanel extends JPanel {
 	Event event = null;
 	Commitment comm = null;
@@ -289,8 +291,8 @@ public class CalendarObjectPanel extends JPanel {
 	 * Sets the columns spanned
 	 * @param columnspanned the number of columns that this should span
 	
-	 * @return int
-	 */
+	
+	 * @return int */
 	public int setColumnSpan(int columnspanned){
 		return (this.columnspanned = columnspanned);
 	}

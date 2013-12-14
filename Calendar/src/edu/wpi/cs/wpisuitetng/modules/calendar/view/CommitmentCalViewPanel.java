@@ -28,7 +28,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
+/**
+  */
+ @SuppressWarnings("serial")
 public class CommitmentCalViewPanel extends JPanel {
 
 	private final Commitment comm;

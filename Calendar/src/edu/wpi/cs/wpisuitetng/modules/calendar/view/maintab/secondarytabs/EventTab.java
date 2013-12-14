@@ -79,7 +79,9 @@ import javax.swing.ButtonGroup;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-public class EventTab extends JPanel {
+/**
+  */
+ public class EventTab extends JPanel {
 	private GregorianCalendar startDate;
 	private GregorianCalendar oldStartTime;
 	private JTextField nameTextField;
@@ -159,6 +161,7 @@ public class EventTab extends JPanel {
 	
 	
 	/**
+	 * @author Tianci
 	 */
 	private enum EditingMode {
 		ADDING(0),

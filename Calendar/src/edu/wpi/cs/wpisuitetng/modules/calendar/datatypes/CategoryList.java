@@ -106,10 +106,9 @@ public class CategoryList {
 
 
 	el#getElementAt(int) 
-	 * * @see javax.swing.ListModel#getElementAt(int) 
-	 * * @see javax.swing.ListModel#getElementAt(int) 
-	 * * @see javax.swing.ListModel#getElementAt(int) 
-	 * * @see javax.swing.ListModel#getElementAt(int) */
+	 *.ListModel#getElementAt(int) 
+	 * * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) 
+	 * * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) */
 	public Category getElementAt(int index) {
 		return categories.get(categories.size() - 1 - index);
 	}

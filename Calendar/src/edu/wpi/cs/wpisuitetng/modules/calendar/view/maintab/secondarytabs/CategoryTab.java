@@ -47,7 +47,9 @@ import javax.swing.JTextField;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-public class CategoryTab extends JPanel {
+/**
+  */
+ public class CategoryTab extends JPanel {
 
 	private final CategoryList teamCategories;
 	private final CategoryList personalCategories;
@@ -66,6 +68,7 @@ public class CategoryTab extends JPanel {
 	private JTextField textFieldName;
 
 	/**
+	 * @author Tianci
 	 */
 	public enum CategoryMode {
 		ADDING(0),

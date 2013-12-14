@@ -37,7 +37,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-public class FilterTab extends JPanel{
+/**
+  */
+ public class FilterTab extends JPanel{
 
 	private final int openedFrom;
 	private JPanel buttonPanel;
@@ -57,6 +59,7 @@ public class FilterTab extends JPanel{
 	private JButton btnCancelFilter;
 
 	/**
+	 * @author Tianci
 	 */
 	private enum EditingMode {
 		VIEWING(0),
@@ -152,6 +155,9 @@ public class FilterTab extends JPanel{
 		formPanel.add(buttonPanel, gbc_btnPanel);
 	}
 	
+	/**
+	 * Method addButtonPanel2.
+	 */
 	public void addButtonPanel2(){
 		buttonPanel2 = new JPanel(new BorderLayout(30, 0));
 		buttonPanel2.setBackground(Color.WHITE);

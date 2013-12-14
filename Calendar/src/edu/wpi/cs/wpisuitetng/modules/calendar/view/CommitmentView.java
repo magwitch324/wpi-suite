@@ -42,7 +42,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
+/**
+  */
+ @SuppressWarnings("serial")
 public class CommitmentView extends JPanel {
 
 	JPanel commitPanel;

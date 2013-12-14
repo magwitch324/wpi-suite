@@ -74,12 +74,18 @@ import javax.swing.border.LineBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
+/**
+ */
 public class AddEditCategoryPanel extends JPanel {
 
 	private final JTextField textFieldName;
 	private final JRadioButton rdbtnTeam_1;
 	
 
+	/**
+	 * Constructor for AddEditCategoryPanel.
+	 * @param mode CategoryTab.CategoryMode
+	 */
 	public AddEditCategoryPanel(CategoryTab.CategoryMode mode) {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		final Component horizontalGlue = Box.createHorizontalGlue();
@@ -197,10 +203,15 @@ public class AddEditCategoryPanel extends JPanel {
 	 * Color picker class consisting of a 4 x 4 matrix of colors
 	 * 
 	 */
+	/**
+	 */
 	class ColorPickerPanel extends JPanel {
 
 		Color color;
 		ColorBox selectedBox;
+		/**
+		 * Constructor for ColorPickerPanel.
+		 */
 		public ColorPickerPanel() {
 			
 			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -261,8 +272,14 @@ public class AddEditCategoryPanel extends JPanel {
 		/*
 		 * JPanel for each color box
 		 */
+		/**
+		 */
 		private class ColorBox extends JPanel {
 			private final Color boxColor;
+			/**
+			 * Constructor for ColorBox.
+			 * @param color Color
+			 */
 			public ColorBox(Color color)
 			{
 				boxColor = color;

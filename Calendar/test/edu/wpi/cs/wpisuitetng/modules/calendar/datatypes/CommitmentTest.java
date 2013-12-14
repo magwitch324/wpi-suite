@@ -18,6 +18,8 @@ import org.junit.Test;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 
+/**
+ */
 public class CommitmentTest {
 	// did not test save(),delete(),toJSON(),fromJsonArray(String),identify(Object)
 	// I suspect that the untested functions are unnecessary

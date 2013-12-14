@@ -107,10 +107,9 @@ public class FilterList {
 
 
 	el#getElementAt(int) 
-	 * * @see javax.swing.ListModel#getElementAt(int) 
-	 * * @see javax.swing.ListModel#getElementAt(int) 
-	 * * @see javax.swing.ListModel#getElementAt(int)
-	 *  * @see javax.swing.ListModel#getElementAt(int) */
+	 *istModel#getElementAt(int)
+	 *  * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int)
+	 *  * @see javax.swing.ListModel#getElementAt(int) * @see javax.swing.ListModel#getElementAt(int) */
 	public Filter getElementAt(int index) {
 		return filters.get(filters.size() - 1 - index);
 	}

@@ -21,12 +21,17 @@ import javax.swing.ListCellRenderer;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 
+/**
+ */
 public class CategoryComboBoxRenderer extends JLabel implements
 		ListCellRenderer<Category> {
 
 	private BufferedImage colorImage;
 	private ImageIcon colorIcon;
 	
+	/**
+	 * Constructor for CategoryComboBoxRenderer.
+	 */
 	public CategoryComboBoxRenderer(){
 		setOpaque(true);
 		setHorizontalAlignment(LEFT);
@@ -35,6 +40,12 @@ public class CategoryComboBoxRenderer extends JLabel implements
 	
 	/**
 	 * Paints the component
+	 * @param list JList<? extends Category>
+	 * @param value Category
+	 * @param index int
+	 * @param isSelected boolean
+	 * @param cellHasFocus boolean
+	 * @return Component
 	 */
 	@Override
 	public Component getListCellRendererComponent(JList<? extends Category> list,

@@ -82,7 +82,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
+/**
+  */
+ @SuppressWarnings("serial")
 public class CommitmentTab extends JPanel {
 	
 	// Main panel for everything.
@@ -142,6 +144,7 @@ public class CommitmentTab extends JPanel {
 	private Component glue_1;
 	
 	/**
+	 * @author Tianci
 	 */
 	public enum EditingMode {
 		ADDING,
@@ -149,6 +152,7 @@ public class CommitmentTab extends JPanel {
 	}
 	
 	/**
+	 * @author Tianci
 	 */
 	public enum enumTimeSpinner {
 		HOUR,
@@ -1554,6 +1558,8 @@ public class CommitmentTab extends JPanel {
 		}
 	}
 	
+	/**
+	 */
 	class SpinnerUI extends BasicSpinnerUI  {
 		protected Component createNextButton()  
 		  {  
