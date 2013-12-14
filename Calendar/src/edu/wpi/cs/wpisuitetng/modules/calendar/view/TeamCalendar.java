@@ -24,6 +24,7 @@ import javax.swing.SpringLayout;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
@@ -64,6 +65,7 @@ public class TeamCalendar extends AbCalendar {
 		layout.putConstraint(SpringLayout.WEST, filter, 30, SpringLayout.EAST, datapanel);
 		layout.putConstraint(SpringLayout.EAST, filter, -5, SpringLayout.EAST, this);
 		filter.setMaximumSize(new Dimension(200, 20));
+		filter.setBackground(CalendarStandard.CalendarYellow);
 		this.add(filter);
 
 		layout.putConstraint(SpringLayout.WEST, viewpanel, 5, SpringLayout.WEST, this);
@@ -103,6 +105,7 @@ public class TeamCalendar extends AbCalendar {
 	}
 
 	public void updateCalData() {
+		boolean startup = false;
 		if(!initialized){
 			if (CalendarDataModel.getInstance().getCalendarData(
 					ConfigManager.getConfig().getProjectName()) == null) {
@@ -110,7 +113,7 @@ public class TeamCalendar extends AbCalendar {
 						.getConfig().getProjectName());
 				CalendarDataModel.getInstance().addCalendarData(createdCal);
 			}
-			
+			startup = true;
 			initialized = true;
 		}
 		calData = CalendarDataModel.getInstance().getCalendarData(
@@ -118,6 +121,11 @@ public class TeamCalendar extends AbCalendar {
 		
 		setCommEventList();
 		setView();
+		if(startup){
+			//used to check for and remove old data. runs only on startup
+			calData.removeYearOld();
+			UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+		}
 		//		displayCalData();
 
 	}

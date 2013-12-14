@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
 import org.eclipse.jdt.internal.compiler.batch.Main;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdatePropsController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 //import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
@@ -71,6 +72,7 @@ public class GUIEventController {
 				@Override
 				public void run() {
 					GUIEventController.getInstance().saveProps();
+					
 				}
 			});
 
@@ -88,7 +90,19 @@ public class GUIEventController {
 		final CalendarProps calProps = CalendarPropsModel.getInstance().getCalendarProps(
 				ConfigManager.getConfig().getProjectName() + "-"
 						+ ConfigManager.getConfig().getUserName() + "-PROPS");
-		UpdatePropsController.getInstance().updateCalendarProps(calProps);
+		if(calProps != null){
+			UpdatePropsController.getInstance().updateCalendarProps(calProps);
+		}
+	}
+	/**
+	 * Called on Janeway shutdown to remove year old items
+	 */
+	public void removeYearOld(){
+		//teamCalendar.saveProps();
+		//myCalendar.saveProps();
+		//commitFullView.saveProps();
+		
+		
 	}
 
 	/**

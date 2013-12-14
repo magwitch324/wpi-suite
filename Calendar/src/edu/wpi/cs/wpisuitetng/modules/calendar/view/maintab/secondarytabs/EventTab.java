@@ -140,6 +140,7 @@ public class EventTab extends JPanel {
 	private int endTempMin = 1;
 	private int endTempHour = 1;
 	private int openedFrom;
+	private Category uncategorized;
 	
 	
 	
@@ -295,6 +296,9 @@ public class EventTab extends JPanel {
 		//Create category box, add two dummy categories
 		categoryComboBox = new JComboBox<Category>();
 		categoryComboBox.setBackground(CalendarStandard.CalendarYellow);
+		uncategorized = new Category("Uncategorized", Color.WHITE, false);
+		uncategorized.setID(0);
+		categoryComboBox.addItem(uncategorized);
 
 		final GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
 		gbc_categoryComboBox.gridwidth = 3;
@@ -832,11 +836,11 @@ public class EventTab extends JPanel {
 					
 					checkStartDatePickerStatus();
 					checkSaveBtnStatus();
-					checkEndBeforeStart();
+					setEndDateOnStartDateChange();
 				} catch (ParseException e1) {
 					checkStartDatePickerStatus();
 					checkSaveBtnStatus();
-					checkEndBeforeStart();
+					setEndDateOnStartDateChange();
 				}
 
 			}
@@ -855,9 +859,12 @@ public class EventTab extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				checkSaveBtnStatus();
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+					checkStartDatePickerStatus();
+					checkSaveBtnStatus();
+					setEndDateOnStartDateChange();
+				}
 			}
-
 		});
 		
 		startDatePicker.getEditor().addKeyListener(new KeyAdapter() {
@@ -892,7 +899,7 @@ public class EventTab extends JPanel {
 				// TODO Auto-generated method stub
 				checkStartDatePickerStatus();
 				checkSaveBtnStatus();
-				checkEndBeforeStart();
+				setEndDateOnStartDateChange();
 			}
 		});
 	
@@ -1190,8 +1197,6 @@ public class EventTab extends JPanel {
 		
 	}
 	
-	
-	
 	private void addEndTimeSpinnerListeners() {
 		endHourEditor.getTextField().addFocusListener(new FocusListener() {
 
@@ -1396,7 +1401,10 @@ public class EventTab extends JPanel {
 		}
 	}
 
-
+	protected void setEndDateOnStartDateChange() {
+		setEndDate(getStartDate());
+	}
+	
 	/**
 	 * Method updateEndTime.
 	 */
