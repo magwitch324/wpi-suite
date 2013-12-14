@@ -1406,7 +1406,9 @@ import javax.swing.ButtonGroup;
 	protected void checkEndBeforeStart() {
 		if(initFlag){
 		if(getEndDate().getTime().before(getStartDate().getTime()))
-				{setEndDate(getStartDate());}
+				{
+			setEndDate(getStartDate());
+			}
 		}
 	}
 	
@@ -1581,9 +1583,13 @@ import javax.swing.ButtonGroup;
 		
 		
 		if(!editingEvent.getIsPersonal())
-			{rdbtnTeam.setSelected(true);}
+			{
+			rdbtnTeam.setSelected(true);
+			}
 		else
-			{rdbtnPersonal.setSelected(true);}
+			{
+			rdbtnPersonal.setSelected(true);
+			}
 		
 		
 		rdbtnTeam.setEnabled(false);
@@ -1883,9 +1889,13 @@ import javax.swing.ButtonGroup;
 
 
 			if (mode == EditingMode.ADDING)
-				{calData.addRepeatingEvent(newRepEvent);}
+				{
+				calData.addRepeatingEvent(newRepEvent);
+				}
 			else
-				{calData.getRepeatingEvents().update(newRepEvent);}
+				{
+				calData.getRepeatingEvents().update(newRepEvent);
+				}
 
 			UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 
@@ -1900,7 +1910,9 @@ import javax.swing.ButtonGroup;
 				newEvent = new Event();
 			}
 			else
-				{newEvent = editingEvent;}
+				{
+				newEvent = editingEvent;
+				}
 
 			if(isTeamEvent){
 				newEvent.setIsPersonal(false);
@@ -1926,9 +1938,13 @@ import javax.swing.ButtonGroup;
 			newEvent.setName(nameTextField.getText());
 
 			if (mode == EditingMode.ADDING)
-				{calData.addEvent(newEvent);}
+				{
+				calData.addEvent(newEvent);
+				}
 			else
-				{calData.getEvents().update(newEvent);}
+				{
+				calData.getEvents().update(newEvent);
+				}
 
 			UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 

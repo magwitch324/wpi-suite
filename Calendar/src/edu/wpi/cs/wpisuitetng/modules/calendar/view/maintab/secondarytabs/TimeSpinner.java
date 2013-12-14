@@ -85,34 +85,46 @@ public class TimeSpinner extends JSpinner {
 			fallBackValueInt = Integer.parseInt(editor.getTextField().getText());
 			if (upArrowAction) {
 				if (fallBackValueInt == 12)
-					{fallBackValueInt = 1;}
+					{
+					fallBackValueInt = 1;
+					}
 				else {
 					fallBackValueInt++;
 				}
 			}
 			else if (downArrowAction)
-				{if (fallBackValueInt == 1)
-					{fallBackValueInt = 12;}
+				{
+				if (fallBackValueInt == 1)
+					{
+					fallBackValueInt = 12;
+					}
 				else {
 					fallBackValueInt--;
-				}}
+				}
+				}
 			break;
 		case MINUTE:
 			fallBackValueInt = Integer.parseInt(editor.getTextField().getText());
 			System.out.println("before increment tempMin" + fallBackValueInt);
 			if (upArrowAction) {
 				if (fallBackValueInt == 59)
-					{fallBackValueInt = 0;}
+					{
+					fallBackValueInt = 0;
+					}
 				else {
 					fallBackValueInt++;
 				}
 			}
 			else if (downArrowAction)
-				{if (fallBackValueInt == 0)
-					{fallBackValueInt = 59;}
+				{
+				if (fallBackValueInt == 0)
+					{
+					fallBackValueInt = 59;
+					}
 				else {
 					fallBackValueInt--;
-				}}
+				}
+				}
 			break;
 		case AMPM:
 			fallBackValueStr = editor.getTextField().getText();

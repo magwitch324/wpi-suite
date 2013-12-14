@@ -386,11 +386,17 @@ public class CommitmentFullView extends JPanel{
 					@Override 
 					public int compare(Commitment c1, Commitment c2) {
 						if(c1.getDueDate().before(c2.getDueDate()))
-							{return -1;}
+							{
+							return -1;
+							}
 						else if(c1.getDueDate().after(c2.getDueDate())) 
-							{return 1;}
+							{
+							return 1;
+							}
 						else
-							{return 0;}
+							{
+							return 0;
+							}
 					}
 				});
 				if(datesort == 1){
@@ -594,8 +600,10 @@ public class CommitmentFullView extends JPanel{
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					if (e.getClickCount() >= 1)
-						{GUIEventController.getInstance().editCommitment(
-								((CommitmentViewPanel)e.getComponent()).getCommitment());}
+						{
+						GUIEventController.getInstance().editCommitment(
+								((CommitmentViewPanel)e.getComponent()).getCommitment());
+						}
 				}
 			});
 

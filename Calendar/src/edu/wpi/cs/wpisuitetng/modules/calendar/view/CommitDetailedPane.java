@@ -41,7 +41,9 @@ public class CommitDetailedPane extends JPanel {
 	public CommitDetailedPane(GregorianCalendar adate, List<Commitment> commits){
 		this.setLayout(new SpringLayout());
 		this.addComponentListener(new ComponentListener() {
-		    public void componentResized(ComponentEvent e) {didResize();}
+		    public void componentResized(ComponentEvent e) {
+		    	didResize();
+		    	}
 	
 			@Override
 			public void componentMoved(ComponentEvent e) {}
@@ -103,7 +105,9 @@ public class CommitDetailedPane extends JPanel {
 				int pos = cal.get(Calendar.HOUR_OF_DAY) * 2;
 				pos += (cal.get(Calendar.MINUTE) == 30) ? 1 : 0;
 				if (halfBlocks[pos] == null)
-					{halfBlocks[pos] = new HalfHourBlock(pos);}
+					{
+					halfBlocks[pos] = new HalfHourBlock(pos);
+					}
 				halfBlocks[pos].addTeamCommitment(comm);
 			}
 			

@@ -224,19 +224,25 @@ public class CommitmentView extends JPanel {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						if (e.getClickCount() >= 1)
-							{GUIEventController.getInstance().editCommitment(
-									((CommitmentViewPanel)e.getComponent()).getCommitment());}
+							{
+							GUIEventController.getInstance().editCommitment(
+									((CommitmentViewPanel)e.getComponent()).getCommitment());
+							}
 					}
 				});
 
 				commPanelList.add(n, commitmentPanel);
 				commitmentPanel.setMaximumSize(new Dimension(2000, 100));
 				if(n > 0)
-					{commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 
-							1, SpringLayout.SOUTH, commPanelList.get(n - 1));}
+					{
+					commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 
+							1, SpringLayout.SOUTH, commPanelList.get(n - 1));
+					}
 				else
-					{commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 
-							0, SpringLayout.NORTH, commitPanel);}
+					{
+					commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 
+							0, SpringLayout.NORTH, commitPanel);
+					}
 
 				commPanelLayout.putConstraint(SpringLayout.WEST, commitmentPanel, 
 						0, SpringLayout.WEST, commitPanel);
@@ -255,8 +261,10 @@ public class CommitmentView extends JPanel {
 
 				commitPanel.add(separator);
 				if (n == commitmentList.size() - 1)
-					{commPanelLayout.putConstraint(
-							SpringLayout.SOUTH, commitPanel, 0, SpringLayout.SOUTH, separator);}
+					{
+					commPanelLayout.putConstraint(
+							SpringLayout.SOUTH, commitPanel, 0, SpringLayout.SOUTH, separator);
+					}
 
 				n++;
 			}

@@ -232,9 +232,13 @@ public class CommitmentTab extends JPanel {
 		categoryComboBox.setSelectedItem(editingCommitment.getCategoryID());
 		
 		if(!editingCommitment.getIsPersonal())
-			{rdbtnTeam.setSelected(true);}
+			{
+			rdbtnTeam.setSelected(true);
+			}
 		else
-			{rdbtnPersonal.setSelected(true);}
+			{
+			rdbtnPersonal.setSelected(true);
+			}
 		
 		rdbtnTeam.setEnabled(false);
 		rdbtnPersonal.setEnabled(false);
@@ -811,9 +815,13 @@ public class CommitmentTab extends JPanel {
 			+ "Error is : " + lblTimeError.isVisible() + "last input is " + lastInput);
 				
 				if(tempHour < 10)
-					{hourEditor.getTextField().setText("0" + Integer.toString(tempHour));}
+					{
+					hourEditor.getTextField().setText("0" + Integer.toString(tempHour));
+					}
 				else
-					{hourEditor.getTextField().setText(Integer.toString(tempHour));}
+					{
+					hourEditor.getTextField().setText(Integer.toString(tempHour));
+					}
 				
 				System.out.println("ActionPerformed. refresh text field, tempHour is "
 				+ tempHour  + "  and text field is " + hourEditor.getTextField().getText() 
@@ -840,9 +848,13 @@ public class CommitmentTab extends JPanel {
 					hourEditor.getTextField().commitEdit();
 					//Possibly fall back
 					if(tempHour < 10)
-						{hourEditor.getTextField().setText("0" + Integer.toString(tempHour));}
+						{
+						hourEditor.getTextField().setText("0" + Integer.toString(tempHour));
+						}
 					else
-						{hourEditor.getTextField().setText(Integer.toString(tempHour));}
+						{
+						hourEditor.getTextField().setText(Integer.toString(tempHour));
+						}
 					
 					checkSaveBtnStatus();
 				} catch (ParseException e1) {
@@ -895,9 +907,13 @@ public class CommitmentTab extends JPanel {
 			+ "Error is : " + lblTimeError.isVisible());
 				
 				if(tempMin < 10)
-					{minuteEditor.getTextField().setText("0" + Integer.toString(tempMin));}
+					{
+					minuteEditor.getTextField().setText("0" + Integer.toString(tempMin));
+					}
 				else
-					{minuteEditor.getTextField().setText(Integer.toString(tempMin));}
+					{
+					minuteEditor.getTextField().setText(Integer.toString(tempMin));
+					}
 				
 				System.out.println("ActionPerformed. refresh text field, tempHour is "
 				+ tempHour  + "  and text field is " + hourEditor.getTextField().getText()
@@ -920,9 +936,13 @@ public class CommitmentTab extends JPanel {
 					minuteEditor.getTextField().commitEdit();
 					//Possibly fall back
 					if(tempMin < 10)
-						{minuteEditor.getTextField().setText("0" + Integer.toString(tempMin));}
+						{
+						minuteEditor.getTextField().setText("0" + Integer.toString(tempMin));
+						}
 					else
-						{minuteEditor.getTextField().setText(Integer.toString(tempMin));}
+						{
+						minuteEditor.getTextField().setText(Integer.toString(tempMin));
+						}
 					checkSaveBtnStatus();
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
@@ -964,9 +984,13 @@ public class CommitmentTab extends JPanel {
 				checkTimeSpinnerStatus(minuteSpinner, enumTimeSpinner.MINUTE);
 				refreshTemp(enumTimeSpinner.MINUTE);
 				if(Integer.parseInt(minuteEditor.getTextField().getText()) > 59)
-					{hourFlag = true;}
+					{
+					hourFlag = true;
+					}
 				else
-					{hourFlag = false;}
+					{
+					hourFlag = false;
+					}
 
 				
 				System.out.println("curent text after check" + 
@@ -997,9 +1021,13 @@ public class CommitmentTab extends JPanel {
 			+ tempHour  + "  and text field is " + hourEditor.getTextField().getText());
 				
 				if(tempMin < 10)
-					{minuteEditor.getTextField().setText("0" + Integer.toString(tempMin));}
+					{
+					minuteEditor.getTextField().setText("0" + Integer.toString(tempMin));
+					}
 				else
-					{minuteEditor.getTextField().setText(Integer.toString(tempMin));}
+					{
+					minuteEditor.getTextField().setText(Integer.toString(tempMin));
+					}
 				
 				System.out.println("ActionPerformed. refresh text field, tempHour is "
 				+ tempHour  + "  and text field is " + hourEditor.getTextField().getText());
@@ -1070,34 +1098,46 @@ public class CommitmentTab extends JPanel {
 			tempHour = Integer.parseInt(hourEditor.getTextField().getText());
 			if (upArrowAction) {
 				if (tempHour == 12)
-					{tempHour = 1;}
+					{
+					tempHour = 1;
+					}
 				else {
 					tempHour++;
 				}
 			}
 			else if (downArrowAction)
-				{if (tempHour == 1)
-					{tempHour = 12;}
+				{
+				if (tempHour == 1)
+					{
+					tempHour = 12;
+					}
 				else {
 					tempHour--;
-				}}
+				}
+				}
 			break;
 		case MINUTE:
 			tempMin = Integer.parseInt(minuteEditor.getTextField().getText());
 			System.out.println("before increment tempMin" + tempMin);
 			if (upArrowAction) {
 				if (tempMin == 59)
-					{tempMin = 0;}
+					{
+					tempMin = 0;
+					}
 				else {
 					tempMin++;
 				}
 			}
 			else if (downArrowAction)
-				{if (tempMin == 0)
-					{tempMin = 59;}
+				{
+				if (tempMin == 0)
+					{
+					tempMin = 59;
+					}
 				else {
 					tempMin--;
-				}}
+				}
+				}
 			break;
 		case AMPM:
 			tempAMPM = AMPMEditor.getTextField().getText();
@@ -1257,7 +1297,9 @@ public class CommitmentTab extends JPanel {
 			newComm = new Commitment();
 		}
 		else
-			{newComm = editingCommitment;}
+			{
+			newComm = editingCommitment;
+			}
 		
 		if(isTeamComm){
 			newComm.setIsPersonal(false);
@@ -1343,7 +1385,9 @@ public class CommitmentTab extends JPanel {
 			
 		}
 		else
-			{calData.getCommitments().update(newComm);}
+			{
+			calData.getCommitments().update(newComm);
+			}
 
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 

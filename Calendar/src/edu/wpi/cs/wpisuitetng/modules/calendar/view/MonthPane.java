@@ -138,7 +138,9 @@ public class MonthPane extends JScrollPane implements ICalPane {
 					label[i].setText(text[0][i]);
 					if (label[i].getPreferredSize().getWidth() > label[i]
 							.getParent().getSize().getWidth())
-						{toobig = true;}
+						{
+						toobig = true;
+						}
 				}
 				if (toobig) {
 					for (int i = 0; i < 7; i++) {
