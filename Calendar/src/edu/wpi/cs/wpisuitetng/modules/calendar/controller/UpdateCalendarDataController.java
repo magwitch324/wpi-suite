@@ -22,7 +22,8 @@ import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
  * calendarData.
  * @author Tianci
  * @version $Revision: 1.0 $
- */
+*/
+
 public class UpdateCalendarDataController{
 	
 	private static UpdateCalendarDataController instance;

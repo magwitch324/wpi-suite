@@ -13,11 +13,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
-
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+/**
+ * List of category is design for the users to
+ * be able to create their own category.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
 public class CategoryList {
 
 	/**
@@ -33,7 +34,7 @@ public class CategoryList {
 	 */
 	public CategoryList (){
 		categories = new ArrayList<Category>();
-		nextID = 1;
+		nextID = 1; // ID of zero is for no category
 	}
 
 

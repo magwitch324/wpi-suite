@@ -17,13 +17,14 @@ import com.google.gson.Gson;
 import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 
 
-
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+/**
+ * Category is used for filtering events and commitments.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
 public class Category extends AbstractModel implements Comparator<Category>{
 
-	/** the ID of the category */
+	/** the ID of the category, if the ID is zero it is treated as null */
 	private int id;
 
 	/** the name of the category */

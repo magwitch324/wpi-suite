@@ -12,9 +12,11 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+/**
+ * Main data storage class for commitment.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
 public class Commitment extends CalendarObject implements
 		Comparable<Commitment> {
 
