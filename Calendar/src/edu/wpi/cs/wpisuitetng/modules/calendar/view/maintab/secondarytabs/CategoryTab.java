@@ -239,10 +239,11 @@ import javax.swing.JTextField;
 		}
 		
 		// CategoryPanel to keep track of spring layout constraints of previously added panel
-		CategoryPanel oldCatPanel = new CategoryPanel(); 
+		JPanel oldCatPanel = new CategoryPanel(); 
+		JPanel catPanel = new CategoryPanel();
 		for(int i = 0; i < catList.size(); i++)
 		{
-			CategoryPanel catPanel = new CategoryPanel(catList.get(i));
+			catPanel = new CategoryPanel(catList.get(i));
 			//If first panel, add to top of list panel
 			if (i == 0)
 			{
@@ -268,6 +269,8 @@ import javax.swing.JTextField;
 			
 			oldCatPanel = catPanel; //update oldCatPanel to be previously added panel
 		}
+		
+		categoryListLayout.putConstraint(SpringLayout.SOUTH, categoryListPanel, 0, SpringLayout.SOUTH, catPanel);
 		
 		
 	}
@@ -307,9 +310,8 @@ import javax.swing.JTextField;
 		categoryListPanel.removeAll();
 		populateCategoryList();
 		categoryListPanel.revalidate();
-		categoryListPanel.repaint();	
-//		scrollPane.revalidate();
-//		scrollPane.repaint();
+		categoryListPanel.repaint();
+
 	}
 
 
