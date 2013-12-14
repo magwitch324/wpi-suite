@@ -3,76 +3,38 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
-import java.awt.Graphics;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
-
-import javax.swing.Box;
-import javax.swing.ButtonGroup;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax/**
- * @author sfp
- *
- */
-/**
- * @author sfp
- *
- */
-/**
- * @author sfp
- *
- */
-/**
- * @author sfp
- *
- */
-/**
- * @author sfp
- *
- */
-/**
- * @author sfp
- *
- */
-/**
- * @author sfp
- *
- */
-/**
- * @author sfp
- *
- */
-/**
- * @author sfp
- *
- */
-.swing.JTextField;
-import javax.swing.JToggleButton;
-
 import java.awt.GridLayout;
-
-import javax.swing.JButton;
-
-import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.border.EmptyBorder;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentViewPanel;
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 public class AddEditCategoryPanel extends JPanel {
 
 	private JTextField textFieldName;
-	private JRadioButton rdbtnTeam_1;
+	private JRadioButton rdbtnTeam;
+	ColorPickerPanel colorPickerPanel;
 	
 
 	public AddEditCategoryPanel(CategoryTab.CategoryMode mode) {
@@ -125,9 +87,9 @@ public class AddEditCategoryPanel extends JPanel {
 		
 		final ButtonGroup teamPersonalRadioButtons = new ButtonGroup();
 		
-		rdbtnTeam_1 = new JRadioButton("Team");
-		horizontalBox.add(rdbtnTeam_1);
-		teamPersonalRadioButtons.add(rdbtnTeam_1);
+		rdbtnTeam = new JRadioButton("Team");
+		horizontalBox.add(rdbtnTeam);
+		teamPersonalRadioButtons.add(rdbtnTeam);
 		
 		JRadioButton rdbtnPersonal = new JRadioButton("Personal");
 		horizontalBox.add(rdbtnPersonal);
@@ -141,7 +103,7 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_lblColor.gridy = 2;
 		addEditFormPanel.add(lblColor, gbc_lblColor);
 		
-		ColorPickerPanel colorPickerPanel = new ColorPickerPanel();
+		colorPickerPanel = new ColorPickerPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.insets = new Insets(0, 0, 5, 0);
 		gbc_panel.fill = GridBagConstraints.BOTH;
@@ -168,10 +130,7 @@ public class AddEditCategoryPanel extends JPanel {
 				int tabIndex = GUIEventController.getInstance().getMainView().getSelectedIndex();
 				GUIEventController.getInstance().getMainView().setComponentAt(tabIndex, new CategoryTab());
 			}
-			
-			
 		});
-		
 		
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		horizontalBox_1.add(horizontalStrut);
@@ -179,13 +138,55 @@ public class AddEditCategoryPanel extends JPanel {
 		JButton btnSave = new JButton("Save");
 		horizontalBox_1.add(btnSave);
 		
-		
-		
+		// Action listener for save button 
+		btnSave.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addCategory();
+			}
+		});
+				
 		Component horizontalGlue_1 = Box.createHorizontalGlue();
 		add(horizontalGlue_1);
 		if(mode == CategoryTab.CategoryMode.EDITING);
 	}
 
+	
+	/**
+	 * Adds new category with information contained in fields
+	 */
+	private void addCategory() {
+
+		CalendarData calData;
+		
+		// Name
+		String name = textFieldName.getText();
+		
+		// Team/Personal
+		boolean isPersonal;
+		
+		if (!rdbtnTeam.isSelected()){
+			calData = CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName() + 
+					"-" + ConfigManager.getConfig().getUserName()); 
+			isPersonal = true;
+		}
+		else{
+			calData = CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName()); 
+			isPersonal = false;
+		}
+		
+		// Color
+		Color catColor = colorPickerPanel.getColor();	
+		
+		// Creates and adds new category
+		Category newCat = new Category(name, catColor, isPersonal);
+		calData.addCategory(newCat);
+		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+	}
+	
 	
 	/*
 	 * Color picker class consisting of a 4 x 4 matrix of colors
