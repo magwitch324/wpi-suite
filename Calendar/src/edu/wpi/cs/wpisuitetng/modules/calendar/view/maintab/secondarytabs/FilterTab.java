@@ -14,11 +14,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -34,6 +37,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab.EditingMode;
 
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
@@ -48,10 +52,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 	private JPanel buttonPanel;
 	private JButton btnAddFilter;
 	private AbstractButton btnCancel;
-	private final Container viewPanel;
+	private Container viewPanel;
 	private JButton btnDelete;
-	private Component btnEdit;
-	private Component btnNewFilter;
+	private JButton btnEdit;
+	private JButton btnNewFilter;
 	private boolean initFlag;
 	private JScrollPane scrollPane;
 	private Component categoryList;
@@ -63,16 +67,19 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 	private JPanel editPanel;
 	private JButton addCategoryBttn;
 	private JButton moveCategoryBttn;
+	private JPanel moveCatBttnPanel;
+	private JButton addCatBttn;
+	private JButton removeCatBttn;
+	private JPanel catBttnPanel;
+	private FilterMode mode;
 
-	/**
-	 * @author Tianci
-	 */
-	private enum EditingMode {
-		VIEWING(0),
-		EDITING(1);
+	private enum FilterMode {
+		ADDING(0),
+		EDITING(1),
+		VIEWING(2);
 		private final int currentMode;
 		
-		private EditingMode(int currentMode) {
+		private FilterMode(int currentMode) {
 			this.currentMode = currentMode;
 		}
 	}
@@ -83,6 +90,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 	public FilterTab(int openedFrom) {
 		this.openedFrom = openedFrom;
 		initFlag = false;
+		mode = FilterMode.VIEWING;
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0};
@@ -91,6 +99,17 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		gridBagLayout.rowWeights = new double[]{0.0};
 		setLayout(gridBagLayout);
 
+		addFilterList();
+		addListeners();
+		//editFilterMode();
+		initFlag = true;
+		}
+	
+	/**
+	 * Method FilterList.
+	 */
+	public void addFilterList(){
+		
 		//final JPanel aPanel = new JPanel();
 		viewPanel = new JPanel();
 		viewPanel.setBackground(Color.WHITE);
@@ -103,30 +122,17 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		gbl.rowHeights = new int[] {0, 0, 0};
 		gbl.columnWidths = new int[] {0};
 		viewPanel.setLayout(gbl);
-		
+				
 		final GridBagConstraints constraints = new GridBagConstraints();
 		constraints.weightx = 1;
 		constraints.gridx = 0;
 		constraints.weighty = 1;
 		constraints.fill = GridBagConstraints.BOTH;
-		add(viewPanel, constraints);		
+		add(viewPanel, constraints);	
 		
-		/*addLabels();
-		addEditableElements();
-		setDefaultValuesForEditableElements();
-		addEditableElementsListeners();*/
-		addFilterList();
-		//editingMode();
-		initFlag = true;
-		}
-	
-	/**
-	 * Method FilterList.
-	 */
-	public void addFilterList(){
 		scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.getViewport().setBackground(CalendarStandard.CalendarYellow);
+		scrollPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
@@ -148,12 +154,14 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		viewPanel.add(filterList, gbc_filterList);
 		
 		addButtonPanel();
+		this.repaint();
+		this.revalidate();
 	}
 	
 	/**
 	 * Method editingMode.
 	 */
-	public void editingFilterMode(){
+	public void editFilterMode(){
 		
 		editPanel = new JPanel();
 		editPanel.setBackground(Color.WHITE);
@@ -222,7 +230,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		editPanel.add(filterName, gbc_filterName);
 		
 		inactiveFilterPane = new JScrollPane();
-		inactiveFilterPane.getViewport().setBackground(CalendarStandard.CalendarYellow);
+		inactiveFilterPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_inactiveFilter = new GridBagConstraints();
 		gbc_inactiveFilter.fill = GridBagConstraints.BOTH;
 		gbc_inactiveFilter.insets = new Insets(5, 0, 5, 15);
@@ -232,7 +240,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		editPanel.add(inactiveFilterPane, gbc_inactiveFilter);
 		
 		activeFilterPane = new JScrollPane();
-		activeFilterPane.getViewport().setBackground(CalendarStandard.CalendarYellow);
+		activeFilterPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_activeFilter = new GridBagConstraints();
 		gbc_activeFilter.fill = GridBagConstraints.BOTH;
 		gbc_activeFilter.insets = new Insets(5, 0, 5, 15);
@@ -241,17 +249,48 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		gbc_activeFilter.gridy = 3;
 		editPanel.add(activeFilterPane, gbc_activeFilter);
 		
-		moveCategoryBttn = new JButton();
-		moveCategoryBttn.setText("Move Category");
-		final GridBagConstraints gbc_moveCategory = new GridBagConstraints();
-		gbc_moveCategory.fill = GridBagConstraints.BOTH;
-		gbc_moveCategory.anchor = GridBagConstraints.CENTER;
-		gbc_moveCategory.insets = new Insets(5, 0, 5, 0);
-		gbc_moveCategory.gridx = 2;
-		gbc_moveCategory.gridy = 2;
-		editPanel.add(moveCategoryBttn, gbc_moveCategory);
+		catBttnPanel = new JPanel(new BorderLayout(20, 0));
+		catBttnPanel.setBackground(Color.WHITE);
+		final GridBagConstraints gbc_catBttnPanel = new GridBagConstraints();
+		gbc_catBttnPanel.anchor = GridBagConstraints.CENTER;
+		gbc_catBttnPanel.insets = new Insets(5, 0, 5, 0);
+		gbc_catBttnPanel.gridx = 2;
+		gbc_catBttnPanel.gridy = 2;
+		
+		//Add Category to Filter button
+		addCatBttn = new JButton();
+		try {
+			final Image img = ImageIO.read(getClass().getResource("GreenArrowDown_Icon.png"));
+			addCatBttn.setIcon(new ImageIcon(img));
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			addCatBttn.setIcon(new ImageIcon());
+		}
+//		addCatBttn.setText("Add Category");
+		addCatBttn.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
+		
+		
+		//Remove Category from Filter button
+		removeCatBttn = new JButton();
+		try {
+			final Image img = ImageIO.read(getClass().getResource("RedArrowUp_Icon.png"));
+			removeCatBttn.setIcon(new ImageIcon(img));
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			removeCatBttn.setIcon(new ImageIcon());
+		}
+//		removeCatBttn.setText("Remove Category");
+		removeCatBttn.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
+		
+		catBttnPanel.add(addCatBttn, BorderLayout.WEST);
+		catBttnPanel.add(removeCatBttn, BorderLayout.EAST);
+		editPanel.add(catBttnPanel, gbc_catBttnPanel);
 		
 		addButtonPanel2();
+		this.repaint();
+		this.revalidate();
 	}
 
 private void addButtonPanel(){
@@ -264,31 +303,44 @@ private void addButtonPanel(){
 		gbc_btnPanel.gridy = 2;
 		
 		//New Filter button
+		btnNewFilter = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("New_Icon.png"));
-			btnNewFilter = new JButton("New Filter", new ImageIcon(img));
+			btnNewFilter.setIcon(new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			btnCancel.setText("New Filter");
+			btnNewFilter.setIcon(new ImageIcon());
 		}
-
+		btnNewFilter.setText("New Filter");
+		btnNewFilter.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button	
+		
 		//Add Edit button
+		btnEdit = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Edit_Icon.png"));
-			btnEdit = new JButton("Edit Filter", new ImageIcon(img));
+			btnEdit.setIcon(new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-		btnCancel.setText("Edit Filter");
+			btnEdit.setIcon(new ImageIcon());
 		}
+		btnEdit.setText("Edit Filter");
+		btnEdit.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
+		
 		
 		// Add Delete Button
+		btnDelete = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
-			btnDelete = new JButton("Delete Filter", new ImageIcon(img));
+			btnDelete.setIcon(new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			btnDelete.setText("Delete Filter");
+			btnDelete.setIcon(new ImageIcon());
 		}
+		btnDelete.setText("Delete Filter");
+		btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
 			
 		buttonPanel.add(btnNewFilter, BorderLayout.WEST);
 		buttonPanel.add(btnEdit, BorderLayout.CENTER);
@@ -307,26 +359,64 @@ private void addButtonPanel(){
 		gbc_btnPanel2.gridy = 4;
 		
 		//New Save button
+		btnSaveFilter = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Save_Icon.png"));
-			btnSaveFilter = new JButton("Save Filter", new ImageIcon(img));
+			btnSaveFilter.setIcon(new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			btnCancel.setText("Save Filter");
+			btnSaveFilter.setIcon(new ImageIcon());
 		}
+		btnSaveFilter.setText("Save Filter");
+		btnSaveFilter.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
 		
 		//New Cancel button
+		btnCancelFilter = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
-			btnCancelFilter = new JButton("Cancel", new ImageIcon(img));
+			btnCancelFilter.setIcon(new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			btnCancel.setText("Cancel");
+			btnCancelFilter.setIcon(new ImageIcon());
 		}
+		btnCancelFilter.setText("Cancel");
+		btnCancelFilter.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
 		
 		buttonPanel2.add(btnSaveFilter, BorderLayout.WEST);
 		buttonPanel2.add(btnCancelFilter, BorderLayout.EAST);
 		// Set the horizontal gap
 		editPanel.add(buttonPanel2, gbc_btnPanel2);
+	}
+	
+	public void addListeners(){
+		btnNewFilter.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				editFilterMode();
+				mode = FilterMode.ADDING;
+			}
+		});
+		
+		btnEdit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				editFilterMode();
+			}
+		});
+		
+		btnDelete.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				//deleteFilter();
+			}
+		});
+	}
+	
+	public void editDeleteBtnStatus(){
+		
 	}
 }

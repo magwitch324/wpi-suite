@@ -12,6 +12,9 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -24,57 +27,32 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax/**
- * @author sfp
- *
- */
-/**
- * @author sfp
- *
- */
-/**
- * @author sfp
- *
- */
-/**
- * @author sfp
- *
- */
-/**
- * @author sfp
- *
- */
-/**
- * @author sfp
- *
- */
-/**
- * @author sfp
- *
- */
-/**
- * @author sfp
- *
- */
-/**
- * @author sfp
- *
- */
-.swing.JTextField;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import java.awt.GridLayout;
-
-import javax.swing.JButton;
-
-import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import javax.swing.border.LineBorder;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
@@ -86,9 +64,13 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
  */
 public class AddEditCategoryPanel extends JPanel {
 
-	private final JTextField textFieldName;
-	private final JRadioButton rdbtnTeam_1;
-	
+	private JTextField textFieldName;
+	private JRadioButton rdbtnTeam;
+	ColorPickerPanel colorPickerPanel;
+	private JRadioButton rdbtnPersonal;
+	private JButton btnSave;
+	private JButton btnCancel;
+
 
 	/**
 	 * Constructor for AddEditCategoryPanel.
@@ -152,12 +134,14 @@ public class AddEditCategoryPanel extends JPanel {
 		
 		final ButtonGroup teamPersonalRadioButtons = new ButtonGroup();
 		
-		rdbtnTeam_1 = new JRadioButton("Team");
-		rdbtnTeam_1.setBackground(Color.WHITE);
-		horizontalBox.add(rdbtnTeam_1);
-		teamPersonalRadioButtons.add(rdbtnTeam_1);
+		// Team radio button
+		rdbtnTeam = new JRadioButton("Team");
+		horizontalBox.add(rdbtnTeam);
+		teamPersonalRadioButtons.add(rdbtnTeam);
+		rdbtnTeam.setSelected(true);	//sets default to team
 		
-		final JRadioButton rdbtnPersonal = new JRadioButton("Personal");
+		// Personal radio button
+		rdbtnPersonal = new JRadioButton("Personal");
 		rdbtnPersonal.setBackground(Color.WHITE);
 		horizontalBox.add(rdbtnPersonal);
 		teamPersonalRadioButtons.add(rdbtnPersonal);
@@ -172,8 +156,9 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_lblColor.gridy = 2;
 		addEditFormPanel.add(lblColor, gbc_lblColor);
 		
-		final ColorPickerPanel colorPickerPanel = new ColorPickerPanel();
-		final GridBagConstraints gbc_panel = new GridBagConstraints();
+		colorPickerPanel = new ColorPickerPanel();
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+
 		gbc_panel.insets = new Insets(0, 0, 5, 0);
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 1;
@@ -187,7 +172,7 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_horizontalBox_1.gridy = 3;
 		addEditFormPanel.add(horizontalBox_1, gbc_horizontalBox_1);
 		
-		final JButton btnCancel = new JButton();
+		btnCancel = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
 			btnCancel.setIcon(new ImageIcon(img));
@@ -196,29 +181,14 @@ public class AddEditCategoryPanel extends JPanel {
 			btnCancel.setIcon(new ImageIcon());
 		}
 		btnCancel.setText("Cancel");
-		btnCancel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
-		// To change cursor as it moves over this button
 		
-		
-		// Action listener for cancel button 
-		btnCancel.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				final int tabIndex = 
-						GUIEventController.getInstance().getMainView().getSelectedIndex();
-				GUIEventController.getInstance().getMainView().setComponentAt(
-						tabIndex, new CategoryTab());
-			}
-			
-			
-		});
 		horizontalBox_1.add(btnCancel);
 		
-		
-		final Component horizontalStrut = Box.createHorizontalStrut(20);
+		Component horizontalStrut = Box.createHorizontalStrut(20);
+
 		horizontalBox_1.add(horizontalStrut);
 		
-		final JButton btnSave = new JButton();
+		btnSave = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Save_Icon.png"));
 			btnSave.setIcon(new ImageIcon(img));
@@ -230,11 +200,110 @@ public class AddEditCategoryPanel extends JPanel {
 		btnSave.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button		
 		horizontalBox_1.add(btnSave);
-		
-		final Component horizontalGlue_1 = Box.createHorizontalGlue();
-		add(horizontalGlue_1);
-	}
 
+		
+				
+		Component horizontalGlue_1 = Box.createHorizontalGlue();
+
+		add(horizontalGlue_1);
+		
+		//LISTENERS
+		
+		btnCancel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
+		// Action listener for cancel button 
+		btnCancel.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				final int tabIndex = 
+						GUIEventController.getInstance().getMainView().getSelectedIndex();
+				GUIEventController.getInstance().getMainView().setComponentAt(
+						tabIndex, new CategoryTab());
+			}
+		});
+		
+		// Action listener for save button 
+		btnSave.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addCategory();
+				
+				final int tabIndex = GUIEventController.getInstance().getMainView().getSelectedIndex();
+				GUIEventController.getInstance().getMainView().setComponentAt(tabIndex, new CategoryTab());
+			}
+		});
+	}
+	
+	/**
+	 * Controls the enable state of the save button 
+	 * by checking all user editable elements in commitment tab.
+	 * 
+	 * STILL IN PROGRESS - DOESN'T WORK/NOT IMPLEMENTED
+	 */
+	private void checkSaveBtnStatus(){
+		
+		if(textFieldName.getText().equals("")) { 
+			btnSave.setEnabled(false);
+		} else {
+			btnSave.setEnabled(true);
+		}
+			
+			/*else {
+				if (mode == EditingMode.EDITING) {
+			
+					//make sure something changed
+					if (textFieldName.getText().equals(editingEvent.getName())) {
+						btnSave.setEnabled(false);
+						return;
+					}
+				}
+				if(repeatCheckBox.isSelected()){
+					try {
+						if (Integer.parseInt(repeatAmt.getText()) > 1){
+							btnSave.setEnabled(true);
+						} else {
+							btnSave.setEnabled(false);
+						}
+					} catch (Exception ex){
+						btnSave.setEnabled(false);
+					}
+					return;
+				}
+				btnSave.setEnabled(true);
+			}
+		}*/
+	}	
+	
+	/**
+	 * Adds new category with information contained in fields
+	 */
+	private void addCategory() {
+
+		CalendarData calData;
+		// Name
+		String name = textFieldName.getText();
+		// Team/Personal
+		boolean isPersonal;
+		
+		if (!rdbtnTeam.isSelected()){
+			calData = CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName() + 
+					"-" + ConfigManager.getConfig().getUserName()); 
+			isPersonal = true;
+		} else {
+			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
+			isPersonal = false;
+		}
+		
+		// Color
+		Color catColor = colorPickerPanel.getColor();	
+		
+		// Creates and adds new category
+		Category newCat = new Category(name, catColor, isPersonal);
+		calData.addCategory(newCat);
+		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+	}
 	
 	/*
 	 * Color picker class consisting of a 4 x 4 matrix of colors
@@ -303,7 +372,6 @@ public class AddEditCategoryPanel extends JPanel {
 			selectedBox = (ColorBox) component;
 			selectedBox.setBorder(new LineBorder(Color.black, 2));
 			color = selectedBox.getColor();
-			
 		}
 		
 		public Color getColor() {
@@ -335,5 +403,4 @@ public class AddEditCategoryPanel extends JPanel {
 			}
 		}
 	}
-
 }
