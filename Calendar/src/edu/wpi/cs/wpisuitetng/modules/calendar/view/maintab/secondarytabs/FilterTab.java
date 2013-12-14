@@ -43,7 +43,7 @@ public class FilterTab extends JPanel{
 	private JPanel buttonPanel;
 	private JButton btnAddFilter;
 	private AbstractButton btnCancel;
-	private final Container formPanel;
+	private final Container viewPanel;
 	private JButton btnDelete;
 	private Component btnEdit;
 	private Component btnNewFilter;
@@ -55,6 +55,9 @@ public class FilterTab extends JPanel{
 	private JPanel buttonPanel2;
 	private JButton btnSaveFilter;
 	private JButton btnCancelFilter;
+	private JPanel editPanel;
+	private JButton addCategoryBttn;
+	private JButton moveCategoryBttn;
 
 	/**
 	 */
@@ -75,48 +78,183 @@ public class FilterTab extends JPanel{
 		this.openedFrom = openedFrom;
 		initFlag = false;
 		
-		final GridBagLayout gridBagLayout = new GridBagLayout();
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{0, 0};
+		gridBagLayout.rowHeights = new int[]{0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0};
+		gridBagLayout.rowWeights = new double[]{0.0};
 		setLayout(gridBagLayout);
-		final JPanel aPanel = new JPanel();
-		formPanel = new JPanel();
-		formPanel.setBackground(Color.WHITE);
-		formPanel.setPreferredSize(new Dimension(500, 600));
-		formPanel.setMinimumSize(new Dimension(500, 600));	
-		final GridBagConstraints constraints = new GridBagConstraints();
-		constraints.weightx = 1;
-		constraints.gridx = 1;
-		constraints.weighty = 1;
-		constraints.fill = GridBagConstraints.BOTH;
-		add(formPanel, constraints);
+		//final JPanel aPanel = new JPanel();
+		viewPanel = new JPanel();
+		viewPanel.setBackground(Color.WHITE);
+		viewPanel.setPreferredSize(new Dimension(500, 600));
+		viewPanel.setMinimumSize(new Dimension(500, 600));	
 		
 		final GridBagLayout gbl = new GridBagLayout();
-		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0};
-		gbl.columnWeights = new double[]{0.5, 3.0, 0.5, 7.0, 0.5};
-		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl.columnWidths = new int[] {0, 0, 0, 0,0};
-		formPanel.setLayout(gbl);
+		gbl.rowWeights = new double[]{0.0, 1.0, 0.0};
+		gbl.columnWeights = new double[]{0.0};
+		gbl.rowHeights = new int[] {0, 0, 0};
+		gbl.columnWidths = new int[] {0};
+		viewPanel.setLayout(gbl);
 		
+		final GridBagConstraints constraints = new GridBagConstraints();
+		constraints.weightx = 1;
+		constraints.gridx = 0;
+		constraints.weighty = 1;
+		constraints.fill = GridBagConstraints.BOTH;
+		add(viewPanel, constraints);		
 		
 		/*addLabels();
 		addEditableElements();
 		setDefaultValuesForEditableElements();
 		addEditableElementsListeners();*/
-		addButtonPanel();
-		//addButtonPanel2();
 		addFilterList();
-		editingMode();
+		//editingMode();
 		initFlag = true;
 		}
 	
-	private void addButtonPanel(){
+	
+	
+	/**
+	 * Method FilterList.
+	 */
+	public void addFilterList(){
+		scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.getViewport().setBackground(CalendarStandard.CalendarYellow);
+		final GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 1;
+		viewPanel.add(scrollPane, gbc_scrollPane);
+		
+		final JLabel filterList = new JLabel();
+		filterList.setText("List of Filters");
+		filterList.setForeground(Color.WHITE);
+		filterList.setBackground(CalendarStandard.CalendarRed);
+		filterList.setOpaque(true);
+		final GridBagConstraints gbc_filterList = new GridBagConstraints();
+		gbc_filterList.fill = GridBagConstraints.BOTH;
+		gbc_filterList.insets = new Insets(5, 0, 0, 0);
+		gbc_filterList.gridx = 0;
+		gbc_filterList.gridy = 0;
+		viewPanel.add(filterList, gbc_filterList);
+		
+		addButtonPanel();
+	}
+	
+	/**
+	 * Method editingMode.
+	 */
+	public void editingFilterMode(){
+		
+		editPanel = new JPanel();
+		editPanel.setBackground(Color.WHITE);
+		editPanel.setPreferredSize(new Dimension(500, 600));
+		editPanel.setMinimumSize(new Dimension(500, 600));	
+		
+		final GridBagLayout gbl = new GridBagLayout();
+		gbl.rowWeights = new double[]{0.0, 1.0, 0.0, 1.0, 0.0};
+		gbl.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0};
+		gbl.rowHeights = new int[] {0, 0, 0, 0, 0};
+		gbl.columnWidths = new int[] {0, 0, 0, 0};
+		editPanel.setLayout(gbl);
+		
+		final GridBagConstraints constraints = new GridBagConstraints();
+		constraints.weightx = 1;
+		constraints.gridx = 1;
+		constraints.weighty = 1;
+		constraints.fill = GridBagConstraints.BOTH;
+		add(editPanel, constraints);
+		
+		final JLabel filterNamelbl = new JLabel();
+		filterNamelbl.setText("Filter Name*:");
+		filterNamelbl.setBackground(Color.WHITE);
+		filterNamelbl.setOpaque(true);
+		filterNamelbl.setHorizontalAlignment(SwingConstants.RIGHT);
+		final GridBagConstraints gbc_filterNamelbl = new GridBagConstraints();
+		gbc_filterNamelbl.insets = new Insets(0, 0, 0, 5);
+		gbc_filterNamelbl.fill = GridBagConstraints.BOTH;
+		gbc_filterNamelbl.gridx = 0;
+		gbc_filterNamelbl.gridy = 0;
+		editPanel.add(filterNamelbl, gbc_filterNamelbl);
+		
+		final JLabel inactiveFilterlbl = new JLabel();
+		inactiveFilterlbl.setText("List of Catagories:");
+		inactiveFilterlbl.setBackground(Color.WHITE);
+		inactiveFilterlbl.setOpaque(true);
+		inactiveFilterlbl.setHorizontalAlignment(SwingConstants.RIGHT);
+		final GridBagConstraints gbc_inactiveFilterlbl = new GridBagConstraints();
+		gbc_inactiveFilterlbl.insets = new Insets(0, 0, 0, 5);
+		gbc_inactiveFilterlbl.fill = GridBagConstraints.BOTH;
+		gbc_inactiveFilterlbl.gridx = 0;
+		gbc_inactiveFilterlbl.gridy = 1;
+		editPanel.add(inactiveFilterlbl, gbc_inactiveFilterlbl);
+		
+		final JLabel activeFilterlbl = new JLabel();
+		activeFilterlbl.setText("Catagories in Filter:");
+		activeFilterlbl.setBackground(Color.WHITE);
+		activeFilterlbl.setOpaque(true);
+		activeFilterlbl.setHorizontalAlignment(SwingConstants.RIGHT);
+		final GridBagConstraints gbc_activeFilterlbl = new GridBagConstraints();
+		gbc_activeFilterlbl.insets = new Insets(0, 0, 0, 5);
+		gbc_activeFilterlbl.fill = GridBagConstraints.BOTH;
+		gbc_activeFilterlbl.gridx = 0;
+		gbc_activeFilterlbl.gridy = 3;
+		editPanel.add(activeFilterlbl, gbc_activeFilterlbl);
+		
+		final JTextField filterName = new JTextField();
+		filterName.setBackground(CalendarStandard.CalendarYellow);
+		final GridBagConstraints gbc_filterName = new GridBagConstraints();
+		gbc_filterName.fill = GridBagConstraints.BOTH;
+		gbc_filterName.insets = new Insets(5, 0, 5, 15);
+		gbc_filterName.gridwidth = 3;
+		gbc_filterName.gridx = 1;
+		gbc_filterName.gridy = 0;
+		editPanel.add(filterName, gbc_filterName);
+		
+		inactiveFilterPane = new JScrollPane();
+		inactiveFilterPane.getViewport().setBackground(CalendarStandard.CalendarYellow);
+		final GridBagConstraints gbc_inactiveFilter = new GridBagConstraints();
+		gbc_inactiveFilter.fill = GridBagConstraints.BOTH;
+		gbc_inactiveFilter.insets = new Insets(5, 0, 5, 15);
+		gbc_inactiveFilter.gridwidth = 3;
+		gbc_inactiveFilter.gridx = 1;
+		gbc_inactiveFilter.gridy = 1;
+		editPanel.add(inactiveFilterPane, gbc_inactiveFilter);
+		
+		activeFilterPane = new JScrollPane();
+		activeFilterPane.getViewport().setBackground(CalendarStandard.CalendarYellow);
+		final GridBagConstraints gbc_activeFilter = new GridBagConstraints();
+		gbc_activeFilter.fill = GridBagConstraints.BOTH;
+		gbc_activeFilter.insets = new Insets(5, 0, 5, 15);
+		gbc_activeFilter.gridwidth = 3;
+		gbc_activeFilter.gridx = 1;
+		gbc_activeFilter.gridy = 3;
+		editPanel.add(activeFilterPane, gbc_activeFilter);
+		
+		moveCategoryBttn = new JButton();
+		moveCategoryBttn.setText("Move Category");
+		final GridBagConstraints gbc_moveCategory = new GridBagConstraints();
+		gbc_moveCategory.fill = GridBagConstraints.BOTH;
+		gbc_moveCategory.anchor = GridBagConstraints.CENTER;
+		gbc_moveCategory.insets = new Insets(5, 0, 5, 0);
+		gbc_moveCategory.gridx = 2;
+		gbc_moveCategory.gridy = 2;
+		editPanel.add(moveCategoryBttn, gbc_moveCategory);
+		
+		addButtonPanel2();
+	}
+
+private void addButtonPanel(){
 		
 		buttonPanel = new JPanel(new BorderLayout(30, 0));
 		buttonPanel.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_btnPanel = new GridBagConstraints();
-		gbc_btnPanel.gridwidth = 2;
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
-		gbc_btnPanel.gridx = 1;
-		gbc_btnPanel.gridy = 9;
+		gbc_btnPanel.gridx = 0;
+		gbc_btnPanel.gridy = 2;
 		
 		//New Filter button
 		try {
@@ -149,17 +287,17 @@ public class FilterTab extends JPanel{
 		buttonPanel.add(btnEdit, BorderLayout.CENTER);
 		buttonPanel.add(btnDelete, BorderLayout.LINE_END);
 		// Set the horizontal gap
-		formPanel.add(buttonPanel, gbc_btnPanel);
+		viewPanel.add(buttonPanel, gbc_btnPanel);
 	}	
 	
 	public void addButtonPanel2(){
 		buttonPanel2 = new JPanel(new BorderLayout(30, 0));
 		buttonPanel2.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_btnPanel2 = new GridBagConstraints();
-		gbc_btnPanel2.gridwidth = 2;
+		gbc_btnPanel2.gridwidth = 3;
 		gbc_btnPanel2.anchor = GridBagConstraints.CENTER;
-		gbc_btnPanel2.gridx = 3;
-		gbc_btnPanel2.gridy = 9;
+		gbc_btnPanel2.gridx = 1;
+		gbc_btnPanel2.gridy = 4;
 		
 		//New Save button
 		try {
@@ -180,101 +318,8 @@ public class FilterTab extends JPanel{
 		}
 		
 		buttonPanel2.add(btnSaveFilter, BorderLayout.WEST);
-		buttonPanel2.add(btnCancel, BorderLayout.EAST);
+		buttonPanel2.add(btnCancelFilter, BorderLayout.EAST);
 		// Set the horizontal gap
-		formPanel.add(buttonPanel2, gbc_btnPanel2);
+		editPanel.add(buttonPanel2, gbc_btnPanel2);
 	}
-	
-	/**
-	 * Method FilterList.
-	 */
-	public void addFilterList(){
-		scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.getViewport().setBackground(CalendarStandard.CalendarYellow);
-		final GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridheight = 6;
-		//gbc_scrollPane.gridwidth = 2;
-		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 2;
-		formPanel.add(scrollPane, gbc_scrollPane);
-		
-		final JLabel filterList = new JLabel();
-		filterList.setText("List of Filters");
-		filterList.setForeground(Color.WHITE);
-		filterList.setBackground(CalendarStandard.CalendarRed);
-		filterList.setOpaque(true);
-		final GridBagConstraints gbc_filterList = new GridBagConstraints();
-		gbc_filterList.fill = GridBagConstraints.BOTH;
-		gbc_filterList.gridx = 1;
-		gbc_filterList.gridy = 1;
-		formPanel.add(filterList, gbc_filterList);
-	}
-	
-	/**
-	 * Method editingMode.
-	 */
-	public void editingMode(){
-		final JLabel filterNamelbl = new JLabel();
-		filterNamelbl.setText("Filter Name*:");
-		filterNamelbl.setBackground(Color.WHITE);
-		filterNamelbl.setOpaque(true);
-		filterNamelbl.setHorizontalAlignment(SwingConstants.RIGHT);
-		final GridBagConstraints gbc_filterNamelbl = new GridBagConstraints();
-		gbc_filterNamelbl.insets = new Insets(0, 0, 0, 5);
-		gbc_filterNamelbl.fill = GridBagConstraints.BOTH;
-		gbc_filterNamelbl.gridx = 2;
-		gbc_filterNamelbl.gridy = 2;
-		formPanel.add(filterNamelbl, gbc_filterNamelbl);
-		
-		final JLabel inactiveFilterlbl = new JLabel();
-		inactiveFilterlbl.setText("List of Catagories:");
-		inactiveFilterlbl.setBackground(Color.WHITE);
-		inactiveFilterlbl.setOpaque(true);
-		inactiveFilterlbl.setHorizontalAlignment(SwingConstants.RIGHT);
-		final GridBagConstraints gbc_inactiveFilterlbl = new GridBagConstraints();
-		gbc_inactiveFilterlbl.insets = new Insets(0, 0, 0, 5);
-		gbc_inactiveFilterlbl.fill = GridBagConstraints.BOTH;
-		gbc_inactiveFilterlbl.gridx = 2;
-		gbc_inactiveFilterlbl.gridy = 5;
-		formPanel.add(inactiveFilterlbl, gbc_inactiveFilterlbl);
-		
-		final JLabel activeFilterlbl = new JLabel();
-		activeFilterlbl.setText("Catagories in Filter:");
-		activeFilterlbl.setBackground(Color.WHITE);
-		activeFilterlbl.setOpaque(true);
-		activeFilterlbl.setHorizontalAlignment(SwingConstants.RIGHT);
-		final GridBagConstraints gbc_activeFilterlbl = new GridBagConstraints();
-		gbc_activeFilterlbl.insets = new Insets(0, 0, 0, 5);
-		gbc_activeFilterlbl.fill = GridBagConstraints.BOTH;
-		gbc_activeFilterlbl.gridx = 2;
-		gbc_activeFilterlbl.gridy = 7;
-		formPanel.add(activeFilterlbl, gbc_activeFilterlbl);
-		
-		final JTextField filterName = new JTextField();
-		filterName.setBackground(CalendarStandard.CalendarYellow);
-		final GridBagConstraints gbc_filterName = new GridBagConstraints();
-		gbc_filterName.fill = GridBagConstraints.BOTH;
-		gbc_filterName.gridx = 3;
-		gbc_filterName.gridy = 2;
-		formPanel.add(filterName, gbc_filterName);
-		
-		inactiveFilterPane = new JScrollPane();
-		inactiveFilterPane.getViewport().setBackground(CalendarStandard.CalendarYellow);
-		final GridBagConstraints gbc_inactiveFilter = new GridBagConstraints();
-		gbc_inactiveFilter.fill = GridBagConstraints.BOTH;
-		gbc_inactiveFilter.gridx = 3;
-		gbc_inactiveFilter.gridy = 5;
-		formPanel.add(inactiveFilterPane, gbc_inactiveFilter);
-		
-		activeFilterPane = new JScrollPane();
-		activeFilterPane.getViewport().setBackground(CalendarStandard.CalendarYellow);
-		final GridBagConstraints gbc_activeFilter = new GridBagConstraints();
-		gbc_activeFilter.fill = GridBagConstraints.BOTH;
-		gbc_activeFilter.gridx = 3;
-		gbc_activeFilter.gridy = 7;
-		formPanel.add(activeFilterPane, gbc_activeFilter);
-	}
-
 }
