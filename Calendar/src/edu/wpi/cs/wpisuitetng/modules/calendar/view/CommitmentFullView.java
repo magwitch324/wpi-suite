@@ -67,7 +67,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 @SuppressWarnings("serial")
 public class CommitmentFullView extends JPanel{
 
-	AbCalendar tcalendar;
 	AbCalendar pcalendar;
 	JPanel commitPanel;
 	JScrollPane scrollPane;
@@ -105,9 +104,8 @@ public class CommitmentFullView extends JPanel{
 	 * @param teamCalendar AbCalendar
 	 * @param personalCalendar AbCalendar
 	 */
-	public CommitmentFullView(AbCalendar teamCalendar, AbCalendar personalCalendar) {
+	public CommitmentFullView(AbCalendar personalCalendar) {
 		initialized = false;
-		tcalendar = teamCalendar;
 		pcalendar = personalCalendar;
 
 		mode = ViewingMode.TEAM;
@@ -153,20 +151,19 @@ public class CommitmentFullView extends JPanel{
 	private void setCommitlist() {
 
 		if (mode == ViewingMode.TEAM){
-			if(tcalendar.getCalData() != null){
-				commitmentList = tcalendar.getCalData().getCommitments().getCommitments();
+			if(pcalendar.getTeamCalData() != null){
+				commitmentList = pcalendar.getTeamCalData().getCommitments().getCommitments();
 			}
 		} else if (mode == ViewingMode.PERSONAL){
-			if(pcalendar.getCalData() != null){
-			commitmentList = pcalendar.getCalData().getCommitments().getCommitments();
+			if(pcalendar.getMyCalData() != null){
+			commitmentList = pcalendar.getMyCalData().getCommitments().getCommitments();
 			}
-		} else if(tcalendar.getCalData() != null && pcalendar.getCalData() != null) { 
+		} else if(pcalendar.getTeamCalData() != null && pcalendar.getMyCalData() != null) { 
 			// here mode == ViewingMode.BOTH
 			final CombinedCommitmentList combinedList = new CombinedCommitmentList(
 					new ArrayList<Commitment>(
-							pcalendar.getCalData().getCommitments().getCommitments()));
-			final CalendarData teamData = CalendarDataModel.getInstance()
-					.getCalendarData(ConfigManager.getConfig().getProjectName());
+							pcalendar.getMyCalData().getCommitments().getCommitments()));
+			final CalendarData teamData = pcalendar.getTeamCalData();
 
 			/*if we are supposed to show team data, 
 			 * we need to put the team commitments into the list in the right order*/

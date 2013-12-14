@@ -733,7 +733,7 @@ public class CommitmentTab extends JPanel {
 		btnCancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				removeTab(openedFrom);
+				removeTab();
 			}
 		});
 		
@@ -1256,8 +1256,8 @@ public class CommitmentTab extends JPanel {
 	 * Close this commitment tab
 	 * @param goTo int
 	 */
-	protected void removeTab(int goTo) {
-		GUIEventController.getInstance().removeCommTab(this, goTo);
+	protected void removeTab() {
+		GUIEventController.getInstance().removeCommTab(this, openedFrom);
 	}
 
 	/**
@@ -1385,7 +1385,7 @@ public class CommitmentTab extends JPanel {
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 
  
-		this.removeTab(isTeamComm ? 1 : 0);
+		this.removeTab();
 
 	}
 	
@@ -1407,7 +1407,7 @@ public class CommitmentTab extends JPanel {
 	}
 		calData.getCommitments().removeCommmitment(editingCommitment.getID());
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
-		removeTab(isTeamComm ? 1 : 0);
+		removeTab();
 	}
 
 	/**

@@ -47,7 +47,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	private int scrollBarValue;
 	private MainTabView main = null;
 	private ToolbarView toolbar = null;
-	private TeamCalendar teamCalendar;
+	//private TeamCalendar teamCalendar;
 	private MyCalendar myCalendar;
 	private CommitmentFullView commitFullView;
 	
@@ -112,16 +112,16 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 */
 	public void setMainView(MainTabView mainview) {
 		main = mainview;
-		teamCalendar = new TeamCalendar();
+		//teamCalendar = new TeamCalendar();
 		myCalendar = new MyCalendar();
-		commitFullView = new CommitmentFullView(teamCalendar, myCalendar);
+		commitFullView = new CommitmentFullView(myCalendar);
 
 		try {
 			Image img = ImageIO.read(getClass().getResource("Personal_Icon.png"));
-			main.addTab("My Calendar", new ImageIcon(img), myCalendar);
+			main.addTab("Calendar", new ImageIcon(img), myCalendar);
 
-			img = ImageIO.read(getClass().getResource("Team_Icon.png"));
-			main.addTab("Team Calendar", new ImageIcon(img), teamCalendar);
+			//img = ImageIO.read(getClass().getResource("Team_Icon.png"));
+			//main.addTab("Team Calendar", new ImageIcon(img), teamCalendar);
 
 			img = ImageIO.read(getClass().getResource("Agenda_Icon.png"));
 			main.addTab("Agenda", new ImageIcon(img), commitFullView);
@@ -129,7 +129,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
 			main.addTab("My Calendar", new ImageIcon(), myCalendar);
-			main.addTab("Team Calendar", new ImageIcon(), teamCalendar);
 			main.addTab("Agenda", new ImageIcon(), commitFullView);
 		}
 
@@ -139,23 +138,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 * Gets calendar data corresponding to currently selected tab
 	 * @return index
 	 */
-	public AbCalendar getSelectedCalendar()
+	public AbCalendar getCalendar()
 	{
-		final int index = main.getSelectedIndex();
-		if (index == 0)
-			{
-			return myCalendar;
-			}
-		else if (index == 1)
-			{
-			return teamCalendar;
-			}
-		else
-		{
-			System.out.println("Error getting calendar; calendar tab not selected.");
 			return myCalendar;
 
-		}
 	}
 
 
@@ -196,9 +182,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 			switch(goTo){
 				case 0 : main.setSelectedComponent(myCalendar);
 						break;
-				case 1 : main.setSelectedComponent(teamCalendar);
-						break;
-				case 3 : main.setSelectedComponent(commitFullView);
+				case 1 : main.setSelectedComponent(commitFullView);
 						break;
 			}
 	}
@@ -208,7 +192,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 */
 	public void createCommitment() {
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 2){
+		if (openedFrom > 1){
 			openedFrom = 0;
 		}
 		final CommitmentTab newCommit = new CommitmentTab(openedFrom);
@@ -236,7 +220,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 */
 	public void editCommitment(Commitment comm) {
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 2){
+		if (openedFrom > 1){
 			openedFrom = 0;
 		}
 		final CommitmentTab editCommit = new CommitmentTab(comm, openedFrom);
@@ -259,7 +243,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 */
 	public void createEvent() {
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 2){
+		if (openedFrom > 1){
 			openedFrom = 0;
 		}
 		final EventTab newEvent = new EventTab(openedFrom);
@@ -282,7 +266,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 */
 	public void editEvent(Event event) {
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 2){
+		if (openedFrom > 1){
 			openedFrom = 0;
 		}
 		final EventTab editEvent;
@@ -307,7 +291,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	public void createManageCategories() {
 		
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 2){
+		if (openedFrom > 1){
 			openedFrom = 0;
 		}
 		final CategoryTab newCat = new CategoryTab();
@@ -331,7 +315,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 */
 	public void createManageFilters() {
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 2){
+		if (openedFrom > 1){
 			openedFrom = 0;
 		}
 		final FilterTab newFilter = new FilterTab(openedFrom);
@@ -354,8 +338,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 * @param switchtype AbCalendar.types
 	 */
 	public void switchView(GregorianCalendar acal, AbCalendar.types switchtype){
-		getSelectedCalendar().setCalsetView(acal, switchtype);
-		getSelectedCalendar().setViewButtonToActive(switchtype);
+		getCalendar().setCalsetView(acal, switchtype);
+		getCalendar().setViewButtonToActive(switchtype);
 
 	}
 
@@ -363,16 +347,13 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 * Method updateCalData.
 	 */
 	public void updateCalData() {
-		teamCalendar.updateCalData();
 		myCalendar.updateCalData();
-		teamCalendar.calView.commitmentView.update();
 		myCalendar.calView.commitmentView.update();
 		commitFullView.updateList();
 	}
 
 	public void setScrollBarValue(int value) {
 		scrollBarValue = value;
-		teamCalendar.calView.updateScrollPosition(value);
 		myCalendar.calView.updateScrollPosition(value);
 	}
 
@@ -386,7 +367,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 */
 	public void applyCalProps(){
 		myCalendar.applyCalProps();
-		teamCalendar.applyCalProps();
 		commitFullView.applyCalProps();
 	}
 
@@ -398,11 +378,12 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	public void removeEventTab(EventTab eventTab, int goTo) {
 		main.remove(eventTab);
 		switch(goTo){
-		case 0 : main.setSelectedComponent(myCalendar);
-				break;
-		case 1 : main.setSelectedComponent(teamCalendar);
-				break;
-	}
+		case 0: main.setSelectedComponent(myCalendar);
+		break;
+		case 1: main.setSelectedComponent(commitFullView);
+		break;
+		}
+		
 		
 	}
 	
@@ -414,9 +395,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 		//get relevant calendar data
 		CalendarData calData;
 		if (catToDelete.getIsPersonal()){
-			calData = myCalendar.getCalData();
+			calData = myCalendar.getMyCalData();
 		} else {
-			calData = teamCalendar.getCalData();
+			calData = myCalendar.getTeamCalData();
 		}
 		
 		//Scrub the category from any commitment/event that it is assigned to
