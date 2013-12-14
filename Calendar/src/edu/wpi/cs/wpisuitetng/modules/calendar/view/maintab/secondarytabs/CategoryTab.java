@@ -204,7 +204,6 @@ import javax.swing.JTextField;
 		
 		horizontalBox_1.add(btnDelete);
 		
-		
 //		JButton btnDelete = new JButton("Delete");
 //		horizontalBox_1.add(btnDelete);
 //		
@@ -227,16 +226,11 @@ import javax.swing.JTextField;
 	private void populateCategoryList() {
 		
 		final List<Category> catList = new ArrayList<Category>();
-		if(rdbtnPersonal.isSelected())
-		{
+		if(rdbtnPersonal.isSelected()) {
 			catList.addAll(personalCategories.getCategories());
-		}
-		else if(rdbtnTeam.isSelected())
-		{
+		} else if(rdbtnTeam.isSelected()) {
 			catList.addAll(teamCategories.getCategories());
-		}
-		else
-		{
+		} else {
 			final Category[] teamCatArray = new Category[teamCategories.getSize()];
 			catList.addAll(teamCategories.getCategories());
 			for(int i = 0; i < catList.size(); i++)
@@ -270,12 +264,7 @@ import javax.swing.JTextField;
 				1, SpringLayout.WEST, categoryListPanel);
 		categoryListLayout.putConstraint(SpringLayout.EAST, catPanel, 
 				1, SpringLayout.EAST, categoryListPanel);
-		
-		
-
 		categoryListPanel.add(catPanel);
-
-		
 	}
 	
 
@@ -319,13 +308,11 @@ import javax.swing.JTextField;
 		gbc_addEditPanel.gridy = 0;
 		add(addEditPanel, gbc_addEditPanel);
 		
-		
 		//set size of view panel
 		viewPanel.remove(viewPanelStrut);
 		viewPanelStrut = Box.createHorizontalStrut(400);
 		viewPanelStrut.setMaximumSize(new Dimension(400, 0));
 		viewPanel.add(viewPanelStrut);
-		
 	}
 	
 	/**
@@ -355,6 +342,5 @@ import javax.swing.JTextField;
 		viewPanelStrut = Box.createHorizontalStrut(600);
 		viewPanelStrut.setMaximumSize(new Dimension(600, 0));
 		viewPanel.add(viewPanelStrut);
-		
 	}
 }
