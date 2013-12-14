@@ -32,9 +32,12 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 
 
  /* @author CS Anonymous
@@ -47,6 +50,9 @@ public abstract class CalendarView extends JSplitPane {
 	protected CommitmentView commitmentView;
 	private String dateRange;
 	public boolean showAllCommFlag;
+	private CalendarProps calProps;
+	JRadioButton showAllButton;
+	JRadioButton showVisibleButton;
 	
 	/**
 	 * Constructor
@@ -71,6 +77,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * @return
 	 */
 	private JPanel makeRightView() {
+		
 		final JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
@@ -89,7 +96,7 @@ public abstract class CalendarView extends JSplitPane {
 		
 		panel.add(labelPanel);
 		//radio buttons for controlling the filter in the commitment pane
-		final JRadioButton showVisibleButton = new JRadioButton(
+		showVisibleButton = new JRadioButton(
 				"Show all open commitments in visible range");
 		showVisibleButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		showVisibleButton.setBackground(Color.WHITE);
@@ -104,13 +111,14 @@ public abstract class CalendarView extends JSplitPane {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				showAllCommFlag = false;
+				calProps.setShowCommRange(false);
 				GUIEventController.getInstance().getSelectedCalendar().updateCommPane();
 			}
 			
 		});
 		panel.add(showVisibleButton);
 		
-		final JRadioButton showAllButton = new JRadioButton("Show all open commitments");
+		showAllButton = new JRadioButton("Show all open commitments");
 		showAllButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		showAllButton.setBackground(Color.WHITE);
 		showAllButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
@@ -124,6 +132,7 @@ public abstract class CalendarView extends JSplitPane {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				showAllCommFlag = true;
+				calProps.setShowCommRange(true);
 				GUIEventController.getInstance().getSelectedCalendar().updateCommPane();
 			}
 			
@@ -227,5 +236,18 @@ public abstract class CalendarView extends JSplitPane {
 	 * @param showCommOnCal boolean
 	 */
 	abstract public void updateCommPane(CommitmentList commList, boolean showCommOnCal);
+	
+	public void applyCalProps(CalendarProps calProps){
+		this.calProps = calProps;
+		showAllCommFlag = calProps.getShowCommRange();
+		if(!showAllCommFlag){
+			showVisibleButton.setSelected(true);
+		}
+		else{
+			showAllButton.setSelected(true);
+		}
+		GUIEventController.getInstance().getSelectedCalendar().updateCommPane();
+		
+	}
 	
 }

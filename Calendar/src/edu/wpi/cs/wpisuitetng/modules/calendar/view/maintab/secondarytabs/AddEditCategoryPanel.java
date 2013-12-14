@@ -2,12 +2,14 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.Box;
+import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -55,6 +57,8 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -119,11 +123,15 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_horizontalBox.gridy = 1;
 		addEditFormPanel.add(horizontalBox, gbc_horizontalBox);
 		
+		final ButtonGroup teamPersonalRadioButtons = new ButtonGroup();
+		
 		rdbtnTeam_1 = new JRadioButton("Team");
 		horizontalBox.add(rdbtnTeam_1);
+		teamPersonalRadioButtons.add(rdbtnTeam_1);
 		
 		JRadioButton rdbtnPersonal = new JRadioButton("Personal");
 		horizontalBox.add(rdbtnPersonal);
+		teamPersonalRadioButtons.add(rdbtnPersonal);
 		
 		JLabel lblColor = new JLabel("Color:");
 		GridBagConstraints gbc_lblColor = new GridBagConstraints();
@@ -150,6 +158,20 @@ public class AddEditCategoryPanel extends JPanel {
 		
 		JButton btnCancel = new JButton("Cancel");
 		horizontalBox_1.add(btnCancel);
+		
+		// Action listener for cancel button 
+		btnCancel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
+		btnCancel.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				int tabIndex = GUIEventController.getInstance().getMainView().getSelectedIndex();
+				GUIEventController.getInstance().getMainView().setComponentAt(tabIndex, new CategoryTab());
+			}
+			
+			
+		});
+		
 		
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		horizontalBox_1.add(horizontalStrut);

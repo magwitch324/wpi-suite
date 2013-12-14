@@ -837,11 +837,11 @@ public class EventTab extends JPanel {
 					
 					checkStartDatePickerStatus();
 					checkSaveBtnStatus();
-					setEndDateOnStartDateChange();
+					updateEndTimeAndDate();
 				} catch (ParseException e1) {
 					checkStartDatePickerStatus();
 					checkSaveBtnStatus();
-					setEndDateOnStartDateChange();
+					updateEndTimeAndDate();
 				}
 
 			}
@@ -863,7 +863,7 @@ public class EventTab extends JPanel {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER){
 					checkStartDatePickerStatus();
 					checkSaveBtnStatus();
-					setEndDateOnStartDateChange();
+					updateEndTimeAndDate();
 				}
 			}
 		});
@@ -900,7 +900,7 @@ public class EventTab extends JPanel {
 				// TODO Auto-generated method stub
 				checkStartDatePickerStatus();
 				checkSaveBtnStatus();
-				setEndDateOnStartDateChange();
+				updateEndTimeAndDate();
 			}
 		});
 	
@@ -1047,7 +1047,7 @@ public class EventTab extends JPanel {
 						startHourEditor.getTextField().getText().toString());
 				checkStartTimeSpinnerStatus(startHourSpinner);
 
-				updateEndTime();
+				updateEndTimeAndDate();
 			}
 		});
 		
@@ -1120,7 +1120,7 @@ public class EventTab extends JPanel {
 					setStartDate(cal);
 				}
 				checkSaveBtnStatus();
-				updateEndTime();
+				updateEndTimeAndDate();
 
 			}
 		});
@@ -1179,7 +1179,7 @@ public class EventTab extends JPanel {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				checkSaveBtnStatus();
-				updateEndTime();
+				updateEndTimeAndDate();
 			}
 		});
 		
@@ -1401,15 +1401,11 @@ public class EventTab extends JPanel {
 				setEndDate(getStartDate());
 		}
 	}
-
-	protected void setEndDateOnStartDateChange() {
-		setEndDate(getStartDate());
-	}
 	
 	/**
-	 * Method updateEndTime.
+	 * Method updateEndTimeAndDate.
 	 */
-	protected void updateEndTime() {
+	protected void updateEndTimeAndDate() {
 		final long diff = getStartDate().getTime().getTime() - oldStartTime.getTime().getTime();
 		final GregorianCalendar cal = getEndDate();
 		cal.setTime(new Date(cal.getTime().getTime() + diff));
