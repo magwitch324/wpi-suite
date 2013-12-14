@@ -54,7 +54,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 @SuppressWarnings("serial")
 public abstract class AbCalendar extends JPanel {
 	protected boolean initialized;
-	protected CalendarData calData;
+	protected CalendarData myCalData;
+	protected CalendarData teamCalData;
 	protected CalendarProps calProps;
 
 	/**
@@ -420,7 +421,7 @@ public abstract class AbCalendar extends JPanel {
 	 * @param acal GregorianCalendar
 	 * @param switchtype TeamCalendar.types
 	 */
-	public void setCalsetView(GregorianCalendar acal, TeamCalendar.types switchtype)
+	public void setCalsetView(GregorianCalendar acal, AbCalendar.types switchtype)
 	{
 		mycal.setTime(acal.getTime());
 		switchview(switchtype);
@@ -431,8 +432,12 @@ public abstract class AbCalendar extends JPanel {
 		return showcom.isSelected();
 	}
 
-	public CalendarData getCalData(){
-		return calData;
+	public CalendarData getMyCalData(){
+		return myCalData;
+	}
+	
+	public CalendarData getTeamCalData(){
+		return teamCalData;
 	}
 
 
@@ -447,8 +452,9 @@ public abstract class AbCalendar extends JPanel {
 	/**
 	 * Method updateCommPane.
 	 */
+
 	protected abstract void updateCommPane();
-	public abstract boolean getShowTeamData();
+
 	/**
 	 * Method applyCalProps.
 	 */

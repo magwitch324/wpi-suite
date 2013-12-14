@@ -258,11 +258,28 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		gbc_catBttnPanel.gridx = 2;
 		gbc_catBttnPanel.gridy = 2;
 		
+		//Add Category to Filter button
 		addCatBttn = new JButton();
-		addCatBttn.setText("Add Category");
+		try {
+			final Image img = ImageIO.read(getClass().getResource("GreenArrowDown_Icon.png"));
+			addCatBttn.setIcon(new ImageIcon(img));
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			addCatBttn.setIcon(new ImageIcon());
+		}
+//		addCatBttn.setText("Add Category");
 		
+		
+		//Remove Category from Filter button
 		removeCatBttn = new JButton();
-		removeCatBttn.setText("Remove Category");
+		try {
+			final Image img = ImageIO.read(getClass().getResource("RedArrowUp_Icon.png"));
+			removeCatBttn.setIcon(new ImageIcon(img));
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			removeCatBttn.setIcon(new ImageIcon());
+		}
+//		removeCatBttn.setText("Remove Category");
 		
 		catBttnPanel.add(addCatBttn, BorderLayout.WEST);
 		catBttnPanel.add(removeCatBttn, BorderLayout.EAST);
