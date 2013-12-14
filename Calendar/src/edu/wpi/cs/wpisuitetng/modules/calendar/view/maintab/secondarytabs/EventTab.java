@@ -1721,8 +1721,8 @@ import javax.swing.ButtonGroup;
 	 * Close this event tab
 	 * @param goTo int
 	 */
-	protected void removeTab(int goTo) {
-		GUIEventController.getInstance().removeEventTab(this, goTo);
+	protected void removeTab() {
+		GUIEventController.getInstance().removeEventTab(this, openedFrom);
 	}
 	/**
 	 * Close this event tab when cancel is hit
@@ -1912,7 +1912,7 @@ import javax.swing.ButtonGroup;
 			UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 
 
-			this.removeTab(isTeamEvent ? 1 : 0);
+			this.removeTab();
 
 		} else {
 
@@ -1959,7 +1959,7 @@ import javax.swing.ButtonGroup;
 			UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 
 
-			this.removeTab(isTeamEvent ? 1 : 0);
+			this.removeTab();
 		}
 	}
 	
@@ -1990,7 +1990,7 @@ import javax.swing.ButtonGroup;
 		}
 		
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
-		removeTab(isTeamEvent ? 1 : 0);
+		removeTab();
 	}
 
 

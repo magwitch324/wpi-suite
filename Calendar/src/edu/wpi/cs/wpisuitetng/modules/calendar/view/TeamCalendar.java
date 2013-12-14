@@ -94,16 +94,16 @@ public class TeamCalendar extends AbCalendar {
 	 */
 	public void setCommEventList() {
 		//if we dont have the caldata dont do anything
-		if (initialized && getCalData() != null) {
+		if (initialized && getMyCalData() != null) {
 			//create a combined event list
-			final CombinedEventList combinedEventList = getCalData()
+			final CombinedEventList combinedEventList = getMyCalData()
 					.getRepeatingEvents().toCombinedEventList();
-			for (int i = 0; i < getCalData().getEvents()
+			for (int i = 0; i < getMyCalData().getEvents()
 					.getEvents().size(); i++) {
-				combinedEventList.add(getCalData().getEvents()
+				combinedEventList.add(getMyCalData().getEvents()
 						.getEvents().get(i));
 			}
-				commitments = getCalData().getCommitments();
+				commitments = getMyCalData().getCommitments();
 				events = combinedEventList;
 		}
 	}
@@ -120,15 +120,15 @@ public class TeamCalendar extends AbCalendar {
 			startup = true;
 			initialized = true;
 		}
-		calData = CalendarDataModel.getInstance().getCalendarData(
+		myCalData = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName());
 		
 		setCommEventList();
 		setView();
 		if(startup){
 			//used to check for and remove old data. runs only on startup
-			calData.removeYearOld();
-			UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+			myCalData.removeYearOld();
+			UpdateCalendarDataController.getInstance().updateCalendarData(myCalData);
 		}
 		//		displayCalData();
 
@@ -157,7 +157,7 @@ public class TeamCalendar extends AbCalendar {
 	@Override
 	protected void updateCommPane() {
 		if(initialized){
-			calView.updateCommPane(calData.getCommitments(), getShowCommitments());
+			calView.updateCommPane(myCalData.getCommitments(), getShowCommitments());
 		}
 		
 	}
