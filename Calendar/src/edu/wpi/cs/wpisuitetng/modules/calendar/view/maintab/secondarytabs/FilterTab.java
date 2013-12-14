@@ -82,7 +82,7 @@ public class FilterTab extends JPanel{
 		formPanel.setBackground(Color.WHITE);
 		formPanel.setPreferredSize(new Dimension(500, 600));
 		formPanel.setMinimumSize(new Dimension(500, 600));	
-		GridBagConstraints constraints = new GridBagConstraints();
+		final GridBagConstraints constraints = new GridBagConstraints();
 		constraints.weightx = 1;
 		constraints.gridx = 1;
 		constraints.weighty = 1;
@@ -200,7 +200,7 @@ public class FilterTab extends JPanel{
 		gbc_scrollPane.gridy = 2;
 		formPanel.add(scrollPane, gbc_scrollPane);
 		
-		JLabel filterList = new JLabel();
+		final JLabel filterList = new JLabel();
 		filterList.setText("List of Filters");
 		filterList.setForeground(Color.WHITE);
 		filterList.setBackground(CalendarStandard.CalendarRed);

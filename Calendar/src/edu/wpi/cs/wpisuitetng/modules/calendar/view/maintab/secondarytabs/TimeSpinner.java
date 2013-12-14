@@ -35,7 +35,7 @@ public class TimeSpinner extends JSpinner {
 	private JSpinner.DateEditor editor;
 	private boolean upArrowAction;
 	private boolean downArrowAction;
-	private enumTimeSpinner myType;
+	private final enumTimeSpinner myType;
 	private int fallBackValueInt;
 	private String fallBackValueStr;
 	private boolean errorVisible;
@@ -150,7 +150,7 @@ public class TimeSpinner extends JSpinner {
 			}
 			break;
 		case AMPM:
-			String tempAMPMString = editor.getTextField().getText().toUpperCase();
+			final String tempAMPMString = editor.getTextField().getText().toUpperCase();
 			System.out.println("Input is " + tempAMPMString);
 			
 			if(!tempAMPMString.equals("AM") && !tempAMPMString.equals("PM")) {
@@ -169,7 +169,7 @@ public class TimeSpinner extends JSpinner {
 	class SpinnerUI extends BasicSpinnerUI  {
 		protected Component createNextButton()  
 		  {  
-		    JButton btnUp = (JButton)super.createNextButton();  
+			final JButton btnUp = (JButton)super.createNextButton();  
 		    btnUp.addActionListener(new ActionListener(){  
 		      public void actionPerformed(ActionEvent ae){
 			        System.out.println("Going up");  
@@ -188,7 +188,7 @@ public class TimeSpinner extends JSpinner {
 		  }  
 		  protected Component createPreviousButton()  
 		  {  
-		    JButton btnDown = (JButton)super.createPreviousButton();  
+			 final JButton btnDown = (JButton)super.createPreviousButton();  
 		    btnDown.addActionListener(new ActionListener(){  
 		      public void actionPerformed(ActionEvent ae){ 
 		    	  try {

@@ -14,9 +14,7 @@ import static javax.swing.SpringLayout.NORTH;
 import static javax.swing.SpringLayout.WEST;
 import static javax.swing.SpringLayout.SOUTH;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -79,7 +77,7 @@ public class CommitmentTab2 extends JPanel {
 		layout.putConstraint(SOUTH, label, 0, SOUTH, nameField);
 		
 		// Create and add textField to the nameField
-		JTextField textField = new JTextField(50);
+		final JTextField textField = new JTextField(50);
 		textField.setPreferredSize(new Dimension(textField.getPreferredSize().width, textField.getPreferredSize().height + 5));
 		nameField.add(textField);
 		layout.putConstraint(WEST, textField, 5, EAST, label);
@@ -110,19 +108,19 @@ public class CommitmentTab2 extends JPanel {
 	}
 	
 	private JPanel getDueField() {
-		JPanel timePanel = new JPanel();
-		SpringLayout timeLayout = new SpringLayout();
+		final JPanel timePanel = new JPanel();
+		final SpringLayout timeLayout = new SpringLayout();
 		timePanel.setLayout(timeLayout);
 		
-		JSpinner hourSpinner;
-		JSpinner minuteSpinner;
-		JSpinner AMPMSpinner;
+		final JSpinner hourSpinner;
+		final JSpinner minuteSpinner;
+		final JSpinner AMPMSpinner;
 		
-		JSpinner.DateEditor hourEditor;
-		JSpinner.DateEditor minuteEditor;
-		JSpinner.DateEditor AMPMEditor;
+		final JSpinner.DateEditor hourEditor;
+		final JSpinner.DateEditor minuteEditor;
+		final JSpinner.DateEditor AMPMEditor;
 		
-		JLabel timeLabel = new JLabel("Due Time*: ");
+		final JLabel timeLabel = new JLabel("Due Time*: ");
 		timePanel.add(timeLabel);
 		timeLayout.putConstraint(WEST, timeLabel, 0, WEST, timePanel);
 		timeLayout.putConstraint(NORTH, timeLabel, 0, NORTH, timePanel);

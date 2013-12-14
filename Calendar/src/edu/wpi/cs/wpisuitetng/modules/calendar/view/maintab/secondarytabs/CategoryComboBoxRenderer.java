@@ -12,13 +12,11 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics2D;
-import java.awt.Shape;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
@@ -43,7 +41,7 @@ public class CategoryComboBoxRenderer extends JLabel implements
 			Category value, int index, boolean isSelected, boolean cellHasFocus) {
 		//gets the drawing area ready
 		colorImage = new BufferedImage(20, 20, BufferedImage.TYPE_BYTE_INDEXED);
-		Graphics2D graphics = colorImage.createGraphics();
+		final Graphics2D graphics = colorImage.createGraphics();
 		
 		//Fills in the image with the desired color
 		graphics.setPaint(value.getCategoryColor());

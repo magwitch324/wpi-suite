@@ -1684,7 +1684,7 @@ public class EventTab extends JPanel {
 		}
 		
 		//extracts the category list
-		List<Category> categories = calData.getCategories().getCategories();
+		final List<Category> categories = calData.getCategories().getCategories();
 		
 		//adds the categories to the comboBox
 		for (Category cat:categories){

@@ -65,7 +65,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.plaf.SpinnerUI;
 import javax.swing.plaf.basic.BasicSpinnerUI;
 
 import org.jdesktop.swingx.JXDatePicker;
@@ -1183,7 +1182,7 @@ public class CommitmentTab extends JPanel {
 		}
 		
 		//extracts the category list
-		List<Category> categories = calData.getCategories().getCategories();
+		final List<Category> categories = calData.getCategories().getCategories();
 		
 		//adds the categories to the comboBox
 		for (Category cat:categories){
