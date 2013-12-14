@@ -30,6 +30,7 @@ import javax.swing.JPanel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 
@@ -216,36 +217,39 @@ public class FilterTab extends JPanel{
 	 */
 	public void editingMode(){
 		final JLabel filterNamelbl = new JLabel();
-		filterNamelbl.setText("Filter Name");
-		filterNamelbl.setForeground(Color.WHITE);
-		filterNamelbl.setBackground(CalendarStandard.CalendarRed);
+		filterNamelbl.setText("Filter Name*:");
+		filterNamelbl.setBackground(Color.WHITE);
 		filterNamelbl.setOpaque(true);
+		filterNamelbl.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_filterNamelbl = new GridBagConstraints();
+		gbc_filterNamelbl.insets = new Insets(0, 0, 0, 5);
 		gbc_filterNamelbl.fill = GridBagConstraints.BOTH;
-		gbc_filterNamelbl.gridx = 3;
-		gbc_filterNamelbl.gridy = 1;
+		gbc_filterNamelbl.gridx = 2;
+		gbc_filterNamelbl.gridy = 2;
 		formPanel.add(filterNamelbl, gbc_filterNamelbl);
 		
 		final JLabel inactiveFilterlbl = new JLabel();
-		inactiveFilterlbl.setText("Inactive Filters");
-		inactiveFilterlbl.setForeground(Color.WHITE);
-		inactiveFilterlbl.setBackground(CalendarStandard.CalendarRed);
+		inactiveFilterlbl.setText("List of Catagories:");
+		inactiveFilterlbl.setBackground(Color.WHITE);
 		inactiveFilterlbl.setOpaque(true);
+		inactiveFilterlbl.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_inactiveFilterlbl = new GridBagConstraints();
+		gbc_inactiveFilterlbl.insets = new Insets(0, 0, 0, 5);
 		gbc_inactiveFilterlbl.fill = GridBagConstraints.BOTH;
-		gbc_inactiveFilterlbl.gridx = 3;
-		gbc_inactiveFilterlbl.gridy = 4;
+		gbc_inactiveFilterlbl.gridx = 2;
+		gbc_inactiveFilterlbl.gridy = 5;
 		formPanel.add(inactiveFilterlbl, gbc_inactiveFilterlbl);
 		
 		final JLabel activeFilterlbl = new JLabel();
-		activeFilterlbl.setText("Active Filters");
-		activeFilterlbl.setForeground(Color.WHITE);
-		activeFilterlbl.setBackground(CalendarStandard.CalendarRed);
+		activeFilterlbl.setText("Catagories in Filter:");
+		activeFilterlbl.setBackground(Color.WHITE);
 		activeFilterlbl.setOpaque(true);
+		activeFilterlbl.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_activeFilterlbl = new GridBagConstraints();
+		gbc_activeFilterlbl.insets = new Insets(0, 0, 0, 5);
 		gbc_activeFilterlbl.fill = GridBagConstraints.BOTH;
-		gbc_activeFilterlbl.gridx = 3;
-		gbc_activeFilterlbl.gridy = 6;
+		gbc_activeFilterlbl.gridx = 2;
+		gbc_activeFilterlbl.gridy = 7;
 		formPanel.add(activeFilterlbl, gbc_activeFilterlbl);
 		
 		final JTextField filterName = new JTextField();
