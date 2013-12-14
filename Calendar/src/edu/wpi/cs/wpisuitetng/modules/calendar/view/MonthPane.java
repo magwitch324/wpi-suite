@@ -9,10 +9,13 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
+import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
@@ -27,14 +30,18 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JLayer;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.border.BevelBorder;
+import javax.swing.plaf.LayerUI;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
@@ -676,6 +683,59 @@ public class MonthPane extends JScrollPane implements ICalPane {
 			public void mouseExited(MouseEvent e){
 				goSmall();
 			}
+		}
+		
+		protected class ScrollUI extends LayerUI<JComponent> implements ActionListener{
+			boolean is_in = false;
+			Timer timer;
+			  @Override
+			  public void installUI(JComponent c) {
+			    super.installUI(c);
+			    JLayer jlayer = (JLayer)c;
+			    jlayer.setLayerEventMask(
+			      AWTEvent.MOUSE_EVENT_MASK
+			    );
+			  }
+
+			  @Override
+			  public void uninstallUI(JComponent c) {
+			    JLayer jlayer = (JLayer)c;
+			    jlayer.setLayerEventMask(0);
+			    super.uninstallUI(c);
+			  }
+
+			  @Override
+			  protected void processMouseEvent(MouseEvent e, JLayer l) {
+				if (e.getID() == MouseEvent.MOUSE_ENTERED){
+					if(!is_in){
+						System.out.println("Layer entered");
+					}
+					is_in = true;
+			    }
+			    if (e.getID() == MouseEvent.MOUSE_EXITED){
+			    	is_in = false;
+
+					Timer atimer = new Timer(5, this);
+					atimer.setDelay(5);
+					atimer.setRepeats(false);
+					atimer.setInitialDelay(5);
+					atimer.start();
+					
+			    }
+			    if(e.getID() == MouseEvent.MOUSE_CLICKED){
+			    	if(e.getClickCount() == 1){
+			    		System.out.println("Layer clicked");
+			    	}
+			    }
+			  }
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!is_in){
+			    	System.out.println("Layer exited");
+				}
+			}
+
 		}
 	}
 
