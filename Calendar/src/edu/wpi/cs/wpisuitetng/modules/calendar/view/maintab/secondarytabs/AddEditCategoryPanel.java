@@ -25,6 +25,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -155,12 +156,17 @@ public class AddEditCategoryPanel extends JPanel {
 		
 		colorPickerPanel = new JColorChooser();
 		AbstractColorChooserPanel panel = colorPickerPanel.getChooserPanels()[0];
-		panel.setBackground(Color.WHITE);
+		//panel.setBackground(Color.WHITE);
+		Component[] panelComponents = panel.getComponents();
+		for(Component comp:panelComponents){
+			//comp.setBackground(Color.WHITE);
+		}
 		AbstractColorChooserPanel[] panels = { panel };
 		
 		colorPickerPanel.setChooserPanels(panels);
 		colorPickerPanel.setBackground(Color.WHITE);
 		colorPickerPanel.setPreviewPanel(new JPanel());
+		colorPickerPanel.setBorder(textFieldName.getBorder());
 		
 		final GridBagConstraints gbc_panel = new GridBagConstraints();
 
