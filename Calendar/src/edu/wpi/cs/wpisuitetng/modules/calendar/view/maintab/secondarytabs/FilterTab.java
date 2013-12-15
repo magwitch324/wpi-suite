@@ -56,7 +56,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
   */
  public class FilterTab extends JPanel{
 
-	private final FilterList CalendarFilters;
+	private final FilterList calendarFilters;
 	private final int openedFrom;
 	private JPanel buttonPanel;
 	private Container viewPanel;
@@ -97,6 +97,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	 * @param openedFrom int
 	 */
 	public FilterTab(int openedFrom) {
+		
 		this.openedFrom = openedFrom;
 		initFlag = false;
 		mode = FilterMode.VIEWING;
@@ -107,7 +108,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		personalCategories = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName() + 
 				"-" + ConfigManager.getConfig().getUserName()).getCategories(); 
-		CalendarFilters = CalendarDataModel.getInstance().getCalendarData(
+		calendarFilters = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName() + 
 				"-" + ConfigManager.getConfig().getUserName()).getFilters();
 		
@@ -117,10 +118,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0};
 		gridBagLayout.rowWeights = new double[]{0.0};
 		setLayout(gridBagLayout);
-
-		addFilterList();
+		
+		/*addFilterList();
 		populateFilterList();
-		addListeners();
+		addListeners();*/
+		refresh();
 		initFlag = true;
 		}
 	
@@ -159,6 +161,12 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 1;
 		viewPanel.add(scrollPane, gbc_scrollPane);
+		
+		filterListPanel = new JPanel();
+		scrollPane.setViewportView(filterListPanel);
+		filterListPanel.setBackground(Color.WHITE);
+		filterListLayout = new SpringLayout();
+		filterListPanel.setLayout(filterListLayout);
 		
 		//Adds the label on top of the scroll pane
 		final JLabel filterList = new JLabel("List of Filters", SwingConstants.CENTER);
@@ -391,6 +399,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		buttonPanel2 = new JPanel(new BorderLayout(30, 0));
 		buttonPanel2.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_btnPanel2 = new GridBagConstraints();
+		gbc_btnPanel2.insets = new Insets(0, 0, 0, 15);
 		gbc_btnPanel2.gridwidth = 3;
 		gbc_btnPanel2.anchor = GridBagConstraints.CENTER;
 		gbc_btnPanel2.gridx = 1;
@@ -557,7 +566,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		CalendarData calData;
 		
 		String name = filterName.getText();
-		List<Category> activceCat = null;
+
 		
 		calData = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName() + 
@@ -574,7 +583,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	private void populateFilterList(){
 			
 		final List<Filter> filterList = new ArrayList<Filter>();
-		filterList.addAll(CalendarFilters.getFilters());
+		filterList.addAll(calendarFilters.getFilters());
 		
 		// FilterPanel to keep track of spring layout constraints of previously added panel
 		JPanel oldFilterPanel = new FilterPanel(); 
@@ -606,8 +615,12 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			
 			oldFilterPanel = filterPanel; //update oldCatPanel to be previously added panel
 		}
-			
-		filterListLayout.putConstraint(SpringLayout.SOUTH, filterListPanel, 0, SpringLayout.SOUTH, filterPanel);
+		
+		if(filterListLayout.getConstraint(SpringLayout.SOUTH, filterListPanel).getValue() > 
+			filterListLayout.getConstraint(SpringLayout.SOUTH, filterPanel).getValue()) {	
+		filterListLayout.putConstraint(SpringLayout.SOUTH,
+				filterListPanel, 0, SpringLayout.SOUTH, filterPanel);	
+		}
 	}
 
 	
