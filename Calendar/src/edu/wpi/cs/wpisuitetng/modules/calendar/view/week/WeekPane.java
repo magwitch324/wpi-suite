@@ -111,12 +111,13 @@ public class WeekPane extends JPanel implements ICalPane {
 			day[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			temp.add(Calendar.DATE, 1);
 		}
-
+		
 		//sets the column with the days
 		scrollPane.setColumnHeader(getColumnheader());
 		//sets the hours
 		scrollPane.setRowHeader(new HourDisplayPort(mainPanel)); 
 
+		refresh();
 		scrollPane.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -126,7 +127,7 @@ public class WeekPane extends JPanel implements ICalPane {
 
 		});
 
-		refresh();
+		
 	}
 
 	/**

@@ -43,7 +43,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
   */
  public class GUIEventController {
 	private static GUIEventController instance = null;
-	private int scrollBarValue;
+	private int scrollBarValue = 659;
 	private MainTabView main = null;
 	private ToolbarView toolbar = null;
 	//private TeamCalendar teamCalendar;
