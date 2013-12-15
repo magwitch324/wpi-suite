@@ -59,8 +59,8 @@ public class Filter implements Comparator<Filter>{
 	public Filter(String name, List<Integer> inactiveCatList, List<Integer> activeCatList) {
 		this();
 		this.name = name;
-		this.inactiveCategories = inactiveCatList;
-		this.activeCategories = activeCatList;
+		inactiveCategories = inactiveCatList;
+		activeCategories = activeCatList;
 	}
 	
 	
@@ -125,7 +125,7 @@ public class Filter implements Comparator<Filter>{
 	 *            the inactiveCatList to set
 	 */
 	public void setInactiveCategories(List<Integer> inactiveCatList) {
-		this.inactiveCategories = inactiveCatList;
+		inactiveCategories = inactiveCatList;
 	}
 	
 	
@@ -148,7 +148,7 @@ public class Filter implements Comparator<Filter>{
 	 *            the activeCatList to set
 	 */
 	public void setActiveCategories(List<Integer> activeCatList) {
-		this.activeCategories = activeCatList;
+		activeCategories = activeCatList;
 	}
 	
 	
