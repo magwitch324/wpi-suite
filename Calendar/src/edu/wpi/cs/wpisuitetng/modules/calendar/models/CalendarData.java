@@ -341,6 +341,7 @@ public class CalendarData extends AbstractModel {
 		events = toCopyFrom.getEvents();
 		commitments = toCopyFrom.getCommitments();
 		repeatingEvents = toCopyFrom.getRepeatingEvents();
+		filters = toCopyFrom.getFilters();
 	}
 
 	

@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * Copyright (c) 2013 WPI-Suite
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: CS Anonymous
+ ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import java.awt.Color;
@@ -15,7 +24,6 @@ import javax.swing.border.Border;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
 
 public class FilterPanel extends JPanel{
 	private Filter filter;
@@ -23,6 +31,8 @@ public class FilterPanel extends JPanel{
 	
 	public FilterPanel(){
 		setPreferredSize(new Dimension(80, 50));
+		setMaximumSize(new Dimension(80,50));
+		setMinimumSize(new Dimension(80,50));
 		setBackground(CalendarStandard.CalendarYellow);
 		final Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 		setBorder(loweredbevel);
@@ -38,6 +48,7 @@ public class FilterPanel extends JPanel{
 		lblFilterName.setHorizontalAlignment(SwingConstants.CENTER);
 		aPanel.add(lblFilterName);
 		lblFilterName.setFont(CalendarStandard.CalendarFontBold);
+		add(aPanel);
 	}
 	
 	/**
@@ -51,6 +62,7 @@ public class FilterPanel extends JPanel{
 	}
 
 	private void setFilterName(String name) {
+		System.out.println("name:" + name);
 		lblFilterName.setText(name);
 	}
 

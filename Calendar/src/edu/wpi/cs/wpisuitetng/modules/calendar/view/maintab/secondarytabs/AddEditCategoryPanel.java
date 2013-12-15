@@ -25,6 +25,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -55,7 +56,7 @@ import java.awt.Rectangle;
 public class AddEditCategoryPanel extends JPanel {
 
 	private JTextField textFieldName;
-	private JRadioButton rdbtnTeam;			
+	private JRadioButton rdbtnTeam;
 	JColorChooser colorPickerPanel;
 	private JRadioButton rdbtnPersonal;
 	private JButton btnSave;
@@ -181,11 +182,16 @@ public class AddEditCategoryPanel extends JPanel {
 		colorPickerPanel.setMaximumSize(new Dimension(480, 2147483647));
 		colorPickerPanel.setPreferredSize(new Dimension(400, 100));
 		AbstractColorChooserPanel panel = colorPickerPanel.getChooserPanels()[0];
-		panel.setBackground(Color.WHITE);
+		//panel.setBackground(Color.WHITE);
+		Component[] panelComponents = panel.getComponents();
+		for(Component comp:panelComponents){
+			//comp.setBackground(Color.WHITE);
+		}
 		AbstractColorChooserPanel[] panels = { panel };
 		colorPickerPanel.setChooserPanels(panels);
 		colorPickerPanel.setBackground(Color.WHITE);
 		colorPickerPanel.setPreviewPanel(new JPanel());
+		colorPickerPanel.setBorder(textFieldName.getBorder());
 		
 		
 		final Box horizontalBox_1 = Box.createHorizontalBox();
@@ -194,21 +200,8 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_horizontalBox_1.gridy = 3;
 		addEditFormPanel.add(horizontalBox_1, gbc_horizontalBox_1);
 		
-		btnCancel = new JButton();
-		try {
-			final Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
-			btnCancel.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {}
-		catch(IllegalArgumentException ex){
-			btnCancel.setIcon(new ImageIcon());
-		}
-		btnCancel.setText("Cancel");
-		
-		horizontalBox_1.add(btnCancel);
-		
-		final Component horizontalStrut = Box.createHorizontalStrut(20);
 
-		horizontalBox_1.add(horizontalStrut);
+
 		
 		btnSave = new JButton();
 		try {
@@ -224,6 +217,21 @@ public class AddEditCategoryPanel extends JPanel {
 		horizontalBox_1.add(btnSave);
 
 		
+		final Component horizontalStrut = Box.createHorizontalStrut(20);
+
+		horizontalBox_1.add(horizontalStrut);
+		
+		btnCancel = new JButton();
+		try {
+			final Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
+			btnCancel.setIcon(new ImageIcon(img));
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			btnCancel.setIcon(new ImageIcon());
+		}
+		btnCancel.setText("Cancel");
+		
+		horizontalBox_1.add(btnCancel);
 				
 		final Component horizontalGlue_1 = Box.createHorizontalGlue();
 
@@ -266,9 +274,13 @@ public class AddEditCategoryPanel extends JPanel {
 		editingCategory = category;
 		textFieldName.setText(category.getName());
 		if(category.getIsPersonal())
-			rdbtnPersonal.setSelected(true);
+			{
+				rdbtnPersonal.setSelected(true);
+			}
 		else
-			rdbtnTeam.setSelected(true);
+			{
+				rdbtnTeam.setSelected(true);
+			}
 		
 		colorPickerPanel.setColor(category.getCategoryColor());
 		
@@ -344,7 +356,9 @@ public class AddEditCategoryPanel extends JPanel {
 		
 		// Creates and adds new category
 		if(mode == CategoryTab.CategoryMode.ADDING)
-			calData.addCategory(new Category(name, catColor, isPersonal));
+			{
+				calData.addCategory(new Category(name, catColor, isPersonal));
+			}
 		else
 		{
 			editingCategory.setName(name);
