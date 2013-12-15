@@ -213,8 +213,10 @@ public class AddEditCategoryPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				addCategory();
 				
-				final int tabIndex = GUIEventController.getInstance().getMainView().getSelectedIndex();
-				GUIEventController.getInstance().getMainView().setComponentAt(tabIndex, new CategoryTab());
+				final int tabIndex = 
+						GUIEventController.getInstance().getMainView().getSelectedIndex();
+				GUIEventController.getInstance().getMainView().
+				setComponentAt(tabIndex, new CategoryTab());
 			}
 		});
 	}

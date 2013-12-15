@@ -101,7 +101,6 @@ public class CommitmentFullView extends JPanel{
 	 * sets tcalendar which will grab teams commitments*/
 	/**
 	 * Constructor for CommitmentFullView.
-	 * @param teamCalendar AbCalendar
 	 * @param personalCalendar AbCalendar
 	 */
 	public CommitmentFullView(AbCalendar personalCalendar) {

@@ -11,24 +11,18 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
-
 import javax.swing.SpringLayout;
-
 import java.awt.Component;
-
 import javax.swing.Box;
-
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
-
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JRadioButton;
@@ -36,15 +30,12 @@ import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
-
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
 import javax.swing.JTextField;
 
  /* @author CS Anonymous
@@ -313,6 +304,9 @@ import javax.swing.JTextField;
 	}
 	
 
+	/**
+	 * Method refreshCategoryListPanel.
+	 */
 	protected void refreshCategoryListPanel() {
 		categoryListPanel.removeAll();
 		populateCategoryList();

@@ -24,6 +24,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 /**
  * The label used by a month day for events and commitments
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
 public class CalendarObjectWrapper extends JLabel{
@@ -32,7 +34,8 @@ public class CalendarObjectWrapper extends JLabel{
 	
 	/**
 	 * Constructor for wrapper.
-	 * @param comm the commitment that this should display
+	
+	 * @param c Commitment
 	 */
 	public CalendarObjectWrapper(Commitment c){
 		super(c.getName());
@@ -60,7 +63,8 @@ public class CalendarObjectWrapper extends JLabel{
 	
 	/**
 	 * Constructor for wrapper.
-	 * @param event the event that this should display
+	
+	 * @param e Event
 	 */
 	public CalendarObjectWrapper(Event e){
 		super(e.getName());
@@ -100,8 +104,8 @@ public class CalendarObjectWrapper extends JLabel{
 	
 	/**
 	 * Creates and returns a new version of this
-	 * @return a new copy of this
-	 */
+	
+	 * @return a new copy of this */
 	public CalendarObjectWrapper copy(){
 		CalendarObjectWrapper result = new CalendarObjectWrapper(event);
 		if(comm != null){

@@ -45,7 +45,7 @@ public class EventViewPanel extends JPanel {
 
 	/**
 	 * Constructor for EventViewPanel.
-	 * @param event Event
+	 * @param e Event
 	 */
 	public EventViewPanel(Event e) {
 		// TODO Auto-generated constructor stub

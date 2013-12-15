@@ -132,7 +132,7 @@ public class MonthDayPane extends JPanel {
 	}
 	/**
 	 * Change the commitment list to the given list
-	 * @param commlist the list to change to
+	 * @param  commlist the list to change to
 	 */
 	public void addCommitments(List<Commitment> cl) {
 		if(enabled){
@@ -147,7 +147,8 @@ public class MonthDayPane extends JPanel {
 	
 	/**
 	 * Change the event list to the given list
-	 * @param eventlist the list to change to
+	
+	 * @param el List<Event>
 	 */
 	public void addEvents(List<Event> el) {
 		if(enabled){
@@ -333,6 +334,7 @@ public class MonthDayPane extends JPanel {
 
 	/**
 	 * Internal class used to check if the user double clicked on the day
+	 * @author Tianci
 	 */
 	protected class wholecheck extends MouseAdapter{
 		/**
@@ -351,6 +353,7 @@ public class MonthDayPane extends JPanel {
 
 	/**
 	 * Internal class used to check if the user double clicked on the day or a CalendarObjectWrapper
+	 * @author Tianci
 	 */
 	protected class scrollcheck extends MouseAdapter{
 		/**

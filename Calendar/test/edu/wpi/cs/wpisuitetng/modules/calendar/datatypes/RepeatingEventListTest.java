@@ -10,19 +10,14 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
 import static org.junit.Assert.*;
-
 import java.util.GregorianCalendar;
-
 import static java.util.Calendar.*;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatType;
 import static edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatType.*;
 

@@ -100,7 +100,6 @@ public class EventFullView extends JPanel{
 	 * sets calendar which will grab teams events*/
 	/**
 	 * Constructor for EventFullView.
-	 * @param teamCalendar AbCalendar
 	 * @param personalCalendar AbCalendar
 	 */
 	public EventFullView(AbCalendar personalCalendar) {

@@ -841,6 +841,9 @@ public class EventTab extends JPanel {
 	}
 
 
+	/**
+	 * Method checkRepeatVsDuration.
+	 */
 	protected void checkRepeatVsDuration() {
 		/*GregorianCalendar combinedStart = new GregorianCalendar();
 		combinedStart.setTime(startDatePicker.getDate());
@@ -1895,7 +1898,7 @@ public class EventTab extends JPanel {
 
 	/**
 	 * Close this event tab
-	 * @param goTo int
+	
 	 */
 	protected void removeTab() {
 		GUIEventController.getInstance().removeEventTab(this, openedFrom);

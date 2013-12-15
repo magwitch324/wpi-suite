@@ -22,7 +22,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -63,6 +62,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 	private JButton removeCatBttn;
 	private JPanel catBttnPanel;
 	private FilterMode mode;
+
 
 	private enum FilterMode {
 		ADDING(0),
@@ -342,6 +342,9 @@ private void addButtonPanel(){
 		viewPanel.add(buttonPanel, gbc_btnPanel);
 	}
 	
+	/**
+	 * Method addButtonPanel2.
+	 */
 	public void addButtonPanel2(){
 		buttonPanel2 = new JPanel(new BorderLayout(30, 0));
 		buttonPanel2.setBackground(Color.WHITE);
@@ -388,6 +391,9 @@ private void addButtonPanel(){
 		editPanel.add(buttonPanel2, gbc_btnPanel2);
 	}
 	
+	/**
+	 * Method addListeners.
+	 */
 	public void addListeners(){
 		btnNewFilter.addActionListener(new ActionListener() {
 			@Override
@@ -414,6 +420,9 @@ private void addButtonPanel(){
 		});
 	}
 	
+	/**
+	 * Method addEditViewListeners.
+	 */
 	public void addEditViewListeners(){
 		btnCancelFilter.addActionListener(new ActionListener() {
 			@Override
@@ -424,6 +433,9 @@ private void addButtonPanel(){
 		});
 	}
 	
+	/**
+	 * Method refresh.
+	 */
 	protected void refresh(){
 		if(mode == FilterMode.VIEWING){
 			removeAll();

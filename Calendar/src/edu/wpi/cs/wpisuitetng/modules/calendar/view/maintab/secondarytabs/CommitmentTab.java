@@ -1314,7 +1314,6 @@ public class CommitmentTab extends JPanel {
 	
 	/**
 	 * Close this commitment tab
-	 * @param goTo int
 	 */
 	protected void removeTab() {
 		GUIEventController.getInstance().removeCommTab(this, openedFrom);
@@ -1652,6 +1651,8 @@ public class CommitmentTab extends JPanel {
 	}
 	
 
+	/**
+	 */
 	class SpinnerUI extends BasicSpinnerUI  {
 		protected Component createNextButton()  
 		  {  

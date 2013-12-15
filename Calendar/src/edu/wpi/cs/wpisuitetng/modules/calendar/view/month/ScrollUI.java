@@ -22,6 +22,8 @@ import javax.swing.plaf.LayerUI;
 /**
  * Layer UI that listens for a click so the month day can expand
  * and if the mouse leaves so it can shrink
+ * @author Anonymous
+ * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
 public class ScrollUI extends LayerUI<JComponent> implements ActionListener {
