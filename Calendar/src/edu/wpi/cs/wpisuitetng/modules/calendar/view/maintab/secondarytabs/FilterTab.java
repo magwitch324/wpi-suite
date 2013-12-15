@@ -492,14 +492,14 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		removeCatBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				removeCat();
+				removeCatFromFilter();
 			}
 		});
 		
 		addCatBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				addCat();
+				addCatToFilter();
 			}
 		});
 		
@@ -568,9 +568,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 				ConfigManager.getConfig().getProjectName() + 
 				"-" + ConfigManager.getConfig().getUserName()); 
 		
-		CategoryList catList = null;
+		CategoryList inactiveCatList = null;
+		CategoryList activeCatList = null;
 		
-		Filter newFilter = new Filter(name, catList);
+		Filter newFilter = new Filter(name, inactiveCatList, activeCatList);
 		calData.addFilter(newFilter);
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 	}
@@ -586,17 +587,22 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		filterList.addAll(CalendarFilters.getFilters());
 	}
 	
-	private void removeCat(){
+	private void removeCatFromFilter(){
 		// TODO Auto-generated method stub
 	}
 	
-	private void addCat(){
+	private void addCatToFilter(){
 		// TODO Auto-generated method stub
 	}
 	
-	private void populateCatLists(){
+	private void populateInactiveCatLists(){
 		// TODO Auto-generated method stub
 	}
+	
+	private void populateActiveCatLists(){
+		// TODO Auto-generated method stub
+	}
+	
 	private void viewPaneBtnStatus(){
 		if(true){
 			btnEdit.setEnabled(false);
