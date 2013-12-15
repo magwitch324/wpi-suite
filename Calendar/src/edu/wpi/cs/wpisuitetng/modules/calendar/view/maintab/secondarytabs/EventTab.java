@@ -857,7 +857,6 @@ public class EventTab extends JPanel {
 		final long diff = getEndDate().getTime().getTime() - getStartDate().getTime().getTime();
 
 		final int diffDays =  (int) (diff / (24 * 1000 * 60 * 60));
-		System.out.println("day diff" + diffDays);
 		lblRepeatError.setText(" ");
 		if(diffDays >= 29){
 			repeatCheckBox.setSelected(false);
@@ -886,7 +885,6 @@ public class EventTab extends JPanel {
 			final long diff = getEndDate().getTime().getTime() - getStartDate().getTime().getTime();
 
 			final int diffDays =  (int) (diff / (24 * 1000 * 60 * 60));
-			System.out.println("day diff" + diffDays);
 			lblRepeatError.setText(" ");
 			if(diffDays >= 29){
 				repeatCheckBox.setSelected(false);
@@ -1689,13 +1687,11 @@ public class EventTab extends JPanel {
 	 */
 	private boolean checkNoErrors(){
 		boolean result = true;
-		System.out.println("CHECKING!");
 		//check for repeat event duration error
 		if(!lblRepeatError.getText().equals(" ") &&
 				!lblRepeatError.getText().equals("<html><font color='red'>"
 				+ "Duration cannot be greater than a month for repeating events.</font></html>")){
 			//if there is error text displayed
-			System.out.println("returning false");
 			result = false;
 		}
 		if(!lblTimeError.getText().equals(" ")){
@@ -1714,7 +1710,6 @@ public class EventTab extends JPanel {
 			//if there is error text displayed
 			result = false;
 		}
-		System.out.println("returning true");
 		return result;
 	}
 
