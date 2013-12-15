@@ -140,11 +140,10 @@ public class EventList extends CalendarObjectList<Event> {
 			final int i = calendarObjects.indexOf(get(newObject.getID()));
 			calendarObjects.remove(get(newObject.getID()));
 			calendarObjects.add(i, newObject);
-			return;
 		}
 		else{
-		calendarObjects.remove(get(newObject.getID()));
-		add(newObject);
+			calendarObjects.remove(get(newObject.getID()));
+			add(newObject);
 		}
 	}
 }

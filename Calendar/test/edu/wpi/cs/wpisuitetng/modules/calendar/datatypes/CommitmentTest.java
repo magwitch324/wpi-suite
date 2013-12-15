@@ -16,7 +16,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import org.junit.Test;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 
 /**
  * @author CS Anonymous

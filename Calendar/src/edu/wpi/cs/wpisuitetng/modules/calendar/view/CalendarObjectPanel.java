@@ -250,13 +250,14 @@ public class CalendarObjectPanel extends JPanel {
 	 * @return the name of the event/commitment to display
 	 */
 	public String getName(){
+		String result = "";
 		if(event != null){
-			return event.getName();
+			result = event.getName();
 		}
 		else if(comm != null){
-			return comm.getName();
+			result = comm.getName();
 		}
-		return "";
+		return result;
 	}
 	
 	/**
@@ -361,17 +362,18 @@ public class CalendarObjectPanel extends JPanel {
 	 * @return the start time of the event/commitment
 	 */
 	public GregorianCalendar getStart(){
+		GregorianCalendar result = new GregorianCalendar();
 		if(event != null){
 			final GregorianCalendar cal = new GregorianCalendar();
 			cal.setTime(event.getStartTime().getTime());
-			return cal;
+			result = cal;
 		}
 		else if(comm != null){
 			final GregorianCalendar cal = new GregorianCalendar();
 			cal.setTime(comm.getDueDate().getTime());
-			return cal;
+			result = cal;
 		}
-		return new GregorianCalendar();
+		return result;
 	}
 	
 	/**
@@ -379,18 +381,19 @@ public class CalendarObjectPanel extends JPanel {
 	 * @return the end time of the event/commitment
 	 */
 	public GregorianCalendar getEnd(){
+		GregorianCalendar result = new GregorianCalendar();
 		if(event != null){
 			final GregorianCalendar cal = new GregorianCalendar();
 			cal.setTime(event.getEndTime().getTime());
-			return cal;
+			result = cal;
 		}
 		else if(comm != null){
 			final GregorianCalendar cal = new GregorianCalendar();
 			cal.setTime(comm.getDueDate().getTime());
 			cal.add(Calendar.MINUTE, 30);
-			return cal;
+			result = cal;
 		}
-		return new GregorianCalendar();
+		return result;
 	}
 
 	/**

@@ -380,18 +380,16 @@ public class CommitmentFullView extends JPanel{
 
 					@Override 
 					public int compare(Commitment c1, Commitment c2) {
+						int reslut = 0;
 						if(c1.getDueDate().before(c2.getDueDate()))
 							{
-							return -1;
+							reslut = -1;
 							}
 						else if(c1.getDueDate().after(c2.getDueDate())) 
 							{
-							return 1;
+							 reslut = 1;
 							}
-						else
-							{
-							return 0;
-							}
+							return reslut;
 					}
 				});
 				if(datesort == 1){

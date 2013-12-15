@@ -428,7 +428,10 @@ public class MyCalendar extends AbCalendar {
         layout.putConstraint(SpringLayout.SOUTH, showteam, 0, SpringLayout.SOUTH, panel);
         panel.add(showteam);*/
 
-		final int width = showcom.getPreferredSize().width + 30 + myCalendar.getPreferredSize().width + 30 + teamCalendar.getPreferredSize().width + 30 + bothCalendar.getPreferredSize().width;
+		final int width = showcom.getPreferredSize().width + 30 
+				+ myCalendar.getPreferredSize().width + 30 
+				+ teamCalendar.getPreferredSize().width + 30
+				+ bothCalendar.getPreferredSize().width;
 		final int height = showcom.getPreferredSize().height;
 		panel.setPreferredSize(new Dimension(width, height));
 

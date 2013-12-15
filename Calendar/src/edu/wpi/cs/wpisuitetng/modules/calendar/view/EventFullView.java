@@ -378,18 +378,16 @@ public class EventFullView extends JPanel{
 
 					@Override 
 					public int compare(Event e1, Event e2) {
+						int reslut = 0;
 						if(e1.getStartTime().before(e2.getStartTime()))
 							{
-							return -1;
+							reslut = -1;
 							}
 						else if(e1.getStartTime().after(e2.getStartTime())) 
 							{
-							return 1;
+							reslut = 1;
 							}
-						else
-							{
-							return 0;
-							}
+							return reslut;
 					}
 				});
 				if(startDatesort == 1){
@@ -448,18 +446,16 @@ public class EventFullView extends JPanel{
 
 					@Override 
 					public int compare(Event e1, Event e2) {
+						int result = 0;
 						if(e1.getEndTime().before(e2.getEndTime()))
 							{
-							return -1;
+							result = -1;
 							}
 						else if(e1.getEndTime().after(e2.getEndTime())) 
 							{
-							return 1;
+							result = 1;
 							}
-						else
-							{
-							return 0;
-							}
+							return result;
 					}
 				});
 				if(endDatesort == 1){

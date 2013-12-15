@@ -203,7 +203,8 @@ public class RepeatingEventListTest {
 	 */
 	@Test
 	public void addsTest() {
-		RepeatingEvent[] repeatingEvents = new RepeatingEvent[]{nextMonth, nextYear, lastYear};
+		final RepeatingEvent[] repeatingEvents = 
+				new RepeatingEvent[]{nextMonth, nextYear, lastYear};
 		repeatingEventList1.addEvents(repeatingEvents);
 		assertEquals(3, repeatingEventList1.getSize());
 	}

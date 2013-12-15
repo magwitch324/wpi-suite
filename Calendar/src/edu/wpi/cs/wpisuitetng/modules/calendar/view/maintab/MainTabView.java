@@ -44,7 +44,9 @@ public class MainTabView extends JTabbedPane {
 	public void insertTab(String title, Icon icon, Component component,
 			String tip, int index) {
 		super.insertTab(title, icon, component, tip, index);
-		if (!((component instanceof AbCalendar) || (component instanceof CommitmentFullView) || (component instanceof EventFullView))) {
+		if (!((component instanceof AbCalendar) || 
+				(component instanceof CommitmentFullView) || 
+				(component instanceof EventFullView))) {
 			setTabComponentAt(index, new ClosableTabComponent(this));
 		}
 		super.setBackground(Color.WHITE);

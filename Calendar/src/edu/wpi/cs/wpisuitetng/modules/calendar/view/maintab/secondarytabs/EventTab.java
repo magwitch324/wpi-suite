@@ -399,7 +399,8 @@ public class EventTab extends JPanel {
 		// Create time spinner panel.
 		startSpinnerPanel = new JPanel();
 		startSpinnerPanel.setBackground(Color.WHITE);
-		startSpinnerPanel.setToolTipText("Select the Start Time for this Event. This field is Required.");
+		startSpinnerPanel.setToolTipText("Select the Start Time for this Event."
+				+ " This field is Required.");
 		startSpinnerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 
@@ -474,7 +475,8 @@ public class EventTab extends JPanel {
 		//DatePicker box
 		startDatePicker = new JXDatePicker();
 		startDatePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
-		startDatePicker.setToolTipText("Select the Start Date for this Event. This field is Required.");
+		startDatePicker.setToolTipText("Select the Start Date for this Event."
+				+ " This field is Required.");
 		final GridBagConstraints gbc_jdp = new GridBagConstraints();
 		gbc_jdp.insets = new Insets(0, 0, 5, 5);
 		gbc_jdp.fill = GridBagConstraints.HORIZONTAL;
@@ -535,7 +537,8 @@ public class EventTab extends JPanel {
 		// Create time spinner panel.
 		endSpinnerPanel = new JPanel();
 		endSpinnerPanel.setBackground(Color.WHITE);
-//		endSpinnerPanel.setToolTipText("Select the Start Time for this Event. This field is Required");
+//		endSpinnerPanel.setToolTipText("Select the Start Time for this Event.
+		//This field is Required");
 		endSpinnerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		// Create time spinners, hour, minute, and AM_PM
@@ -851,9 +854,9 @@ public class EventTab extends JPanel {
 
 		System.out.println(get + ":" + startTempMin + "   " + endTempHour + ":" + endTempMin)*/
 
-		long diff = getEndDate().getTime().getTime() - getStartDate().getTime().getTime();
+		final long diff = getEndDate().getTime().getTime() - getStartDate().getTime().getTime();
 
-		int diffDays =  (int) (diff / (24* 1000 * 60 * 60));
+		final int diffDays =  (int) (diff / (24 * 1000 * 60 * 60));
 		System.out.println("day diff" + diffDays);
 		lblRepeatError.setText(" ");
 		if(diffDays >= 29){
@@ -861,11 +864,12 @@ public class EventTab extends JPanel {
 			repeatTypeComboBox.setEnabled(false);
 			repeatAmt.setEnabled(false);
 			lblRepeatError.setText("<html><font color='red'>"
-					+ "Duration cannot be greater than a month for repeating events.</font></html>");
+					+ "Duration cannot be greater than"
+					+ " a month for repeating events.</font></html>");
 		}
 		else if(diffDays >= 7){
 			repeatTypeComboBox.setSelectedIndex(2);
-		}	
+		}
 		else if(diffDays >= 1){
 			repeatTypeComboBox.setSelectedIndex(1);
 		}
@@ -879,9 +883,9 @@ public class EventTab extends JPanel {
 	private void checkRepeatDuration(){
 
 		if(repeatCheckBox.isSelected()){
-			long diff = getEndDate().getTime().getTime() - getStartDate().getTime().getTime();
+			final long diff = getEndDate().getTime().getTime() - getStartDate().getTime().getTime();
 
-			int diffDays =  (int) (diff / (24* 1000 * 60 * 60));
+			final int diffDays =  (int) (diff / (24 * 1000 * 60 * 60));
 			System.out.println("day diff" + diffDays);
 			lblRepeatError.setText(" ");
 			if(diffDays >= 29){
@@ -889,13 +893,14 @@ public class EventTab extends JPanel {
 				repeatTypeComboBox.setEnabled(false);
 				repeatAmt.setEnabled(false);
 				lblRepeatError.setText("<html><font color='red'>"
-						+ "Duration cannot be greater than a month for repeating events.</font></html>");
+						+ "Duration cannot be greater than"
+						+ " a month for repeating events.</font></html>");
 			}
 			else if(diffDays >= 7 && repeatTypeComboBox.getSelectedIndex() < 2){
 				repeatTypeComboBox.setBackground(Color.getHSBColor(3, 0.3f, 1f));
 				lblRepeatError.setText("<html><font color='red'>"
 						+ "Frequency must be greater than duration.</font></html>");
-			}	
+			}
 			else if(diffDays >= 1 && repeatTypeComboBox.getSelectedIndex() == 0){
 				repeatTypeComboBox.setBackground(Color.getHSBColor(3, 0.3f, 1f));
 				lblRepeatError.setText("<html><font color='red'>"
@@ -1683,32 +1688,34 @@ public class EventTab extends JPanel {
 	 * @returns true if no errors
 	 */
 	private boolean checkNoErrors(){
+		boolean result = true;
 		System.out.println("CHECKING!");
 		//check for repeat event duration error
-		if(!lblRepeatError.getText().equals(" ") && !lblRepeatError.getText().equals("<html><font color='red'>"
+		if(!lblRepeatError.getText().equals(" ") &&
+				!lblRepeatError.getText().equals("<html><font color='red'>"
 				+ "Duration cannot be greater than a month for repeating events.</font></html>")){
 			//if there is error text displayed
 			System.out.println("returning false");
-			return false;
+			result = false;
 		}
 		if(!lblTimeError.getText().equals(" ")){
 			//if there is error text displayed
-			return false;
+			result = false;
 		}
 		if(!lblTimeError2.getText().equals(" ")){
 			//if there is error text displayed
-			return false;
+			result = false;
 		}
 		if(lblDateError.isVisible()){
 			//if there is error text displayed
-			return false;
+			result = false;
 		}
 		if(lblDateError2.isVisible()){
 			//if there is error text displayed
-			return false;
+			result = false;
 		}
 		System.out.println("returning true");
-		return true;
+		return result;
 	}
 
 
@@ -1755,7 +1762,8 @@ public class EventTab extends JPanel {
 		}
 		
 		if (editingEvent.getCategoryID() != 0){
-			categoryComboBox.setSelectedItem(calData.getCategories().getCategory(editingEvent.getCategoryID()));
+			categoryComboBox.setSelectedItem(
+					calData.getCategories().getCategory(editingEvent.getCategoryID()));
 		} else {
 			categoryComboBox.setSelectedItem(uncategorized);
 		}
@@ -2273,7 +2281,8 @@ public class EventTab extends JPanel {
 	private void checkStartTimeSpinnerStatus(JSpinner spinner) {
 		if(initFlag){
 			final DateEditor editor = (DateEditor)spinner.getEditor();
-			if(isBadInputTime(editor) || startTempHour < 1 || startTempHour > 12 || startTempMin > 59) {
+			if(isBadInputTime(editor) || startTempHour < 1 || 
+					startTempHour > 12 || startTempMin > 59) {
 				editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 				lblTimeError.setText("<html><font color='red'>"
 						+ "Please enter a valid time.</font></html>");

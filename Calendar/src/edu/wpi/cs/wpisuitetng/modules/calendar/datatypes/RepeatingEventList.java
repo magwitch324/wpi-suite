@@ -12,7 +12,6 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatType;
 
 /**
@@ -106,11 +105,10 @@ public class RepeatingEventList extends CalendarObjectList<RepeatingEvent> {
 			final int i = calendarObjects.indexOf(get(newObject.getID()));
 			calendarObjects.remove(get(newObject.getID()));
 			calendarObjects.add(i, newObject);
-			return;
 		}
 		else{
-		calendarObjects.remove(get(newObject.getID()));
-		add(newObject);
+			calendarObjects.remove(get(newObject.getID()));
+			add(newObject);
 		}
 	}
 

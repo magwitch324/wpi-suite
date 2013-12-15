@@ -303,7 +303,8 @@ public class CommitmentTab extends JPanel {
 		btnDelete.setEnabled(true);
 		
 		if (editingCommitment.getCategoryID() != 0){
-		categoryComboBox.setSelectedItem(calData.getCategories().getCategory(editingCommitment.getCategoryID()));
+		categoryComboBox.setSelectedItem(
+				calData.getCategories().getCategory(editingCommitment.getCategoryID()));
 		} else {
 			categoryComboBox.setSelectedItem(uncategorized);
 		}
@@ -1261,7 +1262,7 @@ public class CommitmentTab extends JPanel {
 	protected void updateCategoryList(){
 
 		
-		boolean currentInitFlag = initFlag;
+		final boolean currentInitFlag = initFlag;
 		
 		final int selectedCategory;
 		

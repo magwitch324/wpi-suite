@@ -57,7 +57,7 @@ public class EventViewPanel extends JPanel {
 	}
 
 	public void setEvent(Event e) {
-		this.event = e;
+		event = e;
 	}
 
 	

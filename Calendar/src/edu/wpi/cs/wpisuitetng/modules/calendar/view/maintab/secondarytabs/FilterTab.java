@@ -12,7 +12,6 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -25,7 +24,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -85,7 +83,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		initFlag = false;
 		mode = FilterMode.VIEWING;
 		
-		GridBagLayout gridBagLayout = new GridBagLayout();
+		final GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0};
 		gridBagLayout.rowHeights = new int[]{0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0};
@@ -106,7 +104,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		viewPanel = new JPanel();
 		viewPanel.setBackground(Color.WHITE);
 		viewPanel.setPreferredSize(new Dimension(500, 600));
-		viewPanel.setMinimumSize(new Dimension(500, 600));	
+		viewPanel.setMinimumSize(new Dimension(500, 600));
 		
 		final GridBagLayout gbl = new GridBagLayout();
 		gbl.rowWeights = new double[]{0.0, 1.0, 0.0};
@@ -120,7 +118,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		constraints.gridx = 0;
 		constraints.weighty = 1;
 		constraints.fill = GridBagConstraints.BOTH;
-		add(viewPanel, constraints);	
+		add(viewPanel, constraints);
 		
 		scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -156,7 +154,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		editPanel = new JPanel();
 		editPanel.setBackground(Color.WHITE);
 		editPanel.setPreferredSize(new Dimension(500, 600));
-		editPanel.setMinimumSize(new Dimension(500, 600));	
+		editPanel.setMinimumSize(new Dimension(500, 600));
 		
 		final GridBagLayout gbl = new GridBagLayout();
 		gbl.rowWeights = new double[]{0.0, 1.0, 0.0, 1.0, 0.0};
@@ -275,7 +273,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 //		removeCatBttn.setText("Remove Category");
 		removeCatBttn.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		removeCatBttn.setToolTipText("Use this button to Remove the selected Category from this Filter.");
+		removeCatBttn.setToolTipText("Use this button to"
+				+ " Remove the selected Category from this Filter.");
 		
 		catBttnPanel.add(addCatBttn, BorderLayout.WEST);
 		catBttnPanel.add(removeCatBttn, BorderLayout.EAST);
@@ -341,7 +340,7 @@ private void addButtonPanel(){
 		buttonPanel.add(btnDelete, BorderLayout.LINE_END);
 		// Set the horizontal gap
 		viewPanel.add(buttonPanel, gbc_btnPanel);
-	}	
+	}
 	
 	public void addButtonPanel2(){
 		buttonPanel2 = new JPanel(new BorderLayout(30, 0));
@@ -379,7 +378,8 @@ private void addButtonPanel(){
 		btnCancelFilter.setText("Cancel");
 		btnCancelFilter.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		btnCancelFilter.setToolTipText("Click this button to Cancel any changes made to the Filters.");
+		btnCancelFilter.setToolTipText("Click this button"
+				+ " to Cancel any changes made to the Filters.");
 		
 		
 		buttonPanel2.add(btnSaveFilter, BorderLayout.WEST);

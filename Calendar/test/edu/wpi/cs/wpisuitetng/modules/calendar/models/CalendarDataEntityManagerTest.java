@@ -10,18 +10,14 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
 import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import edu.wpi.cs.wpisuitetng.Session;
 import edu.wpi.cs.wpisuitetng.database.Data;
-import edu.wpi.cs.wpisuitetng.exceptions.BadRequestException;
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.MockData;
 import edu.wpi.cs.wpisuitetng.modules.core.models.Project;

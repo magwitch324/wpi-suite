@@ -10,10 +10,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
 

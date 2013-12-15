@@ -89,10 +89,11 @@ Comparable<Event>{
 	
 	 * @return int */
 	public int compareTo(Event person) {
+		int result = 0;
 		if (name != null && person.name != null) {
-			return name.compareToIgnoreCase(person.name);
+			result = name.compareToIgnoreCase(person.name);
 		}
-		return 0;
+		return result;
 	}
 	
 	

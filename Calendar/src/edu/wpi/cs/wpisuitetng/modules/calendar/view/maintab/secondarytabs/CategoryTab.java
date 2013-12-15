@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.SpringLayout;
@@ -39,7 +38,6 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
-import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
@@ -272,7 +270,8 @@ import javax.swing.JTextField;
 			oldCatPanel = catPanel; //update oldCatPanel to be previously added panel
 		}
 		
-		categoryListLayout.putConstraint(SpringLayout.SOUTH, categoryListPanel, 0, SpringLayout.SOUTH, catPanel);
+		categoryListLayout.putConstraint(SpringLayout.SOUTH, 
+				categoryListPanel, 0, SpringLayout.SOUTH, catPanel);
 		
 		
 	}
@@ -296,19 +295,19 @@ import javax.swing.JTextField;
 		
 		rdbtnTeam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				refreshCategoryListPanel();				
+				refreshCategoryListPanel();
 			}
 		});
 		
 		rdbtnPersonal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				refreshCategoryListPanel();				
+				refreshCategoryListPanel();
 			}
 		});
 		
 		rdbtnBoth.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				refreshCategoryListPanel();				
+				refreshCategoryListPanel();
 			}
 		});
 	}
