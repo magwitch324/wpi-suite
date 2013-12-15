@@ -23,6 +23,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.FilterList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEventList;
 
@@ -38,6 +40,7 @@ public class CalendarData extends AbstractModel {
 	/** data containers*/
 	private CategoryList categories;
 	private EventList events;
+	private FilterList filters;
 	private CommitmentList commitments;
 	private RepeatingEventList repeatingEvents;
 
@@ -48,6 +51,7 @@ public class CalendarData extends AbstractModel {
 		id = "";
 		categories = new CategoryList();
 		events = new EventList();
+		filters = new FilterList();
 		commitments = new CommitmentList(); 
 		repeatingEvents = new RepeatingEventList();
 	}
@@ -96,6 +100,15 @@ public class CalendarData extends AbstractModel {
 	}
 	
 	/**
+	 * Returns the list of filters in this calendar
+	 * 
+	 * @return the list of filters
+	 */
+	public FilterList getFilters(){
+		return filters;
+	}
+	
+	/**
 	 * Returns the list of repeatingEvents in this calendar
 	 * 
 	 * @return the list of repeating events
@@ -132,6 +145,16 @@ public class CalendarData extends AbstractModel {
 	 */
 	public void addCategory(Category newCategory){
 		categories.add(newCategory);
+	}
+	
+	/**
+	 * Adds a filter to the calendar
+	 * 
+	
+	 * @param newFilter Filter
+	 */
+	public void addFilter(Filter newFilter){
+		filters.add(newFilter);
 	}
 	
 	/**
