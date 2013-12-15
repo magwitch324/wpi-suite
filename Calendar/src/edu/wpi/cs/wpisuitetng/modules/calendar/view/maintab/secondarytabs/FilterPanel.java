@@ -24,7 +24,6 @@ import javax.swing.border.Border;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
 
 public class FilterPanel extends JPanel{
 	private Filter filter;
