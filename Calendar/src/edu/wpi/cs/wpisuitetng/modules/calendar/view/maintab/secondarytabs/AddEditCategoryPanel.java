@@ -169,21 +169,8 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_horizontalBox_1.gridy = 3;
 		addEditFormPanel.add(horizontalBox_1, gbc_horizontalBox_1);
 		
-		btnCancel = new JButton();
-		try {
-			final Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
-			btnCancel.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {}
-		catch(IllegalArgumentException ex){
-			btnCancel.setIcon(new ImageIcon());
-		}
-		btnCancel.setText("Cancel");
-		
-		horizontalBox_1.add(btnCancel);
-		
-		final Component horizontalStrut = Box.createHorizontalStrut(20);
 
-		horizontalBox_1.add(horizontalStrut);
+
 		
 		btnSave = new JButton();
 		try {
@@ -199,6 +186,21 @@ public class AddEditCategoryPanel extends JPanel {
 		horizontalBox_1.add(btnSave);
 
 		
+		final Component horizontalStrut = Box.createHorizontalStrut(20);
+
+		horizontalBox_1.add(horizontalStrut);
+		
+		btnCancel = new JButton();
+		try {
+			final Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
+			btnCancel.setIcon(new ImageIcon(img));
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			btnCancel.setIcon(new ImageIcon());
+		}
+		btnCancel.setText("Cancel");
+		
+		horizontalBox_1.add(btnCancel);
 				
 		final Component horizontalGlue_1 = Box.createHorizontalGlue();
 
