@@ -1525,10 +1525,22 @@ public class CommitmentTab extends JPanel {
 						return;
 					}
 				}
+				//checks to see if there are any errors and prevents saving if there are
+				if(!checkNoErrors()){
+					btnSaveCommitment.setEnabled(false);
+					return;
+				}
 				btnSaveCommitment.setEnabled(true);
 			}
 
 		}
+	}
+	
+	private boolean checkNoErrors(){
+		if(lblDateError.isVisible()){
+			return false;
+		}
+		return true;
 	}
 	
 	/**

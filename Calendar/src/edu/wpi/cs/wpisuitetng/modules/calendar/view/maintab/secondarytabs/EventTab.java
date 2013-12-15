@@ -1694,14 +1694,6 @@ public class EventTab extends JPanel {
 			//if there is error text displayed
 			result = false;
 		}
-		if(!lblTimeError.getText().equals(" ")){
-			//if there is error text displayed
-			result = false;
-		}
-		if(!lblTimeError2.getText().equals(" ")){
-			//if there is error text displayed
-			result = false;
-		}
 		if(lblDateError.isVisible()){
 			//if there is error text displayed
 			result = false;
