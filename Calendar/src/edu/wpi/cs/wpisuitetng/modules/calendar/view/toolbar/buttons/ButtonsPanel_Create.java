@@ -133,7 +133,6 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	    createEventButton.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 		createEventButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this icon
-		createEventButton.setToolTipText("Click this icon to create a New Event.");
 		// the action listener for the Create Event Button
 		createEventButton.addActionListener(new ActionListener() {
 			@Override
@@ -151,7 +150,6 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	    createCommitButton.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 		createCommitButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this icon
-		createCommitButton.setToolTipText("Click this icon to create a New Commitment.");
 		// the action listener for the Create Commitment Button
 		createCommitButton.addActionListener(new ActionListener() {
 			@Override
@@ -169,8 +167,6 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	    manageCategoryButton.setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 0));
 		manageCategoryButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this icon
-		manageCategoryButton.setToolTipText("Click this icon to"
-				+ " create, edit, or delete your Categories.");
 		//the action listener for the Manage Category Button
 		manageCategoryButton.addActionListener(new ActionListener() {
 			@Override
@@ -189,8 +185,6 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	    manageFilterButton.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 		manageFilterButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this icon
-		manageFilterButton.setToolTipText("Click this icon to"
-				+ " create, edit, or delete your Filters.");
 		// the action listener for the Manage Filter Button
 		manageFilterButton.addActionListener(new ActionListener() {
 			@Override
@@ -208,7 +202,6 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	    helpButton.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 30));
 		helpButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this icon
-		helpButton.setToolTipText("Click this icon to be directed to the Calendar Help Tutorials.");
 		// the action listener for the Help Button
 		helpButton.addActionListener(new ActionListener() {
 			@Override

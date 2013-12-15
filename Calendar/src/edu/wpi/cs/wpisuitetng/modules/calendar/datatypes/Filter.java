@@ -14,6 +14,13 @@ import java.util.Comparator;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
 /**
  * Filter is used for filtering categories.
  * @author CS Anonymous
@@ -27,18 +34,16 @@ public class Filter implements Comparator<Filter>{
 	private String name;
 	
 	/** the list of categories not included in this filter*/
-	private CategoryList inactiveCategories;
+	private List<Integer> inactiveCategories;
 	
 	/** the list of categories included in this filter*/
-	private CategoryList activeCategories;
+	private List<Integer> activeCategories;
 	
 	/**
 	 * Constructs a filter with default characteristics
 	 */
 	public Filter() {
 		name = "";
-		inactiveCategories = new CategoryList();
-		activeCategories = new CategoryList();
 	}
 
 	/**
@@ -51,11 +56,11 @@ public class Filter implements Comparator<Filter>{
 	 * @param catList CategoryList
 	 */
 	// need to phase out supplying the ID
-	public Filter(String name, CategoryList inactiveCatList, CategoryList activeCatList) {
+	public Filter(String name, List<Integer> inactiveCatList, List<Integer> activeCatList) {
 		this();
 		this.name = name;
-		this.inactiveCategories = inactiveCatList;
-		this.activeCategories = activeCatList;
+		inactiveCategories = inactiveCatList;
+		activeCategories = activeCatList;
 	}
 	
 	
@@ -107,7 +112,7 @@ public class Filter implements Comparator<Filter>{
 	 * 
 	
 	 * @return the inactiveCategories */
-	public CategoryList getInactiveCategories() {
+	public List<Integer> getInactiveCategories() {
 		return inactiveCategories;
 	}
 
@@ -119,8 +124,8 @@ public class Filter implements Comparator<Filter>{
 	 * @param inactiveCatList
 	 *            the inactiveCatList to set
 	 */
-	public void setInactiveCategories(CategoryList inactiveCatList) {
-		this.inactiveCategories = inactiveCatList;
+	public void setInactiveCategories(List<Integer> inactiveCatList) {
+		inactiveCategories = inactiveCatList;
 	}
 	
 	
@@ -130,7 +135,7 @@ public class Filter implements Comparator<Filter>{
 	 * 
 	
 	 * @return the activeCategories */
-	public CategoryList getActiveCategories() {
+	public List<Integer> getActiveCategories() {
 		return activeCategories;
 	}
 
@@ -142,8 +147,8 @@ public class Filter implements Comparator<Filter>{
 	 * @param activeCatList
 	 *            the activeCatList to set
 	 */
-	public void setActiveCategories(CategoryList activeCatList) {
-		this.activeCategories = activeCatList;
+	public void setActiveCategories(List<Integer> activeCatList) {
+		activeCategories = activeCatList;
 	}
 	
 	
