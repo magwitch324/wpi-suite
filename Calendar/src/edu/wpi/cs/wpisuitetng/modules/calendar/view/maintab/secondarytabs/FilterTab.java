@@ -23,6 +23,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +82,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	private final CategoryList personalCategories;
 	private SpringLayout filterListLayout;
 	private JPanel filterListPanel;
+	private JPanel inactiveCatListPanel;
+	private SpringLayout inactiveListLayout;
+	private JPanel inactiveListPanel;
+	private JPanel activeListPanel;
+	private SpringLayout activeListLayout;
 
 
 	private enum FilterMode {
@@ -279,6 +286,18 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		gbc_activeFilter.gridx = 1;
 		gbc_activeFilter.gridy = 3;
 		editPanel.add(activeCatPane, gbc_activeFilter);
+		
+		inactiveListPanel = new JPanel();
+		inactiveCatPane.setViewportView(inactiveListPanel);
+		inactiveListPanel.setBackground(Color.WHITE);
+		inactiveListLayout = new SpringLayout();
+		inactiveListPanel.setLayout(inactiveListLayout);
+		
+		activeListPanel = new JPanel();
+		activeCatPane.setViewportView(activeListPanel);
+		activeListPanel.setBackground(Color.WHITE);
+		activeListLayout = new SpringLayout();
+		activeListPanel.setLayout(activeListLayout);
 		
 		//add the two buttons to move categories between active and inactive panes
 		catBtnPanel = new JPanel(new BorderLayout(20, 0));
@@ -542,6 +561,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			filterName.setText("**New Filter**");
 			//populateCatLists();
 			populateFilterList();
+			populateInactiveCatLists();
 			revalidate();
 			repaint();
 		}
@@ -554,6 +574,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			//filterName.setText(selctFilter.name);
 			//populateCatLists();;
 			populateFilterList();
+			populateInactiveCatLists();
 			revalidate();
 			repaint();
 		}
@@ -639,10 +660,71 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	
 	private void populateInactiveCatLists(){
 		// TODO Auto-generated method stub
+		//populate categorylist to new list
+		//remove active form said list
+		final List<Category> catList = new ArrayList<Category>();
+		final CategoryList bothCategories = new CategoryList();
+		final Category[] bothCatArray = new Category[teamCategories.getSize() + personalCategories.getSize()];
+		catList.addAll(teamCategories.getCategories());
+		catList.addAll(personalCategories.getCategories());
+		for(int i = 0; i < catList.size(); i++)
+		{
+			bothCatArray[i] = catList.get(i);
+		}
+		bothCategories.addCategories(bothCatArray);
+		bothCategories.sortByAlphabet();
+		catList.clear();
+		catList.addAll(bothCategories.getCategories());
+		
+		
+		// CategoryPanel to keep track of spring layout constraints of previously added panel
+		CategoryPanel oldCatPanel = new CategoryPanel(); 
+		CategoryPanel catPanel = new CategoryPanel();
+		for(int i = 0; i < catList.size(); i++)
+		{
+			catPanel = new CategoryPanel(catList.get(i));
+			//If first panel, add to top of list panel
+			if (i == 0)
+			{
+				inactiveListLayout.putConstraint(SpringLayout.NORTH, catPanel, 
+						1, SpringLayout.NORTH, inactiveListPanel);
+				inactiveListLayout.putConstraint(SpringLayout.WEST, catPanel, 
+						1, SpringLayout.WEST, inactiveListPanel);
+				inactiveListLayout.putConstraint(SpringLayout.EAST, catPanel,
+						1, SpringLayout.EAST, inactiveListPanel);
+			}
+			else
+			{
+				//add panel below previous panel
+				inactiveListLayout.putConstraint(SpringLayout.NORTH, catPanel, 
+						1, SpringLayout.SOUTH, oldCatPanel);
+				inactiveListLayout.putConstraint(SpringLayout.WEST, catPanel, 
+						1, SpringLayout.WEST, inactiveListPanel);
+				inactiveListLayout.putConstraint(SpringLayout.EAST, catPanel, 
+						1, SpringLayout.EAST, inactiveListPanel);
+			}
+
+			inactiveListPanel.add(catPanel);
+			
+			
+			/*catPanel.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount() >= 1)
+						{
+							editCategory(((CategoryPanel)e.getComponent()).getCategory());
+						}
+				}
+			});*/
+			
+			
+			oldCatPanel = catPanel; //update oldCatPanel to be previously added panel
+		}
 	}
 	
 	private void populateActiveCatLists(){
 		// TODO Auto-generated method stub
+		// inset said active list
 	}
 	
 	private void viewPaneBtnStatus(){
