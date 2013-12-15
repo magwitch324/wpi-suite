@@ -73,9 +73,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
-/* @author CS Anonymous
- * @version $Revision: 1.0 $
- */
+
 /**
  * @author CS Anonymous
  * @version $Revision: 1.0 $
@@ -161,7 +159,7 @@ public class EventTab extends JPanel {
 
 
 	/**
-	 * @author Tianci
+	 * @author CS Anonymous
 	 */
 	private enum EditingMode {
 		ADDING(0),

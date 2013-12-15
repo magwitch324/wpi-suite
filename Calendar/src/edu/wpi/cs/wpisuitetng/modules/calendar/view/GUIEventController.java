@@ -102,8 +102,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 		//teamCalendar.saveProps();
 		//myCalendar.saveProps();
 		//commitFullView.saveProps();
-		
-		
 	}
 
 	/**
