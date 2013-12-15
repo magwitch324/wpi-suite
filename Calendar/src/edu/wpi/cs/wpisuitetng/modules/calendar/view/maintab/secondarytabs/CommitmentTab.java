@@ -229,6 +229,34 @@ public class CommitmentTab extends JPanel {
 		
 		initFlag = false; //We need this to deal with the nested constructors
 		
+		
+		/**
+		 * Initialize Delete Commitment button.////////////////
+		 */
+		// Load icon, create instance, and set text.
+		try {
+			final Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
+			btnDelete = new JButton("Delete Commitment", new ImageIcon(img));
+		}
+		catch (IOException ex) {
+		}
+		catch(IllegalArgumentException ex){
+			btnDelete.setText("Delete Commitment");
+		}
+		
+		// To change cursor as it moves over this button
+		btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
+		// Add listener to perform action when button is pressed.
+		btnDelete.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				deleteCommitment();
+			}
+		});
+		btnDelete.setEnabled(false);
+		buttonPanel.add(btnDelete, BorderLayout.LINE_END);
+		
 		editingCommitment = commToEdit;
 		mode = EditingMode.EDITING;
 		
@@ -769,33 +797,7 @@ public class CommitmentTab extends JPanel {
 				removeTab();
 			}
 		});
-		
-		/**
-		 * Initialize Delete Commitment button.////////////////
-		 */
-		// Load icon, create instance, and set text.
-		try {
-			final Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
-			btnDelete = new JButton("Delete Commitment", new ImageIcon(img));
-		}
-		catch (IOException ex) {
-		}
-		catch(IllegalArgumentException ex){
-			btnDelete.setText("Delete Commitment");
-		}
-		
-		// To change cursor as it moves over this button
-		btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		
-		// Add listener to perform action when button is pressed.
-		btnDelete.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				deleteCommitment();
-			}
-		});
-		btnDelete.setEnabled(false);
-		buttonPanel.add(btnDelete, BorderLayout.LINE_END);
+
 		
 		/**
 		 * Add buttons to button panel, and add button panel to main panel for commitment tab.
