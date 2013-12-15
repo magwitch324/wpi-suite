@@ -483,7 +483,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			@Override
 			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub				
-			}			
+			}
 			@Override
 			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub				
@@ -617,7 +617,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			oldFilterPanel = filterPanel; //update oldCatPanel to be previously added panel
 		}
 			
-		filterListLayout.putConstraint(SpringLayout.SOUTH, filterListPanel, 0, SpringLayout.SOUTH, filterPanel);		
+		filterListLayout.putConstraint(SpringLayout.SOUTH, filterListPanel, 0, SpringLayout.SOUTH, filterPanel);
 	}
 
 	
