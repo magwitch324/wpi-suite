@@ -628,7 +628,6 @@ public class EventFullView extends JPanel{
 				}
 			});
 
-			eventPanel.add(eventPanel);
 		}
 	}
 
