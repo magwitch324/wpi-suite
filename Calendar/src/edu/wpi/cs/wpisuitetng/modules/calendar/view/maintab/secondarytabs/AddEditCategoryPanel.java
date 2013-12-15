@@ -30,11 +30,13 @@ import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+import javax.swing.colorchooser.AbstractColorChooserPanel;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
@@ -52,7 +54,7 @@ public class AddEditCategoryPanel extends JPanel {
 
 	private final JTextField textFieldName;
 	private final JRadioButton rdbtnTeam;
-	ColorPickerPanel colorPickerPanel;
+	private final JColorChooser colorPickerPanel;
 	private final JRadioButton rdbtnPersonal;
 	private final JButton btnSave;
 	private final JButton btnCancel;
@@ -122,6 +124,7 @@ public class AddEditCategoryPanel extends JPanel {
 		
 		// Team radio button
 		rdbtnTeam = new JRadioButton("Team");
+		rdbtnTeam.setBackground(Color.WHITE);
 		horizontalBox.add(rdbtnTeam);
 		teamPersonalRadioButtons.add(rdbtnTeam);
 		rdbtnTeam.setSelected(true);	//sets default to team
@@ -142,7 +145,15 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_lblColor.gridy = 2;
 		addEditFormPanel.add(lblColor, gbc_lblColor);
 		
-		colorPickerPanel = new ColorPickerPanel();
+		colorPickerPanel = new JColorChooser();
+		AbstractColorChooserPanel panel = colorPickerPanel.getChooserPanels()[0];
+		panel.setBackground(Color.WHITE);
+		AbstractColorChooserPanel[] panels = { panel };
+		
+		colorPickerPanel.setChooserPanels(panels);
+		colorPickerPanel.setBackground(Color.WHITE);
+		colorPickerPanel.setPreviewPanel(new JPanel());
+		
 		final GridBagConstraints gbc_panel = new GridBagConstraints();
 
 		gbc_panel.insets = new Insets(0, 0, 5, 0);

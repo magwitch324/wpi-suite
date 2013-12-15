@@ -23,12 +23,15 @@ import org.junit.Test;
 
 public class FilterTest {
 	/**
-	 * Tests to ensure that a new event is created with default values
+	 * Tests to ensure that a new filter is created with default values
 	 */
 	@Test
 	public void defaultConstructorTest(){
 		Filter testFilter = new Filter();
 		assertEquals("", testFilter.getName());
+		//assertEquals(); 
+		//still waiting for filter constructor to change	
 	}
+	
 
 }
