@@ -1517,8 +1517,6 @@ public class CommitmentTab extends JPanel {
 							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(
 									editingCommitment.getStatus())
 							&& calDate.getTime().equals(editingCommitment.getDueDate().getTime())
-							&& lblTimeError.isVisible()
-							&& lblDateError.isVisible()
 							){
 						btnSaveCommitment.setEnabled(false);
 						return;
