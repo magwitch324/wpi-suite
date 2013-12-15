@@ -156,6 +156,11 @@ public class EventTab extends JPanel {
 	 * [3] http://www.iconsdb.com/red-icons/delete-icon.html
 	 */
 
+
+
+	/**
+	 * @author CS Anonymous
+	 */
 	private enum EditingMode {
 		ADDING(0),
 		EDITING(1);
@@ -622,7 +627,7 @@ public class EventTab extends JPanel {
 		oldStartTime = new GregorianCalendar();
 		setStartDate(oldStartTime);
 		oldStartTime = new GregorianCalendar();
-		oldStartTime.add(Calendar.MINUTE, 30);
+		oldStartTime.add(Calendar.MINUTE, 31);
 		setEndDate(oldStartTime);
 		oldStartTime = new GregorianCalendar();
 
@@ -850,7 +855,6 @@ public class EventTab extends JPanel {
 		final long diff = getEndDate().getTime().getTime() - getStartDate().getTime().getTime();
 
 		final int diffDays =  (int) (diff / (24 * 1000 * 60 * 60));
-		System.out.println("day diff" + diffDays);
 		lblRepeatError.setText(" ");
 		if(diffDays >= 29){
 			repeatCheckBox.setSelected(false);
@@ -879,7 +883,6 @@ public class EventTab extends JPanel {
 			final long diff = getEndDate().getTime().getTime() - getStartDate().getTime().getTime();
 
 			final int diffDays =  (int) (diff / (24 * 1000 * 60 * 60));
-			System.out.println("day diff" + diffDays);
 			lblRepeatError.setText(" ");
 			if(diffDays >= 29){
 				repeatCheckBox.setSelected(false);
@@ -1682,20 +1685,10 @@ public class EventTab extends JPanel {
 	 */
 	private boolean checkNoErrors(){
 		boolean result = true;
-		System.out.println("CHECKING!");
 		//check for repeat event duration error
 		if(!lblRepeatError.getText().equals(" ") &&
 				!lblRepeatError.getText().equals("<html><font color='red'>"
 				+ "Duration cannot be greater than a month for repeating events.</font></html>")){
-			//if there is error text displayed
-			System.out.println("returning false");
-			result = false;
-		}
-		if(!lblTimeError.getText().equals(" ")){
-			//if there is error text displayed
-			result = false;
-		}
-		if(!lblTimeError2.getText().equals(" ")){
 			//if there is error text displayed
 			result = false;
 		}
@@ -1707,7 +1700,6 @@ public class EventTab extends JPanel {
 			//if there is error text displayed
 			result = false;
 		}
-		System.out.println("returning true");
 		return result;
 	}
 

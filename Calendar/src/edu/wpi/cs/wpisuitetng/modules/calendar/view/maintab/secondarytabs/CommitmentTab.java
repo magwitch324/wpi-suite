@@ -144,13 +144,18 @@ public class CommitmentTab extends JPanel {
 
 	private Component glue;
 	private Component glue_1;
-	
+
+	/**
+	 * @author CS Anonymous
+	 */
 	public enum EditingMode {
 		ADDING,
 		EDITING;
 	}
 	
-
+	/**
+	 * @author CS Anonymous
+	 */
 	public enum enumTimeSpinner {
 		HOUR,
 		MINUTE,
@@ -1517,10 +1522,22 @@ public class CommitmentTab extends JPanel {
 						return;
 					}
 				}
+				//checks to see if there are any errors and prevents saving if there are
+				if(!checkNoErrors()){
+					btnSaveCommitment.setEnabled(false);
+					return;
+				}
 				btnSaveCommitment.setEnabled(true);
 			}
 
 		}
+	}
+	
+	private boolean checkNoErrors(){
+		if(lblDateError.isVisible()){
+			return false;
+		}
+		return true;
 	}
 	
 	/**

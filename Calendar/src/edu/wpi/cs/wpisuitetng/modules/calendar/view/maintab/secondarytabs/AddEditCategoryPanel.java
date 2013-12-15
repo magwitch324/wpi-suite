@@ -298,6 +298,9 @@ public class AddEditCategoryPanel extends JPanel {
 	 * Color picker class consisting of a 4 x 4 matrix of colors
 	 * 
 	 */
+	/**
+	 * @author CS Anonymous
+	 */
 	class ColorPickerPanel extends JPanel {
 
 		Color color;
@@ -364,7 +367,9 @@ public class AddEditCategoryPanel extends JPanel {
 			return color;
 		}
 
-		/*
+
+		/**
+		 * @author CS Anonymous
 		 * JPanel for each color box
 		 */
 		private class ColorBox extends JPanel {

@@ -21,9 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SpringLayout;
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+
 /**
   * @author CS Anonymous
   * @version $Revision: 1.0 $

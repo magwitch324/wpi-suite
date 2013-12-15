@@ -63,6 +63,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	private JTextField textFieldName;
 	private JScrollPane scrollPane;
 
+
+	/**
+	 * @author CS Anonymous
+	 */
 	public enum CategoryMode {
 		ADDING(0),
 		EDITING(1),
@@ -208,21 +212,23 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	private void populateCategoryList() {
 		
 		final List<Category> catList = new ArrayList<Category>();
+		final CategoryList bothCategories = new CategoryList();
 		if(rdbtnPersonal.isSelected()) {
 			catList.addAll(personalCategories.getCategories());
 		} else if(rdbtnTeam.isSelected()) {
 			catList.addAll(teamCategories.getCategories());
 		} else {
-			final Category[] teamCatArray = new Category[teamCategories.getSize()];
+			final Category[] bothCatArray = new Category[teamCategories.getSize() + personalCategories.getSize()];
 			catList.addAll(teamCategories.getCategories());
+			catList.addAll(personalCategories.getCategories());
 			for(int i = 0; i < catList.size(); i++)
 			{
-				teamCatArray[i] = catList.get(i);
+				bothCatArray[i] = catList.get(i);
 			}
-			personalCategories.addCategories(teamCatArray);
-			personalCategories.sortByAlphabet();
+			bothCategories.addCategories(bothCatArray);
+			bothCategories.sortByAlphabet();
 			catList.clear();
-			catList.addAll(personalCategories.getCategories());
+			catList.addAll(bothCategories.getCategories());
 		}
 		
 		// CategoryPanel to keep track of spring layout constraints of previously added panel
@@ -257,8 +263,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			oldCatPanel = catPanel; //update oldCatPanel to be previously added panel
 		}
 		
+		if(categoryListLayout.getConstraint(SpringLayout.SOUTH, categoryListPanel).getValue() > 
+				categoryListLayout.getConstraint(SpringLayout.SOUTH, catPanel).getValue()) {
 		categoryListLayout.putConstraint(SpringLayout.SOUTH, 
 				categoryListPanel, 0, SpringLayout.SOUTH, catPanel);
+		}
 		
 		
 	}
