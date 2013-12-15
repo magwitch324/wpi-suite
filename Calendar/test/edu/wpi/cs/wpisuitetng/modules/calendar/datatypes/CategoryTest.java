@@ -15,7 +15,9 @@ import java.awt.Color;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 import com.google.gson.Gson;
 
@@ -62,6 +64,20 @@ public class CategoryTest {
 		assertFalse(testCategory.getIsPersonal());
 	}
 	/**
+	 * Tests to make sure copyFrom() works as intended
+	 */
+	@Test
+	public void copyFromTest(){
+		final Category testCategory1 = new Category ("C2", Color.gray, false);
+		testCategory1.setCategoryColor(Color.red);
+		final Category testCategory = new Category();
+		testCategory.copyFrom(testCategory1);
+		assertEquals("C2", testCategory.getName());
+		assertEquals(Color.red, testCategory.getCategoryColor());
+		assertFalse(testCategory.getIsPersonal());
+	}
+	
+	/**
 	 * Tests to ensure that compare function work correctly
 	 */
 	@Test
@@ -70,6 +86,8 @@ public class CategoryTest {
 		final Category c2 = new Category ("C2", Color.gray, false);
 		assertEquals(-1, c1.getName().compareToIgnoreCase(c2.getName()));
 	}
+	
+	
 	
 	
 	
