@@ -241,6 +241,7 @@ public class EventTab extends JPanel {
 		//Name text field
 		nameTextField = new JTextField();
 		nameTextField.setBackground(CalendarStandard.CalendarYellow);
+		nameTextField.setToolTipText("Enter Event Name here. This field is Required.");
 		nameTextField.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		gbc_nameTextField = new GridBagConstraints();
 		gbc_nameTextField.gridwidth = 3;
@@ -277,6 +278,7 @@ public class EventTab extends JPanel {
 		//		descPane.setViewportView(descriptionTextArea);
 		descriptionTextArea.setLineWrap(true);
 		descriptionTextArea.setBackground(CalendarStandard.CalendarYellow);
+		descriptionTextArea.setToolTipText("Enter Event Description here. This field is Optional.");
 		final GridBagConstraints gbc_descriptionTextField = new GridBagConstraints();
 		gbc_descriptionTextField.gridwidth = 3;
 		gbc_descriptionTextField.fill = GridBagConstraints.BOTH;
@@ -308,6 +310,7 @@ public class EventTab extends JPanel {
 		categoryComboBox = new JComboBox<Category>();
 		categoryComboBox.setRenderer(new CategoryComboBoxRenderer());
 		categoryComboBox.setBackground(CalendarStandard.CalendarYellow);
+		categoryComboBox.setToolTipText("Select a Category. Optional");
 		uncategorized = new Category("[None]", Color.WHITE, false);
 		uncategorized.setID(0);
 
@@ -345,11 +348,13 @@ public class EventTab extends JPanel {
 
 		rdbtnPersonal = new JRadioButton("Personal");
 		rdbtnPersonal.setBackground(Color.WHITE);
+		rdbtnPersonal.setToolTipText("Select this option to make this a Personal Event.");
 		buttonGroup.add(rdbtnPersonal);
 		panel_1.add(rdbtnPersonal);
 
 		rdbtnTeam = new JRadioButton("Team");
 		rdbtnTeam.setBackground(Color.WHITE);
+		rdbtnTeam.setToolTipText("Select this option to make this a Team Event");
 		buttonGroup.add(rdbtnTeam);
 		panel_1.add(rdbtnTeam);
 
@@ -394,7 +399,7 @@ public class EventTab extends JPanel {
 		// Create time spinner panel.
 		startSpinnerPanel = new JPanel();
 		startSpinnerPanel.setBackground(Color.WHITE);
-
+		startSpinnerPanel.setToolTipText("Select the Start Time for this Event. This field is Required.");
 		startSpinnerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 
@@ -469,6 +474,7 @@ public class EventTab extends JPanel {
 		//DatePicker box
 		startDatePicker = new JXDatePicker();
 		startDatePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
+		startDatePicker.setToolTipText("Select the Start Date for this Event. This field is Required.");
 		final GridBagConstraints gbc_jdp = new GridBagConstraints();
 		gbc_jdp.insets = new Insets(0, 0, 5, 5);
 		gbc_jdp.fill = GridBagConstraints.HORIZONTAL;
@@ -529,9 +535,8 @@ public class EventTab extends JPanel {
 		// Create time spinner panel.
 		endSpinnerPanel = new JPanel();
 		endSpinnerPanel.setBackground(Color.WHITE);
-
+//		endSpinnerPanel.setToolTipText("Select the Start Time for this Event. This field is Required");
 		endSpinnerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-
 
 		// Create time spinners, hour, minute, and AM_PM
 		endHourSpinner = new JSpinner( new SpinnerDateModelHour());
@@ -569,9 +574,6 @@ public class EventTab extends JPanel {
 		gbc_spinner2.weighty = 3;
 		formPanel.add(endSpinnerPanel, gbc_spinner2);
 
-
-
-
 		//Invalid Time label
 		lblTimeError2 = new JLabel(" ");
 		lblTimeError2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -598,13 +600,10 @@ public class EventTab extends JPanel {
 		gbc_lblDateError2.weighty = 1;
 		formPanel.add(lblDateError2, gbc_lblDateError2);
 
-
-
-
-
 		//DatePicker box
 		endDatePicker = new JXDatePicker();
 		endDatePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
+		endDatePicker.setToolTipText("Select the End Date for this Event. This field is Required.");
 		final GridBagConstraints gbc_jdp2 = new GridBagConstraints();
 		gbc_jdp2.insets = new Insets(0, 0, 5, 5);
 		gbc_jdp2.fill = GridBagConstraints.HORIZONTAL;
@@ -626,11 +625,6 @@ public class EventTab extends JPanel {
 		startDate = c;
 		startDatePicker.setDate(c.getTime());
 
-
-
-		/////////////////////////////////////////		
-
-
 		//Sets time value of end and start spinners
 		oldStartTime = new GregorianCalendar();
 		setStartDate(oldStartTime);
@@ -638,7 +632,6 @@ public class EventTab extends JPanel {
 		oldStartTime.add(Calendar.MINUTE, 30);
 		setEndDate(oldStartTime);
 		oldStartTime = new GregorianCalendar();
-
 
 		//Add Repeat Label
 		lblRepeat = new JLabel("Repetition:");
@@ -655,6 +648,7 @@ public class EventTab extends JPanel {
 		//Add Repeat Checkbox
 		repeatCheckBox = new JCheckBox("Repeats?");
 		repeatCheckBox.setBackground(Color.WHITE);
+		repeatCheckBox.setToolTipText("Select this box if this Event will Repeat. Optional.");
 		final GridBagConstraints gbc_repeatCheckBox = new GridBagConstraints();
 		gbc_repeatCheckBox.gridwidth = 1;
 		gbc_repeatCheckBox.fill = GridBagConstraints.HORIZONTAL;
@@ -693,6 +687,7 @@ public class EventTab extends JPanel {
 		final String[] repeatStrings = {"Daily", "Weekly", "Monthly"};
 		repeatTypeComboBox = new JComboBox<String>(repeatStrings);
 		repeatTypeComboBox.setBackground(CalendarStandard.CalendarYellow);
+		repeatTypeComboBox.setToolTipText("It this Event repeats, select its frequency here.");
 		repeatTypeComboBox.setSelectedIndex(0);
 		final GridBagConstraints gbc_repeatTypeComboBox = new GridBagConstraints();
 		gbc_repeatTypeComboBox.gridwidth = 1;
@@ -732,6 +727,7 @@ public class EventTab extends JPanel {
 		//Add Repeat Text Field
 		repeatAmt = new JTextField();
 		repeatAmt.setBackground(CalendarStandard.CalendarYellow);
+		repeatAmt.setToolTipText("If this Event repeats, enter the Number of Occurences here.");
 		final GridBagConstraints gbc_repeatAmt = new GridBagConstraints();
 		gbc_repeatAmt.gridwidth = 3;
 		gbc_repeatAmt.fill = GridBagConstraints.HORIZONTAL;
@@ -791,21 +787,16 @@ public class EventTab extends JPanel {
 
 		btnAddEvent.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
+		btnAddEvent.setToolTipText("Click this button to Save any changes made to this Event.");
 		btnAddEvent.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				addEvent();
 			}
-
-
 		});
-
-
-
+		
 		btnAddEvent.setEnabled(false);
-
-
+	
 
 		final GridBagConstraints gbc_btnPanel = new GridBagConstraints();
 		gbc_btnPanel.gridwidth = 3;
@@ -815,7 +806,6 @@ public class EventTab extends JPanel {
 		gbc_btnPanel.gridy = 11;
 
 		//Add Cancel button
-
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
 			btnCancel = new JButton("Cancel", new ImageIcon(img));
@@ -826,6 +816,7 @@ public class EventTab extends JPanel {
 
 		btnCancel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
+		btnCancel.setToolTipText("Click this button to Cancel any changes made to this Event.");
 		btnCancel.addActionListener(new ActionListener() {
 
 
@@ -1736,10 +1727,6 @@ public class EventTab extends JPanel {
 
 		nameTextField.setText(editingEvent.getName());
 		descriptionTextArea.setText(editingEvent.getDescription());
-
-		categoryComboBox.setSelectedItem(editingEvent.getCategoryID());
-
-
 		if(!editingEvent.getIsPersonal())
 		{
 			rdbtnTeam.setSelected(true);
@@ -1754,7 +1741,24 @@ public class EventTab extends JPanel {
 		rdbtnPersonal.setEnabled(false);
 
 		updateCategoryList();
-
+		
+		// gets Caldata
+		CalendarData calData;
+		if (rdbtnPersonal.isSelected()){
+				calData = CalendarDataModel.getInstance().getCalendarData(
+						ConfigManager.getConfig().getProjectName() + 
+						"-" + ConfigManager.getConfig().getUserName()); 
+		}
+		else{
+			calData = CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName()); 
+		}
+		
+		if (editingEvent.getCategoryID() != 0){
+			categoryComboBox.setSelectedItem(calData.getCategories().getCategory(editingEvent.getCategoryID()));
+		} else {
+			categoryComboBox.setSelectedItem(uncategorized);
+		}
 
 		setStartDate(editingEvent.getStartTime());
 		startDatePicker.setDate(editingEvent.getStartTime().getTime());
@@ -1763,22 +1767,22 @@ public class EventTab extends JPanel {
 
 		//handle repetition fields
 		if(event.getIsRepeating()){
-			CalendarData calData;
+			CalendarData repCalData;
 			//we need the calData so that we can get the actual repeating event from it
 			// the event that the tab was opened with is just a dummy event so that the GUI
 			// can display it
 			if (rdbtnPersonal.isSelected()){
-				calData = CalendarDataModel.getInstance().getCalendarData(
+				repCalData = CalendarDataModel.getInstance().getCalendarData(
 						ConfigManager.getConfig().getProjectName() + 
 						"-" + ConfigManager.getConfig().getUserName()); 
 				isTeamEvent = false;
 			}
 			else{
-				calData = CalendarDataModel.getInstance().getCalendarData(
+				repCalData = CalendarDataModel.getInstance().getCalendarData(
 						ConfigManager.getConfig().getProjectName()); 
 				isTeamEvent = true;
 			}
-			editingRepeatingEvent = calData.getRepeatingEvents().get(event.getID());
+			editingRepeatingEvent = repCalData.getRepeatingEvents().get(event.getID());
 			repeatCheckBox.setSelected(true);
 			repeatAmt.setText(Integer.toString(editingRepeatingEvent.getRepetitions()));
 			repeatAmt.setEnabled(true);
@@ -1814,6 +1818,7 @@ public class EventTab extends JPanel {
 
 		btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
+		btnDelete.setToolTipText("Click this button to Delete this Event.");
 		btnDelete.addActionListener(new ActionListener() {
 
 			@Override
@@ -1834,6 +1839,16 @@ public class EventTab extends JPanel {
 	 * Updates the category list in the CategoryComboBox
 	 */
 	protected void updateCategoryList(){
+		initFlag = false; //prevents listeners from running
+		
+		final int selectedCategory;
+		
+		if(categoryComboBox.getSelectedItem() != null){
+			selectedCategory = ((Category) categoryComboBox.getSelectedItem()).getID();
+		} else {
+			selectedCategory = 0;
+		}
+		
 		//removes the current data from the ComboBox
 		categoryComboBox.removeAllItems();
 
@@ -1859,6 +1874,13 @@ public class EventTab extends JPanel {
 		for (Category cat:categories){
 			categoryComboBox.addItem(cat);
 		}
+
+		
+		if(selectedCategory != 0){
+			categoryComboBox.setSelectedItem(calData.getCategories().getCategory(selectedCategory));
+		}
+		
+		initFlag = true;
 
 	}
 

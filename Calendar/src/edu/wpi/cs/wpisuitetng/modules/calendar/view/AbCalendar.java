@@ -35,6 +35,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.month.MonthView;
 
 /*
  * Sources:
@@ -61,7 +62,7 @@ public abstract class AbCalendar extends JPanel {
 	/**
 	 * @author Tianci
 	 */
-	protected enum types {
+	public enum types {
 		DAY(0),
 		WEEK(1),
 		MONTH(2),
@@ -133,6 +134,7 @@ public abstract class AbCalendar extends JPanel {
 
 		viewbtns[0].setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this icon
+		viewbtns[0].setToolTipText("Click this icon to display the Calendar Day View.");
 		viewbtns[0].setBackground(Color.WHITE);
 		viewbtns[0].addActionListener(new ActionListener() {
 
@@ -168,6 +170,7 @@ public abstract class AbCalendar extends JPanel {
 
 		viewbtns[1].setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this icon
+		viewbtns[1].setToolTipText("Click this icon to display the Calendar Week View.");
 		viewbtns[1].setBackground(Color.WHITE);
 		viewbtns[1].addActionListener(new ActionListener() {
 
@@ -201,6 +204,7 @@ public abstract class AbCalendar extends JPanel {
 
 		viewbtns[2].setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this icon
+		viewbtns[2].setToolTipText("Click this icon to display the Calendar Month View.");
 		viewbtns[2].setBackground(Color.WHITE);
 		viewbtns[2].addActionListener(new ActionListener() {
 
@@ -234,6 +238,7 @@ public abstract class AbCalendar extends JPanel {
 
 		viewbtns[3].setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this icon
+		viewbtns[3].setToolTipText("Click this icon to display the Calendar Year View.");
 		viewbtns[3].setBackground(Color.WHITE);
 		viewbtns[3].addActionListener(new ActionListener() {
 
@@ -308,6 +313,7 @@ public abstract class AbCalendar extends JPanel {
 		backwardbutton.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		backwardbutton.setFont(CalendarStandard.CalendarFont);
 		backwardbutton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		backwardbutton.setToolTipText("Click this button to move backward in the Calendar View.");
 		// To change cursor as it moves over this button
 		backwardbutton.addActionListener(new ActionListener() {
 
@@ -329,6 +335,7 @@ public abstract class AbCalendar extends JPanel {
 		todaybutton.setFont(CalendarStandard.CalendarFont);
 		todaybutton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
+		todaybutton.setToolTipText("Click this button to go to Today's date.");
 		todaybutton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e)
@@ -356,6 +363,7 @@ public abstract class AbCalendar extends JPanel {
 		forwardbutton.setFont(CalendarStandard.CalendarFont);
 		forwardbutton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
+		forwardbutton.setToolTipText("Click this button to move forward in the Calendar View.");
 		forwardbutton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e)

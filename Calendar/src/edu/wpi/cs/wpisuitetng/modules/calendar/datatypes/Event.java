@@ -20,7 +20,8 @@ import java.util.Date;
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
-public class Event extends CalendarObject {
+public class Event extends CalendarObject implements
+Comparable<Event>{
 
 	/** the start date of the event */
 	private Date startTime;
@@ -81,6 +82,20 @@ public class Event extends CalendarObject {
 		participants = toCopyFrom.getParticipants();
 	}
 
+	
+	/**
+	 * Method compareTo.
+	 * @param person Event
+	
+	 * @return int */
+	public int compareTo(Event person) {
+		if (name != null && person.name != null) {
+			return name.compareToIgnoreCase(person.name);
+		}
+		return 0;
+	}
+	
+	
 	// GETTERS
 	/**
 	 * Getter for the start time

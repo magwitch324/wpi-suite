@@ -49,37 +49,30 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 
 	private final int openedFrom;
 	private JPanel buttonPanel;
-	private JButton btnAddFilter;
-	private AbstractButton btnCancel;
 	private Container viewPanel;
 	private JButton btnDelete;
 	private JButton btnEdit;
 	private JButton btnNewFilter;
 	private boolean initFlag;
 	private JScrollPane scrollPane;
-	private Component categoryList;
 	private JScrollPane inactiveFilterPane;
 	private JScrollPane activeFilterPane;
 	private JPanel buttonPanel2;
 	private JButton btnSaveFilter;
 	private JButton btnCancelFilter;
 	private JPanel editPanel;
-	private JButton addCategoryBttn;
-	private JButton moveCategoryBttn;
-	private JPanel moveCatBttnPanel;
 	private JButton addCatBttn;
 	private JButton removeCatBttn;
 	private JPanel catBttnPanel;
+	private FilterMode mode;
 
-	/**
-	 * @author Tianci
-	 */
-	private enum EditingMode {
-		VIEWING(0),
-		EDITING(1);
+	private enum FilterMode {
+		ADDING(0),
+		EDITING(1),
+		VIEWING(2);
 		private final int currentMode;
 		
-		private EditingMode(int currentMode) {
+		private FilterMode(int currentMode) {
 			this.currentMode = currentMode;
 		}
 	}
@@ -90,6 +83,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 	public FilterTab(int openedFrom) {
 		this.openedFrom = openedFrom;
 		initFlag = false;
+		mode = FilterMode.VIEWING;
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0};
@@ -98,11 +92,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		gridBagLayout.rowWeights = new double[]{0.0};
 		setLayout(gridBagLayout);
 
-			
-		
 		addFilterList();
 		addListeners();
-		//editFilterMode();
 		initFlag = true;
 		}
 	
@@ -155,8 +146,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		viewPanel.add(filterList, gbc_filterList);
 		
 		addButtonPanel();
-		this.repaint();
-		this.revalidate();
 	}
 	
 	/**
@@ -222,6 +211,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		
 		final JTextField filterName = new JTextField();
 		filterName.setBackground(CalendarStandard.CalendarYellow);
+		filterName.setToolTipText("Enter Filter Name here. This field is Required.");
 		final GridBagConstraints gbc_filterName = new GridBagConstraints();
 		gbc_filterName.fill = GridBagConstraints.BOTH;
 		gbc_filterName.insets = new Insets(5, 0, 5, 15);
@@ -268,6 +258,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 			addCatBttn.setIcon(new ImageIcon());
 		}
 //		addCatBttn.setText("Add Category");
+		addCatBttn.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
+		addCatBttn.setToolTipText("Use this button to Add the selected Category to this Filter.");
 		
 		
 		//Remove Category from Filter button
@@ -280,14 +273,15 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 			removeCatBttn.setIcon(new ImageIcon());
 		}
 //		removeCatBttn.setText("Remove Category");
+		removeCatBttn.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
+		removeCatBttn.setToolTipText("Use this button to Remove the selected Category from this Filter.");
 		
 		catBttnPanel.add(addCatBttn, BorderLayout.WEST);
 		catBttnPanel.add(removeCatBttn, BorderLayout.EAST);
 		editPanel.add(catBttnPanel, gbc_catBttnPanel);
 		
 		addButtonPanel2();
-		this.repaint();
-		this.revalidate();
 	}
 
 private void addButtonPanel(){
@@ -300,33 +294,47 @@ private void addButtonPanel(){
 		gbc_btnPanel.gridy = 2;
 		
 		//New Filter button
+		btnNewFilter = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("New_Icon.png"));
-			btnNewFilter = new JButton("New Filter", new ImageIcon(img));
+			btnNewFilter.setIcon(new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			btnCancel.setText("New Filter");
+			btnNewFilter.setIcon(new ImageIcon());
 		}
-
-		btnNewFilter.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnNewFilter.setText("New Filter");
+		btnNewFilter.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
+		btnNewFilter.setToolTipText("Click this button to Create a New Filter.");
 		
 		//Add Edit button
+		btnEdit = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Edit_Icon.png"));
-			btnEdit = new JButton("Edit Filter", new ImageIcon(img));
+			btnEdit.setIcon(new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-		btnCancel.setText("Edit Filter");
+			btnEdit.setIcon(new ImageIcon());
 		}
+		btnEdit.setText("Edit Filter");
+		btnEdit.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
+		btnEdit.setToolTipText("Click this button to Edit the selected a Filter.");
+		
 		
 		// Add Delete Button
+		btnDelete = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
-			btnDelete = new JButton("Delete Filter", new ImageIcon(img));
+			btnDelete.setIcon(new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			btnDelete.setText("Delete Filter");
+			btnDelete.setIcon(new ImageIcon());
 		}
+		btnDelete.setText("Delete Filter");
+		btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
+		btnDelete.setToolTipText("Click this button to Delete the selected Filter.");
 			
 		buttonPanel.add(btnNewFilter, BorderLayout.WEST);
 		buttonPanel.add(btnEdit, BorderLayout.CENTER);
@@ -345,22 +353,34 @@ private void addButtonPanel(){
 		gbc_btnPanel2.gridy = 4;
 		
 		//New Save button
+		btnSaveFilter = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Save_Icon.png"));
-			btnSaveFilter = new JButton("Save Filter", new ImageIcon(img));
+			btnSaveFilter.setIcon(new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			btnCancel.setText("Save Filter");
+			btnSaveFilter.setIcon(new ImageIcon());
 		}
+		btnSaveFilter.setText("Save Filter");
+		btnSaveFilter.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
+		btnSaveFilter.setToolTipText("Click this button to Save any changes made to the Filters.");
+		
 		
 		//New Cancel button
+		btnCancelFilter = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
-			btnCancelFilter = new JButton("Cancel", new ImageIcon(img));
+			btnCancelFilter.setIcon(new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			btnCancel.setText("Cancel");
+			btnCancelFilter.setIcon(new ImageIcon());
 		}
+		btnCancelFilter.setText("Cancel");
+		btnCancelFilter.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
+		btnCancelFilter.setToolTipText("Click this button to Cancel any changes made to the Filters.");
+		
 		
 		buttonPanel2.add(btnSaveFilter, BorderLayout.WEST);
 		buttonPanel2.add(btnCancelFilter, BorderLayout.EAST);
@@ -372,8 +392,54 @@ private void addButtonPanel(){
 		btnNewFilter.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				editFilterMode();
+				mode = FilterMode.ADDING;
+				refresh();
 			}
 		});
+		
+		btnEdit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mode = FilterMode.EDITING;
+				refresh();
+			}
+		});
+		
+		btnDelete.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				//deleteFilter();
+			}
+		});
+	}
+	
+	public void addEditViewListeners(){
+		btnCancelFilter.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mode = FilterMode.VIEWING;
+				refresh();
+			}
+		});
+	}
+	
+	protected void refresh(){
+		if(mode == FilterMode.VIEWING){
+			removeAll();
+			addFilterList();
+			addListeners();
+			revalidate();
+			repaint();
+		}
+		else{
+			removeAll();
+			addFilterList();
+			addListeners();
+			editFilterMode();
+			addEditViewListeners();
+			revalidate();
+			repaint();
+		}
 	}
 }
