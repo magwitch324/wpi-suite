@@ -74,7 +74,7 @@ public class MonthDayPane extends JPanel {
 		
 		this.acal = (GregorianCalendar)acal.clone();
 
-		//sets the properites for this
+		//sets the properties for this
 		this.setLayout(layout);
 		this.setPreferredSize(new Dimension(50, 20));
 		this.setBackground(CalendarStandard.CalendarYellow);
@@ -103,7 +103,7 @@ public class MonthDayPane extends JPanel {
 			scroll.setBorder(BorderFactory.createEmptyBorder());
 			layout.putConstraint(SpringLayout.NORTH, scrolllayer, 0, SpringLayout.SOUTH, datelabel);
 			layout.putConstraint(SpringLayout.WEST, scrolllayer, 0, SpringLayout.WEST, this);
-			layout.putConstraint(SpringLayout.SOUTH, scrolllayer, -3, SpringLayout.SOUTH, this);
+			layout.putConstraint(SpringLayout.SOUTH, scrolllayer, 0, SpringLayout.SOUTH, this);
 			layout.putConstraint(SpringLayout.EAST, scrolllayer, 0, SpringLayout.EAST, this);
 			this.add(scrolllayer);
 			
@@ -265,7 +265,7 @@ public class MonthDayPane extends JPanel {
 					curlab = wrap.copy();
 					height += curlab.getPreferredSize().getHeight() + label_spacing;
 					
-					if(height > boxheight ){
+					if(height > boxheight && wraps.indexOf(wrap) > 0){
 						break;
 					}
 					

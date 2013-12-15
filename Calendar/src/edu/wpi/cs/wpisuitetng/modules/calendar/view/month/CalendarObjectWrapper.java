@@ -106,9 +106,12 @@ public class CalendarObjectWrapper extends JLabel{
 	
 	 * @return a new copy of this */
 	public CalendarObjectWrapper copy(){
-		CalendarObjectWrapper result = new CalendarObjectWrapper(event);
+		CalendarObjectWrapper result;
 		if(comm != null){
 			result = new CalendarObjectWrapper(comm);
+		}
+		else{
+			result = new CalendarObjectWrapper(event);
 		}
 			return result;
 	}

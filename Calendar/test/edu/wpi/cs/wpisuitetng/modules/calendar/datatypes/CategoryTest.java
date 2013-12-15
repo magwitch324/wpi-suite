@@ -9,10 +9,17 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+
+import java.awt.Color;
 
 import org.junit.Test;
 
+import java.util.Comparator;
+
+import com.google.gson.Gson;
+
+import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
 /**
  * @author CS Anonymous
  * @version $Revision: 1.0 $
@@ -25,8 +32,9 @@ public class CategoryTest {
 	@Test
 	public void defaultConstructorTest(){
 		final Category testCategory = new Category ();
-		assertEquals(0, testCategory.getID());
 		assertEquals("", testCategory.getName());
+		assertEquals(new Color(0),testCategory.getCategoryColor());
+		assertFalse(testCategory.getIsPersonal());
 	}
 	
 	/**
@@ -34,9 +42,10 @@ public class CategoryTest {
 	 */
 	@Test
 	public void mainConstructorTest(){
-		final Category testCategory = null;//new Category (1, "test");
-		assertEquals("test", testCategory.getName());
-		assertEquals(1, testCategory.getID());
+		final Category testCategory = new Category("C1", Color.blue, true);
+		assertEquals("C1", testCategory.getName());
+		assertEquals(Color.blue, testCategory.getCategoryColor());
+		assertTrue(testCategory.getIsPersonal());
 	}
 	
 	/**
@@ -44,19 +53,21 @@ public class CategoryTest {
 	 */
 	@Test
 	public void setterConstructorTest(){
-		final Category testCategory = null;//new Category (1, "settertest");
-		testCategory.setID(2);
+		final Category testCategory = new Category("C1", Color.blue, true);
 		testCategory.setName("setter test");
-		assertEquals(2, testCategory.getID());
+		testCategory.setCategoryColor(Color.cyan);
+		testCategory.setPersonal(false);
 		assertEquals("setter test", testCategory.getName());
+		assertEquals(Color.cyan, testCategory.getCategoryColor());
+		assertFalse(testCategory.getIsPersonal());
 	}
 	/**
 	 * Tests to ensure that compare function work correctly
 	 */
 	@Test
 	public void compareTest(){
-		final Category c1 = null;//new Category (1, "C1");
-		final Category c2 = null;//new Category (2, "C2");
+		final Category c1 = new Category ("C1", Color.blue, true);
+		final Category c2 = new Category ("C2", Color.gray, false);
 		assertEquals(-1, c1.getName().compareToIgnoreCase(c2.getName()));
 	}
 	
