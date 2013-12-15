@@ -37,7 +37,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 
- /* @author CS Anonymous
+ /**
+  * The personal calendar tab.
+  * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
 @SuppressWarnings("serial")

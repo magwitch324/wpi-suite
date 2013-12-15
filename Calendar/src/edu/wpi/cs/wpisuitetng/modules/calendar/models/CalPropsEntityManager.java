@@ -26,7 +26,9 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.Role;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 
- /* @author CS Anonymous
+ /**
+  * Entity manager for database communication. Add/delete/edit calendar properties manager.
+  * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
 public class CalPropsEntityManager implements EntityManager<CalendarProps> {

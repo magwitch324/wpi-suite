@@ -20,7 +20,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddPropsController;
 
 
 
- /* @author CS Anonymous
+ /**
+  * Calendar properties model for storing list of calendar properties that match the list of calendars.
+  * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
 public class CalendarPropsModel extends AbstractListModel {

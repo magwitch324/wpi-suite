@@ -37,7 +37,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 
 
- /* @author CS Anonymous
+ /**
+  * Right above commitment view. It displays the date range,
+  * and gives user choice to display all commitments or
+  * only commitments within range.
+  * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
 @SuppressWarnings("serial")

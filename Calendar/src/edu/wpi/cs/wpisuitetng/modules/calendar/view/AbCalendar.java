@@ -44,7 +44,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
  */
 
 
- /* @author CS Anonymous
+ /**
+  * Abstract class for a calendar.
+  * AbCalendar holds the calendar data and calendar properties,
+  * plus an enumerator that identifies its type.
+  * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
 @SuppressWarnings("serial")

@@ -34,7 +34,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CalendarObject;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
- /* @author CS Anonymous
+ /**
+  * CalendarObjectPanel can be used as either an event or a commitment in the daydaypane.
+  * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
 @SuppressWarnings("serial")

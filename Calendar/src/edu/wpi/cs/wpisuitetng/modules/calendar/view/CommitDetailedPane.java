@@ -22,8 +22,7 @@ import javax.swing.SpringLayout;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 
 /** 
- * JPanel overlayed on the left side of the DetailedDay view, used to display commitments
-
+ * JPanel overlaid on the left side of the DetailedDay view, used to display commitments
  *
  * @author  CS Anonymous
  * @version $Revision: 1.0 $

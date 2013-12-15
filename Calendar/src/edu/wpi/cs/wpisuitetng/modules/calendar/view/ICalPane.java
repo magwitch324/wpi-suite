@@ -12,7 +12,8 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import javax.swing.JPanel;
 
 /**
- *
+ * Calendar interface used to guarantee year, month, week, and day panes
+ * have the ability to refresh, update scroll position, and getpane. 
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
