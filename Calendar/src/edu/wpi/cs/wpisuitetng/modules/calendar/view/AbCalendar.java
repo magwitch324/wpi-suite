@@ -35,6 +35,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.month.MonthView;
 
 /*
  * Sources:
@@ -61,7 +62,7 @@ public abstract class AbCalendar extends JPanel {
 	/**
 	 * @author Tianci
 	 */
-	protected enum types {
+	public enum types {
 		DAY(0),
 		WEEK(1),
 		MONTH(2),
