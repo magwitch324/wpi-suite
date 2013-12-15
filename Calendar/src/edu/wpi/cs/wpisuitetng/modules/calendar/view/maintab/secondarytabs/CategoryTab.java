@@ -214,6 +214,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	private void populateCategoryList() {
 		
 		final List<Category> catList = new ArrayList<Category>();
+		final CategoryList bothCategories = new CategoryList();
 		if(rdbtnPersonal.isSelected()) {
 			catList.addAll(personalCategories.getCategories());
 		} else if(rdbtnTeam.isSelected()) {
@@ -225,10 +226,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			{
 				teamCatArray[i] = catList.get(i);
 			}
-			personalCategories.addCategories(teamCatArray);
-			personalCategories.sortByAlphabet();
+			bothCategories.addCategories(teamCatArray);
+			bothCategories.sortByAlphabet();
 			catList.clear();
-			catList.addAll(personalCategories.getCategories());
+			catList.addAll(bothCategories.getCategories());
 		}
 		
 		// CategoryPanel to keep track of spring layout constraints of previously added panel
