@@ -142,6 +142,7 @@ import javax.swing.ButtonGroup;
 	private JLabel lblDateError;
 	private JLabel lblDateError2;
 	private JLabel lblTimeError2;
+	private JLabel lblRepeatError;
 	private int startTempHour = 1;
 	private int startTempMin = 1;
 	private int endTempMin = 1;
@@ -669,6 +670,7 @@ import javax.swing.ButtonGroup;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				repeatTypeComboBox.setEnabled(repeatCheckBox.isSelected());
+				checkRepeatVsDuration();
 				repeatAmt.setEnabled(repeatCheckBox.isSelected());
 				checkSaveBtnStatus();
 			}
@@ -722,7 +724,7 @@ import javax.swing.ButtonGroup;
 		gbc_lblNumberRepetitions.fill = GridBagConstraints.VERTICAL;
 		gbc_lblNumberRepetitions.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNumberRepetitions.gridx = 0;
-		gbc_lblNumberRepetitions.gridy = 9;
+		gbc_lblNumberRepetitions.gridy = 10;
 		gbc_lblNumberRepetitions.weighty = 1;
 		formPanel.add(lblNumberRepetitions, gbc_lblNumberRepetitions);
 		
@@ -734,7 +736,7 @@ import javax.swing.ButtonGroup;
 		gbc_repeatAmt.fill = GridBagConstraints.HORIZONTAL;
 		gbc_repeatAmt.insets = new Insets(0, 0, 5, 0);
 		gbc_repeatAmt.gridx = 1;
-		gbc_repeatAmt.gridy = 9;
+		gbc_repeatAmt.gridy = 10;
 		gbc_repeatAmt.weightx = 10;
 		gbc_repeatAmt.weighty = 1;
 		formPanel.add(repeatAmt, gbc_repeatAmt);
@@ -759,6 +761,19 @@ import javax.swing.ButtonGroup;
 			}
 			
 		});
+		
+		//Invalid Repeat label
+				lblRepeatError = new JLabel(" ");
+				lblRepeatError.setHorizontalAlignment(SwingConstants.LEFT);
+				final GridBagConstraints gbc_lblRepeatError = new GridBagConstraints();
+				gbc_lblRepeatError.insets = new Insets(0, 0, 0, 0);
+				gbc_lblRepeatError.fill = GridBagConstraints.HORIZONTAL;
+				gbc_lblRepeatError.gridx = 1;
+				gbc_lblRepeatError.gridy = 9;
+				gbc_lblRepeatError.weightx = 0;
+				gbc_lblRepeatError.weighty = 0;
+				//lblRepeatError.setMaximumSize(new Dimension(10, 10));
+				formPanel.add(lblRepeatError, gbc_lblRepeatError);
 		
 		
 		buttonPanel = new JPanel(new BorderLayout(30, 0));
@@ -796,7 +811,7 @@ import javax.swing.ButtonGroup;
 		gbc_btnPanel.insets = new Insets(0, 0, 0, 5);
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
 		gbc_btnPanel.gridx = 1;
-		gbc_btnPanel.gridy = 10;
+		gbc_btnPanel.gridy = 11;
 		
 		//Add Cancel button
 
@@ -831,6 +846,45 @@ import javax.swing.ButtonGroup;
 	}
 
 	
+	protected void checkRepeatVsDuration() {
+		/*GregorianCalendar combinedStart = new GregorianCalendar();
+		combinedStart.setTime(startDatePicker.getDate());
+		combinedStart.set(Calendar.MINUTE, startTempMin);
+		combinedStart.set(Calendar.HOUR, startTempHour);
+		
+		GregorianCalendar combinedEnd = new GregorianCalendar();
+		combinedEnd.setTime(endDatePicker.getDate());
+		combinedEnd.set(Calendar.MINUTE, endTempMin);
+		combinedEnd.set(Calendar.HOUR, endTempHour);
+		
+		System.out.println(get + ":" + startTempMin + "   " + endTempHour + ":" + endTempMin)*/
+		
+		long diff = getEndDate().getTime().getTime() - getStartDate().getTime().getTime();
+
+		int diffDays =  (int) (diff / (24* 1000 * 60 * 60));
+		System.out.println("day diff" + diffDays);
+		lblRepeatError.setText(" ");
+		if(diffDays >= 29){
+			repeatCheckBox.setSelected(false);
+			repeatTypeComboBox.setEnabled(false);
+			repeatAmt.setEnabled(false);
+			lblRepeatError.setText("<html><font color='red'>"
+					+ "Duration cannot be longer than a month.</font></html>");
+		}
+		else if(diffDays >= 7){
+			repeatTypeComboBox.setSelectedIndex(2);
+		}	
+		else if(diffDays >= 1){
+			repeatTypeComboBox.setSelectedIndex(1);
+		}
+		else{
+			repeatTypeComboBox.setSelectedIndex(0);
+		}
+
+		
+	}
+
+
 	/**
 	 * Helper function that sets up listeners only for date picker.
 	 */
