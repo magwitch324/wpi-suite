@@ -921,7 +921,7 @@ public class CommitmentTab extends JPanel {
 					System.out.println("Arrow action mode");
 					if (firstRun) {
 						System.out.println("FIRST RUN!!");
-						if( (Integer.parseInt(hourEditor.getTextField().getText()) == 12 && upArrowAction)
+						if( (Integer.parseInt(hourEditor.getTextField().getText()) == 11 && upArrowAction)
 								|| 
 								(Integer.parseInt(hourEditor.getTextField().getText()) == 12 && downArrowAction)) {
 							System.out.println("HourSpinner rollover, " + upArrowAction + " " + downArrowAction +
