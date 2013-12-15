@@ -57,5 +57,5 @@ public class CombinedEventList extends EventList{
 		// add the Event
 		calendarObjects.add(i, newEvent);
 
-	}	
+	}
 }

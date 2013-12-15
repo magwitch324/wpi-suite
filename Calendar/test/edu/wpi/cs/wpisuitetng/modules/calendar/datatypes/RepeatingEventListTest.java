@@ -9,14 +9,18 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
-import static org.junit.Assert.*;
-
-import java.util.GregorianCalendar;
-
-import static java.util.Calendar.*;
+import static edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatType.DAY;
+import static edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatType.WEEK;
+import static java.util.Calendar.DECEMBER;
+import static java.util.Calendar.JANUARY;
+import static java.util.Calendar.NOVEMBER;
+import static java.util.Calendar.OCTOBER;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.junit.After;
@@ -24,8 +28,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatType;
-import static edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatType.*;
 
+/**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
 public class RepeatingEventListTest {
 
 	/*
@@ -37,24 +44,45 @@ public class RepeatingEventListTest {
 	private static RepeatingEventList RepeatingEvents;
 	private static RepeatingEventList repeatingEventList1;
 	
-	private final static String[] people = new String[]{"John", "Mary", "Jack" };
+	private static final String[] people = new String[]{"John", "Mary", "Jack" };
 	
-	private final static GregorianCalendar today = new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00);
-	private final static GregorianCalendar today13 = new GregorianCalendar(2013, NOVEMBER, 23, 13, 00, 00);
+	private static final GregorianCalendar today = 
+			new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00);
+	private static final GregorianCalendar today13 = 
+			new GregorianCalendar(2013, NOVEMBER, 23, 13, 00, 00);
 	
-	final RepeatingEvent lastYear   = new RepeatingEvent("Last Year",  "A RepeatingEvent from last year",  
-			new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00),  new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), people , 1, true, 7, WEEK);
-	final RepeatingEvent lastMonth  = new RepeatingEvent("Last Month", "A RepeatingEvent from last month", 
-			new GregorianCalendar(2013, OCTOBER, 12, 12, 00, 00),  new GregorianCalendar(2013, OCTOBER, 12, 13, 00, 00), people, 1, true, 5, DAY);
-	final RepeatingEvent lastWeek   = new RepeatingEvent("Last Week",  "A RepeatingEvent for a week ago",  
-			new GregorianCalendar(2013, NOVEMBER, 16, 12, 00, 00), new GregorianCalendar(2013, NOVEMBER, 16, 13, 00, 00), people, 1, true, 30, RepeatType.MONTH);
-	final RepeatingEvent todayRepeatingEvent = new RepeatingEvent("Today", "A RepeatingEvent from today", today, today13, people, 2, true, 2, DAY);
-	final RepeatingEvent nextWeek   = new RepeatingEvent("Next Week",  "A RepeatingEvent for next week",   
-			new GregorianCalendar(2013, NOVEMBER, 24, 12, 00, 00), new GregorianCalendar(2013, NOVEMBER, 24, 13, 00, 00), people, 1, true, 5, WEEK);
-	final RepeatingEvent nextMonth  = new RepeatingEvent("Next Month", "A RepeatingEvent for next month",  
-			new GregorianCalendar(2013, DECEMBER, 23, 12, 00, 00), new GregorianCalendar(2013, DECEMBER, 23, 13, 00, 00), people, 1, true, 10, RepeatType.MONTH);
-	final RepeatingEvent nextYear   = new RepeatingEvent("Next Year",  "A RepeatingEvent for next year",   
-			new GregorianCalendar(2014, JANUARY, 1, 12, 00, 00),   new GregorianCalendar(2014, JANUARY, 1, 13, 00, 00) , people, 3, true, 3, null);
+	final RepeatingEvent lastYear   = 
+			new RepeatingEvent("Last Year",  "A RepeatingEvent from last year",  
+			new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00),  
+			new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), people, 1, true, 7, WEEK);
+	final RepeatingEvent lastMonth  = 
+			new RepeatingEvent("Last Month", "A RepeatingEvent from last month", 
+			new GregorianCalendar(2013, OCTOBER, 12, 12, 00, 00),  
+			new GregorianCalendar(2013, OCTOBER, 12, 13, 00, 00), people, 1, true, 5, DAY);
+	final RepeatingEvent lastWeek   = 
+			new RepeatingEvent("Last Week",  "A RepeatingEvent for a week ago",  
+			new GregorianCalendar(2013, NOVEMBER, 16, 12, 00, 00), 
+			new GregorianCalendar(2013, NOVEMBER, 16, 13, 00, 00), 
+			people, 1, true, 30, RepeatType.MONTH);
+	final RepeatingEvent todayRepeatingEvent = 
+			new RepeatingEvent("Today", "A RepeatingEvent from today",
+					today, today13, people, 2, true, 2, DAY);
+	final RepeatingEvent nextWeek   =
+			new RepeatingEvent("Next Week",  "A RepeatingEvent for next week",   
+			new GregorianCalendar(2013, NOVEMBER, 24, 12, 00, 00), 
+			new GregorianCalendar(2013, NOVEMBER, 24, 13, 00, 00), people, 1, true, 5, WEEK);
+	final RepeatingEvent nextMonth  =
+			new RepeatingEvent("Next Month", "A RepeatingEvent for next month",  
+			new GregorianCalendar(2013, DECEMBER, 23, 12, 00, 00), 
+			new GregorianCalendar(2013, DECEMBER, 23, 13, 00, 00), 
+			people, 1, true, 10, RepeatType.MONTH);
+	final RepeatingEvent nextYear   = 
+			new RepeatingEvent("Next Year",  "A RepeatingEvent for next year",   
+			new GregorianCalendar(2014, JANUARY, 1, 12, 00, 00),  
+			new GregorianCalendar(2014, JANUARY, 1, 13, 00, 00), people, 3, true, 3, null);
+	/**
+	 * Method setup.
+	 */
 	@Before
 	public void setup() {
 		RepeatingEvents = new RepeatingEventList();
@@ -71,41 +99,55 @@ public class RepeatingEventListTest {
 		
 	}
 
+	/**
+	 * Method addOneRepeatingEventTest.
+	 */
 	@Test
 	public void addOneRepeatingEventTest() {
 		repeatingEventList1.add(nextMonth);
 		repeatingEventList1.add(lastYear);
-		List<String> peopletest = new ArrayList<String>();
+		final List<String> peopletest = new ArrayList<String>();
 		peopletest.add("John");
 		peopletest.add("Mary");
 		peopletest.add("Jack");
-		List<RepeatingEvent> repeatingEvents = repeatingEventList1.getEvents();
+		final List<RepeatingEvent> repeatingEvents = repeatingEventList1.getEvents();
 		assertEquals(1, repeatingEvents.get(0).getCategoryID());
 		assertEquals("A RepeatingEvent from last year", repeatingEvents.get(0).getDescription());
 		assertEquals(peopletest, repeatingEvents.get(0).getParticipants());
 	}
 	
+	/**
+	 * Method afterTest.
+	 */
 	@After
 	public void afterTest() {
 		printlist(repeatingEventList1.getEvents());
 	}
 	
+	/**
+	 * Method addTwoRepeatingEventTest.
+	 */
 	@Test
 	public void addTwoRepeatingEventTest() {
 		repeatingEventList1.add(lastYear);
-		List<String> people = new ArrayList<String>();
+		final List<String> people = new ArrayList<String>();
 		people.add("John");
 		people.add("Mary");
 		people.add("Jack");
-		List<RepeatingEvent> repeatingEvents = repeatingEventList1.getEvents();
+		final List<RepeatingEvent> repeatingEvents = repeatingEventList1.getEvents();
 		assertEquals(1, repeatingEvents.get(0).getCategoryID());
 		assertEquals("A RepeatingEvent from last year", repeatingEvents.get(0).getDescription());
-		assertEquals(new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), repeatingEvents.get(0).getEndTime());
-		assertEquals(new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00), repeatingEvents.get(0).getStartTime());
+		assertEquals(new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00),
+				repeatingEvents.get(0).getEndTime());
+		assertEquals(new GregorianCalendar(2012, JANUARY, 30, 12, 00, 00),
+				repeatingEvents.get(0).getStartTime());
 		assertEquals(people, repeatingEvents.get(0).getParticipants());
 		assertEquals(0, repeatingEvents.get(0).getID());
 	}
 	
+	/**
+	 * Method getEventTest.
+	 */
 	@Test
 	public void getEventTest() {
 		repeatingEventList1.add(nextMonth);
@@ -113,6 +155,9 @@ public class RepeatingEventListTest {
 		assertNotNull(repeatingEventList1.getEvent(0));
 		assertNotNull(repeatingEventList1.getEvent(1));
 	}
+	/**
+	 * Method removeEventTest1.
+	 */
 	@Test
 	public void removeEventTest1() {
 		repeatingEventList1.add(nextMonth);
@@ -122,6 +167,9 @@ public class RepeatingEventListTest {
 		assertEquals("Last Year", repeatingEventList1.getEvent(0).getName());
 	}
 
+	/**
+	 * Method removeAllRepeatingEventTest.
+	 */
 	@Test
 	public void removeAllRepeatingEventTest() {
 		repeatingEventList1.add(nextMonth);
@@ -130,6 +178,9 @@ public class RepeatingEventListTest {
 		assertEquals(0, repeatingEventList1.getSize());
 	}
 	
+	/**
+	 * Method getElementAtTest.
+	 */
 	@Test
 	public void getElementAtTest() {
 		repeatingEventList1.add(nextMonth);
@@ -139,6 +190,9 @@ public class RepeatingEventListTest {
 	}
 	
 	
+	/**
+	 * Method getNextIDTest.
+	 */
 	@Test
 	public void getNextIDTest() {
 		repeatingEventList1.add(nextMonth);
@@ -147,13 +201,20 @@ public class RepeatingEventListTest {
 		assertEquals(3, repeatingEventList1.getNextID());
 	}
 	
+	/**
+	 * Method addsTest.
+	 */
 	@Test
 	public void addsTest() {
-		RepeatingEvent[] repeatingEvents = new RepeatingEvent[]{nextMonth, nextYear, lastYear};
+		final RepeatingEvent[] repeatingEvents = 
+				new RepeatingEvent[]{nextMonth, nextYear, lastYear};
 		repeatingEventList1.addEvents(repeatingEvents);
 		assertEquals(3, repeatingEventList1.getSize());
 	}
 	
+	/**
+	 * Method updateTest.
+	 */
 	@Test
 	public void updateTest() {
 		repeatingEventList1.add(nextMonth);
@@ -164,33 +225,27 @@ public class RepeatingEventListTest {
 		assertEquals("Changed Last Year", repeatingEventList1.getElementAt(2).getName());
 	}
 	
+	/**
+	 * Method updateWithDifferentStartTimeTest.
+	 */
 	@Test
 	public void updateWithDifferentStartTimeTest() {
-		final RepeatingEvent newLastYear = new RepeatingEvent("Last Year",  "A RepeatingEvent from last year",  
-				new GregorianCalendar(2012, JANUARY, 29, 12, 00, 00),  new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), people , 1, true, 7, WEEK);
+		final RepeatingEvent newLastYear = 
+				new RepeatingEvent("Last Year",  "A RepeatingEvent from last year",  
+				new GregorianCalendar(2012, JANUARY, 29, 12, 00, 00),  
+				new GregorianCalendar(2012, JANUARY, 30, 13, 00, 00), people, 1, true, 7, WEEK);
 		repeatingEventList1.add(nextMonth);
 		repeatingEventList1.add(nextYear);
 		repeatingEventList1.add(lastYear);
 		repeatingEventList1.update(newLastYear);
-		assertEquals(new GregorianCalendar(2012, JANUARY, 29, 12, 00, 00), repeatingEventList1.getElementAt(2).getStartTime());
+		assertEquals(new GregorianCalendar(2012, JANUARY, 29, 12, 00, 00),
+				repeatingEventList1.getElementAt(2).getStartTime());
 	}
 	
 	/**
-	@Test
-	public void filterRepeatingEventHalfInRange() {
-		RepeatingEventList repeatingEvents = new RepeatingEventList();
-		repeatingEvents.add(new RepeatingEvent("Test", "Bug", new GregorianCalendar(2013, NOVEMBER, 23, 10, 00, 00), new GregorianCalendar(2013, NOVEMBER, 23, 23, 00, 00), people, 1, true, 1, DAY));
-		List<RepeatingEvent> newData = repeatingEvents.filter(new GregorianCalendar(2013, NOVEMBER, 23, 1, 00, 00), new GregorianCalendar(2013, NOVEMBER, 23, 13, 00, 00));
-		assertEquals(1, newData.size());
-	}
 	
-	@Test
-	public void filterRepeatingEventAroundRange() {
-		RepeatingEventList repeatingEvents = new RepeatingEventList();
-		repeatingEvents.add(new RepeatingEvent("Test", "Bug", new GregorianCalendar(2013, NOVEMBER, 23, 10, 00, 00), new GregorianCalendar(2013, NOVEMBER, 23, 23, 00, 00), people, 1, true, 1, DAY));
-		List<RepeatingEvent> newData = repeatingEvents.filter(new GregorianCalendar(2013, NOVEMBER, 23, 12, 00, 00), new GregorianCalendar(2013, NOVEMBER, 23, 13, 00, 00));
-		assertEquals(1, newData.size());
-	}
+	
+	
 	*/
 	
 	@Test
@@ -203,6 +258,9 @@ public class RepeatingEventListTest {
 		assertEquals(startTime, combinedLastYearEvents.getElementAt(5).getStartTime());
 	}
 	
+	/**
+	 * Method toCombinedEventListDayRepeatTest.
+	 */
 	@Test
 	public void toCombinedEventListDayRepeatTest() {
 		repeatingEventList1.add(lastMonth);
@@ -213,6 +271,9 @@ public class RepeatingEventListTest {
 		assertEquals(startTime, combinedLastYearEvents.getElementAt(3).getStartTime());
 	}
 	
+	/**
+	 * Method toCombinedEventListMonthRepeatTest.
+	 */
 	@Test
 	public void toCombinedEventListMonthRepeatTest() {
 		repeatingEventList1.add(lastWeek);
@@ -223,6 +284,9 @@ public class RepeatingEventListTest {
 		assertEquals(startTime, combinedLastYearEvents.getElementAt(0).getStartTime());
 	}
 	
+	/**
+	 * Method toCombinedEventListOtherRepeatTest.
+	 */
 	@Test
 	public void toCombinedEventListOtherRepeatTest() {
 		repeatingEventList1.add(nextYear);

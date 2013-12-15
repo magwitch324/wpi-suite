@@ -28,8 +28,8 @@ public enum Status {
 	/**
 	 * Method getStatusValue.
 	 * @param id int
-	 * @return Status
-	 */
+	
+	 * @return Status */
 	public static Status getStatusValue(int id) {
 		Status result;
 		result = Status.NEW;
@@ -51,8 +51,8 @@ public enum Status {
 	/**
 	 * Method convertToString.
 	 * @param id int
-	 * @return String
-	 */
+	
+	 * @return String */
 	public static String convertToString(int id) {
 		String result;
 		result = "";

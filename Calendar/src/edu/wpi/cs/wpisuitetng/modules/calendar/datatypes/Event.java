@@ -11,16 +11,17 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Date;
 
 /**
  * Main data storage class for event.
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
-public class Event extends CalendarObject {
+public class Event extends CalendarObject implements
+Comparable<Event>{
 
 	/** the start date of the event */
 	private Date startTime;
@@ -81,6 +82,21 @@ public class Event extends CalendarObject {
 		participants = toCopyFrom.getParticipants();
 	}
 
+	
+	/**
+	 * Method compareTo.
+	 * @param person Event
+	
+	 * @return int */
+	public int compareTo(Event person) {
+		int result = 0;
+		if (name != null && person.name != null) {
+			result = name.compareToIgnoreCase(person.name);
+		}
+		return result;
+	}
+	
+	
 	// GETTERS
 	/**
 	 * Getter for the start time

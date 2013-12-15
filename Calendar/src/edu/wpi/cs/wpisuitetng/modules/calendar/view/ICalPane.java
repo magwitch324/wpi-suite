@@ -18,17 +18,17 @@ import javax.swing.JPanel;
  */
 public interface ICalPane {
 
-	public JPanel getPane();
+    JPanel getPane();
 	
 	/**
 	 * Method updateScrollPosition.
 	 * @param value int
 	 */
-	public void updateScrollPosition(int value);
+	 void updateScrollPosition(int value);
 	
 	/**
 	 * Method refresh.
 	 */
-	public void refresh();
+	 void refresh();
 	
 }

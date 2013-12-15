@@ -9,7 +9,8 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,13 +22,16 @@ import org.junit.Test;
 
 import edu.wpi.cs.wpisuitetng.Session;
 import edu.wpi.cs.wpisuitetng.database.Data;
-import edu.wpi.cs.wpisuitetng.exceptions.BadRequestException;
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.MockData;
 import edu.wpi.cs.wpisuitetng.modules.core.models.Project;
 import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 
+/**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
 public class CalendarDataEntityManagerTest {
 	
 	CalendarData calendarData;
@@ -39,6 +43,9 @@ public class CalendarDataEntityManagerTest {
 	String mockSsid;
 	String id;
 	
+	/**
+	 * Method setUp.
+	 */
 	@Before
 	public void setUp() {
 		mockSsid = "abc123";
@@ -54,10 +61,14 @@ public class CalendarDataEntityManagerTest {
 		manager = new CalendarDataEntityManager(db);
 	}
 	
+	/**
+	 * Method testMakeEntity.
+	
+	 * @throws WPISuiteException */
 	@Test
 	public void testMakeEntity() throws WPISuiteException {
-		CalendarData created = manager.makeEntity(defaultSession, calendarData.toJSON());
-		List<CalendarData> list = new ArrayList<CalendarData>();
+		final CalendarData created = manager.makeEntity(defaultSession, calendarData.toJSON());
+		final List<CalendarData> list = new ArrayList<CalendarData>();
 		Collections.addAll(list, manager.getEntity(defaultSession, "1"));
 		assertEquals("1", created.getId());
 		assertSame(2, manager.getAll(defaultSession).length);

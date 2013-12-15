@@ -9,14 +9,17 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
+import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.Before;
-
+/**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
 public class CategoryListTest {
 
 	private  CategoryList categoryList;
@@ -26,6 +29,9 @@ public class CategoryListTest {
     private Category nextWeek;
     private Category nextYear;
     
+    /**
+     * Method setUp.
+     */
     @Before
     public void setUp() {
     	/*
@@ -59,7 +65,7 @@ public class CategoryListTest {
 	    categoryList.add(nextWeek);
 	    categoryList.add(todayCategory);
 	    categoryList.add(lastYear);
-	    categoryList.add(nextYear);    	
+	    categoryList.add(nextYear);
 	    assertEquals("Last Year", categoryList.getCategory(0).getName());
 	    assertEquals("Next Year", categoryList.getCategory(6).getName());
 	    assertEquals("Today", categoryList.getCategory(3).getName());
@@ -73,7 +79,7 @@ public class CategoryListTest {
 	    	categoryList.add(nextWeek);
 	    	categoryList.add(todayCategory);
 	    	categoryList.add(lastYear);
-	    	categoryList.add(nextYear);    	
+	    	categoryList.add(nextYear);
 	    	categoryList.remove(0);
 	    	categoryList.remove(3);
 	    	assertEquals(2, categoryList.getSize());
@@ -99,7 +105,7 @@ public class CategoryListTest {
 	  */
 	 @Test
 	    public void addCategoriesTest() {
-	    	Category[] categoryArray = new Category[]{lastYear, todayCategory, nextYear};
+	    	final Category[] categoryArray = new Category[]{lastYear, todayCategory, nextYear};
 	    	categoryList.addCategories(categoryArray);
 	    	assertEquals(3, categoryList.getSize());
 	    	assertEquals("Last Year", categoryList.getElementAt(2).getName());
@@ -114,8 +120,8 @@ public class CategoryListTest {
 	    	categoryList.add(nextWeek);
 	    	categoryList.add(todayCategory);
 	    	categoryList.add(lastYear);
-	    	categoryList.add(nextYear);	    	
-	    	categories = categoryList.getCategories();	    	
+	    	categoryList.add(nextYear);
+	    	categories = categoryList.getCategories();
 	    	assertEquals(4, categories.size());
 	    	assertEquals("Next Year", categories.get(2).getName());
 	    	assertEquals("Last Year", categories.get(0).getName());
@@ -133,7 +139,7 @@ public class CategoryListTest {
 	    	todayCategory.setName("abc");
 	    	nextWeek.setID(9);
 	    	categoryList.update(todayCategory);
-	    	categoryList.update(nextWeek);	
+	    	categoryList.update(nextWeek);
 	    	assertEquals("abc", categoryList.getCategory(3).getName());
 	    	assertEquals(9, categoryList.getElementAt(1).getID());
 	    }

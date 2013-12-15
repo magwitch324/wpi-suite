@@ -25,9 +25,12 @@ public class CalendarProps extends AbstractModel {
 	/** the ID of the CalendarProps */
 	private String id;
 	private boolean showMyComm;
-	private boolean showTeamComm;
+	private boolean showMyEvent;
+	private int myTeamBoth;
 	private boolean showTeamData;
 	private int commViewMode;
+	private int eventViewMode;
+	private boolean showCommRange;
 
 	/**
 	 * Constructs a CalendarProps with default characteristics
@@ -35,9 +38,12 @@ public class CalendarProps extends AbstractModel {
 	public CalendarProps() {
 		id = "";
 		showMyComm = false;
-		showTeamComm = false;
+		showMyEvent = false;
+		myTeamBoth = 0;
 		showTeamData = false;
+		showCommRange = false;
 		commViewMode = 0;
+		eventViewMode = 0;
 	}
 
 	/**
@@ -72,21 +78,40 @@ public class CalendarProps extends AbstractModel {
 		return showMyComm;
 	}
 	
+	
+	/**
+	 * setter for persisting whether event should be shown on the calendar
+	 * 
+	 * @param showEvent
+	 */
+	public void setMyShowEvent(boolean showEvent){
+		showMyEvent = showEvent;
+	}
+	
+	/**
+	 * getter for setting whether show event is selected at startup
+	 * 
+	 */
+	public boolean getMyShowEvent(){
+		return showMyEvent;
+	}
+	
+	
 	/**
 	 * setter for persisting whether commitments should be shown on the calendar
 	 * 
 	 * @param showComm
 	 */
-	public void setTeamShowComm(boolean showComm){
-		showTeamComm = showComm;
+	public void setMyTeamBoth(int myTeamBoth){
+		this.myTeamBoth = myTeamBoth;
 	}
 	
 	/**
 	 * getter for setting whether show comm is selected at startup
 	 * 
 	 */
-	public boolean getTeamShowComm(){
-		return showTeamComm;
+	public int getMyTeamBoth(){
+		return myTeamBoth;
 	}
 
 	
@@ -108,7 +133,7 @@ public class CalendarProps extends AbstractModel {
 	}
 	
 	/**
-	 * setter for persisting whether team data should be shown on the personal calendar
+	 * getter for setting what is selected in all comm view
 	 * 
 	 * @param showComm
 	 */
@@ -117,11 +142,49 @@ public class CalendarProps extends AbstractModel {
 	}
 	
 	/**
-	 * getter for setting whether show team data is selected at startup
+	 * getter for setting what is selected in all comm view
 	 * 
 	 */
 	public int getCommViewMode(){
 		return commViewMode;
+	}
+	
+	
+	/**
+	 * setter for setting what is selected in all event view
+	 * 
+	 * @param mode
+	 */
+	public void setEventViewMode(int mode){
+		eventViewMode = mode;
+	}
+	
+	
+	/**
+	 * getter for setting what is selected in all event view
+	 * 
+	 */
+	public int getEventViewMode(){
+		return eventViewMode;
+	}
+
+	
+	
+	/**
+	 * getter for setting whether commitpane is showing in range or all
+	 * 
+	 * @param showAll
+	 */
+	public void setShowCommRange(boolean showAll){
+		showCommRange = showAll;
+	}
+	
+	/**
+	 * getter for setting whether commitpane is showing in range or all
+	 * 
+	 */
+	public boolean getShowCommRange(){
+		return showCommRange;
 	}
 	
 	/**
@@ -242,9 +305,12 @@ public class CalendarProps extends AbstractModel {
 	public void copyFrom(CalendarProps toCopyFrom){
 		id = toCopyFrom.getId();
 		showMyComm = toCopyFrom.getMyShowComm();
-		showTeamComm = toCopyFrom.getTeamShowComm();
+		showMyEvent = toCopyFrom.getMyShowEvent();
+		myTeamBoth = toCopyFrom.getMyTeamBoth();
 		showTeamData = toCopyFrom.getShowTeamData();
 		commViewMode = toCopyFrom.getCommViewMode();
+		eventViewMode = toCopyFrom.getEventViewMode();
+		showCommRange = toCopyFrom.getShowCommRange();
 	}
 
 	

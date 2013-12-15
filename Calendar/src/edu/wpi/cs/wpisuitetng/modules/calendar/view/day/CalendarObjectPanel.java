@@ -7,7 +7,7 @@
  * 
  * Contributors: CS Anonymous
  ******************************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.calendar.view;
+package edu.wpi.cs.wpisuitetng.modules.calendar.view.day;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -29,15 +29,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CalendarObject;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar.types;
 
- /* @author CS Anonymous
+/**
+  * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
+ @SuppressWarnings("serial")
 public class CalendarObjectPanel extends JPanel {
 	Event event = null;
 	Commitment comm = null;
@@ -186,11 +189,11 @@ public class CalendarObjectPanel extends JPanel {
 		Image nameImg;
 		final Image scaleImg;
 		try {
-			if (calobj.getIsPersonal()) {	
-				nameImg = ImageIO.read(getClass().getResource("Personal" + type + "_Icon.png"));
+			if (calobj.getIsPersonal()) {
+				nameImg = ImageIO.read(AbCalendar.class.getResource("Personal" + type + "_Icon.png"));
 				
 			} else {
-				nameImg = ImageIO.read(getClass().getResource("Team" + type + "_Icon.png"));
+				nameImg = ImageIO.read(AbCalendar.class.getResource("Team" + type + "_Icon.png"));
 			}
 			scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 			final ImageIcon imageIcon = new ImageIcon(scaleImg);
@@ -240,20 +243,20 @@ public class CalendarObjectPanel extends JPanel {
 		textLayout.putConstraint(SpringLayout.NORTH, descL, 0, SpringLayout.SOUTH, timeL);
 		textLayout.putConstraint(SpringLayout.EAST, descL, 0, SpringLayout.EAST, textPanel);
 		
-		
 	}
 	
 	/**
 	 * @return the name of the event/commitment to display
 	 */
 	public String getName(){
+		String result = "";
 		if(event != null){
-			return event.getName();
+			result = event.getName();
 		}
 		else if(comm != null){
-			return comm.getName();
+			result = comm.getName();
 		}
-		return "";
+		return result;
 	}
 	
 	/**
@@ -263,7 +266,8 @@ public class CalendarObjectPanel extends JPanel {
 	public void refreshSize(){
 		final double par_width = parent.getSize().getWidth();
 		final double par_height = parent.getSize().getHeight();
-		final Dimension new_size = new Dimension((int)((par_width - 3 * columnwidth - 3) / columnwidth * columnspanned), 
+		final Dimension new_size = new Dimension((int)(
+				(par_width - 3 * columnwidth - 3) / columnwidth * columnspanned), 
 				(int)(par_height * this.getRatioDifference()));
 		this.setPreferredSize(new_size);
 	}
@@ -289,8 +293,8 @@ public class CalendarObjectPanel extends JPanel {
 	 * Sets the columns spanned
 	 * @param columnspanned the number of columns that this should span
 	
-	 * @return int
-	 */
+	
+	 * @return int */
 	public int setColumnSpan(int columnspanned){
 		return (this.columnspanned = columnspanned);
 	}
@@ -357,17 +361,18 @@ public class CalendarObjectPanel extends JPanel {
 	 * @return the start time of the event/commitment
 	 */
 	public GregorianCalendar getStart(){
+		GregorianCalendar result = new GregorianCalendar();
 		if(event != null){
 			final GregorianCalendar cal = new GregorianCalendar();
 			cal.setTime(event.getStartTime().getTime());
-			return cal;
+			result = cal;
 		}
 		else if(comm != null){
 			final GregorianCalendar cal = new GregorianCalendar();
 			cal.setTime(comm.getDueDate().getTime());
-			return cal;
+			result = cal;
 		}
-		return new GregorianCalendar();
+		return result;
 	}
 	
 	/**
@@ -375,18 +380,19 @@ public class CalendarObjectPanel extends JPanel {
 	 * @return the end time of the event/commitment
 	 */
 	public GregorianCalendar getEnd(){
+		GregorianCalendar result = new GregorianCalendar();
 		if(event != null){
 			final GregorianCalendar cal = new GregorianCalendar();
 			cal.setTime(event.getEndTime().getTime());
-			return cal;
+			result = cal;
 		}
 		else if(comm != null){
 			final GregorianCalendar cal = new GregorianCalendar();
 			cal.setTime(comm.getDueDate().getTime());
 			cal.add(Calendar.MINUTE, 30);
-			return cal;
+			result = cal;
 		}
-		return new GregorianCalendar();
+		return result;
 	}
 
 	/**

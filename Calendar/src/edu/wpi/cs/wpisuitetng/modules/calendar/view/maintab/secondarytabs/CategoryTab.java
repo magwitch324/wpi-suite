@@ -9,48 +9,42 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
-import javax.imageio.ImageIO;
-import javax.swing.JPanel;
-
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.Image;
-
-import javax.swing.SpringLayout;
-
 import java.awt.Component;
-
-import javax.swing.Box;
-
-import java.awt.GridBagLayout;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
-import javax.swing.JRadioButton;
-import javax.swing.BoxLayout;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SpringLayout;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 
- /* @author CS Anonymous
+/**
+  * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-public class CategoryTab extends JPanel {
+ public class CategoryTab extends JPanel {
 
 	private final CategoryList teamCategories;
 	private final CategoryList personalCategories;
@@ -67,8 +61,11 @@ public class CategoryTab extends JPanel {
 	private CategoryMode mode;
 	private Component viewPanelStrut;
 	private JTextField textFieldName;
+	private JScrollPane scrollPane;
+
 
 	/**
+	 * @author CS Anonymous
 	 */
 	public enum CategoryMode {
 		ADDING(0),
@@ -89,20 +86,18 @@ public class CategoryTab extends JPanel {
 		createBaseUI();
 		
 		//Load category lists from CalendarDataModel
-//		teamCategories = CalendarDataModel.getInstance().getCalendarData(
-//				ConfigManager.getConfig().getProjectName()).getCategories();
-//		personalCategories = CalendarDataModel.getInstance().getCalendarData(
-//				ConfigManager.getConfig().getProjectName() + "-"
-//						+ ConfigManager.getConfig().getUserName()).getCategories();
-		teamCategories = new CategoryList();
-		personalCategories = new CategoryList();
-
+		teamCategories = CalendarDataModel.getInstance().getCalendarData(
+				ConfigManager.getConfig().getProjectName()).getCategories(); 
+		personalCategories = CalendarDataModel.getInstance().getCalendarData(
+				ConfigManager.getConfig().getProjectName() + 
+				"-" + ConfigManager.getConfig().getUserName()).getCategories(); 
+		
 		populateCategoryList();
 		addListeners();
 		
 		//initialize in "viewing" mode
 		setupViewingView();
-		
+		setBackground(Color.WHITE);
 		
 	}
 
@@ -118,30 +113,38 @@ public class CategoryTab extends JPanel {
 		viewPanel = new JPanel();
 		
 		viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
+		viewPanel.setBackground(Color.WHITE);
 		
 		final Box horizontalBox = Box.createHorizontalBox();
 		viewPanel.add(horizontalBox);
 		final ButtonGroup teamPersonalRadioButtons = new ButtonGroup();
 		
 		rdbtnTeam = new JRadioButton("Team");
+		rdbtnTeam.setBackground(Color.WHITE);
 		teamPersonalRadioButtons.add(rdbtnTeam);
 		horizontalBox.add(rdbtnTeam);
 		
 		rdbtnPersonal = new JRadioButton("Personal");
+		rdbtnPersonal.setBackground(Color.WHITE);
 		teamPersonalRadioButtons.add(rdbtnPersonal);
 		horizontalBox.add(rdbtnPersonal);
 		
 		rdbtnBoth = new JRadioButton("Both");
-		rdbtnBoth.setSelected(true);
+		rdbtnBoth.setBackground(Color.WHITE);
+//		rdbtnBoth.setSelected(true);
+		rdbtnPersonal.setSelected(true);
 		teamPersonalRadioButtons.add(rdbtnBoth);
 		horizontalBox.add(rdbtnBoth);
 		
-		final JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setBackground(Color.WHITE);
 		viewPanel.add(scrollPane);
 		
 		categoryListPanel = new JPanel();
 		scrollPane.setViewportView(categoryListPanel);
+		categoryListPanel.setBackground(Color.WHITE);
 		categoryListLayout = new SpringLayout();
 		categoryListPanel.setLayout(categoryListLayout);
 		
@@ -149,7 +152,7 @@ public class CategoryTab extends JPanel {
 		viewPanel.add(horizontalBox_1);
 		
 
-		//New Filter button
+		//New Category button
 		btnNew = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("New_Icon.png"));
@@ -175,6 +178,8 @@ public class CategoryTab extends JPanel {
 			btnEdit.setText("Edit Category");
 		}
 		
+		
+		
 		horizontalBox_1.add(btnEdit);
 		
 		final Component horizontalStrut_2 = Box.createHorizontalStrut(20);
@@ -194,15 +199,6 @@ public class CategoryTab extends JPanel {
 		horizontalBox_1.add(btnDelete);
 		
 		
-//		JButton btnDelete = new JButton("Delete");
-//		horizontalBox_1.add(btnDelete);
-//		
-//		JButton btnEdit = new JButton("Edit");
-//		horizontalBox_1.add(btnEdit);
-//		
-//		JButton btnNew = new JButton("New");
-//		horizontalBox_1.add(btnNew);
-		
 		viewPanelStrut = Box.createHorizontalStrut(600);
 		viewPanelStrut.setMaximumSize(new Dimension(600, 0));
 		viewPanel.add(viewPanelStrut);
@@ -216,54 +212,63 @@ public class CategoryTab extends JPanel {
 	private void populateCategoryList() {
 		
 		final List<Category> catList = new ArrayList<Category>();
-		if(rdbtnPersonal.isSelected())
-		{
+		final CategoryList bothCategories = new CategoryList();
+		if(rdbtnPersonal.isSelected()) {
 			catList.addAll(personalCategories.getCategories());
-		}
-		else if(rdbtnTeam.isSelected())
-		{
+		} else if(rdbtnTeam.isSelected()) {
 			catList.addAll(teamCategories.getCategories());
-		}
-		else
-		{
-			final Category[] teamCatArray = new Category[teamCategories.getSize()];
+		} else {
+			final Category[] bothCatArray = new Category[teamCategories.getSize() + personalCategories.getSize()];
 			catList.addAll(teamCategories.getCategories());
+			catList.addAll(personalCategories.getCategories());
 			for(int i = 0; i < catList.size(); i++)
 			{
-				teamCatArray[i] = catList.get(i);
+				bothCatArray[i] = catList.get(i);
 			}
-			personalCategories.addCategories(teamCatArray);
-			personalCategories.sortByAlphabet();
+			bothCategories.addCategories(bothCatArray);
+			bothCategories.sortByAlphabet();
 			catList.clear();
-			catList.addAll(personalCategories.getCategories());
+			catList.addAll(bothCategories.getCategories());
 		}
 		
-//		for(Category cat: catList)
-//		{
-//			categoryListPanel.add(new CategoryPanel(cat));
-//		}
-		CategoryPanel catPanel = new CategoryPanel(new Category("GUI", Color.red, true));
-		categoryListLayout.putConstraint(SpringLayout.NORTH, catPanel, 
-				1, SpringLayout.NORTH, categoryListPanel);
-		categoryListLayout.putConstraint(SpringLayout.WEST, catPanel, 
-				1, SpringLayout.WEST, categoryListPanel);
-		categoryListLayout.putConstraint(SpringLayout.EAST, catPanel,
-				1, SpringLayout.EAST, categoryListPanel);
-		categoryListPanel.add(catPanel);
-		
-		final CategoryPanel oldCatPanel = catPanel;
-		catPanel = new CategoryPanel(new Category("Dev", Color.blue, true));
-		categoryListLayout.putConstraint(SpringLayout.NORTH, catPanel, 
-				1, SpringLayout.SOUTH, oldCatPanel);
-		categoryListLayout.putConstraint(SpringLayout.WEST, catPanel, 
-				1, SpringLayout.WEST, categoryListPanel);
-		categoryListLayout.putConstraint(SpringLayout.EAST, catPanel, 
-				1, SpringLayout.EAST, categoryListPanel);
-		
-		
+		// CategoryPanel to keep track of spring layout constraints of previously added panel
+		JPanel oldCatPanel = new CategoryPanel(); 
+		JPanel catPanel = new CategoryPanel();
+		for(int i = 0; i < catList.size(); i++)
+		{
+			catPanel = new CategoryPanel(catList.get(i));
+			//If first panel, add to top of list panel
+			if (i == 0)
+			{
+				categoryListLayout.putConstraint(SpringLayout.NORTH, catPanel, 
+						1, SpringLayout.NORTH, categoryListPanel);
+				categoryListLayout.putConstraint(SpringLayout.WEST, catPanel, 
+						1, SpringLayout.WEST, categoryListPanel);
+				categoryListLayout.putConstraint(SpringLayout.EAST, catPanel,
+						1, SpringLayout.EAST, categoryListPanel);
+			}
+			else
+			{
+				//add panel below previous panel
+				categoryListLayout.putConstraint(SpringLayout.NORTH, catPanel, 
+						1, SpringLayout.SOUTH, oldCatPanel);
+				categoryListLayout.putConstraint(SpringLayout.WEST, catPanel, 
+						1, SpringLayout.WEST, categoryListPanel);
+				categoryListLayout.putConstraint(SpringLayout.EAST, catPanel, 
+						1, SpringLayout.EAST, categoryListPanel);
+			}
 
-		categoryListPanel.add(catPanel);
-
+			categoryListPanel.add(catPanel);
+			
+			oldCatPanel = catPanel; //update oldCatPanel to be previously added panel
+		}
+		
+		if(categoryListLayout.getConstraint(SpringLayout.SOUTH, categoryListPanel).getValue() > 
+				categoryListLayout.getConstraint(SpringLayout.SOUTH, catPanel).getValue()) {
+		categoryListLayout.putConstraint(SpringLayout.SOUTH, 
+				categoryListPanel, 0, SpringLayout.SOUTH, catPanel);
+		}
+		
 		
 	}
 	
@@ -272,14 +277,52 @@ public class CategoryTab extends JPanel {
 	 * Add event handlers to GUI components
 	 */
 	private void addListeners() {
-		// TODO Auto-generated method stub
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setupAddView();
 			}
 		});
+		
+		btnEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setupAddView();
+			}
+		});
+		
+		rdbtnTeam.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refreshCategoryListPanel();
+			}
+		});
+		
+		rdbtnPersonal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refreshCategoryListPanel();
+			}
+		});
+		
+		rdbtnBoth.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refreshCategoryListPanel();
+			}
+		});
 	}
 	
+
+	/**
+	 * Method refreshCategoryListPanel.
+	 */
+	protected void refreshCategoryListPanel() {
+		categoryListPanel.removeAll();
+		populateCategoryList();
+		scrollPane.revalidate();
+		scrollPane.repaint();
+
+	}
+
+
+
+
 	/**
 	 * Setup the Adding view, where a user will create a new Category and save it.
 	 * The category list will still be visible on the left
@@ -306,16 +349,13 @@ public class CategoryTab extends JPanel {
 		gbc_addEditPanel.fill = GridBagConstraints.BOTH;
 		gbc_addEditPanel.gridx = 1;
 		gbc_addEditPanel.gridy = 0;
-		add(addEditPanel, gbc_addEditPanel);		
-		
+		add(addEditPanel, gbc_addEditPanel);
 		
 		//set size of view panel
 		viewPanel.remove(viewPanelStrut);
 		viewPanelStrut = Box.createHorizontalStrut(400);
 		viewPanelStrut.setMaximumSize(new Dimension(400, 0));
 		viewPanel.add(viewPanelStrut);
-
-		
 	}
 	
 	/**
@@ -345,6 +385,5 @@ public class CategoryTab extends JPanel {
 		viewPanelStrut = Box.createHorizontalStrut(600);
 		viewPanelStrut.setMaximumSize(new Dimension(600, 0));
 		viewPanel.add(viewPanelStrut);
-		
 	}
 }

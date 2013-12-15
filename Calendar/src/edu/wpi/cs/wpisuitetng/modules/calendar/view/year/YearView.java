@@ -7,59 +7,59 @@
  * 
  * Contributors: CS Anonymous
  ******************************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.calendar.view;
+package edu.wpi.cs.wpisuitetng.modules.calendar.view.year;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.CalendarView;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentView;
 
- /* @author CS Anonymous
+/**
+  * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
-public class MonthView extends CalendarView {
-	
-	private final GregorianCalendar aMonth;
-	private final MonthPane monthPane;
-	
+ @SuppressWarnings("serial")
+public class YearView extends CalendarView {
 
-
+	private final GregorianCalendar ayear;
+	private final YearPane yearpane;
+	
 	/**
-	 * Constructor for MonthView.
+	 * Constructor for YearView.
 	 * @param datecalendar GregorianCalendar
 	 */
-	public MonthView(GregorianCalendar datecalendar) {
+	public YearView(GregorianCalendar datecalendar) {
 
 		super(datecalendar);
-		aMonth = new GregorianCalendar();
+		ayear = new GregorianCalendar();
 
-		monthPane = new MonthPane(datecalendar);
-		setCalPane(monthPane);
+		yearpane = new YearPane(datecalendar);
+		setCalPane(yearpane);
 		setCommitmentView(new CommitmentView());
 
 		setRange(datecalendar);
 	}
 	
-	
+	/**
+	 * Sets the year range for the label
+	 */
+	@Override
 	public void setRange(GregorianCalendar calendar) {
-		aMonth.setTime(calendar.getTime());
-
-		while (aMonth.get(Calendar.DAY_OF_MONTH) != 1) {
-			aMonth.add(Calendar.DAY_OF_MONTH, -1);
-		}
+		ayear.setTime(calendar.getTime());
 		
-		final String monthName = aMonth.getDisplayName(
-				Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
-		
-		setLabel(monthName + " " + aMonth.get(Calendar.YEAR));
+		ayear.set(Calendar.DAY_OF_YEAR, 1);
+		setLabel("" + ayear.get(Calendar.YEAR));
 				
 		refresh();
 	}
 
+	/**
+	 * Displays the given events, commitments, and whether commitments are displayed on the year
+	 */
 	@Override
 	public void displayCalData(
 			EventList eventList, CommitmentList commList, boolean showCommOnCal) {
@@ -67,45 +67,49 @@ public class MonthView extends CalendarView {
 			commitmentView.updateCommData(commList.getCommitments());
 		} else {
 			try {
-				commitmentView.updateCommData(commList.filter(aMonth, Calendar.MONTH));
+				commitmentView.updateCommData(commList.filter(ayear, Calendar.YEAR));
 			} catch (CalendarException e) {
 				commitmentView.updateCommData(commList.getCommitments());
 			}
 		}
 		
-		try {
-			monthPane.displayEvents(eventList.filter(aMonth, Calendar.MONTH));
-		} catch (CalendarException e1) {
-			e1.printStackTrace();
+		//Add the events
+		try{
+			yearpane.displayEvents(eventList.filter(ayear, Calendar.YEAR));
 		}
+		 catch (CalendarException e) {
+			yearpane.displayEvents(eventList.getEvents());
+		}
+		
+		
 		
 		
 		if (showCommOnCal){
 			try{
-				monthPane.displayCommitments(commList.filter(aMonth, Calendar.MONTH)); 
+				yearpane.displayCommitments(commList.filter(ayear, Calendar.YEAR)); 
 				//add only commitments on today to DayPane
 			}
 			catch(CalendarException e){
-				monthPane.displayCommitments(null);
+				yearpane.displayCommitments(null);
 			}
 		}
 		else{
-			monthPane.displayCommitments(null); //show no commitments on DayPane
+			yearpane.displayCommitments(null); //show no commitments on DayPane
 		}
-
 	    revalidate();
 	    repaint();
-		
 	}
 
-
+	/**
+	 * Updates only the commitments that are displayed across the entire year
+	 */
 	@Override
 	public void updateCommPane(CommitmentList commList, boolean showCommOnCal) {
 		if (super.showAllCommFlag){
 			commitmentView.updateCommData(commList.getCommitments());
 		} else {
 			try {
-				commitmentView.updateCommData(commList.filter(aMonth, Calendar.MONTH));
+				commitmentView.updateCommData(commList.filter(ayear, Calendar.YEAR));
 			} catch (CalendarException e) {
 				commitmentView.updateCommData(commList.getCommitments());
 			}
@@ -113,5 +117,4 @@ public class MonthView extends CalendarView {
 	    revalidate();
 	    repaint();
 	}
-
 }

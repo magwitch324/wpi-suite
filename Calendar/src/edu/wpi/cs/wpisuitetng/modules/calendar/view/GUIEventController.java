@@ -18,10 +18,8 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
-import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdatePropsController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
-//import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent;
@@ -30,24 +28,30 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CategoryTab;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.FilterTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab2;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.EventTab;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.FilterTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 
 
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-public class GUIEventController {
+/**
+  * @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
+ public class GUIEventController {
 	private static GUIEventController instance = null;
-	private int scrollBarValue;
+	private int scrollBarValue = 659;
 	private MainTabView main = null;
 	private ToolbarView toolbar = null;
-	private TeamCalendar teamCalendar;
+	//private TeamCalendar teamCalendar;
 	private MyCalendar myCalendar;
+	private EventFullView eventFullView;
 	private CommitmentFullView commitFullView;
+
+	
 	/**
 	 * Default constructor for ViewEventController.  Is protected to prevent instantiation.
 	 */
@@ -98,8 +102,6 @@ public class GUIEventController {
 		//teamCalendar.saveProps();
 		//myCalendar.saveProps();
 		//commitFullView.saveProps();
-		
-		
 	}
 
 	/**
@@ -109,25 +111,29 @@ public class GUIEventController {
 	 */
 	public void setMainView(MainTabView mainview) {
 		main = mainview;
-		teamCalendar = new TeamCalendar();
+		//teamCalendar = new TeamCalendar();
 		myCalendar = new MyCalendar();
-		commitFullView = new CommitmentFullView(teamCalendar, myCalendar);
+		eventFullView = new EventFullView(myCalendar);
+		commitFullView = new CommitmentFullView(myCalendar);
 
 		try {
-			Image img = ImageIO.read(getClass().getResource("Personal_Icon.png"));
-			main.addTab("My Calendar", new ImageIcon(img), myCalendar);
+			Image img = ImageIO.read(getClass().getResource("Calendar_Icon.png"));
+			main.addTab("Calendar", new ImageIcon(img), myCalendar);
 
-			img = ImageIO.read(getClass().getResource("Team_Icon.png"));
-			main.addTab("Team Calendar", new ImageIcon(img), teamCalendar);
+			//img = ImageIO.read(getClass().getResource("Team_Icon.png"));
+			//main.addTab("Team Calendar", new ImageIcon(img), teamCalendar);
 
+			img = ImageIO.read(getClass().getResource("Agenda_Icon.png"));
+			main.addTab("Events Agenda", new ImageIcon(img), eventFullView);
+			
 			img = ImageIO.read(getClass().getResource("All_Icon.png"));
 			main.addTab("All Commitments", new ImageIcon(img), commitFullView);
 
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
 			main.addTab("My Calendar", new ImageIcon(), myCalendar);
-			main.addTab("Team Calendar", new ImageIcon(), teamCalendar);
-			main.addTab("All Commitments", new ImageIcon(), commitFullView);
+			main.addTab("Events Agenda", new ImageIcon(), eventFullView);
+			main.addTab("All Commitmets", new ImageIcon(), commitFullView);
 		}
 
 	}
@@ -136,19 +142,10 @@ public class GUIEventController {
 	 * Gets calendar data corresponding to currently selected tab
 	 * @return index
 	 */
-	public AbCalendar getSelectedCalendar()
+	public AbCalendar getCalendar()
 	{
-		final int index = main.getSelectedIndex();
-		if (index == 0)
-			return myCalendar;
-		else if (index == 1)
-			return teamCalendar;
-		else
-		{
-			System.out.println("Error getting calendar; calendar tab not selected.");
 			return myCalendar;
 
-		}
 	}
 
 
@@ -189,9 +186,9 @@ public class GUIEventController {
 			switch(goTo){
 				case 0 : main.setSelectedComponent(myCalendar);
 						break;
-				case 1 : main.setSelectedComponent(teamCalendar);
+				case 1 : main.setSelectedComponent(eventFullView);
 						break;
-				case 3 : main.setSelectedComponent(commitFullView);
+				case 2 : main.setSelectedComponent(commitFullView);
 						break;
 			}
 	}
@@ -201,7 +198,7 @@ public class GUIEventController {
 	 */
 	public void createCommitment() {
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 2){
+		if (openedFrom > 1){
 			openedFrom = 0;
 		}
 		final CommitmentTab newCommit = new CommitmentTab(openedFrom);
@@ -229,7 +226,7 @@ public class GUIEventController {
 	 */
 	public void editCommitment(Commitment comm) {
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 2){
+		if (openedFrom > 1){
 			openedFrom = 0;
 		}
 		final CommitmentTab editCommit = new CommitmentTab(comm, openedFrom);
@@ -252,7 +249,7 @@ public class GUIEventController {
 	 */
 	public void createEvent() {
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 2){
+		if (openedFrom > 1){
 			openedFrom = 0;
 		}
 		final EventTab newEvent = new EventTab(openedFrom);
@@ -275,7 +272,7 @@ public class GUIEventController {
 	 */
 	public void editEvent(Event event) {
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 2){
+		if (openedFrom > 1){
 			openedFrom = 0;
 		}
 		final EventTab editEvent;
@@ -298,8 +295,9 @@ public class GUIEventController {
 	 * Method createManageCategories.
 	 */
 	public void createManageCategories() {
+		
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 2){
+		if (openedFrom > 1){
 			openedFrom = 0;
 		}
 		final CategoryTab newCat = new CategoryTab();
@@ -323,7 +321,7 @@ public class GUIEventController {
 	 */
 	public void createManageFilters() {
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 2){
+		if (openedFrom > 1){
 			openedFrom = 0;
 		}
 		final FilterTab newFilter = new FilterTab(openedFrom);
@@ -334,21 +332,20 @@ public class GUIEventController {
 		catch(IllegalArgumentException ex){
 			main.addTab("Manage Filters", new ImageIcon(), newFilter);
 		}
-		
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(newFilter);
 	}
 
-
+	
 	/**
 	 * Method switchView.
 	 * @param acal GregorianCalendar
 	 * @param switchtype AbCalendar.types
 	 */
 	public void switchView(GregorianCalendar acal, AbCalendar.types switchtype){
-		getSelectedCalendar().setCalsetView(acal, switchtype);
-		getSelectedCalendar().setViewButtonToActive(switchtype);
+		getCalendar().setCalsetView(acal, switchtype);
+		getCalendar().setViewButtonToActive(switchtype);
 
 	}
 
@@ -356,16 +353,15 @@ public class GUIEventController {
 	 * Method updateCalData.
 	 */
 	public void updateCalData() {
-		teamCalendar.updateCalData();
 		myCalendar.updateCalData();
-		teamCalendar.calView.commitmentView.update();
 		myCalendar.calView.commitmentView.update();
+		eventFullView.updateList();
 		commitFullView.updateList();
+
 	}
 
 	public void setScrollBarValue(int value) {
 		scrollBarValue = value;
-		teamCalendar.calView.updateScrollPosition(value);
 		myCalendar.calView.updateScrollPosition(value);
 	}
 
@@ -379,7 +375,7 @@ public class GUIEventController {
 	 */
 	public void applyCalProps(){
 		myCalendar.applyCalProps();
-		teamCalendar.applyCalProps();
+		eventFullView.applyCalProps();
 		commitFullView.applyCalProps();
 	}
 
@@ -391,11 +387,14 @@ public class GUIEventController {
 	public void removeEventTab(EventTab eventTab, int goTo) {
 		main.remove(eventTab);
 		switch(goTo){
-		case 0 : main.setSelectedComponent(myCalendar);
-				break;
-		case 1 : main.setSelectedComponent(teamCalendar);
-				break;
-	}
+		case 0: main.setSelectedComponent(myCalendar);
+		break;
+		case 1: main.setSelectedComponent(eventFullView);
+		break;
+		case 2: main.setSelectedComponent(commitFullView);
+		break;
+		}
+		
 		
 	}
 	
@@ -407,33 +406,30 @@ public class GUIEventController {
 		//get relevant calendar data
 		CalendarData calData;
 		if (catToDelete.getIsPersonal()){
-			calData = myCalendar.getCalData();
+			calData = myCalendar.getMyCalData();
 		} else {
-			calData = teamCalendar.getCalData();
+			calData = myCalendar.getTeamCalData();
 		}
 		
 		//Scrub the category from any commitment/event that it is assigned to
-		List<Commitment> commitments = calData.getCommitments().getCommitments();
+		final List<Commitment> commitments = calData.getCommitments().getCommitments();
 		for(Commitment tmpComm: commitments){
 			if (tmpComm.getCategoryID() == catToDelete.getID()){
 				tmpComm.setCategoryID(0);
 			}
 		}
-		List<Event> events = calData.getEvents().getEvents();
+		final List<Event> events = calData.getEvents().getEvents();
 		for(Event tmpEvent: events){
 			if (tmpEvent.getCategoryID() == catToDelete.getID()){
 				tmpEvent.setCategoryID(0);
 			}
 		}
-		List<RepeatingEvent> repeatingEvents = calData.getRepeatingEvents().getEvents();
+		final List<RepeatingEvent> repeatingEvents = calData.getRepeatingEvents().getEvents();
 		for(RepeatingEvent tmpRepEvent: repeatingEvents){
 			if (tmpRepEvent.getCategoryID() == catToDelete.getID()){
 				tmpRepEvent.setCategoryID(0);
 			}
 		}
-		
-		//delete the category
-		calData.getCategories().remove(catToDelete.getID());
 	}
 	
 	

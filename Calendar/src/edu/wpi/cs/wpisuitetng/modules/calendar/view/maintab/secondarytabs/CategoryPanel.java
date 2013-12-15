@@ -10,24 +10,21 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.LayoutManager;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
-
-import javax.swing.JLabel;
-
-import javax.swing.Box;
-
-import java.awt.Component;
-import java.awt.Dimension;
-import javax.swing.SwingConstants;
-import javax.swing.BoxLayout;
-import java.awt.GridLayout;
 
 /**
  * Custom JPanel for each category in the category list
@@ -48,6 +45,8 @@ public class CategoryPanel extends JPanel {
 	 */
 	public CategoryPanel() {
 		setPreferredSize(new Dimension(80, 50));
+		setMaximumSize(new Dimension(80,50));
+		setMinimumSize(new Dimension(80,50));
 		setBackground(CalendarStandard.CalendarYellow);
 		final Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 		setBorder(loweredbevel);
@@ -85,7 +84,7 @@ public class CategoryPanel extends JPanel {
 		this();
 		category = cat;
 		setColorBox(cat.getCategoryColor());
-		setCategoryName(cat.getName());	
+		setCategoryName(cat.getName());
 	}
 
 	private void setCategoryName(String name) {
