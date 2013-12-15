@@ -93,6 +93,7 @@ public class MyCalendar extends AbCalendar {
 		layout.putConstraint(SpringLayout.EAST, filter, -5, SpringLayout.EAST, this);
 		filter.setMaximumSize(new Dimension(20, 20));
 		filter.setBackground(CalendarStandard.CalendarYellow);
+		filter.setToolTipText("Select your Filters");
 		this.add(filter);
 
 
@@ -325,6 +326,7 @@ public class MyCalendar extends AbCalendar {
 
 		showcom = new JCheckBox("Show Commitments");
 		showcom.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		showcom.setToolTipText("Select this box to display Commitments in your Calendar View");
 		showcom.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14f));
 		showcom.setBackground(Color.WHITE);
 		showcom.addActionListener(new ActionListener() {
@@ -344,6 +346,7 @@ public class MyCalendar extends AbCalendar {
 		myCalendar.setAlignmentX(Component.CENTER_ALIGNMENT);
 		myCalendar.setBackground(Color.WHITE);
 		myCalendar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		myCalendar.setToolTipText("Click to view your Personal Calendar");
 		myCalendar.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14f));
 		myCalendar.setSelected(true);
 		myCalendar.addActionListener(new ActionListener() {
@@ -365,6 +368,7 @@ public class MyCalendar extends AbCalendar {
 		teamCalendar.setAlignmentX(Component.CENTER_ALIGNMENT);
 		teamCalendar.setBackground(Color.WHITE);
 		teamCalendar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		teamCalendar.setToolTipText("Click to view your Team Calendar");
 		teamCalendar.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14f));
 		teamCalendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -384,6 +388,7 @@ public class MyCalendar extends AbCalendar {
 		bothCalendar.setAlignmentX(Component.CENTER_ALIGNMENT);
 		bothCalendar.setBackground(Color.WHITE);
 		bothCalendar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		bothCalendar.setToolTipText("Click to view BOTH your Personal and Team Calendars");
 		bothCalendar.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14f));
 		bothCalendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
