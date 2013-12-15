@@ -9,7 +9,7 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 

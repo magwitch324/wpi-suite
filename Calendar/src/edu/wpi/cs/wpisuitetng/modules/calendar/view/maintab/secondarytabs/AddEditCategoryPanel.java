@@ -15,22 +15,8 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.Insets;
-
-import javax.imageio.ImageIO;
-import javax.swing.Box;
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,9 +24,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -49,13 +37,11 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
-import javax.swing.border.LineBorder;
-
-import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 /**
@@ -64,12 +50,12 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
  */
 public class AddEditCategoryPanel extends JPanel {
 
-	private JTextField textFieldName;
-	private JRadioButton rdbtnTeam;
+	private final JTextField textFieldName;
+	private final JRadioButton rdbtnTeam;
 	ColorPickerPanel colorPickerPanel;
-	private JRadioButton rdbtnPersonal;
-	private JButton btnSave;
-	private JButton btnCancel;
+	private final JRadioButton rdbtnPersonal;
+	private final JButton btnSave;
+	private final JButton btnCancel;
 
 
 	/**
@@ -157,7 +143,7 @@ public class AddEditCategoryPanel extends JPanel {
 		addEditFormPanel.add(lblColor, gbc_lblColor);
 		
 		colorPickerPanel = new ColorPickerPanel();
-		GridBagConstraints gbc_panel = new GridBagConstraints();
+		final GridBagConstraints gbc_panel = new GridBagConstraints();
 
 		gbc_panel.insets = new Insets(0, 0, 5, 0);
 		gbc_panel.fill = GridBagConstraints.BOTH;
@@ -184,7 +170,7 @@ public class AddEditCategoryPanel extends JPanel {
 		
 		horizontalBox_1.add(btnCancel);
 		
-		Component horizontalStrut = Box.createHorizontalStrut(20);
+		final Component horizontalStrut = Box.createHorizontalStrut(20);
 
 		horizontalBox_1.add(horizontalStrut);
 		
@@ -203,7 +189,7 @@ public class AddEditCategoryPanel extends JPanel {
 
 		
 				
-		Component horizontalGlue_1 = Box.createHorizontalGlue();
+		final Component horizontalGlue_1 = Box.createHorizontalGlue();
 
 		add(horizontalGlue_1);
 		
@@ -229,8 +215,10 @@ public class AddEditCategoryPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				addCategory();
 				
-				final int tabIndex = GUIEventController.getInstance().getMainView().getSelectedIndex();
-				GUIEventController.getInstance().getMainView().setComponentAt(tabIndex, new CategoryTab());
+				final int tabIndex = 
+						GUIEventController.getInstance().getMainView().getSelectedIndex();
+				GUIEventController.getInstance().getMainView().
+				setComponentAt(tabIndex, new CategoryTab());
 			}
 		});
 	}
@@ -273,7 +261,7 @@ public class AddEditCategoryPanel extends JPanel {
 				btnSave.setEnabled(true);
 			}
 		}*/
-	}	
+	}
 	
 	/**
 	 * Adds new category with information contained in fields
@@ -282,7 +270,7 @@ public class AddEditCategoryPanel extends JPanel {
 
 		CalendarData calData;
 		// Name
-		String name = textFieldName.getText();
+		final String name = textFieldName.getText();
 		// Team/Personal
 		boolean isPersonal;
 		
@@ -292,15 +280,16 @@ public class AddEditCategoryPanel extends JPanel {
 					"-" + ConfigManager.getConfig().getUserName()); 
 			isPersonal = true;
 		} else {
-			calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName()); 
+			calData = CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName()); 
 			isPersonal = false;
 		}
 		
 		// Color
-		Color catColor = colorPickerPanel.getColor();	
+		final Color catColor = colorPickerPanel.getColor();
 		
 		// Creates and adds new category
-		Category newCat = new Category(name, catColor, isPersonal);
+		final Category newCat = new Category(name, catColor, isPersonal);
 		calData.addCategory(newCat);
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 	}

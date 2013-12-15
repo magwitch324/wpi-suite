@@ -108,7 +108,7 @@ public class CategoryList {
 	el#getElementAt(int) 
 	 *.ListModel#getElementAt(int) 
 	 *.ListModel#getElementAt(int) 
-	 * * @see javax.swing.ListModel#getElementAt(int) 
+	* * @see javax.swing.ListModel#getElementAt(int) 
        * @see javax.swing.ListModel#getElementAt(int) 
 	 * * @see javax.swing.ListModel#getElementAt(int) 
        * @see javax.swing.ListModel#getElementAt(int) */

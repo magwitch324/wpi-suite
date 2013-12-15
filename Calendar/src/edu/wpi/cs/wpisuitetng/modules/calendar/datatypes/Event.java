@@ -11,9 +11,9 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Date;
 
 /**
  * Main data storage class for event.
@@ -89,10 +89,11 @@ Comparable<Event>{
 	
 	 * @return int */
 	public int compareTo(Event person) {
+		int result = 0;
 		if (name != null && person.name != null) {
-			return name.compareToIgnoreCase(person.name);
+			result = name.compareToIgnoreCase(person.name);
 		}
-		return 0;
+		return result;
 	}
 	
 	

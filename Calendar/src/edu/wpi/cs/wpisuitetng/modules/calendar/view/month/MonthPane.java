@@ -14,8 +14,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -35,8 +33,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.ICalPane;
 
 /**
@@ -130,10 +126,11 @@ public class MonthPane extends JScrollPane implements ICalPane {
 				boolean toobig = false;
 				for (int i = 0; i < 7; i++) {
 					label[i].setText(text[0][i]);
-					if (label[i].getPreferredSize().getWidth() > label[i].getParent().getSize().getWidth()){
+					if (label[i].getPreferredSize().getWidth() > 
+					label[i].getParent().getSize().getWidth()){
 						toobig = true;
 					}
-				}	
+				}
 				if (toobig) {
 					for (int i = 0; i < 7; i++) {
 						label[i].setText(text[1][i]);

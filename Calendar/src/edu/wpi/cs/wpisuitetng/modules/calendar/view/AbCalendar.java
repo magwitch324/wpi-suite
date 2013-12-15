@@ -36,6 +36,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.month.MonthView;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.year.YearView;
 
 /*
  * Sources:

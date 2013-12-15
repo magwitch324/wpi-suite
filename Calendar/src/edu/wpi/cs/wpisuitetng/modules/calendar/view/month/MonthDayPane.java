@@ -65,11 +65,11 @@ public class MonthDayPane extends JPanel {
 	 */
 	public MonthDayPane(GregorianCalendar acal, int month){
 		//constructor for the class variables
-		super();
-		layout = new SpringLayout();		
+
+		layout = new SpringLayout();
 		scroll = new JScrollPane();
 		small = new JPanel();
-		big = new JPanel();		
+		big = new JPanel();
 		scrolllayer = new JLayer<JComponent>(scroll, new ScrollUI(this));
 		
 		this.acal = (GregorianCalendar)acal.clone();
@@ -132,13 +132,13 @@ public class MonthDayPane extends JPanel {
 	}
 	/**
 	 * Change the commitment list to the given list
-	 * @param commlist the list to change to
+	 * @param  commlist the list to change to
 	 */
 	public void addCommitments(List<Commitment> cl) {
 		if(enabled){
-			this.commlist = cl;
-			if(this.commlist == null){
-				this.commlist = new ArrayList<Commitment>();
+			commlist = cl;
+			if(commlist == null){
+				commlist = new ArrayList<Commitment>();
 			}
 			merge();
 			didResize();
@@ -147,13 +147,14 @@ public class MonthDayPane extends JPanel {
 	
 	/**
 	 * Change the event list to the given list
-	 * @param eventlist the list to change to
+	
+	 * @param el List<Event>
 	 */
 	public void addEvents(List<Event> el) {
 		if(enabled){
-			this.eventlist = el;
-			if(this.eventlist == null){
-				this.eventlist = new ArrayList<Event>();
+			eventlist = el;
+			if(eventlist == null){
+				eventlist = new ArrayList<Event>();
 			}
 			merge();
 			didResize();
@@ -235,10 +236,12 @@ public class MonthDayPane extends JPanel {
 					curlab = wrap;
 					height += curlab.getPreferredSize().getHeight() + label_spacing;
 					if (lastlab == null) {
-						layout.putConstraint(SpringLayout.NORTH, curlab, 1, SpringLayout.NORTH, big);
+						layout.putConstraint(SpringLayout.NORTH, curlab,
+								1, SpringLayout.NORTH, big);
 					} 
 					else {
-						layout.putConstraint(SpringLayout.NORTH, curlab, label_spacing, SpringLayout.SOUTH, lastlab);
+						layout.putConstraint(SpringLayout.NORTH, curlab,
+								label_spacing, SpringLayout.SOUTH, lastlab);
 					}
 					layout.putConstraint(SpringLayout.WEST, curlab, 1, SpringLayout.WEST, big);
 					
@@ -266,20 +269,24 @@ public class MonthDayPane extends JPanel {
 						break;
 					}
 					
-					if(height + curlab.getPreferredSize().getHeight() + label_spacing > boxheight && ( wraps.size() - wraps.indexOf(wrap) > 1)){
+					if(height + curlab.getPreferredSize().getHeight() +
+							label_spacing > boxheight && ( wraps.size() - wraps.indexOf(wrap) > 1)){
 						curlab = new JLabel("+" + (wraps.size() - wraps.indexOf(wrap)) + " more");
 					}
 					
 					if (lastlab == null) {
-						layout.putConstraint(SpringLayout.NORTH, curlab,1, SpringLayout.NORTH, small);
+						layout.putConstraint(SpringLayout.NORTH, curlab,
+								1, SpringLayout.NORTH, small);
 					} 
 					else {
-						layout.putConstraint(SpringLayout.NORTH, curlab, label_spacing, SpringLayout.SOUTH, lastlab);
+						layout.putConstraint(SpringLayout.NORTH, curlab,
+								label_spacing, SpringLayout.SOUTH, lastlab);
 					}
 					layout.putConstraint(SpringLayout.WEST, curlab, 1, SpringLayout.WEST, small);
 					
 					if (curlab.getPreferredSize().getWidth() > boxwidth) {
-						layout.putConstraint(SpringLayout.EAST, curlab, 0, SpringLayout.EAST, small);
+						layout.putConstraint(SpringLayout.EAST, curlab,
+								0, SpringLayout.EAST, small);
 					}
 					
 					curlab.setBackground(new Color(0, 0, 0, 0));
@@ -327,6 +334,7 @@ public class MonthDayPane extends JPanel {
 
 	/**
 	 * Internal class used to check if the user double clicked on the day
+	 * @author Tianci
 	 */
 	protected class wholecheck extends MouseAdapter{
 		/**
@@ -345,6 +353,7 @@ public class MonthDayPane extends JPanel {
 
 	/**
 	 * Internal class used to check if the user double clicked on the day or a CalendarObjectWrapper
+	 * @author Tianci
 	 */
 	protected class scrollcheck extends MouseAdapter{
 		/**
@@ -357,7 +366,8 @@ public class MonthDayPane extends JPanel {
 		public void mouseClicked(MouseEvent e){
 			if(e.getClickCount() > 1){
 				try{
-					CalendarObjectWrapper lw = (CalendarObjectWrapper)e.getComponent().getComponentAt(e.getPoint());
+					final CalendarObjectWrapper lw = 
+							(CalendarObjectWrapper)e.getComponent().getComponentAt(e.getPoint());
 					lw.edit();
 				}
 				catch(Exception exp){

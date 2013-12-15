@@ -20,7 +20,6 @@ import javax.swing.ImageIcon;
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdatePropsController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent;
@@ -29,9 +28,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.MainTabView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CategoryTab;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.FilterTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.EventTab;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.FilterTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 
 

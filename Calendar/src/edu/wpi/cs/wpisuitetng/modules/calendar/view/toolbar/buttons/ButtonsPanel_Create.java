@@ -172,7 +172,8 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	    manageCategoryButton.setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 0));
 		manageCategoryButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this icon
-		manageCategoryButton.setToolTipText("Click this icon to create, edit, or delete your Categories.");
+		manageCategoryButton.setToolTipText("Click this icon to"
+				+ " create, edit, or delete your Categories.");
 		//the action listener for the Manage Category Button
 		manageCategoryButton.addActionListener(new ActionListener() {
 			@Override
@@ -191,7 +192,8 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 	    manageFilterButton.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 		manageFilterButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this icon
-		manageFilterButton.setToolTipText("Click this icon to create, edit, or delete your Filters.");
+		manageFilterButton.setToolTipText("Click this icon to"
+				+ " create, edit, or delete your Filters.");
 		// the action listener for the Manage Filter Button
 		manageFilterButton.addActionListener(new ActionListener() {
 			@Override

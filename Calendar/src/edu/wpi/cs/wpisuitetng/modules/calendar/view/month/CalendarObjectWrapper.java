@@ -1,8 +1,16 @@
+/*******************************************************************************
+ * Copyright (c) 2013 WPI-Suite
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: CS Anonymous
+ ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.month;
 
 import java.awt.Image;
 import java.io.IOException;
-import java.util.GregorianCalendar;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -15,6 +23,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 /**
  * The label used by a month day for events and commitments
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
 public class CalendarObjectWrapper extends JLabel{
@@ -23,7 +33,8 @@ public class CalendarObjectWrapper extends JLabel{
 	
 	/**
 	 * Constructor for wrapper.
-	 * @param comm the commitment that this should display
+	
+	 * @param c Commitment
 	 */
 	public CalendarObjectWrapper(Commitment c){
 		super(c.getName());
@@ -51,7 +62,8 @@ public class CalendarObjectWrapper extends JLabel{
 	
 	/**
 	 * Constructor for wrapper.
-	 * @param event the event that this should display
+	
+	 * @param e Event
 	 */
 	public CalendarObjectWrapper(Event e){
 		super(e.getName());
@@ -91,15 +103,14 @@ public class CalendarObjectWrapper extends JLabel{
 	
 	/**
 	 * Creates and returns a new version of this
-	 * @return a new copy of this
-	 */
+	
+	 * @return a new copy of this */
 	public CalendarObjectWrapper copy(){
+		CalendarObjectWrapper result = new CalendarObjectWrapper(event);
 		if(comm != null){
-			return new CalendarObjectWrapper(comm);
+			result = new CalendarObjectWrapper(comm);
 		}
-		else{
-			return new CalendarObjectWrapper(event);
-		}
+			return result;
 	}
 	
 }

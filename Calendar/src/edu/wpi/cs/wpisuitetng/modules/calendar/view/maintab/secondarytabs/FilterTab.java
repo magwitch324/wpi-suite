@@ -12,7 +12,6 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -29,15 +28,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JTextField;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
@@ -81,6 +79,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	private JTextField filterName;
 	private final CategoryList teamCategories;
 	private final CategoryList personalCategories;
+
 
 	private enum FilterMode {
 		ADDING(0),
@@ -132,7 +131,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		viewPanel = new JPanel();
 		viewPanel.setBackground(Color.WHITE);
 		viewPanel.setPreferredSize(new Dimension(500, 600));
-		viewPanel.setMinimumSize(new Dimension(500, 600));	
+		viewPanel.setMinimumSize(new Dimension(500, 600));
 		
 		final GridBagLayout gbl = new GridBagLayout();
 		gbl.rowWeights = new double[]{0.0, 1.0, 0.0};
@@ -146,7 +145,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		constraints.gridx = 0;
 		constraints.weighty = 1;
 		constraints.fill = GridBagConstraints.BOTH;
-		add(viewPanel, constraints);	
+		add(viewPanel, constraints);
 		
 		//Adds the scroll pane the filters will be on
 		scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
@@ -186,7 +185,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		editPanel = new JPanel();
 		editPanel.setBackground(Color.WHITE);
 		editPanel.setPreferredSize(new Dimension(500, 600));
-		editPanel.setMinimumSize(new Dimension(500, 600));	
+		editPanel.setMinimumSize(new Dimension(500, 600));
 		
 		final GridBagLayout gbl = new GridBagLayout();
 		gbl.rowWeights = new double[]{0.0, 1.0, 0.0, 1.0, 0.0};
@@ -309,7 +308,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 //		removeCatBtn.setText("Remove Category");
 		removeCatBtn.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		removeCatBtn.setToolTipText("Use this button to Remove the selected Category from this Filter.");
+		removeCatBtn.setToolTipText("Use this button to"
+				+ " Remove the selected Category from this Filter.");
 		
 		catBtnPanel.add(addCatBtn, BorderLayout.WEST);
 		catBtnPanel.add(removeCatBtn, BorderLayout.EAST);
@@ -387,10 +387,14 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		
 		// Set the horizontal gap
 		viewPanel.add(buttonPanel, gbc_btnPanel);
-	}	
+	}
 	
 	/**
+<<<<<<< HEAD
 	 * Adds the button panel to Filter tab for adding and editing mode. Save button is disabled by default.
+=======
+	 * Method addButtonPanel2.
+>>>>>>> 1329c8f8581cda4f63615df52d229b9408f03b80
 	 */
 	public void addButtonPanel2(){
 		buttonPanel2 = new JPanel(new BorderLayout(30, 0));
@@ -428,7 +432,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		btnCancelFilter.setText("Cancel");
 		btnCancelFilter.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		btnCancelFilter.setToolTipText("Click this button to Cancel any changes made to the Filters.");
+		btnCancelFilter.setToolTipText("Click this button"
+				+ " to Cancel any changes made to the Filters.");
 		
 		
 		buttonPanel2.add(btnSaveFilter, BorderLayout.WEST);
@@ -438,7 +443,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * Adds the listeners for the components on the view pane
+=======
+	 * Method addListeners.
+>>>>>>> 1329c8f8581cda4f63615df52d229b9408f03b80
 	 */
 	public void addListeners(){
 		btnNewFilter.addActionListener(new ActionListener() {
@@ -467,7 +476,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * adds the listeners for the components on the edit pane
+=======
+	 * Method addEditViewListeners.
+>>>>>>> 1329c8f8581cda4f63615df52d229b9408f03b80
 	 */
 	public void addEditViewListeners(){
 		filterName.addKeyListener(new KeyListener() {
@@ -520,9 +533,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	}
 	
 	/**
-	 * refreshes the filter tab and re-adds the correct components depending on what mode it is in
+	 * Method refresh.
 	 */
-	private void refresh(){
+	protected void refresh(){
 		if(mode == FilterMode.VIEWING){
 			removeAll();
 			addFilterList();

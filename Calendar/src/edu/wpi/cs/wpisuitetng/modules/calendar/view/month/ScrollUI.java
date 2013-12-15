@@ -22,6 +22,8 @@ import javax.swing.plaf.LayerUI;
 /**
  * Layer UI that listens for a click so the month day can expand
  * and if the mouse leaves so it can shrink
+ * @author Anonymous
+ * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
 public class ScrollUI extends LayerUI<JComponent> implements ActionListener {
@@ -33,7 +35,6 @@ public class ScrollUI extends LayerUI<JComponent> implements ActionListener {
 	 * @param p the MonthDayPane that should change based on mouse events
 	 */
 	public ScrollUI(MonthDayPane p) {
-		super();
 		pane = p;
 	}
 
@@ -43,7 +44,7 @@ public class ScrollUI extends LayerUI<JComponent> implements ActionListener {
 	@Override
 	public void installUI(JComponent c) {
 		super.installUI(c);
-		JLayer jlayer = (JLayer) c;
+		final JLayer jlayer = (JLayer) c;
 		jlayer.setLayerEventMask(AWTEvent.MOUSE_EVENT_MASK);
 	}
 	
@@ -52,7 +53,7 @@ public class ScrollUI extends LayerUI<JComponent> implements ActionListener {
 	 */
 	@Override
 	public void uninstallUI(JComponent c) {
-		JLayer jlayer = (JLayer) c;
+		final JLayer jlayer = (JLayer) c;
 		jlayer.setLayerEventMask(0);
 		super.uninstallUI(c);
 	}
@@ -71,7 +72,7 @@ public class ScrollUI extends LayerUI<JComponent> implements ActionListener {
 		if (e.getID() == MouseEvent.MOUSE_EXITED) {
 			is_in = false;
 
-			Timer atimer = new Timer(5, this);
+			final Timer atimer = new Timer(5, this);
 			atimer.setDelay(5);
 			atimer.setRepeats(false);
 			atimer.setInitialDelay(5);

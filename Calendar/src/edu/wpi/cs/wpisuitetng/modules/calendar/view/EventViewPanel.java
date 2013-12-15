@@ -45,7 +45,7 @@ public class EventViewPanel extends JPanel {
 
 	/**
 	 * Constructor for EventViewPanel.
-	 * @param event Event
+	 * @param e Event
 	 */
 	public EventViewPanel(Event e) {
 		// TODO Auto-generated constructor stub
@@ -57,7 +57,7 @@ public class EventViewPanel extends JPanel {
 	}
 
 	public void setEvent(Event e) {
-		this.event = e;
+		event = e;
 	}
 
 	

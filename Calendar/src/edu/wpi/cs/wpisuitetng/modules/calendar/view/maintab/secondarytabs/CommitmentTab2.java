@@ -11,8 +11,8 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import static javax.swing.SpringLayout.EAST;
 import static javax.swing.SpringLayout.NORTH;
-import static javax.swing.SpringLayout.WEST;
 import static javax.swing.SpringLayout.SOUTH;
+import static javax.swing.SpringLayout.WEST;
 
 import java.awt.Dimension;
 
@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 /**
  * @author CS Anonymous

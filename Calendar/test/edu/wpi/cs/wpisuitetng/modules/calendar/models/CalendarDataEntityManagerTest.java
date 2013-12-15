@@ -9,7 +9,8 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.models;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,7 +22,6 @@ import org.junit.Test;
 
 import edu.wpi.cs.wpisuitetng.Session;
 import edu.wpi.cs.wpisuitetng.database.Data;
-import edu.wpi.cs.wpisuitetng.exceptions.BadRequestException;
 import edu.wpi.cs.wpisuitetng.exceptions.WPISuiteException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.MockData;
 import edu.wpi.cs.wpisuitetng.modules.core.models.Project;

@@ -27,9 +27,10 @@ import javax.swing.plaf.basic.BasicSpinnerUI;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab.enumTimeSpinner;
 
+
 /**
  * New time spinner which has error checking ability.
- * @author Tianci
+ * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
 public class TimeSpinner extends JSpinner {

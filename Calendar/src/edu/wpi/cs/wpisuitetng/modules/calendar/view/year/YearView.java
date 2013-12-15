@@ -7,7 +7,7 @@
  * 
  * Contributors: CS Anonymous
  ******************************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.calendar.view;
+package edu.wpi.cs.wpisuitetng.modules.calendar.view.year;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -15,15 +15,15 @@ import java.util.GregorianCalendar;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.CalendarView;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentView;
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
 /**
   * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
- public class YearView extends CalendarView {
+ @SuppressWarnings("serial")
+public class YearView extends CalendarView {
 
 	private final GregorianCalendar ayear;
 	private final YearPane yearpane;
@@ -44,6 +44,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 		setRange(datecalendar);
 	}
 	
+	/**
+	 * Sets the year range for the label
+	 */
 	@Override
 	public void setRange(GregorianCalendar calendar) {
 		ayear.setTime(calendar.getTime());
@@ -54,6 +57,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 		refresh();
 	}
 
+	/**
+	 * Displays the given events, commitments, and whether commitments are displayed on the year
+	 */
 	@Override
 	public void displayCalData(
 			EventList eventList, CommitmentList commList, boolean showCommOnCal) {
@@ -94,6 +100,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 	    repaint();
 	}
 
+	/**
+	 * Updates only the commitments that are displayed across the entire year
+	 */
 	@Override
 	public void updateCommPane(CommitmentList commList, boolean showCommOnCal) {
 		if (super.showAllCommFlag){
