@@ -23,6 +23,8 @@ public class FilterPanel extends JPanel{
 	
 	public FilterPanel(){
 		setPreferredSize(new Dimension(80, 50));
+		setMaximumSize(new Dimension(80,50));
+		setMinimumSize(new Dimension(80,50));
 		setBackground(CalendarStandard.CalendarYellow);
 		final Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 		setBorder(loweredbevel);
@@ -38,6 +40,7 @@ public class FilterPanel extends JPanel{
 		lblFilterName.setHorizontalAlignment(SwingConstants.CENTER);
 		aPanel.add(lblFilterName);
 		lblFilterName.setFont(CalendarStandard.CalendarFontBold);
+		add(aPanel);
 	}
 	
 	/**
@@ -51,6 +54,7 @@ public class FilterPanel extends JPanel{
 	}
 
 	private void setFilterName(String name) {
+		System.out.println("name:" + name);
 		lblFilterName.setText(name);
 	}
 
