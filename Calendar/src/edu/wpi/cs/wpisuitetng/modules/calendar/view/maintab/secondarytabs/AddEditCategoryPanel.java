@@ -80,8 +80,8 @@ public class AddEditCategoryPanel extends JPanel {
 		
 		final JPanel addEditFormPanel = new JPanel();
 		addEditFormPanel.setBackground(Color.WHITE);
-		addEditFormPanel.setPreferredSize(new Dimension(400, 10));
-		addEditFormPanel.setMaximumSize(new Dimension(400, 4000));
+		addEditFormPanel.setPreferredSize(new Dimension(500, 10));
+		addEditFormPanel.setMaximumSize(new Dimension(600, 4000));
 		add(addEditFormPanel);
 		final GridBagLayout gbl_addEditFormPanel = new GridBagLayout();
 		gbl_addEditFormPanel.columnWidths = new int[]{0, 0, 0};
