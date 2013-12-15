@@ -119,9 +119,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		gridBagLayout.rowWeights = new double[]{0.0};
 		setLayout(gridBagLayout);
 		
-		addFilterList();
+		/*addFilterList();
 		populateFilterList();
-		addListeners();
+		addListeners();*/
 		refresh();
 		initFlag = true;
 		}
@@ -399,6 +399,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		buttonPanel2 = new JPanel(new BorderLayout(30, 0));
 		buttonPanel2.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_btnPanel2 = new GridBagConstraints();
+		gbc_btnPanel2.insets = new Insets(0, 0, 0, 15);
 		gbc_btnPanel2.gridwidth = 3;
 		gbc_btnPanel2.anchor = GridBagConstraints.CENTER;
 		gbc_btnPanel2.gridx = 1;
