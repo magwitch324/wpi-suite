@@ -103,7 +103,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 		//initialize in "viewing" mode
 		setupViewingView();
 		setBackground(Color.WHITE);
-		refreshCategoryListPanel();
 		
 	}
 
@@ -281,11 +280,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 			oldCatPanel = catPanel; //update oldCatPanel to be previously added panel
 		}
 		
-		if(categoryListLayout.getConstraint(SpringLayout.SOUTH, categoryListPanel).getValue() > 
-				categoryListLayout.getConstraint(SpringLayout.SOUTH, catPanel).getValue()) {
+//		if(categoryListLayout.getConstraint(SpringLayout.SOUTH, categoryListPanel).getValue() < 
+//				categoryListLayout.getConstraint(SpringLayout.SOUTH, catPanel).getValue()) {
 		categoryListLayout.putConstraint(SpringLayout.SOUTH, 
 				categoryListPanel, 0, SpringLayout.SOUTH, catPanel);
-		}
+//		}
 		
 	}
 	
@@ -381,6 +380,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 		viewPanelStrut = Box.createHorizontalStrut(400);
 		viewPanelStrut.setMaximumSize(new Dimension(400, 0));
 		viewPanel.add(viewPanelStrut);
+		
+		revalidate();
+		repaint();
 	}
 	
 	/**
