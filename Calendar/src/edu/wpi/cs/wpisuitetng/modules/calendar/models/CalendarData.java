@@ -37,8 +37,8 @@ public class CalendarData extends AbstractModel {
 	private String id;
 	/** data containers*/
 	private CategoryList categories;
-	private CommitmentList commitments;
 	private EventList events;
+	private CommitmentList commitments;
 	private RepeatingEventList repeatingEvents;
 
 	/**
@@ -47,8 +47,8 @@ public class CalendarData extends AbstractModel {
 	public CalendarData() {
 		id = "";
 		categories = new CategoryList();
-		commitments = new CommitmentList(); 
 		events = new EventList();
+		commitments = new CommitmentList(); 
 		repeatingEvents = new RepeatingEventList();
 	}
 
@@ -315,8 +315,8 @@ public class CalendarData extends AbstractModel {
 	public void copyFrom(CalendarData toCopyFrom){
 		id = toCopyFrom.getId();
 		categories = toCopyFrom.getCategories();
-		commitments = toCopyFrom.getCommitments();
 		events = toCopyFrom.getEvents();
+		commitments = toCopyFrom.getCommitments();
 		repeatingEvents = toCopyFrom.getRepeatingEvents();
 	}
 

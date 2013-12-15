@@ -47,13 +47,9 @@ import javax.swing.border.MatteBorder;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 
@@ -81,12 +77,11 @@ public class EventFullView extends JPanel{
 	private int startDatesort = 0;
 	private int endDatesort = 0;
 	private int dessort = 0;
-	private int statussort = 0;
+
 	JButton jName;
 	JButton jStartDate;
 	JButton jEndDate;
 	JButton jDescription;
-	JButton jStatus;
 
 	JRadioButton bothRadioButton;
 	JRadioButton personalRadioButton;
@@ -163,7 +158,6 @@ public class EventFullView extends JPanel{
 			eventList = pcalendar.getMyCalData().getEvents().getEvents();
 			}
 		} else if(pcalendar.getTeamCalData() != null && pcalendar.getMyCalData() != null) { 
-			// here mode == ViewingMode.BOTH
 			final CombinedEventList combinedList = new CombinedEventList(
 					new ArrayList<Event>(
 							pcalendar.getMyCalData().getEvents().getEvents()));
@@ -286,7 +280,7 @@ public class EventFullView extends JPanel{
 
 		final GridLayout experimentLayout = new GridLayout(0, 4);
 		topButtons.setLayout(experimentLayout);
-		//topButtons.setLayout(new BoxLayout(topButtons, BoxLayout.X_AXIS));
+		
 		jName = new JButton("<html><font color='white'><b>"
 				+ "Name" + "</b></font></html>");
 		if(namesort == 1){
@@ -315,7 +309,6 @@ public class EventFullView extends JPanel{
 		}
 
 
-		//		jName.setContentAreaFilled(false);
 		jName.setBackground(CalendarStandard.CalendarRed);
 		jName.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
@@ -327,7 +320,6 @@ public class EventFullView extends JPanel{
 				startDatesort = 0;
 				endDatesort = 0;
 				dessort = 0;
-				statussort = 0;
 				Collections.sort(eventList);
 				if(namesort == 1){
 					namesort = 2;
@@ -382,7 +374,6 @@ public class EventFullView extends JPanel{
 			public void mouseClicked(MouseEvent e) {
 				namesort = 0;
 				dessort = 0;
-				statussort = 0;
 				Collections.sort(eventList, new Comparator<Event>() {
 
 					@Override 
@@ -453,7 +444,6 @@ public class EventFullView extends JPanel{
 			public void mouseClicked(MouseEvent e) {
 				namesort = 0;
 				dessort = 0;
-				statussort = 0;
 				Collections.sort(eventList, new Comparator<Event>() {
 
 					@Override 
@@ -486,7 +476,6 @@ public class EventFullView extends JPanel{
 
 		jDescription = new JButton("<html><font color='white'><b>"
 				+ "Description" + "</b></font></html>");
-		//		jDescription.setContentAreaFilled(false);
 		jDescription.setBackground(CalendarStandard.CalendarRed);
 		if(dessort == 1){
 			try {
@@ -512,7 +501,6 @@ public class EventFullView extends JPanel{
 						+ "Description v" + "</b></font></html>");
 			}
 		}
-		//jDescription.setContentAreaFilled(false);
 
 		jDescription.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		// To change cursor as it moves over this button
@@ -523,7 +511,6 @@ public class EventFullView extends JPanel{
 				namesort = 0;
 				startDatesort = 0;
 				endDatesort = 0;
-				statussort = 0;
 				Collections.sort(eventList, new Comparator<Event>() {
 
 					@Override 
@@ -561,8 +548,8 @@ public class EventFullView extends JPanel{
 		header.add(topButtons);
 
 		scrollPane.setColumnHeaderView(header);
-		//JSeparator sep = new JSeparator();
-		//commitPanel.add(sep);
+
+		
 		for(int i = 0; i < eventList.size(); i++){
 			EventViewPanel eventPanel = new EventViewPanel(eventList.get(i));
 			Image nameImg;
@@ -600,7 +587,6 @@ public class EventFullView extends JPanel{
 			description.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
 			eventPanel.setLayout(experimentLayout);
-			//GridBagConstraints c = new GridBagConstraints();
 			c.anchor = GridBagConstraints.BASELINE_LEADING;
 			c.fill = GridBagConstraints.BASELINE_LEADING;
 			c.weightx = 1;
@@ -609,7 +595,6 @@ public class EventFullView extends JPanel{
 			eventPanel.add(dateEnd, c);
 			eventPanel.add(description, c);
 			eventPanel.setBackground(CalendarStandard.CalendarYellow);
-			//			commitmentPanel.setBackground(new Color(222,184,135));
 			eventPanel.setPreferredSize(new Dimension(300, 75));
 			eventPanel.setMaximumSize(new Dimension(20000, 75));
 			Border loweredbevel = BorderFactory.createLoweredBevelBorder();
@@ -664,10 +649,10 @@ public class EventFullView extends JPanel{
 				ConfigManager.getConfig().getProjectName() + "-"
 						+ ConfigManager.getConfig().getUserName() + "-PROPS");
 		if(initialized && calProps != null){
-			mode =  ViewingMode.values()[calProps.getCommViewMode()];
+			mode =  ViewingMode.values()[calProps.getEventViewMode()];
 			
 
-			switch (calProps.getCommViewMode()){
+			switch (calProps.getEventViewMode()){
 			case 0: viewSwitchGroup.setSelected(teamRadioButton.getModel(), true);
 			break;
 			case 1: viewSwitchGroup.setSelected(personalRadioButton.getModel(), true);

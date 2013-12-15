@@ -159,7 +159,6 @@ public class CommitmentFullView extends JPanel{
 			commitmentList = pcalendar.getMyCalData().getCommitments().getCommitments();
 			}
 		} else if(pcalendar.getTeamCalData() != null && pcalendar.getMyCalData() != null) { 
-			// here mode == ViewingMode.BOTH
 			final CombinedCommitmentList combinedList = new CombinedCommitmentList(
 					new ArrayList<Commitment>(
 							pcalendar.getMyCalData().getCommitments().getCommitments()));
@@ -282,7 +281,7 @@ public class CommitmentFullView extends JPanel{
 
 		final GridLayout experimentLayout = new GridLayout(0, 4);
 		topButtons.setLayout(experimentLayout);
-		//topButtons.setLayout(new BoxLayout(topButtons, BoxLayout.X_AXIS));
+
 		jName = new JButton("<html><font color='white'><b>"
 				+ "Name" + "</b></font></html>");
 		if(namesort == 1){
@@ -311,7 +310,6 @@ public class CommitmentFullView extends JPanel{
 		}
 
 
-		//		jName.setContentAreaFilled(false);
 		jName.setBackground(CalendarStandard.CalendarRed);
 		jName.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
@@ -340,7 +338,6 @@ public class CommitmentFullView extends JPanel{
 
 		jDueDate = new JButton("<html><font color='white'><b>"
 				+ "Due Date" + "</b></font></html>");
-		//		jDueDate.setContentAreaFilled(false);
 		jDueDate.setBackground(CalendarStandard.CalendarRed);
 
 		if(datesort == 1){
@@ -367,7 +364,6 @@ public class CommitmentFullView extends JPanel{
 						+ "Due Date v" + "</b></font></html>");
 			}
 		}
-		//jDueDate.setContentAreaFilled(false);
 
 		jDueDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
@@ -412,7 +408,6 @@ public class CommitmentFullView extends JPanel{
 
 		jDescription = new JButton("<html><font color='white'><b>"
 				+ "Description" + "</b></font></html>");
-		//		jDescription.setContentAreaFilled(false);
 		jDescription.setBackground(CalendarStandard.CalendarRed);
 		if(dessort == 1){
 			try {
@@ -438,7 +433,6 @@ public class CommitmentFullView extends JPanel{
 						+ "Description v" + "</b></font></html>");
 			}
 		}
-		//jDescription.setContentAreaFilled(false);
 
 		jDescription.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		// To change cursor as it moves over this button
@@ -493,7 +487,6 @@ public class CommitmentFullView extends JPanel{
 						+ "Status v" + "</b></font></html>");
 			}
 		}
-		//		jStatus.setContentAreaFilled(false);
 		jStatus.setBackground(CalendarStandard.CalendarRed);
 		jStatus.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
@@ -542,8 +535,6 @@ public class CommitmentFullView extends JPanel{
 		header.add(topButtons);
 
 		scrollPane.setColumnHeaderView(header);
-		//JSeparator sep = new JSeparator();
-		//commitPanel.add(sep);
 		for(int i = 0; i < commitmentList.size(); i++){
 			CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
 			Image nameImg;
@@ -590,7 +581,6 @@ public class CommitmentFullView extends JPanel{
 			commitmentPanel.add(description, c);
 			commitmentPanel.add(status, c);
 			commitmentPanel.setBackground(CalendarStandard.CalendarYellow);
-			//			commitmentPanel.setBackground(new Color(222,184,135));
 			commitmentPanel.setPreferredSize(new Dimension(300, 75));
 			commitmentPanel.setMaximumSize(new Dimension(20000, 75));
 			Border loweredbevel = BorderFactory.createLoweredBevelBorder();

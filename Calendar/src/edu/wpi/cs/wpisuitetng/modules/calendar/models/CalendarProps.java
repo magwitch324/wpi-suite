@@ -153,7 +153,7 @@ public class CalendarProps extends AbstractModel {
 	/**
 	 * setter for setting what is selected in all event view
 	 * 
-	 * @param showComm
+	 * @param mode
 	 */
 	public void setEventViewMode(int mode){
 		eventViewMode = mode;
@@ -173,7 +173,7 @@ public class CalendarProps extends AbstractModel {
 	/**
 	 * getter for setting whether commitpane is showing in range or all
 	 * 
-	 * @param showComm
+	 * @param showAll
 	 */
 	public void setShowCommRange(boolean showAll){
 		showCommRange = showAll;
@@ -305,9 +305,11 @@ public class CalendarProps extends AbstractModel {
 	public void copyFrom(CalendarProps toCopyFrom){
 		id = toCopyFrom.getId();
 		showMyComm = toCopyFrom.getMyShowComm();
+		showMyEvent = toCopyFrom.getMyShowEvent();
 		myTeamBoth = toCopyFrom.getMyTeamBoth();
 		showTeamData = toCopyFrom.getShowTeamData();
 		commViewMode = toCopyFrom.getCommViewMode();
+		eventViewMode = toCopyFrom.getEventViewMode();
 		showCommRange = toCopyFrom.getShowCommRange();
 	}
 
