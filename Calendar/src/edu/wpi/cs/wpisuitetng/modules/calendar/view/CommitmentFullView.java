@@ -55,13 +55,16 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 
-/**
+/*
  * This class is used for creating the commitment View 
  * tab that shows all commitments including those 
  * that have been completed.
- * @author CS Anonymous
- * @version $Revision: 1.0 $
- */
+ * 
+ * */
+
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
 @SuppressWarnings("serial")
 public class CommitmentFullView extends JPanel{
 

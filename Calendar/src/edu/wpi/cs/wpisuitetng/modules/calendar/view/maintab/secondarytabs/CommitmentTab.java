@@ -160,7 +160,6 @@ public class CommitmentTab extends JPanel {
 	private String lastInput;
 	private boolean upArrowAction;
 	private boolean downArrowAction;
-	private boolean firstRun;
 	private Category uncategorized;
 	private JLabel colon;
 
@@ -322,8 +321,9 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(lblTime, gbc_lblTime);
 		
 		//Invalid Time label
-		lblTimeError = new JLabel(" ");
-		lblTimeError.setVisible(true);
+		lblTimeError = new JLabel("<html><font color='red'>"
+				+ "Please enter a valid time (12 hour format).</font></html>");
+		lblTimeError.setVisible(false);
 		lblTimeError.setHorizontalAlignment(SwingConstants.LEFT);
 		final GridBagConstraints gbc_lblTimeError = new GridBagConstraints();
 		gbc_lblTimeError.insets = new Insets(0, 0, 5, 0);
@@ -666,7 +666,7 @@ public class CommitmentTab extends JPanel {
 		
 		// To change cursor as it moves over this button
 		btnCancel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
+		
 		// Add listener to perform action when button is pressed.
 		btnCancel.addActionListener(new ActionListener() {
 			@Override
@@ -674,7 +674,7 @@ public class CommitmentTab extends JPanel {
 				removeTab(openedFrom);
 			}
 		});
-
+		
 		/**
 		 * Initialize Delete Commitment button.////////////////
 		 */
@@ -688,10 +688,10 @@ public class CommitmentTab extends JPanel {
 		catch(IllegalArgumentException ex){
 			btnDelete.setText("Delete Commitment");
 		}
-
+		
 		// To change cursor as it moves over this button
 		btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
+		
 		// Add listener to perform action when button is pressed.
 		btnDelete.addActionListener(new ActionListener() {
 			@Override
@@ -701,14 +701,14 @@ public class CommitmentTab extends JPanel {
 		});
 		btnDelete.setEnabled(false);
 		buttonPanel.add(btnDelete, BorderLayout.LINE_END);
-
+		
 		/**
 		 * Add buttons to button panel, and add button panel to main panel for commitment tab.
 		 * Delete button is disabled on default.
 		 */
 		buttonPanel.add(btnSaveCommitment, BorderLayout.WEST);
 		buttonPanel.add(btnCancel, BorderLayout.CENTER);
-		// Set the horizontal gap
+	    // Set the horizontal gap
 		formPanel.add(buttonPanel, gbc_btnPanel);
 	}
 
@@ -731,9 +731,24 @@ public class CommitmentTab extends JPanel {
 	 * (When input is within range) up/down button started -> state changed -> up/down button finished -> state changed -> focus lost -> commit edit
 	 * (When input is out of range) up/down button started -> state changed -> up/down button finished -> state changed ->state changed -> focus lost -> commit edit
 	 */
-
+	
 	private void addTimeSpinnerListeners() {
+		hourEditor.getTextField().addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("ActionPerformed. refresh text field, tempHour is " + tempHour  + "  and text field is " + hourEditor.getTextField().getText() + "Error is : " + lblTimeError.isVisible() + "last input is " + lastInput);
+				
+				if(tempHour < 10)
+					hourEditor.getTextField().setText("0" + Integer.toString(tempHour));
+				else
+					hourEditor.getTextField().setText(Integer.toString(tempHour));
+				
+				System.out.println("ActionPerformed. refresh text field, tempHour is " + tempHour  + "  and text field is " + hourEditor.getTextField().getText() + "Error is : " + lblTimeError.isVisible() + "last input is " + lastInput);
+				
+			}
+			
+		});
 		hourEditor.getTextField().addFocusListener(new FocusListener() {
 
 			@Override
@@ -743,26 +758,7 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				if(upArrowAction || downArrowAction) {
-					upArrowAction = false;
-					downArrowAction = false;
-				}
-				else{
-					try {
-						System.out.println("Focus lost, arrow actions set to false, commit edit");
-
-						hourEditor.getTextField().commitEdit();
-						System.out.println("focus lost commit edit finished, tempHour is " + tempHour + " ");
-						checkTimeSpinnerStatus(hourSpinner, enumTimeSpinner.HOUR);
-						checkSaveBtnStatus();
-					} catch (ParseException e1) {
-						checkTimeSpinnerStatus(hourSpinner, enumTimeSpinner.HOUR);
-						checkSaveBtnStatus();
-						e1.printStackTrace();
-					}
-				}
-			}
-			/*
+				System.out.println("Focus lost, run commit edit temphour is " + tempHour  + "  and text field is " + hourEditor.getTextField().getText() + "Error is : " + lblTimeError.isVisible() + "last input is " + lastInput);
 				try {
 					upArrowAction = false;
 					downArrowAction = false;
@@ -772,7 +768,7 @@ public class CommitmentTab extends JPanel {
 						hourEditor.getTextField().setText("0" + Integer.toString(tempHour));
 					else
 						hourEditor.getTextField().setText(Integer.toString(tempHour));
-
+					
 					checkSaveBtnStatus();
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
@@ -780,14 +776,17 @@ public class CommitmentTab extends JPanel {
 					hourEditor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 					lblTimeError.setVisible(true);
 				}
-			 */
-
-
+				
+			}
 		});
 		
-
-		
 		hourEditor.getTextField().addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+					System.out.println("keyPress Entered, focus colon.");
+					colon.requestFocus();
+				}
+			}
             public void keyTyped(KeyEvent e) {
             	final char vChar = e.getKeyChar();
                 if (!(Character.isDigit(vChar)
@@ -802,41 +801,30 @@ public class CommitmentTab extends JPanel {
 		hourSpinner.addChangeListener(new ChangeListener(){
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				System.out.println("change event, arrow is " + upArrowAction + " " + downArrowAction + " temp is " + tempHour);
-				if ( upArrowAction || downArrowAction) {
-					System.out.println("Arrow action mode");
-					if (firstRun) {
-						if( Integer.parseInt(hourEditor.getTextField().getText()) > 12) {
-							hourEditor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
-							lblTimeError.setText("<html><font color='red'>"
-									+ "Please enter a valid time.</font></html>");
-						}
-						else {
-							lblTimeError.setText(" ");
-							hourEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-						}
-						firstRun = false;
-					}
-
-					//checkTimeSpinnerStatus(hourSpinner, enumTimeSpinner.HOUR);
-					checkSaveBtnStatus();
-				}
-				else {
-					checkSaveBtnStatus();
-					System.out.println("tempHour set to text field " + hourEditor.getTextField().getText());
-					tempHour = Integer.parseInt(
-							hourEditor.getTextField().getText().toString());
-					checkTimeSpinnerStatus(hourSpinner, enumTimeSpinner.HOUR);
-				}
-				/*
 				lastInput = hourEditor.getTextField().getText();
 				checkTimeSpinnerStatus(hourSpinner, enumTimeSpinner.HOUR);
+				refreshTemp(enumTimeSpinner.HOUR);
 				System.out.println("State changed, check and refreshTemp, current temp is " + tempHour + "  and text field is " + hourEditor.getTextField().getText() + "Error is : " + lblTimeError.isVisible() + "last input is " + lastInput);
 				checkSaveBtnStatus();
-				*/
 			}
 		});
 		
+		minuteEditor.getTextField().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("ActionPerformed. refresh text field, tempHour is " + tempHour  + "  and text field is " + hourEditor.getTextField().getText() + "Error is : " + lblTimeError.isVisible());
+				
+				if(tempMin < 10)
+					minuteEditor.getTextField().setText("0" + Integer.toString(tempMin));
+				else
+					minuteEditor.getTextField().setText(Integer.toString(tempMin));
+				
+				System.out.println("ActionPerformed. refresh text field, tempHour is " + tempHour  + "  and text field is " + hourEditor.getTextField().getText() + "Error is : " + lblTimeError.isVisible());
+				
+			}
+			
+		});
 		minuteEditor.getTextField().addFocusListener(new FocusListener() {
 
 			@Override
@@ -845,28 +833,32 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				if(upArrowAction || downArrowAction) {
+				try {
 					upArrowAction = false;
 					downArrowAction = false;
-				}
-				else{
-					try {
-						System.out.println("Focus lost, arrow actions set to false, commit edit");
-
-						minuteEditor.getTextField().commitEdit();
-						System.out.println("focus lost commit edit finished, tempMINUTE is " + tempMin + " ");
-						checkTimeSpinnerStatus(minuteSpinner, enumTimeSpinner.MINUTE);
-						checkSaveBtnStatus();
-					} catch (ParseException e1) {
-						checkTimeSpinnerStatus(minuteSpinner, enumTimeSpinner.MINUTE);
-						checkSaveBtnStatus();
-						e1.printStackTrace();
-					}
+					minuteEditor.getTextField().commitEdit();
+					//Possibly fall back
+					if(tempMin < 10)
+						minuteEditor.getTextField().setText("0" + Integer.toString(tempMin));
+					else
+						minuteEditor.getTextField().setText(Integer.toString(tempMin));
+					checkSaveBtnStatus();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					//hourEditor.getTextField().setText(Integer.toString(tempMinute));
+					minuteEditor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
+					lblTimeError.setVisible(true);
 				}
 			}
 		});
 		
 		minuteEditor.getTextField().addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+					System.out.println("keyPress Entered, focus colon.");
+					colon.requestFocus();
+				}
+			}
             public void keyTyped(KeyEvent e) {
             	final char vChar = e.getKeyChar();
                 if (!(Character.isDigit(vChar)
@@ -886,74 +878,51 @@ public class CommitmentTab extends JPanel {
 				boolean hourFlag;
 				final GregorianCalendar cal = new GregorianCalendar();
 				cal.setTime((Date) minuteSpinner.getValue());
-				int currentHour = cal.get(Calendar.HOUR);
+				final int currentHour = cal.get(Calendar.HOUR);
+				System.out.println("Change ccurent " + currentHour);
+				checkTimeSpinnerStatus(minuteSpinner, enumTimeSpinner.MINUTE);
+				refreshTemp(enumTimeSpinner.MINUTE);
+				if(Integer.parseInt(minuteEditor.getTextField().getText()) > 59)
+					hourFlag = true;
+				else
+					hourFlag = false;
 
-				System.out.println("change event, arrow is " + upArrowAction + " " + downArrowAction + " temp is " + tempMin);
-				if ( upArrowAction || downArrowAction) {
-					System.out.println("Arrow action mode");
-					if (firstRun) {
-						if(Integer.parseInt(minuteEditor.getTextField().getText()) == 59 && upArrowAction) {
-							cal.setTime((Date) hourSpinner.getValue());
-							cal.add(Calendar.HOUR, 1);  
-							hourSpinner.setValue(cal.getTime());
-						}
-						if(Integer.parseInt(minuteEditor.getTextField().getText()) == 00 && downArrowAction) {
-							cal.setTime((Date) hourSpinner.getValue());
-							cal.add(Calendar.HOUR, -1);  
-							hourSpinner.setValue(cal.getTime());
-						}
-						if( Integer.parseInt(minuteEditor.getTextField().getText()) > 59) {
-							minuteEditor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
-							lblTimeError.setText("<html><font color='red'>"
-									+ "Please enter a valid time.</font></html>");
-						}
-						else {
-							lblTimeError.setText(" ");
-							minuteEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-						}
-						firstRun = false;
+				
+				System.out.println("curent text after check" + 
+				Integer.parseInt(minuteEditor.getTextField().getText()));
+				System.out.println("curent temp after check" + tempMin);
+				
+				if (hourFlag) {
+					if(currentHour == 1) {
+						cal.setTime((Date) hourSpinner.getValue());
+						cal.add(Calendar.HOUR, 1);  
+						hourSpinner.setValue(cal.getTime());
 					}
-
-					//checkTimeSpinnerStatus(minuteSpinner, enumTimeSpinner.HOUR);
-					checkSaveBtnStatus();
+					if(currentHour == 11) {
+						cal.setTime((Date) hourSpinner.getValue());
+						cal.add(Calendar.HOUR, -1);  
+						hourSpinner.setValue(cal.getTime());
+					}
 				}
-				else {
-					checkSaveBtnStatus();
-					System.out.println("tempMin set to text field " + minuteEditor.getTextField().getText());
-					tempMin = Integer.parseInt(
-							minuteEditor.getTextField().getText().toString());
-					cal.setTime((Date) minuteSpinner.getValue());
-					currentHour = cal.get(Calendar.HOUR);
-					
-					System.out.println("BEFORE check , tempMin is " + tempMin);
-					checkTimeSpinnerStatus(minuteSpinner, enumTimeSpinner.MINUTE);
-					
-					System.out.println("Cal time is " + cal.getTime().toString());
-					
-					if (cal.get(Calendar.MINUTE) == 59 || cal.get(Calendar.MINUTE) == 00) {
-						System.out.println("Hourflag is true. cal time is " + cal.getTime().toString());
-						hourFlag = true;
-					}
-					else {
-						hourFlag = false;
-					}
-					
-					if (hourFlag) {
-						if(currentHour == 1) {
-							cal.setTime((Date)hourSpinner.getValue());
-							cal.add(Calendar.HOUR, 1);  
-							hourSpinner.setValue(cal.getTime());
-						}
-						
-						if(currentHour == 11) {
-							cal.setTime((Date)hourSpinner.getValue());
-							cal.add(Calendar.HOUR, -1);  
-							hourSpinner.setValue(cal.getTime());
-						}
-					}
-					checkSaveBtnStatus();
-				}
+				checkSaveBtnStatus();
 			}
+		});
+		
+		AMPMEditor.getTextField().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("ActionPerformed. refresh text field, tempHour is " + tempHour  + "  and text field is " + hourEditor.getTextField().getText());
+				
+				if(tempMin < 10)
+					minuteEditor.getTextField().setText("0" + Integer.toString(tempMin));
+				else
+					minuteEditor.getTextField().setText(Integer.toString(tempMin));
+				
+				System.out.println("ActionPerformed. refresh text field, tempHour is " + tempHour  + "  and text field is " + hourEditor.getTextField().getText());
+				
+			}
+			
 		});
 		
 		AMPMEditor.getTextField().addFocusListener(new FocusListener() {
@@ -964,16 +933,16 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				System.out.println("focus lost, committing.");
 				try {
 					upArrowAction = false;
 					downArrowAction = false;
 					AMPMEditor.getTextField().commitEdit();
-					checkTimeSpinnerStatus(AMPMSpinner, enumTimeSpinner.AMPM);
 					checkSaveBtnStatus();
 				} catch (ParseException e1) {
-					checkTimeSpinnerStatus(AMPMSpinner, enumTimeSpinner.AMPM);
-					checkSaveBtnStatus();
+					// TODO Auto-generated catch block
+					//hourEditor.getTextField().setText(Integer.toString(tempMinute));
+					AMPMEditor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
+					lblTimeError.setVisible(true);
 				}
 			}
 		});
@@ -1005,14 +974,13 @@ public class CommitmentTab extends JPanel {
 		AMPMSpinner.addChangeListener(new ChangeListener(){
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				System.out.println("change happened, checking status.");
 				checkTimeSpinnerStatus(AMPMSpinner, enumTimeSpinner.AMPM);
+				refreshTemp(enumTimeSpinner.AMPM);
 				checkSaveBtnStatus();
 			}
 		});
 	}
 	
-	/*
 	private void refreshTemp(enumTimeSpinner type) {
 		switch(type){
 		case HOUR:
@@ -1056,7 +1024,6 @@ public class CommitmentTab extends JPanel {
 			break;
 		}
 	}
-	*/
 	/**
 	 * Helper function that sets up listeners only for date picker.
 	 */
@@ -1131,6 +1098,7 @@ public class CommitmentTab extends JPanel {
 				checkSaveBtnStatus();
 			}
 		});
+	
 	}
 	
 	/**
@@ -1300,7 +1268,7 @@ public class CommitmentTab extends JPanel {
 			if(		nameTextField.getText().equals("")
 					|| datePicker.getDate() == null
 					|| nameTextField.getText().trim().length() == 0
-					|| lblTimeError.getText().equals("<html><font color='red'>" + "Please enter a valid time.</font></html>")
+					|| lblTimeError.isVisible()
 					|| lblDateError.isVisible()
 					) 
 			{
@@ -1341,6 +1309,8 @@ public class CommitmentTab extends JPanel {
 							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(
 									editingCommitment.getStatus())
 							&& calDate.getTime().equals(editingCommitment.getDueDate().getTime())
+							&& lblTimeError.isVisible()
+							&& lblDateError.isVisible()
 							){
 						btnSaveCommitment.setEnabled(false);
 						return;
@@ -1404,83 +1374,8 @@ public class CommitmentTab extends JPanel {
 		}
 	}
 	
+	private void checkTimeSpinnerStatus(JSpinner spinner, enumTimeSpinner type) {
 
-	private boolean isBadInputTime(DateEditor editor) {
-		boolean result;
-		final SimpleDateFormat format = editor.getFormat();
-		Date date = null;
-		
-		try {
-			date = format.parse(editor.getTextField().getText().trim());
-		}
-		catch (ParseException e) {
-		}
-		catch(NullPointerException ne){
-			result = false;
-		}
-
-		if(date == null) {
-			result = true;
-		}
-		else{
-			result = false;
-		}
-		return result;
-	}
-
-	private boolean checkTimeSpinnerStatus(JSpinner spinner, enumTimeSpinner type) {
-		System.out.println("checking time spinner status, tempMin is " + tempMin);
-		switch(type) {
-			case HOUR:
-				if(initFlag){
-					DateEditor editor = (DateEditor)spinner.getEditor();
-					if(isBadInputTime(editor) || tempHour < 1 || tempHour > 12) {
-						editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
-						lblTimeError.setText("<html><font color='red'>"
-								+ "Please enter a valid time.</font></html>");
-					}
-					else {
-						editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-						lblTimeError.setText(" ");
-					}
-					}
-				break;
-			case MINUTE:
-				if(initFlag){
-					System.out.println("in case minute, tempMin is" + tempMin);
-					DateEditor editor = (DateEditor)spinner.getEditor();
-					if(isBadInputTime(editor) || tempMin > 59) {
-						System.out.println("in case bad minute,,, set things.");
-						editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
-						lblTimeError.setText("<html><font color='red'>"
-								+ "Please enter a valid time.</font></html>");
-					}
-					else {
-						System.out.println("in case ok minute, cancel things.");
-						editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-						lblTimeError.setText(" ");
-					}
-					}
-				break;
-			case AMPM:
-				if(initFlag){
-					DateEditor editor = (DateEditor)spinner.getEditor();
-					String AMPMText = editor.getTextField().getText().toUpperCase();
-					if(!AMPMText.equals("AM") && !AMPMText.equals("PM")) {
-						editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
-						lblTimeError.setText("<html><font color='red'>"
-								+ "Please enter a valid time.</font></html>");
-					}
-					else {
-						editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-						lblTimeError.setText(" ");
-					}
-					}
-				break;
-		}
-		return false;
-
-		/*
 		final DateEditor editor = (DateEditor)spinner.getEditor();
 		int currentText = 0;
 
@@ -1545,7 +1440,6 @@ public class CommitmentTab extends JPanel {
 				break;
 			}
 		}
-		*/
 	}
 	
 	class SpinnerUI extends BasicSpinnerUI  {
@@ -1558,15 +1452,14 @@ public class CommitmentTab extends JPanel {
 		    	  try {
 		    		upArrowAction = true;
 		    		downArrowAction = false;
-		    		firstRun = true;
 					hourEditor.getTextField().commitEdit();
 					minuteEditor.getTextField().commitEdit();
 					AMPMEditor.getTextField().commitEdit();
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 		    	  System.out.println("Going up done.");
-		    	  colon.requestFocus();
 		      }  
 		          });  
 		    return btnUp;  
@@ -1579,15 +1472,15 @@ public class CommitmentTab extends JPanel {
 		    	  try {
 		    		downArrowAction = true;
 		    		upArrowAction = false;
-		    		firstRun = true;
 					hourEditor.getTextField().commitEdit();
 					minuteEditor.getTextField().commitEdit();
 					AMPMEditor.getTextField().commitEdit();
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-		    	  colon.requestFocus();
-		      }
+
+		      }  
 		    });  
 		    return btnDown;  
 		  }  

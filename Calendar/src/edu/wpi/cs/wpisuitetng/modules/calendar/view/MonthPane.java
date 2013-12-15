@@ -43,11 +43,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
- /**
-  * Month view contains a calendar and a month pane.
-  * Month view manages displaying filtered/complete calendar data, the redraw methods,
-  * and setting the date range to display.
-  * @author CS Anonymous
+ /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
 @SuppressWarnings("serial")

@@ -17,10 +17,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 
 
- /**
-  * Week view defines that start date and end date of the week view display.
-  * It contains a weekPane which manages the display of the actual data.
-  * @author CS Anonymous
+ /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
 @SuppressWarnings("serial")

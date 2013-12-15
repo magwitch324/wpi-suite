@@ -15,10 +15,7 @@ import javax.swing.JPanel;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 
- /**
-  * A commitment view panel can be displayed by commitment view.
-  * Commitment view panel contains a commitment to retrieve data from.
-  * @author CS Anonymous
+ /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
 @SuppressWarnings("serial")

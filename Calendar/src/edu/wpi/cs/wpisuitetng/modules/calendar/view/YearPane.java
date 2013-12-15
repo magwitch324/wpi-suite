@@ -38,10 +38,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
- /**
-  * YearPane contains year month pane. Year month pane displays up to 42 days in a single pane.
-  * YearPane combines 12 year month panes to display the whole year view.
-  * @author CS Anonymous
+ /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
 @SuppressWarnings("serial")

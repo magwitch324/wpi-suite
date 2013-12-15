@@ -37,11 +37,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.EventT
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 
 
- /**
-  * GUI event controller manages the event handling of the large elements
-  * such as main tab and tool bar tab, team calendar tab, personal calendar tab,
-  * and full commitment view tab.
-  * @author CS Anonymous
+ /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
 public class GUIEventController {

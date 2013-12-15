@@ -39,12 +39,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 
- /**
-  * Commitment view is on the right hand side of the module.
-  * Commitment view is available to all 4 views.
-  * It contains a list of commitments in a scrollpane for display.
-  * CommitPanel contains the list of commitments.
-  * @author CS Anonymous
+ /* @author CS Anonymous
   * @version $Revision: 1.0 $
   */
 @SuppressWarnings("serial")
