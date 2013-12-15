@@ -9,8 +9,17 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
+import static java.util.Calendar.DAY_OF_MONTH;
+import static java.util.Calendar.DECEMBER;
+import static java.util.Calendar.JANUARY;
+import static java.util.Calendar.JULY;
+import static java.util.Calendar.LONG;
+import static java.util.Calendar.MONTH;
+import static java.util.Calendar.NOVEMBER;
+import static java.util.Calendar.OCTOBER;
+import static java.util.Calendar.WEEK_OF_YEAR;
+import static java.util.Calendar.YEAR;
 import static org.junit.Assert.assertEquals;
-import static java.util.Calendar.*;
 
 import java.util.GregorianCalendar;
 import java.util.List;

@@ -12,6 +12,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatType;
 
 /**

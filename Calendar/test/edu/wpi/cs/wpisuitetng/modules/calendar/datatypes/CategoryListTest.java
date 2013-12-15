@@ -9,10 +9,12 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
+
 import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author CS Anonymous

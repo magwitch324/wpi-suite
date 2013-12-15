@@ -17,9 +17,9 @@ import javax.swing.Icon;
 import javax.swing.JTabbedPane;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentFullView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.EventFullView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.tab.ClosableTabComponent;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentFullView;
 
 /**
  * This tabbed pane will appear as the main content of the Calendar tab.

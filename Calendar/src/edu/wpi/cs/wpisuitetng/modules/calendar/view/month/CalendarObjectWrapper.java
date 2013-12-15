@@ -11,7 +11,6 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.month;
 
 import java.awt.Image;
 import java.io.IOException;
-import java.util.GregorianCalendar;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;

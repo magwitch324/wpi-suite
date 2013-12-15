@@ -9,14 +9,15 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
-import static org.junit.Assert.*;
-
-import java.util.GregorianCalendar;
-
-import static java.util.Calendar.*;
+import static java.util.Calendar.DECEMBER;
+import static java.util.Calendar.JANUARY;
+import static java.util.Calendar.NOVEMBER;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 

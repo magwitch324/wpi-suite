@@ -13,10 +13,10 @@ import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.LONG;
 import static java.util.Calendar.YEAR;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Locale;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;

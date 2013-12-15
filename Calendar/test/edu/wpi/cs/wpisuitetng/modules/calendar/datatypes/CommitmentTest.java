@@ -9,11 +9,12 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
+import static java.util.Calendar.DECEMBER;
 import static org.junit.Assert.assertEquals;
-import static java.util.Calendar.*;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
+
 import org.junit.Test;
 
 
