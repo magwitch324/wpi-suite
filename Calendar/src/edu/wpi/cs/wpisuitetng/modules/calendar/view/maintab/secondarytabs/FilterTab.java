@@ -22,7 +22,11 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
@@ -36,7 +40,15 @@ import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.FilterList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
@@ -47,6 +59,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
   */
  public class FilterTab extends JPanel{
 
+	private final FilterList CalendarFilters;
 	private final int openedFrom;
 	private JPanel buttonPanel;
 	private Container viewPanel;
@@ -55,16 +68,19 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 	private JButton btnNewFilter;
 	private boolean initFlag;
 	private JScrollPane scrollPane;
-	private JScrollPane inactiveFilterPane;
-	private JScrollPane activeFilterPane;
+	private JScrollPane inactiveCatPane;
+	private JScrollPane activeCatPane;
 	private JPanel buttonPanel2;
 	private JButton btnSaveFilter;
 	private JButton btnCancelFilter;
 	private JPanel editPanel;
-	private JButton addCatBttn;
-	private JButton removeCatBttn;
-	private JPanel catBttnPanel;
+	private JButton addCatBtn;
+	private JButton removeCatBtn;
+	private JPanel catBtnPanel;
 	private FilterMode mode;
+	private JTextField filterName;
+	private final CategoryList teamCategories;
+	private final CategoryList personalCategories;
 
 	private enum FilterMode {
 		ADDING(0),
@@ -77,13 +93,23 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		}
 	}
 	/**
-	 * Create the panel.
+	 * Constructor for Filter TAb.
 	 * @param openedFrom int
 	 */
 	public FilterTab(int openedFrom) {
 		this.openedFrom = openedFrom;
 		initFlag = false;
 		mode = FilterMode.VIEWING;
+		
+		//Load category lists and filter lists from CalendarDataModel
+		teamCategories = CalendarDataModel.getInstance().getCalendarData(
+				ConfigManager.getConfig().getProjectName()).getCategories(); 
+		personalCategories = CalendarDataModel.getInstance().getCalendarData(
+				ConfigManager.getConfig().getProjectName() + 
+				"-" + ConfigManager.getConfig().getUserName()).getCategories(); 
+		CalendarFilters = CalendarDataModel.getInstance().getCalendarData(
+				ConfigManager.getConfig().getProjectName() + 
+				"-" + ConfigManager.getConfig().getUserName()).getFilters();
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0};
@@ -93,6 +119,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		setLayout(gridBagLayout);
 
 		addFilterList();
+		//populateFilterList();
 		addListeners();
 		initFlag = true;
 		}
@@ -102,7 +129,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 	 */
 	public void addFilterList(){
 		
-		//final JPanel aPanel = new JPanel();
 		viewPanel = new JPanel();
 		viewPanel.setBackground(Color.WHITE);
 		viewPanel.setPreferredSize(new Dimension(500, 600));
@@ -110,9 +136,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		
 		final GridBagLayout gbl = new GridBagLayout();
 		gbl.rowWeights = new double[]{0.0, 1.0, 0.0};
-		gbl.columnWeights = new double[]{0.0};
+		gbl.columnWeights = new double[]{0.0, 0.0};
 		gbl.rowHeights = new int[] {0, 0, 0};
-		gbl.columnWidths = new int[] {0};
+		gbl.columnWidths = new int[] {0, 0};
 		viewPanel.setLayout(gbl);
 				
 		final GridBagConstraints constraints = new GridBagConstraints();
@@ -122,16 +148,19 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		constraints.fill = GridBagConstraints.BOTH;
 		add(viewPanel, constraints);	
 		
+		//Adds the scroll pane the filters will be on
 		scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPane.gridwidth = 2;
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 1;
 		viewPanel.add(scrollPane, gbc_scrollPane);
 		
+		//Adds the label on top of the scroll pane
 		final JLabel filterList = new JLabel("List of Filters", SwingConstants.CENTER);
 		filterList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 //		filterList.setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -141,6 +170,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		final GridBagConstraints gbc_filterList = new GridBagConstraints();
 		gbc_filterList.fill = GridBagConstraints.BOTH;
 		gbc_filterList.insets = new Insets(5, 0, 0, 0);
+		gbc_filterList.gridwidth = 2;
 		gbc_filterList.gridx = 0;
 		gbc_filterList.gridy = 0;
 		viewPanel.add(filterList, gbc_filterList);
@@ -209,7 +239,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		gbc_activeFilterlbl.gridy = 3;
 		editPanel.add(activeFilterlbl, gbc_activeFilterlbl);
 		
-		final JTextField filterName = new JTextField();
+		//Adds the text field for the name of the filter
+		filterName = new JTextField();
 		filterName.setBackground(CalendarStandard.CalendarYellow);
 		filterName.setToolTipText("Enter Filter Name here. This field is Required.");
 		final GridBagConstraints gbc_filterName = new GridBagConstraints();
@@ -220,76 +251,84 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 		gbc_filterName.gridy = 0;
 		editPanel.add(filterName, gbc_filterName);
 		
-		inactiveFilterPane = new JScrollPane();
-		inactiveFilterPane.getViewport().setBackground(Color.WHITE);
+		//adds the scroll pane containing the categories not in the filter
+		inactiveCatPane = new JScrollPane();
+		inactiveCatPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_inactiveFilter = new GridBagConstraints();
 		gbc_inactiveFilter.fill = GridBagConstraints.BOTH;
 		gbc_inactiveFilter.insets = new Insets(5, 0, 5, 15);
 		gbc_inactiveFilter.gridwidth = 3;
 		gbc_inactiveFilter.gridx = 1;
 		gbc_inactiveFilter.gridy = 1;
-		editPanel.add(inactiveFilterPane, gbc_inactiveFilter);
+		editPanel.add(inactiveCatPane, gbc_inactiveFilter);
 		
-		activeFilterPane = new JScrollPane();
-		activeFilterPane.getViewport().setBackground(Color.WHITE);
+		//adds the scroll pane containing the categories in the filter
+		activeCatPane = new JScrollPane();
+		activeCatPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_activeFilter = new GridBagConstraints();
 		gbc_activeFilter.fill = GridBagConstraints.BOTH;
 		gbc_activeFilter.insets = new Insets(5, 0, 5, 15);
 		gbc_activeFilter.gridwidth = 3;
 		gbc_activeFilter.gridx = 1;
 		gbc_activeFilter.gridy = 3;
-		editPanel.add(activeFilterPane, gbc_activeFilter);
+		editPanel.add(activeCatPane, gbc_activeFilter);
 		
-		catBttnPanel = new JPanel(new BorderLayout(20, 0));
-		catBttnPanel.setBackground(Color.WHITE);
-		final GridBagConstraints gbc_catBttnPanel = new GridBagConstraints();
-		gbc_catBttnPanel.anchor = GridBagConstraints.CENTER;
-		gbc_catBttnPanel.insets = new Insets(5, 0, 5, 0);
-		gbc_catBttnPanel.gridx = 2;
-		gbc_catBttnPanel.gridy = 2;
+		//add the two buttons to move categories between active and inactive panes
+		catBtnPanel = new JPanel(new BorderLayout(20, 0));
+		catBtnPanel.setBackground(Color.WHITE);
+		final GridBagConstraints gbc_catBtnPanel = new GridBagConstraints();
+		gbc_catBtnPanel.anchor = GridBagConstraints.CENTER;
+		gbc_catBtnPanel.insets = new Insets(5, 0, 5, 0);
+		gbc_catBtnPanel.gridx = 2;
+		gbc_catBtnPanel.gridy = 2;
 		
 		//Add Category to Filter button
-		addCatBttn = new JButton();
+		addCatBtn = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("GreenArrowDown_Icon.png"));
-			addCatBttn.setIcon(new ImageIcon(img));
+			addCatBtn.setIcon(new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			addCatBttn.setIcon(new ImageIcon());
+			addCatBtn.setIcon(new ImageIcon());
 		}
-//		addCatBttn.setText("Add Category");
-		addCatBttn.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+//		addCatBtn.setText("Add Category");
+		addCatBtn.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		addCatBttn.setToolTipText("Use this button to Add the selected Category to this Filter.");
+		addCatBtn.setToolTipText("Use this button to Add the selected Category to this Filter.");
 		
 		
 		//Remove Category from Filter button
-		removeCatBttn = new JButton();
+		removeCatBtn = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("RedArrowUp_Icon.png"));
-			removeCatBttn.setIcon(new ImageIcon(img));
+			removeCatBtn.setIcon(new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			removeCatBttn.setIcon(new ImageIcon());
+			removeCatBtn.setIcon(new ImageIcon());
 		}
-//		removeCatBttn.setText("Remove Category");
-		removeCatBttn.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+//		removeCatBtn.setText("Remove Category");
+		removeCatBtn.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		removeCatBttn.setToolTipText("Use this button to Remove the selected Category from this Filter.");
+		removeCatBtn.setToolTipText("Use this button to Remove the selected Category from this Filter.");
 		
-		catBttnPanel.add(addCatBttn, BorderLayout.WEST);
-		catBttnPanel.add(removeCatBttn, BorderLayout.EAST);
-		editPanel.add(catBttnPanel, gbc_catBttnPanel);
+		catBtnPanel.add(addCatBtn, BorderLayout.WEST);
+		catBtnPanel.add(removeCatBtn, BorderLayout.EAST);
+		editPanel.add(catBtnPanel, gbc_catBtnPanel);
 		
 		addButtonPanel2();
 	}
 
-private void addButtonPanel(){
+	/**
+	 * Adds the button panel to Filter tab for viewing mode. Delete and edit button are disabled by default.
+	 * 
+	 */	
+	private void addButtonPanel(){
 		
 		buttonPanel = new JPanel(new BorderLayout(30, 0));
 		buttonPanel.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_btnPanel = new GridBagConstraints();
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
+		gbc_btnPanel.gridwidth = 2;
 		gbc_btnPanel.gridx = 0;
 		gbc_btnPanel.gridy = 2;
 		
@@ -335,14 +374,24 @@ private void addButtonPanel(){
 		btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
 		btnDelete.setToolTipText("Click this button to Delete the selected Filter.");
-			
-		buttonPanel.add(btnNewFilter, BorderLayout.WEST);
-		buttonPanel.add(btnEdit, BorderLayout.CENTER);
-		buttonPanel.add(btnDelete, BorderLayout.LINE_END);
+		
+		if(mode == FilterMode.VIEWING){
+			buttonPanel.add(btnNewFilter, BorderLayout.WEST);
+			buttonPanel.add(btnEdit, BorderLayout.CENTER);
+			buttonPanel.add(btnDelete, BorderLayout.LINE_END);
+		}
+		else{
+			buttonPanel.add(btnEdit, BorderLayout.LINE_START);
+			buttonPanel.add(btnDelete, BorderLayout.LINE_END);
+		}
+		
 		// Set the horizontal gap
 		viewPanel.add(buttonPanel, gbc_btnPanel);
 	}	
 	
+	/**
+	 * Adds the button panel to Filter tab for adding and editing mode. Save button is disabled by default.
+	 */
 	public void addButtonPanel2(){
 		buttonPanel2 = new JPanel(new BorderLayout(30, 0));
 		buttonPanel2.setBackground(Color.WHITE);
@@ -388,6 +437,9 @@ private void addButtonPanel(){
 		editPanel.add(buttonPanel2, gbc_btnPanel2);
 	}
 	
+	/**
+	 * Adds the listeners for the components on the view pane
+	 */
 	public void addListeners(){
 		btnNewFilter.addActionListener(new ActionListener() {
 			@Override
@@ -414,7 +466,42 @@ private void addButtonPanel(){
 		});
 	}
 	
+	/**
+	 * adds the listeners for the components on the edit pane
+	 */
 	public void addEditViewListeners(){
+		filterName.addKeyListener(new KeyListener() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				//editPaneBtnStatus
+			}
+			
+			//unused
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub				
+			}			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub				
+			}
+		});
+		
+		removeCatBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				removeCat();
+			}
+		});
+		
+		addCatBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				addCat();
+			}
+		});
+		
 		btnCancelFilter.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -422,13 +509,35 @@ private void addButtonPanel(){
 				refresh();
 			}
 		});
+		
+		btnSaveFilter.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//addFilter();
+				
+			}
+		});
 	}
 	
-	protected void refresh(){
+	/**
+	 * refreshes the filter tab and re-adds the correct components depending on what mode it is in
+	 */
+	private void refresh(){
 		if(mode == FilterMode.VIEWING){
 			removeAll();
 			addFilterList();
 			addListeners();
+			revalidate();
+			repaint();
+		}
+		else if(mode == FilterMode.ADDING){
+			removeAll();
+			addFilterList();
+			addListeners();
+			editFilterMode();
+			addEditViewListeners();
+			filterName.setText("**New Filter**");
+			//populateCatLists();
 			revalidate();
 			repaint();
 		}
@@ -438,8 +547,72 @@ private void addButtonPanel(){
 			addListeners();
 			editFilterMode();
 			addEditViewListeners();
+			//filterName.setText(selctFilter.name);
+			//populateCatLists();;
 			revalidate();
 			repaint();
 		}
 	}
+	
+	/**
+	 * Adds a new filter with the information contained in the fields
+	 */
+	private void addFilter(){
+		CalendarData calData;
+		
+		String name = filterName.getText();
+		
+		calData = CalendarDataModel.getInstance().getCalendarData(
+				ConfigManager.getConfig().getProjectName() + 
+				"-" + ConfigManager.getConfig().getUserName()); 
+		
+		CategoryList catList = null;
+		
+		Filter newFilter = new Filter(name, catList);
+		calData.addFilter(newFilter);
+		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+	}
+	
+	private void populateFilterList(){
+		final List<Filter> filterList = new ArrayList<Filter>();
+		final Filter[] filterArray = new Filter[CalendarFilters.getSize()];
+		filterList.addAll(CalendarFilters.getFilters());
+		for(int i = 0; i < CalendarFilters.getSize(); i++){
+			filterArray[i] = filterList.get(i);
+		}
+		filterList.clear();
+		filterList.addAll(CalendarFilters.getFilters());
+	}
+	
+	private void removeCat(){
+		// TODO Auto-generated method stub
+	}
+	
+	private void addCat(){
+		// TODO Auto-generated method stub
+	}
+	
+	private void populateCatLists(){
+		// TODO Auto-generated method stub
+	}
+	private void viewPaneBtnStatus(){
+		if(true){
+			btnEdit.setEnabled(false);
+			btnDelete.setEnabled(false);
+		}
+		else{
+			btnEdit.setEnabled(true);
+			btnDelete.setEnabled(true);
+		}
+	}
+	
+	private void editPaneBtnStatus(){
+		if(true){
+			btnSaveFilter.setEnabled(false);
+		}
+		else{
+			btnSaveFilter.setEnabled(true);
+		}
+	}
+	
 }
