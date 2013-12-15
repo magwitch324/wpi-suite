@@ -12,7 +12,6 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -251,7 +250,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		//Adds the text field for the name of the filter
 		filterName = new JTextField();
 		filterName.setBackground(CalendarStandard.CalendarYellow);
-		filterName.setToolTipText("Enter Filter Name here. This field is Required.");
 		final GridBagConstraints gbc_filterName = new GridBagConstraints();
 		gbc_filterName.fill = GridBagConstraints.BOTH;
 		gbc_filterName.insets = new Insets(5, 0, 5, 15);
@@ -303,7 +301,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 //		addCatBtn.setText("Add Category");
 		addCatBtn.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		addCatBtn.setToolTipText("Use this button to Add the selected Category to this Filter.");
+		addCatBtn.setToolTipText("Add selected Category to Filter.");
 		
 		
 		//Remove Category from Filter button
@@ -318,8 +316,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 //		removeCatBtn.setText("Remove Category");
 		removeCatBtn.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		removeCatBtn.setToolTipText("Use this button to"
-				+ " Remove the selected Category from this Filter.");
+		removeCatBtn.setToolTipText("Remove selected Category from Filter.");
 		
 		catBtnPanel.add(addCatBtn, BorderLayout.WEST);
 		catBtnPanel.add(removeCatBtn, BorderLayout.EAST);
@@ -354,7 +351,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		btnNewFilter.setText("New Filter");
 		btnNewFilter.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		btnNewFilter.setToolTipText("Click this button to Create a New Filter.");
 		
 		//Add Edit button
 		btnEdit = new JButton();
@@ -367,9 +363,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		}
 		btnEdit.setText("Edit Filter");
 		btnEdit.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
-		// To change cursor as it moves over this button
-		btnEdit.setToolTipText("Click this button to Edit the selected a Filter.");
-		
+		// To change cursor as it moves over this button		
 		
 		// Add Delete Button
 		btnDelete = new JButton();
@@ -383,7 +377,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		btnDelete.setText("Delete Filter");
 		btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		btnDelete.setToolTipText("Click this button to Delete the selected Filter.");
 		
 		if(mode == FilterMode.VIEWING){
 			buttonPanel.add(btnNewFilter, BorderLayout.WEST);
@@ -422,9 +415,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		}
 		btnSaveFilter.setText("Save Filter");
 		btnSaveFilter.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
-		// To change cursor as it moves over this button
-		btnSaveFilter.setToolTipText("Click this button to Save any changes made to the Filters.");
-		
+		// To change cursor as it moves over this button		
 		
 		//New Cancel button
 		btnCancelFilter = new JButton();
@@ -438,8 +429,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		btnCancelFilter.setText("Cancel");
 		btnCancelFilter.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		btnCancelFilter.setToolTipText("Click this button"
-				+ " to Cancel any changes made to the Filters.");
 		
 		
 		buttonPanel2.add(btnSaveFilter, BorderLayout.WEST);
@@ -492,7 +481,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			@Override
 			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub				
-			}			
+			}
 			@Override
 			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub				
@@ -502,14 +491,14 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		removeCatBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				removeCatFromFilter();
+//				removeCatFromFilter();
 			}
 		});
 		
 		addCatBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				addCatToFilter();
+//				addCatToFilter();
 			}
 		});
 		
@@ -575,14 +564,15 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	private void addFilter(){
 		CalendarData calData;
 		
-		final String name = filterName.getText();
+		String name = filterName.getText();
+
 		
 		calData = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName() + 
 				"-" + ConfigManager.getConfig().getUserName()); 
 		
-		final CategoryList inactiveCatList = null;
-		final CategoryList activeCatList = null;
+		List<Integer> inactiveCatList = null;
+		List<Integer> activeCatList = null;
 		
 		Filter newFilter = new Filter(name, inactiveCatList, activeCatList);
 		calData.addFilter(newFilter);
@@ -633,12 +623,17 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	}
 
 	
-	private void removeCatFromFilter(){
-		// TODO Auto-generated method stub
+	private void removeCatFromFilter(Category aCat, Filter aFilter){
+		for(int i = 0; i < aFilter.getActiveCategories().size(); i++){
+			int aCatID = aFilter.getActiveCategories().get(i);
+			if (aCatID == aCat.getID()) {
+				aFilter.getActiveCategories().remove(aCat.getID());
+			}
+		}
 	}
 	
-	private void addCatToFilter(){
-		// TODO Auto-generated method stub
+	private void addCatToFilter(Category aCat, Filter aFilter){
+		aFilter.getActiveCategories().add(aCat.getID());
 	}
 	
 	private void populateInactiveCatLists(){

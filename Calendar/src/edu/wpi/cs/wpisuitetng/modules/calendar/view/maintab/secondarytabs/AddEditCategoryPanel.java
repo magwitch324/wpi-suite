@@ -25,16 +25,19 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+import javax.swing.colorchooser.AbstractColorChooserPanel;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
@@ -50,19 +53,27 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
  */
 public class AddEditCategoryPanel extends JPanel {
 
-	private final JTextField textFieldName;
-	private final JRadioButton rdbtnTeam;
-	ColorPickerPanel colorPickerPanel;
-	private final JRadioButton rdbtnPersonal;
-	private final JButton btnSave;
-	private final JButton btnCancel;
+	private JTextField textFieldName;
+	private JRadioButton rdbtnTeam;
+	JColorChooser colorPickerPanel;
+	private JRadioButton rdbtnPersonal;
+	private JButton btnSave;
+	private JButton btnCancel;
+	CategoryTab.CategoryMode mode;
+	private Category editingCategory;
 
 
 	/**
 	 * Constructor for AddEditCategoryPanel.
 	 * @param mode CategoryTab.CategoryMode
 	 */
-	public AddEditCategoryPanel(CategoryTab.CategoryMode mode) {
+	public AddEditCategoryPanel() {
+		mode = CategoryTab.CategoryMode.ADDING;
+		setupUI();
+	}
+	
+	public void setupUI()
+	{
 		setBackground(Color.WHITE);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		final Component horizontalGlue = Box.createHorizontalGlue();
@@ -70,8 +81,8 @@ public class AddEditCategoryPanel extends JPanel {
 		
 		final JPanel addEditFormPanel = new JPanel();
 		addEditFormPanel.setBackground(Color.WHITE);
-		addEditFormPanel.setPreferredSize(new Dimension(400, 10));
-		addEditFormPanel.setMaximumSize(new Dimension(400, 4000));
+		addEditFormPanel.setPreferredSize(new Dimension(500, 10));
+		addEditFormPanel.setMaximumSize(new Dimension(600, 4000));
 		add(addEditFormPanel);
 		final GridBagLayout gbl_addEditFormPanel = new GridBagLayout();
 		gbl_addEditFormPanel.columnWidths = new int[]{0, 0, 0};
@@ -122,6 +133,7 @@ public class AddEditCategoryPanel extends JPanel {
 		
 		// Team radio button
 		rdbtnTeam = new JRadioButton("Team");
+		rdbtnTeam.setBackground(Color.WHITE);
 		horizontalBox.add(rdbtnTeam);
 		teamPersonalRadioButtons.add(rdbtnTeam);
 		rdbtnTeam.setSelected(true);	//sets default to team
@@ -142,7 +154,20 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_lblColor.gridy = 2;
 		addEditFormPanel.add(lblColor, gbc_lblColor);
 		
-		colorPickerPanel = new ColorPickerPanel();
+		colorPickerPanel = new JColorChooser();
+		AbstractColorChooserPanel panel = colorPickerPanel.getChooserPanels()[0];
+		//panel.setBackground(Color.WHITE);
+		Component[] panelComponents = panel.getComponents();
+		for(Component comp:panelComponents){
+			//comp.setBackground(Color.WHITE);
+		}
+		AbstractColorChooserPanel[] panels = { panel };
+		
+		colorPickerPanel.setChooserPanels(panels);
+		colorPickerPanel.setBackground(Color.WHITE);
+		colorPickerPanel.setPreviewPanel(new JPanel());
+		colorPickerPanel.setBorder(textFieldName.getBorder());
+		
 		final GridBagConstraints gbc_panel = new GridBagConstraints();
 
 		gbc_panel.insets = new Insets(0, 0, 5, 0);
@@ -158,21 +183,8 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_horizontalBox_1.gridy = 3;
 		addEditFormPanel.add(horizontalBox_1, gbc_horizontalBox_1);
 		
-		btnCancel = new JButton();
-		try {
-			final Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
-			btnCancel.setIcon(new ImageIcon(img));
-		} catch (IOException ex) {}
-		catch(IllegalArgumentException ex){
-			btnCancel.setIcon(new ImageIcon());
-		}
-		btnCancel.setText("Cancel");
-		
-		horizontalBox_1.add(btnCancel);
-		
-		final Component horizontalStrut = Box.createHorizontalStrut(20);
 
-		horizontalBox_1.add(horizontalStrut);
+
 		
 		btnSave = new JButton();
 		try {
@@ -188,6 +200,21 @@ public class AddEditCategoryPanel extends JPanel {
 		horizontalBox_1.add(btnSave);
 
 		
+		final Component horizontalStrut = Box.createHorizontalStrut(20);
+
+		horizontalBox_1.add(horizontalStrut);
+		
+		btnCancel = new JButton();
+		try {
+			final Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
+			btnCancel.setIcon(new ImageIcon(img));
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			btnCancel.setIcon(new ImageIcon());
+		}
+		btnCancel.setText("Cancel");
+		
+		horizontalBox_1.add(btnCancel);
 				
 		final Component horizontalGlue_1 = Box.createHorizontalGlue();
 
@@ -223,6 +250,28 @@ public class AddEditCategoryPanel extends JPanel {
 		});
 	}
 	
+	public AddEditCategoryPanel(Category category) {
+		mode = CategoryTab.CategoryMode.EDITING;
+		setupUI();
+		
+		editingCategory = category;
+		textFieldName.setText(category.getName());
+		if(category.getIsPersonal())
+			{
+				rdbtnPersonal.setSelected(true);
+			}
+		else
+			{
+				rdbtnTeam.setSelected(true);
+			}
+		
+		colorPickerPanel.setColor(category.getCategoryColor());
+		
+		//Disable changing team/personal
+		rdbtnPersonal.setEnabled(false);
+		rdbtnTeam.setEnabled(false);
+	}
+
 	/**
 	 * Controls the enable state of the save button 
 	 * by checking all user editable elements in commitment tab.
@@ -289,8 +338,17 @@ public class AddEditCategoryPanel extends JPanel {
 		final Color catColor = colorPickerPanel.getColor();
 		
 		// Creates and adds new category
-		final Category newCat = new Category(name, catColor, isPersonal);
-		calData.addCategory(newCat);
+		if(mode == CategoryTab.CategoryMode.ADDING)
+			{
+				calData.addCategory(new Category(name, catColor, isPersonal));
+			}
+		else
+		{
+			editingCategory.setName(name);
+			editingCategory.setCategoryColor(catColor);
+			editingCategory.setPersonal(isPersonal);
+			calData.getCategories().update(editingCategory);
+		}
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 	}
 	
@@ -337,7 +395,9 @@ public class AddEditCategoryPanel extends JPanel {
 					colorBox.setBorder(new LineBorder(new Color(240, 240, 240), 2));
 					if (i == 0)
 						{
-						selectedBox = colorBox;
+							selectedBox = (ColorBox) colorBox;
+							selectedBox.setBorder(new LineBorder(Color.black, 2));
+							color = selectedBox.getColor();
 						}
 					
 					colorBox.addMouseListener(new MouseAdapter() {
@@ -350,7 +410,7 @@ public class AddEditCategoryPanel extends JPanel {
 			}
 			
 			
-			setBackground(color);
+			setBackground(Color.white);
 		}
 		/*
 		 * Sets the selected color, adding border and updating color field

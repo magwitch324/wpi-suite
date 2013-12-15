@@ -11,6 +11,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Image;
 import java.io.IOException;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -43,7 +44,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
   */
  public class GUIEventController {
 	private static GUIEventController instance = null;
-	private int scrollBarValue;
+	private int scrollBarValue = 659;
 	private MainTabView main = null;
 	private ToolbarView toolbar = null;
 	//private TeamCalendar teamCalendar;

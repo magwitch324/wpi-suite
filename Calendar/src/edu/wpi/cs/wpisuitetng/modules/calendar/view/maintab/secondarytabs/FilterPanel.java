@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * Copyright (c) 2013 WPI-Suite
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: CS Anonymous
+ ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import java.awt.Color;
@@ -14,7 +23,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
 
 public class FilterPanel extends JPanel{
