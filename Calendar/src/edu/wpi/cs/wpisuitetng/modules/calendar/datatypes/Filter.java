@@ -26,15 +26,19 @@ public class Filter implements Comparator<Filter>{
 	/** the name of the filter */
 	private String name;
 	
-	/** the list of categories to filter*/
-	private CategoryList catList;
+	/** the list of categories not included in this filter*/
+	private CategoryList inactiveCategories;
+	
+	/** the list of categories included in this filter*/
+	private CategoryList activeCategories;
 	
 	/**
 	 * Constructs a filter with default characteristics
 	 */
 	public Filter() {
 		name = "";
-		catList = new CategoryList();
+		inactiveCategories = new CategoryList();
+		activeCategories = new CategoryList();
 	}
 
 	/**
@@ -47,10 +51,11 @@ public class Filter implements Comparator<Filter>{
 	 * @param catList CategoryList
 	 */
 	// need to phase out supplying the ID
-	public Filter(String name, CategoryList catList) {
+	public Filter(String name, CategoryList inactiveCatList, CategoryList activeCatList) {
 		this();
 		this.name = name;
-		this.catList = catList;
+		this.inactiveCategories = inactiveCatList;
+		this.activeCategories = activeCatList;
 	}
 	
 	
@@ -95,7 +100,53 @@ public class Filter implements Comparator<Filter>{
 		}
 		
 	}
+	
+	
+	/**
+	 * getter for the inactiveCategories
+	 * 
+	
+	 * @return the inactiveCategories */
+	public CategoryList getInactiveCategories() {
+		return inactiveCategories;
+	}
 
+	
+	
+	/**
+	 * Setter for the inactiveCategories
+	 * 
+	 * @param inactiveCatList
+	 *            the inactiveCatList to set
+	 */
+	public void setInactiveCategories(CategoryList inactiveCatList) {
+		this.inactiveCategories = inactiveCatList;
+	}
+	
+	
+	
+	/**
+	 * getter for the activeCategories
+	 * 
+	
+	 * @return the activeCategories */
+	public CategoryList getctiveCategories() {
+		return activeCategories;
+	}
+
+	
+	
+	/**
+	 * Setter for the activeCategories
+	 * 
+	 * @param activeCatList
+	 *            the activeCatList to set
+	 */
+	public void setActiveCategories(CategoryList activeCatList) {
+		this.activeCategories = activeCatList;
+	}
+	
+	
 	
 	/**
 	 * Method save.

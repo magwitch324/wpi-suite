@@ -243,7 +243,6 @@ public class CalendarObjectPanel extends JPanel {
 		textLayout.putConstraint(SpringLayout.NORTH, descL, 0, SpringLayout.SOUTH, timeL);
 		textLayout.putConstraint(SpringLayout.EAST, descL, 0, SpringLayout.EAST, textPanel);
 		
-		
 	}
 	
 	/**
