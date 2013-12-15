@@ -490,14 +490,14 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		removeCatBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				removeCatFromFilter();
+//				removeCatFromFilter();
 			}
 		});
 		
 		addCatBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				addCatToFilter();
+//				addCatToFilter();
 			}
 		});
 		
@@ -585,12 +585,22 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		filterList.addAll(CalendarFilters.getFilters());
 	}
 	
-	private void removeCatFromFilter(){
-		// TODO Auto-generated method stub
+	private void removeCatFromFilter(Category aCat, Filter aFilter){
+		for(int i = 0; i < aFilter.getActiveCategories().getSize(); i++){
+			if (aFilter.getActiveCategories().getCategory(aCat.getID()) != null) {
+				aFilter.getInactiveCategories().add(aCat);
+				aFilter.getActiveCategories().remove(aCat.getID());
+			}
+		}
 	}
 	
-	private void addCatToFilter(){
-		// TODO Auto-generated method stub
+	private void addCatToFilter(Category aCat, Filter aFilter){
+		for(int i = 0; i < aFilter.getInactiveCategories().getSize(); i++){
+			if (aFilter.getInactiveCategories().getCategory(aCat.getID()) != null) {
+				aFilter.getActiveCategories().add(aCat);
+				aFilter.getInactiveCategories().remove(aCat.getID());
+			}
+		}
 	}
 	
 	private void populateInactiveCatLists(){

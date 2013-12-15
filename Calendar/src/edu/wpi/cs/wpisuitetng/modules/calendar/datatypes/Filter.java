@@ -130,7 +130,7 @@ public class Filter implements Comparator<Filter>{
 	 * 
 	
 	 * @return the activeCategories */
-	public CategoryList getctiveCategories() {
+	public CategoryList getActiveCategories() {
 		return activeCategories;
 	}
 
