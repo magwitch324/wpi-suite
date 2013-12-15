@@ -37,7 +37,6 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab.EditingMode;
 
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
@@ -50,24 +49,18 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.Commit
 
 	private final int openedFrom;
 	private JPanel buttonPanel;
-	private JButton btnAddFilter;
-	private AbstractButton btnCancel;
 	private Container viewPanel;
 	private JButton btnDelete;
 	private JButton btnEdit;
 	private JButton btnNewFilter;
 	private boolean initFlag;
 	private JScrollPane scrollPane;
-	private Component categoryList;
 	private JScrollPane inactiveFilterPane;
 	private JScrollPane activeFilterPane;
 	private JPanel buttonPanel2;
 	private JButton btnSaveFilter;
 	private JButton btnCancelFilter;
 	private JPanel editPanel;
-	private JButton addCategoryBttn;
-	private JButton moveCategoryBttn;
-	private JPanel moveCatBttnPanel;
 	private JButton addCatBttn;
 	private JButton removeCatBttn;
 	private JPanel catBttnPanel;
@@ -101,7 +94,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.Commit
 
 		addFilterList();
 		addListeners();
-		//editFilterMode();
 		initFlag = true;
 		}
 	
@@ -154,8 +146,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.Commit
 		viewPanel.add(filterList, gbc_filterList);
 		
 		addButtonPanel();
-		this.repaint();
-		this.revalidate();
 	}
 	
 	/**
@@ -292,8 +282,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.Commit
 		editPanel.add(catBttnPanel, gbc_catBttnPanel);
 		
 		addButtonPanel2();
-		this.repaint();
-		this.revalidate();
 	}
 
 private void addButtonPanel(){
@@ -317,7 +305,7 @@ private void addButtonPanel(){
 		btnNewFilter.setText("New Filter");
 		btnNewFilter.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		btnAddFilter.setToolTipText("Click this button to Create a New Filter.");
+		btnNewFilter.setToolTipText("Click this button to Create a New Filter.");
 		
 		//Add Edit button
 		btnEdit = new JButton();
@@ -378,6 +366,7 @@ private void addButtonPanel(){
 		// To change cursor as it moves over this button
 		btnSaveFilter.setToolTipText("Click this button to Save any changes made to the Filters.");
 		
+		
 		//New Cancel button
 		btnCancelFilter = new JButton();
 		try {
@@ -392,6 +381,7 @@ private void addButtonPanel(){
 		// To change cursor as it moves over this button
 		btnCancelFilter.setToolTipText("Click this button to Cancel any changes made to the Filters.");
 		
+		
 		buttonPanel2.add(btnSaveFilter, BorderLayout.WEST);
 		buttonPanel2.add(btnCancelFilter, BorderLayout.EAST);
 		// Set the horizontal gap
@@ -402,20 +392,20 @@ private void addButtonPanel(){
 		btnNewFilter.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				editFilterMode();
 				mode = FilterMode.ADDING;
+				refresh();
 			}
 		});
 		
 		btnEdit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				editFilterMode();
+				mode = FilterMode.EDITING;
+				refresh();
 			}
 		});
 		
 		btnDelete.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -424,7 +414,32 @@ private void addButtonPanel(){
 		});
 	}
 	
-	public void editDeleteBtnStatus(){
-		
+	public void addEditViewListeners(){
+		btnCancelFilter.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mode = FilterMode.VIEWING;
+				refresh();
+			}
+		});
+	}
+	
+	protected void refresh(){
+		if(mode == FilterMode.VIEWING){
+			removeAll();
+			addFilterList();
+			addListeners();
+			revalidate();
+			repaint();
+		}
+		else{
+			removeAll();
+			addFilterList();
+			addListeners();
+			editFilterMode();
+			addEditViewListeners();
+			revalidate();
+			repaint();
+		}
 	}
 }
