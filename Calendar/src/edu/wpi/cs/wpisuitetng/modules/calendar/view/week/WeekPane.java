@@ -242,6 +242,7 @@ public class WeekPane extends JPanel implements ICalPane {
 	}
 
 
+
 	/**
 	 * Mouse event listening for double click so it can switch to day
 	 */

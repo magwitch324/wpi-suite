@@ -19,9 +19,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddPropsController;
 
 
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
 /**
   * @author CS Anonymous
   * @version $Revision: 1.0 $
