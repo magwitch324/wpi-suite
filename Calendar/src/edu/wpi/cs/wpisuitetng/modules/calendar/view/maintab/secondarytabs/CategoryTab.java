@@ -40,9 +40,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
 /**
   * @author CS Anonymous
   * @version $Revision: 1.0 $
@@ -66,9 +63,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	private JTextField textFieldName;
 	private JScrollPane scrollPane;
 
-	/**
-	 * @author Tianci
-	 */
 	public enum CategoryMode {
 		ADDING(0),
 		EDITING(1),

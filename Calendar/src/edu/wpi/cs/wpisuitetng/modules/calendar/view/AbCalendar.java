@@ -46,9 +46,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.year.YearView;
  */
 
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
 /**
  * @author CS Anonymous
  * @version $Revision: 1.0 $
@@ -60,9 +57,6 @@ public abstract class AbCalendar extends JPanel {
 	protected CalendarData teamCalData;
 	protected CalendarProps calProps;
 
-	/**
-	 * @author Tianci
-	 */
 	public enum types {
 		DAY(0),
 		WEEK(1),

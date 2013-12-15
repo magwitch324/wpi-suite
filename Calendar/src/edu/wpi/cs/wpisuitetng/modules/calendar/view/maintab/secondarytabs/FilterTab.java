@@ -36,9 +36,7 @@ import javax.swing.SwingConstants;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+
 /**
   * @author CS Anonymous
   * @version $Revision: 1.0 $

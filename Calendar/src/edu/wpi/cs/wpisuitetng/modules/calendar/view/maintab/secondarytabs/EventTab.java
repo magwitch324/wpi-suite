@@ -73,9 +73,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
-/* @author CS Anonymous
- * @version $Revision: 1.0 $
- */
+
 /**
  * @author CS Anonymous
  * @version $Revision: 1.0 $
@@ -158,11 +156,6 @@ public class EventTab extends JPanel {
 	 * [3] http://www.iconsdb.com/red-icons/delete-icon.html
 	 */
 
-
-
-	/**
-	 * @author Tianci
-	 */
 	private enum EditingMode {
 		ADDING(0),
 		EDITING(1);

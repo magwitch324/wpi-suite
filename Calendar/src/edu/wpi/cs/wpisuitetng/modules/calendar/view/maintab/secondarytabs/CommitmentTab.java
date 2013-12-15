@@ -81,9 +81,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
 /**
   * @author CS Anonymous
   * @version $Revision: 1.0 $
@@ -148,17 +145,12 @@ public class CommitmentTab extends JPanel {
 	private Component glue;
 	private Component glue_1;
 	
-	/**
-	 * @author Tianci
-	 */
 	public enum EditingMode {
 		ADDING,
 		EDITING;
 	}
 	
-	/**
-	 * @author Tianci
-	 */
+
 	public enum enumTimeSpinner {
 		HOUR,
 		MINUTE,

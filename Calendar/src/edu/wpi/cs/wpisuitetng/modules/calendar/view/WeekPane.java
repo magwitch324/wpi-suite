@@ -237,9 +237,6 @@ public class WeekPane extends JPanel implements ICalPane {
 	}
 
 
-	/**
-	 * @author Tianci
-	 */
 	protected class AMouseEvent extends MouseAdapter{
 		GregorianCalendar adate = new GregorianCalendar();
 		

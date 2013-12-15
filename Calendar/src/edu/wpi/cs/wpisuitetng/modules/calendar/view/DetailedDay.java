@@ -172,11 +172,6 @@ protected void makelines(){
 		this.repaint();
 		
 	}
-	
-	
-	/**
-	 * @author Tianci
-	 */
 	protected class resizeevent implements ComponentListener {
 	    public void componentResized(ComponentEvent e) {
 	        // do stuff    
