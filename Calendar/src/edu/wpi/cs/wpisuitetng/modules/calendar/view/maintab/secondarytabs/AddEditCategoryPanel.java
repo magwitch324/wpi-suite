@@ -53,7 +53,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 public class AddEditCategoryPanel extends JPanel {
 
 	private JTextField textFieldName;
-	private JRadioButton rdbtnTeam;
+	private JRadioButton rdbtnTeam;			
 	JColorChooser colorPickerPanel;
 	private JRadioButton rdbtnPersonal;
 	private JButton btnSave;
@@ -253,7 +253,11 @@ public class AddEditCategoryPanel extends JPanel {
 		else
 			rdbtnTeam.setSelected(true);
 		
+		colorPickerPanel.setColor(category.getCategoryColor());
 		
+		//Disable changing team/personal
+		rdbtnPersonal.setEnabled(false);
+		rdbtnTeam.setEnabled(false);
 	}
 
 	/**
