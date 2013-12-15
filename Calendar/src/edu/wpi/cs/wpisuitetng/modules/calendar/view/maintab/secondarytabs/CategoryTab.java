@@ -18,6 +18,8 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,8 @@ import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentViewPanel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
  /* @author CS Anonymous
   * @version $Revision: 1.0 $
@@ -95,11 +99,13 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 				"-" + ConfigManager.getConfig().getUserName()).getCategories(); 
 		
 		populateCategoryList();
+		
 		addListeners();
 		
 		//initialize in "viewing" mode
 		setupViewingView();
 		setBackground(Color.WHITE);
+		refreshCategoryListPanel();
 		
 	}
 
@@ -205,7 +211,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		viewPanelStrut.setMaximumSize(new Dimension(600, 0));
 		viewPanel.add(viewPanelStrut);
 		
-		addEditPanel = new AddEditCategoryPanel(CategoryMode.ADDING);
+		addEditPanel = new AddEditCategoryPanel();
 	}
 	
 	/**
@@ -234,8 +240,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		}
 		
 		// CategoryPanel to keep track of spring layout constraints of previously added panel
-		JPanel oldCatPanel = new CategoryPanel(); 
-		JPanel catPanel = new CategoryPanel();
+		CategoryPanel oldCatPanel = new CategoryPanel(); 
+		CategoryPanel catPanel = new CategoryPanel();
 		for(int i = 0; i < catList.size(); i++)
 		{
 			catPanel = new CategoryPanel(catList.get(i));
@@ -262,6 +268,18 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 
 			categoryListPanel.add(catPanel);
 			
+			
+			catPanel.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount() >= 1)
+						{
+							editCategory(((CategoryPanel)e.getComponent()).getCategory());
+						}
+				}
+			});
+			
+			
 			oldCatPanel = catPanel; //update oldCatPanel to be previously added panel
 		}
 		
@@ -271,9 +289,16 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 				categoryListPanel, 0, SpringLayout.SOUTH, catPanel);
 		}
 		
-		
 	}
 	
+
+	protected void editCategory(Category category) {
+		addEditPanel = new AddEditCategoryPanel(category);
+		setupAddView();
+	}
+
+
+
 
 	/**
 	 * Add event handlers to GUI components
