@@ -661,6 +661,7 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				categoryComboBox.setSelectedIndex(0);
 				updateCategoryList();
 			}
 
@@ -670,7 +671,7 @@ public class CommitmentTab extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				categoryComboBox.setSelectedIndex(0);
 				updateCategoryList();
 
 			}
