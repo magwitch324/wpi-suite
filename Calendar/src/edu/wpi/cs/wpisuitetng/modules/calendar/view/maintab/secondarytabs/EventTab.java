@@ -161,7 +161,7 @@ public class EventTab extends JPanel {
 
 
 	/**
-	 * @author Tianci
+	 * @author CS Anonymous
 	 */
 	private enum EditingMode {
 		ADDING(0),

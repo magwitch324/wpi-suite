@@ -63,7 +63,7 @@ public abstract class AbCalendar extends JPanel {
 	protected CalendarProps calProps;
 
 	/**
-	 * @author Tianci
+	 * @author CS Anonymous
 	 */
 	public enum types {
 		DAY(0),

@@ -149,7 +149,7 @@ public class CommitmentTab extends JPanel {
 	private Component glue_1;
 	
 	/**
-	 * @author Tianci
+	 * @author CS Anonymous
 	 */
 	public enum EditingMode {
 		ADDING,
@@ -157,7 +157,7 @@ public class CommitmentTab extends JPanel {
 	}
 	
 	/**
-	 * @author Tianci
+	 * @author CS Anonymous
 	 */
 	public enum enumTimeSpinner {
 		HOUR,

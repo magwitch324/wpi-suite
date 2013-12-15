@@ -299,7 +299,7 @@ public class AddEditCategoryPanel extends JPanel {
 	 * 
 	 */
 	/**
-	 * @author Tianci
+	 * @author CS Anonymous
 	 */
 	class ColorPickerPanel extends JPanel {
 
@@ -371,7 +371,7 @@ public class AddEditCategoryPanel extends JPanel {
 		 * JPanel for each color box
 		 */
 		/**
-		 * @author Tianci
+		 * @author CS Anonymous
 		 */
 		private class ColorBox extends JPanel {
 			private final Color boxColor;

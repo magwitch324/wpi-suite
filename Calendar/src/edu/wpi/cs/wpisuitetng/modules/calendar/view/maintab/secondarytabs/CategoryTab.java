@@ -67,7 +67,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	private JScrollPane scrollPane;
 
 	/**
-	 * @author Tianci
+	 * @author CS Anonymous
 	 */
 	public enum CategoryMode {
 		ADDING(0),
