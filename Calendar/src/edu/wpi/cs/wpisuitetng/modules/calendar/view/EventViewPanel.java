@@ -15,9 +15,6 @@ import javax.swing.JPanel;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
 /**
   * @author CS Anonymous
   * @version $Revision: 1.0 $

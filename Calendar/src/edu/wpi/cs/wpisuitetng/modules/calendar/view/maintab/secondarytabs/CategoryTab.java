@@ -44,9 +44,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentViewPanel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
 /**
   * @author CS Anonymous
   * @version $Revision: 1.0 $
@@ -70,8 +67,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 	private JTextField textFieldName;
 	private JScrollPane scrollPane;
 
+
 	/**
-	 * @author Tianci
+	 * @author CS Anonymous
 	 */
 	public enum CategoryMode {
 		ADDING(0),

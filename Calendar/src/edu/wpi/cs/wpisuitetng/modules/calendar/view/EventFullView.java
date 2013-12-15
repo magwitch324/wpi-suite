@@ -53,13 +53,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 
-/*
+/**
  * This class is used for creating the event View 
  * tab that shows all events including those 
  * that have been completed.
- * 
- * */
-/**@author CS Anonymous
+ * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
@@ -96,10 +94,9 @@ public class EventFullView extends JPanel{
 	};
 	ViewingMode mode;
 
-	/*Constructor creates main scrolling Panel and 
-	 * sets calendar which will grab teams events*/
 	/**
-	 * Constructor for EventFullView.
+	 * Constructor creates main scrolling Panel and 
+	 * sets calendar which will grab teams events
 	 * @param personalCalendar AbCalendar
 	 */
 	public EventFullView(AbCalendar personalCalendar) {
@@ -145,7 +142,10 @@ public class EventFullView extends JPanel{
 		initialized = true;
 		applyCalProps();
 	}
-	/*Sets the calendars events to the eventList array to populate panel*/
+	
+	/**
+	 * Sets the calendars events to the eventList array to populate panel
+	 **/
 	private void setEventList() {
 
 		if (mode == ViewingMode.TEAM){
@@ -154,7 +154,7 @@ public class EventFullView extends JPanel{
 			}
 		} else if (mode == ViewingMode.PERSONAL){
 			if(pcalendar.getMyCalData() != null){
-			eventList = pcalendar.getMyCalData().getEvents().getEvents();
+				eventList = pcalendar.getMyCalData().getEvents().getEvents();
 			}
 		} else if(pcalendar.getTeamCalData() != null && pcalendar.getMyCalData() != null) { 
 			final CombinedEventList combinedList = new CombinedEventList(
@@ -173,7 +173,8 @@ public class EventFullView extends JPanel{
 		}
 	}
 
-	/*event panel is populated with all events 
+	/** 
+	 * Event panel is populated with all events 
 	 * which are in separate panels that can be scrolled and clicked*/
 	private void setupPanels() {
 		eventPanel.setLayout(new BoxLayout(eventPanel, BoxLayout.Y_AXIS));
@@ -279,7 +280,7 @@ public class EventFullView extends JPanel{
 
 		final GridLayout experimentLayout = new GridLayout(0, 4);
 		topButtons.setLayout(experimentLayout);
-		
+
 		jName = new JButton("<html><font color='white'><b>"
 				+ "Name" + "</b></font></html>");
 		if(namesort == 1){
@@ -379,14 +380,14 @@ public class EventFullView extends JPanel{
 					public int compare(Event e1, Event e2) {
 						int reslut = 0;
 						if(e1.getStartTime().before(e2.getStartTime()))
-							{
+						{
 							reslut = -1;
-							}
+						}
 						else if(e1.getStartTime().after(e2.getStartTime())) 
-							{
+						{
 							reslut = 1;
-							}
-							return reslut;
+						}
+						return reslut;
 					}
 				});
 				if(startDatesort == 1){
@@ -399,9 +400,9 @@ public class EventFullView extends JPanel{
 				updateView();
 			}
 		});
-		
-		
-		
+
+
+
 		jEndDate = new JButton("<html><font color='white'><b>"
 				+ "End Date" + "</b></font></html>");
 		jEndDate.setBackground(CalendarStandard.CalendarRed);
@@ -447,14 +448,14 @@ public class EventFullView extends JPanel{
 					public int compare(Event e1, Event e2) {
 						int result = 0;
 						if(e1.getEndTime().before(e2.getEndTime()))
-							{
+						{
 							result = -1;
-							}
+						}
 						else if(e1.getEndTime().after(e2.getEndTime())) 
-							{
+						{
 							result = 1;
-							}
-							return result;
+						}
+						return result;
 					}
 				});
 				if(endDatesort == 1){
@@ -524,7 +525,7 @@ public class EventFullView extends JPanel{
 			}
 		});
 
-		
+
 
 		final GridBagConstraints c = new GridBagConstraints();
 		c.anchor = GridBagConstraints.LINE_START;
@@ -544,7 +545,7 @@ public class EventFullView extends JPanel{
 
 		scrollPane.setColumnHeaderView(header);
 
-		
+
 		for(int i = 0; i < eventList.size(); i++){
 			EventViewPanel eventPanel = new EventViewPanel(eventList.get(i));
 			Image nameImg;
@@ -570,15 +571,15 @@ public class EventFullView extends JPanel{
 
 			SimpleDateFormat df = new SimpleDateFormat();
 			df.applyPattern("EEEE, MMMM d, y - hh:mm a");
-			
+
 			JLabel dateStart = new JLabel("" + 
-			df.format(eventList.get(i).getStartTime().getTime()), JLabel.LEFT);
+					df.format(eventList.get(i).getStartTime().getTime()), JLabel.LEFT);
 			dateStart.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 			JLabel dateEnd = new JLabel("" + 
-			df.format(eventList.get(i).getEndTime().getTime()), JLabel.LEFT);
+					df.format(eventList.get(i).getEndTime().getTime()), JLabel.LEFT);
 			dateEnd.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 			JLabel description = new JLabel("<HTML>" + 
-			eventList.get(i).getDescription() + "</HTML>", JLabel.LEFT);
+					eventList.get(i).getDescription() + "</HTML>", JLabel.LEFT);
 			description.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
 			eventPanel.setLayout(experimentLayout);
@@ -601,10 +602,10 @@ public class EventFullView extends JPanel{
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					if (e.getClickCount() >= 1)
-						{
+					{
 						GUIEventController.getInstance().editEvent(
 								((EventViewPanel)e.getComponent()).getEvent());
-						}
+					}
 				}
 			});
 
@@ -644,7 +645,7 @@ public class EventFullView extends JPanel{
 						+ ConfigManager.getConfig().getUserName() + "-PROPS");
 		if(initialized && calProps != null){
 			mode =  ViewingMode.values()[calProps.getEventViewMode()];
-			
+
 
 			switch (calProps.getEventViewMode()){
 			case 0: viewSwitchGroup.setSelected(teamRadioButton.getModel(), true);
