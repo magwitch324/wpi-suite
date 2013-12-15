@@ -120,7 +120,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 		commitFullView = new CommitmentFullView(myCalendar);
 
 		try {
-			Image img = ImageIO.read(getClass().getResource("Personal_Icon.png"));
+			Image img = ImageIO.read(getClass().getResource("Calendar_Icon.png"));
 			main.addTab("Calendar", new ImageIcon(img), myCalendar);
 
 			//img = ImageIO.read(getClass().getResource("Team_Icon.png"));

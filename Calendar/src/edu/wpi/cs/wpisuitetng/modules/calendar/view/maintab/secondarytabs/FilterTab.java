@@ -221,6 +221,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.Commit
 		
 		final JTextField filterName = new JTextField();
 		filterName.setBackground(CalendarStandard.CalendarYellow);
+		filterName.setToolTipText("Enter Filter Name here. This field is Required.");
 		final GridBagConstraints gbc_filterName = new GridBagConstraints();
 		gbc_filterName.fill = GridBagConstraints.BOTH;
 		gbc_filterName.insets = new Insets(5, 0, 5, 15);
@@ -269,6 +270,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.Commit
 //		addCatBttn.setText("Add Category");
 		addCatBttn.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
+		addCatBttn.setToolTipText("Use this button to Add the selected Category to this Filter.");
 		
 		
 		//Remove Category from Filter button
@@ -283,6 +285,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.Commit
 //		removeCatBttn.setText("Remove Category");
 		removeCatBttn.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
+		removeCatBttn.setToolTipText("Use this button to Remove the selected Category from this Filter.");
 		
 		catBttnPanel.add(addCatBttn, BorderLayout.WEST);
 		catBttnPanel.add(removeCatBttn, BorderLayout.EAST);
@@ -313,7 +316,8 @@ private void addButtonPanel(){
 		}
 		btnNewFilter.setText("New Filter");
 		btnNewFilter.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
-		// To change cursor as it moves over this button	
+		// To change cursor as it moves over this button
+		btnAddFilter.setToolTipText("Click this button to Create a New Filter.");
 		
 		//Add Edit button
 		btnEdit = new JButton();
@@ -327,6 +331,7 @@ private void addButtonPanel(){
 		btnEdit.setText("Edit Filter");
 		btnEdit.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
+		btnEdit.setToolTipText("Click this button to Edit the selected a Filter.");
 		
 		
 		// Add Delete Button
@@ -341,6 +346,7 @@ private void addButtonPanel(){
 		btnDelete.setText("Delete Filter");
 		btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
+		btnDelete.setToolTipText("Click this button to Delete the selected Filter.");
 			
 		buttonPanel.add(btnNewFilter, BorderLayout.WEST);
 		buttonPanel.add(btnEdit, BorderLayout.CENTER);
@@ -370,6 +376,7 @@ private void addButtonPanel(){
 		btnSaveFilter.setText("Save Filter");
 		btnSaveFilter.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
+		btnSaveFilter.setToolTipText("Click this button to Save any changes made to the Filters.");
 		
 		//New Cancel button
 		btnCancelFilter = new JButton();
@@ -383,6 +390,7 @@ private void addButtonPanel(){
 		btnCancelFilter.setText("Cancel");
 		btnCancelFilter.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
+		btnCancelFilter.setToolTipText("Click this button to Cancel any changes made to the Filters.");
 		
 		buttonPanel2.add(btnSaveFilter, BorderLayout.WEST);
 		buttonPanel2.add(btnCancelFilter, BorderLayout.EAST);

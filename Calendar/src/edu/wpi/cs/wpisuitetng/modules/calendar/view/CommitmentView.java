@@ -207,6 +207,7 @@ public class CommitmentView extends JPanel {
 				//  description.setMaximumSize(new Dimension(285,300));
 				commitmentPanel.setBorder(new EmptyBorder(10, 5, 10, 20));
 				commitmentPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+				commitmentPanel.setToolTipText("Click to Edit or Delete this Commitment.");
 				// To change cursor as it moves over the commitment
 				// commitmentPanel.setPreferredSize(new Dimension(280,300));
 				// commitmentPanel.setMinimumSize(new Dimension(290, 400));

@@ -201,6 +201,7 @@ public class EventFullView extends JPanel{
 		teamRadioButton.setBackground(Color.WHITE);
 		teamRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
+		teamRadioButton.setToolTipText("Click to view your Team Events.");
 		teamRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -219,6 +220,7 @@ public class EventFullView extends JPanel{
 		personalRadioButton.setBackground(Color.WHITE);
 		personalRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
+		personalRadioButton.setToolTipText("Click to view your Personal Events.");
 		personalRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -242,6 +244,7 @@ public class EventFullView extends JPanel{
 		bothRadioButton.setBackground(Color.WHITE);
 		bothRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
+		bothRadioButton.setToolTipText("Click to view BOTH your Personal and Team Events.");
 		bothRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -316,6 +319,7 @@ public class EventFullView extends JPanel{
 		jName.setBackground(CalendarStandard.CalendarRed);
 		jName.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
+		jName.setToolTipText("Click to sort Events by Name.");
 		//sort by name
 		jName.addMouseListener(new MouseAdapter() {
 			@Override
@@ -370,6 +374,7 @@ public class EventFullView extends JPanel{
 
 		jStartDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
+		jStartDate.setToolTipText("Click to sort Events by Start Date.");
 
 		// sort by date 
 		jStartDate.addMouseListener(new MouseAdapter() {
@@ -440,6 +445,7 @@ public class EventFullView extends JPanel{
 
 		jEndDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
+		jEndDate.setToolTipText("Click to sort Events by End Date.");
 
 		// sort by date 
 		jEndDate.addMouseListener(new MouseAdapter() {
@@ -510,6 +516,7 @@ public class EventFullView extends JPanel{
 
 		jDescription.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		// To change cursor as it moves over this button
+		jDescription.setToolTipText("Click to sort Events by Description.");
 		jDescription.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -609,6 +616,7 @@ public class EventFullView extends JPanel{
 			eventPanel.setBorder(loweredbevel);
 			eventPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 			// To change cursor as it moves over this event pannel
+			eventPanel.setToolTipText("Click to Edit or Delete this Event.");
 			eventPanel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
