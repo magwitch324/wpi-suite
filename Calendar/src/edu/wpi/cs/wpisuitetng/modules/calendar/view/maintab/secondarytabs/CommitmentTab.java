@@ -34,6 +34,8 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -142,6 +144,7 @@ public class CommitmentTab extends JPanel {
 	private Commitment editingCommitment;
 	private EditingMode mode = EditingMode.ADDING;
 
+
 	private Component glue;
 	private Component glue_1;
 	
@@ -245,9 +248,21 @@ public class CommitmentTab extends JPanel {
 		rdbtnTeam.setEnabled(false);
 		rdbtnPersonal.setEnabled(false);
 		
-		//updateCategoryList();
+		updateCategoryList();
 		
-		//categoryComboBox.setSelectedItem(editingCommitment);
+		// gets Caldata
+		CalendarData calData;
+		if (rdbtnPersonal.isSelected()){
+				calData = CalendarDataModel.getInstance().getCalendarData(
+						ConfigManager.getConfig().getProjectName() + 
+						"-" + ConfigManager.getConfig().getUserName()); 
+		}
+		else{
+			calData = CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName()); 
+		}
+		
+		
 
 		hourSpinner.setValue(editingCommitment.getDueDate().getTime());
 		minuteSpinner.setValue(editingCommitment.getDueDate().getTime());
@@ -258,6 +273,12 @@ public class CommitmentTab extends JPanel {
 		statusComboBox.setSelectedIndex(commToEdit.getStatus().id);
 
 		btnDelete.setEnabled(true);
+		
+		if (editingCommitment.getCategoryID() != 0){
+		categoryComboBox.setSelectedItem(calData.getCategories().getCategory(editingCommitment.getCategoryID()));
+		} else {
+			categoryComboBox.setSelectedItem(uncategorized);
+		}
 		
 		initFlag = true;
 
@@ -582,70 +603,80 @@ public class CommitmentTab extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				checkSaveBtnStatus();
+
 			}
 		});
 		
+		categoryComboBox.addItemListener(new ItemListener(){
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				checkSaveBtnStatus();
+
+				
+			}
+			
+		});
+
 		addTimeSpinnerListeners();
 		addDatePickerListeners();
-		
+
 		statusComboBox.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				checkSaveBtnStatus();
 			}
 		});
-		
+
 		rdbtnTeam.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				updateCategoryList();
-				
 			}
-			
+
 		});
-		
+
 		rdbtnPersonal.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
 				updateCategoryList();
-				
+
 			}
-			
+
 		});
-		
+
 		//Adds a listener to the tab so we can refresh the category list if it was edited
 		addComponentListener(new ComponentListener(){
 
 			@Override
 			public void componentResized(ComponentEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void componentMoved(ComponentEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void componentShown(ComponentEvent e) {
-
 				updateCategoryList();
-				
 			}
 
 			@Override
 			public void componentHidden(ComponentEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
 	}
-	
+
 	/**
 	 * Sets default values like date and time for spinners and date picker.
 	 * Must set values after listeners are added because 
@@ -1226,8 +1257,21 @@ public class CommitmentTab extends JPanel {
 	 * Updates the category list in the CategoryComboBox
 	 */
 	protected void updateCategoryList(){
+
 		
-		initFlag = false;// prevents Listeners from running
+		boolean currentInitFlag = initFlag;
+		
+		final int selectedCategory;
+		
+		if(categoryComboBox.getSelectedItem() != null){
+			selectedCategory = ((Category) categoryComboBox.getSelectedItem()).getID();
+		} else {
+			selectedCategory = 0;
+		}
+		
+		if(currentInitFlag){
+			initFlag = false;// prevents Listeners from running
+		}
 		
 		//removes the current data from the ComboBox
 		categoryComboBox.removeAllItems();
@@ -1257,8 +1301,12 @@ public class CommitmentTab extends JPanel {
 			categoryComboBox.addItem(cat);
 		}
 		
-		initFlag = true;
+		if(selectedCategory != 0){
+			categoryComboBox.setSelectedItem(calData.getCategories().getCategory(selectedCategory));
+		}
 		
+		initFlag = currentInitFlag;
+
 	}
 	
 	/**
@@ -1602,9 +1650,7 @@ public class CommitmentTab extends JPanel {
 		}
 	}
 	
-	/**
-	 * @author Tianci
-	 */
+
 	class SpinnerUI extends BasicSpinnerUI  {
 		protected Component createNextButton()  
 		  {  

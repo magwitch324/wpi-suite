@@ -1591,7 +1591,7 @@ import javax.swing.ButtonGroup;
 		nameTextField.setText(editingEvent.getName());
 		descriptionTextArea.setText(editingEvent.getDescription());
 		
-		categoryComboBox.setSelectedItem(editingEvent.getCategoryID());
+
 		
 		
 		if(!editingEvent.getIsPersonal())
@@ -1609,7 +1609,24 @@ import javax.swing.ButtonGroup;
 		
 		updateCategoryList();
 		
-
+		// gets Caldata
+		CalendarData calData;
+		if (rdbtnPersonal.isSelected()){
+				calData = CalendarDataModel.getInstance().getCalendarData(
+						ConfigManager.getConfig().getProjectName() + 
+						"-" + ConfigManager.getConfig().getUserName()); 
+		}
+		else{
+			calData = CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName()); 
+		}
+		
+		if (editingEvent.getCategoryID() != 0){
+			categoryComboBox.setSelectedItem(calData.getCategories().getCategory(editingEvent.getCategoryID()));
+		} else {
+			categoryComboBox.setSelectedItem(uncategorized);
+		}
+		
 		setStartDate(editingEvent.getStartTime());
 		startDatePicker.setDate(editingEvent.getStartTime().getTime());
 		setEndDate(editingEvent.getEndTime());
@@ -1617,22 +1634,22 @@ import javax.swing.ButtonGroup;
 
 		//handle repetition fields
 		if(event.getIsRepeating()){
-			CalendarData calData;
+			CalendarData repCalData;
 			//we need the calData so that we can get the actual repeating event from it
 			// the event that the tab was opened with is just a dummy event so that the GUI
 			// can display it
 			if (rdbtnPersonal.isSelected()){
-				calData = CalendarDataModel.getInstance().getCalendarData(
+				repCalData = CalendarDataModel.getInstance().getCalendarData(
 						ConfigManager.getConfig().getProjectName() + 
 						"-" + ConfigManager.getConfig().getUserName()); 
 				isTeamEvent = false;
 			}
 			else{
-				calData = CalendarDataModel.getInstance().getCalendarData(
+				repCalData = CalendarDataModel.getInstance().getCalendarData(
 						ConfigManager.getConfig().getProjectName()); 
 				isTeamEvent = true;
 			}
-			editingRepeatingEvent = calData.getRepeatingEvents().get(event.getID());
+			editingRepeatingEvent = repCalData.getRepeatingEvents().get(event.getID());
 			repeatCheckBox.setSelected(true);
 			repeatAmt.setText(Integer.toString(editingRepeatingEvent.getRepetitions()));
 			repeatAmt.setEnabled(true);
@@ -1690,6 +1707,14 @@ import javax.swing.ButtonGroup;
 	protected void updateCategoryList(){
 		initFlag = false; //prevents listeners from running
 		
+		final int selectedCategory;
+		
+		if(categoryComboBox.getSelectedItem() != null){
+			selectedCategory = ((Category) categoryComboBox.getSelectedItem()).getID();
+		} else {
+			selectedCategory = 0;
+		}
+		
 		//removes the current data from the ComboBox
 		categoryComboBox.removeAllItems();
 		
@@ -1714,6 +1739,10 @@ import javax.swing.ButtonGroup;
 		//adds the categories to the comboBox
 		for (Category cat:categories){
 			categoryComboBox.addItem(cat);
+		}
+		
+		if(selectedCategory != 0){
+			categoryComboBox.setSelectedItem(calData.getCategories().getCategory(selectedCategory));
 		}
 		
 		initFlag = true;
