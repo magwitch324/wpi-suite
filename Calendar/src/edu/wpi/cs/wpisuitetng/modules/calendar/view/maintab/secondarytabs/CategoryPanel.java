@@ -82,9 +82,13 @@ public class CategoryPanel extends JPanel {
 	 */
 	public CategoryPanel(Category cat) {
 		this();
-		category = cat;
+		setCategory(cat);
 		setColorBox(cat.getCategoryColor());
 		setCategoryName(cat.getName());
+	}
+
+	private void setCategory(Category cat) {
+		category = cat;
 	}
 
 	private void setCategoryName(String name) {
@@ -122,5 +126,10 @@ public class CategoryPanel extends JPanel {
 		super(layout, isDoubleBuffered);
 		// TODO Auto-generated constructor stub
 	}
+
+	public Category getCategory() {
+		return category;
+	}
+
 
 }

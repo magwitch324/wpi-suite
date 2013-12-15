@@ -52,19 +52,27 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
  */
 public class AddEditCategoryPanel extends JPanel {
 
-	private final JTextField textFieldName;
-	private final JRadioButton rdbtnTeam;
-	private final JColorChooser colorPickerPanel;
-	private final JRadioButton rdbtnPersonal;
-	private final JButton btnSave;
-	private final JButton btnCancel;
+	private JTextField textFieldName;
+	private JRadioButton rdbtnTeam;
+	JColorChooser colorPickerPanel;
+	private JRadioButton rdbtnPersonal;
+	private JButton btnSave;
+	private JButton btnCancel;
+	CategoryTab.CategoryMode mode;
+	private Category editingCategory;
 
 
 	/**
 	 * Constructor for AddEditCategoryPanel.
 	 * @param mode CategoryTab.CategoryMode
 	 */
-	public AddEditCategoryPanel(CategoryTab.CategoryMode mode) {
+	public AddEditCategoryPanel() {
+		mode = CategoryTab.CategoryMode.ADDING;
+		setupUI();
+	}
+	
+	public void setupUI()
+	{
 		setBackground(Color.WHITE);
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		final Component horizontalGlue = Box.createHorizontalGlue();
@@ -72,8 +80,8 @@ public class AddEditCategoryPanel extends JPanel {
 		
 		final JPanel addEditFormPanel = new JPanel();
 		addEditFormPanel.setBackground(Color.WHITE);
-		addEditFormPanel.setPreferredSize(new Dimension(400, 10));
-		addEditFormPanel.setMaximumSize(new Dimension(400, 4000));
+		addEditFormPanel.setPreferredSize(new Dimension(500, 10));
+		addEditFormPanel.setMaximumSize(new Dimension(600, 4000));
 		add(addEditFormPanel);
 		final GridBagLayout gbl_addEditFormPanel = new GridBagLayout();
 		gbl_addEditFormPanel.columnWidths = new int[]{0, 0, 0};
@@ -236,6 +244,20 @@ public class AddEditCategoryPanel extends JPanel {
 		});
 	}
 	
+	public AddEditCategoryPanel(Category category) {
+		mode = CategoryTab.CategoryMode.EDITING;
+		setupUI();
+		
+		editingCategory = category;
+		textFieldName.setText(category.getName());
+		if(category.getIsPersonal())
+			rdbtnPersonal.setSelected(true);
+		else
+			rdbtnTeam.setSelected(true);
+		
+		
+	}
+
 	/**
 	 * Controls the enable state of the save button 
 	 * by checking all user editable elements in commitment tab.
@@ -302,8 +324,15 @@ public class AddEditCategoryPanel extends JPanel {
 		final Color catColor = colorPickerPanel.getColor();
 		
 		// Creates and adds new category
-		final Category newCat = new Category(name, catColor, isPersonal);
-		calData.addCategory(newCat);
+		if(mode == CategoryTab.CategoryMode.ADDING)
+			calData.addCategory(new Category(name, catColor, isPersonal));
+		else
+		{
+			editingCategory.setName(name);
+			editingCategory.setCategoryColor(catColor);
+			editingCategory.setPersonal(isPersonal);
+			calData.getCategories().update(editingCategory);
+		}
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 	}
 	
@@ -350,7 +379,9 @@ public class AddEditCategoryPanel extends JPanel {
 					colorBox.setBorder(new LineBorder(new Color(240, 240, 240), 2));
 					if (i == 0)
 						{
-						selectedBox = colorBox;
+							selectedBox = (ColorBox) colorBox;
+							selectedBox.setBorder(new LineBorder(Color.black, 2));
+							color = selectedBox.getColor();
 						}
 					
 					colorBox.addMouseListener(new MouseAdapter() {
@@ -363,7 +394,7 @@ public class AddEditCategoryPanel extends JPanel {
 			}
 			
 			
-			setBackground(color);
+			setBackground(Color.white);
 		}
 		/*
 		 * Sets the selected color, adding border and updating color field
