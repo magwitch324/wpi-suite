@@ -45,6 +45,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
+import java.awt.BorderLayout;
+import java.awt.Rectangle;
 
 /**
  * @author CS Anonymous
@@ -79,9 +81,10 @@ public class AddEditCategoryPanel extends JPanel {
 		add(horizontalGlue);
 		
 		final JPanel addEditFormPanel = new JPanel();
+		addEditFormPanel.setMinimumSize(new Dimension(460, 10));
 		addEditFormPanel.setBackground(Color.WHITE);
-		addEditFormPanel.setPreferredSize(new Dimension(500, 10));
-		addEditFormPanel.setMaximumSize(new Dimension(600, 4000));
+		addEditFormPanel.setPreferredSize(new Dimension(460, 10));
+		addEditFormPanel.setMaximumSize(new Dimension(400, 4000));
 		add(addEditFormPanel);
 		final GridBagLayout gbl_addEditFormPanel = new GridBagLayout();
 		gbl_addEditFormPanel.columnWidths = new int[]{0, 0, 0};
@@ -153,22 +156,36 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_lblColor.gridy = 2;
 		addEditFormPanel.add(lblColor, gbc_lblColor);
 		
+		
+		JPanel colorContainer1 = new JPanel();
+		colorContainer1.setBackground(Color.WHITE);
+		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.fill = GridBagConstraints.BOTH;
+		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_1.gridx = 1;
+		gbc_panel_1.gridy = 2;
+		addEditFormPanel.add(colorContainer1, gbc_panel_1);
+		colorContainer1.setLayout(new BoxLayout(colorContainer1, BoxLayout.X_AXIS));
+		
+		JPanel colorContainer2 = new JPanel();
+		colorContainer2.setBackground(Color.WHITE);
+		colorContainer2.setMaximumSize(new Dimension(346, 32767));
+		colorContainer2.setPreferredSize(new Dimension(346, 106));
+		colorContainer1.add(colorContainer2);
+		colorContainer2.setLayout(null);
+		
 		colorPickerPanel = new JColorChooser();
+		colorPickerPanel.setBounds(1, 1, 416, 104);
+		colorPickerPanel.setMinimumSize(new Dimension(613, 100));
+		colorContainer2.add(colorPickerPanel);
+		colorPickerPanel.setMaximumSize(new Dimension(480, 2147483647));
+		colorPickerPanel.setPreferredSize(new Dimension(400, 100));
 		AbstractColorChooserPanel panel = colorPickerPanel.getChooserPanels()[0];
 		panel.setBackground(Color.WHITE);
 		AbstractColorChooserPanel[] panels = { panel };
-		
 		colorPickerPanel.setChooserPanels(panels);
 		colorPickerPanel.setBackground(Color.WHITE);
 		colorPickerPanel.setPreviewPanel(new JPanel());
-		
-		final GridBagConstraints gbc_panel = new GridBagConstraints();
-
-		gbc_panel.insets = new Insets(0, 0, 5, 0);
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridx = 1;
-		gbc_panel.gridy = 2;
-		addEditFormPanel.add(colorPickerPanel, gbc_panel);
 		
 		
 		final Box horizontalBox_1 = Box.createHorizontalBox();
