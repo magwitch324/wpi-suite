@@ -12,6 +12,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -36,7 +37,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
+
+import org.junit.experimental.categories.Categories;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
@@ -79,6 +83,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	private JTextField filterName;
 	private final CategoryList teamCategories;
 	private final CategoryList personalCategories;
+	private SpringLayout filterListLayout;
+	private JPanel filterListPanel;
 
 
 	private enum FilterMode {
@@ -118,7 +124,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		setLayout(gridBagLayout);
 
 		addFilterList();
-		//populateFilterList();
+		populateFilterList();
 		addListeners();
 		initFlag = true;
 		}
@@ -514,7 +520,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		btnSaveFilter.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//addFilter();
+				addFilter();
 				mode = FilterMode.VIEWING;
 				refresh();
 			}
@@ -529,6 +535,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			removeAll();
 			addFilterList();
 			addListeners();
+			populateFilterList();
 			revalidate();
 			repaint();
 		}
@@ -540,6 +547,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			addEditViewListeners();
 			filterName.setText("**New Filter**");
 			//populateCatLists();
+			populateFilterList();
 			revalidate();
 			repaint();
 		}
@@ -551,6 +559,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			addEditViewListeners();
 			//filterName.setText(selctFilter.name);
 			//populateCatLists();;
+			populateFilterList();
 			revalidate();
 			repaint();
 		}
@@ -563,6 +572,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		CalendarData calData;
 		
 		String name = filterName.getText();
+		List<Categories> activceCat = null;
 		
 		calData = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName() + 
@@ -576,15 +586,44 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	}
 	
 	private void populateFilterList(){
+			
 		final List<Filter> filterList = new ArrayList<Filter>();
-		final Filter[] filterArray = new Filter[CalendarFilters.getSize()];
 		filterList.addAll(CalendarFilters.getFilters());
-		for(int i = 0; i < CalendarFilters.getSize(); i++){
-			filterArray[i] = filterList.get(i);
+		
+		// FilterPanel to keep track of spring layout constraints of previously added panel
+		JPanel oldFilterPanel = new FilterPanel(); 
+		JPanel filterPanel = new FilterPanel();
+		for(int i = 0; i < filterList.size(); i++)
+		{
+			filterPanel = new FilterPanel(filterList.get(i));
+			//If first panel, add to top of list panel
+			if (i == 0)
+			{
+				filterListLayout.putConstraint(SpringLayout.NORTH, filterPanel, 
+						1, SpringLayout.NORTH, filterListPanel);
+				filterListLayout.putConstraint(SpringLayout.WEST, filterPanel, 
+						1, SpringLayout.WEST, filterListPanel);
+				filterListLayout.putConstraint(SpringLayout.EAST, filterPanel,
+						1, SpringLayout.EAST, filterListPanel);
+			}
+			else
+			{
+				//add panel below previous panel
+				filterListLayout.putConstraint(SpringLayout.NORTH, filterPanel, 
+						1, SpringLayout.SOUTH, oldFilterPanel);
+				filterListLayout.putConstraint(SpringLayout.WEST, filterPanel, 
+						1, SpringLayout.WEST, filterListPanel);
+				filterListLayout.putConstraint(SpringLayout.EAST, filterPanel, 
+						1, SpringLayout.EAST, filterListPanel);
+			}
+			filterListPanel.add(filterPanel);
+			
+			oldFilterPanel = filterPanel; //update oldCatPanel to be previously added panel
 		}
-		filterList.clear();
-		filterList.addAll(CalendarFilters.getFilters());
+			
+		filterListLayout.putConstraint(SpringLayout.SOUTH, filterListPanel, 0, SpringLayout.SOUTH, filterPanel);		
 	}
+
 	
 	private void removeCat(){
 		// TODO Auto-generated method stub
