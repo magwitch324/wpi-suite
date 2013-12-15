@@ -390,11 +390,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * Adds the button panel to Filter tab for adding and editing mode. Save button is disabled by default.
-=======
 	 * Method addButtonPanel2.
->>>>>>> 1329c8f8581cda4f63615df52d229b9408f03b80
 	 */
 	public void addButtonPanel2(){
 		buttonPanel2 = new JPanel(new BorderLayout(30, 0));
@@ -443,11 +439,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * Adds the listeners for the components on the view pane
-=======
 	 * Method addListeners.
->>>>>>> 1329c8f8581cda4f63615df52d229b9408f03b80
 	 */
 	public void addListeners(){
 		btnNewFilter.addActionListener(new ActionListener() {
@@ -476,11 +468,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * adds the listeners for the components on the edit pane
-=======
 	 * Method addEditViewListeners.
->>>>>>> 1329c8f8581cda4f63615df52d229b9408f03b80
 	 */
 	public void addEditViewListeners(){
 		filterName.addKeyListener(new KeyListener() {
@@ -527,7 +515,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//addFilter();
-				
+				mode = FilterMode.VIEWING;
+				refresh();
 			}
 		});
 	}
