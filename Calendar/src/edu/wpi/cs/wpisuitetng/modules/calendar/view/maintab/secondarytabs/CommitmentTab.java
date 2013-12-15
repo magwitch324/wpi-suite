@@ -167,8 +167,9 @@ public class CommitmentTab extends JPanel {
 
 	private int tempHour;
 	private int tempMin;
-	private String tempAMPM;
-	private String lastInput;
+	private boolean hourErr;
+	private boolean minuteErr;
+	private boolean ampmErr;
 	private boolean upArrowAction;
 	private boolean downArrowAction;
 	private boolean firstRun;
@@ -722,20 +723,16 @@ public class CommitmentTab extends JPanel {
 		cal.setTime((Date) minuteSpinner.getValue());
 		tempHour = cal.get(Calendar.HOUR);
 		tempMin = cal.get(Calendar.MINUTE);
-		if (cal.get(Calendar.AM_PM) == 0){
-			tempAMPM = "AM";
-		}
-		else {
-			tempAMPM = "PM";
-		}
-
+		hourErr = false;
+		minuteErr = false;
+		ampmErr = false;
 	}
 
+	private void addButtonPanel() {
 	/**
 	 * Adds the button panel to Commitment tab. Delete button is disabled on default.
 	 * This method adds listeners for the buttons to as the listeners are all relatively short.
 	 */
-	private void addButtonPanel() {
 
 		/**
 		 * Initialize button panel instance and its constraints.
@@ -932,13 +929,16 @@ public class CommitmentTab extends JPanel {
 						}
 
 						if( Integer.parseInt(hourEditor.getTextField().getText()) > 12) {
+							System.out.println("Larger than 12.");
 							hourEditor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 							lblTimeError.setText("<html><font color='red'>"
 									+ "Please enter a valid time.</font></html>");
+							hourErr = true;
 						}
 						else {
 							lblTimeError.setText(" ");
 							hourEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
+							hourErr = false;
 						}						
 						firstRun = false;
 					}
@@ -1041,10 +1041,12 @@ public class CommitmentTab extends JPanel {
 							 minuteEditor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 							 lblTimeError.setText("<html><font color='red'>"
 									 + "Please enter a valid time.</font></html>");
+							 minuteErr = true;
 						 }
 						 else {
 							 lblTimeError.setText(" ");
 							 minuteEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
+							 minuteErr = false;
 						 }
 						 firstRun = false;
 					 }
@@ -1114,12 +1116,7 @@ public class CommitmentTab extends JPanel {
 		 });
 
 		 AMPMEditor.getTextField().addKeyListener(new KeyAdapter() {
-			 public void keyPressed(KeyEvent e) {
-				 if(e.getKeyCode() == KeyEvent.VK_ENTER){
-					 System.out.println("keyPress Entered, focus colon.");
-					 colon.requestFocus();
-				 }
-			 }
+
 			 public void keyTyped(KeyEvent e) {
 				 final char vChar = e.getKeyChar();
 				 if (!((vChar == 'A')
@@ -1445,7 +1442,9 @@ public class CommitmentTab extends JPanel {
 			if(nameTextField.getText().equals("")
 					|| datePicker.getDate() == null
 					|| nameTextField.getText().trim().length() == 0
-					|| lblTimeError.getText().equals("<html><font color='red'>" + "Please enter a valid time.</font></html>")
+					|| hourErr
+					|| minuteErr
+					|| ampmErr
 					|| lblDateError.isVisible()
 					) 
 			{
@@ -1468,23 +1467,16 @@ public class CommitmentTab extends JPanel {
 					calDate.set(Calendar.HOUR, calHour.get(Calendar.HOUR));
 					calDate.set(Calendar.MINUTE, calMinute.get(Calendar.MINUTE));
 					calDate.set(Calendar.AM_PM, calAMPM.get(Calendar.AM_PM));
-					//System.out.println("AMPM is " + calAMPM.get(Calendar.AM_PM));
-					//System.out.println("Hour of day is " + calHour.get(Calendar.HOUR_OF_DAY));
-					//System.out.println("Current commit hour is "
-					//+ editingCommitment.getDueDate().get(Calendar.HOUR_OF_DAY));
-					//System.out.println("Time in milli is " + calDate.getTimeInMillis());
-					//System.out.println("Commit time in milli is "
-					//+ editingCommitment.getDueDate().getTimeInMillis());
-
-					//make sure something changed
-					if (nameTextField.getText().equals(editingCommitment.getName()) 
-							&& descriptionTextField.getText().equals(
-									editingCommitment.getDescription())
-									&& ((Category)categoryComboBox.getSelectedItem()).
-									getID() == editingCommitment.getCategoryID()
-									&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(
-											editingCommitment.getStatus())
-											&& calDate.getTime().equals(editingCommitment.getDueDate().getTime())
+					
+					if (	   nameTextField.getText().equals(editingCommitment.getName()) 
+							&& descriptionTextField.getText().equals(editingCommitment.getDescription())
+							&& ((Category)categoryComboBox.getSelectedItem()).getID() == editingCommitment.getCategoryID()
+							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
+							&& calDate.getTime().equals(editingCommitment.getDueDate().getTime())
+							&& hourErr == false
+							&& minuteErr == false
+							&& ampmErr == false
+							&& lblDateError.isVisible()
 							){
 						btnSaveCommitment.setEnabled(false);
 						return;
@@ -1582,10 +1574,13 @@ public class CommitmentTab extends JPanel {
 					editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 					lblTimeError.setText("<html><font color='red'>"
 							+ "Please enter a valid time.</font></html>");
+					hourErr = true;
 				}
 				else {
 					editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-					lblTimeError.setText(" ");
+					hourErr = false;
+					if(!minuteErr && !ampmErr)
+						lblTimeError.setText(" ");
 				}
 			}
 			break;
@@ -1598,11 +1593,14 @@ public class CommitmentTab extends JPanel {
 					editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 					lblTimeError.setText("<html><font color='red'>"
 							+ "Please enter a valid time.</font></html>");
+					minuteErr = true;
 				}
 				else {
 					System.out.println("in case ok minute, cancel things.");
 					editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-					lblTimeError.setText(" ");
+					minuteErr = false;
+					if(!hourErr && !ampmErr)
+						lblTimeError.setText(" ");
 				}
 			}
 			break;
@@ -1614,10 +1612,13 @@ public class CommitmentTab extends JPanel {
 					editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 					lblTimeError.setText("<html><font color='red'>"
 							+ "Please enter a valid time.</font></html>");
+					ampmErr = true;
 				}
 				else {
 					editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-					lblTimeError.setText(" ");
+					ampmErr = false;
+					if(!hourErr && !minuteErr)
+						lblTimeError.setText(" ");
 				}
 			}
 			break;
