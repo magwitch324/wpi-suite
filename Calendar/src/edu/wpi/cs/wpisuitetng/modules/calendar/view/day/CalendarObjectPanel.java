@@ -36,9 +36,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar.types;
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
 /**
   * @author CS Anonymous
   * @version $Revision: 1.0 $
@@ -245,7 +242,6 @@ public class CalendarObjectPanel extends JPanel {
 		textLayout.putConstraint(SpringLayout.WEST, descL, 0, SpringLayout.WEST, textPanel);
 		textLayout.putConstraint(SpringLayout.NORTH, descL, 0, SpringLayout.SOUTH, timeL);
 		textLayout.putConstraint(SpringLayout.EAST, descL, 0, SpringLayout.EAST, textPanel);
-		
 		
 	}
 	

@@ -334,7 +334,7 @@ public class MonthDayPane extends JPanel {
 
 	/**
 	 * Internal class used to check if the user double clicked on the day
-	 * @author Tianci
+	 * @author CS Anonymous
 	 */
 	protected class wholecheck extends MouseAdapter{
 		/**
@@ -353,7 +353,10 @@ public class MonthDayPane extends JPanel {
 
 	/**
 	 * Internal class used to check if the user double clicked on the day or a CalendarObjectWrapper
-	 * @author Tianci
+<<<<<<< HEAD
+=======
+	 * @author CS Anonymous
+>>>>>>> adfc2d414544a98522446fdd75fe6ddf875cbaa4
 	 */
 	protected class scrollcheck extends MouseAdapter{
 		/**

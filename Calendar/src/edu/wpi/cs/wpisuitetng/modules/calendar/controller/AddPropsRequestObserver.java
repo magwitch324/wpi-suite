@@ -18,7 +18,6 @@ import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
  * This observer is called when a response is received from a request
  * to the server to add a CalendarProps.
  * @version $Revision: 1.0 $
- * @author justinhess
  */
 public class AddPropsRequestObserver implements RequestObserver {
 		

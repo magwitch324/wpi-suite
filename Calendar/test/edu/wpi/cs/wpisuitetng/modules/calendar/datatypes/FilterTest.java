@@ -7,21 +7,28 @@
  * 
  * Contributors: CS Anonymous
  ******************************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
+package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
-import javax.swing.JLabel;
-import javax.swing.JSpinner;
+import static org.junit.Assert.*;
+
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import org.junit.Test;
 
 /**
- * Time Spinner Panel that contains the hour, minute, and AMPM spinners to be
- * ready for import into gui.
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
-public class TimeSpinnerPanel {
-	private JSpinner hourSpinner;
-	private JSpinner minuteSpinner;
-	private JSpinner AMPMSpinner;
-	
-	private JLabel colon;
+
+public class FilterTest {
+	/**
+	 * Tests to ensure that a new event is created with default values
+	 */
+	@Test
+	public void defaultConstructorTest(){
+		Filter testFilter = new Filter();
+		assertEquals("", testFilter.getName());
+	}
+
 }

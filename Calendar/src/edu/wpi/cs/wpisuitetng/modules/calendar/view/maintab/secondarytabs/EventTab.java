@@ -73,9 +73,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
-/* @author CS Anonymous
- * @version $Revision: 1.0 $
- */
+
 /**
  * @author CS Anonymous
  * @version $Revision: 1.0 $
@@ -161,7 +159,7 @@ public class EventTab extends JPanel {
 
 
 	/**
-	 * @author Tianci
+	 * @author CS Anonymous
 	 */
 	private enum EditingMode {
 		ADDING(0),
@@ -629,7 +627,7 @@ public class EventTab extends JPanel {
 		oldStartTime = new GregorianCalendar();
 		setStartDate(oldStartTime);
 		oldStartTime = new GregorianCalendar();
-		oldStartTime.add(Calendar.MINUTE, 30);
+		oldStartTime.add(Calendar.MINUTE, 31);
 		setEndDate(oldStartTime);
 		oldStartTime = new GregorianCalendar();
 
@@ -1691,14 +1689,6 @@ public class EventTab extends JPanel {
 		if(!lblRepeatError.getText().equals(" ") &&
 				!lblRepeatError.getText().equals("<html><font color='red'>"
 				+ "Duration cannot be greater than a month for repeating events.</font></html>")){
-			//if there is error text displayed
-			result = false;
-		}
-		if(!lblTimeError.getText().equals(" ")){
-			//if there is error text displayed
-			result = false;
-		}
-		if(!lblTimeError2.getText().equals(" ")){
 			//if there is error text displayed
 			result = false;
 		}

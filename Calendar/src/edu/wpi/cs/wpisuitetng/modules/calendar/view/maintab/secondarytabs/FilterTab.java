@@ -48,9 +48,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.FilterList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+
 /**
   * @author CS Anonymous
   * @version $Revision: 1.0 $
