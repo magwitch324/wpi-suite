@@ -171,11 +171,15 @@ public class EventTab extends JPanel {
 		}
 	}
 
+	public EventTab(int openedFrom) {
+		this(openedFrom, (new GregorianCalendar()).getTime());
+	}
+	
 	/**
 	 * Create the panel.
 	 * @param openedFrom int
 	 */
-	public EventTab(int openedFrom) {
+	public EventTab(int openedFrom, Date inputTime) {
 		this.openedFrom = openedFrom;
 		initFlag = false;
 
@@ -625,6 +629,7 @@ public class EventTab extends JPanel {
 
 		//Sets time value of end and start spinners
 		oldStartTime = new GregorianCalendar();
+		oldStartTime.setTime(inputTime);		
 		setStartDate(oldStartTime);
 		oldStartTime = new GregorianCalendar();
 		oldStartTime.add(Calendar.MINUTE, 31);
@@ -740,13 +745,11 @@ public class EventTab extends JPanel {
 
 			@Override
 			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
