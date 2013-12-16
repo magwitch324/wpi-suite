@@ -34,7 +34,7 @@ import javax.swing.border.LineBorder;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
 
 
 /**
@@ -51,7 +51,7 @@ public abstract class CalendarView extends JSplitPane {
 	protected CommitmentView commitmentView;
 	private String dateRange;
 	public boolean showAllCommFlag;
-	private CalendarProps calProps;
+	private CalendarProperties calProps;
 	JRadioButton showAllButton;
 	JRadioButton showVisibleButton;
 	
@@ -242,7 +242,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * Method applyCalProps.
 	 * @param calProps CalendarProps
 	 */
-	public void applyCalProps(CalendarProps calProps){
+	public void applyCalProps(CalendarProperties calProps){
 		this.calProps = calProps;
 		showAllCommFlag = calProps.getShowCommRange();
 		if(!showAllCommFlag){

@@ -26,7 +26,7 @@ public class CalendarPropsTest {
 	 */
 	@Test
 	public void defaultConstuctorTest(){
-		final CalendarProps props = new CalendarProps();
+		final CalendarProperties props = new CalendarProperties();
 		assertEquals("", props.getId());
 		assertFalse(props.getMyShowComm());
 		assertFalse(props.getShowTeamData());
@@ -38,7 +38,7 @@ public class CalendarPropsTest {
 	 */
 	@Test
 	public void idConstuctorTest(){
-		final CalendarProps props = new CalendarProps("test-id");
+		final CalendarProperties props = new CalendarProperties("test-id");
 		assertEquals("test-id", props.getId());
 		assertFalse(props.getMyShowComm());
 		assertFalse(props.getShowTeamData());
@@ -50,7 +50,7 @@ public class CalendarPropsTest {
 	 */
 	@Test
 	public void SetterTest(){
-		final CalendarProps props = new CalendarProps();
+		final CalendarProperties props = new CalendarProperties();
 		props.setId("test-id");
 		props.setMyShowComm(true);
 		props.setShowTeamData(true);
@@ -66,8 +66,8 @@ public class CalendarPropsTest {
 	 */
 	@Test
 	public void CopyFromTest(){
-		final CalendarProps props1 = new CalendarProps();
-		final CalendarProps props2 = new CalendarProps();
+		final CalendarProperties props1 = new CalendarProperties();
+		final CalendarProperties props2 = new CalendarProperties();
 		props1.setId("test-id");
 		props1.setMyShowComm(true);
 		props1.setShowTeamData(true);
