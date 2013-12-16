@@ -26,7 +26,7 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 
  /**
-  * Entity manager for database communication. Add/delete/edit in unit of calendar.
+  * Entity manager for database communication on Add/delete/edit calendardata.
   * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
