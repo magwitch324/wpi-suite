@@ -62,7 +62,6 @@ public class FilterPanel extends JPanel{
 	}
 
 	private void setFilterName(String name) {
-		System.out.println("name:" + name);
 		lblFilterName.setText(name);
 	}
 
