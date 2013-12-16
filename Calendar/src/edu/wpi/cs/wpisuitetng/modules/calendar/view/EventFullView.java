@@ -74,7 +74,6 @@ public class EventFullView extends JPanel{
 	private CalendarProps calProps;
 	private boolean initialized;
 
-	//List<Event> eventList = new ArrayList<Event>();
 	List<EventViewPanel> eventPanelList = new ArrayList<EventViewPanel>();
 	
 	private boolean reverse_sort;
@@ -97,8 +96,7 @@ public class EventFullView extends JPanel{
 	};
 	ViewingMode mode;
 	
-
-	Sort_Type sort_mode;
+	Sort_Type sort_mode;	//The current sorting type
 	
 
 	/**
@@ -117,6 +115,7 @@ public class EventFullView extends JPanel{
 		mode = ViewingMode.TEAM;
 
 		eventPanel = new JPanel();
+		eventPanel.setBackground(Color.WHITE);
 		
 		scrollPane = new JScrollPane(eventPanel, 
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
@@ -124,12 +123,13 @@ public class EventFullView extends JPanel{
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		scrollPane.getHorizontalScrollBar().setUnitIncrement(20);
 		scrollPane.setViewportView(eventPanel);
-		
+		scrollPane.getViewport().setBackground(Color.WHITE);
+		scrollPane.setBackground(Color.WHITE);
+		scrollPane.setForeground(Color.WHITE);
 		// Sets the UPPER RIGHT corner box
 		final JPanel cornerBoxUR = new JPanel();
 		cornerBoxUR.setBackground(Color.WHITE);
 		scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER, cornerBoxUR);
-		
 		scrollPane.setColumnHeader(getHeader());
 		
 		add(scrollPane);
@@ -147,18 +147,21 @@ public class EventFullView extends JPanel{
 		eventPanelList = new ArrayList<EventViewPanel>(); 
 
 		if (mode == ViewingMode.TEAM){
+			System.out.println("TEAM");
 			if(pcalendar.getTeamCalData() != null){
 				for(Event event : pcalendar.getTeamCalData().getEvents().getEvents()){
 					eventPanelList.add(new EventViewPanel(event));
 				}
 			}
 		} else if (mode == ViewingMode.PERSONAL){
+			System.out.println("Personal");
 			if(pcalendar.getMyCalData() != null){
 				for(Event event : pcalendar.getMyCalData().getEvents().getEvents()){
 					eventPanelList.add(new EventViewPanel(event));
 				}
 			}
 		} else if(pcalendar.getTeamCalData() != null && pcalendar.getMyCalData() != null) { 
+			System.out.println("Both");
 			for(Event event : pcalendar.getTeamCalData().getEvents().getEvents()){
 				eventPanelList.add(new EventViewPanel(event));
 			}
@@ -167,6 +170,8 @@ public class EventFullView extends JPanel{
 				eventPanelList.add(new EventViewPanel(event));
 			}
 		}
+		
+		sort();
 	}
 
 	/** 
@@ -191,6 +196,8 @@ public class EventFullView extends JPanel{
 			
 			last = evp;
 		}
+		scrollPane.revalidate();
+		scrollPane.repaint();
 	}
 
 	/**
@@ -200,7 +207,7 @@ public class EventFullView extends JPanel{
 	private JViewport getHeader(){
 		final JViewport port = new JViewport();
 		final JPanel apanel = new JPanel();
-		apanel.setBackground(Color.RED);
+		apanel.setBackground(Color.WHITE);
 		SpringLayout layout = new SpringLayout();
 		apanel.setLayout(layout);
 		
@@ -218,7 +225,7 @@ public class EventFullView extends JPanel{
 		
 		port.addComponentListener(new ComponentAdapter(){
 			public void componentResized(ComponentEvent e) {
-				apanel.setPreferredSize(new Dimension(port.getWidth(), 70));
+				apanel.setPreferredSize(new Dimension(port.getWidth(), 100));
 			}
 		});
 		
@@ -234,7 +241,12 @@ public class EventFullView extends JPanel{
 	private JPanel getDataDisplay(){
 		JPanel apanel = new JPanel();
 		apanel.setBackground(Color.WHITE);
-		apanel.setLayout(new GridLayout(1,3));
+		SpringLayout layout = new SpringLayout();
+		apanel.setLayout(layout);
+		apanel.setPreferredSize(new Dimension(300, 50));
+		apanel.setMaximumSize(new Dimension(20000, 50));
+		apanel.setBorder(BorderFactory.createLoweredBevelBorder());
+		apanel.setBorder(new MatteBorder(5, 5, 5, 5, Color.WHITE));
 		
 		viewSwitchGroup = new ButtonGroup();
 		teamRadioButton = new JRadioButton("Team");
@@ -287,7 +299,16 @@ public class EventFullView extends JPanel{
 		viewSwitchGroup.add(personalRadioButton);
 		viewSwitchGroup.add(bothRadioButton);
 		
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, teamRadioButton, 0, SpringLayout.VERTICAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.EAST, teamRadioButton, 0, SpringLayout.WEST, personalRadioButton);
+		
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, personalRadioButton, 0, SpringLayout.VERTICAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, personalRadioButton, 0, SpringLayout.HORIZONTAL_CENTER, apanel);
+		
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, bothRadioButton, 0, SpringLayout.VERTICAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.WEST, bothRadioButton, 0, SpringLayout.EAST, personalRadioButton);
 		return apanel;
+		
 	}
 	
 	/**
@@ -296,8 +317,11 @@ public class EventFullView extends JPanel{
 	 */
 	private JPanel getSortButtons(){
 		JPanel apanel = new JPanel();
-		apanel.setPreferredSize(new Dimension(40, 40));
+		apanel.setPreferredSize(new Dimension(50, 50));
 		apanel.setLayout(new GridLayout(1,4));
+		apanel.setBorder(BorderFactory.createLoweredBevelBorder());
+		apanel.setBorder(new MatteBorder(5, 5, 5, 5, Color.WHITE));
+		
 		
 		jName = new JButton("<html><font color='white'><b>" + "Name" + "</b></font></html>");
 		jName.setBackground(CalendarStandard.CalendarRed);

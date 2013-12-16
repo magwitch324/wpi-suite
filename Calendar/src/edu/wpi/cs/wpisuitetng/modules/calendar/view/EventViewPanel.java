@@ -10,15 +10,28 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.GregorianCalendar;
 
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 
 /**
  * @author CS Anonymous
@@ -40,13 +53,59 @@ public class EventViewPanel extends JPanel {
 		super();
 		event = e;
 		this.setLayout(new GridLayout(1,4));
+		JLabel namelabel = new JLabel(event.getName(), JLabel.LEFT);
+	
+		namelabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		try {
+			Image nameImg;
+			Image scaleImg;
+			if (event.getIsPersonal()){
+				nameImg = ImageIO.read(getClass().getResource("PersonalEvent_Icon.png"));
+				scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+				namelabel.setIcon(new ImageIcon(scaleImg));
+			}
+			else{
+				nameImg = ImageIO.read(getClass().getResource("TeamEvent_Icon.png"));
+				scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+				namelabel.setIcon(new ImageIcon(scaleImg));
+			}
+		} catch (IOException | IllegalArgumentException exception) {
+
+		}
 		
-		this.add(new JLabel(event.getName()));
-		this.add(new JLabel("Start time"));
-		this.add(new JLabel("End Time"));
-		this.add(new JLabel(event.getDescription()));
-		this.setPreferredSize(new Dimension(100,100));
-		this.setBackground(Color.WHITE);
+		
+		SimpleDateFormat df = new SimpleDateFormat();
+		df.applyPattern("EEEE, MMMM d, y - hh:mm a");
+		
+		JLabel start_date = new JLabel("" + df.format(event.getStartTime().getTime()), JLabel.LEFT);
+		start_date.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		
+		JLabel end_date = new JLabel("" + df.format(event.getEndTime().getTime()), JLabel.LEFT);
+		end_date.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		
+		JLabel description = new JLabel("<HTML>" + event.getDescription() + "</HTML>", JLabel.LEFT);
+		description.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		
+		this.add(namelabel);
+		this.add(start_date);
+		this.add(end_date);
+		this.add(description);
+
+		this.setBackground(CalendarStandard.CalendarYellow);
+		this.setPreferredSize(new Dimension(300, 75));
+		this.setMaximumSize(new Dimension(20000, 75));
+		this.setBorder(BorderFactory.createLoweredBevelBorder());
+		this.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		this.setToolTipText("Click to Edit or Delete this Commitment.");
+		// To change cursor as it moves over this commitment pannel
+		this.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() >= 1) {
+					GUIEventController.getInstance().editEvent(event);
+				}
+			}		
+		});
 	}
 
 	public int compareTo(EventViewPanel other, Sort_Type sort_type){
