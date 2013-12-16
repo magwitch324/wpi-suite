@@ -909,7 +909,7 @@ public class CommitmentTab extends JPanel {
 				cal.setTime((Date) hourSpinner.getValue());
 				
 				 boolean AMPMFlag;
-				 int currentAMPM = cal.get(Calendar.AM_PM);
+				 final int currentAMPM = cal.get(Calendar.AM_PM);
 
 				System.out.println("change event, arrow is " + upArrowAction + " " + downArrowAction + " temp is " + tempHour);
 				if ( upArrowAction || downArrowAction) {
@@ -1587,7 +1587,7 @@ public class CommitmentTab extends JPanel {
 		switch(type) {
 		case HOUR:
 			if(initFlag){
-				DateEditor editor = (DateEditor)spinner.getEditor();
+				final DateEditor editor = (DateEditor)spinner.getEditor();
 				if(isBadInputTime(editor) || tempHour < 1 || tempHour > 12) {
 					editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 					lblTimeError.setText("<html><font color='red'>"
@@ -1598,14 +1598,16 @@ public class CommitmentTab extends JPanel {
 					editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 					hourErr = false;
 					if(!minuteErr && !ampmErr)
-						lblTimeError.setText(" ");
+						{
+							lblTimeError.setText(" ");
+						}
 				}
 			}
 			break;
 		case MINUTE:
 			if(initFlag){
 				System.out.println("in case minute, tempMin is" + tempMin);
-				DateEditor editor = (DateEditor)spinner.getEditor();
+				final DateEditor editor = (DateEditor)spinner.getEditor();
 				if(isBadInputTime(editor) || tempMin > 59) {
 					System.out.println("in case bad minute,,, set things.");
 					editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
@@ -1618,14 +1620,16 @@ public class CommitmentTab extends JPanel {
 					editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 					minuteErr = false;
 					if(!hourErr && !ampmErr)
-						lblTimeError.setText(" ");
+						{
+							lblTimeError.setText(" ");
+						}
 				}
 			}
 			break;
 		case AMPM:
 			if(initFlag){
-				DateEditor editor = (DateEditor)spinner.getEditor();
-				String AMPMText = editor.getTextField().getText().toUpperCase();
+				final DateEditor editor = (DateEditor)spinner.getEditor();
+				final String AMPMText = editor.getTextField().getText().toUpperCase();
 				if(!AMPMText.equals("AM") && !AMPMText.equals("PM")) {
 					editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
 					lblTimeError.setText("<html><font color='red'>"
@@ -1636,7 +1640,9 @@ public class CommitmentTab extends JPanel {
 					editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 					ampmErr = false;
 					if(!hourErr && !minuteErr)
-						lblTimeError.setText(" ");
+						{
+							lblTimeError.setText(" ");
+						}
 				}
 			}
 			break;

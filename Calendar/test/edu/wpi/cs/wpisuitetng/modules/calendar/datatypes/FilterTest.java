@@ -27,7 +27,7 @@ public class FilterTest {
 	 */
 	@Test
 	public void defaultConstructorTest(){
-		Filter testFilter = new Filter();
+		final Filter testFilter = new Filter();
 		assertEquals("", testFilter.getName());
 		//assertEquals(); 
 		//still waiting for filter constructor to change	
