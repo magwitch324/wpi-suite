@@ -37,9 +37,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar.types;
 
 /**
-  * @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+ * Calendar object panel make up the event/commitment elements
+ * that need to be displayed in day detailed pane.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
  @SuppressWarnings("serial")
 public class CalendarObjectPanel extends JPanel {
 	Event event = null;

@@ -38,10 +38,13 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 
 
 /**
-  * @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
- @SuppressWarnings("serial")
+ * Calendar view is the right side panel that displays a list of
+ * commitments, current date range, and a set of radio buttons to
+ * toggle on/off show all commitments.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
+@SuppressWarnings("serial")
 public abstract class CalendarView extends JSplitPane {
 	
 	private ICalPane calPane;

@@ -28,6 +28,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
 
 /**
+ * Renders the combo box icon for filters.
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */

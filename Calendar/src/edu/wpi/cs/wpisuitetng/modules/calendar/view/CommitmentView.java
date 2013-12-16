@@ -39,14 +39,12 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
 /**
-  * @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
- @SuppressWarnings("serial")
+ * Commitment view contains and shows a list of commitments in a jpanel
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
+@SuppressWarnings("serial")
 public class CommitmentView extends JPanel {
 
 	JPanel commitPanel;
