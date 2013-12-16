@@ -133,21 +133,23 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		initFlag = true;
 		}
 	
+	
 	/**
 	 * Method FilterList.
 	 */
-	public void addFilterList(){
+	public void mainFilterListView(){
 		
 		viewPanel = new JPanel();
 		viewPanel.setBackground(Color.WHITE);
 		viewPanel.setPreferredSize(new Dimension(500, 600));
-		viewPanel.setMinimumSize(new Dimension(500, 600));
+		viewPanel.setMaximumSize(new Dimension(500, 600));
+		
 		
 		final GridBagLayout gbl = new GridBagLayout();
 		gbl.rowWeights = new double[]{0.0, 1.0, 0.0};
-		gbl.columnWeights = new double[]{0.0, 0.0};
+		gbl.columnWeights = new double[]{0.0, 0.0, 0.0};
 		gbl.rowHeights = new int[] {0, 0, 0};
-		gbl.columnWidths = new int[] {0, 0};
+		gbl.columnWidths = new int[] {1, 0, 1};
 		viewPanel.setLayout(gbl);
 				
 		final GridBagConstraints constraints = new GridBagConstraints();
@@ -158,14 +160,16 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		add(viewPanel, constraints);
 		
 		//Adds the scroll pane the filters will be on
-		scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+//		scrollPane.setSize(new Dimension(50, 600));
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
-		gbc_scrollPane.gridwidth = 2;
-		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.insets = new Insets(0, 15, 5, 15);
+		gbc_scrollPane.gridwidth = 1;
+		gbc_scrollPane.gridx = 1;
 		gbc_scrollPane.gridy = 1;
 		viewPanel.add(scrollPane, gbc_scrollPane);
 		
@@ -184,8 +188,73 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		filterList.setOpaque(true);
 		final GridBagConstraints gbc_filterList = new GridBagConstraints();
 		gbc_filterList.fill = GridBagConstraints.BOTH;
-		gbc_filterList.insets = new Insets(5, 0, 0, 0);
-		gbc_filterList.gridwidth = 2;
+		gbc_filterList.insets = new Insets(5, 15, 0, 15);
+		gbc_filterList.gridwidth = 3;
+		gbc_filterList.gridx = 0;
+		gbc_filterList.gridy = 0;
+		viewPanel.add(filterList, gbc_filterList);
+		
+		addButtonPanel();
+	}
+	
+	
+	
+	/**
+	 * Method FilterList.
+	 */
+	public void addFilterList(){
+		
+		viewPanel = new JPanel();
+		viewPanel.setBackground(Color.WHITE);
+		viewPanel.setPreferredSize(new Dimension(500, 600));
+		viewPanel.setMaximumSize(new Dimension(500, 600));
+		
+		
+		final GridBagLayout gbl = new GridBagLayout();
+		gbl.rowWeights = new double[]{0.0, 1.0, 0.0};
+		gbl.columnWeights = new double[]{0.0, 1.0, 0.0};
+		gbl.rowHeights = new int[] {0, 0, 0};
+		gbl.columnWidths = new int[] {1, 0, 1};
+		viewPanel.setLayout(gbl);
+				
+		final GridBagConstraints constraints = new GridBagConstraints();
+		constraints.weightx = 1;
+		constraints.gridx = 0;
+		constraints.weighty = 1;
+		constraints.fill = GridBagConstraints.BOTH;
+		add(viewPanel, constraints);
+		
+		//Adds the scroll pane the filters will be on
+		scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+//		scrollPane.setSize(new Dimension(50, 600));
+		scrollPane.getViewport().setBackground(Color.WHITE);
+		final GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.insets = new Insets(0, 15, 5, 15);
+		gbc_scrollPane.gridwidth = 1;
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 1;
+		viewPanel.add(scrollPane, gbc_scrollPane);
+		
+		filterListPanel = new JPanel();
+		scrollPane.setViewportView(filterListPanel);
+		filterListPanel.setBackground(Color.WHITE);
+		filterListLayout = new SpringLayout();
+		filterListPanel.setLayout(filterListLayout);
+		
+		//Adds the label on top of the scroll pane
+		final JLabel filterList = new JLabel("List of Filters", SwingConstants.CENTER);
+		filterList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+//		filterList.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		filterList.setForeground(Color.WHITE);
+		filterList.setBackground(CalendarStandard.CalendarRed);
+		filterList.setOpaque(true);
+		final GridBagConstraints gbc_filterList = new GridBagConstraints();
+		gbc_filterList.fill = GridBagConstraints.BOTH;
+		gbc_filterList.insets = new Insets(5, 15, 0, 15);
+		gbc_filterList.gridwidth = 3;
 		gbc_filterList.gridx = 0;
 		gbc_filterList.gridy = 0;
 		viewPanel.add(filterList, gbc_filterList);
@@ -224,7 +293,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		filterNamelbl.setOpaque(true);
 		filterNamelbl.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_filterNamelbl = new GridBagConstraints();
-		gbc_filterNamelbl.insets = new Insets(0, 0, 0, 5);
+		gbc_filterNamelbl.insets = new Insets(0, 30, 0, 5);
 		gbc_filterNamelbl.fill = GridBagConstraints.BOTH;
 		gbc_filterNamelbl.gridx = 0;
 		gbc_filterNamelbl.gridy = 0;
@@ -236,7 +305,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		inactiveFilterlbl.setOpaque(true);
 		inactiveFilterlbl.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_inactiveFilterlbl = new GridBagConstraints();
-		gbc_inactiveFilterlbl.insets = new Insets(0, 0, 0, 5);
+		gbc_inactiveFilterlbl.insets = new Insets(0, 30, 0, 5);
 		gbc_inactiveFilterlbl.fill = GridBagConstraints.BOTH;
 		gbc_inactiveFilterlbl.gridx = 0;
 		gbc_inactiveFilterlbl.gridy = 1;
@@ -248,7 +317,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		activeFilterlbl.setOpaque(true);
 		activeFilterlbl.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_activeFilterlbl = new GridBagConstraints();
-		gbc_activeFilterlbl.insets = new Insets(0, 0, 0, 5);
+		gbc_activeFilterlbl.insets = new Insets(0, 30, 0, 5);
 		gbc_activeFilterlbl.fill = GridBagConstraints.BOTH;
 		gbc_activeFilterlbl.gridx = 0;
 		gbc_activeFilterlbl.gridy = 3;
@@ -267,6 +336,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		
 		//adds the scroll pane containing the categories not in the filter
 		inactiveCatPane = new JScrollPane();
+		inactiveCatPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		inactiveCatPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		inactiveCatPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_inactiveFilter = new GridBagConstraints();
 		gbc_inactiveFilter.fill = GridBagConstraints.BOTH;
@@ -278,6 +349,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		
 		//adds the scroll pane containing the categories in the filter
 		activeCatPane = new JScrollPane();
+		activeCatPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		activeCatPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		activeCatPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_activeFilter = new GridBagConstraints();
 		gbc_activeFilter.fill = GridBagConstraints.BOTH;
@@ -320,7 +393,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 //		addCatBtn.setText("Add Category");
 		addCatBtn.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		addCatBtn.setToolTipText("Add selected Category to Filter.");
+		addCatBtn.setToolTipText("Add Category to Filter");
 		
 		
 		//Remove Category from Filter button
@@ -335,7 +408,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 //		removeCatBtn.setText("Remove Category");
 		removeCatBtn.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		removeCatBtn.setToolTipText("Remove selected Category from Filter.");
+		removeCatBtn.setToolTipText("Remove Category from Filter");
 		
 		catBtnPanel.add(addCatBtn, BorderLayout.WEST);
 		catBtnPanel.add(removeCatBtn, BorderLayout.EAST);
@@ -352,13 +425,14 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	 */	
 	private void addButtonPanel(){
 		
-		buttonPanel = new JPanel(new BorderLayout(30, 0));
+		buttonPanel = new JPanel(new BorderLayout(25, 0));
 		buttonPanel.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_btnPanel = new GridBagConstraints();
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
-		gbc_btnPanel.gridwidth = 2;
-		gbc_btnPanel.gridx = 0;
+//		gbc_btnPanel.gridwidth = 2;
+		gbc_btnPanel.gridx = 1;
 		gbc_btnPanel.gridy = 2;
+		gbc_btnPanel.insets = new Insets(0, 15, 0, 15);
 		
 		//New Filter button
 		btnNewFilter = new JButton();
@@ -417,7 +491,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	 * Method addButtonPanel2.
 	 */
 	public void addButtonPanel2(){
-		buttonPanel2 = new JPanel(new BorderLayout(30, 0));
+		buttonPanel2 = new JPanel(new BorderLayout(25, 0));
 		buttonPanel2.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_btnPanel2 = new GridBagConstraints();
 		gbc_btnPanel2.insets = new Insets(0, 0, 0, 15);
@@ -550,7 +624,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	protected void refresh(){
 		if(mode == FilterMode.VIEWING){
 			removeAll();
-			addFilterList();
+			mainFilterListView();
+//			addFilterList();
 			addListeners();
 			populateFilterList();
 			revalidate();

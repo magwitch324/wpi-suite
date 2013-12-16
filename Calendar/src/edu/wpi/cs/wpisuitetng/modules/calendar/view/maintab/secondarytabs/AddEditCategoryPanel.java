@@ -38,6 +38,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
+import javax.swing.colorchooser.ColorSelectionModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
@@ -46,8 +49,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
+
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
+import java.beans.PropertyChangeListener;
 
 /**
  * @author CS Anonymous
@@ -57,12 +62,13 @@ public class AddEditCategoryPanel extends JPanel {
 
 	private JTextField textFieldName;
 	private JRadioButton rdbtnTeam;
-	JColorChooser colorPickerPanel;
+	private JColorChooser colorPickerPanel;
 	private JRadioButton rdbtnPersonal;
 	private JButton btnSave;
 	private JButton btnCancel;
 	CategoryTab.CategoryMode mode;
 	private Category editingCategory;
+	private JPanel colorPreviewPanel;
 
 
 	/**
@@ -89,9 +95,9 @@ public class AddEditCategoryPanel extends JPanel {
 		add(addEditFormPanel);
 		final GridBagLayout gbl_addEditFormPanel = new GridBagLayout();
 		gbl_addEditFormPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_addEditFormPanel.rowHeights = new int[] {0, 0, 0, 0};
-		gbl_addEditFormPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_addEditFormPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
+		gbl_addEditFormPanel.rowHeights = new int[] {0, 0, 0, 0, 0};
+		gbl_addEditFormPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_addEditFormPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
 		addEditFormPanel.setLayout(gbl_addEditFormPanel);
 		
 
@@ -157,15 +163,31 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_lblColor.gridy = 2;
 		addEditFormPanel.add(lblColor, gbc_lblColor);
 		
+		JPanel colorPreviewContainer = new JPanel();
+		colorPreviewContainer.setBackground(Color.WHITE);
+		GridBagConstraints gbc_colorPreviewContainer = new GridBagConstraints();
+		gbc_colorPreviewContainer.insets = new Insets(0, 0, 5, 0);
+		gbc_colorPreviewContainer.fill = GridBagConstraints.BOTH;
+		gbc_colorPreviewContainer.gridx = 1;
+		gbc_colorPreviewContainer.gridy = 2;
+		addEditFormPanel.add(colorPreviewContainer, gbc_colorPreviewContainer);
+		colorPreviewContainer.setLayout(new BoxLayout(colorPreviewContainer, BoxLayout.X_AXIS));
+		
+		colorPreviewPanel = new JPanel();
+		colorPreviewPanel.setMaximumSize(new Dimension(30, 30));
+		colorPreviewPanel.setMinimumSize(new Dimension(30, 30));
+		colorPreviewPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		colorPreviewPanel.setPreferredSize(new Dimension(30, 30));
+		colorPreviewContainer.add(colorPreviewPanel);
 		
 		JPanel colorContainer1 = new JPanel();
 		colorContainer1.setBackground(Color.WHITE);
-		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.fill = GridBagConstraints.BOTH;
-		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
-		gbc_panel_1.gridx = 1;
-		gbc_panel_1.gridy = 2;
-		addEditFormPanel.add(colorContainer1, gbc_panel_1);
+		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
+		gbc_panel_3.fill = GridBagConstraints.BOTH;
+		gbc_panel_3.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_3.gridx = 1;
+		gbc_panel_3.gridy = 3;
+		addEditFormPanel.add(colorContainer1, gbc_panel_3);
 		colorContainer1.setLayout(new BoxLayout(colorContainer1, BoxLayout.X_AXIS));
 		
 		JPanel colorContainer2 = new JPanel();
@@ -193,11 +215,13 @@ public class AddEditCategoryPanel extends JPanel {
 		colorPickerPanel.setPreviewPanel(new JPanel());
 		colorPickerPanel.setBorder(textFieldName.getBorder());
 		
+		colorPickerPanel.setColor(Color.BLUE);
+		colorPreviewPanel.setBackground(Color.BLUE);
 		
 		final Box horizontalBox_1 = Box.createHorizontalBox();
 		final GridBagConstraints gbc_horizontalBox_1 = new GridBagConstraints();
 		gbc_horizontalBox_1.gridx = 1;
-		gbc_horizontalBox_1.gridy = 3;
+		gbc_horizontalBox_1.gridy = 4;
 		addEditFormPanel.add(horizontalBox_1, gbc_horizontalBox_1);
 		
 
@@ -265,6 +289,15 @@ public class AddEditCategoryPanel extends JPanel {
 				setComponentAt(tabIndex, new CategoryTab());
 			}
 		});
+		
+		ColorSelectionModel model = colorPickerPanel.getSelectionModel();
+		
+	    ChangeListener changeListener = new ChangeListener() {
+	      public void stateChanged(ChangeEvent changeEvent) {
+	        colorPreviewPanel.setBackground(colorPickerPanel.getColor());
+	      }
+	    };
+	    model.addChangeListener(changeListener);
 	}
 	
 	public AddEditCategoryPanel(Category category) {
@@ -283,7 +316,7 @@ public class AddEditCategoryPanel extends JPanel {
 			}
 		
 		colorPickerPanel.setColor(category.getCategoryColor());
-		
+		colorPreviewPanel.setBackground(category.getCategoryColor());
 		//Disable changing team/personal
 		rdbtnPersonal.setEnabled(false);
 		rdbtnTeam.setEnabled(false);
