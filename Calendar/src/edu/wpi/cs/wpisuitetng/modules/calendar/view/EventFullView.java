@@ -43,8 +43,8 @@ import javax.swing.border.MatteBorder;
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropertiesModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.EventViewPanel.Sort_Type;
 
 /**
@@ -60,7 +60,7 @@ public class EventFullView extends JPanel{
 	AbCalendar pcalendar;
 	JPanel eventPanel;
 	JScrollPane scrollPane;
-	private CalendarProps calProps;
+	private CalendarProperties calProps;
 	private boolean initialized;
 
 	List<EventViewPanel> eventPanelList = new ArrayList<EventViewPanel>();
@@ -520,7 +520,7 @@ public class EventFullView extends JPanel{
 	 */
 	protected void applyCalProps(){
 
-		calProps = CalendarPropsModel.getInstance().getCalendarProps( ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName() + "-PROPS");
+		calProps = CalendarPropertiesModel.getInstance().getCalendarProps( ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName() + "-PROPS");
 		
 		if(initialized && calProps != null){
 			mode =  ViewingMode.values()[calProps.getEventViewMode()];
