@@ -10,7 +10,7 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
 
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
 import edu.wpi.cs.wpisuitetng.network.Network;
 import edu.wpi.cs.wpisuitetng.network.Request;
 import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
@@ -51,7 +51,7 @@ public class AddPropsController{
 	
 	 * @param newCalProps CalendarProps
 	 */
-	public void addCalendarProps(CalendarProps newCalProps) 
+	public void addCalendarProps(CalendarProperties newCalProps) 
 	{
 		final Request request = Network.getInstance().makeRequest(
 				"calendar/calendarprops", HttpMethod.PUT); // PUT == create
