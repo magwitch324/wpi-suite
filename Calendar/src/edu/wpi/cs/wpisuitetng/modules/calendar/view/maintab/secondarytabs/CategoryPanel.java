@@ -39,6 +39,7 @@ public class CategoryPanel extends JPanel {
 	private Color color;
 	private JLabel lblCategoryName;
 	private JPanel colorBox;
+	private boolean selected = false;
 	
 	/**
 	 * Constructor for CategoryPanel.
@@ -129,6 +130,21 @@ public class CategoryPanel extends JPanel {
 
 	public Category getCategory() {
 		return category;
+	}
+
+	public void setSelected(boolean b) {
+		// TODO Auto-generated method stub
+		selected = b;
+		if(b)
+			setBackground(CalendarStandard.HeatMapRed);
+		else
+			setBackground(CalendarStandard.CalendarYellow);
+		
+	}
+
+	public boolean getSelected() {
+		// TODO Auto-generated method stub
+		return selected;
 	}
 
 

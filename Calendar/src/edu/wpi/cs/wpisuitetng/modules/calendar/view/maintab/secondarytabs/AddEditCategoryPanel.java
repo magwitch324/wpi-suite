@@ -269,10 +269,11 @@ public class AddEditCategoryPanel extends JPanel {
 		btnCancel.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				final int tabIndex = 
-						GUIEventController.getInstance().getMainView().getSelectedIndex();
-				GUIEventController.getInstance().getMainView().setComponentAt(
-						tabIndex, new CategoryTab());
+				close();
+//				final int tabIndex = 
+//						GUIEventController.getInstance().getMainView().getSelectedIndex();
+//				GUIEventController.getInstance().getMainView().setComponentAt(
+//						tabIndex, new CategoryTab());
 			}
 		});
 		
@@ -282,16 +283,14 @@ public class AddEditCategoryPanel extends JPanel {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				addCategory();
-				
-				final int tabIndex = 
-						GUIEventController.getInstance().getMainView().getSelectedIndex();
-				GUIEventController.getInstance().getMainView().
-				setComponentAt(tabIndex, new CategoryTab());
+				close();
+//				final int tabIndex = 
+//						GUIEventController.getInstance().getMainView().getSelectedIndex();
+//				GUIEventController.getInstance().getMainView().
+//				setComponentAt(tabIndex, new CategoryTab());
 			}
 		});
-		
 		ColorSelectionModel model = colorPickerPanel.getSelectionModel();
-		
 	    ChangeListener changeListener = new ChangeListener() {
 	      public void stateChanged(ChangeEvent changeEvent) {
 	        colorPreviewPanel.setBackground(colorPickerPanel.getColor());
@@ -300,6 +299,11 @@ public class AddEditCategoryPanel extends JPanel {
 	    model.addChangeListener(changeListener);
 	}
 	
+	protected void close() {
+		// TODO Auto-generated method stub
+		this.setVisible(false);
+	}
+
 	public AddEditCategoryPanel(Category category) {
 		mode = CategoryTab.CategoryMode.EDITING;
 		setupUI();
@@ -402,103 +406,6 @@ public class AddEditCategoryPanel extends JPanel {
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 	}
 	
-	/*
-	 * Color picker class consisting of a 4 x 4 matrix of colors
-	 * 
-	 */
-	/**
-	 * @author CS Anonymous
-	 */
-	class ColorPickerPanel extends JPanel {
+	
 
-		Color color;
-		ColorBox selectedBox;
-		/**
-		 * Constructor for ColorPickerPanel.
-		 */
-		public ColorPickerPanel() {
-			
-			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-			
-			final Component horizontalGlue_2 = Box.createHorizontalGlue();
-			add(horizontalGlue_2);
-			
-			final JPanel colorPicker = new JPanel();
-			add(colorPicker);
-			
-			
-			final Component verticalStrut = Box.createVerticalStrut(20);
-			verticalStrut.setMaximumSize(new Dimension(0, 20));
-			add(verticalStrut);
-			
-			final Component horizontalGlue_3 = Box.createHorizontalGlue();
-			add(horizontalGlue_3);
-			
-			
-			colorPicker.setPreferredSize(new Dimension(200, 200));
-			colorPicker.setMaximumSize(new Dimension(200, 200));
-			colorPicker.setLayout(new GridLayout(4, 4, 3, 3));
-			colorPicker.setBackground(Color.WHITE);
-			for(int i = 0; i < 16; i++)
-			{
-					ColorBox colorBox = new ColorBox(Color.red);
-					colorBox.setBorder(new LineBorder(new Color(240, 240, 240), 2));
-					if (i == 0)
-						{
-							selectedBox = (ColorBox) colorBox;
-							selectedBox.setBorder(new LineBorder(Color.black, 2));
-							color = selectedBox.getColor();
-						}
-					
-					colorBox.addMouseListener(new MouseAdapter() {
-						@Override
-						public void mousePressed(MouseEvent e) {
-							setSelectedColorBox(e.getComponent());
-						}
-					});
-					colorPicker.add(colorBox);
-			}
-			
-			
-			setBackground(Color.white);
-		}
-		/*
-		 * Sets the selected color, adding border and updating color field
-		 * 
-		 */
-		protected void setSelectedColorBox(Component component) {
-			selectedBox.setBorder(new LineBorder(new Color(240, 240, 240), 2));
-			selectedBox = (ColorBox) component;
-			selectedBox.setBorder(new LineBorder(Color.black, 2));
-			color = selectedBox.getColor();
-		}
-		
-		public Color getColor() {
-			return color;
-		}
-
-
-		/**
-		 * @author CS Anonymous
-		 * JPanel for each color box
-		 */
-		private class ColorBox extends JPanel {
-			private final Color boxColor;
-			/**
-			 * Constructor for ColorBox.
-			 * @param color Color
-			 */
-			public ColorBox(Color color)
-			{
-				boxColor = color;
-				setBackground(color);
-				
-			}
-			
-			public Color getColor()
-			{
-				return boxColor;
-			}
-		}
-	}
 }
