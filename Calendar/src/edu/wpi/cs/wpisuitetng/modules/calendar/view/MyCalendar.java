@@ -18,6 +18,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -37,6 +38,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
@@ -98,6 +100,11 @@ public class MyCalendar extends AbCalendar {
 		filterComboBox.setMaximumSize(new Dimension(20, 20));
 		filterComboBox.setBackground(CalendarStandard.CalendarYellow);
 		filterComboBox.setToolTipText("Select Filters");
+		filterComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateCalData();
+			}
+		});
 		this.add(filterComboBox);
 
 
@@ -116,6 +123,7 @@ public class MyCalendar extends AbCalendar {
 		//update the filter information
 		noneFilter = new Filter();
 		noneFilter.setID(0);
+		noneFilter.setName("No Filter");
 		
 
 	}
@@ -127,6 +135,10 @@ public class MyCalendar extends AbCalendar {
 	protected void updateFilterList(){
 
 		final int selectedFilter;
+		Filter test = new Filter();
+		test.setName("a test filter");
+		test.setID(100);
+		test.getActiveCategories().add(1);
 
 		if(filterComboBox.getSelectedItem() != null){
 			selectedFilter = ((Filter) filterComboBox.getSelectedItem()).getID();
@@ -142,6 +154,7 @@ public class MyCalendar extends AbCalendar {
 
 		//adds the "none" filter
 		filterComboBox.addItem(noneFilter);
+		filterComboBox.addItem(test);
 
 		// gets Caldata
 
@@ -293,6 +306,26 @@ public class MyCalendar extends AbCalendar {
 				}
 			}//else if the team is selected
 			
+			//Apply the selected filter
+			Filter selectedFilter = ((Filter) filterComboBox.getSelectedItem());
+			if(selectedFilter != null && selectedFilter.getID() != 0){
+				Iterator<Event> it = combinedEventList.getEvents().iterator();
+				 while(it.hasNext()){
+					 Event e = it.next();
+					 if(!selectedFilter.getActiveCategories().contains(e.getCategoryID())){
+						 it.remove();
+					 }
+				 }
+				 
+				 Iterator<Commitment> it2 = combinedCommList.getCommitments().iterator();
+				 while(it2.hasNext()){
+					 Commitment c = it2.next();
+					 if(!selectedFilter.getActiveCategories().contains(c.getCategoryID())){
+						 it2.remove();
+					 }
+				 }
+			}
+			
 			events = combinedEventList;
 			commitments = combinedCommList;
 			
@@ -405,7 +438,7 @@ public class MyCalendar extends AbCalendar {
 				//update the commitments to either include or not include team data
 				calProps.setMyTeamBoth(0);
 				updateCalData();
-				setView();
+				//setView(); redundant called in updateCalData
 			}
 		});
 
@@ -426,7 +459,7 @@ public class MyCalendar extends AbCalendar {
 				//update the commitments to either include or not include team data
 				calProps.setMyTeamBoth(1);
 				updateCalData();
-				setView();
+				//setView(); redundant called in updateCalData
 			}
 		});
 
@@ -446,7 +479,7 @@ public class MyCalendar extends AbCalendar {
 				//update the commitments to either include or not include team data
 				calProps.setMyTeamBoth(2);
 				updateCalData();
-				setView();
+				//setView(); redundant called in updateCalData
 			}
 		});
 
