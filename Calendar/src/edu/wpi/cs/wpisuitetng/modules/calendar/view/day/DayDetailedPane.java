@@ -13,8 +13,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -26,7 +29,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar.types;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 /**
  * The class for a day containing event commitments and the half hour marks
@@ -49,10 +52,10 @@ public class DayDetailedPane extends JPanel {
 	 * @param acal the date that is used for displaying
 	 * @param detailLevel AbCalendar.types
 	 */
-	public DayDetailedPane(GregorianCalendar acal, AbCalendar.types detailLevel){
+	public DayDetailedPane(GregorianCalendar calendar, AbCalendar.types detailLevel){
 		this.detailLevel = detailLevel;
 		
-		this.acal = (GregorianCalendar)acal.clone();
+		this.acal = (GregorianCalendar)calendar.clone();
 		this.setMinimumSize(new Dimension(50, 800));
 		this.setPreferredSize(new Dimension(50, 800));
 		this.setBackground(CalendarStandard.CalendarYellow);
@@ -73,6 +76,27 @@ public class DayDetailedPane extends JPanel {
 				revalidate();
 				repaint();
 			}
+		});
+		
+		this.addMouseListener(new MouseAdapter(){
+		    public void mouseClicked(MouseEvent e) {
+		    	if(e.getClickCount() > 1){
+		    		int clickSpot = e.getY();
+		    		int interval = clickSpot/48;
+		    		double blockNum = Math.floor(clickSpot/interval);
+		    		GregorianCalendar time = new GregorianCalendar();
+		    		time.set(Calendar.YEAR, acal.get(Calendar.YEAR));
+		    		time.set(Calendar.MONTH, acal.get(Calendar.MONTH));
+		    		time.set(Calendar.DAY_OF_YEAR, acal.get(Calendar.DAY_OF_YEAR));
+		    		time.set(Calendar.HOUR, 0);
+		    		time.set(Calendar.MINUTE, 0);
+		    		time.set(Calendar.SECOND, 0);
+		    		int i;
+		    		for (i = 0; i < blockNum; i++)
+		    			time.add(Calendar.MINUTE, 30);
+		    		GUIEventController.getInstance().createEvent(time.getTime());
+		    	}
+		    }
 		});
 	}
 	
