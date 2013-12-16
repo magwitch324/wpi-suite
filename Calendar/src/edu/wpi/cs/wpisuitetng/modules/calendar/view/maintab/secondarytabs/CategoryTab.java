@@ -46,8 +46,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentViewPanel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentFullView.ViewingMode;
 
 /**
  * Create/edit catergory tab.
@@ -73,7 +76,8 @@ public class CategoryTab extends JPanel {
 	private JTextField textFieldName;
 	private JScrollPane scrollPane;
 	protected List<CategoryPanel> selectedCategories;
-
+	private CalendarProps calProps;
+	private boolean initialized;
 
 	/**
 	 * @author CS Anonymous
@@ -93,7 +97,7 @@ public class CategoryTab extends JPanel {
 	 * Constructor for CategoryTab.
 	 */
 	public CategoryTab() {
-		
+		initialized = false;
 		createBaseUI();
 		
 		//Load category lists from CalendarDataModel
@@ -110,6 +114,8 @@ public class CategoryTab extends JPanel {
 		//initialize in "viewing" mode
 		setupViewingView();
 		setBackground(Color.WHITE);
+		initialized = true;
+		applyCalProps();
 		
 	}
 
@@ -351,18 +357,21 @@ public class CategoryTab extends JPanel {
 		
 		rdbtnTeam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				calProps.setCategoryTabView(1);
 				refreshCategoryListPanel();
 			}
 		});
 		
 		rdbtnPersonal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				calProps.setCategoryTabView(0);
 				refreshCategoryListPanel();
 			}
 		});
 		
 		rdbtnBoth.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				calProps.setCategoryTabView(2);
 				refreshCategoryListPanel();
 			}
 		});
@@ -492,5 +501,24 @@ public class CategoryTab extends JPanel {
 		
 		revalidate();
 		repaint();
+	}
+	
+	/**
+	 * Used after cal props has been fetched from the server.
+	 */
+	protected void applyCalProps(){
+
+		calProps = CalendarPropsModel.getInstance().getCalendarProps(
+				ConfigManager.getConfig().getProjectName() + "-"
+						+ ConfigManager.getConfig().getUserName() + "-PROPS");
+		if(calProps != null && initialized){
+			switch(calProps.getCategoryTabView()){
+			case 0: rdbtnPersonal.setSelected(true);
+			break;
+			case 1: rdbtnTeam.setSelected(true);
+			break;
+			case 2: rdbtnBoth.setSelected(true);
+			}
+		}
 	}
 }
