@@ -137,9 +137,13 @@ public class CategoryPanel extends JPanel {
 		// TODO Auto-generated method stub
 		selected = b;
 		if(b)
-			setBackground(CalendarStandard.HeatMapRed);
+			{
+				setBackground(CalendarStandard.HeatMapRed);
+			}
 		else
-			setBackground(CalendarStandard.CalendarYellow);
+			{
+				setBackground(CalendarStandard.CalendarYellow);
+			}
 		
 	}
 

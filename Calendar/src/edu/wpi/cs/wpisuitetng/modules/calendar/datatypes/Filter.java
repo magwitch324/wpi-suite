@@ -15,11 +15,7 @@ import java.util.Comparator;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * Filter is used for filtering categories.
@@ -34,17 +30,19 @@ public class Filter implements Comparator<Filter>{
 	private String name;
 	
 	/** the list of categories not included in this filter*/
-	private List<Integer> inactiveCategories;
+	private List<Integer> activePersonalCategories;
 	
 	/** the list of categories included in this filter*/
-	private List<Integer> activeCategories;
+	private List<Integer> activeTeamCategories;
 	
 	/**
 	 * Constructs a filter with default characteristics
 	 */
 	public Filter() {
 		name = "";
-		activeCategories = new ArrayList<Integer>();
+		activePersonalCategories = new ArrayList<Integer>();
+		activeTeamCategories = new ArrayList<Integer>();
+
 	}
 
 	/**
@@ -57,11 +55,12 @@ public class Filter implements Comparator<Filter>{
 	 * @param catList CategoryList
 	 */
 	// need to phase out supplying the ID
-	public Filter(String name, List<Integer> inactiveCatList, List<Integer> activeCatList) {
+	public Filter(String name, List<Integer> activePersonalCatList, List<Integer> activeTeamCatList) {
 		this();
 		this.name = name;
-		inactiveCategories = inactiveCatList;
-		activeCategories = activeCatList;
+		activePersonalCategories = activePersonalCatList;
+		activeTeamCategories = activeTeamCatList;
+
 	}
 	
 	
@@ -109,47 +108,47 @@ public class Filter implements Comparator<Filter>{
 	
 	
 	/**
-	 * getter for the inactiveCategories
+	 * getter for the activePersonalCategories
 	 * 
 	
-	 * @return the inactiveCategories */
-	public List<Integer> getInactiveCategories() {
-		return inactiveCategories;
+	 * @return the activePersonalCategories */
+	public List<Integer> getActivePersonalCategories() {
+		return activePersonalCategories;
 	}
 
 	
 	
 	/**
-	 * Setter for the inactiveCategories
+	 * Setter for the activePersonalCategories
 	 * 
-	 * @param inactiveCatList
-	 *            the inactiveCatList to set
+	 * @param activePersonalCatList
+	 *            the activePersonalCatList to set
 	 */
-	public void setInactiveCategories(List<Integer> inactiveCatList) {
-		inactiveCategories = inactiveCatList;
+	public void setActivePersonalCategories(List<Integer> activePersonalCatList) {
+		activePersonalCategories =activePersonalCatList;
 	}
 	
 	
 	
 	/**
-	 * getter for the activeCategories
+	 * getter for the activeTeamCategories
 	 * 
 	
-	 * @return the activeCategories */
-	public List<Integer> getActiveCategories() {
-		return activeCategories;
+	 * @return the activeTeamCategories */
+	public List<Integer> getActiveTeamCategories() {
+		return activeTeamCategories;
 	}
 
 	
 	
 	/**
-	 * Setter for the activeCategories
+	 * Setter for the activeTeamCategories
 	 * 
-	 * @param activeCatList
-	 *            the activeCatList to set
+	 * @param activeTeamCatList
+	 *            the activeTeamCatList to set
 	 */
-	public void setActiveCategories(List<Integer> activeCatList) {
-		activeCategories = activeCatList;
+	public void setActiveTeamCategories(List<Integer> activeTeamCatList) {
+		activeTeamCategories = activeTeamCatList;
 	}
 	
 	
