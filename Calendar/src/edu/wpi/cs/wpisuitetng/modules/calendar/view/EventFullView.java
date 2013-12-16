@@ -247,7 +247,6 @@ public class EventFullView extends JPanel{
 		teamRadioButton.setBackground(Color.WHITE);
 		teamRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
-		teamRadioButton.setToolTipText("View Team Commitments");
 		teamRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -261,7 +260,6 @@ public class EventFullView extends JPanel{
 		personalRadioButton.setBackground(Color.WHITE);
 		personalRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
-		personalRadioButton.setToolTipText("View Personal Commitments");
 		personalRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -275,7 +273,6 @@ public class EventFullView extends JPanel{
 		bothRadioButton.setBackground(Color.WHITE);
 		bothRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
-		bothRadioButton.setToolTipText("View All Commitments");
 		bothRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -409,7 +406,7 @@ public class EventFullView extends JPanel{
 		jEndDate.setBackground(CalendarStandard.CalendarRed);
 		jEndDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		jEndDate.setToolTipText("Sort by END Date");
+		jEndDate.setToolTipText("Sort by End Date");
 		jEndDate.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {

@@ -89,6 +89,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	private SpringLayout activeListLayout;
 	private Filter editFilter;
 	protected List<FilterPanel> selectedFilters;
+	private Filter aSelectedFilter;
 	//private FilterPanel filterPanel;
 
 
@@ -131,6 +132,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		
 		/*addFilterList();
 		populateFilterList();*/
+		aSelectedFilter = null;
 		refresh();
 		initFlag = true;
 		}
@@ -338,6 +340,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		gbc_filterName.gridwidth = 3;
 		gbc_filterName.gridx = 1;
 		gbc_filterName.gridy = 0;
+		if (aSelectedFilter != null){
+			filterName.setText(aSelectedFilter.getName());
+		}
 		editPanel.add(filterName, gbc_filterName);
 		
 		//adds the scroll pane containing the categories not in the filter
@@ -547,6 +552,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mode = FilterMode.ADDING;
+				aSelectedFilter = null;
 				refresh();
 				//addEditView();
 			}
@@ -650,7 +656,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			addListeners();
 			editFilterMode();
 			addEditViewListeners();
-			filterName.setText("**New Filter**");
+//			filterName.setText("**New Filter**");
 			populateFilterList();
 			populateInactiveCatLists();
 			viewPaneBtnStatus(false);
@@ -677,7 +683,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		if(mode == FilterMode.ADDING){
 			editFilterMode();
 			addEditViewListeners();
-			filterName.setText("**New Filter**");
+//			filterName.setText("**New Filter**");
 			populateFilterList();
 			populateInactiveCatLists();
 			revalidate();
@@ -764,38 +770,19 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 						mode = FilterMode.EDITING;
 						refresh();
 						//addEditView();
-						editFilter = ((FilterPanel)e.getComponent()).getFilter();
-						filterName.setText(editFilter.getName());
+						aSelectedFilter = ((FilterPanel)e.getComponent()).getFilter();
+						filterName.setText(aSelectedFilter.getName());
 					}
 					else if(e.getClickCount() > 1){
 						mode = FilterMode.EDITING;
 						//remove(editPanel);
 						refresh();
 						//addEditView();
-						editFilter = ((FilterPanel)e.getComponent()).getFilter();
-						filterName.setText(editFilter.getName());
+						aSelectedFilter = ((FilterPanel)e.getComponent()).getFilter();
+						filterName.setText(aSelectedFilter.getName());
 					}
 					else if (e.getClickCount() == 1 && mode == FilterMode.VIEWING){
 						mode = FilterMode.EDITING;
-						//addEditView();
-						final FilterPanel comp = (FilterPanel) e.getComponent();
-						if(selectedFilters.isEmpty() || e.isControlDown());
-						else
-						{
-							removeSelectedFilters(); //clear existing selections
-						}
-						selectedFilters.add(comp);
-						comp.setSelected(true);
-						btnEdit.setEnabled(true);
-						btnDelete.setEnabled(true);
-						editFilter = ((FilterPanel)e.getComponent()).getFilter();
-						filterName.setText(editFilter.getName());
-
-					}
-					else if(e.getClickCount() == 1){
-						mode = FilterMode.EDITING;
-						//remove(editPanel);
-						refresh();
 						//addEditView();
 						FilterPanel comp = (FilterPanel) e.getComponent();
 						if(selectedFilters.isEmpty() || e.isControlDown());
@@ -807,8 +794,27 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 						comp.setSelected(true);
 						btnEdit.setEnabled(true);
 						btnDelete.setEnabled(true);
-						editFilter = ((FilterPanel)e.getComponent()).getFilter();
-						filterName.setText(editFilter.getName());
+						aSelectedFilter = ((FilterPanel)e.getComponent()).getFilter();
+						filterName.setText(aSelectedFilter.getName());
+
+					}
+					else if(e.getClickCount() == 1){
+						mode = FilterMode.EDITING;
+						//remove(editPanel);
+//						refresh();
+						//addEditView();
+						FilterPanel comp = (FilterPanel) e.getComponent();
+						if(selectedFilters.isEmpty() || e.isControlDown());
+						else
+						{
+							removeSelectedFilters(); //clear existing selections
+						}
+						selectedFilters.add(comp);
+						comp.setSelected(true);
+						btnEdit.setEnabled(true);
+						btnDelete.setEnabled(true);
+						aSelectedFilter = ((FilterPanel)e.getComponent()).getFilter();
+						filterName.setText(aSelectedFilter.getName());
 					}
 				}
 			});
