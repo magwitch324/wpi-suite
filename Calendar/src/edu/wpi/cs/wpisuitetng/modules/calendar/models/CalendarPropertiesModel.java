@@ -24,32 +24,32 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddPropsController;
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
- public class CalendarPropsModel extends AbstractListModel {
+ public class CalendarPropertiesModel extends AbstractListModel {
 
 	/**
 	 * The list in which all the CalendarProps for a single project are contained
 	 */
-	private final List<CalendarProps> CalendarPropss;
+	private final List<CalendarProperties> CalendarPropss;
 	private int nextID; // the next available ID number for the CalendarProps that are added.
 	
 	//the static object to allow the category model to be 
-	private static CalendarPropsModel instance; 
+	private static CalendarPropertiesModel instance; 
 
 	/**
 	 * Constructs an empty list of CalendarProps for the project
 	 */
-	private CalendarPropsModel (){
-		CalendarPropss = new ArrayList<CalendarProps>();
+	private CalendarPropertiesModel (){
+		CalendarPropss = new ArrayList<CalendarProperties>();
 	}
 	
 	/**
 	
 	 * @return the instance of the CalendarProps model singleton. */
-	public static CalendarPropsModel getInstance()
+	public static CalendarPropertiesModel getInstance()
 	{
 		if(instance == null)
 		{
-			instance = new CalendarPropsModel();
+			instance = new CalendarPropertiesModel();
 		}
 		
 		return instance;
@@ -60,7 +60,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddPropsController;
 	 * 
 	 * @param newCalData The CalendarProps to be added to the list of CalendarPropss in the project
 	 */
-	public void addCalendarProps(CalendarProps newCalData){
+	public void addCalendarProps(CalendarProperties newCalData){
 		// add the CalendarProps
 		CalendarPropss.add(newCalData);
 		try 
@@ -78,9 +78,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddPropsController;
 	 * @param id The ID number of the CalendarProps to be returned
 	
 	 * @return the CalendarProps for the id or null if the CalendarProps is not found */
-	public CalendarProps getCalendarProps(String id)
+	public CalendarProperties getCalendarProps(String id)
 	{
-		CalendarProps temp = null;
+		CalendarProperties temp = null;
 		// iterate through list of CalendarPropss until id is found
 		for (int i=0; i < CalendarPropss.size(); i++){
 			temp = CalendarPropss.get(i);
@@ -138,7 +138,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddPropsController;
 	 * * @see javax.swing.ListModel#getElementAt(int) 
 	 * * @see javax.swing.ListModel#getElementAt(int)
 	 */
-	public CalendarProps getElementAt(int index) {
+	public CalendarProperties getElementAt(int index) {
 		return CalendarPropss.get(CalendarPropss.size() - 1 - index);
 	}
 
@@ -152,7 +152,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddPropsController;
 	 */
 	public void emptyModel() {
 		final int oldSize = getSize();
-		final Iterator<CalendarProps> iterator = CalendarPropss.iterator();
+		final Iterator<CalendarProperties> iterator = CalendarPropss.iterator();
 		while (iterator.hasNext()) {
 			iterator.next();
 			iterator.remove();
@@ -167,7 +167,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddPropsController;
 	
 	 * @param calData CalendarProps[]
 	 */
-	public void addCalendarProps(CalendarProps[] calData) {
+	public void addCalendarProps(CalendarProperties[] calData) {
 		for (int i = 0; i < calData.length; i++) {
 			CalendarPropss.add(calData[i]);
 
@@ -180,7 +180,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddPropsController;
 	 * Returns the list of the CalendarPropss
 	
 	 * @return the categories held within the CalendarPropsmodle. */
-	public List<CalendarProps> getCalendarProps() {
+	public List<CalendarProperties> getCalendarProps() {
 		return CalendarPropss;
 	}
 

@@ -51,8 +51,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropertiesModel;
 
 /**
  * This class is used for creating the commitment View 
@@ -68,7 +68,7 @@ public class CommitmentFullView extends JPanel{
 	JPanel commitPanel;
 	JScrollPane scrollPane;
 	JPanel header;
-	private CalendarProps calProps;
+	private CalendarProperties calProps;
 	private boolean initialized;
 
 	List<Commitment> commitmentList = new ArrayList<Commitment>();
@@ -622,7 +622,7 @@ public class CommitmentFullView extends JPanel{
 	 */
 	protected void applyCalProps(){
 
-		calProps = CalendarPropsModel.getInstance().getCalendarProps(
+		calProps = CalendarPropertiesModel.getInstance().getCalendarProps(
 				ConfigManager.getConfig().getProjectName() + "-"
 						+ ConfigManager.getConfig().getUserName() + "-PROPS");
 		if(initialized && calProps != null){
