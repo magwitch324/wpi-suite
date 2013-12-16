@@ -44,6 +44,7 @@ public class Filter implements Comparator<Filter>{
 	 */
 	public Filter() {
 		name = "";
+		activeCategories = new ArrayList<Integer>();
 	}
 
 	/**

@@ -20,9 +20,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddPropsController;
 
 
 /**
-  * @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+ * List of calendar properties.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
  public class CalendarPropsModel extends AbstractListModel {
 
 	/**

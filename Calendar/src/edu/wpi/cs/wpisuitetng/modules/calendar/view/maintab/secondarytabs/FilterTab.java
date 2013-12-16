@@ -53,9 +53,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 
 
 /**
-  * @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+ * Create/edit filter tab.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
  public class FilterTab extends JPanel{
 
 	private final FilterList calendarFilters;
@@ -171,6 +172,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 //		scrollPane.setSize(new Dimension(50, 600));
+		scrollPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
@@ -200,6 +202,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		gbc_filterList.gridx = 0;
 		gbc_filterList.gridy = 0;
 		viewPanel.add(filterList, gbc_filterList);
+		
+		selectedFilters = new ArrayList<FilterPanel>();
 		
 		addButtonPanel();
 	}
@@ -236,6 +240,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 //		scrollPane.setSize(new Dimension(50, 600));
+		scrollPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
@@ -345,6 +350,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		inactiveCatPane = new JScrollPane();
 		inactiveCatPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		inactiveCatPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		inactiveCatPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
 		inactiveCatPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_inactiveFilter = new GridBagConstraints();
 		gbc_inactiveFilter.fill = GridBagConstraints.BOTH;
@@ -358,6 +364,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		activeCatPane = new JScrollPane();
 		activeCatPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		activeCatPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		activeCatPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
 		activeCatPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_activeFilter = new GridBagConstraints();
 		gbc_activeFilter.fill = GridBagConstraints.BOTH;
@@ -637,10 +644,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		if(mode == FilterMode.VIEWING){
 			removeAll();
 			mainFilterListView();
-//			addFilterList();
 			addListeners();
 			populateFilterList();
-			viewPaneBtnStatus();
+			viewPaneBtnStatus(false);
 			revalidate();
 			repaint();
 		}
@@ -655,7 +661,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			populateFilterList();
 			populateInactiveCatLists();
 			//populateActiveCatLists();
-			viewPaneBtnStatus();
+			viewPaneBtnStatus(false);
 			saveBtnStatus();
 			revalidate();
 			repaint();
@@ -670,7 +676,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			populateFilterList();
 			populateInactiveCatLists();
 			//populateActiveCatLists();
-			viewPaneBtnStatus();
+			viewPaneBtnStatus(false);
 			saveBtnStatus();
 			revalidate();
 			repaint();
@@ -763,38 +769,61 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			//oldFilterPanel = filterPanel; //update oldCatPanel to be previously added panel
 		
 		
-		filterPanel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(e.getClickCount() > 1 && mode == FilterMode.VIEWING){
-					mode = FilterMode.EDITING;
-					refresh();
-					//addEditView();
-					editFilter = ((FilterPanel)e.getComponent()).getFilter();
-					filterName.setText(editFilter.getName());
-					//activeCategories = getCat(editFilter.getActiveCategories());
-				}
-				else if(e.getClickCount() > 1){
-					mode = FilterMode.EDITING;
-					//remove(editPanel);
-					refresh();
-					//addEditView();
-					editFilter = ((FilterPanel)e.getComponent()).getFilter();
-					filterName.setText(editFilter.getName());
-					//activeCategories = getCat(editFilter.getActiveCategories());
-				}
-				if(e.getClickCount() == 1){
-					FilterPanel comp = (FilterPanel) e.getComponent();
-					if(selectedFilters.isEmpty() || e.isControlDown());
-					else
-					{
-						removeSelectedFilters(); //clear existing selections
+			filterPanel.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount() > 1 && mode == FilterMode.VIEWING){
+						mode = FilterMode.EDITING;
+						refresh();
+						//addEditView();
+						editFilter = ((FilterPanel)e.getComponent()).getFilter();
+						filterName.setText(editFilter.getName());
 					}
-					selectedFilters.add(comp);
-					comp.setSelected(true);
+					else if(e.getClickCount() > 1){
+						mode = FilterMode.EDITING;
+						//remove(editPanel);
+						refresh();
+						//addEditView();
+						editFilter = ((FilterPanel)e.getComponent()).getFilter();
+						filterName.setText(editFilter.getName());
+					}
+					else if (e.getClickCount() == 1 && mode == FilterMode.VIEWING){
+						mode = FilterMode.EDITING;
+						//addEditView();
+						final FilterPanel comp = (FilterPanel) e.getComponent();
+						if(selectedFilters.isEmpty() || e.isControlDown());
+						else
+						{
+							removeSelectedFilters(); //clear existing selections
+						}
+						selectedFilters.add(comp);
+						comp.setSelected(true);
+						btnEdit.setEnabled(true);
+						btnDelete.setEnabled(true);
+						editFilter = ((FilterPanel)e.getComponent()).getFilter();
+						filterName.setText(editFilter.getName());
+
+					}
+					else if(e.getClickCount() == 1){
+						mode = FilterMode.EDITING;
+						//remove(editPanel);
+						refresh();
+						//addEditView();
+						FilterPanel comp = (FilterPanel) e.getComponent();
+						if(selectedFilters.isEmpty() || e.isControlDown());
+						else
+						{
+							removeSelectedFilters(); //clear existing selections
+						}
+						selectedFilters.add(comp);
+						comp.setSelected(true);
+						btnEdit.setEnabled(true);
+						btnDelete.setEnabled(true);
+						editFilter = ((FilterPanel)e.getComponent()).getFilter();
+						filterName.setText(editFilter.getName());
+					}
 				}
-			}
-		});
+			});
 		
 			oldFilterPanel = filterPanel;
 		}
@@ -804,6 +833,16 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			filterListLayout.putConstraint(SpringLayout.SOUTH,
 			filterListPanel, 0, SpringLayout.SOUTH, filterPanel);	
 	}
+	
+	
+	protected void removeSelectedFilters() {
+		for (FilterPanel fPanel: selectedFilters)
+		{
+			fPanel.setSelected(false);
+		}
+		selectedFilters.clear();
+	}
+	
 
 	
 	private void removeCatFromFilter(Category aCat, Filter aFilter){
@@ -867,6 +906,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			
 			oldCatPanel = catPanel; //update oldCatPanel to be previously added panel
 		}
+		
+		inactiveListLayout.putConstraint(SpringLayout.SOUTH,
+		inactiveListPanel, 0, SpringLayout.SOUTH, catPanel);	
 	}
 	
 	private void populateActiveCatLists(){
@@ -919,14 +961,14 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		}
 	}
 	
-	private void viewPaneBtnStatus(){
-		if(true){
-			btnEdit.setEnabled(false);
-			btnDelete.setEnabled(false);
-		}
-		else{
+	private void viewPaneBtnStatus(boolean b){
+		if(b){
 			btnEdit.setEnabled(true);
 			btnDelete.setEnabled(true);
+		}
+		else{
+			btnEdit.setEnabled(false);
+			btnDelete.setEnabled(false);
 		}
 	}
 	
@@ -937,15 +979,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		else{
 			btnSaveFilter.setEnabled(true);
 		}
-	}
-	
-	protected void removeSelectedFilters() {
-		// TODO Auto-generated method stub
-		for (FilterPanel filterPanel: selectedFilters)
-		{
-			filterPanel.setSelected(false);
-		}
-		selectedFilters.clear();
 	}
 	
 	protected CategoryList getCat(List<Integer> aList){

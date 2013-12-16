@@ -11,19 +11,16 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -31,27 +28,24 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.EventViewPanel.Sort_Type;
 
 /**
  * This class is used for creating the event View 
@@ -66,21 +60,20 @@ public class EventFullView extends JPanel{
 	AbCalendar pcalendar;
 	JPanel eventPanel;
 	JScrollPane scrollPane;
-	JPanel header;
 	private CalendarProps calProps;
 	private boolean initialized;
 
-	List<Event> eventList = new ArrayList<Event>();
-	private int namesort = 0;
-	private int startDatesort = 0;
-	private int endDatesort = 0;
-	private int dessort = 0;
+	List<EventViewPanel> eventPanelList = new ArrayList<EventViewPanel>();
+	
+	private boolean reverse_sort;
 
+	//Button group for sort type
 	JButton jName;
 	JButton jStartDate;
 	JButton jEndDate;
 	JButton jDescription;
 
+	//radio group for display type
 	JRadioButton bothRadioButton;
 	JRadioButton personalRadioButton;
 	JRadioButton teamRadioButton;
@@ -93,6 +86,9 @@ public class EventFullView extends JPanel{
 		TEAM, PERSONAL, BOTH;
 	};
 	ViewingMode mode;
+	
+	Sort_Type sort_mode;	//The current sorting type
+	
 
 	/**
 	 * Constructor creates main scrolling Panel and 
@@ -100,42 +96,35 @@ public class EventFullView extends JPanel{
 	 * @param personalCalendar AbCalendar
 	 */
 	public EventFullView(AbCalendar personalCalendar) {
+		super();
+		setLayout(new GridLayout(1,1));
+		this.setBackground(Color.WHITE);
+		
 		initialized = false;
 		pcalendar = personalCalendar;
 
 		mode = ViewingMode.TEAM;
 
 		eventPanel = new JPanel();
-
-		// Header panel
-		header = new JPanel();
-		header.setBackground(Color.WHITE);
-		header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
-		header.setBorder(new EmptyBorder(5, 5, 5, 5));
-		header.setBorder(new MatteBorder(0, 0, 2, 0, Color.BLACK));
-
+		eventPanel.setBackground(Color.WHITE);
+		eventPanel.setBorder(new EmptyBorder(5, 5, 10, 5));
+		
 		scrollPane = new JScrollPane(eventPanel, 
-				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		add(scrollPane, BorderLayout.CENTER );
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		scrollPane.getHorizontalScrollBar().setUnitIncrement(20);
-
+		scrollPane.setViewportView(eventPanel);
+		scrollPane.getViewport().setBackground(Color.WHITE);
+		scrollPane.setBackground(Color.WHITE);
+		scrollPane.setForeground(Color.WHITE);
 		// Sets the UPPER RIGHT corner box
 		final JPanel cornerBoxUR = new JPanel();
 		cornerBoxUR.setBackground(Color.WHITE);
-		scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
-				cornerBoxUR);
+		scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER, cornerBoxUR);
+		scrollPane.setColumnHeader(getHeader());
+		
 		add(scrollPane);
-
-		/*spring layout to allow adjustments to size of screen without messing up panels*/
-		final SpringLayout layout = new SpringLayout();
-		setLayout(layout);
-		layout.putConstraint(SpringLayout.WEST, scrollPane, 0, SpringLayout.WEST, this);
-		layout.putConstraint(SpringLayout.EAST, scrollPane, 0, SpringLayout.EAST, this);
-		layout.putConstraint(SpringLayout.NORTH, scrollPane, 0, SpringLayout.NORTH, this);
-		layout.putConstraint(SpringLayout.SOUTH, scrollPane, 0, SpringLayout.SOUTH, this);
-		scrollPane.setViewportView(eventPanel);
 
 		setEventList();
 		setupPanels();
@@ -147,55 +136,118 @@ public class EventFullView extends JPanel{
 	 * Sets the calendars events to the eventList array to populate panel
 	 **/
 	private void setEventList() {
+		eventPanelList = new ArrayList<EventViewPanel>(); 
 
 		if (mode == ViewingMode.TEAM){
 			if(pcalendar.getTeamCalData() != null){
-				eventList = pcalendar.getTeamCalData().getEvents().getEvents();
+				for(Event event : pcalendar.getTeamCalData().getEvents().getEvents()){
+					eventPanelList.add(new EventViewPanel(event));
+				}
 			}
 		} else if (mode == ViewingMode.PERSONAL){
 			if(pcalendar.getMyCalData() != null){
-				eventList = pcalendar.getMyCalData().getEvents().getEvents();
+				for(Event event : pcalendar.getMyCalData().getEvents().getEvents()){
+					eventPanelList.add(new EventViewPanel(event));
+				}
 			}
 		} else if(pcalendar.getTeamCalData() != null && pcalendar.getMyCalData() != null) { 
-			final CombinedEventList combinedList = new CombinedEventList(
-					new ArrayList<Event>(
-							pcalendar.getMyCalData().getEvents().getEvents()));
-			final CalendarData teamData = pcalendar.getTeamCalData();
-
-			/*if we are supposed to show team data, 
-			 * we need to put the team events into the list in the right order*/
-			for (int i = 0; i < teamData.getEvents()
-					.getEvents().size(); i++) {
-				combinedList.add(teamData.getEvents()
-						.getEvents().get(i));
+			for(Event event : pcalendar.getTeamCalData().getEvents().getEvents()){
+				eventPanelList.add(new EventViewPanel(event));
 			}
-			eventList = combinedList.getEvents();
+			
+			for(Event event : pcalendar.getMyCalData().getEvents().getEvents()){
+				eventPanelList.add(new EventViewPanel(event));
+			}
 		}
+		//Sorts the list of eventPanelList based on sort type and reverse_sort
+		sort();
 	}
 
 	/** 
 	 * Event panel is populated with all events 
 	 * which are in separate panels that can be scrolled and clicked*/
 	private void setupPanels() {
-		eventPanel.setLayout(new BoxLayout(eventPanel, BoxLayout.Y_AXIS));
-		eventPanel.setBorder(new EmptyBorder(5, 5, 10, 5));
-		eventPanel.setBackground(Color.WHITE);
+		eventPanel.removeAll();
+		SpringLayout layout = new SpringLayout();
+		eventPanel.setLayout(layout);
+		EventViewPanel last = null;
+		int event_height = 0;
+		for(EventViewPanel evp : eventPanelList) {
+			if(last == null){
+				layout.putConstraint(SpringLayout.NORTH, evp, 0, SpringLayout.NORTH, eventPanel);
+			}
+			else{
+				layout.putConstraint(SpringLayout.NORTH, evp, 0, SpringLayout.SOUTH, last);
+			}
+			
+			layout.putConstraint(SpringLayout.WEST, evp, 0, SpringLayout.WEST, eventPanel);
+			layout.putConstraint(SpringLayout.EAST, evp, 0, SpringLayout.EAST, eventPanel);
+			eventPanel.add(evp);
+			event_height += evp.getPreferredSize().height;
+			last = evp;
+		}
+		eventPanel.setPreferredSize(new Dimension(10, event_height));
+		scrollPane.revalidate();
+		scrollPane.repaint();
+	}
 
-		header.removeAll();
-
-
-		final JPanel viewSwitcher = new JPanel();
-
-		final SpringLayout switcherLayout = new SpringLayout();
-
-		viewSwitcher.setLayout(switcherLayout);
-		viewSwitcher.setBackground(Color.WHITE);
-
-		teamRadioButton = new JRadioButton("Team");
+	/**
+	 * Creates the view port used as the header of the scroll pane
+	 * @return	The view port containing data display information and sort buttons
+	 */
+	private JViewport getHeader(){
+		final JViewport port = new JViewport();
+		final JPanel apanel = new JPanel();
+		apanel.setBackground(Color.WHITE);
+		apanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		apanel.setBorder(new MatteBorder(0, 0, 2, 0, Color.BLACK));
+		SpringLayout layout = new SpringLayout();
+		apanel.setLayout(layout);
+		
+		JPanel datadisplay = getDataDisplay();
+		layout.putConstraint(SpringLayout.NORTH, datadisplay, 0, SpringLayout.NORTH, apanel);
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datadisplay, 0, SpringLayout.HORIZONTAL_CENTER, apanel);
+		apanel.add(datadisplay);
+		
+		JPanel sortbuttons = getSortButtons();
+		layout.putConstraint(SpringLayout.NORTH, sortbuttons, 0, SpringLayout.SOUTH, datadisplay);
+		layout.putConstraint(SpringLayout.WEST, sortbuttons, 0, SpringLayout.WEST, apanel);
+		layout.putConstraint(SpringLayout.SOUTH, sortbuttons, 0, SpringLayout.SOUTH, apanel);
+		layout.putConstraint(SpringLayout.EAST, sortbuttons, 0, SpringLayout.EAST, apanel);
+		apanel.add(sortbuttons);
+		
+		port.addComponentListener(new ComponentAdapter(){
+			public void componentResized(ComponentEvent e) {
+				apanel.setPreferredSize(new Dimension(port.getWidth(), 100));
+			}
+		});
+		
+		port.setView(apanel);
+		
+		return port;
+	}
+	
+	/**
+	 * Creates the radio buttons used for which data is displayed
+	 * @return The panel containing the data display radio buttons
+	 */
+	private JPanel getDataDisplay(){
+		JPanel apanel = new JPanel();
+		apanel.setBackground(Color.WHITE);
+		SpringLayout layout = new SpringLayout();
+		apanel.setLayout(layout);
+		apanel.setPreferredSize(new Dimension(500, 50));
+		apanel.setMaximumSize(new Dimension(20000, 50));
+		apanel.setBorder(BorderFactory.createLoweredBevelBorder());
+		apanel.setBorder(new MatteBorder(5, 5, 5, 5, Color.WHITE));
+		
+		viewSwitchGroup = new ButtonGroup();
+		
+		teamRadioButton = new JRadioButton("View Team Events");
 		teamRadioButton.setBackground(Color.WHITE);
 		teamRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
-		teamRadioButton.setToolTipText("View Team Events.");
+		teamRadioButton.setToolTipText("View Team Commitments");
 		teamRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -204,17 +256,12 @@ public class EventFullView extends JPanel{
 			}
 
 		});
-		viewSwitcher.add(teamRadioButton, SpringLayout.WEST);
-		if (mode == ViewingMode.TEAM){
-			teamRadioButton.setSelected(true);
-		}
-
-
-		personalRadioButton = new JRadioButton("Personal");
+		
+		personalRadioButton = new JRadioButton("View Personal Events");
 		personalRadioButton.setBackground(Color.WHITE);
 		personalRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
-		personalRadioButton.setToolTipText("View Personal Events.");
+		personalRadioButton.setToolTipText("View Personal Commitments");
 		personalRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -223,22 +270,12 @@ public class EventFullView extends JPanel{
 			}
 
 		});
-		viewSwitcher.add(personalRadioButton, SpringLayout.HORIZONTAL_CENTER);
-		if (mode == ViewingMode.PERSONAL){
-			personalRadioButton.setSelected(true);
-		}
-
-
-		switcherLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, personalRadioButton,
-				0, SpringLayout.HORIZONTAL_CENTER, viewSwitcher);
-		switcherLayout.putConstraint(SpringLayout.VERTICAL_CENTER, personalRadioButton, 
-				0, SpringLayout.VERTICAL_CENTER, viewSwitcher);
-
-		bothRadioButton = new JRadioButton("Both");
+		
+		bothRadioButton = new JRadioButton("View All Events");
 		bothRadioButton.setBackground(Color.WHITE);
 		bothRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
-		bothRadioButton.setToolTipText("View All Events.");
+		bothRadioButton.setToolTipText("View All Commitments");
 		bothRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -247,391 +284,238 @@ public class EventFullView extends JPanel{
 			}
 
 		});
-		viewSwitcher.add(bothRadioButton, SpringLayout.EAST);
-		if (mode == ViewingMode.BOTH){
-			bothRadioButton.setSelected(true);
-		}
-		bothRadioButton.setMinimumSize(new Dimension(100, 50));
-		bothRadioButton.setMaximumSize(new Dimension(100, 50));
-		bothRadioButton.setAlignmentX(CENTER_ALIGNMENT);
-
-		viewSwitchGroup = new ButtonGroup();
+		
+		apanel.add(teamRadioButton);
+		apanel.add(personalRadioButton);
+		apanel.add(bothRadioButton);
+		
 		viewSwitchGroup.add(teamRadioButton);
 		viewSwitchGroup.add(personalRadioButton);
 		viewSwitchGroup.add(bothRadioButton);
-
-		switcherLayout.putConstraint(SpringLayout.EAST, teamRadioButton, 
-				0, SpringLayout.WEST, personalRadioButton);
-		switcherLayout.putConstraint(SpringLayout.VERTICAL_CENTER, teamRadioButton, 
-				0, SpringLayout.VERTICAL_CENTER, viewSwitcher);
-		switcherLayout.putConstraint(SpringLayout.WEST, bothRadioButton,
-				0, SpringLayout.EAST, personalRadioButton);
-		switcherLayout.putConstraint(SpringLayout.VERTICAL_CENTER, bothRadioButton,
-				0, SpringLayout.VERTICAL_CENTER, viewSwitcher);
-
-
-
-		viewSwitcher.setPreferredSize(new Dimension(300, 50));
-		viewSwitcher.setMaximumSize(new Dimension(20000, 50));
-
-		header.add(viewSwitcher);
-
-		final JPanel topButtons = new JPanel();
-
-		final GridLayout experimentLayout = new GridLayout(0, 4);
-		topButtons.setLayout(experimentLayout);
-
-		jName = new JButton("<html><font color='white'><b>"
-				+ "Name" + "</b></font></html>");
-		if(namesort == 1){
-			try {
-				final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
-				jName.setIcon(new ImageIcon(img));
-				jName.setText("<html><font color='white'><b>"
-						+ "Name" + "</b></font></html>");
-			} catch (IOException ex) {}
-			catch(IllegalArgumentException ex){
-				jName.setText("<html><font color='white'><b>"
-						+ "Name ^" + "</b></font></html>");
-			}
-		}
-		else if(namesort == 2){
-			try {
-				final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
-				jName.setIcon(new ImageIcon(img));
-				jName.setText("<html><font color='white'><b>"
-						+ "Name" + "</b></font></html>");
-			} catch (IOException ex) {}
-			catch(IllegalArgumentException ex){
-				jName.setText("<html><font color='white'><b>"
-						+ "Name v" + "</b></font></html>");
-			}
-		}
-
-
+		
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, teamRadioButton, 0, SpringLayout.VERTICAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.EAST, teamRadioButton, 0, SpringLayout.WEST, personalRadioButton);
+		
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, personalRadioButton, 0, SpringLayout.VERTICAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, personalRadioButton, 0, SpringLayout.HORIZONTAL_CENTER, apanel);
+		
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, bothRadioButton, 0, SpringLayout.VERTICAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.WEST, bothRadioButton, 0, SpringLayout.EAST, personalRadioButton);
+		return apanel;
+		
+	}
+	
+	/**
+	 * Creates the buttons used for sorting
+	 * @return the panel containing all sorting buttons
+	 */
+	private JPanel getSortButtons(){
+		JPanel apanel = new JPanel();
+		apanel.setPreferredSize(new Dimension(50, 50));
+		apanel.setLayout(new GridLayout(1,4));
+		apanel.setBorder(BorderFactory.createLoweredBevelBorder());
+		apanel.setBorder(new MatteBorder(5, 5, 5, 5, Color.WHITE));
+		
+		
+		jName = new JButton("<html><font color='white'><b>" + "Name" + "</b></font></html>");
 		jName.setBackground(CalendarStandard.CalendarRed);
 		jName.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		jName.setToolTipText("Sort by Name.");
+		jName.setToolTipText("Sort by Name");
 		//sort by name
-		jName.addMouseListener(new MouseAdapter() {
+		jName.addActionListener(new ActionListener(){
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				startDatesort = 0;
-				endDatesort = 0;
-				dessort = 0;
-				Collections.sort(eventList);
-				if(namesort == 1){
-					namesort = 2;
-					Collections.reverse(eventList);
+			public void actionPerformed(ActionEvent e) {
+				clearButtons();
+				if(sort_mode == Sort_Type.NAME){
+					reverse_sort = !reverse_sort;
 				}
-				else if(namesort == 2 || namesort == 0){
-					namesort = 1;
+				else{
+					sort_mode = Sort_Type.NAME;
+					reverse_sort = false;
 				}
-				updateView();
+				
+				if(!reverse_sort){
+					try {
+						final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
+						jName.setIcon(new ImageIcon(img));
+						jName.setText("<html><font color='white'><b>" + "Name" + "</b></font></html>");
+					} 
+					catch (IOException ex) {}
+					catch(IllegalArgumentException ex){
+						jName.setText("<html><font color='white'><b>" + "Name ^" + "</b></font></html>");
+					}
+				}
+				else{
+					try {
+						final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+						jName.setIcon(new ImageIcon(img));
+						jName.setText("<html><font color='white'><b>" + "Name" + "</b></font></html>");
+					} 
+					catch (IOException ex) {}
+					catch(IllegalArgumentException ex){
+						jName.setText("<html><font color='white'><b>"+ "Name v" + "</b></font></html>");
+					}
+				}
+				sort();
 			}
-
 		});
-
-
-
-		jStartDate = new JButton("<html><font color='white'><b>"
-				+ "Start Date" + "</b></font></html>");
+		
+		jStartDate = new JButton("<html><font color='white'><b>" + "Start Date" + "</b></font></html>");
 		jStartDate.setBackground(CalendarStandard.CalendarRed);
-
-		if(startDatesort == 1){
-			try {
-				final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
-				jStartDate.setIcon(new ImageIcon(img));
-				jStartDate.setText("<html><font color='white'><b>"
-						+ "Start Date" + "</b></font></html>");
-			} catch (IOException ex) {}
-			catch(IllegalArgumentException ex){
-				jStartDate.setText("<html><font color='white'><b>"
-						+ "Start Date ^" + "</b></font></html>");
-			}
-		}
-		else if(startDatesort == 2){
-			try {
-				final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
-				jStartDate.setIcon(new ImageIcon(img));
-				jStartDate.setText("<html><font color='white'><b>"
-						+ "Start Date" + "</b></font></html>");
-			} catch (IOException ex) {}
-			catch(IllegalArgumentException ex){
-				jStartDate.setText("<html><font color='white'><b>"
-						+ "Start Date v" + "</b></font></html>");
-			}
-		}
-
 		jStartDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		jStartDate.setToolTipText("Sort by Start Date.");
-
-		// sort by date 
-		jStartDate.addMouseListener(new MouseAdapter() {
+		jStartDate.setToolTipText("Sort by Start Date");
+		jStartDate.addActionListener(new ActionListener(){
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				namesort = 0;
-				dessort = 0;
-				Collections.sort(eventList, new Comparator<Event>() {
-
-					@Override 
-					public int compare(Event e1, Event e2) {
-						int reslut = 0;
-						if(e1.getStartTime().before(e2.getStartTime()))
-						{
-							reslut = -1;
-						}
-						else if(e1.getStartTime().after(e2.getStartTime())) 
-						{
-							reslut = 1;
-						}
-						return reslut;
+			public void actionPerformed(ActionEvent e) {
+				clearButtons();
+				if(sort_mode == Sort_Type.START_DATE){
+					reverse_sort = !reverse_sort;
+				}
+				else{
+					sort_mode = Sort_Type.START_DATE;
+					reverse_sort = false;
+				}
+				
+				if(!reverse_sort){
+					try {
+						final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
+						jStartDate.setIcon(new ImageIcon(img));
+						jStartDate.setText("<html><font color='white'><b>" + "Start Date" + "</b></font></html>");
+					} 
+					catch (IOException ex) {}
+					catch(IllegalArgumentException ex){
+						jStartDate.setText("<html><font color='white'><b>" + "Start Date ^" + "</b></font></html>");
 					}
-				});
-				if(startDatesort == 1){
-					startDatesort = 2;
-					Collections.reverse(eventList);
 				}
-				else if(startDatesort == 2 || startDatesort == 0){
-					startDatesort = 1;
+				else{
+					try {
+						final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+						jStartDate.setIcon(new ImageIcon(img));
+						jStartDate.setText("<html><font color='white'><b>" + "Start Date" + "</b></font></html>");
+					} 
+					catch (IOException ex) {}
+					catch(IllegalArgumentException ex){
+						jStartDate.setText("<html><font color='white'><b>"+ "Start Date v" + "</b></font></html>");
+					}
 				}
-				updateView();
+				sort();
 			}
 		});
-
-
-
-		jEndDate = new JButton("<html><font color='white'><b>"
-				+ "End Date" + "</b></font></html>");
+		
+		
+		jEndDate = new JButton("<html><font color='white'><b>" + "End Date" + "</b></font></html>");
 		jEndDate.setBackground(CalendarStandard.CalendarRed);
-
-		if(endDatesort == 1){
-			try {
-				final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
-				jEndDate.setIcon(new ImageIcon(img));
-				jEndDate.setText("<html><font color='white'><b>"
-						+ "End Date" + "</b></font></html>");
-			} catch (IOException ex) {}
-			catch(IllegalArgumentException ex){
-				jEndDate.setText("<html><font color='white'><b>"
-						+ "End Date ^" + "</b></font></html>");
-			}
-		}
-		else if(endDatesort == 2){
-			try {
-				final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
-				jEndDate.setIcon(new ImageIcon(img));
-				jEndDate.setText("<html><font color='white'><b>"
-						+ "End Date" + "</b></font></html>");
-			} catch (IOException ex) {}
-			catch(IllegalArgumentException ex){
-				jEndDate.setText("<html><font color='white'><b>"
-						+ "End Date v" + "</b></font></html>");
-			}
-		}
-
 		jEndDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		jEndDate.setToolTipText("Sort by End Date.");
-
-		// sort by date 
-		jEndDate.addMouseListener(new MouseAdapter() {
+		jEndDate.setToolTipText("Sort by END Date");
+		jEndDate.addActionListener(new ActionListener(){
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				namesort = 0;
-				dessort = 0;
-				Collections.sort(eventList, new Comparator<Event>() {
-
-					@Override 
-					public int compare(Event e1, Event e2) {
-						int result = 0;
-						if(e1.getEndTime().before(e2.getEndTime()))
-						{
-							result = -1;
-						}
-						else if(e1.getEndTime().after(e2.getEndTime())) 
-						{
-							result = 1;
-						}
-						return result;
+			public void actionPerformed(ActionEvent e) {
+				clearButtons();
+				if(sort_mode == Sort_Type.END_DATE){
+					reverse_sort = !reverse_sort;
+				}
+				else{
+					sort_mode = Sort_Type.END_DATE;
+					reverse_sort = false;
+				}
+				
+				if(!reverse_sort){
+					try {
+						final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
+						jEndDate.setIcon(new ImageIcon(img));
+						jEndDate.setText("<html><font color='white'><b>" + "End Date" + "</b></font></html>");
+					} 
+					catch (IOException ex) {}
+					catch(IllegalArgumentException ex){
+						jEndDate.setText("<html><font color='white'><b>" + "End Date ^" + "</b></font></html>");
 					}
-				});
-				if(endDatesort == 1){
-					endDatesort = 2;
-					Collections.reverse(eventList);
 				}
-				else if(endDatesort == 2 || endDatesort == 0){
-					endDatesort = 1;
+				else{
+					try {
+						final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+						jEndDate.setIcon(new ImageIcon(img));
+						jEndDate.setText("<html><font color='white'><b>" + "End Date" + "</b></font></html>");
+					} 
+					catch (IOException ex) {}
+					catch(IllegalArgumentException ex){
+						jEndDate.setText("<html><font color='white'><b>"+ "End Date v" + "</b></font></html>");
+					}
 				}
-				updateView();
+				sort();
 			}
 		});
-
-
-		jDescription = new JButton("<html><font color='white'><b>"
-				+ "Description" + "</b></font></html>");
+		
+		jDescription = new JButton("<html><font color='white'><b>" + "Description" + "</b></font></html>");
 		jDescription.setBackground(CalendarStandard.CalendarRed);
-		if(dessort == 1){
-			try {
-				final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
-				jDescription.setIcon(new ImageIcon(img));
-				jDescription.setText("<html><font color='white'><b>"
-						+ "Description" + "</b></font></html>");
-			} catch (IOException ex) {}
-			catch(IllegalArgumentException ex){
-				jDescription.setText("<html><font color='white'><b>"
-						+ "Description ^" + "</b></font></html>");
-			}
-		}
-		else if(dessort == 2){
-			try {
-				final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
-				jDescription.setIcon(new ImageIcon(img));
-				jDescription.setText("<html><font color='white'><b>"
-						+ "Description" + "</b></font></html>");
-			} catch (IOException ex) {}
-			catch(IllegalArgumentException ex){
-				jDescription.setText("<html><font color='white'><b>"
-						+ "Description v" + "</b></font></html>");
-			}
-		}
-
-		jDescription.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		jDescription.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		jDescription.setToolTipText("Sort by Description.");
-		jDescription.addMouseListener(new MouseAdapter() {
+		jDescription.setToolTipText("Sort by Description");
+		jDescription.addActionListener(new ActionListener(){
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				namesort = 0;
-				startDatesort = 0;
-				endDatesort = 0;
-				Collections.sort(eventList, new Comparator<Event>() {
-
-					@Override 
-					public int compare(Event e1, Event e2) {
-						return e1.getDescription().compareTo(e2.getDescription());
+			public void actionPerformed(ActionEvent e) {
+				clearButtons();
+				if(sort_mode == Sort_Type.DESCRIPTION){
+					reverse_sort = !reverse_sort;
+				}
+				else{
+					sort_mode = Sort_Type.DESCRIPTION;
+					reverse_sort = false;
+				}
+				
+				if(!reverse_sort){
+					try {
+						final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
+						jDescription.setIcon(new ImageIcon(img));
+						jDescription.setText("<html><font color='white'><b>" + "Description" + "</b></font></html>");
+					} 
+					catch (IOException ex) {}
+					catch(IllegalArgumentException ex){
+						jDescription.setText("<html><font color='white'><b>" + "Description ^" + "</b></font></html>");
 					}
-				});
-				if(dessort == 1){
-					dessort = 2;
-					Collections.reverse(eventList);
 				}
-				else if(dessort == 2 || dessort == 0){
-					dessort = 1;
+				else{
+					try {
+						final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+						jDescription.setIcon(new ImageIcon(img));
+						jDescription.setText("<html><font color='white'><b>" + "Description" + "</b></font></html>");
+					} 
+					catch (IOException ex) {}
+					catch(IllegalArgumentException ex){
+						jDescription.setText("<html><font color='white'><b>"+ "Description v" + "</b></font></html>");
+					}
 				}
-				updateView();
+				sort();
 			}
 		});
+		
+		apanel.add(jName);
+		apanel.add(jStartDate);
+		apanel.add(jEndDate);
+		apanel.add(jDescription);
 
-
-
-		final GridBagConstraints c = new GridBagConstraints();
-		c.anchor = GridBagConstraints.LINE_START;
-		c.fill = GridBagConstraints.BOTH;
-		c.gridx = 0;
-		topButtons.add(jName, c);
-		topButtons.add(jStartDate, c);
-		topButtons.add(jEndDate, c);
-		topButtons.add(jDescription, c);
-		topButtons.setPreferredSize(new Dimension(300, 50));
-		topButtons.setMaximumSize(new Dimension(20000, 50));
-		final Border loweredbevel1 = BorderFactory.createLoweredBevelBorder();
-		topButtons.setBorder(loweredbevel1);
-		topButtons.setBorder(new MatteBorder(5, 5, 5, 5, Color.WHITE));
-
-		header.add(topButtons);
-
-		scrollPane.setColumnHeaderView(header);
-
-
-		for(int i = 0; i < eventList.size(); i++){
-			EventViewPanel eventPanel = new EventViewPanel(eventList.get(i));
-			Image nameImg;
-			Image scaleImg;
-			JLabel name = new JLabel(eventList.get(i).getName(), JLabel.LEFT);
-			name.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
-			try {
-				if (eventList.get(i).getIsPersonal())
-				{
-					nameImg = ImageIO.read(getClass().getResource("PersonalEvent_Icon.png"));
-					scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-					name.setIcon(new ImageIcon(scaleImg));
-				}
-				else
-				{
-					nameImg = ImageIO.read(getClass().getResource("TeamEvent_Icon.png"));
-					scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-					name.setIcon(new ImageIcon(scaleImg));
-				}
-			} catch (IOException | IllegalArgumentException e) {
-
-			}
-
-			SimpleDateFormat df = new SimpleDateFormat();
-			df.applyPattern("EEEE, MMMM d, y - hh:mm a");
-
-			JLabel dateStart = new JLabel("" + 
-					df.format(eventList.get(i).getStartTime().getTime()), JLabel.LEFT);
-			dateStart.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
-			JLabel dateEnd = new JLabel("" + 
-					df.format(eventList.get(i).getEndTime().getTime()), JLabel.LEFT);
-			dateEnd.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
-			JLabel description = new JLabel("<HTML>" + 
-					eventList.get(i).getDescription() + "</HTML>", JLabel.LEFT);
-			description.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
-
-			eventPanel.setLayout(experimentLayout);
-			c.anchor = GridBagConstraints.BASELINE_LEADING;
-			c.fill = GridBagConstraints.BASELINE_LEADING;
-			c.weightx = 1;
-			eventPanel.add(name, c);
-			eventPanel.add(dateStart, c);
-			eventPanel.add(dateEnd, c);
-			eventPanel.add(description, c);
-			eventPanel.setBackground(CalendarStandard.CalendarYellow);
-			eventPanel.setPreferredSize(new Dimension(300, 75));
-			eventPanel.setMaximumSize(new Dimension(20000, 75));
-			Border loweredbevel = BorderFactory.createLoweredBevelBorder();
-			eventPanel.setBorder(loweredbevel);
-			eventPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
-			// To change cursor as it moves over this event pannel
-			eventPanel.setToolTipText("Click to Edit or Delete this Event.");
-			eventPanel.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					if (e.getClickCount() >= 1)
-					{
-						GUIEventController.getInstance().editEvent(
-								((EventViewPanel)e.getComponent()).getEvent());
-					}
-				}
-			});
-
-		}
+		return apanel;
 	}
-
+			
 	/**
-	 * Method updateList.
+	 * Updates the event panel list and then displays them
 	 */
 	public void updateList(){
-		eventPanel.removeAll();
 		setEventList();
 		setupPanels();
 	}
 
 	/**
-	 * Method updateView.
+	 * Switches to the given view mode 
+	 * @param newMode the viewing mode to change to
 	 */
-	public void updateView(){
-		eventPanel.removeAll();
-		setupPanels();
-	}
-
 	private void switchView(ViewingMode newMode){
 		mode = newMode;
-		calProps.setEventViewMode(mode.ordinal());
+		if( calProps != null){
+			calProps.setEventViewMode(mode.ordinal());
+		}
 		this.updateList();
 	}
 
@@ -640,18 +524,19 @@ public class EventFullView extends JPanel{
 	 */
 	protected void applyCalProps(){
 
-		calProps = CalendarPropsModel.getInstance().getCalendarProps(
-				ConfigManager.getConfig().getProjectName() + "-"
-						+ ConfigManager.getConfig().getUserName() + "-PROPS");
+		calProps = CalendarPropsModel.getInstance().getCalendarProps( ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName() + "-PROPS");
+		
 		if(initialized && calProps != null){
 			mode =  ViewingMode.values()[calProps.getEventViewMode()];
 
-
 			switch (calProps.getEventViewMode()){
+			
 			case 0: viewSwitchGroup.setSelected(teamRadioButton.getModel(), true);
 			break;
+			
 			case 1: viewSwitchGroup.setSelected(personalRadioButton.getModel(), true);
 			break;
+			
 			case 2: viewSwitchGroup.setSelected(bothRadioButton.getModel(), true);
 			break;
 			}
@@ -659,6 +544,34 @@ public class EventFullView extends JPanel{
 			updateList();
 
 		}
+	}
+	
+	/**
+	 * Sorts the list with the current sort_mode and reverse if needed
+	 */
+	protected void sort(){
+		Collections.sort(eventPanelList, new Comparator<EventViewPanel>() {
+			@Override 
+			public int compare(EventViewPanel e1, EventViewPanel e2) {
+				return e1.compareTo(e2, sort_mode);
+			}
+		});
+		
+		if(reverse_sort){
+			Collections.reverse(eventPanelList);
+		}
+		
+		setupPanels();
+	}
+	
+	/**
+	 * Clear the icons from the sort buttons
+	 */
+	private void clearButtons(){
+		jName.setIcon(null);
+		jStartDate.setIcon(null);
+		jEndDate.setIcon(null);
+		jDescription.setIcon(null);
 	}
 
 }

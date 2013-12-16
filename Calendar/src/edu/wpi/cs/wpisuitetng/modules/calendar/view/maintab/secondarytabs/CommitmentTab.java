@@ -81,10 +81,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
-/* @author CS Anonymous
- * @version $Revision: 1.0 $
- */
 /**
+ * Create/edit commitment tab.
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
@@ -907,7 +905,7 @@ public class CommitmentTab extends JPanel {
 		hourSpinner.addChangeListener(new ChangeListener(){
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				final GregorianCalendar cal = new GregorianCalendar();
+				GregorianCalendar cal = new GregorianCalendar();
 				cal.setTime((Date) hourSpinner.getValue());
 				
 				 boolean AMPMFlag;
@@ -942,6 +940,26 @@ public class CommitmentTab extends JPanel {
 						}						
 						firstRun = false;
 					}
+					
+/////				
+					//boolean AMPMFlag;
+					cal = new GregorianCalendar();
+					cal.setTime((Date) hourSpinner.getValue());
+					
+					if (cal.get(Calendar.HOUR) == 12 || cal.get(Calendar.HOUR) == 01) {
+						System.out.println("AMPMflag is true. cal time is " + cal.getTime().toString());
+						AMPMFlag = true;
+					}
+					else {
+						AMPMFlag = false;
+					}
+					
+					if (AMPMFlag) {
+							cal.setTime((Date)AMPMSpinner.getValue());
+							cal.add(Calendar.AM_PM, 1);  
+							AMPMSpinner.setValue(cal.getTime());
+					}
+					
 
 					//checkTimeSpinnerStatus(hourSpinner, enumTimeSpinner.HOUR);
 					checkSaveBtnStatus();

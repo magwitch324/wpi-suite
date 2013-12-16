@@ -54,13 +54,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 
-/*
+/**
  * This class is used for creating the commitment View 
  * tab that shows all commitments including those 
  * that have been completed.
- * 
- * */
-/**@author CS Anonymous
+/* @author CS Anonymous
  * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
@@ -237,7 +235,7 @@ public class CommitmentFullView extends JPanel{
 		bothRadioButton.setBackground(Color.WHITE);
 		bothRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
-		bothRadioButton.setToolTipText("View All Commitments.");
+		bothRadioButton.setToolTipText("View All Commitments");
 		bothRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -311,7 +309,7 @@ public class CommitmentFullView extends JPanel{
 		jName.setBackground(CalendarStandard.CalendarRed);
 		jName.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		jName.setToolTipText("Sort by Name.");
+		jName.setToolTipText("Sort by Name");
 		//sort by name
 		jName.addMouseListener(new MouseAdapter() {
 			@Override
@@ -365,7 +363,7 @@ public class CommitmentFullView extends JPanel{
 
 		jDueDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		jDueDate.setToolTipText("Sort by Due Date.");
+		jDueDate.setToolTipText("Sort by Due Date");
 
 		// sort by date 
 		jDueDate.addMouseListener(new MouseAdapter() {
@@ -432,7 +430,7 @@ public class CommitmentFullView extends JPanel{
 
 		jDescription.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		// To change cursor as it moves over this button
-		jDescription.setToolTipText("Sort by Description.");
+		jDescription.setToolTipText("Sort by Description");
 		jDescription.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -486,7 +484,7 @@ public class CommitmentFullView extends JPanel{
 		jStatus.setBackground(CalendarStandard.CalendarRed);
 		jStatus.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		jStatus.setToolTipText("Sort by Status.");
+		jStatus.setToolTipText("Sort by Status");
 
 		jStatus.addMouseListener(new MouseAdapter() {
 			@Override
@@ -582,7 +580,7 @@ public class CommitmentFullView extends JPanel{
 			Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 			commitmentPanel.setBorder(loweredbevel);
 			commitmentPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
-			commitmentPanel.setToolTipText("Click to Edit or Delete this Commitment.");
+			commitmentPanel.setToolTipText("Click to Edit or Delete this Commitment");
 			// To change cursor as it moves over this commitment pannel
 			commitmentPanel.addMouseListener(new MouseAdapter() {
 				@Override

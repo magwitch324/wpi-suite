@@ -35,13 +35,14 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.Filter
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+
 /**
-  * @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+ * The main GUI event controller that takes care of tab creation,
+ * setting up mian tab view and tool bar view,
+ * set scroll bar value, event full view and commitment full view.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
  public class GUIEventController {
 	private static GUIEventController instance = null;
 	private int scrollBarValue = 659;

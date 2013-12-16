@@ -50,10 +50,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentViewPanel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 /**
-  * @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
- public class CategoryTab extends JPanel {
+ * Create/edit catergory tab.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
+public class CategoryTab extends JPanel {
 
 	private final CategoryList teamCategories;
 	private final CategoryList personalCategories;
@@ -150,6 +151,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 		scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
 		scrollPane.setBackground(Color.WHITE);
 		viewPanel.add(scrollPane);
 		
