@@ -18,6 +18,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
@@ -32,9 +33,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetPropsController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
@@ -56,7 +59,8 @@ public class MyCalendar extends AbCalendar {
 	JRadioButton bothCalendar;
 	private boolean preInitialized;
 	private JCheckBox showteam;
-
+	JComboBox<Filter> filterComboBox;
+	Filter noneFilter;
 	/**
 	 * Constructor for MyCalendar.
 	 */
@@ -86,15 +90,15 @@ public class MyCalendar extends AbCalendar {
 		layout.putConstraint(SpringLayout.SOUTH, datapanel, 0, SpringLayout.SOUTH, viewbtnpanel);
 		this.add(datapanel);
 
-		final JComboBox filter = new JComboBox();
-		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filter, 
+		filterComboBox = new JComboBox();
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filterComboBox, 
 				0, SpringLayout.VERTICAL_CENTER, datapanel);
-		layout.putConstraint(SpringLayout.WEST, filter, 30, SpringLayout.EAST, datapanel);
-		layout.putConstraint(SpringLayout.EAST, filter, -5, SpringLayout.EAST, this);
-		filter.setMaximumSize(new Dimension(20, 20));
-		filter.setBackground(CalendarStandard.CalendarYellow);
-		filter.setToolTipText("Select Filters");
-		this.add(filter);
+		layout.putConstraint(SpringLayout.WEST, filterComboBox, 30, SpringLayout.EAST, datapanel);
+		layout.putConstraint(SpringLayout.EAST, filterComboBox, -5, SpringLayout.EAST, this);
+		filterComboBox.setMaximumSize(new Dimension(20, 20));
+		filterComboBox.setBackground(CalendarStandard.CalendarYellow);
+		filterComboBox.setToolTipText("Select Filters");
+		this.add(filterComboBox);
 
 
 
@@ -108,6 +112,50 @@ public class MyCalendar extends AbCalendar {
 		viewbtns[currenttype.getCurrentType()].setSelected(true);
 
 		setView();
+		
+		//update the filter information
+		noneFilter = new Filter();
+		noneFilter.setID(0);
+		
+
+	}
+	
+	
+	/**
+	 * Updates the filter list in the FilterComboBox
+	 */
+	protected void updateFilterList(){
+
+		final int selectedFilter;
+
+		if(filterComboBox.getSelectedItem() != null){
+			selectedFilter = ((Filter) filterComboBox.getSelectedItem()).getID();
+		} else {
+			selectedFilter = 0;
+		}
+
+
+		//removes the current data from the ComboBox
+		filterComboBox.removeAllItems();
+
+
+
+		//adds the "none" filter
+		filterComboBox.addItem(noneFilter);
+
+		// gets Caldata
+
+		//extracts the filter list
+		final List<Filter> filters = myCalData.getFilters().getFilters();
+
+		//adds the categories to the comboBox
+		for (Filter filter:filters){
+			filterComboBox.addItem(filter);
+		}
+
+		if(selectedFilter != 0){
+			filterComboBox.setSelectedItem(myCalData.getFilters().getFilter(selectedFilter));
+		}
 
 	}
 
@@ -153,6 +201,8 @@ public class MyCalendar extends AbCalendar {
 			UpdateCalendarDataController.getInstance().updateCalendarData(myCalData);
 			teamCalData.removeYearOld();
 			UpdateCalendarDataController.getInstance().updateCalendarData(teamCalData);
+			
+			updateFilterList();
 		}
 
 	}
@@ -306,6 +356,7 @@ public class MyCalendar extends AbCalendar {
 		case 2: bothCalendar.setSelected(true);
 		break;
 		}
+		
 
 	}
 
