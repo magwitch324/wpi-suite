@@ -35,7 +35,7 @@ public class CategoryTest {
 	public void defaultConstructorTest(){
 		final Category testCategory = new Category ();
 		assertEquals("", testCategory.getName());
-		assertEquals(new Color(0),testCategory.getCategoryColor());
+		assertEquals(new Color(0), testCategory.getCategoryColor());
 		assertFalse(testCategory.getIsPersonal());
 	}
 	

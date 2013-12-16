@@ -45,9 +45,8 @@ public class EventViewPanel extends JPanel {
 	 * @param e Event
 	 */
 	public EventViewPanel(Event e) {
-		super();
 		event = e;
-		this.setLayout(new GridLayout(1,4));
+		this.setLayout(new GridLayout(1, 4));
 		//The name label with icon
 		final JLabel namelabel = new JLabel(event.getName(), JLabel.LEFT);
 		namelabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
