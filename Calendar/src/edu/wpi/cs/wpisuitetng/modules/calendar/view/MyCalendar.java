@@ -133,7 +133,7 @@ public class MyCalendar extends AbCalendar {
 	 * Updates the filter list in the FilterComboBox
 	 */
 	protected void updateFilterList(){
-
+		/*
 		final int selectedFilter;
 		Filter test = new Filter();
 		test.setName("a test filter");
@@ -169,7 +169,7 @@ public class MyCalendar extends AbCalendar {
 		if(selectedFilter != 0){
 			filterComboBox.setSelectedItem(myCalData.getFilters().getFilter(selectedFilter));
 		}
-
+		*/
 	}
 
 	@Override
@@ -307,7 +307,7 @@ public class MyCalendar extends AbCalendar {
 			}//else if the team is selected
 			
 			//Apply the selected filter
-			Filter selectedFilter = ((Filter) filterComboBox.getSelectedItem());
+			/*Filter selectedFilter = ((Filter) filterComboBox.getSelectedItem());
 			if(selectedFilter != null && selectedFilter.getID() != 0){
 				Iterator<Event> it = combinedEventList.getEvents().iterator();
 				 while(it.hasNext()){
@@ -324,7 +324,7 @@ public class MyCalendar extends AbCalendar {
 						 it2.remove();
 					 }
 				 }
-			}
+			}*/
 			
 			events = combinedEventList;
 			commitments = combinedCommList;
