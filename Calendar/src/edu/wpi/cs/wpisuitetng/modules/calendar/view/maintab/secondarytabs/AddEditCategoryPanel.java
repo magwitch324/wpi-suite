@@ -20,6 +20,8 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -119,6 +121,28 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_textFieldName.gridx = 1;
 		gbc_textFieldName.gridy = 0;
 		addEditFormPanel.add(textFieldName, gbc_textFieldName);
+		textFieldName.addKeyListener(new KeyListener(){
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(textFieldName.getText().equals("") || textFieldName.getText().trim().equals("")){
+					btnSave.setEnabled(false);
+				} else { 
+					btnSave.setEnabled(true);
+				}
+			}
+			
+		});
 		textFieldName.setColumns(10);
 		
 		final JLabel lblType = new JLabel("<html><font>" + "Type" + "</font>" 
@@ -239,6 +263,7 @@ public class AddEditCategoryPanel extends JPanel {
 		btnSave.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button		
 		horizontalBox_1.add(btnSave);
+		btnSave.setEnabled(false);
 
 		
 		final Component horizontalStrut = Box.createHorizontalStrut(20);
