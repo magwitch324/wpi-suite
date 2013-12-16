@@ -88,6 +88,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	private JPanel activeListPanel;
 	private SpringLayout activeListLayout;
 	private Filter editFilter;
+	protected List<FilterPanel> selectedFilters;
 	//private FilterPanel filterPanel;
 
 
@@ -195,6 +196,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		gbc_filterList.gridx = 0;
 		gbc_filterList.gridy = 0;
 		viewPanel.add(filterList, gbc_filterList);
+		
+		selectedFilters = new ArrayList<FilterPanel>();
 		
 		addButtonPanel();
 	}
@@ -637,7 +640,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			mainFilterListView();
 			addListeners();
 			populateFilterList();
-			viewPaneBtnStatus();
+			viewPaneBtnStatus(false);
 			revalidate();
 			repaint();
 		}
@@ -650,7 +653,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			filterName.setText("**New Filter**");
 			populateFilterList();
 			populateInactiveCatLists();
-			viewPaneBtnStatus();
+			viewPaneBtnStatus(false);
 			saveBtnStatus();
 			revalidate();
 			repaint();
@@ -663,7 +666,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			addEditViewListeners();
 			populateFilterList();
 			populateInactiveCatLists();
-			viewPaneBtnStatus();
+			viewPaneBtnStatus(false);
 			saveBtnStatus();
 			revalidate();
 			repaint();
@@ -757,18 +760,53 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			filterPanel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					if (e.getClickCount() >= 1 && mode == FilterMode.VIEWING){
+					if (e.getClickCount() > 1 && mode == FilterMode.VIEWING){
 						mode = FilterMode.EDITING;
 						refresh();
 						//addEditView();
 						editFilter = ((FilterPanel)e.getComponent()).getFilter();
 						filterName.setText(editFilter.getName());
 					}
-					else if(e.getClickCount() >= 1){
+					else if(e.getClickCount() > 1){
 						mode = FilterMode.EDITING;
 						//remove(editPanel);
 						refresh();
 						//addEditView();
+						editFilter = ((FilterPanel)e.getComponent()).getFilter();
+						filterName.setText(editFilter.getName());
+					}
+					else if (e.getClickCount() == 1 && mode == FilterMode.VIEWING){
+						mode = FilterMode.EDITING;
+						//addEditView();
+						final FilterPanel comp = (FilterPanel) e.getComponent();
+						if(selectedFilters.isEmpty() || e.isControlDown());
+						else
+						{
+							removeSelectedFilters(); //clear existing selections
+						}
+						selectedFilters.add(comp);
+						comp.setSelected(true);
+						btnEdit.setEnabled(true);
+						btnDelete.setEnabled(true);
+						editFilter = ((FilterPanel)e.getComponent()).getFilter();
+						filterName.setText(editFilter.getName());
+
+					}
+					else if(e.getClickCount() == 1){
+						mode = FilterMode.EDITING;
+						//remove(editPanel);
+						refresh();
+						//addEditView();
+						FilterPanel comp = (FilterPanel) e.getComponent();
+						if(selectedFilters.isEmpty() || e.isControlDown());
+						else
+						{
+							removeSelectedFilters(); //clear existing selections
+						}
+						selectedFilters.add(comp);
+						comp.setSelected(true);
+						btnEdit.setEnabled(true);
+						btnDelete.setEnabled(true);
 						editFilter = ((FilterPanel)e.getComponent()).getFilter();
 						filterName.setText(editFilter.getName());
 					}
@@ -783,6 +821,16 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			filterListLayout.putConstraint(SpringLayout.SOUTH,
 			filterListPanel, 0, SpringLayout.SOUTH, filterPanel);	
 	}
+	
+	
+	protected void removeSelectedFilters() {
+		for (FilterPanel fPanel: selectedFilters)
+		{
+			fPanel.setSelected(false);
+		}
+		selectedFilters.clear();
+	}
+	
 
 	
 	private void removeCatFromFilter(Category aCat, Filter aFilter){
@@ -870,14 +918,14 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		// inset said active list
 	}
 	
-	private void viewPaneBtnStatus(){
-		if(true){
-			btnEdit.setEnabled(false);
-			btnDelete.setEnabled(false);
-		}
-		else{
+	private void viewPaneBtnStatus(boolean b){
+		if(b){
 			btnEdit.setEnabled(true);
 			btnDelete.setEnabled(true);
+		}
+		else{
+			btnEdit.setEnabled(false);
+			btnDelete.setEnabled(false);
 		}
 	}
 	

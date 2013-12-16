@@ -29,6 +29,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
 public class FilterPanel extends JPanel{
 	private Filter filter;
 	private JLabel lblFilterName;
+	private boolean selected = false;
 	
 	public FilterPanel(){
 		setPreferredSize(new Dimension(80, 50));
@@ -97,5 +98,21 @@ public class FilterPanel extends JPanel{
 	
 	public Filter getFilter() {
 		return filter;
+	}
+	
+	
+	public void setSelected(boolean b) {
+		// TODO Auto-generated method stub
+		selected = b;
+		if(b)
+			setBackground(CalendarStandard.HeatMapRed);
+		else
+			setBackground(CalendarStandard.CalendarYellow);
+		
+	}
+
+	public boolean getSelected() {
+		// TODO Auto-generated method stub
+		return selected;
 	}
 }
