@@ -9,17 +9,14 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Comparator;
 import java.util.GregorianCalendar;
 
 import javax.imageio.ImageIO;
@@ -27,11 +24,9 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 
 /**
  * @author CS Anonymous
@@ -53,8 +48,8 @@ public class EventViewPanel extends JPanel {
 		super();
 		event = e;
 		this.setLayout(new GridLayout(1,4));
+		//The name label with icon
 		JLabel namelabel = new JLabel(event.getName(), JLabel.LEFT);
-	
 		namelabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		try {
 			Image nameImg;
@@ -73,16 +68,19 @@ public class EventViewPanel extends JPanel {
 
 		}
 		
-		
+		//Formatter used for dates
 		SimpleDateFormat df = new SimpleDateFormat();
 		df.applyPattern("EEEE, MMMM d, y - hh:mm a");
 		
+		//Label for the start time of the event
 		JLabel start_date = new JLabel("" + df.format(event.getStartTime().getTime()), JLabel.LEFT);
 		start_date.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		
+		//Label for the end time of the event
 		JLabel end_date = new JLabel("" + df.format(event.getEndTime().getTime()), JLabel.LEFT);
 		end_date.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		
+		//JLabel for the description of the event
 		JLabel description = new JLabel("<HTML>" + event.getDescription() + "</HTML>", JLabel.LEFT);
 		description.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		
@@ -108,14 +106,23 @@ public class EventViewPanel extends JPanel {
 		});
 	}
 
+	/**
+	 * Compare this with the given event view panel based on the given sort type
+	 * @param other the event view panel to compare
+	 * @param sort_type	the property that is being compared
+	 * @return 0 if they are the same for the sort_type
+	 * 		   1 if this is greater than other for the sort_type
+	 * 		   -1 if this is lesser than other for the sort_type
+	 */
 	public int compareTo(EventViewPanel other, Sort_Type sort_type){
-
+		//compare based on name
 		if(sort_type == Sort_Type.NAME){
 			String myname = this.event.getName();
 			String othername = other.event.getName();
 
 			return myname.compareTo(othername);
 		}
+		//compare based on the start date
 		else if(sort_type == Sort_Type.START_DATE){
 			GregorianCalendar mycal = this.event.getStartTime();
 			GregorianCalendar othercal = other.event.getStartTime();
@@ -130,6 +137,7 @@ public class EventViewPanel extends JPanel {
 				return 0;
 			}
 		}
+		//compare based on the end date
 		else if(sort_type == Sort_Type.END_DATE){
 			GregorianCalendar mycal = this.event.getEndTime();
 			GregorianCalendar othercal = other.event.getEndTime();
@@ -144,12 +152,14 @@ public class EventViewPanel extends JPanel {
 				return 0;
 			}
 		}
+		//compare based on the description
 		else if(sort_type == Sort_Type.DESCRIPTION){
 			String mydesc = this.event.getDescription();
 			String otherdesc = other.event.getDescription();
 
 			return mydesc.compareTo(otherdesc);
 		}
+		//the sort type was undefined so return equal
 		return 0;
 	}
 

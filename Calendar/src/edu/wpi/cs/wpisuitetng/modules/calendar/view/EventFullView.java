@@ -11,21 +11,16 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -33,29 +28,23 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentFullView.ViewingMode;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.EventViewPanel.Sort_Type;
 
 /**
@@ -78,11 +67,13 @@ public class EventFullView extends JPanel{
 	
 	private boolean reverse_sort;
 
+	//Button group for sort type
 	JButton jName;
 	JButton jStartDate;
 	JButton jEndDate;
 	JButton jDescription;
 
+	//radio group for display type
 	JRadioButton bothRadioButton;
 	JRadioButton personalRadioButton;
 	JRadioButton teamRadioButton;
@@ -118,7 +109,7 @@ public class EventFullView extends JPanel{
 		eventPanel.setBackground(Color.WHITE);
 		
 		scrollPane = new JScrollPane(eventPanel, 
-				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		scrollPane.getHorizontalScrollBar().setUnitIncrement(20);
@@ -147,21 +138,18 @@ public class EventFullView extends JPanel{
 		eventPanelList = new ArrayList<EventViewPanel>(); 
 
 		if (mode == ViewingMode.TEAM){
-			System.out.println("TEAM");
 			if(pcalendar.getTeamCalData() != null){
 				for(Event event : pcalendar.getTeamCalData().getEvents().getEvents()){
 					eventPanelList.add(new EventViewPanel(event));
 				}
 			}
 		} else if (mode == ViewingMode.PERSONAL){
-			System.out.println("Personal");
 			if(pcalendar.getMyCalData() != null){
 				for(Event event : pcalendar.getMyCalData().getEvents().getEvents()){
 					eventPanelList.add(new EventViewPanel(event));
 				}
 			}
 		} else if(pcalendar.getTeamCalData() != null && pcalendar.getMyCalData() != null) { 
-			System.out.println("Both");
 			for(Event event : pcalendar.getTeamCalData().getEvents().getEvents()){
 				eventPanelList.add(new EventViewPanel(event));
 			}
@@ -170,7 +158,7 @@ public class EventFullView extends JPanel{
 				eventPanelList.add(new EventViewPanel(event));
 			}
 		}
-		
+		//Sorts the list of eventPanelList based on sort type and reverse_sort
 		sort();
 	}
 
@@ -182,20 +170,22 @@ public class EventFullView extends JPanel{
 		SpringLayout layout = new SpringLayout();
 		eventPanel.setLayout(layout);
 		EventViewPanel last = null;
+		int event_height = 0;
 		for(EventViewPanel evp : eventPanelList) {
 			if(last == null){
-				layout.putConstraint(SpringLayout.NORTH, evp, 0, SpringLayout.NORTH, eventPanel);
+				layout.putConstraint(SpringLayout.NORTH, evp, 5, SpringLayout.NORTH, eventPanel);
 			}
 			else{
 				layout.putConstraint(SpringLayout.NORTH, evp, 0, SpringLayout.SOUTH, last);
 			}
 			
-			layout.putConstraint(SpringLayout.WEST, evp, 0, SpringLayout.WEST, eventPanel);
-			layout.putConstraint(SpringLayout.EAST, evp, 0, SpringLayout.EAST, eventPanel);
+			layout.putConstraint(SpringLayout.WEST, evp, 5, SpringLayout.WEST, eventPanel);
+			layout.putConstraint(SpringLayout.EAST, evp, -5, SpringLayout.EAST, eventPanel);
 			eventPanel.add(evp);
-			
+			event_height += evp.getPreferredSize().height;
 			last = evp;
 		}
+		eventPanel.setPreferredSize(new Dimension(10, event_height));
 		scrollPane.revalidate();
 		scrollPane.repaint();
 	}
@@ -208,6 +198,8 @@ public class EventFullView extends JPanel{
 		final JViewport port = new JViewport();
 		final JPanel apanel = new JPanel();
 		apanel.setBackground(Color.WHITE);
+		apanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		apanel.setBorder(new MatteBorder(0, 0, 2, 0, Color.BLACK));
 		SpringLayout layout = new SpringLayout();
 		apanel.setLayout(layout);
 		
@@ -501,15 +493,12 @@ public class EventFullView extends JPanel{
 		apanel.add(jStartDate);
 		apanel.add(jEndDate);
 		apanel.add(jDescription);
-		
-		
-		
-		
+
 		return apanel;
 	}
 			
 	/**
-	 * Method updateList.
+	 * Updates the event panel list and then displays them
 	 */
 	public void updateList(){
 		setEventList();
@@ -517,16 +506,14 @@ public class EventFullView extends JPanel{
 	}
 
 	/**
-	 * Method updateView.
+	 * Switches to the given view mode 
+	 * @param newMode the viewing mode to change to
 	 */
-	public void updateView(){
-		eventPanel.removeAll();
-		setupPanels();
-	}
-
 	private void switchView(ViewingMode newMode){
 		mode = newMode;
-		calProps.setEventViewMode(mode.ordinal());
+		if( calProps != null){
+			calProps.setEventViewMode(mode.ordinal());
+		}
 		this.updateList();
 	}
 
@@ -557,6 +544,9 @@ public class EventFullView extends JPanel{
 		}
 	}
 	
+	/**
+	 * Sorts the list with the current sort_mode and reverse if needed
+	 */
 	protected void sort(){
 		Collections.sort(eventPanelList, new Comparator<EventViewPanel>() {
 			@Override 
@@ -572,6 +562,9 @@ public class EventFullView extends JPanel{
 		setupPanels();
 	}
 	
+	/**
+	 * Clear the icons from the sort buttons
+	 */
 	private void clearButtons(){
 		jName.setIcon(null);
 		jStartDate.setIcon(null);
