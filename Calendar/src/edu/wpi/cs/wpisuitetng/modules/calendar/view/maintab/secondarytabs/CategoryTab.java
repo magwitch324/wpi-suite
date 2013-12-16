@@ -195,7 +195,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 		btnDelete = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
-			btnDelete = new JButton("Delete Category", new ImageIcon(img));
+			final Image newimg = img.getScaledInstance( 30, 30,  java.awt.Image.SCALE_SMOOTH ) ;
+			btnDelete = new JButton("Delete Category", new ImageIcon(newimg));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
 			btnDelete.setText("Delete Category");
