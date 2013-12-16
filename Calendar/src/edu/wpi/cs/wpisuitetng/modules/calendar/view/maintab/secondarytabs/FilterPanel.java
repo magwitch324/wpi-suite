@@ -106,7 +106,7 @@ public class FilterPanel extends JPanel{
 		return filter;
 	}
 	
-	
+
 	public void setSelected(boolean b) {
 		// TODO Auto-generated method stub
 		selected = b;

@@ -168,7 +168,7 @@ public class EventFullView extends JPanel{
 	 * which are in separate panels that can be scrolled and clicked*/
 	private void setupPanels() {
 		eventPanel.removeAll();
-		SpringLayout layout = new SpringLayout();
+		final SpringLayout layout = new SpringLayout();
 		eventPanel.setLayout(layout);
 		EventViewPanel last = null;
 		int event_height = 0;
@@ -201,15 +201,15 @@ public class EventFullView extends JPanel{
 		apanel.setBackground(Color.WHITE);
 		apanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		apanel.setBorder(new MatteBorder(0, 0, 2, 0, Color.BLACK));
-		SpringLayout layout = new SpringLayout();
+		final SpringLayout layout = new SpringLayout();
 		apanel.setLayout(layout);
 		
-		JPanel datadisplay = getDataDisplay();
+		final JPanel datadisplay = getDataDisplay();
 		layout.putConstraint(SpringLayout.NORTH, datadisplay, 0, SpringLayout.NORTH, apanel);
 		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datadisplay, 0, SpringLayout.HORIZONTAL_CENTER, apanel);
 		apanel.add(datadisplay);
 		
-		JPanel sortbuttons = getSortButtons();
+		final JPanel sortbuttons = getSortButtons();
 		layout.putConstraint(SpringLayout.NORTH, sortbuttons, 0, SpringLayout.SOUTH, datadisplay);
 		layout.putConstraint(SpringLayout.WEST, sortbuttons, 0, SpringLayout.WEST, apanel);
 		layout.putConstraint(SpringLayout.SOUTH, sortbuttons, 0, SpringLayout.SOUTH, apanel);
@@ -232,9 +232,9 @@ public class EventFullView extends JPanel{
 	 * @return The panel containing the data display radio buttons
 	 */
 	private JPanel getDataDisplay(){
-		JPanel apanel = new JPanel();
+		final JPanel apanel = new JPanel();
 		apanel.setBackground(Color.WHITE);
-		SpringLayout layout = new SpringLayout();
+		final SpringLayout layout = new SpringLayout();
 		apanel.setLayout(layout);
 		apanel.setPreferredSize(new Dimension(500, 50));
 		apanel.setMaximumSize(new Dimension(20000, 50));
@@ -247,7 +247,6 @@ public class EventFullView extends JPanel{
 		teamRadioButton.setBackground(Color.WHITE);
 		teamRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
-		teamRadioButton.setToolTipText("View Team Commitments");
 		teamRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -261,7 +260,6 @@ public class EventFullView extends JPanel{
 		personalRadioButton.setBackground(Color.WHITE);
 		personalRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
-		personalRadioButton.setToolTipText("View Personal Commitments");
 		personalRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -275,7 +273,6 @@ public class EventFullView extends JPanel{
 		bothRadioButton.setBackground(Color.WHITE);
 		bothRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
-		bothRadioButton.setToolTipText("View All Commitments");
 		bothRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -310,7 +307,7 @@ public class EventFullView extends JPanel{
 	 * @return the panel containing all sorting buttons
 	 */
 	private JPanel getSortButtons(){
-		JPanel apanel = new JPanel();
+		final JPanel apanel = new JPanel();
 		apanel.setPreferredSize(new Dimension(50, 50));
 		apanel.setLayout(new GridLayout(1,4));
 		apanel.setBorder(BorderFactory.createLoweredBevelBorder());
@@ -409,7 +406,7 @@ public class EventFullView extends JPanel{
 		jEndDate.setBackground(CalendarStandard.CalendarRed);
 		jEndDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		jEndDate.setToolTipText("Sort by END Date");
+		jEndDate.setToolTipText("Sort by End Date");
 		jEndDate.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
