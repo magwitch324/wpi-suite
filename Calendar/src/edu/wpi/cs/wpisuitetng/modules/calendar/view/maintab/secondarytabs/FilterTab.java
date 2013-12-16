@@ -90,10 +90,14 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	private SpringLayout activeListLayout;
 	private Filter editFilter;
 	protected List<FilterPanel> selectedFilters;
-	private CategoryList activeTeamCat;
-	private CategoryList activePersonalCat;
+	private List<Integer> activeTeamCat;
+	private List<Integer> activePersonalCat;
 	private CategoryList allCategories;
-
+	private List<Category> listOfActiveTeamCat;
+	private List<Category> listOfActivePersonalCat;
+	private List<Integer> newTeamCatList;
+	private List<Integer> newPersonalCatList;
+	
 
 	private enum FilterMode {
 		ADDING(0),
@@ -717,17 +721,17 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 				ConfigManager.getConfig().getProjectName() + 
 				"-" + ConfigManager.getConfig().getUserName()); 
 		
-		List<Integer> inactiveCatList = null;
-		List<Integer> activeCatList = null;
+		List<Integer> activeTeamCatList = newTeamCatList;
+		List<Integer> activePersonalCatList = newPersonalCatList;
 		
-		Filter newFilter = new Filter(name, inactiveCatList, activeCatList);
+		Filter newFilter = new Filter(name, activeTeamCatList, activePersonalCatList);
 		if(mode == FilterMode.ADDING){
 			calData.addFilter(newFilter);
 		}
 		else{
 			editFilter.setName(name);
-			editFilter.setInactiveCategories(inactiveCatList);
-			editFilter.setActiveCategories(activeCatList);
+			editFilter.setInactiveCategories(activeTeamCatList);
+			editFilter.setActiveCategories(activePersonalCatList);
 			calData.getFilters().update(editFilter);
 		}
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
@@ -859,12 +863,34 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	}
 	
 	private void populateInactiveCatLists(){
+		final CategoryList inactiveTeamCat = teamCategories; 
+		final CategoryList inactivePersonalCat = personalCategories; 
+		
+		if(mode == FilterMode.EDITING){
+			for(int i = 0; i < activeTeamCat.size(); i++){
+				for(int j = 0; j < inactiveTeamCat.getSize(); j++){
+					if(activeTeamCat.get(i) == inactiveTeamCat.getCategory(j).getID()){
+						inactiveTeamCat.remove(j);
+						break;
+					}
+				}
+			}
+			
+			for(int i = 0; i < activePersonalCat.size(); i++){
+				for(int j = 0; j < inactivePersonalCat.getSize(); j++){
+					if(activePersonalCat.get(i) == inactivePersonalCat.getCategory(j).getID()){
+						inactivePersonalCat.remove(j);
+						break;
+					}
+				}
+			}
+		}
 		
 		final List<Category> catList = new ArrayList<Category>();
 		final CategoryList bothCategories = new CategoryList();
-		final Category[] bothCatArray = new Category[teamCategories.getSize() + personalCategories.getSize()];
-		catList.addAll(teamCategories.getCategories());
-		catList.addAll(personalCategories.getCategories());
+		final Category[] bothCatArray = new Category[inactiveTeamCat.getSize() + inactivePersonalCat.getSize()];
+		catList.addAll(inactiveTeamCat.getCategories());
+		catList.addAll(inactivePersonalCat.getCategories());
 		for(int i = 0; i < catList.size(); i++)
 		{
 			bothCatArray[i] = catList.get(i);
@@ -878,9 +904,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		// CategoryPanel to keep track of spring layout constraints of previously added panel
 		CategoryPanel oldCatPanel = new CategoryPanel(); 
 		CategoryPanel catPanel = new CategoryPanel();
-		for(int i = 0; i < allCategories.getSize(); i++)
+		for(int i = 0; i < catList.size(); i++)
 		{
-			catPanel = new CategoryPanel(allCategories.getCategory(i));
+			catPanel = new CategoryPanel(catList.get(i));
 			//If first panel, add to top of list panel
 			if (i == 0)
 			{
@@ -912,11 +938,34 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	}
 	
 	private void populateActiveCatLists(){
+		
+		if(mode == FilterMode.ADDING){
+			listOfActiveTeamCat = null;
+			listOfActivePersonalCat = null;
+		}
+		else{
+			for(int i = 0; i < activeTeamCat.size(); i++){
+				for(int j = 0; j < teamCategories.getSize(); j++)
+					if(activeTeamCat.get(i) == teamCategories.getCategory(j).getID()){
+						listOfActiveTeamCat.add(teamCategories.getCategory(j));
+						break;
+					}
+			}
+		
+			for(int i = 0; i < activePersonalCat.size(); i++){
+				for(int j = 0; j < personalCategories.getSize(); j++)
+					if(activePersonalCat.get(i) == personalCategories.getCategory(j).getID()){
+						listOfActivePersonalCat.add(personalCategories.getCategory(j));
+						break;
+					}
+			}
+		}
+		
 		final List<Category> catList = new ArrayList<Category>();
 		final CategoryList bothCategories = new CategoryList();
-		final Category[] bothCatArray = new Category[activeTeamCat.getSize() + activePersonalCat.getSize()];
-		catList.addAll(activeTeamCat.getCategories());
-		catList.addAll(activePersonalCat.getCategories());
+		final Category[] bothCatArray = new Category[listOfActiveTeamCat.size() + listOfActivePersonalCat.size()];
+		catList.addAll(listOfActiveTeamCat);
+		catList.addAll(listOfActivePersonalCat);
 		for(int i = 0; i < catList.size(); i++)
 		{
 			bothCatArray[i] = catList.get(i);
