@@ -87,6 +87,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	private JPanel inactiveListPanel;
 	private JPanel activeListPanel;
 	private SpringLayout activeListLayout;
+	private Filter editFilter;
+	//private FilterPanel filterPanel;
 
 
 	private enum FilterMode {
@@ -127,8 +129,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		setLayout(gridBagLayout);
 		
 		/*addFilterList();
-		populateFilterList();
-		addListeners();*/
+		populateFilterList();*/
 		refresh();
 		initFlag = true;
 		}
@@ -540,14 +541,23 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			public void actionPerformed(ActionEvent e) {
 				mode = FilterMode.ADDING;
 				refresh();
+				//addEditView();
 			}
 		});
 		
 		btnEdit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mode = FilterMode.EDITING;
-				refresh();
+				if(mode == FilterMode.VIEWING){
+					mode = FilterMode.EDITING;
+					refresh();
+					//addEditView();
+				}
+				else{
+					mode = FilterMode.EDITING;
+					refresh();
+					//addEditView();
+				}
 			}
 		});
 		
@@ -568,7 +578,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			@Override
 			public void keyReleased(KeyEvent e) {
 				// TODO Auto-generated method stub
-				//editPaneBtnStatus
+				saveBtnStatus();
 			}
 			
 			//unused
@@ -624,6 +634,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 //			addFilterList();
 			addListeners();
 			populateFilterList();
+			viewPaneBtnStatus();
 			revalidate();
 			repaint();
 		}
@@ -634,9 +645,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			editFilterMode();
 			addEditViewListeners();
 			filterName.setText("**New Filter**");
-			//populateCatLists();
 			populateFilterList();
 			populateInactiveCatLists();
+			viewPaneBtnStatus();
+			saveBtnStatus();
 			revalidate();
 			repaint();
 		}
@@ -646,8 +658,28 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			addListeners();
 			editFilterMode();
 			addEditViewListeners();
-			//filterName.setText(selctFilter.name);
-			//populateCatLists();;
+			populateFilterList();
+			populateInactiveCatLists();
+			viewPaneBtnStatus();
+			saveBtnStatus();
+			revalidate();
+			repaint();
+		}
+	}
+	
+	protected void addEditView(){
+		if(mode == FilterMode.ADDING){
+			editFilterMode();
+			addEditViewListeners();
+			filterName.setText("**New Filter**");
+			populateFilterList();
+			populateInactiveCatLists();
+			revalidate();
+			repaint();
+		}
+		else{
+			editFilterMode();
+			addEditViewListeners();
 			populateFilterList();
 			populateInactiveCatLists();
 			revalidate();
@@ -663,7 +695,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		
 		String name = filterName.getText();
 
-		
 		calData = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName() + 
 				"-" + ConfigManager.getConfig().getUserName()); 
@@ -672,7 +703,15 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		List<Integer> activeCatList = null;
 		
 		Filter newFilter = new Filter(name, inactiveCatList, activeCatList);
-		calData.addFilter(newFilter);
+		if(mode == FilterMode.ADDING){
+			calData.addFilter(newFilter);
+		}
+		else{
+			editFilter.setName(name);
+			editFilter.setInactiveCategories(inactiveCatList);
+			editFilter.setActiveCategories(activeCatList);
+			calData.getFilters().update(editFilter);
+		}
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 	}
 	
@@ -682,8 +721,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		filterList.addAll(calendarFilters.getFilters());
 		
 		// FilterPanel to keep track of spring layout constraints of previously added panel
-		JPanel oldFilterPanel = new FilterPanel(); 
-		JPanel filterPanel = new FilterPanel();
+		FilterPanel oldFilterPanel = new FilterPanel(); 
+		FilterPanel filterPanel = new FilterPanel();
 		for(int i = 0; i < filterList.size(); i++)
 		{
 			filterPanel = new FilterPanel(filterList.get(i));
@@ -709,14 +748,37 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			}
 			filterListPanel.add(filterPanel);
 			
-			oldFilterPanel = filterPanel; //update oldCatPanel to be previously added panel
+			//oldFilterPanel = filterPanel; //update oldCatPanel to be previously added panel
+		
+		
+		filterPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() > 1 && mode == FilterMode.VIEWING){
+					mode = FilterMode.EDITING;
+					refresh();
+					//addEditView();
+					editFilter = ((FilterPanel)e.getComponent()).getFilter();
+					filterName.setText(editFilter.getName());
+				}
+				else if(e.getClickCount() > 1){
+					mode = FilterMode.EDITING;
+					//remove(editPanel);
+					refresh();
+					//addEditView();
+					editFilter = ((FilterPanel)e.getComponent()).getFilter();
+					filterName.setText(editFilter.getName());
+				}
+			}
+		});
+		
+			oldFilterPanel = filterPanel;
 		}
 		
-		if(filterListLayout.getConstraint(SpringLayout.SOUTH, filterListPanel).getValue() > 
-			filterListLayout.getConstraint(SpringLayout.SOUTH, filterPanel).getValue()) {	
-		filterListLayout.putConstraint(SpringLayout.SOUTH,
-				filterListPanel, 0, SpringLayout.SOUTH, filterPanel);	
-		}
+		/*if(filterListLayout.getConstraint(SpringLayout.SOUTH, filterListPanel).getValue() > 
+			filterListLayout.getConstraint(SpringLayout.SOUTH, filterPanel).getValue()) {	*/
+			filterListLayout.putConstraint(SpringLayout.SOUTH,
+			filterListPanel, 0, SpringLayout.SOUTH, filterPanel);	
 	}
 
 	
@@ -813,8 +875,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		}
 	}
 	
-	private void editPaneBtnStatus(){
-		if(true){
+	private void saveBtnStatus(){
+		if(filterName.getText().equals("") || filterName.getText().trim().length() == 0){
 			btnSaveFilter.setEnabled(false);
 		}
 		else{

@@ -62,7 +62,6 @@ public class FilterPanel extends JPanel{
 	}
 
 	private void setFilterName(String name) {
-		System.out.println("name:" + name);
 		lblFilterName.setText(name);
 	}
 
@@ -92,5 +91,9 @@ public class FilterPanel extends JPanel{
 	public FilterPanel(LayoutManager layout, boolean isDoubleBuffered) {
 		super(layout, isDoubleBuffered);
 		// TODO Auto-generated constructor stub
+	}
+	
+	public Filter getFilter() {
+		return filter;
 	}
 }
