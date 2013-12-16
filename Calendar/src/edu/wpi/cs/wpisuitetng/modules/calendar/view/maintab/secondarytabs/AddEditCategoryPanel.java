@@ -163,9 +163,9 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_lblColor.gridy = 2;
 		addEditFormPanel.add(lblColor, gbc_lblColor);
 		
-		JPanel colorPreviewContainer = new JPanel();
+		final JPanel colorPreviewContainer = new JPanel();
 		colorPreviewContainer.setBackground(Color.WHITE);
-		GridBagConstraints gbc_colorPreviewContainer = new GridBagConstraints();
+		final GridBagConstraints gbc_colorPreviewContainer = new GridBagConstraints();
 		gbc_colorPreviewContainer.insets = new Insets(0, 0, 5, 0);
 		gbc_colorPreviewContainer.fill = GridBagConstraints.BOTH;
 		gbc_colorPreviewContainer.gridx = 1;
@@ -180,9 +180,9 @@ public class AddEditCategoryPanel extends JPanel {
 		colorPreviewPanel.setPreferredSize(new Dimension(30, 30));
 		colorPreviewContainer.add(colorPreviewPanel);
 		
-		JPanel colorContainer1 = new JPanel();
+		final JPanel colorContainer1 = new JPanel();
 		colorContainer1.setBackground(Color.WHITE);
-		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
+		final GridBagConstraints gbc_panel_3 = new GridBagConstraints();
 		gbc_panel_3.fill = GridBagConstraints.BOTH;
 		gbc_panel_3.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_3.gridx = 1;
@@ -190,7 +190,7 @@ public class AddEditCategoryPanel extends JPanel {
 		addEditFormPanel.add(colorContainer1, gbc_panel_3);
 		colorContainer1.setLayout(new BoxLayout(colorContainer1, BoxLayout.X_AXIS));
 		
-		JPanel colorContainer2 = new JPanel();
+		final JPanel colorContainer2 = new JPanel();
 		colorContainer2.setBackground(Color.WHITE);
 		colorContainer2.setMaximumSize(new Dimension(346, 32767));
 		colorContainer2.setPreferredSize(new Dimension(346, 106));
@@ -203,13 +203,13 @@ public class AddEditCategoryPanel extends JPanel {
 		colorContainer2.add(colorPickerPanel);
 		colorPickerPanel.setMaximumSize(new Dimension(480, 2147483647));
 		colorPickerPanel.setPreferredSize(new Dimension(400, 100));
-		AbstractColorChooserPanel panel = colorPickerPanel.getChooserPanels()[0];
+		final AbstractColorChooserPanel panel = colorPickerPanel.getChooserPanels()[0];
 		//panel.setBackground(Color.WHITE);
-		Component[] panelComponents = panel.getComponents();
+		final Component[] panelComponents = panel.getComponents();
 		for(Component comp:panelComponents){
 			//comp.setBackground(Color.WHITE);
 		}
-		AbstractColorChooserPanel[] panels = { panel };
+		final AbstractColorChooserPanel[] panels = { panel };
 		colorPickerPanel.setChooserPanels(panels);
 		colorPickerPanel.setBackground(Color.WHITE);
 		colorPickerPanel.setPreviewPanel(new JPanel());
@@ -290,8 +290,8 @@ public class AddEditCategoryPanel extends JPanel {
 //				setComponentAt(tabIndex, new CategoryTab());
 			}
 		});
-		ColorSelectionModel model = colorPickerPanel.getSelectionModel();
-	    ChangeListener changeListener = new ChangeListener() {
+		final ColorSelectionModel model = colorPickerPanel.getSelectionModel();
+		final ChangeListener changeListener = new ChangeListener() {
 	      public void stateChanged(ChangeEvent changeEvent) {
 	        colorPreviewPanel.setBackground(colorPickerPanel.getColor());
 	      }

@@ -34,7 +34,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
  */
 @SuppressWarnings("serial")
 public class EventViewPanel extends JPanel {
-	private Event event;
+	private final Event event;
 
 	enum Sort_Type{
 		NAME, START_DATE, END_DATE, DESCRIPTION
@@ -49,7 +49,7 @@ public class EventViewPanel extends JPanel {
 		event = e;
 		this.setLayout(new GridLayout(1,4));
 		//The name label with icon
-		JLabel namelabel = new JLabel(event.getName(), JLabel.LEFT);
+		final JLabel namelabel = new JLabel(event.getName(), JLabel.LEFT);
 		namelabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		try {
 			Image nameImg;
@@ -69,19 +69,19 @@ public class EventViewPanel extends JPanel {
 		}
 		
 		//Formatter used for dates
-		SimpleDateFormat df = new SimpleDateFormat();
+		final SimpleDateFormat df = new SimpleDateFormat();
 		df.applyPattern("EEEE, MMMM d, y - hh:mm a");
 		
 		//Label for the start time of the event
-		JLabel start_date = new JLabel("" + df.format(event.getStartTime().getTime()), JLabel.LEFT);
+		final JLabel start_date = new JLabel("" + df.format(event.getStartTime().getTime()), JLabel.LEFT);
 		start_date.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		
 		//Label for the end time of the event
-		JLabel end_date = new JLabel("" + df.format(event.getEndTime().getTime()), JLabel.LEFT);
+		final JLabel end_date = new JLabel("" + df.format(event.getEndTime().getTime()), JLabel.LEFT);
 		end_date.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		
 		//JLabel for the description of the event
-		JLabel description = new JLabel("<HTML>" + event.getDescription() + "</HTML>", JLabel.LEFT);
+		final JLabel description = new JLabel("<HTML>" + event.getDescription() + "</HTML>", JLabel.LEFT);
 		description.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		
 		this.add(namelabel);
@@ -117,15 +117,15 @@ public class EventViewPanel extends JPanel {
 	public int compareTo(EventViewPanel other, Sort_Type sort_type){
 		//compare based on name
 		if(sort_type == Sort_Type.NAME){
-			String myname = this.event.getName();
-			String othername = other.event.getName();
+			final String myname = this.event.getName();
+			final String othername = other.event.getName();
 
 			return myname.compareTo(othername);
 		}
 		//compare based on the start date
 		else if(sort_type == Sort_Type.START_DATE){
-			GregorianCalendar mycal = this.event.getStartTime();
-			GregorianCalendar othercal = other.event.getStartTime();
+			final GregorianCalendar mycal = this.event.getStartTime();
+			final GregorianCalendar othercal = other.event.getStartTime();
 
 			if(mycal.before(othercal)){
 				return 1;
@@ -139,8 +139,8 @@ public class EventViewPanel extends JPanel {
 		}
 		//compare based on the end date
 		else if(sort_type == Sort_Type.END_DATE){
-			GregorianCalendar mycal = this.event.getEndTime();
-			GregorianCalendar othercal = other.event.getEndTime();
+			final GregorianCalendar mycal = this.event.getEndTime();
+			final GregorianCalendar othercal = other.event.getEndTime();
 
 			if(mycal.before(othercal)){
 				return 1;
@@ -154,8 +154,8 @@ public class EventViewPanel extends JPanel {
 		}
 		//compare based on the description
 		else if(sort_type == Sort_Type.DESCRIPTION){
-			String mydesc = this.event.getDescription();
-			String otherdesc = other.event.getDescription();
+			final String mydesc = this.event.getDescription();
+			final String otherdesc = other.event.getDescription();
 
 			return mydesc.compareTo(otherdesc);
 		}

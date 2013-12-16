@@ -130,7 +130,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 				ConfigManager.getConfig().getProjectName() + 
 				"-" + ConfigManager.getConfig().getUserName()).getFilters();
 		
-		GridBagLayout gridBagLayout = new GridBagLayout();
+		final GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0};
 		gridBagLayout.rowHeights = new int[]{0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0};
@@ -718,18 +718,18 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	 * Adds a new filter with the information contained in the fields
 	 */
 	private void addFilter(){
-		CalendarData calData;
+		final CalendarData calData;
 		
-		String name = filterName.getText();
+		final String name = filterName.getText();
 
 		calData = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName() + 
 				"-" + ConfigManager.getConfig().getUserName()); 
 		
-		List<Integer> inactiveCatList = null;
-		List<Integer> activeCatList = null;
+		final List<Integer> inactiveCatList = null;
+		final List<Integer> activeCatList = null;
 		
-		Filter newFilter = new Filter(name, inactiveCatList, activeCatList);
+		final Filter newFilter = new Filter(name, inactiveCatList, activeCatList);
 		if(mode == FilterMode.ADDING){
 			calData.addFilter(newFilter);
 		}
@@ -991,7 +991,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	}
 	
 	protected CategoryList getCat(List<Integer> aList){
-		CategoryList catList = new CategoryList();
+		final CategoryList catList = new CategoryList();
 		for(int i = 0; i < aList.size(); i++){
 			for(int j = 0; i < allCategories.getSize(); j++){
 				if(aList.get(i) == allCategories.getCategory(j).getID()){
