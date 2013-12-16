@@ -944,8 +944,8 @@ public class CommitmentTab extends JPanel {
 					}
 					
 /////				
-					boolean AMPMFlag;
-					final GregorianCalendar cal = new GregorianCalendar();
+					//boolean AMPMFlag;
+					//final GregorianCalendar cal = new GregorianCalendar();
 					cal.setTime((Date) hourSpinner.getValue());
 					
 					if (cal.get(Calendar.HOUR) == 12 || cal.get(Calendar.HOUR) == 01) {
