@@ -38,6 +38,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
+import javax.swing.colorchooser.ColorSelectionModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
@@ -47,6 +50,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
+import java.awt.BorderLayout;
+import java.awt.Rectangle;
+import java.beans.PropertyChangeListener;
+
 /**
  * @author CS Anonymous
  * @version $Revision: 1.0 $
@@ -55,12 +62,13 @@ public class AddEditCategoryPanel extends JPanel {
 
 	private JTextField textFieldName;
 	private JRadioButton rdbtnTeam;
-	JColorChooser colorPickerPanel;
+	private JColorChooser colorPickerPanel;
 	private JRadioButton rdbtnPersonal;
 	private JButton btnSave;
 	private JButton btnCancel;
 	CategoryTab.CategoryMode mode;
 	private Category editingCategory;
+	private JPanel colorPreviewPanel;
 
 
 	/**
@@ -80,15 +88,16 @@ public class AddEditCategoryPanel extends JPanel {
 		add(horizontalGlue);
 		
 		final JPanel addEditFormPanel = new JPanel();
+		addEditFormPanel.setMinimumSize(new Dimension(460, 10));
 		addEditFormPanel.setBackground(Color.WHITE);
-		addEditFormPanel.setPreferredSize(new Dimension(500, 10));
-		addEditFormPanel.setMaximumSize(new Dimension(600, 4000));
+		addEditFormPanel.setPreferredSize(new Dimension(460, 10));
+		addEditFormPanel.setMaximumSize(new Dimension(400, 4000));
 		add(addEditFormPanel);
 		final GridBagLayout gbl_addEditFormPanel = new GridBagLayout();
 		gbl_addEditFormPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_addEditFormPanel.rowHeights = new int[] {0, 0, 0, 0};
-		gbl_addEditFormPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_addEditFormPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
+		gbl_addEditFormPanel.rowHeights = new int[] {0, 0, 0, 0, 0};
+		gbl_addEditFormPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_addEditFormPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
 		addEditFormPanel.setLayout(gbl_addEditFormPanel);
 		
 
@@ -154,7 +163,46 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_lblColor.gridy = 2;
 		addEditFormPanel.add(lblColor, gbc_lblColor);
 		
+		JPanel colorPreviewContainer = new JPanel();
+		colorPreviewContainer.setBackground(Color.WHITE);
+		GridBagConstraints gbc_colorPreviewContainer = new GridBagConstraints();
+		gbc_colorPreviewContainer.insets = new Insets(0, 0, 5, 0);
+		gbc_colorPreviewContainer.fill = GridBagConstraints.BOTH;
+		gbc_colorPreviewContainer.gridx = 1;
+		gbc_colorPreviewContainer.gridy = 2;
+		addEditFormPanel.add(colorPreviewContainer, gbc_colorPreviewContainer);
+		colorPreviewContainer.setLayout(new BoxLayout(colorPreviewContainer, BoxLayout.X_AXIS));
+		
+		colorPreviewPanel = new JPanel();
+		colorPreviewPanel.setMaximumSize(new Dimension(30, 30));
+		colorPreviewPanel.setMinimumSize(new Dimension(30, 30));
+		colorPreviewPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		colorPreviewPanel.setPreferredSize(new Dimension(30, 30));
+		colorPreviewContainer.add(colorPreviewPanel);
+		
+		JPanel colorContainer1 = new JPanel();
+		colorContainer1.setBackground(Color.WHITE);
+		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
+		gbc_panel_3.fill = GridBagConstraints.BOTH;
+		gbc_panel_3.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_3.gridx = 1;
+		gbc_panel_3.gridy = 3;
+		addEditFormPanel.add(colorContainer1, gbc_panel_3);
+		colorContainer1.setLayout(new BoxLayout(colorContainer1, BoxLayout.X_AXIS));
+		
+		JPanel colorContainer2 = new JPanel();
+		colorContainer2.setBackground(Color.WHITE);
+		colorContainer2.setMaximumSize(new Dimension(346, 32767));
+		colorContainer2.setPreferredSize(new Dimension(346, 106));
+		colorContainer1.add(colorContainer2);
+		colorContainer2.setLayout(null);
+		
 		colorPickerPanel = new JColorChooser();
+		colorPickerPanel.setBounds(1, 1, 416, 104);
+		colorPickerPanel.setMinimumSize(new Dimension(613, 100));
+		colorContainer2.add(colorPickerPanel);
+		colorPickerPanel.setMaximumSize(new Dimension(480, 2147483647));
+		colorPickerPanel.setPreferredSize(new Dimension(400, 100));
 		AbstractColorChooserPanel panel = colorPickerPanel.getChooserPanels()[0];
 		//panel.setBackground(Color.WHITE);
 		Component[] panelComponents = panel.getComponents();
@@ -162,25 +210,18 @@ public class AddEditCategoryPanel extends JPanel {
 			//comp.setBackground(Color.WHITE);
 		}
 		AbstractColorChooserPanel[] panels = { panel };
-		
 		colorPickerPanel.setChooserPanels(panels);
 		colorPickerPanel.setBackground(Color.WHITE);
 		colorPickerPanel.setPreviewPanel(new JPanel());
 		colorPickerPanel.setBorder(textFieldName.getBorder());
 		
-		final GridBagConstraints gbc_panel = new GridBagConstraints();
-
-		gbc_panel.insets = new Insets(0, 0, 5, 0);
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridx = 1;
-		gbc_panel.gridy = 2;
-		addEditFormPanel.add(colorPickerPanel, gbc_panel);
-		
+		colorPickerPanel.setColor(Color.BLUE);
+		colorPreviewPanel.setBackground(Color.BLUE);
 		
 		final Box horizontalBox_1 = Box.createHorizontalBox();
 		final GridBagConstraints gbc_horizontalBox_1 = new GridBagConstraints();
 		gbc_horizontalBox_1.gridx = 1;
-		gbc_horizontalBox_1.gridy = 3;
+		gbc_horizontalBox_1.gridy = 4;
 		addEditFormPanel.add(horizontalBox_1, gbc_horizontalBox_1);
 		
 
@@ -228,10 +269,11 @@ public class AddEditCategoryPanel extends JPanel {
 		btnCancel.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				final int tabIndex = 
-						GUIEventController.getInstance().getMainView().getSelectedIndex();
-				GUIEventController.getInstance().getMainView().setComponentAt(
-						tabIndex, new CategoryTab());
+				close();
+//				final int tabIndex = 
+//						GUIEventController.getInstance().getMainView().getSelectedIndex();
+//				GUIEventController.getInstance().getMainView().setComponentAt(
+//						tabIndex, new CategoryTab());
 			}
 		});
 		
@@ -241,15 +283,27 @@ public class AddEditCategoryPanel extends JPanel {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				addCategory();
-				
-				final int tabIndex = 
-						GUIEventController.getInstance().getMainView().getSelectedIndex();
-				GUIEventController.getInstance().getMainView().
-				setComponentAt(tabIndex, new CategoryTab());
+				close();
+//				final int tabIndex = 
+//						GUIEventController.getInstance().getMainView().getSelectedIndex();
+//				GUIEventController.getInstance().getMainView().
+//				setComponentAt(tabIndex, new CategoryTab());
 			}
 		});
+		ColorSelectionModel model = colorPickerPanel.getSelectionModel();
+	    ChangeListener changeListener = new ChangeListener() {
+	      public void stateChanged(ChangeEvent changeEvent) {
+	        colorPreviewPanel.setBackground(colorPickerPanel.getColor());
+	      }
+	    };
+	    model.addChangeListener(changeListener);
 	}
 	
+	protected void close() {
+		// TODO Auto-generated method stub
+		this.setVisible(false);
+	}
+
 	public AddEditCategoryPanel(Category category) {
 		mode = CategoryTab.CategoryMode.EDITING;
 		setupUI();
@@ -266,7 +320,7 @@ public class AddEditCategoryPanel extends JPanel {
 			}
 		
 		colorPickerPanel.setColor(category.getCategoryColor());
-		
+		colorPreviewPanel.setBackground(category.getCategoryColor());
 		//Disable changing team/personal
 		rdbtnPersonal.setEnabled(false);
 		rdbtnTeam.setEnabled(false);
@@ -352,103 +406,6 @@ public class AddEditCategoryPanel extends JPanel {
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 	}
 	
-	/*
-	 * Color picker class consisting of a 4 x 4 matrix of colors
-	 * 
-	 */
-	/**
-	 * @author CS Anonymous
-	 */
-	class ColorPickerPanel extends JPanel {
+	
 
-		Color color;
-		ColorBox selectedBox;
-		/**
-		 * Constructor for ColorPickerPanel.
-		 */
-		public ColorPickerPanel() {
-			
-			setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-			
-			final Component horizontalGlue_2 = Box.createHorizontalGlue();
-			add(horizontalGlue_2);
-			
-			final JPanel colorPicker = new JPanel();
-			add(colorPicker);
-			
-			
-			final Component verticalStrut = Box.createVerticalStrut(20);
-			verticalStrut.setMaximumSize(new Dimension(0, 20));
-			add(verticalStrut);
-			
-			final Component horizontalGlue_3 = Box.createHorizontalGlue();
-			add(horizontalGlue_3);
-			
-			
-			colorPicker.setPreferredSize(new Dimension(200, 200));
-			colorPicker.setMaximumSize(new Dimension(200, 200));
-			colorPicker.setLayout(new GridLayout(4, 4, 3, 3));
-			colorPicker.setBackground(Color.WHITE);
-			for(int i = 0; i < 16; i++)
-			{
-					ColorBox colorBox = new ColorBox(Color.red);
-					colorBox.setBorder(new LineBorder(new Color(240, 240, 240), 2));
-					if (i == 0)
-						{
-							selectedBox = (ColorBox) colorBox;
-							selectedBox.setBorder(new LineBorder(Color.black, 2));
-							color = selectedBox.getColor();
-						}
-					
-					colorBox.addMouseListener(new MouseAdapter() {
-						@Override
-						public void mousePressed(MouseEvent e) {
-							setSelectedColorBox(e.getComponent());
-						}
-					});
-					colorPicker.add(colorBox);
-			}
-			
-			
-			setBackground(Color.white);
-		}
-		/*
-		 * Sets the selected color, adding border and updating color field
-		 * 
-		 */
-		protected void setSelectedColorBox(Component component) {
-			selectedBox.setBorder(new LineBorder(new Color(240, 240, 240), 2));
-			selectedBox = (ColorBox) component;
-			selectedBox.setBorder(new LineBorder(Color.black, 2));
-			color = selectedBox.getColor();
-		}
-		
-		public Color getColor() {
-			return color;
-		}
-
-
-		/**
-		 * @author CS Anonymous
-		 * JPanel for each color box
-		 */
-		private class ColorBox extends JPanel {
-			private final Color boxColor;
-			/**
-			 * Constructor for ColorBox.
-			 * @param color Color
-			 */
-			public ColorBox(Color color)
-			{
-				boxColor = color;
-				setBackground(color);
-				
-			}
-			
-			public Color getColor()
-			{
-				return boxColor;
-			}
-		}
-	}
 }

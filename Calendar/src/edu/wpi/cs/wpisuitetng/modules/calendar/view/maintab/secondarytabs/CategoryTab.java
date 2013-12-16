@@ -18,8 +18,12 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +42,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
@@ -60,12 +65,13 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 	private JRadioButton rdbtnTeam;
 	private JPanel categoryListPanel;
 	private SpringLayout categoryListLayout;
-	private JPanel addEditPanel;
+	private AddEditCategoryPanel addEditPanel;
 	private JPanel viewPanel;
 	private CategoryMode mode;
 	private Component viewPanelStrut;
 	private JTextField textFieldName;
 	private JScrollPane scrollPane;
+	protected List<CategoryPanel> selectedCategories;
 
 
 	/**
@@ -144,6 +150,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 		scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
 		scrollPane.setBackground(Color.WHITE);
 		viewPanel.add(scrollPane);
 		
@@ -195,7 +202,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 		btnDelete = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
-			btnDelete = new JButton("Delete Category", new ImageIcon(img));
+			final Image newimg = img.getScaledInstance( 30, 30,  java.awt.Image.SCALE_SMOOTH ) ;
+			btnDelete = new JButton("Delete Category", new ImageIcon(newimg));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
 			btnDelete.setText("Delete Category");
@@ -209,6 +217,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 		viewPanel.add(viewPanelStrut);
 		
 		addEditPanel = new AddEditCategoryPanel();
+		selectedCategories = new ArrayList<CategoryPanel>();
 	}
 	
 	/**
@@ -269,10 +278,23 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 			catPanel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					if (e.getClickCount() >= 1)
+					if (e.getClickCount() > 1)
 						{
 							editCategory(((CategoryPanel)e.getComponent()).getCategory());
 						}
+					if (e.getClickCount() == 1)
+					{
+						CategoryPanel comp = (CategoryPanel) e.getComponent();
+						if(selectedCategories.isEmpty() || e.isControlDown());
+						else
+						{
+							removeSelectedCategories(); //clear existing selections
+						}
+						selectedCategories.add(comp);
+						comp.setSelected(true);
+						
+					}
+					
 				}
 			});
 			
@@ -289,6 +311,18 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 	}
 	
 
+	protected void removeSelectedCategories() {
+		// TODO Auto-generated method stub
+		for (CategoryPanel catPanel: selectedCategories)
+		{
+			catPanel.setSelected(false);
+		}
+		selectedCategories.clear();
+	}
+
+
+
+
 	protected void editCategory(Category category) {
 		addEditPanel = new AddEditCategoryPanel(category);
 		setupAddView();
@@ -303,6 +337,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 	private void addListeners() {
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				addEditPanel = new AddEditCategoryPanel();
 				setupAddView();
 			}
 		});
@@ -383,6 +418,47 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 		
 		revalidate();
 		repaint();
+		
+		addEditPanel.addComponentListener(new ComponentListener() {
+
+			@Override
+			public void componentResized(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void componentMoved(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void componentShown(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				refreshCategoryListPanel();
+				setupViewingView();
+			}
+			
+		});
+//		addEditPanel.getSaveButton().addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				
+//			}
+//		});
+//		
+//		addEditPanel.getCancelButton().addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				setupViewingView();
+//			}
+//		});
+		
 	}
 	
 	/**
@@ -412,5 +488,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 		viewPanelStrut = Box.createHorizontalStrut(600);
 		viewPanelStrut.setMaximumSize(new Dimension(600, 0));
 		viewPanel.add(viewPanelStrut);
+		
+		revalidate();
+		repaint();
 	}
 }

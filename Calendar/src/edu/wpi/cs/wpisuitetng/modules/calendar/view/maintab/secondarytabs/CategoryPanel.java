@@ -11,6 +11,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
@@ -39,6 +40,7 @@ public class CategoryPanel extends JPanel {
 	private Color color;
 	private JLabel lblCategoryName;
 	private JPanel colorBox;
+	private boolean selected = false;
 	
 	/**
 	 * Constructor for CategoryPanel.
@@ -70,7 +72,7 @@ public class CategoryPanel extends JPanel {
 		lblCategoryName = new JLabel();
 		lblCategoryName.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblCategoryName.setHorizontalAlignment(SwingConstants.CENTER);
-		
+		lblCategoryName.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		panel_1.add(lblCategoryName);
 		lblCategoryName.setFont(CalendarStandard.CalendarFontBold);
 		// TODO Auto-generated constructor stub
@@ -129,6 +131,21 @@ public class CategoryPanel extends JPanel {
 
 	public Category getCategory() {
 		return category;
+	}
+
+	public void setSelected(boolean b) {
+		// TODO Auto-generated method stub
+		selected = b;
+		if(b)
+			setBackground(CalendarStandard.HeatMapRed);
+		else
+			setBackground(CalendarStandard.CalendarYellow);
+		
+	}
+
+	public boolean getSelected() {
+		// TODO Auto-generated method stub
+		return selected;
 	}
 
 
