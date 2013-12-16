@@ -53,10 +53,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentFullView.ViewingMode;
 
 /**
-  * @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
- public class CategoryTab extends JPanel {
+ * Create/edit catergory tab.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
+public class CategoryTab extends JPanel {
 
 	private final CategoryList teamCategories;
 	private final CategoryList personalCategories;

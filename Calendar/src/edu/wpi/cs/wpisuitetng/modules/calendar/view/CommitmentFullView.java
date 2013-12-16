@@ -54,13 +54,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 
-/*
+/**
  * This class is used for creating the commitment View 
  * tab that shows all commitments including those 
  * that have been completed.
- * 
- * */
-/**@author CS Anonymous
+/* @author CS Anonymous
  * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
@@ -190,11 +188,10 @@ public class CommitmentFullView extends JPanel{
 		viewSwitcher.setLayout(switcherLayout);
 		viewSwitcher.setBackground(Color.WHITE);
 
-		teamRadioButton = new JRadioButton("Team");
+        teamRadioButton = new JRadioButton("View Team Commitments");
 		teamRadioButton.setBackground(Color.WHITE);
 		teamRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
-		teamRadioButton.setToolTipText("View Team Commitments");
 		teamRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -209,11 +206,10 @@ public class CommitmentFullView extends JPanel{
 		}
 
 
-		personalRadioButton = new JRadioButton("Personal");
+		personalRadioButton = new JRadioButton("View Personal Commitments");
 		personalRadioButton.setBackground(Color.WHITE);
 		personalRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
-		personalRadioButton.setToolTipText("View Personal Commitments");
 		personalRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -233,11 +229,10 @@ public class CommitmentFullView extends JPanel{
 		switcherLayout.putConstraint(SpringLayout.VERTICAL_CENTER, personalRadioButton, 
 				0, SpringLayout.VERTICAL_CENTER, viewSwitcher);
 
-		bothRadioButton = new JRadioButton("Both");
+		bothRadioButton = new JRadioButton("View All Commitments");
 		bothRadioButton.setBackground(Color.WHITE);
 		bothRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
-		bothRadioButton.setToolTipText("View All Commitments");
 		bothRadioButton.addActionListener(new ActionListener(){
 
 			@Override

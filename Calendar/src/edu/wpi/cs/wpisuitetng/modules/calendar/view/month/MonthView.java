@@ -20,9 +20,12 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.CalendarView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentView;
 
 /**
-  * @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+ * Month view is manages set date range for month pane,
+ * display calendar data (shows only events on default),
+ * and update calendar data.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
  @SuppressWarnings("serial")
 public class MonthView extends CalendarView {
 	

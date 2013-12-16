@@ -19,13 +19,13 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.CalendarView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentView;
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+
 /**
-  * @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+ * Day view contains a day pane that displays the list of
+ * commitments and events in a day.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
  @SuppressWarnings("serial")
 public class DayView extends CalendarView {
 

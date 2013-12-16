@@ -27,9 +27,10 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 
 
 /**
-  * @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+ * Entity manager for database communication on Calendar properties. 
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
  public class CalPropsEntityManager implements EntityManager<CalendarProps> {
 
 	/** The database */

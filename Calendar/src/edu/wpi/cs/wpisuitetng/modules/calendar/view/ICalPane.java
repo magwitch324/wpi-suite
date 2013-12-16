@@ -12,7 +12,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import javax.swing.JPanel;
 
 /**
- *
+ * ICalPane is implements by DayPane, WeekPane, MonthPane, and YearPane.
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */

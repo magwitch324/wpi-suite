@@ -26,6 +26,12 @@ import javax.swing.border.Border;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
 
+/**
+ * To be added.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
+
 public class FilterPanel extends JPanel{
 	private Filter filter;
 	private JLabel lblFilterName;
@@ -33,8 +39,8 @@ public class FilterPanel extends JPanel{
 	
 	public FilterPanel(){
 		setPreferredSize(new Dimension(80, 50));
-		setMaximumSize(new Dimension(80,50));
-		setMinimumSize(new Dimension(80,50));
+		setMaximumSize(new Dimension(80, 50));
+		setMinimumSize(new Dimension(80, 50));
 		setBackground(CalendarStandard.CalendarYellow);
 		final Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 		setBorder(loweredbevel);
@@ -100,14 +106,18 @@ public class FilterPanel extends JPanel{
 		return filter;
 	}
 	
-	
+
 	public void setSelected(boolean b) {
 		// TODO Auto-generated method stub
 		selected = b;
 		if(b)
-			setBackground(CalendarStandard.HeatMapRed);
+			{
+				setBackground(CalendarStandard.HeatMapRed);
+			}
 		else
-			setBackground(CalendarStandard.CalendarYellow);
+			{
+				setBackground(CalendarStandard.CalendarYellow);
+			}
 		
 	}
 

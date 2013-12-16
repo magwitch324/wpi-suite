@@ -39,9 +39,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.ICalPane;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar.types;
 
 /**
-  * @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+ * DayPane contains a scroll pane which contains
+ * a main panel for displaying the day detailed pane.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
  public class DayPane extends JPanel implements ICalPane {
 	/**
 	 * 
