@@ -96,8 +96,7 @@ public class EventFullView extends JPanel{
 	 * @param personalCalendar AbCalendar
 	 */
 	public EventFullView(AbCalendar personalCalendar) {
-		super();
-		setLayout(new GridLayout(1,1));
+		setLayout(new GridLayout(1, 1));
 		this.setBackground(Color.WHITE);
 		
 		initialized = false;
@@ -309,7 +308,7 @@ public class EventFullView extends JPanel{
 	private JPanel getSortButtons(){
 		final JPanel apanel = new JPanel();
 		apanel.setPreferredSize(new Dimension(50, 50));
-		apanel.setLayout(new GridLayout(1,4));
+		apanel.setLayout(new GridLayout(1, 4));
 		apanel.setBorder(BorderFactory.createLoweredBevelBorder());
 		apanel.setBorder(new MatteBorder(5, 5, 5, 5, Color.WHITE));
 		
@@ -351,7 +350,7 @@ public class EventFullView extends JPanel{
 					} 
 					catch (IOException ex) {}
 					catch(IllegalArgumentException ex){
-						jName.setText("<html><font color='white'><b>"+ "Name v" + "</b></font></html>");
+						jName.setText("<html><font color='white'><b>" + "Name v" + "</b></font></html>");
 					}
 				}
 				sort();
@@ -394,7 +393,7 @@ public class EventFullView extends JPanel{
 					} 
 					catch (IOException ex) {}
 					catch(IllegalArgumentException ex){
-						jStartDate.setText("<html><font color='white'><b>"+ "Start Date v" + "</b></font></html>");
+						jStartDate.setText("<html><font color='white'><b>" + "Start Date v" + "</b></font></html>");
 					}
 				}
 				sort();
@@ -438,7 +437,7 @@ public class EventFullView extends JPanel{
 					} 
 					catch (IOException ex) {}
 					catch(IllegalArgumentException ex){
-						jEndDate.setText("<html><font color='white'><b>"+ "End Date v" + "</b></font></html>");
+						jEndDate.setText("<html><font color='white'><b>" + "End Date v" + "</b></font></html>");
 					}
 				}
 				sort();
@@ -481,7 +480,7 @@ public class EventFullView extends JPanel{
 					} 
 					catch (IOException ex) {}
 					catch(IllegalArgumentException ex){
-						jDescription.setText("<html><font color='white'><b>"+ "Description v" + "</b></font></html>");
+						jDescription.setText("<html><font color='white'><b>" + "Description v" + "</b></font></html>");
 					}
 				}
 				sort();

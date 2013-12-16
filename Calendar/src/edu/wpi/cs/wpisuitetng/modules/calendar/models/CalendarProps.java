@@ -31,6 +31,7 @@ public class CalendarProps extends AbstractModel {
 	private int commViewMode;
 	private int eventViewMode;
 	private boolean showCommRange;
+	private int categoryTabView;
 
 	/**
 	 * Constructs a CalendarProps with default characteristics
@@ -44,6 +45,7 @@ public class CalendarProps extends AbstractModel {
 		showCommRange = false;
 		commViewMode = 0;
 		eventViewMode = 0;
+		categoryTabView = 0;
 	}
 
 	/**
@@ -171,7 +173,7 @@ public class CalendarProps extends AbstractModel {
 	
 	
 	/**
-	 * getter for setting whether commitpane is showing in range or all
+	 * setter for setting whether commitpane is showing in range or all
 	 * 
 	 * @param showAll
 	 */
@@ -185,6 +187,24 @@ public class CalendarProps extends AbstractModel {
 	 */
 	public boolean getShowCommRange(){
 		return showCommRange;
+	}
+	
+	
+	/**
+	 * setter for setting whether categories tab shows team/personal/both
+	 * 
+	 * @param view
+	 */
+	public void setCategoryTabView(int view){
+		categoryTabView = view;
+	}
+	
+	/**
+	 * getter for whether categories tab shows team/personal/both
+	 * 
+	 */
+	public int getCategoryTabView(){
+		return categoryTabView;
 	}
 	
 	/**
@@ -311,6 +331,7 @@ public class CalendarProps extends AbstractModel {
 		commViewMode = toCopyFrom.getCommViewMode();
 		eventViewMode = toCopyFrom.getEventViewMode();
 		showCommRange = toCopyFrom.getShowCommRange();
+		categoryTabView = toCopyFrom.getCategoryTabView();
 	}
 
 	
