@@ -9,45 +9,8 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
-import javax.swing.JFormattedTextField;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JSpinner.DateEditor;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JSpinner;
-import javax.swing.SwingConstants;
-import javax.swing.event.ChangeListener;
-
-import org.jdesktop.swingx.JXDatePicker;
-
-import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
-import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
-import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatType;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
-
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -56,26 +19,65 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.Insets;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
-import javax.swing.event.ChangeEvent;
-import javax.swing.JButton;
-
-import java.awt.Color;
-
-import javax.swing.JRadioButton;
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JSpinner.DateEditor;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+import org.jdesktop.swingx.JXDatePicker;
+
+import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatType;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
+
+
+/**
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
 public class EventTab extends JPanel {
 	private GregorianCalendar startDate;
 	private GregorianCalendar oldStartTime;
@@ -135,15 +137,16 @@ public class EventTab extends JPanel {
 	private JLabel lblDateError;
 	private JLabel lblDateError2;
 	private JLabel lblTimeError2;
+	private JLabel lblRepeatError;
 	private int startTempHour = 1;
 	private int startTempMin = 1;
 	private int endTempMin = 1;
 	private int endTempHour = 1;
 	private int openedFrom;
 	private Category uncategorized;
-	
-	
-	
+
+
+
 	/*
 	 * Sources:
 	 * Icons were developed using images obtained at: 
@@ -152,29 +155,34 @@ public class EventTab extends JPanel {
 	 * [2] http://www.clker.com/clipart-red-round.html
 	 * [3] http://www.iconsdb.com/red-icons/delete-icon.html
 	 */
-	
-	
-	
+
+
+
 	/**
+	 * @author CS Anonymous
 	 */
 	private enum EditingMode {
 		ADDING(0),
 		EDITING(1);
 		private final int currentMode;
-		
+
 		private EditingMode(int currentMode) {
 			this.currentMode = currentMode;
 		}
+	}
+
+	public EventTab(int openedFrom) {
+		this(openedFrom, (new GregorianCalendar()).getTime());
 	}
 	
 	/**
 	 * Create the panel.
 	 * @param openedFrom int
 	 */
-	public EventTab(int openedFrom) {
+	public EventTab(int openedFrom, Date inputTime) {
 		this.openedFrom = openedFrom;
 		initFlag = false;
-		
+
 		final GridBagLayout gridBagLayout = new GridBagLayout();
 		setLayout(gridBagLayout);
 		final JPanel spacePanel1 = new JPanel();
@@ -205,7 +213,7 @@ public class EventTab extends JPanel {
 		constraints.weighty = 1;
 		constraints.fill = GridBagConstraints.BOTH;
 		add(spacePanel2, constraints);
-		
+
 		// form uses GridBagLayout w/ two columns
 		final GridBagLayout gbl = new GridBagLayout();
 		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0};
@@ -213,20 +221,22 @@ public class EventTab extends JPanel {
 		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl.columnWidths = new int[] {0, 0, 0, 0};
 		formPanel.setLayout(gbl);
-		
+
 		//Name label
-		final JLabel lblName = new JLabel("Name*:");
+		final JLabel lblName = new JLabel("<html><font>" + "Name" + "</font>" 
+				+ "<font color=red>" + "*" + "</font>" 
+				+ "<font>" + ":" + "</font></html>");
 		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc = new GridBagConstraints();
 		gbc.anchor = GridBagConstraints.EAST;
 		gbc.insets = new Insets(0, 0, 5, 5);
-        gbc.fill = GridBagConstraints.VERTICAL;
-        gbc.weightx = 1;
-        gbc.weighty = 1;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
+		gbc.fill = GridBagConstraints.VERTICAL;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
 		formPanel.add(lblName, gbc);
-		
+
 		//Name text field
 		nameTextField = new JTextField();
 		nameTextField.setBackground(CalendarStandard.CalendarYellow);
@@ -235,15 +245,15 @@ public class EventTab extends JPanel {
 		gbc_nameTextField.gridwidth = 3;
 		gbc_nameTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_nameTextField.fill = GridBagConstraints.HORIZONTAL;
-        gbc_nameTextField.weightx = 10;
-        gbc_nameTextField.weighty = 1;
-        gbc_nameTextField.gridx = 1;
-        gbc_nameTextField.gridy = 0;
-        gbc.gridwidth = 3;
+		gbc_nameTextField.weightx = 10;
+		gbc_nameTextField.weighty = 1;
+		gbc_nameTextField.gridx = 1;
+		gbc_nameTextField.gridy = 0;
+		gbc.gridwidth = 3;
 		formPanel.add(nameTextField, gbc_nameTextField);
-		
-		
-		
+
+
+
 		//Description label
 		final JLabel lblDesc = new JLabel("Description:");
 		lblDesc.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -253,34 +263,34 @@ public class EventTab extends JPanel {
 		gbc_lblDesc.gridx = 0;
 		gbc_lblDesc.gridy = 1;
 		formPanel.add(lblDesc, gbc_lblDesc);
-		
-		
+
+
 		//Scrollpane for description text area
-//		descPane = new JScrollPane();
-//		descPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-//		descPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		//		descPane = new JScrollPane();
+		//		descPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		//		descPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
 		//Text area for description
 		descriptionTextArea = new JTextArea();
-//		descriptionTextArea.setPreferredSize(new Dimension(500,160));
-//		descPane.setViewportView(descriptionTextArea);
+		//		descriptionTextArea.setPreferredSize(new Dimension(500,160));
+		//		descPane.setViewportView(descriptionTextArea);
 		descriptionTextArea.setLineWrap(true);
 		descriptionTextArea.setBackground(CalendarStandard.CalendarYellow);
 		final GridBagConstraints gbc_descriptionTextField = new GridBagConstraints();
 		gbc_descriptionTextField.gridwidth = 3;
 		gbc_descriptionTextField.fill = GridBagConstraints.BOTH;
 		gbc_descriptionTextField.insets = new Insets(0, 0, 5, 0);
-        gbc_descriptionTextField.weightx = 10;
-        gbc_descriptionTextField.weighty = 5;
-        gbc_descriptionTextField.gridx = 1;
-        gbc_descriptionTextField.gridy = 1;
-        gbc.gridwidth = 3;
-        descriptionScrollPane = new JScrollPane(descriptionTextArea);
+		gbc_descriptionTextField.weightx = 10;
+		gbc_descriptionTextField.weighty = 5;
+		gbc_descriptionTextField.gridx = 1;
+		gbc_descriptionTextField.gridy = 1;
+		gbc.gridwidth = 3;
+		descriptionScrollPane = new JScrollPane(descriptionTextArea);
 		formPanel.add(descriptionScrollPane, gbc_descriptionTextField);
 		descriptionScrollPane.setMaximumSize(new Dimension(10000000, 10));
 		descriptionScrollPane.getViewport().setMaximumSize(new Dimension(10000000, 10));
-		
-		
+
+
 		//Category label
 		final JLabel lblCategory = new JLabel("Category:");
 		lblCategory.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -292,13 +302,14 @@ public class EventTab extends JPanel {
 		gbc_lblCategory.weightx = 1;
 		gbc_lblCategory.weighty = 1;
 		formPanel.add(lblCategory, gbc_lblCategory);
-		
+
 		//Create category box, add two dummy categories
 		categoryComboBox = new JComboBox<Category>();
+		categoryComboBox.setRenderer(new CategoryComboBoxRenderer());
 		categoryComboBox.setBackground(CalendarStandard.CalendarYellow);
-		uncategorized = new Category("Uncategorized", Color.WHITE, false);
+		uncategorized = new Category("[None]", Color.WHITE, false);
 		uncategorized.setID(0);
-		categoryComboBox.addItem(uncategorized);
+
 
 		final GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
 		gbc_categoryComboBox.gridwidth = 3;
@@ -308,10 +319,10 @@ public class EventTab extends JPanel {
 		gbc_categoryComboBox.gridy = 2;
 		gbc_categoryComboBox.weightx = 10;
 		gbc_categoryComboBox.weighty = 1;
-        gbc.gridwidth = 3;
+		gbc.gridwidth = 3;
 		formPanel.add(categoryComboBox, gbc_categoryComboBox);
-		
-		
+
+
 		lblType = new JLabel("Type:");
 		lblType.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblType = new GridBagConstraints();
@@ -320,7 +331,7 @@ public class EventTab extends JPanel {
 		gbc_lblType.gridx = 0;
 		gbc_lblType.gridy = 3;
 		formPanel.add(lblType, gbc_lblType);
-		
+
 		panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_panel_1 = new GridBagConstraints();
@@ -330,21 +341,25 @@ public class EventTab extends JPanel {
 		gbc_panel_1.gridx = 1;
 		gbc_panel_1.gridy = 3;
 		formPanel.add(panel_1, gbc_panel_1);
-		
+
 		rdbtnPersonal = new JRadioButton("Personal");
 		rdbtnPersonal.setBackground(Color.WHITE);
 		buttonGroup.add(rdbtnPersonal);
 		panel_1.add(rdbtnPersonal);
-		
+
 		rdbtnTeam = new JRadioButton("Team");
 		rdbtnTeam.setBackground(Color.WHITE);
 		buttonGroup.add(rdbtnTeam);
 		panel_1.add(rdbtnTeam);
-		
+
 		rdbtnTeam.setSelected(true);
-		
+
+		updateCategoryList();
+
 		//Date label
-		final JLabel lblDate_1 = new JLabel("Start Date*:");
+		final JLabel lblDate_1 = new JLabel("<html><font>" + "Start Date" + "</font>" 
+				+ "<font color=red>" + "*" + "</font>" 
+				+ "<font>" + ":" + "</font></html>");
 		lblDate_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblDate_1 = new GridBagConstraints();
 		gbc_lblDate_1.fill = GridBagConstraints.VERTICAL;
@@ -355,9 +370,11 @@ public class EventTab extends JPanel {
 		gbc_lblDate_1.weightx = 1;
 		gbc_lblDate_1.weighty = 1;
 		formPanel.add(lblDate_1, gbc_lblDate_1);
-		
+
 		//Time label
-		final JLabel lblTime = new JLabel("Start Time*:");
+		final JLabel lblTime = new JLabel("<html><font>" + "Start Time" + "</font>" 
+				+ "<font color=red>" + "*" + "</font>" 
+				+ "<font>" + ":" + "</font></html>");
 		lblTime.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblTime = new GridBagConstraints();
 		gbc_lblTime.anchor = GridBagConstraints.EAST;
@@ -367,19 +384,18 @@ public class EventTab extends JPanel {
 		gbc_lblTime.gridy = 4;
 		gbc_lblTime.weighty = 1;
 		formPanel.add(lblTime, gbc_lblTime);
-		
+
 		//Time spinner, half hour resolution
-//		startTimeSpinner = new JSpinner( new SpinnerDateModelMinute());
-//		startTimeSpinner.setModel(startSpinnerModel);
-//		startTimeEditor = new JSpinner.DateEditor(startTimeSpinner, "hh:mm a");
-//		startTimeSpinner.setEditor(startTimeEditor);
+		//		startTimeSpinner = new JSpinner( new SpinnerDateModelMinute());
+		//		startTimeSpinner.setModel(startSpinnerModel);
+		//		startTimeEditor = new JSpinner.DateEditor(startTimeSpinner, "hh:mm a");
+		//		startTimeSpinner.setEditor(startTimeEditor);
 		// Create time spinner panel.
 		startSpinnerPanel = new JPanel();
 		startSpinnerPanel.setBackground(Color.WHITE);
-		
 		startSpinnerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-				
-		
+
+
 		// Create time spinners, hour, minute, and AM_PM
 		startHourSpinner = new JSpinner( new SpinnerDateModelHour());
 		startHourSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -391,7 +407,7 @@ public class EventTab extends JPanel {
 
 		JLabel colon = new JLabel(":");
 		startSpinnerPanel.add(colon);
-		
+
 		startMinuteSpinner = new JSpinner( new SpinnerDateModelMinute());
 		startMinuteSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		startSpinnerPanel.add(startMinuteSpinner);
@@ -415,10 +431,10 @@ public class EventTab extends JPanel {
 		gbc_startspinner.weightx = 1;
 		gbc_startspinner.weighty = 3;
 		formPanel.add(startSpinnerPanel, gbc_startspinner);
-		
-		
-	
-		
+
+
+
+
 		//Invalid Time label
 		lblTimeError = new JLabel(" ");
 		lblTimeError.setHorizontalAlignment(SwingConstants.CENTER);
@@ -428,9 +444,9 @@ public class EventTab extends JPanel {
 		gbc_lblTimeError.gridx = 3;
 		gbc_lblTimeError.gridy = 5;
 		gbc_lblTimeError.weightx = 1;
-		gbc_lblTimeError.weighty = 1;		
+		gbc_lblTimeError.weighty = 1;
 		formPanel.add(lblTimeError, gbc_lblTimeError);
-		
+
 		//Invalid Date label
 		lblDateError = new JLabel("<html><font color='red'>"
 				+ "Please enter a valid date (MM/DD/YYYY).</font></html>");
@@ -442,12 +458,12 @@ public class EventTab extends JPanel {
 		gbc_lblDateError.gridx = 1;
 		gbc_lblDateError.gridy = 5;
 		gbc_lblDateError.weightx = 1;
-		gbc_lblDateError.weighty = 1;		
+		gbc_lblDateError.weighty = 1;
 		formPanel.add(lblDateError, gbc_lblDateError);
-		
-		
-		
-		
+
+
+
+
 		//DatePicker box
 		startDatePicker = new JXDatePicker();
 		startDatePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
@@ -465,17 +481,19 @@ public class EventTab extends JPanel {
 		final SimpleDateFormat format1 = new SimpleDateFormat( "MM/dd/yyyy" );
 		final SimpleDateFormat format2 = new SimpleDateFormat( "MM.dd.yyyy" );
 		startDatePicker.setFormats(new DateFormat[] {format1, format2});
-		
-		
-////////////////////////////////////////////
-		
-		
 
-		
+
+		////////////////////////////////////////////
+
+
+
+
 		//End Date/Time Forms
-		
+
 		//Date label
-		final JLabel lblDate_2 = new JLabel("End Date*:");
+		final JLabel lblDate_2 = new JLabel("<html><font>" + "End Date" + "</font>" 
+				+ "<font color=red>" + "*" + "</font>" 
+				+ "<font>" + ":" + "</font></html>");
 		lblDate_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblDate_2 = new GridBagConstraints();
 		gbc_lblDate_2.fill = GridBagConstraints.VERTICAL;
@@ -486,9 +504,11 @@ public class EventTab extends JPanel {
 		gbc_lblDate_2.weightx = 1;
 		gbc_lblDate_2.weighty = 1;
 		formPanel.add(lblDate_2, gbc_lblDate_2);
-		
+
 		//Time2 label
-		final JLabel lblTime2 = new JLabel("End Time*:");
+		final JLabel lblTime2 = new JLabel("<html><font>" + "End Time" + "</font>" 
+				+ "<font color=red>" + "*" + "</font>" 
+				+ "<font>" + ":" + "</font></html>");
 		lblTime2.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblTime2 = new GridBagConstraints();
 		gbc_lblTime2.anchor = GridBagConstraints.EAST;
@@ -498,19 +518,17 @@ public class EventTab extends JPanel {
 		gbc_lblTime2.gridy = 6;
 		gbc_lblTime2.weighty = 1;
 		formPanel.add(lblTime2, gbc_lblTime2);
-		
+
 		//Time spinner, half hour resolution
-//		endTimeSpinner = new JSpinner( new SpinnerDateModelMinute());
-//		endTimeSpinner.setModel(endSpinnerModel);
-//		endTimeEditor = new JSpinner.DateEditor(endTimeSpinner, "hh:mm a");
-//		endTimeSpinner.setEditor(endTimeEditor);
+		//		endTimeSpinner = new JSpinner( new SpinnerDateModelMinute());
+		//		endTimeSpinner.setModel(endSpinnerModel);
+		//		endTimeEditor = new JSpinner.DateEditor(endTimeSpinner, "hh:mm a");
+		//		endTimeSpinner.setEditor(endTimeEditor);
 		// Create time spinner panel.
 		endSpinnerPanel = new JPanel();
 		endSpinnerPanel.setBackground(Color.WHITE);
-		
 		endSpinnerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-				
-		
+
 		// Create time spinners, hour, minute, and AM_PM
 		endHourSpinner = new JSpinner( new SpinnerDateModelHour());
 		endHourSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -522,7 +540,7 @@ public class EventTab extends JPanel {
 
 		colon = new JLabel(":");
 		endSpinnerPanel.add(colon);
-		
+
 		endMinuteSpinner = new JSpinner( new SpinnerDateModelMinute());
 		endMinuteSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		endSpinnerPanel.add(endMinuteSpinner);
@@ -546,10 +564,7 @@ public class EventTab extends JPanel {
 		gbc_spinner2.weightx = 1.0;
 		gbc_spinner2.weighty = 3;
 		formPanel.add(endSpinnerPanel, gbc_spinner2);
-		
-		
-		
-		
+
 		//Invalid Time label
 		lblTimeError2 = new JLabel(" ");
 		lblTimeError2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -559,9 +574,9 @@ public class EventTab extends JPanel {
 		gbc_lblTimeError2.gridx = 3;
 		gbc_lblTimeError2.gridy = 7;
 		gbc_lblTimeError2.weightx = 1;
-		gbc_lblTimeError2.weighty = 1;		
+		gbc_lblTimeError2.weighty = 1;
 		formPanel.add(lblTimeError2, gbc_lblTimeError2);
-		
+
 		//Invalid Date label
 		lblDateError2 = new JLabel("<html><font color='red'>"
 				+ "Please enter a valid date (MM/DD/YYYY).</font></html>");
@@ -573,13 +588,9 @@ public class EventTab extends JPanel {
 		gbc_lblDateError2.gridx = 1;
 		gbc_lblDateError2.gridy = 7;
 		gbc_lblDateError2.weightx = 1;
-		gbc_lblDateError2.weighty = 1;		
+		gbc_lblDateError2.weighty = 1;
 		formPanel.add(lblDateError2, gbc_lblDateError2);
-		
-		
-		
-		
-		
+
 		//DatePicker box
 		endDatePicker = new JXDatePicker();
 		endDatePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
@@ -595,28 +606,23 @@ public class EventTab extends JPanel {
 		//calendar.setTime(new Date());
 		//startDatePicker.getMonthView().setLowerBound(calendar.getTime());
 		endDatePicker.setFormats(new DateFormat[] {format1, format2});
-		
-		final GregorianCalendar c = new GregorianCalendar();
-	    c.set(Calendar.HOUR_OF_DAY, 0);
-	    c.set(Calendar.MINUTE, 0);
-	    c.set(Calendar.SECOND, 0);
-		endDatePicker.setDate(c.getTime());
-	    startDate = c;
-		startDatePicker.setDate(c.getTime());
-		
-		
-		
-/////////////////////////////////////////		
 
-		
+		final GregorianCalendar c = new GregorianCalendar();
+		c.set(Calendar.HOUR_OF_DAY, 0);
+		c.set(Calendar.MINUTE, 0);
+		c.set(Calendar.SECOND, 0);
+		endDatePicker.setDate(c.getTime());
+		startDate = c;
+		startDatePicker.setDate(c.getTime());
+
 		//Sets time value of end and start spinners
 		oldStartTime = new GregorianCalendar();
+		oldStartTime.setTime(inputTime);
 		setStartDate(oldStartTime);
 		oldStartTime = new GregorianCalendar();
-		oldStartTime.add(Calendar.MINUTE, 30);
+		oldStartTime.add(Calendar.MINUTE, 31);
 		setEndDate(oldStartTime);
 		oldStartTime = new GregorianCalendar();
-
 
 		//Add Repeat Label
 		lblRepeat = new JLabel("Repetition:");
@@ -629,7 +635,7 @@ public class EventTab extends JPanel {
 		gbc_lblRepeat.gridy = 8;
 		gbc_lblRepeat.weighty = 1;
 		formPanel.add(lblRepeat, gbc_lblRepeat);
-		
+
 		//Add Repeat Checkbox
 		repeatCheckBox = new JCheckBox("Repeats?");
 		repeatCheckBox.setBackground(Color.WHITE);
@@ -648,12 +654,16 @@ public class EventTab extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				repeatTypeComboBox.setEnabled(repeatCheckBox.isSelected());
+				checkRepeatVsDuration();
 				repeatAmt.setEnabled(repeatCheckBox.isSelected());
+				if(repeatAmt.getText().equals("") && repeatCheckBox.isSelected()){
+					repeatAmt.setText("2");
+				}
 				checkSaveBtnStatus();
 			}
-			
+
 		});
-		
+
 		//Add Repeat type Label
 		lblRepeatType = new JLabel("Repeat Type");
 		lblRepeatType.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -665,7 +675,7 @@ public class EventTab extends JPanel {
 		gbc_lblRepeatType.gridy = 8;
 		gbc_lblRepeatType.weighty = 1;
 		formPanel.add(lblRepeatType, gbc_lblRepeatType);
-		
+
 		//Add Repeat ComboBox
 		final String[] repeatStrings = {"Daily", "Weekly", "Monthly"};
 		repeatTypeComboBox = new JComboBox<String>(repeatStrings);
@@ -686,13 +696,14 @@ public class EventTab extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				checkRepeatDuration();
 				checkSaveBtnStatus();
-				
+
 			}
-			
+
 		});
-		
-		
+
+
 		//Add Repetitions Label
 		lblNumberRepetitions = new JLabel("# of Occurrences:");
 		lblNumberRepetitions.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -701,10 +712,10 @@ public class EventTab extends JPanel {
 		gbc_lblNumberRepetitions.fill = GridBagConstraints.VERTICAL;
 		gbc_lblNumberRepetitions.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNumberRepetitions.gridx = 0;
-		gbc_lblNumberRepetitions.gridy = 9;
+		gbc_lblNumberRepetitions.gridy = 10;
 		gbc_lblNumberRepetitions.weighty = 1;
 		formPanel.add(lblNumberRepetitions, gbc_lblNumberRepetitions);
-		
+
 		//Add Repeat Text Field
 		repeatAmt = new JTextField();
 		repeatAmt.setBackground(CalendarStandard.CalendarYellow);
@@ -713,7 +724,7 @@ public class EventTab extends JPanel {
 		gbc_repeatAmt.fill = GridBagConstraints.HORIZONTAL;
 		gbc_repeatAmt.insets = new Insets(0, 0, 5, 0);
 		gbc_repeatAmt.gridx = 1;
-		gbc_repeatAmt.gridy = 9;
+		gbc_repeatAmt.gridy = 10;
 		gbc_repeatAmt.weightx = 10;
 		gbc_repeatAmt.weighty = 1;
 		formPanel.add(repeatAmt, gbc_repeatAmt);
@@ -722,28 +733,39 @@ public class EventTab extends JPanel {
 
 			@Override
 			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
 				checkSaveBtnStatus();
 			}
-			
+
 		});
-		
-		
+
+		//Invalid Repeat label
+		lblRepeatError = new JLabel(" ");
+		lblRepeatError.setHorizontalAlignment(SwingConstants.LEFT);
+		final GridBagConstraints gbc_lblRepeatError = new GridBagConstraints();
+		gbc_lblRepeatError.insets = new Insets(0, 0, 0, 0);
+		gbc_lblRepeatError.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblRepeatError.gridx = 1;
+		gbc_lblRepeatError.gridy = 9;
+		gbc_lblRepeatError.weightx = 0;
+		gbc_lblRepeatError.weighty = 0;
+		//lblRepeatError.setMaximumSize(new Dimension(10, 10));
+		formPanel.add(lblRepeatError, gbc_lblRepeatError);
+
+
 		buttonPanel = new JPanel(new BorderLayout(30, 0));
 		buttonPanel.setBackground(Color.WHITE);
 		//Add Event button
-		
+
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Save_Icon.png"));
 			btnAddEvent = new JButton("Save Event", new ImageIcon(img));
@@ -755,30 +777,23 @@ public class EventTab extends JPanel {
 		btnAddEvent.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
 		btnAddEvent.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				addEvent();
 			}
-			
-			
 		});
 		
-		
-		
 		btnAddEvent.setEnabled(false);
-		
-		
-		
+	
+
 		final GridBagConstraints gbc_btnPanel = new GridBagConstraints();
 		gbc_btnPanel.gridwidth = 3;
 		gbc_btnPanel.insets = new Insets(0, 0, 0, 5);
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
 		gbc_btnPanel.gridx = 1;
-		gbc_btnPanel.gridy = 10;
-		
-		//Add Cancel button
+		gbc_btnPanel.gridy = 11;
 
+		//Add Cancel button
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
 			btnCancel = new JButton("Cancel", new ImageIcon(img));
@@ -786,35 +801,112 @@ public class EventTab extends JPanel {
 		catch(IllegalArgumentException ex){
 			btnCancel.setText("Cancel");
 		}
-		
+
 		btnCancel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
 		btnCancel.addActionListener(new ActionListener() {
-		
-		
+
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				removeTabCancel();
 			}
-			
+
 		});
-		
+
 		buttonPanel.add(btnAddEvent, BorderLayout.WEST);
 		buttonPanel.add(btnCancel, BorderLayout.CENTER);
-	                    				// Set the horizontal gap
+		// Set the horizontal gap
 		formPanel.add(buttonPanel, gbc_btnPanel);
-		
+
 		initFlag = true;
-		
+
 		addEditableElementsListeners();
 	}
 
-	
+
+	/**
+	 * Method checkRepeatVsDuration.
+	 */
+	protected void checkRepeatVsDuration() {
+		/*GregorianCalendar combinedStart = new GregorianCalendar();
+		combinedStart.setTime(startDatePicker.getDate());
+		combinedStart.set(Calendar.MINUTE, startTempMin);
+		combinedStart.set(Calendar.HOUR, startTempHour);
+
+		GregorianCalendar combinedEnd = new GregorianCalendar();
+		combinedEnd.setTime(endDatePicker.getDate());
+		combinedEnd.set(Calendar.MINUTE, endTempMin);
+		combinedEnd.set(Calendar.HOUR, endTempHour);
+
+		System.out.println(get + ":" + startTempMin + "   " + endTempHour + ":" + endTempMin)*/
+
+		final long diff = getEndDate().getTime().getTime() - getStartDate().getTime().getTime();
+
+		final int diffDays =  (int) (diff / (24 * 1000 * 60 * 60));
+		lblRepeatError.setText(" ");
+		if(diffDays >= 29){
+			repeatCheckBox.setSelected(false);
+			repeatTypeComboBox.setEnabled(false);
+			repeatAmt.setEnabled(false);
+			lblRepeatError.setText("<html><font color='red'>"
+					+ "Duration cannot be greater than"
+					+ " a month for repeating events.</font></html>");
+		}
+		else if(diffDays >= 7){
+			repeatTypeComboBox.setSelectedIndex(2);
+		}
+		else if(diffDays >= 1){
+			repeatTypeComboBox.setSelectedIndex(1);
+		}
+		else{
+			repeatTypeComboBox.setSelectedIndex(0);
+		}
+
+
+	}
+
+	private void checkRepeatDuration(){
+
+		if(repeatCheckBox.isSelected()){
+			final long diff = getEndDate().getTime().getTime() - getStartDate().getTime().getTime();
+
+			final int diffDays =  (int) (diff / (24 * 1000 * 60 * 60));
+			lblRepeatError.setText(" ");
+			if(diffDays >= 29){
+				repeatCheckBox.setSelected(false);
+				repeatTypeComboBox.setEnabled(false);
+				repeatAmt.setEnabled(false);
+				lblRepeatError.setText("<html><font color='red'>"
+						+ "Duration cannot be greater than"
+						+ " a month for repeating events.</font></html>");
+			}
+			else if(diffDays >= 7 && repeatTypeComboBox.getSelectedIndex() < 2){
+				repeatTypeComboBox.setBackground(Color.getHSBColor(3, 0.3f, 1f));
+				lblRepeatError.setText("<html><font color='red'>"
+						+ "Frequency must be greater than duration.</font></html>");
+			}
+			else if(diffDays >= 1 && repeatTypeComboBox.getSelectedIndex() == 0){
+				repeatTypeComboBox.setBackground(Color.getHSBColor(3, 0.3f, 1f));
+				lblRepeatError.setText("<html><font color='red'>"
+						+ "Frequency must be greater than duration.</font></html>");
+			}
+			else{
+				repeatTypeComboBox.setBackground(CalendarStandard.CalendarYellow);
+			}
+		}
+		else{
+			lblRepeatError.setText(" ");
+			repeatTypeComboBox.setBackground(CalendarStandard.CalendarYellow);
+		}
+	}
+
+
 	/**
 	 * Helper function that sets up listeners only for date picker.
 	 */
 	private void addStartDatePickerListeners() {
-		
+
 		//Mouse focus handler
 		startDatePicker.getEditor().addFocusListener(new FocusListener() {
 			@Override
@@ -826,26 +918,28 @@ public class EventTab extends JPanel {
 				final String txt = startDatePicker.getEditor().getText();
 				try {
 					startDatePicker.getEditor().commitEdit();
-					
+
 					final GregorianCalendar cal = new GregorianCalendar();
 					cal.setTime(startDatePicker.getDate());
-					
+
 					if(cal.get(Calendar.YEAR) < 1900) {
 						startDatePicker.getEditor().setText(txt);
 					}
-					
+
 					checkStartDatePickerStatus();
-					checkSaveBtnStatus();
+					
 					updateEndTimeAndDate();
+					checkSaveBtnStatus();
 				} catch (ParseException e1) {
 					checkStartDatePickerStatus();
-					checkSaveBtnStatus();
+					
 					updateEndTimeAndDate();
+					checkSaveBtnStatus();
 				}
 
 			}
 		});
-		
+
 		//Real time keyboard input check
 		startDatePicker.getEditor().addKeyListener(new KeyListener(){
 
@@ -861,56 +955,58 @@ public class EventTab extends JPanel {
 			public void keyReleased(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER){
 					checkStartDatePickerStatus();
-					checkSaveBtnStatus();
+					
 					updateEndTimeAndDate();
+					checkSaveBtnStatus();
 				}
 			}
 		});
-		
+
 		startDatePicker.getEditor().addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
-            	final char vChar = e.getKeyChar();
-                if (!(Character.isDigit(vChar)
-                		|| (vChar == '/')
-                        || (vChar == KeyEvent.VK_BACK_SPACE)
-                        || (vChar == KeyEvent.VK_DELETE))) {
-                    e.consume();
-                }
-            }
-        });
-		
-		
-		
-//		//Triggered on enter.
-//		startDatePicker.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				checkStartDatePickerStatus();
-//				checkSaveBtnStatus();
-//			}
-//		});
-		
-		
+			public void keyTyped(KeyEvent e) {
+				final char vChar = e.getKeyChar();
+				if (!(Character.isDigit(vChar)
+						|| (vChar == '/')
+						|| (vChar == KeyEvent.VK_BACK_SPACE)
+						|| (vChar == KeyEvent.VK_DELETE))) {
+					e.consume();
+				}
+			}
+		});
+
+
+
+		//		//Triggered on enter.
+		//		startDatePicker.addActionListener(new ActionListener() {
+		//			@Override
+		//			public void actionPerformed(ActionEvent e) {
+		//				checkStartDatePickerStatus();
+		//				checkSaveBtnStatus();
+		//			}
+		//		});
+
+
 		//Triggered on change.
 		startDatePicker.addPropertyChangeListener(new PropertyChangeListener() {
-			
+
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				// TODO Auto-generated method stub
 				checkStartDatePickerStatus();
-				checkSaveBtnStatus();
+				
 				updateEndTimeAndDate();
+				checkSaveBtnStatus();
 			}
 		});
-	
+
 	}
-	
-	
+
+
 	/**
 	 * Helper function that sets up listeners only for date picker.
 	 */
 	private void addEndDatePickerListeners() {
-		
+
 		//Mouse focus handler
 		endDatePicker.getEditor().addFocusListener(new FocusListener() {
 			@Override
@@ -922,26 +1018,28 @@ public class EventTab extends JPanel {
 				final String txt = endDatePicker.getEditor().getText();
 				try {
 					endDatePicker.getEditor().commitEdit();
-					
+
 					final GregorianCalendar cal = new GregorianCalendar();
 					cal.setTime(endDatePicker.getDate());
-					
+
 					if(cal.get(Calendar.YEAR) < 1900) {
 						endDatePicker.getEditor().setText(txt);
 					}
-					
+
 					checkEndDatePickerStatus();
-					checkSaveBtnStatus();
+					
 					checkEndBeforeStart();
+					checkSaveBtnStatus();
 				} catch (ParseException e1) {
 					checkEndDatePickerStatus();
-					checkSaveBtnStatus();
+					
 					checkEndBeforeStart();
+					checkSaveBtnStatus();
 				}
 
 			}
 		});
-		
+
 		//Real time keyboard input check
 		endDatePicker.getEditor().addKeyListener(new KeyListener(){
 
@@ -961,47 +1059,48 @@ public class EventTab extends JPanel {
 			}
 
 		});
-		
+
 		endDatePicker.getEditor().addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
-            	final char vChar = e.getKeyChar();
-                if (!(Character.isDigit(vChar)
-                		|| (vChar == '/')
-                        || (vChar == KeyEvent.VK_BACK_SPACE)
-                        || (vChar == KeyEvent.VK_DELETE))) {
-                    e.consume();
-                }
-            }
-        });
-		
-		
-		
-//		//Triggered on enter.
-//		endDatePicker.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				checkEndDatePickerStatus();
-//				checkSaveBtnStatus();
-//				checkEndBeforeStart();
-//
-//			}
-//		});
-		
+			public void keyTyped(KeyEvent e) {
+				final char vChar = e.getKeyChar();
+				if (!(Character.isDigit(vChar)
+						|| (vChar == '/')
+						|| (vChar == KeyEvent.VK_BACK_SPACE)
+						|| (vChar == KeyEvent.VK_DELETE))) {
+					e.consume();
+				}
+			}
+		});
+
+
+
+		//		//Triggered on enter.
+		//		endDatePicker.addActionListener(new ActionListener() {
+		//			@Override
+		//			public void actionPerformed(ActionEvent e) {
+		//				checkEndDatePickerStatus();
+		//				checkSaveBtnStatus();
+		//				checkEndBeforeStart();
+		//
+		//			}
+		//		});
+
 		//Triggered on change.
 		endDatePicker.addPropertyChangeListener(new PropertyChangeListener() {
-			
+
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				// TODO Auto-generated method stub
 				checkEndDatePickerStatus();
-				checkSaveBtnStatus();
+				
 				checkEndBeforeStart();
+				checkSaveBtnStatus();
 			}
 		});
-	
+
 	}
-	
-	
+
+
 	private void addStartTimeSpinnerListeners() {
 		startHourEditor.getTextField().addFocusListener(new FocusListener() {
 
@@ -1018,40 +1117,41 @@ public class EventTab extends JPanel {
 				} catch (ParseException e1) {
 					checkStartTimeSpinnerStatus(startHourSpinner);
 					checkSaveBtnStatus();
-					e1.printStackTrace();
+					//e1.printStackTrace();
 				}
 			}
 		});
-		
+
 		startHourEditor.getTextField().addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
-            	final char vChar = e.getKeyChar();
-                if (!(Character.isDigit(vChar)
-                        || (vChar == KeyEvent.VK_BACK_SPACE)
-                        || (vChar == KeyEvent.VK_DELETE))) {
-                    e.consume();
-                }
-            }
-        });
-		
-		
+			public void keyTyped(KeyEvent e) {
+				final char vChar = e.getKeyChar();
+				if (!(Character.isDigit(vChar)
+						|| (vChar == KeyEvent.VK_BACK_SPACE)
+						|| (vChar == KeyEvent.VK_DELETE))) {
+					e.consume();
+				}
+			}
+		});
+
+
 		//Some edit specific listeners
 		//These are here to avoid possible NullPointer exceptions while opening the tab 
 		startHourSpinner.addChangeListener(new ChangeListener(){
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				checkSaveBtnStatus();
+				
 				startTempHour = Integer.parseInt(
 						startHourEditor.getTextField().getText().toString());
 				checkStartTimeSpinnerStatus(startHourSpinner);
 
 				updateEndTimeAndDate();
+				checkSaveBtnStatus();
 			}
 		});
-		
+
 		startHourSpinner.addFocusListener(new FocusListener() {
-			
+
 			@Override
 			public void focusGained(FocusEvent e) {
 				checkSaveBtnStatus();
@@ -1063,7 +1163,7 @@ public class EventTab extends JPanel {
 			}
 		});
 
-		
+
 		startMinuteEditor.getTextField().addFocusListener(new FocusListener() {
 
 			@Override
@@ -1079,124 +1179,126 @@ public class EventTab extends JPanel {
 				} catch (ParseException e1) {
 					checkStartTimeSpinnerStatus(startMinuteSpinner);
 					checkSaveBtnStatus();
-					e1.printStackTrace();
+					//e1.printStackTrace();
 				}
 			}
 		});
-		
+
 		startMinuteEditor.getTextField().addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
-            	final char vChar = e.getKeyChar();
-                if (!(Character.isDigit(vChar)
-                        || (vChar == KeyEvent.VK_BACK_SPACE)
-                        || (vChar == KeyEvent.VK_DELETE))) {
-                    e.consume();
-                }
-            }
-        });
-		
+			public void keyTyped(KeyEvent e) {
+				final char vChar = e.getKeyChar();
+				if (!(Character.isDigit(vChar)
+						|| (vChar == KeyEvent.VK_BACK_SPACE)
+						|| (vChar == KeyEvent.VK_DELETE))) {
+					e.consume();
+				}
+			}
+		});
+
 		/**
 		 * Rounds minute input to the closest 30s everytime the text field changes.
 		 */
-		startMinuteSpinner.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				final GregorianCalendar cal = new GregorianCalendar();
-				cal.setTime((Date) startMinuteSpinner.getValue());
-				final int currentHour = cal.get(Calendar.HOUR);
-				startTempMin = Integer.parseInt(
-						startMinuteEditor.getTextField().getText().toString());
-				checkStartTimeSpinnerStatus(startMinuteSpinner);
-				
-				if(currentHour == 1) {
-					cal.setTime(getStartDate().getTime());
-					cal.add(Calendar.HOUR, 1);  
-					setStartDate(cal);
-				}
-				
-				if(currentHour == 11) {
-					cal.setTime(getStartDate().getTime());
-					cal.add(Calendar.HOUR, -1);  
-					setStartDate(cal);
-				}
-				checkSaveBtnStatus();
-				updateEndTimeAndDate();
+		 startMinuteSpinner.addChangeListener(new ChangeListener() {
+			 public void stateChanged(ChangeEvent e) {
+				 final GregorianCalendar cal = new GregorianCalendar();
+				 cal.setTime((Date) startMinuteSpinner.getValue());
+				 final int currentHour = cal.get(Calendar.HOUR);
+				 startTempMin = Integer.parseInt(
+						 startMinuteEditor.getTextField().getText().toString());
+				 checkStartTimeSpinnerStatus(startMinuteSpinner);
 
-			}
-		});
-		
-		startMinuteSpinner.addFocusListener(new FocusListener() {
-			
-			@Override
-			public void focusGained(FocusEvent e) {
-				checkSaveBtnStatus();
-			}
+				 if(currentHour == 1) {
+					 cal.setTime(getStartDate().getTime());
+					 cal.add(Calendar.HOUR, 1);  
+					 setStartDate(cal);
+				 }
 
-			@Override
-			public void focusLost(FocusEvent e) {
-				checkSaveBtnStatus();
-			}
-		});
-		
-		startAMPMEditor.getTextField().addFocusListener(new FocusListener() {
+				 if(currentHour == 11) {
+					 cal.setTime(getStartDate().getTime());
+					 cal.add(Calendar.HOUR, -1);  
+					 setStartDate(cal);
+				 }
+				 
+				 updateEndTimeAndDate();
+				 checkSaveBtnStatus();
 
-			@Override
-			public void focusGained(FocusEvent e) {
-			}
+			 }
+		 });
 
-			@Override
-			public void focusLost(FocusEvent e) {
-				try {
-					startAMPMEditor.getTextField().commitEdit();
-					checkStartTimeSpinnerStatus(startAMPMSpinner);
-					checkSaveBtnStatus();
-				} catch (ParseException e1) {
-					checkStartTimeSpinnerStatus(startAMPMSpinner);
-					checkSaveBtnStatus();
-				}
-			}
-		});
-		
-		startAMPMEditor.getTextField().addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
-            	final char vChar = e.getKeyChar();
-                if (!((vChar == 'A')
-                		|| (vChar == 'P')
-                		|| (vChar == 'M')
-                		|| (vChar == 'a')
-                		|| (vChar == 'p')
-                		|| (vChar == 'm')
-                        || (vChar == KeyEvent.VK_BACK_SPACE)
-                        || (vChar == KeyEvent.VK_DELETE))) {
-                    e.consume();
-                }
-            }
-        });
-		
-		//Some edit specific listeners
-		//These are here to avoid possible NullPointer exceptions while opening the tab 
-		startAMPMSpinner.addChangeListener(new ChangeListener(){
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				checkSaveBtnStatus();
-				updateEndTimeAndDate();
-			}
-		});
-		
-		startAMPMSpinner.addFocusListener(new FocusListener() {
-			
-			@Override
-			public void focusGained(FocusEvent e) {
-				checkSaveBtnStatus();
-			}
+		 startMinuteSpinner.addFocusListener(new FocusListener() {
 
-			@Override
-			public void focusLost(FocusEvent e) {
-				checkSaveBtnStatus();
-			}
-		});
-		
+			 @Override
+			 public void focusGained(FocusEvent e) {
+				 checkSaveBtnStatus();
+			 }
+
+			 @Override
+			 public void focusLost(FocusEvent e) {
+				 checkSaveBtnStatus();
+			 }
+		 });
+
+		 startAMPMEditor.getTextField().addFocusListener(new FocusListener() {
+
+			 @Override
+			 public void focusGained(FocusEvent e) {
+			 }
+
+			 @Override
+			 public void focusLost(FocusEvent e) {
+				 try {
+					 startAMPMEditor.getTextField().commitEdit();
+					 checkStartTimeSpinnerStatus(startAMPMSpinner);
+					 checkSaveBtnStatus();
+				 } catch (ParseException e1) {
+					 checkStartTimeSpinnerStatus(startAMPMSpinner);
+					 checkSaveBtnStatus();
+				 }
+			 }
+		 });
+
+		 startAMPMEditor.getTextField().addKeyListener(new KeyAdapter() {
+			 public void keyTyped(KeyEvent e) {
+				 final char vChar = e.getKeyChar();
+				 if (!((vChar == 'A')
+						 || (vChar == 'P')
+						 || (vChar == 'M')
+						 || (vChar == 'a')
+						 || (vChar == 'p')
+						 || (vChar == 'm')
+						 || (vChar == KeyEvent.VK_BACK_SPACE)
+						 || (vChar == KeyEvent.VK_DELETE))) {
+					 e.consume();
+				 }
+			 }
+		 });
+
+		 //Some edit specific listeners
+		 //These are here to avoid possible NullPointer exceptions while opening the tab 
+		 startAMPMSpinner.addChangeListener(new ChangeListener(){
+			 @Override
+			 public void stateChanged(ChangeEvent e) {
+				 
+				 updateEndTimeAndDate();
+				 checkSaveBtnStatus();
+			 }
+		 });
+
+		 startAMPMSpinner.addFocusListener(new FocusListener() {
+
+			 @Override
+			 public void focusGained(FocusEvent e) {
+				 checkSaveBtnStatus();
+			 }
+
+			 @Override
+			 public void focusLost(FocusEvent e) {
+				 checkSaveBtnStatus();
+			 }
+		 });
+
 	}
-	
+
 	private void addEndTimeSpinnerListeners() {
 		endHourEditor.getTextField().addFocusListener(new FocusListener() {
 
@@ -1213,38 +1315,39 @@ public class EventTab extends JPanel {
 				} catch (ParseException e1) {
 					checkEndTimeSpinnerStatus(endHourSpinner);
 					checkSaveBtnStatus();
-					e1.printStackTrace();
+					//e1.printStackTrace();
 				}
 			}
 		});
-		
+
 		endHourEditor.getTextField().addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
-            	final char vChar = e.getKeyChar();
-                if (!(Character.isDigit(vChar)
-                        || (vChar == KeyEvent.VK_BACK_SPACE)
-                        || (vChar == KeyEvent.VK_DELETE))) {
-                    e.consume();
-                }
-            }
-        });
-		
-		
+			public void keyTyped(KeyEvent e) {
+				final char vChar = e.getKeyChar();
+				if (!(Character.isDigit(vChar)
+						|| (vChar == KeyEvent.VK_BACK_SPACE)
+						|| (vChar == KeyEvent.VK_DELETE))) {
+					e.consume();
+				}
+			}
+		});
+
+
 		//Some edit specific listeners
 		//These are here to avoid possible NullPointer exceptions while opening the tab 
 		endHourSpinner.addChangeListener(new ChangeListener(){
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				checkSaveBtnStatus();
+				
 				endTempHour = Integer.parseInt(endHourEditor.getTextField().getText().toString());
 				checkEndTimeSpinnerStatus(endHourSpinner);
 				checkEndBeforeStart();
+				checkSaveBtnStatus();
 			}
 		});
-		
+
 		endHourSpinner.addFocusListener(new FocusListener() {
-			
+
 			@Override
 			public void focusGained(FocusEvent e) {
 				checkSaveBtnStatus();
@@ -1256,7 +1359,7 @@ public class EventTab extends JPanel {
 			}
 		});
 
-		
+
 		endMinuteEditor.getTextField().addFocusListener(new FocusListener() {
 
 			@Override
@@ -1272,121 +1375,123 @@ public class EventTab extends JPanel {
 				} catch (ParseException e1) {
 					checkEndTimeSpinnerStatus(endMinuteSpinner);
 					checkSaveBtnStatus();
-					e1.printStackTrace();
+					//e1.printStackTrace();
 				}
 			}
 		});
-		
+
 		endMinuteEditor.getTextField().addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
-            	final char vChar = e.getKeyChar();
-                if (!(Character.isDigit(vChar)
-                        || (vChar == KeyEvent.VK_BACK_SPACE)
-                        || (vChar == KeyEvent.VK_DELETE))) {
-                    e.consume();
-                }
-            }
-        });
-		
+			public void keyTyped(KeyEvent e) {
+				final char vChar = e.getKeyChar();
+				if (!(Character.isDigit(vChar)
+						|| (vChar == KeyEvent.VK_BACK_SPACE)
+						|| (vChar == KeyEvent.VK_DELETE))) {
+					e.consume();
+				}
+			}
+		});
+
 		/**
 		 * Rounds minute input to the closest 30s everytime the text field changes.
 		 */
-		endMinuteSpinner.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				final GregorianCalendar cal = new GregorianCalendar();
-				cal.setTime((Date) endMinuteSpinner.getValue());
-				final int currentHour = cal.get(Calendar.HOUR);
-				endTempMin = Integer.parseInt(endMinuteEditor.getTextField().getText().toString());
-				checkEndTimeSpinnerStatus(endMinuteSpinner);
-				
-				if(currentHour == 1) {
-					cal.setTime(getEndDate().getTime());
-					cal.add(Calendar.HOUR, 1);  
-					setEndDate(cal);
-				}
-				
-				if(currentHour == 11) {
-					cal.setTime(getEndDate().getTime());
-					cal.add(Calendar.HOUR, -1);  
-					setEndDate(cal);
-				}
-				checkSaveBtnStatus();
-				checkEndBeforeStart();
-			}
-		});
-		
-		endMinuteSpinner.addFocusListener(new FocusListener() {
-			
-			@Override
-			public void focusGained(FocusEvent e) {
-				checkSaveBtnStatus();
-			}
+		 endMinuteSpinner.addChangeListener(new ChangeListener() {
+			 public void stateChanged(ChangeEvent e) {
+				 final GregorianCalendar cal = new GregorianCalendar();
+				 cal.setTime((Date) endMinuteSpinner.getValue());
+				 final int currentHour = cal.get(Calendar.HOUR);
+				 endTempMin = Integer.parseInt(endMinuteEditor.getTextField().getText().toString());
+				 checkEndTimeSpinnerStatus(endMinuteSpinner);
 
-			@Override
-			public void focusLost(FocusEvent e) {
-				checkSaveBtnStatus();
-			}
-		});
-		
-		endAMPMEditor.getTextField().addFocusListener(new FocusListener() {
+				 if(currentHour == 1) {
+					 cal.setTime(getEndDate().getTime());
+					 cal.add(Calendar.HOUR, 1);  
+					 setEndDate(cal);
+				 }
 
-			@Override
-			public void focusGained(FocusEvent e) {
-			}
+				 if(currentHour == 11) {
+					 cal.setTime(getEndDate().getTime());
+					 cal.add(Calendar.HOUR, -1);  
+					 setEndDate(cal);
+				 }
+				 
+				 checkEndBeforeStart();
+				 checkSaveBtnStatus();
+			 }
+		 });
 
-			@Override
-			public void focusLost(FocusEvent e) {
-				try {
-					endAMPMEditor.getTextField().commitEdit();
-					checkEndTimeSpinnerStatus(endAMPMSpinner);
-					checkSaveBtnStatus();
-				} catch (ParseException e1) {
-					checkEndTimeSpinnerStatus(endAMPMSpinner);
-					checkSaveBtnStatus();
-					e1.printStackTrace();
-				}
-			}
-		});
-		
-		endAMPMEditor.getTextField().addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
-            	final char vChar = e.getKeyChar();
-                if (!((vChar == 'A')
-                		|| (vChar == 'P')
-                		|| (vChar == 'M')
-                		|| (vChar == 'a')
-                		|| (vChar == 'p')
-                		|| (vChar == 'm')
-                        || (vChar == KeyEvent.VK_BACK_SPACE)
-                        || (vChar == KeyEvent.VK_DELETE))) {
-                    e.consume();
-                }
-            }
-        });
-		
-		//Some edit specific listeners
-		//These are here to avoid possible NullPointer exceptions while opening the tab 
-		endAMPMSpinner.addChangeListener(new ChangeListener(){
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				checkSaveBtnStatus();
-				checkEndBeforeStart();
-			}
-		});
-		
-		endAMPMSpinner.addFocusListener(new FocusListener() {
-			
-			@Override
-			public void focusGained(FocusEvent e) {
-				checkSaveBtnStatus();
-			}
+		 endMinuteSpinner.addFocusListener(new FocusListener() {
 
-			@Override
-			public void focusLost(FocusEvent e) {
-				checkSaveBtnStatus();
-			}
-		});
-		
+			 @Override
+			 public void focusGained(FocusEvent e) {
+				 checkSaveBtnStatus();
+			 }
+
+			 @Override
+			 public void focusLost(FocusEvent e) {
+				 checkSaveBtnStatus();
+			 }
+		 });
+
+		 endAMPMEditor.getTextField().addFocusListener(new FocusListener() {
+
+			 @Override
+			 public void focusGained(FocusEvent e) {
+			 }
+
+			 @Override
+			 public void focusLost(FocusEvent e) {
+				 try {
+					 endAMPMEditor.getTextField().commitEdit();
+					 checkEndTimeSpinnerStatus(endAMPMSpinner);
+					 checkSaveBtnStatus();
+				 } catch (ParseException e1) {
+					 checkEndTimeSpinnerStatus(endAMPMSpinner);
+					 checkSaveBtnStatus();
+					// e1.printStackTrace();
+				 }
+			 }
+		 });
+
+		 endAMPMEditor.getTextField().addKeyListener(new KeyAdapter() {
+			 public void keyTyped(KeyEvent e) {
+				 final char vChar = e.getKeyChar();
+				 if (!((vChar == 'A')
+						 || (vChar == 'P')
+						 || (vChar == 'M')
+						 || (vChar == 'a')
+						 || (vChar == 'p')
+						 || (vChar == 'm')
+						 || (vChar == KeyEvent.VK_BACK_SPACE)
+						 || (vChar == KeyEvent.VK_DELETE))) {
+					 e.consume();
+				 }
+			 }
+		 });
+
+		 //Some edit specific listeners
+		 //These are here to avoid possible NullPointer exceptions while opening the tab 
+		 endAMPMSpinner.addChangeListener(new ChangeListener(){
+			 @Override
+			 public void stateChanged(ChangeEvent e) {
+				 
+				 checkEndBeforeStart();
+				 checkSaveBtnStatus();
+			 }
+		 });
+
+		 endAMPMSpinner.addFocusListener(new FocusListener() {
+
+			 @Override
+			 public void focusGained(FocusEvent e) {
+				 checkSaveBtnStatus();
+			 }
+
+			 @Override
+			 public void focusLost(FocusEvent e) {
+				 checkSaveBtnStatus();
+			 }
+		 });
+
 	}
 
 
@@ -1396,11 +1501,14 @@ public class EventTab extends JPanel {
 	 */
 	protected void checkEndBeforeStart() {
 		if(initFlag){
-		if(getEndDate().getTime().before(getStartDate().getTime()))
+			if(getEndDate().getTime().before(getStartDate().getTime()))
+			{
 				setEndDate(getStartDate());
+			}
+			checkRepeatDuration();
 		}
 	}
-	
+
 	/**
 	 * Method updateEndTimeAndDate.
 	 */
@@ -1411,6 +1519,7 @@ public class EventTab extends JPanel {
 
 		setEndDate(cal);
 		oldStartTime = getStartDate();
+		checkRepeatDuration();
 	}
 
 
@@ -1423,25 +1532,25 @@ public class EventTab extends JPanel {
 		calTemp.set(Calendar.MILLISECOND, 0);
 		calTemp.set(Calendar.SECOND, 0);
 		cal.setTime(calTemp.getTime());
-		
+
 
 		calTemp.setTime(startDatePicker.getDate());
 		cal.set(Calendar.DATE, calTemp.get(Calendar.DATE));
-		
+
 
 		calTemp.setTime((Date)startHourSpinner.getValue());
 		cal.set(Calendar.HOUR, calTemp.get(Calendar.HOUR));
-		
+
 		calTemp.setTime((Date)startMinuteSpinner.getValue());
 		cal.set(Calendar.MINUTE, calTemp.get(Calendar.MINUTE));
-		
+
 		calTemp.setTime((Date)startAMPMSpinner.getValue());
 		cal.set(Calendar.AM_PM, calTemp.get(Calendar.AM_PM));
-		
+
 		return cal;
-		
+
 	}
-	
+
 	private GregorianCalendar getEndDate()
 	{
 		final GregorianCalendar cal = new GregorianCalendar();
@@ -1451,25 +1560,25 @@ public class EventTab extends JPanel {
 		calTemp.set(Calendar.MILLISECOND, 0);
 		calTemp.set(Calendar.SECOND, 0);
 		cal.setTime(calTemp.getTime());
-		
+
 
 		calTemp.setTime(endDatePicker.getDate());
 		cal.set(Calendar.DATE, calTemp.get(Calendar.DATE));
-		
+
 
 		calTemp.setTime((Date)endHourSpinner.getValue());
 		cal.set(Calendar.HOUR, calTemp.get(Calendar.HOUR));
-		
+
 		calTemp.setTime((Date)endMinuteSpinner.getValue());
 		cal.set(Calendar.MINUTE, calTemp.get(Calendar.MINUTE));
-		
+
 		calTemp.setTime((Date)endAMPMSpinner.getValue());
 		cal.set(Calendar.AM_PM, calTemp.get(Calendar.AM_PM));
-		
+
 		return cal;
-		
+
 	}
-	
+
 	private void setStartDate(GregorianCalendar date)
 	{
 		endDatePicker.setDate(date.getTime());
@@ -1479,7 +1588,7 @@ public class EventTab extends JPanel {
 		startMinuteSpinner.setValue(date.getTime());
 
 	}
-	
+
 	private void setEndDate(GregorianCalendar date)
 	{
 		endDatePicker.setDate(date.getTime());
@@ -1488,16 +1597,16 @@ public class EventTab extends JPanel {
 		date.set(Calendar.HOUR, 0);
 		endMinuteSpinner.setValue(date.getTime());
 	}
-	
-	
+
+
 	/**
 	 * Controls the enable state of the save button 
 	 * by checking all user editable elements in commitment tab.
 	 */
 	private void checkSaveBtnStatus(){
-		
+
 		if (initFlag){
-			if(		nameTextField.getText().equals("") ||
+			if(nameTextField.getText().equals("") ||
 					startDatePicker.getDate() == null || //data validation
 					endDatePicker.getDate() == null || //data validation
 
@@ -1509,7 +1618,7 @@ public class EventTab extends JPanel {
 				if (mode == EditingMode.EDITING) {
 					//get some date data
 					//Parse date and time info
-					
+
 					//System.out.println("AMPM is " + calAMPM.get(Calendar.AM_PM));
 					//System.out.println("Hour of day is " + calHour.get(Calendar.HOUR_OF_DAY));
 					//System.out.println("Current commit hour is " 
@@ -1517,17 +1626,17 @@ public class EventTab extends JPanel {
 					//System.out.println("Time in milli is " + calDate.getTimeInMillis());
 					//System.out.println("Commit time in milli is " 
 					//+ editingEvent.getDueDate().getTimeInMillis());
-					
+
 					//make sure something changed
 					if (nameTextField.getText().equals(editingEvent.getName()) 
 							&& descriptionTextArea.getText().equals(editingEvent.getDescription())
-							//TODO uncomment category code
-							//&& ((Category)categoryComboBox.getSelectedItem()).getID() 
-							//== editingEvent.getCategoryID()
+
+							&& ((Category)categoryComboBox.getSelectedItem()).getID() 
+							== editingEvent.getCategoryID()
 							&& getStartDate().getTime().equals(
 									editingEvent.getStartTime().getTime())
-							&& getEndDate().getTime().equals(
-									editingEvent.getEndTime().getTime()))
+									&& getEndDate().getTime().equals(
+											editingEvent.getEndTime().getTime()))
 					{
 						btnAddEvent.setEnabled(false);
 						return;
@@ -1535,20 +1644,52 @@ public class EventTab extends JPanel {
 				}
 				if(repeatCheckBox.isSelected()){
 					try {
-						if (Integer.parseInt(repeatAmt.getText()) > 1){
-							btnAddEvent.setEnabled(true);	
-						} else {
+						if (Integer.parseInt(repeatAmt.getText()) <= 1){
 							btnAddEvent.setEnabled(false);
+							return;
 						}
 					} catch (Exception ex){
 						btnAddEvent.setEnabled(false);
+						return;
 					}
+					
+				}
+				
+				//checks to see if there are any errors and prevents saving if there are
+				if(!checkNoErrors()){
+					btnAddEvent.setEnabled(false);
 					return;
 				}
 				btnAddEvent.setEnabled(true);
 			}
+			
+	
 
 		}
+	}
+	
+	/**
+	 * Function used to check if there are any errors in any fields
+	 * @returns true if no errors
+	 */
+	private boolean checkNoErrors(){
+		boolean result = true;
+		//check for repeat event duration error
+		if(!lblRepeatError.getText().equals(" ") &&
+				!lblRepeatError.getText().equals("<html><font color='red'>"
+				+ "Duration cannot be greater than a month for repeating events.</font></html>")){
+			//if there is error text displayed
+			result = false;
+		}
+		if(lblDateError.isVisible()){
+			//if there is error text displayed
+			result = false;
+		}
+		if(lblDateError2.isVisible()){
+			//if there is error text displayed
+			result = false;
+		}
+		return result;
 	}
 
 
@@ -1559,27 +1700,47 @@ public class EventTab extends JPanel {
 	 */
 	public EventTab(Event event, int openedFrom) {
 		this(openedFrom);
-		
+
 		initFlag = false; //We need this to deal with the nested constructors
-		
+
 		editingEvent = event;
 		mode = EditingMode.EDITING;
-		
+
 		nameTextField.setText(editingEvent.getName());
 		descriptionTextArea.setText(editingEvent.getDescription());
-		
-		categoryComboBox.setSelectedItem(editingEvent.getCategoryID());
-		
-		
 		if(!editingEvent.getIsPersonal())
+		{
 			rdbtnTeam.setSelected(true);
+		}
 		else
+		{
 			rdbtnPersonal.setSelected(true);
-		
-		
+		}
+
+
 		rdbtnTeam.setEnabled(false);
 		rdbtnPersonal.setEnabled(false);
+
+		updateCategoryList();
 		
+		// gets Caldata
+		CalendarData calData;
+		if (rdbtnPersonal.isSelected()){
+				calData = CalendarDataModel.getInstance().getCalendarData(
+						ConfigManager.getConfig().getProjectName() + 
+						"-" + ConfigManager.getConfig().getUserName()); 
+		}
+		else{
+			calData = CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName()); 
+		}
+		
+		if (editingEvent.getCategoryID() != 0){
+			categoryComboBox.setSelectedItem(
+					calData.getCategories().getCategory(editingEvent.getCategoryID()));
+		} else {
+			categoryComboBox.setSelectedItem(uncategorized);
+		}
 
 		setStartDate(editingEvent.getStartTime());
 		startDatePicker.setDate(editingEvent.getStartTime().getTime());
@@ -1588,20 +1749,22 @@ public class EventTab extends JPanel {
 
 		//handle repetition fields
 		if(event.getIsRepeating()){
-			CalendarData calData;
+			CalendarData repCalData;
 			//we need the calData so that we can get the actual repeating event from it
 			// the event that the tab was opened with is just a dummy event so that the GUI
 			// can display it
 			if (rdbtnPersonal.isSelected()){
-				calData = CalendarDataModel.getInstance().getCalendarData(ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName()); 
+				repCalData = CalendarDataModel.getInstance().getCalendarData(
+						ConfigManager.getConfig().getProjectName() + 
+						"-" + ConfigManager.getConfig().getUserName()); 
 				isTeamEvent = false;
 			}
 			else{
-				calData = CalendarDataModel.getInstance().getCalendarData(
+				repCalData = CalendarDataModel.getInstance().getCalendarData(
 						ConfigManager.getConfig().getProjectName()); 
 				isTeamEvent = true;
 			}
-			editingRepeatingEvent = calData.getRepeatingEvents().get(event.getID());
+			editingRepeatingEvent = repCalData.getRepeatingEvents().get(event.getID());
 			repeatCheckBox.setSelected(true);
 			repeatAmt.setText(Integer.toString(editingRepeatingEvent.getRepetitions()));
 			repeatAmt.setEnabled(true);
@@ -1620,12 +1783,12 @@ public class EventTab extends JPanel {
 			setEndDate(editingRepeatingEvent.getEndTime());
 			endDatePicker.setDate(editingRepeatingEvent.getEndTime().getTime());
 		}
-		
+
 		repeatCheckBox.setEnabled(false);
 		//Don't want people changing this for now
 		// it would not be worth the effort to implement right now
 		// we might be able to enable it later
-		
+
 		// Add Delete Button
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
@@ -1634,7 +1797,7 @@ public class EventTab extends JPanel {
 		catch(IllegalArgumentException ex){
 			btnDelete.setText("Delete Event");
 		}
-		
+
 		btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
 		btnDelete.addActionListener(new ActionListener() {
@@ -1643,23 +1806,72 @@ public class EventTab extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				deleteEvent();
 			}
-			
+
 		});
 		buttonPanel.add(btnDelete, BorderLayout.LINE_END);
-	
+
+
+
+		initFlag = true;
+
+	}
+
+	/**
+	 * Updates the category list in the CategoryComboBox
+	 */
+	protected void updateCategoryList(){
+		initFlag = false; //prevents listeners from running
 		
+		final int selectedCategory;
+		
+		if(categoryComboBox.getSelectedItem() != null){
+			selectedCategory = ((Category) categoryComboBox.getSelectedItem()).getID();
+		} else {
+			selectedCategory = 0;
+		}
+		
+		//removes the current data from the ComboBox
+		categoryComboBox.removeAllItems();
+
+		//adds the "none" category
+		categoryComboBox.addItem(uncategorized);
+
+		// gets Caldata
+		CalendarData calData;
+		if (rdbtnPersonal.isSelected()){
+			calData = CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName() + 
+					"-" + ConfigManager.getConfig().getUserName()); 
+		}
+		else{
+			calData = CalendarDataModel.getInstance().getCalendarData(
+					ConfigManager.getConfig().getProjectName()); 
+		}
+
+		//extracts the category list
+		final List<Category> categories = calData.getCategories().getCategories();
+
+		//adds the categories to the comboBox
+		for (Category cat:categories){
+			categoryComboBox.addItem(cat);
+		}
+
+		
+		if(selectedCategory != 0){
+			categoryComboBox.setSelectedItem(calData.getCategories().getCategory(selectedCategory));
+		}
 		
 		initFlag = true;
 
 	}
-	
+
 
 	/**
 	 * Close this event tab
-	 * @param goTo int
+	
 	 */
-	protected void removeTab(int goTo) {
-		GUIEventController.getInstance().removeEventTab(this, goTo);
+	protected void removeTab() {
+		GUIEventController.getInstance().removeEventTab(this, openedFrom);
 	}
 	/**
 	 * Close this event tab when cancel is hit
@@ -1668,8 +1880,8 @@ public class EventTab extends JPanel {
 		GUIEventController.getInstance().removeEventTab(this, openedFrom);
 	}
 
-	
-	
+
+
 	/**
 	 * Adds listeners for all editable elements in commitment tab.
 	 * Calls addTimeSpinnerListeners() and addDatePickerListeners() 
@@ -1689,7 +1901,7 @@ public class EventTab extends JPanel {
 			public void keyPressed(KeyEvent e) {
 			}
 		});
-		
+
 		descriptionTextArea.addKeyListener(new KeyListener() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -1703,22 +1915,75 @@ public class EventTab extends JPanel {
 			public void keyPressed(KeyEvent e) {
 			}
 		});
-		
+
 		categoryComboBox.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				checkSaveBtnStatus();
 			}
 		});
-		
+
 		addStartTimeSpinnerListeners();
 		addStartDatePickerListeners();
 		addEndTimeSpinnerListeners();
 		addEndDatePickerListeners();
+
+
+		rdbtnTeam.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				categoryComboBox.setSelectedIndex(0);
+				updateCategoryList();
+
+			}
+
+		});
+
+		rdbtnPersonal.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				categoryComboBox.setSelectedIndex(0);
+				updateCategoryList();
+
+			}
+
+		});
 		
+
+		//Adds a listener to the tab so we can refresh the category list if it was edited
+		addComponentListener(new ComponentListener(){
+
+			@Override
+			public void componentResized(ComponentEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void componentMoved(ComponentEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void componentShown(ComponentEvent e) {
+
+				updateCategoryList();
+
+			}
+
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
 	}
 
-	
+
 	/**
 	 * Adds new event with information contained in fields
 	 */
@@ -1745,7 +2010,7 @@ public class EventTab extends JPanel {
 		//		{
 		//			System.out.println("Event name: " + event.getName()+", id: "+ event.getId());
 		//		}
-		
+
 		//repeat events are handled separately because if the tab is editing a repeating event,
 		// then it was opened with a dummy event
 		if (repeatCheckBox.isSelected()){
@@ -1774,7 +2039,7 @@ public class EventTab extends JPanel {
 			newRepEvent.setStartTime(getStartDate());
 			newRepEvent.setEndTime(getEndDate());
 			newRepEvent.setName(nameTextField.getText());
-			
+
 			//Set repeating fields
 			if (repeatTypeComboBox.getSelectedIndex() == 2){
 				newRepEvent.setRepType(RepeatType.MONTH);
@@ -1783,19 +2048,23 @@ public class EventTab extends JPanel {
 			} else {
 				newRepEvent.setRepType(RepeatType.DAY);
 			}
-			
+
 			newRepEvent.setRepetitions(Integer.parseInt(repeatAmt.getText()));
 
 
 			if (mode == EditingMode.ADDING)
+			{
 				calData.addRepeatingEvent(newRepEvent);
+			}
 			else
+			{
 				calData.getRepeatingEvents().update(newRepEvent);
+			}
 
 			UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 
 
-			this.removeTab(isTeamEvent ? 1 : 0);
+			this.removeTab();
 
 		} else {
 
@@ -1805,7 +2074,9 @@ public class EventTab extends JPanel {
 				newEvent = new Event();
 			}
 			else
+			{
 				newEvent = editingEvent;
+			}
 
 			if(isTeamEvent){
 				newEvent.setIsPersonal(false);
@@ -1814,16 +2085,14 @@ public class EventTab extends JPanel {
 				newEvent.setIsPersonal(true);
 			}
 
-			//TODO
-			//temporary fix to allow use of events still
-			try{
-				newEvent.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getID());
-			}catch(java.lang.NullPointerException exp){}
-			
+
+			newEvent.setCategoryID(((Category)categoryComboBox.getSelectedItem()).getID());
+
+
 			newEvent.setDescription(descriptionTextArea.getText());
 
 
-			
+
 
 			//set due date
 			newEvent.setStartTime(getStartDate());
@@ -1831,17 +2100,21 @@ public class EventTab extends JPanel {
 			newEvent.setName(nameTextField.getText());
 
 			if (mode == EditingMode.ADDING)
+			{
 				calData.addEvent(newEvent);
+			}
 			else
+			{
 				calData.getEvents().update(newEvent);
+			}
 
 			UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 
 
-			this.removeTab(isTeamEvent ? 1 : 0);
+			this.removeTab();
 		}
 	}
-	
+
 
 	/**
 	 * Method deleteEvent.
@@ -1852,7 +2125,7 @@ public class EventTab extends JPanel {
 		if (rdbtnPersonal.isSelected()){
 			calData = CalendarDataModel.getInstance().getCalendarData(
 					ConfigManager.getConfig().getProjectName() +
-							"-" + ConfigManager.getConfig().getUserName()); 
+					"-" + ConfigManager.getConfig().getUserName()); 
 			isTeamEvent = false;
 		}
 		else{
@@ -1867,9 +2140,9 @@ public class EventTab extends JPanel {
 		} else {
 			calData.getEvents().removeEvent(editingEvent.getID());
 		}
-		
+
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
-		removeTab(isTeamEvent ? 1 : 0);
+		removeTab();
 	}
 
 
@@ -1896,7 +2169,7 @@ public class EventTab extends JPanel {
 				catch(NullPointerException ne){
 					result = false;
 				}
-				
+
 				if(date != null) {
 					break;
 				}
@@ -1911,7 +2184,7 @@ public class EventTab extends JPanel {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * Checks text field in datepicker's editor.
 	 * @return boolean that indicates whether the input in the editor is valid.
@@ -1935,7 +2208,7 @@ public class EventTab extends JPanel {
 				catch(NullPointerException ne){
 					result = false;
 				}
-				
+
 				if(date != null) {
 					break;
 				}
@@ -1950,72 +2223,73 @@ public class EventTab extends JPanel {
 		}
 		return result;
 	}
-	
+
 	private void checkStartDatePickerStatus() {
 		if(initFlag){
-		if(isBadStartInputDate()) {
-			startDatePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
-			lblDateError.setVisible(true);
-		}
-		else {
-			final SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy"); 
-			startDatePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
-			startDatePicker.getEditor().setText(dt.format(startDatePicker.getDate()));
-			lblDateError.setVisible(false);
-		}
+			if(isBadStartInputDate()) {
+				startDatePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
+				lblDateError.setVisible(true);
+			}
+			else {
+				final SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy"); 
+				startDatePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
+				startDatePicker.getEditor().setText(dt.format(startDatePicker.getDate()));
+				lblDateError.setVisible(false);
+			}
 		}
 	}
-	
+
 	private void checkEndDatePickerStatus() {
 		if(initFlag){
-		if(isBadEndInputDate()) {
-			endDatePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
-			lblDateError2.setVisible(true);
-		}
-		else {
-			final SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy"); 
-			endDatePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
-			endDatePicker.getEditor().setText(dt.format(endDatePicker.getDate()));
-			lblDateError2.setVisible(false);
-		}
+			if(isBadEndInputDate()) {
+				endDatePicker.getEditor().setBackground(Color.getHSBColor(3, 0.3f, 1f));
+				lblDateError2.setVisible(true);
+			}
+			else {
+				final SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy"); 
+				endDatePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
+				endDatePicker.getEditor().setText(dt.format(endDatePicker.getDate()));
+				lblDateError2.setVisible(false);
+			}
 		}
 	}
-	
+
 	private void checkStartTimeSpinnerStatus(JSpinner spinner) {
 		if(initFlag){
-		final DateEditor editor = (DateEditor)spinner.getEditor();
-		if(isBadInputTime(editor) || startTempHour < 1 || startTempHour > 12 || startTempMin > 59) {
-			editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
-			lblTimeError.setText("<html><font color='red'>"
-					+ "Please enter a valid time.</font></html>");
-		}
-		else {
-			editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-			lblTimeError.setText(" ");
-		}
+			final DateEditor editor = (DateEditor)spinner.getEditor();
+			if(isBadInputTime(editor) || startTempHour < 1 || 
+					startTempHour > 12 || startTempMin > 59) {
+				editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
+				lblTimeError.setText("<html><font color='red'>"
+						+ "Please enter a valid time.</font></html>");
+			}
+			else {
+				editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
+				lblTimeError.setText(" ");
+			}
 		}
 	}
-	
+
 	private void checkEndTimeSpinnerStatus(JSpinner spinner) {
 		if(initFlag){
-		final DateEditor editor = (DateEditor)spinner.getEditor();
-		if(isBadInputTime(editor) || endTempHour < 1 || endTempHour > 12 || endTempMin > 59) {
-			editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
-			lblTimeError2.setText("<html><font color='red'>"
-					+ "Please enter a valid time.</font></html>");
-		}
-		else {
-			editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-			lblTimeError2.setText(" ");
-		}
+			final DateEditor editor = (DateEditor)spinner.getEditor();
+			if(isBadInputTime(editor) || endTempHour < 1 || endTempHour > 12 || endTempMin > 59) {
+				editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
+				lblTimeError2.setText("<html><font color='red'>"
+						+ "Please enter a valid time.</font></html>");
+			}
+			else {
+				editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
+				lblTimeError2.setText(" ");
+			}
 		}
 	}
-	
+
 	private boolean isBadInputTime(DateEditor editor) {
 		boolean result;
 		final SimpleDateFormat format = editor.getFormat();
 		Date date = null;
-		
+
 		try {
 			date = format.parse(editor.getTextField().getText().trim());
 		}

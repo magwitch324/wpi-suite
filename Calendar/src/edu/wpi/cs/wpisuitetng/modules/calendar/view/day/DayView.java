@@ -7,7 +7,7 @@
  * 
  * Contributors: CS Anonymous
  ******************************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.calendar.view;
+package edu.wpi.cs.wpisuitetng.modules.calendar.view.day;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -16,15 +16,17 @@ import java.util.Locale;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.CalendarView;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentView;
 
- /**
-  * Day view contains a calendar and a day pane.
-  * Day view manages displaying filtered/complete calendar data, the redraw methods,
-  * and setting the date range to display.
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
+/**
   * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
+ @SuppressWarnings("serial")
 public class DayView extends CalendarView {
 
 
@@ -82,12 +84,14 @@ public class DayView extends CalendarView {
 		}
 
 		if (showCommOnCal)
+			{
 			try {
 				
 				dayPane.displayEvents(eventList.filter(day));
 				dayPane.displayCommitments(commList.filter(day));
 			} catch (CalendarException e) {
 				e.printStackTrace();
+			}
 			}
 		else{
 			dayPane.displayCommitments(null); //show no commitments on DayPane

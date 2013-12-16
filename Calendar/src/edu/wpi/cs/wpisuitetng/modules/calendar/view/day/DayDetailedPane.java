@@ -7,22 +7,26 @@
  * 
  * Contributors: CS Anonymous
  ******************************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.calendar.view;
+package edu.wpi.cs.wpisuitetng.modules.calendar.view.day;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.ArrayList;
+
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SpringLayout;
+
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar.types;
 
 /**
  * The class for a day containing event commitments and the half hour marks
@@ -30,7 +34,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
  *@version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
-public class DayDayPane extends JPanel {
+public class DayDetailedPane extends JPanel {
 	GregorianCalendar acal;
 	List<Event> eventlist = new ArrayList<Event>();
 	List<Commitment> commlist = new ArrayList<Commitment>();
@@ -41,11 +45,11 @@ public class DayDayPane extends JPanel {
 	AbCalendar.types detailLevel;
 	
 	/**
-	 * Constructor for daydaypane
+	 * Constructor for day detailed pane
 	 * @param acal the date that is used for displaying
 	 * @param detailLevel AbCalendar.types
 	 */
-	public DayDayPane(GregorianCalendar acal, AbCalendar.types detailLevel){
+	public DayDetailedPane(GregorianCalendar acal, AbCalendar.types detailLevel){
 		this.detailLevel = detailLevel;
 		
 		this.acal = (GregorianCalendar)acal.clone();

@@ -15,17 +15,15 @@ import java.util.List;
 
 import javax.swing.AbstractListModel;
 
-
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.AddPropsController;
 
 
 
- /**
-  * Calendar properties model for storing list of calendar properties that match the list of calendars.
+/**
   * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-public class CalendarPropsModel extends AbstractListModel {
+ public class CalendarPropsModel extends AbstractListModel {
 
 	/**
 	 * The list in which all the CalendarProps for a single project are contained
@@ -97,7 +95,8 @@ public class CalendarPropsModel extends AbstractListModel {
 	/**
 	 * Removes the CalendarProps with the given ID
 	 * 
-	 * @param removeId The ID number of the CalendarProps to be removed from the list of CalendarPropss
+	 * @param removeId The ID number of the CalendarProps 
+	 * to be removed from the list of CalendarPropss
 	 */
 	public void removeCalendarProps(String removeId){
 		// iterate through list of CalendarPropss until id of project is found

@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * Copyright (c) 2013 WPI-Suite
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: CS Anonymous
+ ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import java.awt.Color;
@@ -18,19 +27,27 @@ import javax.swing.plaf.basic.BasicSpinnerUI;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab.enumTimeSpinner;
 
+
 /**
  * New time spinner which has error checking ability.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 public class TimeSpinner extends JSpinner {
 	
 	private JSpinner.DateEditor editor;
 	private boolean upArrowAction;
 	private boolean downArrowAction;
-	private enumTimeSpinner myType;
+	private final enumTimeSpinner myType;
 	private int fallBackValueInt;
 	private String fallBackValueStr;
 	private boolean errorVisible;
 	
+	/**
+	 * Constructor for TimeSpinner.
+	 * @param type enumTimeSpinner
+	 * @param model SpinnerDateModel
+	 */
 	public TimeSpinner(enumTimeSpinner type, SpinnerDateModel model) {
 		super(model);
 		myType = type;
@@ -69,16 +86,22 @@ public class TimeSpinner extends JSpinner {
 			fallBackValueInt = Integer.parseInt(editor.getTextField().getText());
 			if (upArrowAction) {
 				if (fallBackValueInt == 12)
+					{
 					fallBackValueInt = 1;
+					}
 				else {
 					fallBackValueInt++;
 				}
 			}
 			else if (downArrowAction)
+				{
 				if (fallBackValueInt == 1)
+					{
 					fallBackValueInt = 12;
+					}
 				else {
 					fallBackValueInt--;
+				}
 				}
 			break;
 		case MINUTE:
@@ -86,16 +109,22 @@ public class TimeSpinner extends JSpinner {
 			System.out.println("before increment tempMin" + fallBackValueInt);
 			if (upArrowAction) {
 				if (fallBackValueInt == 59)
+					{
 					fallBackValueInt = 0;
+					}
 				else {
 					fallBackValueInt++;
 				}
 			}
 			else if (downArrowAction)
+				{
 				if (fallBackValueInt == 0)
+					{
 					fallBackValueInt = 59;
+					}
 				else {
 					fallBackValueInt--;
+				}
 				}
 			break;
 		case AMPM:
@@ -141,7 +170,7 @@ public class TimeSpinner extends JSpinner {
 			}
 			break;
 		case AMPM:
-			String tempAMPMString = editor.getTextField().getText().toUpperCase();
+			final String tempAMPMString = editor.getTextField().getText().toUpperCase();
 			System.out.println("Input is " + tempAMPMString);
 			
 			if(!tempAMPMString.equals("AM") && !tempAMPMString.equals("PM")) {
@@ -157,10 +186,13 @@ public class TimeSpinner extends JSpinner {
 		}
 }
 	
+	/**
+	 * @author CS Anonymous
+	 */
 	class SpinnerUI extends BasicSpinnerUI  {
 		protected Component createNextButton()  
 		  {  
-		    JButton btnUp = (JButton)super.createNextButton();  
+			final JButton btnUp = (JButton)super.createNextButton();  
 		    btnUp.addActionListener(new ActionListener(){  
 		      public void actionPerformed(ActionEvent ae){
 			        System.out.println("Going up");  
@@ -179,7 +211,7 @@ public class TimeSpinner extends JSpinner {
 		  }  
 		  protected Component createPreviousButton()  
 		  {  
-		    JButton btnDown = (JButton)super.createPreviousButton();  
+			 final JButton btnDown = (JButton)super.createPreviousButton();  
 		    btnDown.addActionListener(new ActionListener(){  
 		      public void actionPerformed(ActionEvent ae){ 
 		    	  try {

@@ -13,10 +13,10 @@ import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.LONG;
 import static java.util.Calendar.YEAR;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Locale;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
@@ -168,9 +168,8 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 	 * Filter the calendarObject list to data on a specific date
 	 * 
 	 * @param date
-	
-	 * @return ArrayList of calendarObject on date * @throws CalendarException
-	 */
+	 * @return List<T>
+	 * @throws CalendarException */
 	public List<T> filter(GregorianCalendar date) throws CalendarException {
 
 		return filter(date, Calendar.DAY_OF_MONTH);
@@ -184,8 +183,8 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 	 * @param start
 	 * @param end
 	
-	 * @return List<T>
-	 */
+	
+	 * @return List<T> */
 	public abstract List<T> filter(GregorianCalendar start,
 			GregorianCalendar end);
 
@@ -198,8 +197,13 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 	 * @param amount
 	
 	
-	 * @return List<T>
-	 * @throws CalendarException */
+	
+	
+	 * @return List<T> 
+	 * * @throws CalendarException 
+	 * * @throws CalendarException 
+	 * * @throws CalendarException
+	 */
 	public List<T> filter(GregorianCalendar date, int amount)
 			throws CalendarException {
 		final GregorianCalendar start = new GregorianCalendar();

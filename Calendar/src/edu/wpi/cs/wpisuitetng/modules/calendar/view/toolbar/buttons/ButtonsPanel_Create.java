@@ -36,12 +36,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 /**
  * Button panel that contains the large buttons on
  * the very top of the main tab.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
 
 @SuppressWarnings("serial")
 public class ButtonsPanel_Create extends ToolbarGroupView{
@@ -157,7 +156,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 			public void actionPerformed(ActionEvent e) {
 					GUIEventController.getInstance().createCommitment();
 			}
-		});	
+		});
 			
 		
 		// Category button Create
@@ -175,7 +174,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 					GUIEventController.getInstance().createManageCategories();
 			//	}
 			}
-		});	
+		});
 		
 		
 		
@@ -193,7 +192,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 					GUIEventController.getInstance().createManageFilters();
 			//	}
 			}
-		});	
+		});
 		
 		
 		
@@ -209,7 +208,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Desktop.getDesktop().browse(new URL(
-							"https://github.com/magwitch324/wpi-suite/wiki/Calendar-Module").toURI());
+				"https://github.com/magwitch324/wpi-suite/wiki/Calendar-Module").toURI());
 				} catch (MalformedURLException e1) {
 					e1.printStackTrace();
 				} catch (IOException e1) {
@@ -218,7 +217,7 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 					e1.printStackTrace();
 				}
 			}
-		});	
+		});
 		
 
 		contentPanel.add(createEventButton, cons1);

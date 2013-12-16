@@ -7,49 +7,58 @@
  * 
  * Contributors: CS Anonymous
  ******************************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.calendar.view;
+package edu.wpi.cs.wpisuitetng.modules.calendar.view.month;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarException;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.CalendarView;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentView;
 
- /**
-  * Year view contains a calendar and a year pane(scroll pane).
-  * Year view manages displaying filtered/complete calendar data, the redraw methods,
-  * and setting the date range to display.
+/**
   * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-public class YearView extends CalendarView {
-
-	private final GregorianCalendar ayear;
-	private final YearPane yearpane;
+ @SuppressWarnings("serial")
+public class MonthView extends CalendarView {
 	
+	private final GregorianCalendar aMonth;
+	private final MonthPane monthPane;
+	
+
+
 	/**
-	 * Constructor for YearView.
+	 * Constructor for MonthView.
 	 * @param datecalendar GregorianCalendar
 	 */
-	public YearView(GregorianCalendar datecalendar) {
+	public MonthView(GregorianCalendar datecalendar) {
 
 		super(datecalendar);
-		ayear = new GregorianCalendar();
+		aMonth = new GregorianCalendar();
 
-		yearpane = new YearPane(datecalendar);
-		setCalPane(yearpane);
+		monthPane = new MonthPane(datecalendar);
+		setCalPane(monthPane);
 		setCommitmentView(new CommitmentView());
 
 		setRange(datecalendar);
 	}
 	
-	@Override
+	
 	public void setRange(GregorianCalendar calendar) {
-		ayear.setTime(calendar.getTime());
+		aMonth.setTime(calendar.getTime());
+
+		while (aMonth.get(Calendar.DAY_OF_MONTH) != 1) {
+			aMonth.add(Calendar.DAY_OF_MONTH, -1);
+		}
 		
-		ayear.set(Calendar.DAY_OF_YEAR, 1);
-		setLabel("" + ayear.get(Calendar.YEAR));
+		final String monthName = aMonth.getDisplayName(
+				Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+		
+		setLabel(monthName + " " + aMonth.get(Calendar.YEAR));
 				
 		refresh();
 	}
@@ -61,38 +70,37 @@ public class YearView extends CalendarView {
 			commitmentView.updateCommData(commList.getCommitments());
 		} else {
 			try {
-				commitmentView.updateCommData(commList.filter(ayear, Calendar.YEAR));
+				commitmentView.updateCommData(commList.filter(aMonth, Calendar.MONTH));
 			} catch (CalendarException e) {
 				commitmentView.updateCommData(commList.getCommitments());
 			}
 		}
 		
-		//Add the events
-		try{
-			yearpane.displayEvents(eventList.filter(ayear, Calendar.YEAR));
+		try {
+			monthPane.displayEvents(eventList.filter(aMonth, Calendar.MONTH));
+		} catch (CalendarException e1) {
+			e1.printStackTrace();
 		}
-		 catch (CalendarException e) {
-			yearpane.displayEvents(eventList.getEvents());
-		}
-		
-		
 		
 		
 		if (showCommOnCal){
 			try{
-				yearpane.displayCommitments(commList.filter(ayear, Calendar.YEAR)); 
+				monthPane.displayCommitments(commList.filter(aMonth, Calendar.MONTH)); 
 				//add only commitments on today to DayPane
 			}
 			catch(CalendarException e){
-				yearpane.displayCommitments(null);
+				monthPane.displayCommitments(null);
 			}
 		}
 		else{
-			yearpane.displayCommitments(null); //show no commitments on DayPane
+			monthPane.displayCommitments(null); //show no commitments on DayPane
 		}
+
 	    revalidate();
 	    repaint();
+		
 	}
+
 
 	@Override
 	public void updateCommPane(CommitmentList commList, boolean showCommOnCal) {
@@ -100,7 +108,7 @@ public class YearView extends CalendarView {
 			commitmentView.updateCommData(commList.getCommitments());
 		} else {
 			try {
-				commitmentView.updateCommData(commList.filter(ayear, Calendar.YEAR));
+				commitmentView.updateCommData(commList.filter(aMonth, Calendar.MONTH));
 			} catch (CalendarException e) {
 				commitmentView.updateCommData(commList.getCommitments());
 			}
@@ -108,4 +116,5 @@ public class YearView extends CalendarView {
 	    revalidate();
 	    repaint();
 	}
+
 }

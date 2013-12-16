@@ -7,7 +7,7 @@
  * 
  * Contributors: CS Anonymous
  ******************************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.calendar.view;
+package edu.wpi.cs.wpisuitetng.modules.calendar.view.day;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,11 +16,9 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -34,20 +32,24 @@ import org.jdesktop.swingx.border.MatteBorderExt;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.HourDisplayPort;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.ICalPane;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar.types;
 
- /**
-  * Daypane contains a scrollpane to view the daydaypane.
+/**
   * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-public class DayPane extends JPanel implements ICalPane {
+ public class DayPane extends JPanel implements ICalPane {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	JPanel mainPanel = new JPanel();
 	GregorianCalendar day;
-	private final DayDayPane daypane;
+	private final DayDetailedPane daypane;
 	private SpringLayout layout;
 	private final JScrollPane scrollPane;
 	private final JLabel headerlabel;
@@ -111,7 +113,7 @@ public class DayPane extends JPanel implements ICalPane {
 		scrollPane.setColumnHeaderView(header);
 		
 		mainPanel.setLayout(new GridLayout(1, 1));
-		daypane = new DayDayPane(day, AbCalendar.types.DAY);
+		daypane = new DayDetailedPane(day, AbCalendar.types.DAY);
 		mainPanel.add(daypane);
 		mainPanel.setBackground(CalendarStandard.CalendarYellow);
 		mainPanel.setPreferredSize(new Dimension(30, 2000));

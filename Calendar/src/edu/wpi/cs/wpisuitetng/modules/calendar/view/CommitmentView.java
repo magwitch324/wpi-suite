@@ -39,15 +39,14 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 
- /**
-  * Commitment view is on the right hand side of the module.
-  * Commitment view is available to all 4 views.
-  * It contains a list of commitments in a scrollpane for display.
-  * CommitPanel contains the list of commitments.
+ /* @author CS Anonymous
+  * @version $Revision: 1.0 $
+  */
+/**
   * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-@SuppressWarnings("serial")
+ @SuppressWarnings("serial")
 public class CommitmentView extends JPanel {
 
 	JPanel commitPanel;
@@ -119,7 +118,7 @@ public class CommitmentView extends JPanel {
 		int n = 0;//adjusted index to take hidden commitments into account
 		
 		// print something when we do not  have any commitments
-		if(commitmentList.size() == 0) {			
+		if(commitmentList.size() == 0) {
 			final JLabel message = new JLabel("<html><body style='width: 100%'><center>"
 					+ "There are no commitments to display</center></html>", SwingConstants.CENTER);
 			message.setBackground(Color.WHITE);
@@ -141,7 +140,7 @@ public class CommitmentView extends JPanel {
 				JLabel tag = new JLabel();
 				try {
 						if (commitmentList.get(i).getIsPersonal())
-						{	
+						{
 							nameImg = ImageIO.read(getClass().getResource(
 									"PersonalCommitment_Icon.png"));
 							scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
@@ -208,6 +207,7 @@ public class CommitmentView extends JPanel {
 				//  description.setMaximumSize(new Dimension(285,300));
 				commitmentPanel.setBorder(new EmptyBorder(10, 5, 10, 20));
 				commitmentPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+				commitmentPanel.setToolTipText("Click to Edit or Delete this Commitment");
 				// To change cursor as it moves over the commitment
 				// commitmentPanel.setPreferredSize(new Dimension(280,300));
 				// commitmentPanel.setMinimumSize(new Dimension(290, 400));
@@ -227,19 +227,25 @@ public class CommitmentView extends JPanel {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						if (e.getClickCount() >= 1)
+							{
 							GUIEventController.getInstance().editCommitment(
 									((CommitmentViewPanel)e.getComponent()).getCommitment());
-					}		
+							}
+					}
 				});
 
 				commPanelList.add(n, commitmentPanel);
 				commitmentPanel.setMaximumSize(new Dimension(2000, 100));
 				if(n > 0)
+					{
 					commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 
 							1, SpringLayout.SOUTH, commPanelList.get(n - 1));
+					}
 				else
+					{
 					commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 
 							0, SpringLayout.NORTH, commitPanel);
+					}
 
 				commPanelLayout.putConstraint(SpringLayout.WEST, commitmentPanel, 
 						0, SpringLayout.WEST, commitPanel);
@@ -258,7 +264,10 @@ public class CommitmentView extends JPanel {
 
 				commitPanel.add(separator);
 				if (n == commitmentList.size() - 1)
-					commPanelLayout.putConstraint(SpringLayout.SOUTH, commitPanel, 0, SpringLayout.SOUTH, separator);
+					{
+					commPanelLayout.putConstraint(
+							SpringLayout.SOUTH, commitPanel, 0, SpringLayout.SOUTH, separator);
+					}
 
 				n++;
 			}

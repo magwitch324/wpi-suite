@@ -51,21 +51,21 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 
-/**
+/*
  * This class is used for creating the commitment View 
  * tab that shows all commitments including those 
  * that have been completed.
- * @author CS Anonymous
+ * 
+ * */
+/**@author CS Anonymous
  * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
 public class CommitmentFullView extends JPanel{
 
-	AbCalendar tcalendar;
 	AbCalendar pcalendar;
 	JPanel commitPanel;
 	JScrollPane scrollPane;
@@ -89,9 +89,10 @@ public class CommitmentFullView extends JPanel{
 	ButtonGroup viewSwitchGroup;
 
 	/**
+	 * @author CS Anonymous
 	 */
 	public enum ViewingMode {
-		TEAM, PERSONAL, BOTH;		
+		TEAM, PERSONAL, BOTH;
 	};
 	ViewingMode mode;
 
@@ -99,12 +100,10 @@ public class CommitmentFullView extends JPanel{
 	 * sets tcalendar which will grab teams commitments*/
 	/**
 	 * Constructor for CommitmentFullView.
-	 * @param teamCalendar AbCalendar
 	 * @param personalCalendar AbCalendar
 	 */
-	public CommitmentFullView(AbCalendar teamCalendar, AbCalendar personalCalendar) {
+	public CommitmentFullView(AbCalendar personalCalendar) {
 		initialized = false;
-		tcalendar = teamCalendar;
 		pcalendar = personalCalendar;
 
 		mode = ViewingMode.TEAM;
@@ -150,20 +149,18 @@ public class CommitmentFullView extends JPanel{
 	private void setCommitlist() {
 
 		if (mode == ViewingMode.TEAM){
-			if(tcalendar.getCalData() != null){
-				commitmentList = tcalendar.getCalData().getCommitments().getCommitments();
+			if(pcalendar.getTeamCalData() != null){
+				commitmentList = pcalendar.getTeamCalData().getCommitments().getCommitments();
 			}
 		} else if (mode == ViewingMode.PERSONAL){
-			if(pcalendar.getCalData() != null){
-			commitmentList = pcalendar.getCalData().getCommitments().getCommitments();
+			if(pcalendar.getMyCalData() != null){
+			commitmentList = pcalendar.getMyCalData().getCommitments().getCommitments();
 			}
-		} else if(tcalendar.getCalData() != null && pcalendar.getCalData() != null) { 
-			// here mode == ViewingMode.BOTH
+		} else if(pcalendar.getTeamCalData() != null && pcalendar.getMyCalData() != null) { 
 			final CombinedCommitmentList combinedList = new CombinedCommitmentList(
 					new ArrayList<Commitment>(
-							pcalendar.getCalData().getCommitments().getCommitments()));
-			final CalendarData teamData = CalendarDataModel.getInstance()
-					.getCalendarData(ConfigManager.getConfig().getProjectName());
+							pcalendar.getMyCalData().getCommitments().getCommitments()));
+			final CalendarData teamData = pcalendar.getTeamCalData();
 
 			/*if we are supposed to show team data, 
 			 * we need to put the team commitments into the list in the right order*/
@@ -197,6 +194,7 @@ public class CommitmentFullView extends JPanel{
 		teamRadioButton.setBackground(Color.WHITE);
 		teamRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
+		teamRadioButton.setToolTipText("View Team Commitments");
 		teamRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -215,6 +213,7 @@ public class CommitmentFullView extends JPanel{
 		personalRadioButton.setBackground(Color.WHITE);
 		personalRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
+		personalRadioButton.setToolTipText("View Personal Commitments");
 		personalRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -238,6 +237,7 @@ public class CommitmentFullView extends JPanel{
 		bothRadioButton.setBackground(Color.WHITE);
 		bothRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
+		bothRadioButton.setToolTipText("View All Commitments");
 		bothRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -279,7 +279,7 @@ public class CommitmentFullView extends JPanel{
 
 		final GridLayout experimentLayout = new GridLayout(0, 4);
 		topButtons.setLayout(experimentLayout);
-		//topButtons.setLayout(new BoxLayout(topButtons, BoxLayout.X_AXIS));
+
 		jName = new JButton("<html><font color='white'><b>"
 				+ "Name" + "</b></font></html>");
 		if(namesort == 1){
@@ -308,10 +308,10 @@ public class CommitmentFullView extends JPanel{
 		}
 
 
-		//		jName.setContentAreaFilled(false);
 		jName.setBackground(CalendarStandard.CalendarRed);
 		jName.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
+		jName.setToolTipText("Sort by Name");
 		//sort by name
 		jName.addMouseListener(new MouseAdapter() {
 			@Override
@@ -336,7 +336,6 @@ public class CommitmentFullView extends JPanel{
 
 		jDueDate = new JButton("<html><font color='white'><b>"
 				+ "Due Date" + "</b></font></html>");
-		//		jDueDate.setContentAreaFilled(false);
 		jDueDate.setBackground(CalendarStandard.CalendarRed);
 
 		if(datesort == 1){
@@ -363,10 +362,10 @@ public class CommitmentFullView extends JPanel{
 						+ "Due Date v" + "</b></font></html>");
 			}
 		}
-		//jDueDate.setContentAreaFilled(false);
 
 		jDueDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
+		jDueDate.setToolTipText("Sort by Due Date");
 
 		// sort by date 
 		jDueDate.addMouseListener(new MouseAdapter() {
@@ -379,13 +378,17 @@ public class CommitmentFullView extends JPanel{
 
 					@Override 
 					public int compare(Commitment c1, Commitment c2) {
+						int reslut = 0;
 						if(c1.getDueDate().before(c2.getDueDate()))
-							return -1;
+							{
+							reslut = -1;
+							}
 						else if(c1.getDueDate().after(c2.getDueDate())) 
-							return 1;
-						else
-							return 0;
-					}				
+							{
+							 reslut = 1;
+							}
+							return reslut;
+					}
 				});
 				if(datesort == 1){
 					datesort = 2;
@@ -395,13 +398,12 @@ public class CommitmentFullView extends JPanel{
 					datesort = 1;
 				}
 				updateView();
-			}			
+			}
 		});
 
 
 		jDescription = new JButton("<html><font color='white'><b>"
 				+ "Description" + "</b></font></html>");
-		//		jDescription.setContentAreaFilled(false);
 		jDescription.setBackground(CalendarStandard.CalendarRed);
 		if(dessort == 1){
 			try {
@@ -427,10 +429,10 @@ public class CommitmentFullView extends JPanel{
 						+ "Description v" + "</b></font></html>");
 			}
 		}
-		//jDescription.setContentAreaFilled(false);
 
 		jDescription.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		// To change cursor as it moves over this button
+		jDescription.setToolTipText("Sort by Description");
 		jDescription.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -442,7 +444,7 @@ public class CommitmentFullView extends JPanel{
 					@Override 
 					public int compare(Commitment c1, Commitment c2) {
 						return c1.getDescription().compareTo(c2.getDescription());
-					}		
+					}
 				});
 				if(dessort == 1){
 					dessort = 2;
@@ -452,7 +454,7 @@ public class CommitmentFullView extends JPanel{
 					dessort = 1;
 				}
 				updateView();
-			}			
+			}
 		});
 
 		jStatus = new JButton("<html><font color='white'><b>"
@@ -481,10 +483,10 @@ public class CommitmentFullView extends JPanel{
 						+ "Status v" + "</b></font></html>");
 			}
 		}
-		//		jStatus.setContentAreaFilled(false);
 		jStatus.setBackground(CalendarStandard.CalendarRed);
 		jStatus.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
+		jStatus.setToolTipText("Sort by Status");
 
 		jStatus.addMouseListener(new MouseAdapter() {
 			@Override
@@ -499,7 +501,7 @@ public class CommitmentFullView extends JPanel{
 						return c1.getStatus().convertToString(c1.getStatus().getId()).compareTo(
 								c2.getStatus().convertToString(c2.getStatus().getId()));
 
-					}		
+					}
 				});
 				if(statussort == 1){
 					statussort = 2;
@@ -509,7 +511,7 @@ public class CommitmentFullView extends JPanel{
 					statussort = 1;
 				}
 				updateView();
-			}			
+			}
 		});
 
 		final GridBagConstraints c = new GridBagConstraints();
@@ -529,8 +531,6 @@ public class CommitmentFullView extends JPanel{
 		header.add(topButtons);
 
 		scrollPane.setColumnHeaderView(header);
-		//JSeparator sep = new JSeparator();
-		//commitPanel.add(sep);
 		for(int i = 0; i < commitmentList.size(); i++){
 			CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
 			Image nameImg;
@@ -539,7 +539,7 @@ public class CommitmentFullView extends JPanel{
 			name.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 			try {
 				if (commitmentList.get(i).getIsPersonal())
-				{	
+				{
 					nameImg = ImageIO.read(getClass().getResource("PersonalCommitment_Icon.png"));
 					scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 					name.setIcon(new ImageIcon(scaleImg));
@@ -577,20 +577,22 @@ public class CommitmentFullView extends JPanel{
 			commitmentPanel.add(description, c);
 			commitmentPanel.add(status, c);
 			commitmentPanel.setBackground(CalendarStandard.CalendarYellow);
-			//			commitmentPanel.setBackground(new Color(222,184,135));
 			commitmentPanel.setPreferredSize(new Dimension(300, 75));
 			commitmentPanel.setMaximumSize(new Dimension(20000, 75));
 			Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 			commitmentPanel.setBorder(loweredbevel);
 			commitmentPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+			commitmentPanel.setToolTipText("Click to Edit or Delete this Commitment");
 			// To change cursor as it moves over this commitment pannel
 			commitmentPanel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					if (e.getClickCount() >= 1)
+						{
 						GUIEventController.getInstance().editCommitment(
 								((CommitmentViewPanel)e.getComponent()).getCommitment());
-				}		
+						}
+				}
 			});
 
 			commitPanel.add(commitmentPanel);
@@ -623,7 +625,7 @@ public class CommitmentFullView extends JPanel{
 	/**
 	 * Used after cal props has been fetched from the server.
 	 */
-	protected void applyCalProps(){	
+	protected void applyCalProps(){
 
 		calProps = CalendarPropsModel.getInstance().getCalendarProps(
 				ConfigManager.getConfig().getProjectName() + "-"
@@ -644,6 +646,6 @@ public class CommitmentFullView extends JPanel{
 			updateList();
 
 		}
-	}	
+	}
 
 }

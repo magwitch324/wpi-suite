@@ -12,24 +12,23 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 import javax.swing.JPanel;
 
 /**
- * Calendar interface used to guarantee year, month, week, and day panes
- * have the ability to refresh, update scroll position, and getpane. 
+ *
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
 public interface ICalPane {
 
-	public JPanel getPane();
+    JPanel getPane();
 	
 	/**
 	 * Method updateScrollPosition.
 	 * @param value int
 	 */
-	public void updateScrollPosition(int value);
+	 void updateScrollPosition(int value);
 	
 	/**
 	 * Method refresh.
 	 */
-	public void refresh();
+	 void refresh();
 	
 }

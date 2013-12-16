@@ -18,7 +18,6 @@ import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
  * This observer is called when a response is received from a request
  * to the server to add a CalendarData.
  * @version $Revision: 1.0 $
- * @author justinhess
  */
 public class AddCalendarDataRequestObserver implements RequestObserver {
 		
@@ -45,7 +44,7 @@ public class AddCalendarDataRequestObserver implements RequestObserver {
 		final ResponseModel response = iReq.getResponse();
 		
 		// Parse the CalendarData out of the response body
-		final CalendarData caldata = CalendarData.fromJson(response.getBody());	
+		final CalendarData caldata = CalendarData.fromJson(response.getBody());
 	}
 
 	/**

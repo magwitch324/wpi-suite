@@ -10,24 +10,22 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.LayoutManager;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
-
-import javax.swing.JLabel;
-
-import javax.swing.Box;
-
-import java.awt.Component;
-import java.awt.Dimension;
-import javax.swing.SwingConstants;
-import javax.swing.BoxLayout;
-import java.awt.GridLayout;
 
 /**
  * Custom JPanel for each category in the category list
@@ -42,12 +40,15 @@ public class CategoryPanel extends JPanel {
 	private Color color;
 	private JLabel lblCategoryName;
 	private JPanel colorBox;
+	private boolean selected = false;
 	
 	/**
 	 * Constructor for CategoryPanel.
 	 */
 	public CategoryPanel() {
 		setPreferredSize(new Dimension(80, 50));
+		setMaximumSize(new Dimension(80,50));
+		setMinimumSize(new Dimension(80,50));
 		setBackground(CalendarStandard.CalendarYellow);
 		final Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 		setBorder(loweredbevel);
@@ -71,7 +72,7 @@ public class CategoryPanel extends JPanel {
 		lblCategoryName = new JLabel();
 		lblCategoryName.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblCategoryName.setHorizontalAlignment(SwingConstants.CENTER);
-		
+		lblCategoryName.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		panel_1.add(lblCategoryName);
 		lblCategoryName.setFont(CalendarStandard.CalendarFontBold);
 		// TODO Auto-generated constructor stub
@@ -83,9 +84,13 @@ public class CategoryPanel extends JPanel {
 	 */
 	public CategoryPanel(Category cat) {
 		this();
-		category = cat;
+		setCategory(cat);
 		setColorBox(cat.getCategoryColor());
-		setCategoryName(cat.getName());	
+		setCategoryName(cat.getName());
+	}
+
+	private void setCategory(Category cat) {
+		category = cat;
 	}
 
 	private void setCategoryName(String name) {
@@ -123,5 +128,25 @@ public class CategoryPanel extends JPanel {
 		super(layout, isDoubleBuffered);
 		// TODO Auto-generated constructor stub
 	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setSelected(boolean b) {
+		// TODO Auto-generated method stub
+		selected = b;
+		if(b)
+			setBackground(CalendarStandard.HeatMapRed);
+		else
+			setBackground(CalendarStandard.CalendarYellow);
+		
+	}
+
+	public boolean getSelected() {
+		// TODO Auto-generated method stub
+		return selected;
+	}
+
 
 }
