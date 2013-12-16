@@ -1598,7 +1598,9 @@ public class CommitmentTab extends JPanel {
 					editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 					hourErr = false;
 					if(!minuteErr && !ampmErr)
-						lblTimeError.setText(" ");
+						{
+							lblTimeError.setText(" ");
+						}
 				}
 			}
 			break;
@@ -1618,7 +1620,9 @@ public class CommitmentTab extends JPanel {
 					editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 					minuteErr = false;
 					if(!hourErr && !ampmErr)
-						lblTimeError.setText(" ");
+						{
+							lblTimeError.setText(" ");
+						}
 				}
 			}
 			break;
@@ -1636,7 +1640,9 @@ public class CommitmentTab extends JPanel {
 					editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 					ampmErr = false;
 					if(!hourErr && !minuteErr)
-						lblTimeError.setText(" ");
+						{
+							lblTimeError.setText(" ");
+						}
 				}
 			}
 			break;
