@@ -937,7 +937,7 @@ public class CommitmentTab extends JPanel {
 							lblTimeError.setText(" ");
 							hourEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
 							hourErr = false;
-						}						
+						}
 						firstRun = false;
 					}
 					
@@ -985,7 +985,7 @@ public class CommitmentTab extends JPanel {
 							AMPMSpinner.setValue(cal.getTime());
 					}
 					checkSaveBtnStatus();
-				}		
+				}
 			}
 		});
 
@@ -1486,7 +1486,7 @@ public class CommitmentTab extends JPanel {
 					calDate.set(Calendar.MINUTE, calMinute.get(Calendar.MINUTE));
 					calDate.set(Calendar.AM_PM, calAMPM.get(Calendar.AM_PM));
 					
-					if (	   nameTextField.getText().equals(editingCommitment.getName()) 
+					if (nameTextField.getText().equals(editingCommitment.getName()) 
 							&& descriptionTextField.getText().equals(editingCommitment.getDescription())
 							&& ((Category)categoryComboBox.getSelectedItem()).getID() == editingCommitment.getCategoryID()
 							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())

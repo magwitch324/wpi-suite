@@ -840,7 +840,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		/*if(filterListLayout.getConstraint(SpringLayout.SOUTH, filterListPanel).getValue() > 
 			filterListLayout.getConstraint(SpringLayout.SOUTH, filterPanel).getValue()) {	*/
 			filterListLayout.putConstraint(SpringLayout.SOUTH,
-			filterListPanel, 0, SpringLayout.SOUTH, filterPanel);	
+			filterListPanel, 0, SpringLayout.SOUTH, filterPanel);
 	}
 	
 	
@@ -911,13 +911,13 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 						1, SpringLayout.EAST, inactiveListPanel);
 			}
 
-			inactiveListPanel.add(catPanel);			
+			inactiveListPanel.add(catPanel);
 			
 			oldCatPanel = catPanel; //update oldCatPanel to be previously added panel
 		}
 		
 		inactiveListLayout.putConstraint(SpringLayout.SOUTH,
-		inactiveListPanel, 0, SpringLayout.SOUTH, catPanel);	
+		inactiveListPanel, 0, SpringLayout.SOUTH, catPanel);
 	}
 	
 	private void populateActiveCatLists(){

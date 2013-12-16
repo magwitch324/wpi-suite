@@ -102,7 +102,7 @@ public class EventViewPanel extends JPanel {
 				if (e.getClickCount() >= 1) {
 					GUIEventController.getInstance().editEvent(event);
 				}
-			}		
+			}
 		});
 	}
 
