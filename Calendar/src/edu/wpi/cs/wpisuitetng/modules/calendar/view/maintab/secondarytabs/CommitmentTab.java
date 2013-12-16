@@ -907,7 +907,7 @@ public class CommitmentTab extends JPanel {
 		hourSpinner.addChangeListener(new ChangeListener(){
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				final GregorianCalendar cal = new GregorianCalendar();
+				GregorianCalendar cal = new GregorianCalendar();
 				cal.setTime((Date) hourSpinner.getValue());
 				
 				 boolean AMPMFlag;
@@ -945,7 +945,7 @@ public class CommitmentTab extends JPanel {
 					
 /////				
 					//boolean AMPMFlag;
-					//final GregorianCalendar cal = new GregorianCalendar();
+					cal = new GregorianCalendar();
 					cal.setTime((Date) hourSpinner.getValue());
 					
 					if (cal.get(Calendar.HOUR) == 12 || cal.get(Calendar.HOUR) == 01) {
