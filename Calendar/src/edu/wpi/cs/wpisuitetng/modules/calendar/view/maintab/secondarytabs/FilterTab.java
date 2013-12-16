@@ -579,6 +579,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 					refresh();
 					//addEditView();
 				}
+//				if (aSelectedFilter != null){
+//					filterName.setText(aSelectedFilter.getName());
+//				}
 			}
 		});
 		
@@ -810,7 +813,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 						btnEdit.setEnabled(true);
 						btnDelete.setEnabled(true);
 						aSelectedFilter = ((FilterPanel)e.getComponent()).getFilter();
-						filterName.setText(aSelectedFilter.getName());
+//						filterName.setText(aSelectedFilter.getName());
 
 					}
 					else if(e.getClickCount() == 1){
@@ -829,7 +832,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 						btnEdit.setEnabled(true);
 						btnDelete.setEnabled(true);
 						aSelectedFilter = ((FilterPanel)e.getComponent()).getFilter();
-						filterName.setText(aSelectedFilter.getName());
+//						filterName.setText(aSelectedFilter.getName());
 					}
 				}
 			});
