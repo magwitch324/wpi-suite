@@ -46,13 +46,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
 /**
-  * @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+ * My calendar tab extends abstract calendar.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
  @SuppressWarnings("serial")
 
 public class MyCalendar extends AbCalendar {

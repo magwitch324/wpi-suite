@@ -49,6 +49,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.year.YearView;
 
 
 /**
+ * Abstract calendar panel that is identified by its enumerator.
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */

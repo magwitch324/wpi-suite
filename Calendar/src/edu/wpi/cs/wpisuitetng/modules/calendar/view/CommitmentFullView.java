@@ -54,13 +54,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
 
-/*
+/**
  * This class is used for creating the commitment View 
  * tab that shows all commitments including those 
  * that have been completed.
- * 
- * */
-/**@author CS Anonymous
+/* @author CS Anonymous
  * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
