@@ -656,7 +656,7 @@ public class EventTab extends JPanel {
 				repeatTypeComboBox.setEnabled(repeatCheckBox.isSelected());
 				checkRepeatVsDuration();
 				repeatAmt.setEnabled(repeatCheckBox.isSelected());
-				if(repeatAmt.getText().equals("")){
+				if(repeatAmt.getText().equals("") && repeatCheckBox.isSelected()){
 					repeatAmt.setText("2");
 				}
 				checkSaveBtnStatus();
