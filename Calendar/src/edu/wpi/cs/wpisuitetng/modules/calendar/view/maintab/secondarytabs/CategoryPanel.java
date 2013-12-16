@@ -11,6 +11,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
@@ -71,7 +72,7 @@ public class CategoryPanel extends JPanel {
 		lblCategoryName = new JLabel();
 		lblCategoryName.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblCategoryName.setHorizontalAlignment(SwingConstants.CENTER);
-		
+		lblCategoryName.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		panel_1.add(lblCategoryName);
 		lblCategoryName.setFont(CalendarStandard.CalendarFontBold);
 		// TODO Auto-generated constructor stub

@@ -656,6 +656,9 @@ public class EventTab extends JPanel {
 				repeatTypeComboBox.setEnabled(repeatCheckBox.isSelected());
 				checkRepeatVsDuration();
 				repeatAmt.setEnabled(repeatCheckBox.isSelected());
+				if(repeatAmt.getText().equals("") && repeatCheckBox.isSelected()){
+					repeatAmt.setText("2");
+				}
 				checkSaveBtnStatus();
 			}
 
@@ -1947,6 +1950,7 @@ public class EventTab extends JPanel {
 			}
 
 		});
+		
 
 		//Adds a listener to the tab so we can refresh the category list if it was edited
 		addComponentListener(new ComponentListener(){

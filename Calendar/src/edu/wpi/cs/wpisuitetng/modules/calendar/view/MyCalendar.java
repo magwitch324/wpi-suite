@@ -18,6 +18,8 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
@@ -32,9 +34,12 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.GetPropsController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
@@ -56,7 +61,8 @@ public class MyCalendar extends AbCalendar {
 	JRadioButton bothCalendar;
 	private boolean preInitialized;
 	private JCheckBox showteam;
-
+	JComboBox<Filter> filterComboBox;
+	Filter noneFilter;
 	/**
 	 * Constructor for MyCalendar.
 	 */
@@ -86,15 +92,20 @@ public class MyCalendar extends AbCalendar {
 		layout.putConstraint(SpringLayout.SOUTH, datapanel, 0, SpringLayout.SOUTH, viewbtnpanel);
 		this.add(datapanel);
 
-		final JComboBox filter = new JComboBox();
-		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filter, 
+		filterComboBox = new JComboBox();
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filterComboBox, 
 				0, SpringLayout.VERTICAL_CENTER, datapanel);
-		layout.putConstraint(SpringLayout.WEST, filter, 30, SpringLayout.EAST, datapanel);
-		layout.putConstraint(SpringLayout.EAST, filter, -5, SpringLayout.EAST, this);
-		filter.setMaximumSize(new Dimension(20, 20));
-		filter.setBackground(CalendarStandard.CalendarYellow);
-		filter.setToolTipText("Select Filters");
-		this.add(filter);
+		layout.putConstraint(SpringLayout.WEST, filterComboBox, 30, SpringLayout.EAST, datapanel);
+		layout.putConstraint(SpringLayout.EAST, filterComboBox, -5, SpringLayout.EAST, this);
+		filterComboBox.setMaximumSize(new Dimension(20, 20));
+		filterComboBox.setBackground(CalendarStandard.CalendarYellow);
+		filterComboBox.setToolTipText("Select Filters");
+		filterComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateCalData();
+			}
+		});
+		this.add(filterComboBox);
 
 
 
@@ -108,6 +119,56 @@ public class MyCalendar extends AbCalendar {
 		viewbtns[currenttype.getCurrentType()].setSelected(true);
 
 		setView();
+		
+		//update the filter information
+		noneFilter = new Filter();
+		noneFilter.setID(0);
+		noneFilter.setName("No Filter");
+		
+
+	}
+	
+	
+	/**
+	 * Updates the filter list in the FilterComboBox
+	 */
+	protected void updateFilterList(){
+
+		final int selectedFilter;
+		Filter test = new Filter();
+		test.setName("a test filter");
+		test.setID(100);
+		test.getActiveCategories().add(1);
+
+		if(filterComboBox.getSelectedItem() != null){
+			selectedFilter = ((Filter) filterComboBox.getSelectedItem()).getID();
+		} else {
+			selectedFilter = 0;
+		}
+
+
+		//removes the current data from the ComboBox
+		filterComboBox.removeAllItems();
+
+
+
+		//adds the "none" filter
+		filterComboBox.addItem(noneFilter);
+		filterComboBox.addItem(test);
+
+		// gets Caldata
+
+		//extracts the filter list
+		final List<Filter> filters = myCalData.getFilters().getFilters();
+
+		//adds the categories to the comboBox
+		for (Filter filter:filters){
+			filterComboBox.addItem(filter);
+		}
+
+		if(selectedFilter != 0){
+			filterComboBox.setSelectedItem(myCalData.getFilters().getFilter(selectedFilter));
+		}
 
 	}
 
@@ -153,6 +214,8 @@ public class MyCalendar extends AbCalendar {
 			UpdateCalendarDataController.getInstance().updateCalendarData(myCalData);
 			teamCalData.removeYearOld();
 			UpdateCalendarDataController.getInstance().updateCalendarData(teamCalData);
+			
+			updateFilterList();
 		}
 
 	}
@@ -243,6 +306,26 @@ public class MyCalendar extends AbCalendar {
 				}
 			}//else if the team is selected
 			
+			//Apply the selected filter
+			Filter selectedFilter = ((Filter) filterComboBox.getSelectedItem());
+			if(selectedFilter != null && selectedFilter.getID() != 0){
+				Iterator<Event> it = combinedEventList.getEvents().iterator();
+				 while(it.hasNext()){
+					 Event e = it.next();
+					 if(!selectedFilter.getActiveCategories().contains(e.getCategoryID())){
+						 it.remove();
+					 }
+				 }
+				 
+				 Iterator<Commitment> it2 = combinedCommList.getCommitments().iterator();
+				 while(it2.hasNext()){
+					 Commitment c = it2.next();
+					 if(!selectedFilter.getActiveCategories().contains(c.getCategoryID())){
+						 it2.remove();
+					 }
+				 }
+			}
+			
 			events = combinedEventList;
 			commitments = combinedCommList;
 			
@@ -306,6 +389,7 @@ public class MyCalendar extends AbCalendar {
 		case 2: bothCalendar.setSelected(true);
 		break;
 		}
+		
 
 	}
 
@@ -354,7 +438,7 @@ public class MyCalendar extends AbCalendar {
 				//update the commitments to either include or not include team data
 				calProps.setMyTeamBoth(0);
 				updateCalData();
-				setView();
+				//setView(); redundant called in updateCalData
 			}
 		});
 
@@ -375,7 +459,7 @@ public class MyCalendar extends AbCalendar {
 				//update the commitments to either include or not include team data
 				calProps.setMyTeamBoth(1);
 				updateCalData();
-				setView();
+				//setView(); redundant called in updateCalData
 			}
 		});
 
@@ -395,7 +479,7 @@ public class MyCalendar extends AbCalendar {
 				//update the commitments to either include or not include team data
 				calProps.setMyTeamBoth(2);
 				updateCalData();
-				setView();
+				//setView(); redundant called in updateCalData
 			}
 		});
 

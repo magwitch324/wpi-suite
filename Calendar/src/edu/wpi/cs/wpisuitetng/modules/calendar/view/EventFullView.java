@@ -107,6 +107,7 @@ public class EventFullView extends JPanel{
 
 		eventPanel = new JPanel();
 		eventPanel.setBackground(Color.WHITE);
+		eventPanel.setBorder(new EmptyBorder(5, 5, 10, 5));
 		
 		scrollPane = new JScrollPane(eventPanel, 
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -173,14 +174,14 @@ public class EventFullView extends JPanel{
 		int event_height = 0;
 		for(EventViewPanel evp : eventPanelList) {
 			if(last == null){
-				layout.putConstraint(SpringLayout.NORTH, evp, 5, SpringLayout.NORTH, eventPanel);
+				layout.putConstraint(SpringLayout.NORTH, evp, 0, SpringLayout.NORTH, eventPanel);
 			}
 			else{
 				layout.putConstraint(SpringLayout.NORTH, evp, 0, SpringLayout.SOUTH, last);
 			}
 			
-			layout.putConstraint(SpringLayout.WEST, evp, 5, SpringLayout.WEST, eventPanel);
-			layout.putConstraint(SpringLayout.EAST, evp, -5, SpringLayout.EAST, eventPanel);
+			layout.putConstraint(SpringLayout.WEST, evp, 0, SpringLayout.WEST, eventPanel);
+			layout.putConstraint(SpringLayout.EAST, evp, 0, SpringLayout.EAST, eventPanel);
 			eventPanel.add(evp);
 			event_height += evp.getPreferredSize().height;
 			last = evp;
@@ -235,13 +236,14 @@ public class EventFullView extends JPanel{
 		apanel.setBackground(Color.WHITE);
 		SpringLayout layout = new SpringLayout();
 		apanel.setLayout(layout);
-		apanel.setPreferredSize(new Dimension(300, 50));
+		apanel.setPreferredSize(new Dimension(500, 50));
 		apanel.setMaximumSize(new Dimension(20000, 50));
 		apanel.setBorder(BorderFactory.createLoweredBevelBorder());
 		apanel.setBorder(new MatteBorder(5, 5, 5, 5, Color.WHITE));
 		
 		viewSwitchGroup = new ButtonGroup();
-		teamRadioButton = new JRadioButton("Team");
+		
+		teamRadioButton = new JRadioButton("View Team Events");
 		teamRadioButton.setBackground(Color.WHITE);
 		teamRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
@@ -255,7 +257,7 @@ public class EventFullView extends JPanel{
 
 		});
 		
-		personalRadioButton = new JRadioButton("Personal");
+		personalRadioButton = new JRadioButton("View Personal Events");
 		personalRadioButton.setBackground(Color.WHITE);
 		personalRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
@@ -269,11 +271,11 @@ public class EventFullView extends JPanel{
 
 		});
 		
-		bothRadioButton = new JRadioButton("Both");
+		bothRadioButton = new JRadioButton("View All Events");
 		bothRadioButton.setBackground(Color.WHITE);
 		bothRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
-		bothRadioButton.setToolTipText("View All Commitments.");
+		bothRadioButton.setToolTipText("View All Commitments");
 		bothRadioButton.addActionListener(new ActionListener(){
 
 			@Override
@@ -319,7 +321,7 @@ public class EventFullView extends JPanel{
 		jName.setBackground(CalendarStandard.CalendarRed);
 		jName.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		jName.setToolTipText("Sort by Name.");
+		jName.setToolTipText("Sort by Name");
 		//sort by name
 		jName.addActionListener(new ActionListener(){
 			@Override
@@ -363,7 +365,7 @@ public class EventFullView extends JPanel{
 		jStartDate.setBackground(CalendarStandard.CalendarRed);
 		jStartDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		jStartDate.setToolTipText("Sort by Start Date.");
+		jStartDate.setToolTipText("Sort by Start Date");
 		jStartDate.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -407,7 +409,7 @@ public class EventFullView extends JPanel{
 		jEndDate.setBackground(CalendarStandard.CalendarRed);
 		jEndDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
-		jEndDate.setToolTipText("Sort by END Date.");
+		jEndDate.setToolTipText("Sort by END Date");
 		jEndDate.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {

@@ -94,7 +94,7 @@ public class EventViewPanel extends JPanel {
 		this.setMaximumSize(new Dimension(20000, 75));
 		this.setBorder(BorderFactory.createLoweredBevelBorder());
 		this.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
-		this.setToolTipText("Click to Edit or Delete this Commitment.");
+		this.setToolTipText("Click to Edit or Delete this Commitment");
 		// To change cursor as it moves over this commitment pannel
 		this.addMouseListener(new MouseAdapter() {
 			@Override
