@@ -75,6 +75,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 
 /**
+ * Create/edit event tab
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */

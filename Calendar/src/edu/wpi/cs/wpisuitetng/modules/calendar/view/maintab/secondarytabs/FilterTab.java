@@ -53,9 +53,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 
 
 /**
-  * @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+ * Create/edit filter tab.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
  public class FilterTab extends JPanel{
 
 	private final FilterList calendarFilters;

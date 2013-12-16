@@ -81,10 +81,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
-/* @author CS Anonymous
- * @version $Revision: 1.0 $
- */
 /**
+ * Create/edit commitment tab.
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
