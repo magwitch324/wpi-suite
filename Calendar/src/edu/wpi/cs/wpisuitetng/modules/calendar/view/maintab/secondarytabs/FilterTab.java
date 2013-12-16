@@ -87,6 +87,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	private JPanel inactiveListPanel;
 	private JPanel activeListPanel;
 	private SpringLayout activeListLayout;
+	private FilterPanel filterPanel;
 
 
 	private enum FilterMode {
@@ -127,8 +128,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		setLayout(gridBagLayout);
 		
 		/*addFilterList();
-		populateFilterList();
-		addListeners();*/
+		populateFilterList();*/
 		refresh();
 		initFlag = true;
 		}
@@ -342,6 +342,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		editPanel.add(catBtnPanel, gbc_catBtnPanel);
 		
 		addButtonPanel2();
+		revalidate();
+		repaint();
 	}
 
 	/**
@@ -465,7 +467,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mode = FilterMode.ADDING;
-				refresh();
+				//refresh();
+				addEditView();
 			}
 		});
 		
@@ -473,7 +476,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mode = FilterMode.EDITING;
-				refresh();
+				//refresh();
+				addEditView();
 			}
 		});
 		
@@ -554,29 +558,37 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		}
 		else if(mode == FilterMode.ADDING){
 			removeAll();
-			addFilterList();
-			addListeners();
-			editFilterMode();
-			addEditViewListeners();
 			filterName.setText("**New Filter**");
 			//populateCatLists();
 			populateFilterList();
 			populateInactiveCatLists();
-			revalidate();
-			repaint();
+			addFilterList();
+			editFilterMode();
 		}
 		else{
 			removeAll();
-			addFilterList();
-			addListeners();
-			editFilterMode();
-			addEditViewListeners();
-			//filterName.setText(selctFilter.name);
+			//filterName.setText(((FilterPanel)e.getComponent()).getFilter().getName());
 			//populateCatLists();;
 			populateFilterList();
 			populateInactiveCatLists();
-			revalidate();
-			repaint();
+			addFilterList();
+			editFilterMode();
+		}
+	}
+	
+	protected void addEditView(){
+		if(mode == FilterMode.ADDING){
+			editFilterMode();
+			addEditViewListeners();
+			filterName.setText("**New Filter**");
+			populateFilterList();
+			populateInactiveCatLists();
+		}
+		else{
+			editFilterMode();
+			addEditViewListeners();
+			populateFilterList();
+			populateInactiveCatLists();
 		}
 	}
 	
@@ -607,8 +619,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		filterList.addAll(calendarFilters.getFilters());
 		
 		// FilterPanel to keep track of spring layout constraints of previously added panel
-		JPanel oldFilterPanel = new FilterPanel(); 
-		JPanel filterPanel = new FilterPanel();
+		FilterPanel oldFilterPanel = new FilterPanel(); 
+		FilterPanel filterPanel = new FilterPanel();
 		for(int i = 0; i < filterList.size(); i++)
 		{
 			filterPanel = new FilterPanel(filterList.get(i));
@@ -634,14 +646,33 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			}
 			filterListPanel.add(filterPanel);
 			
-			oldFilterPanel = filterPanel; //update oldCatPanel to be previously added panel
+			//oldFilterPanel = filterPanel; //update oldCatPanel to be previously added panel
+		
+		
+		filterPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() > 1){
+					System.out.println("clicking");
+						mode = FilterMode.EDITING;
+						addEditView();
+						filterName.setText(((FilterPanel)e.getComponent()).getFilter().getName());
+					}
+			/*	else if(e.getClickCount() > 1){
+					mode = FilterMode.EDITING;
+					addEditView();
+					filterName.setText(((FilterPanel)e.getComponent()).getFilter().getName());
+				}*/
+			}
+		});
+		
+			oldFilterPanel = filterPanel;
 		}
 		
-		if(filterListLayout.getConstraint(SpringLayout.SOUTH, filterListPanel).getValue() > 
-			filterListLayout.getConstraint(SpringLayout.SOUTH, filterPanel).getValue()) {	
-		filterListLayout.putConstraint(SpringLayout.SOUTH,
-				filterListPanel, 0, SpringLayout.SOUTH, filterPanel);	
-		}
+		/*if(filterListLayout.getConstraint(SpringLayout.SOUTH, filterListPanel).getValue() > 
+			filterListLayout.getConstraint(SpringLayout.SOUTH, filterPanel).getValue()) {	*/
+			filterListLayout.putConstraint(SpringLayout.SOUTH,
+			filterListPanel, 0, SpringLayout.SOUTH, filterPanel);	
 	}
 
 	

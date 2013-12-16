@@ -93,4 +93,8 @@ public class FilterPanel extends JPanel{
 		super(layout, isDoubleBuffered);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Filter getFilter() {
+		return filter;
+	}
 }
