@@ -11,6 +11,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
@@ -46,6 +47,7 @@ public class FilterPanel extends JPanel{
 		lblFilterName = new JLabel();
 		lblFilterName.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblFilterName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFilterName.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		aPanel.add(lblFilterName);
 		lblFilterName.setFont(CalendarStandard.CalendarFontBold);
 		add(aPanel);

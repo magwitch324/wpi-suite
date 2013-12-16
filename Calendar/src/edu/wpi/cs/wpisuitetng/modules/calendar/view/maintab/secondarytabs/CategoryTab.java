@@ -150,6 +150,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 		scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
 		scrollPane.setBackground(Color.WHITE);
 		viewPanel.add(scrollPane);
 		

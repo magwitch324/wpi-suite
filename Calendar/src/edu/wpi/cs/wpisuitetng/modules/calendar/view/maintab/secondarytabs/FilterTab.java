@@ -165,6 +165,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 //		scrollPane.setSize(new Dimension(50, 600));
+		scrollPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
@@ -230,6 +231,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 //		scrollPane.setSize(new Dimension(50, 600));
+		scrollPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
@@ -339,6 +341,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		inactiveCatPane = new JScrollPane();
 		inactiveCatPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		inactiveCatPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		inactiveCatPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
 		inactiveCatPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_inactiveFilter = new GridBagConstraints();
 		gbc_inactiveFilter.fill = GridBagConstraints.BOTH;
@@ -352,6 +355,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		activeCatPane = new JScrollPane();
 		activeCatPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		activeCatPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		activeCatPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
 		activeCatPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_activeFilter = new GridBagConstraints();
 		gbc_activeFilter.fill = GridBagConstraints.BOTH;
@@ -631,7 +635,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		if(mode == FilterMode.VIEWING){
 			removeAll();
 			mainFilterListView();
-//			addFilterList();
 			addListeners();
 			populateFilterList();
 			viewPaneBtnStatus();
@@ -751,26 +754,26 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			//oldFilterPanel = filterPanel; //update oldCatPanel to be previously added panel
 		
 		
-		filterPanel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() > 1 && mode == FilterMode.VIEWING){
-					mode = FilterMode.EDITING;
-					refresh();
-					//addEditView();
-					editFilter = ((FilterPanel)e.getComponent()).getFilter();
-					filterName.setText(editFilter.getName());
+			filterPanel.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount() >= 1 && mode == FilterMode.VIEWING){
+						mode = FilterMode.EDITING;
+						refresh();
+						//addEditView();
+						editFilter = ((FilterPanel)e.getComponent()).getFilter();
+						filterName.setText(editFilter.getName());
+					}
+					else if(e.getClickCount() >= 1){
+						mode = FilterMode.EDITING;
+						//remove(editPanel);
+						refresh();
+						//addEditView();
+						editFilter = ((FilterPanel)e.getComponent()).getFilter();
+						filterName.setText(editFilter.getName());
+					}
 				}
-				else if(e.getClickCount() > 1){
-					mode = FilterMode.EDITING;
-					//remove(editPanel);
-					refresh();
-					//addEditView();
-					editFilter = ((FilterPanel)e.getComponent()).getFilter();
-					filterName.setText(editFilter.getName());
-				}
-			}
-		});
+			});
 		
 			oldFilterPanel = filterPanel;
 		}
@@ -857,6 +860,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			
 			oldCatPanel = catPanel; //update oldCatPanel to be previously added panel
 		}
+		
+		inactiveListLayout.putConstraint(SpringLayout.SOUTH,
+		inactiveListPanel, 0, SpringLayout.SOUTH, catPanel);	
 	}
 	
 	private void populateActiveCatLists(){

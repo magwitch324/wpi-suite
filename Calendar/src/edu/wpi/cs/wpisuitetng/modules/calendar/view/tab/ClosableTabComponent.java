@@ -80,7 +80,7 @@ public class ClosableTabComponent extends JPanel implements ActionListener {
 		add(label);
 		
 		final JButton closeButton = new JButton("\u2716");
-		closeButton.setToolTipText("Click to Close this tab.");
+		closeButton.setToolTipText("Click to Close this tab");
 		closeButton.setFont(closeButton.getFont().deriveFont((float) 8));
 		closeButton.setMargin(new Insets(0, 0, 0, 0));
 		closeButton.addActionListener(this);
