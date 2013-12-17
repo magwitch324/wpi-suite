@@ -145,6 +145,7 @@ public class EventTab extends JPanel {
 	private int endTempHour = 1;
 	private int openedFrom;
 	private Category uncategorized;
+	private GridBagConstraints constraints_1;
 
 
 
@@ -205,12 +206,16 @@ public class EventTab extends JPanel {
 		constraints.weighty = 1;
 		constraints.fill = GridBagConstraints.BOTH;
 		add(spacePanel1, constraints);
-		constraints = new GridBagConstraints();
-		constraints.weightx = 3;
-		constraints.gridx = 1;
-		constraints.weighty = 1;
-		constraints.fill = GridBagConstraints.BOTH;
-		add(formPanel, constraints);
+
+		constraints_1 = new GridBagConstraints();
+		constraints_1.gridy = 0;
+		constraints_1.weightx = 2;
+		constraints_1.gridx = 1;
+		constraints_1.weighty = 1;
+		constraints_1.fill = GridBagConstraints.BOTH;
+		add(formPanel, constraints_1);
+
+		
 		constraints = new GridBagConstraints();
 		constraints.weightx = 1;
 		constraints.gridx = 2;
@@ -247,7 +252,7 @@ public class EventTab extends JPanel {
 		nameTextField.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		gbc_nameTextField = new GridBagConstraints();
 		gbc_nameTextField.gridwidth = 3;
-		gbc_nameTextField.insets = new Insets(0, 0, 0, 5);
+		gbc_nameTextField.insets = new Insets(5, 0, 5, 0);
 		gbc_nameTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_nameTextField.weightx = 10;
 		gbc_nameTextField.weighty = 1;
@@ -291,9 +296,9 @@ public class EventTab extends JPanel {
 		gbc_descriptionTextField.gridy = 1;
 		gbc.gridwidth = 3;
 		descriptionScrollPane = new JScrollPane(descriptionTextArea);
+		descriptionScrollPane.setMinimumSize(new Dimension(23, 60));
 		descriptionScrollPane.setPreferredSize(new Dimension(10, 60));
 		formPanel.add(descriptionScrollPane, gbc_descriptionTextField);
-		descriptionScrollPane.setMaximumSize(new Dimension(10, 60));
 		descriptionScrollPane.getViewport().setMaximumSize(new Dimension(10000000, 10));
 
 
@@ -794,6 +799,7 @@ public class EventTab extends JPanel {
 	
 
 		final GridBagConstraints gbc_btnPanel = new GridBagConstraints();
+		gbc_btnPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_btnPanel.gridwidth = 3;
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
 		gbc_btnPanel.gridx = 1;

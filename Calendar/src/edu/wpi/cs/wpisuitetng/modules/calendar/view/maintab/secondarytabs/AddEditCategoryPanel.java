@@ -58,6 +58,8 @@ import java.awt.Rectangle;
 import java.beans.PropertyChangeListener;
 
 /**
+ * AddEditCategoryPanel is created by clicking the new category button
+ * in the category tab.
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */

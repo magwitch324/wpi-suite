@@ -31,18 +31,23 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropertiesModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
@@ -80,6 +85,9 @@ public class EventFullView extends JPanel{
 	JRadioButton personalRadioButton;
 	JRadioButton teamRadioButton;
 	ButtonGroup viewSwitchGroup;
+	
+	// Search input
+	JTextField searchInput = new JTextField();
 
 	/**
 	 * @author CS Anonymous
@@ -139,26 +147,33 @@ public class EventFullView extends JPanel{
 	private void setEventList() {
 		eventPanelList = new ArrayList<EventViewPanel>(); 
 
-		if (mode == ViewingMode.TEAM){
-			if(pcalendar.getTeamCalData() != null){
-				for(Event event : pcalendar.getTeamCalData().getEvents().getEvents()){
-					eventPanelList.add(new EventViewPanel(event));
+		String searchText = getSearchInput().trim().toLowerCase();
+		
+		EventList events = new EventList();
+		
+		if (mode == ViewingMode.TEAM || mode == ViewingMode.BOTH) {
+			if(pcalendar.getTeamCalData() != null) {
+				for (Event e : pcalendar.getTeamCalData().getEvents().getEvents()) {
+					events.add(e);
 				}
 			}
-		} else if (mode == ViewingMode.PERSONAL){
-			if(pcalendar.getMyCalData() != null){
-				for(Event event : pcalendar.getMyCalData().getEvents().getEvents()){
-					eventPanelList.add(new EventViewPanel(event));
-				}
-			}
-		} else if(pcalendar.getTeamCalData() != null && pcalendar.getMyCalData() != null) { 
-			for(Event event : pcalendar.getTeamCalData().getEvents().getEvents()){
-				eventPanelList.add(new EventViewPanel(event));
-			}
+		}
 			
-			for(Event event : pcalendar.getMyCalData().getEvents().getEvents()){
-				eventPanelList.add(new EventViewPanel(event));
+		if (mode == ViewingMode.PERSONAL || mode == ViewingMode.BOTH) {
+			if(pcalendar.getMyCalData() != null) {
+				for (Event e : pcalendar.getMyCalData().getEvents().getEvents()) {
+					events.add(e);
+				}
 			}
+		}
+		
+		for(Event event : events.getEvents()) {
+			if (getSearchInput() == "")
+				eventPanelList.add(new EventViewPanel(event));
+			else if (event.getName().toLowerCase().contains(searchText))
+				eventPanelList.add(new EventViewPanel(event));
+			else if (event.getDescription().toLowerCase().contains(searchText))
+				eventPanelList.add(new EventViewPanel(event));
 		}
 		//Sorts the list of eventPanelList based on sort type and reverse_sort
 		sort();
@@ -208,6 +223,8 @@ public class EventFullView extends JPanel{
 		final JPanel datadisplay = getDataDisplay();
 		layout.putConstraint(SpringLayout.NORTH, datadisplay, 0, SpringLayout.NORTH, apanel);
 		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datadisplay, 0, SpringLayout.HORIZONTAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.WEST, datadisplay, 0, SpringLayout.WEST, apanel);
+		layout.putConstraint(SpringLayout.EAST, datadisplay, 0, SpringLayout.EAST, apanel);
 		apanel.add(datadisplay);
 		
 		final JPanel sortbuttons = getSortButtons();
@@ -299,8 +316,56 @@ public class EventFullView extends JPanel{
 		
 		layout.putConstraint(SpringLayout.VERTICAL_CENTER, bothRadioButton, 0, SpringLayout.VERTICAL_CENTER, apanel);
 		layout.putConstraint(SpringLayout.WEST, bothRadioButton, 0, SpringLayout.EAST, teamRadioButton);
+		
+		// Create search bar
+		JPanel search = new JPanel();
+		SpringLayout searchLayout = new SpringLayout();
+		search.setLayout(searchLayout);
+		search.setBackground(Color.WHITE);
+		
+		searchInput = new JTextField();
+		JLabel searchLabel = new JLabel("Search: ");
+		
+		// Listen for changes in the text
+		searchInput.getDocument().addDocumentListener(new DocumentListener() {
+		  public void changedUpdate(DocumentEvent e) {
+			  update();
+		  }
+		  public void removeUpdate(DocumentEvent e) {
+			  update();
+		  }
+		  public void insertUpdate(DocumentEvent e) {
+			  update();
+		  }
+
+		  public void update() {
+			  updateList();
+		  }
+		});
+		
+		search.add(searchLabel);
+		search.add(searchInput);
+
+		searchLayout.putConstraint(SpringLayout.WEST, searchLabel, 0, SpringLayout.WEST, search);
+		searchLayout.putConstraint(SpringLayout.VERTICAL_CENTER, searchLabel, 0, SpringLayout.VERTICAL_CENTER, search);
+		
+		searchLayout.putConstraint(SpringLayout.WEST, searchInput, 10, SpringLayout.EAST, searchLabel);
+		searchLayout.putConstraint(SpringLayout.EAST, searchInput, 0, SpringLayout.EAST, search);
+		searchLayout.putConstraint(SpringLayout.VERTICAL_CENTER, searchInput, 0, SpringLayout.VERTICAL_CENTER, search);
+		
+		apanel.add(search);
+		
+		layout.putConstraint(SpringLayout.WEST, search, 20, SpringLayout.EAST, bothRadioButton);
+		layout.putConstraint(SpringLayout.EAST, search, -10, SpringLayout.EAST, apanel);
+		layout.putConstraint(SpringLayout.NORTH, search, 0, SpringLayout.NORTH, apanel);
+		layout.putConstraint(SpringLayout.SOUTH, search, 0, SpringLayout.SOUTH, apanel);
+		
 		return apanel;
 		
+	}
+	
+	private String getSearchInput() {
+		return searchInput.getText();
 	}
 	
 	/**
