@@ -83,6 +83,19 @@ public class AddEditCategoryPanel extends JPanel {
 		setupUI();
 	}
 	
+	/**
+	 * Constructor 
+	 * @param isPersonal
+	 */
+	public AddEditCategoryPanel(boolean isPersonal){
+		this();
+		if(isPersonal){
+			rdbtnPersonal.setSelected(true);
+		} else {
+			rdbtnTeam.setSelected(true);
+		}
+	}
+	
 	public void setupUI()
 	{
 		setBackground(Color.WHITE);
@@ -172,18 +185,18 @@ public class AddEditCategoryPanel extends JPanel {
 		
 		final ButtonGroup teamPersonalRadioButtons = new ButtonGroup();
 		
+		// Personal radio button
+		rdbtnPersonal = new JRadioButton("Personal");
+		rdbtnPersonal.setBackground(Color.WHITE);
+		horizontalBox.add(rdbtnPersonal);
+		teamPersonalRadioButtons.add(rdbtnPersonal);
+		
 		// Team radio button
 		rdbtnTeam = new JRadioButton("Team");
 		rdbtnTeam.setBackground(Color.WHITE);
 		horizontalBox.add(rdbtnTeam);
 		teamPersonalRadioButtons.add(rdbtnTeam);
 		rdbtnTeam.setSelected(true);	//sets default to team
-		
-		// Personal radio button
-		rdbtnPersonal = new JRadioButton("Personal");
-		rdbtnPersonal.setBackground(Color.WHITE);
-		horizontalBox.add(rdbtnPersonal);
-		teamPersonalRadioButtons.add(rdbtnPersonal);
 		
 		final JLabel lblColor = new JLabel("<html><font>" + "Color" + "</font>" 
 											+ "<font color=red>" + "*" + "</font>" 
