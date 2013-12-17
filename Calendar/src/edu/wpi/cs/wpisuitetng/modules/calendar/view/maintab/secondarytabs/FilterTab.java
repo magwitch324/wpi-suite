@@ -376,6 +376,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		
 		//adds the scroll pane containing the categories not in the filter
 		inactiveCatPane = new JScrollPane();
+		inactiveCatPane.setPreferredSize(new Dimension(2, 200));
 		inactiveCatPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		inactiveCatPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		inactiveCatPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
@@ -390,6 +391,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		
 		//adds the scroll pane containing the categories in the filter
 		activeCatPane = new JScrollPane();
+		activeCatPane.setPreferredSize(new Dimension(2, 200));
 		activeCatPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		activeCatPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		activeCatPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
@@ -687,7 +689,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			revalidate();
 			repaint();
 		}
-		else if(mode == FilterMode.ADDING){
+		else if(mode == FilterMode.ADDING) {
 			removeAll();
 			addFilterList();
 			addListeners();
