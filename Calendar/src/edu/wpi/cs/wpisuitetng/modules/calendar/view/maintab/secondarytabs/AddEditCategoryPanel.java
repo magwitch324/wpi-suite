@@ -51,6 +51,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CategoryTab.CategoryMode;
 
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
@@ -138,6 +139,13 @@ public class AddEditCategoryPanel extends JPanel {
 				if(textFieldName.getText().equals("") || textFieldName.getText().trim().equals("")){
 					btnSave.setEnabled(false);
 				} else { 
+					if (mode == CategoryMode.EDITING){
+						if (textFieldName.getText().equals(editingCategory.getName())
+								&& colorPickerPanel.getColor().equals(editingCategory.getCategoryColor())){
+							btnSave.setEnabled(false);
+							return;
+						}
+					}
 					btnSave.setEnabled(true);
 				}
 			}
@@ -316,6 +324,18 @@ public class AddEditCategoryPanel extends JPanel {
 		final ChangeListener changeListener = new ChangeListener() {
 	      public void stateChanged(ChangeEvent changeEvent) {
 	        colorPreviewPanel.setBackground(colorPickerPanel.getColor());
+			if(textFieldName.getText().equals("") || textFieldName.getText().trim().equals("")){
+				btnSave.setEnabled(false);
+			} else { 
+				if (mode == CategoryMode.EDITING){
+					if (textFieldName.getText().equals(editingCategory.getName())
+							&& colorPickerPanel.getColor().equals(editingCategory.getCategoryColor())){
+						btnSave.setEnabled(false);
+						return;
+					}
+				}
+				btnSave.setEnabled(true);
+			}
 	      }
 	    };
 	    model.addChangeListener(changeListener);
