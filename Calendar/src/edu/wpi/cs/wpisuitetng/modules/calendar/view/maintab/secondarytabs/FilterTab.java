@@ -91,8 +91,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	private Filter editFilter;
 	protected List<FilterPanel> selectedFilters;
 	protected List<CategoryPanel> selectedCategories;
-	private List<Integer> activeTeamCat;
-	private List<Integer> activePersonalCat;
+//	private List<Integer> activeTeamCat;
+//	private List<Integer> activePersonalCat;
 	private Filter aSelectedFilter;
 	private Category aSelectedCategory;
 	private CategoryList allCategories;
@@ -102,7 +102,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	private List<Integer> newPersonalCatList;
 	private final CategoryList inactiveTeamCat;
 	private final CategoryList inactivePersonalCat;
-	
+	private final CategoryList activeTeamCat;
+	private final CategoryList activePersonalCat;
 
 
 	private enum FilterMode {
@@ -156,8 +157,14 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		for(Category c:personalCategories.getCategories()){
 			inactivePersonalCat.add(c);
 		} 
+		
+		activeTeamCat = new CategoryList();
+		activePersonalCat = new CategoryList();
+		
+		
 		initFlag = true;
 		}
+		
 	
 	
 	/**
@@ -419,7 +426,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		//Add Category to Filter button
 		addCatBtn = new JButton();
 		try {
-			final Image img = ImageIO.read(getClass().getResource("GreenArrowDown_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource("GreenArrowUp_Icon.png"));
 			addCatBtn.setIcon(new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
@@ -435,7 +442,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		//Remove Category from Filter button
 		removeCatBtn = new JButton();
 		try {
-			final Image img = ImageIO.read(getClass().getResource("RedArrowUp_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource("RedArrowDown_Icon.png"));
 			removeCatBtn.setIcon(new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
@@ -691,7 +698,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			//activeCategories = null;
 			populateFilterList();
 			populateInactiveCatLists();
-			//populateActiveCatLists();
+			populateActiveCatLists();
 			viewPaneBtnStatus(false);
 			saveBtnStatus();
 			revalidate();
@@ -706,7 +713,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			//activeCategories = null;
 			populateFilterList();
 			populateInactiveCatLists();
-			//populateActiveCatLists();
+			populateActiveCatLists();
 			viewPaneBtnStatus(false);
 			saveBtnStatus();
 			revalidate();
@@ -865,36 +872,24 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	private void addCategoryToFilter(){
 		if(aSelectedCategory.getIsPersonal()){
 			inactivePersonalCat.remove(aSelectedCategory.getID());
+			activePersonalCat.add(aSelectedCategory);
 		}
 		else{
 			inactiveTeamCat.remove(aSelectedCategory.getID());
+			activeTeamCat.add(aSelectedCategory);
 		}
 	}
 	
 
 	
 	private void removeCategoryFromFilter(){
-//		if (aCat.getIsPersonal()){
-//			for(int i = 0; i < aFilter.getActivePersonalCategories().size(); i++){
-//				int aCatID = aFilter.getActivePersonalCategories().get(i);
-//				if (aCatID == aCat.getID()) {
-//					aFilter.getActivePersonalCategories().remove(aCat.getID());
-//				}
-//			}
-//		}
-//		else{
-//			for(int i = 0; i < aFilter.getActiveTeamCategories().size(); i++){
-//				int aCatID = aFilter.getActiveTeamCategories().get(i);
-//				if (aCatID == aCat.getID()) {
-//					aFilter.getActiveTeamCategories().remove(aCat.getID());
-//				}
-//			}
-		
 		if(aSelectedCategory.getIsPersonal()){
 			inactivePersonalCat.add(aSelectedCategory);
+			activePersonalCat.remove(aSelectedCategory.getID());
 		}
 		else{
 			inactiveTeamCat.add(aSelectedCategory);
+			activeTeamCat.remove(aSelectedCategory.getID());
 		}	
 	}
 	
@@ -903,29 +898,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 //	}
 	
 
-	private void populateInactiveCatLists(){
-		
-		
-		/*if(mode == FilterMode.EDITING){
-			for(int i = 0; i < activeTeamCat.size(); i++){
-				for(int j = 0; j < inactiveTeamCat.getSize(); j++){
-					if(activeTeamCat.get(i) == inactiveTeamCat.getCategory(j).getID()){
-						inactiveTeamCat.remove(j);
-						break;
-					}
-				}
-			}
-			
-			for(int i = 0; i < activePersonalCat.size(); i++){
-				for(int j = 0; j < inactivePersonalCat.getSize(); j++){
-					if(activePersonalCat.get(i) == inactivePersonalCat.getCategory(j).getID()){
-						inactivePersonalCat.remove(j);
-						break;
-					}
-				}
-			}
-		}*/
-		
+	private void populateInactiveCatLists(){		
 		final List<Category> catList = new ArrayList<Category>();
 		final CategoryList bothCategories = new CategoryList();
 		final Category[] bothCatArray = new Category[inactiveTeamCat.getSize() + inactivePersonalCat.getSize()];
@@ -991,6 +964,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 						selectedCategories.add(comp);
 						comp.setSelected(true);
 						addCatBtn.setEnabled(true);
+						removeCatBtn.setEnabled(false);
 						aSelectedCategory = ((CategoryPanel)e.getComponent()).getCategory();
 					}
 				}
@@ -1005,34 +979,34 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	}
 	
 	private void populateActiveCatLists(){
-		
-		if(mode == FilterMode.ADDING){
-			listOfActiveTeamCat = null;
-			listOfActivePersonalCat = null;
-		}
-		/*else{
-			for(int i = 0; i < activeTeamCat.size(); i++){
-				for(int j = 0; j < teamCategories.getSize(); j++)
-					if(activeTeamCat.get(i) == teamCategories.getCategory(j).getID()){
-						listOfActiveTeamCat.add(teamCategories.getCategory(j));
-						break;
-					}
-			}
-		
-			for(int i = 0; i < activePersonalCat.size(); i++){
-				for(int j = 0; j < personalCategories.getSize(); j++)
-					if(activePersonalCat.get(i) == personalCategories.getCategory(j).getID()){
-						listOfActivePersonalCat.add(personalCategories.getCategory(j));
-						break;
-					}
-			}
-		}*/
+//		
+//		if(mode == FilterMode.ADDING){
+//			listOfActiveTeamCat = null;
+//			listOfActivePersonalCat = null;
+//		}
+//		/*else{
+//			for(int i = 0; i < activeTeamCat.size(); i++){
+//				for(int j = 0; j < teamCategories.getSize(); j++)
+//					if(activeTeamCat.get(i) == teamCategories.getCategory(j).getID()){
+//						listOfActiveTeamCat.add(teamCategories.getCategory(j));
+//						break;
+//					}
+//			}
+//		
+//			for(int i = 0; i < activePersonalCat.size(); i++){
+//				for(int j = 0; j < personalCategories.getSize(); j++)
+//					if(activePersonalCat.get(i) == personalCategories.getCategory(j).getID()){
+//						listOfActivePersonalCat.add(personalCategories.getCategory(j));
+//						break;
+//					}
+//			}
+//		}*/
 		
 		final List<Category> catList = new ArrayList<Category>();
 		final CategoryList bothCategories = new CategoryList();
-		final Category[] bothCatArray = new Category[listOfActiveTeamCat.size() + listOfActivePersonalCat.size()];
-		catList.addAll(listOfActiveTeamCat);
-		catList.addAll(listOfActivePersonalCat);
+		final Category[] bothCatArray = new Category[activeTeamCat.getSize() + activePersonalCat.getSize()];
+		catList.addAll(activeTeamCat.getCategories());
+		catList.addAll(activePersonalCat.getCategories());
 		for(int i = 0; i < catList.size(); i++)
 		{
 			bothCatArray[i] = catList.get(i);
@@ -1072,6 +1046,32 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			}
 
 			activeListPanel.add(catPanel);
+			
+			catPanel.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount() > 1){
+						mode = FilterMode.EDITING;
+						aSelectedCategory = ((CategoryPanel)e.getComponent()).getCategory();
+						removeCategoryFromFilter();
+						refresh();
+					}
+					else if (e.getClickCount() == 1){
+						mode = FilterMode.EDITING;
+						CategoryPanel comp = (CategoryPanel) e.getComponent();
+						if(selectedCategories.isEmpty() || e.isControlDown());
+						else
+						{
+							removeSelectedCategories(); //clear existing selections
+						}
+						selectedCategories.add(comp);
+						comp.setSelected(true);
+						removeCatBtn.setEnabled(true);
+						addCatBtn.setEnabled(false);
+						aSelectedCategory = ((CategoryPanel)e.getComponent()).getCategory();
+					}
+				}
+			});
 			
 			oldCatPanel = catPanel; //update oldCatPanel to be previously added panel
 		}

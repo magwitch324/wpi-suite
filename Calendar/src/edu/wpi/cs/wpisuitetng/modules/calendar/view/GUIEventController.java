@@ -54,6 +54,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	private MyCalendar myCalendar;
 	private EventFullView eventFullView;
 	private CommitmentFullView commitFullView;
+	private CategoryTab manageCategoriesTab;
+	private FilterTab manageFiltersTab;
+	private boolean filtersTabOpen = false;
+	private boolean categoriesTabOpen = false;
 
 	
 	/**
@@ -318,22 +322,29 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 * Method createManageCategories.
 	 */
 	public void createManageCategories() {
+		if(categoriesTabOpen){
+			main.setSelectedComponent(manageCategoriesTab);
+		}
+		else{
+			int openedFrom = main.getSelectedIndex();
+			if (openedFrom > 1){
+				openedFrom = 0;
+			}
+			manageCategoriesTab = new CategoryTab();
+			try {
+				final Image img = ImageIO.read(getClass().getResource("ManageCategory_Icon.png"));
+				main.addTab("Manage Categories", new ImageIcon(img), manageCategoriesTab);
+			} catch (IOException ex) {}
+			catch(IllegalArgumentException ex){
+				main.addTab("Manage Category", new ImageIcon(), manageCategoriesTab);
+			}
+			main.invalidate(); //force the tabbedpane to redraw.
+			main.repaint();
+			categoriesTabOpen = true;
+			main.setSelectedComponent(manageCategoriesTab);	
+		}
 		
-		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 1){
-			openedFrom = 0;
-		}
-		final CategoryTab newCat = new CategoryTab();
-		try {
-			final Image img = ImageIO.read(getClass().getResource("ManageCategory_Icon.png"));
-			main.addTab("Manage Categories", new ImageIcon(img), newCat);
-		} catch (IOException ex) {}
-		catch(IllegalArgumentException ex){
-			main.addTab("Manage Category", new ImageIcon(), newCat);
-		}
-		main.invalidate(); //force the tabbedpane to redraw.
-		main.repaint();
-		main.setSelectedComponent(newCat);
+		
 	}
 
 	
@@ -343,21 +354,28 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 * Method createManageFilters.
 	 */
 	public void createManageFilters() {
-		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 1){
-			openedFrom = 0;
+		if(filtersTabOpen){
+			main.setSelectedComponent(manageFiltersTab);
 		}
-		final FilterTab newFilter = new FilterTab(openedFrom);
-		try {
-			final Image img = ImageIO.read(getClass().getResource("ManageFilter_Icon.png"));
-			main.addTab("Manage Filters", new ImageIcon(img), newFilter);
-		} catch (IOException ex) {}
-		catch(IllegalArgumentException ex){
-			main.addTab("Manage Filters", new ImageIcon(), newFilter);
+		else{
+			int openedFrom = main.getSelectedIndex();
+			if (openedFrom > 1){
+				openedFrom = 0;
+			}
+			manageFiltersTab = new FilterTab(openedFrom);
+			try {
+				final Image img = ImageIO.read(getClass().getResource("ManageFilter_Icon.png"));
+				main.addTab("Manage Filters", new ImageIcon(img), manageFiltersTab);
+			} catch (IOException ex) {}
+			catch(IllegalArgumentException ex){
+				main.addTab("Manage Filters", new ImageIcon(), manageFiltersTab);
+			}
+			main.invalidate(); //force the tabbedpane to redraw.
+			main.repaint();
+			filtersTabOpen = true;
+			main.setSelectedComponent(manageFiltersTab);
 		}
-		main.invalidate(); //force the tabbedpane to redraw.
-		main.repaint();
-		main.setSelectedComponent(newFilter);
+		
 	}
 
 	
@@ -453,6 +471,17 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 				tmpRepEvent.setCategoryID(0);
 			}
 		}
+	}
+
+	public void checkTabClose(int index) {
+		index +=3;
+		if(main.getComponent(index) instanceof CategoryTab){
+			categoriesTabOpen = false;
+		}
+		else if(main.getComponent(index) instanceof FilterTab){
+			filtersTabOpen = false;
+		}
+		
 	}
 	
 	
