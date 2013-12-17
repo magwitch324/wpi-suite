@@ -50,6 +50,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.FilterList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 
 /**
@@ -613,9 +614,19 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		
 		btnDelete.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				//deleteFilter();
+			public void actionPerformed(ActionEvent e) {				
+				CalendarData calData;
+			
+				for(FilterPanel filterPane : selectedFilters ) {
+					calData = CalendarDataModel.getInstance().getCalendarData(
+							ConfigManager.getConfig().getProjectName() +
+							"-" + ConfigManager.getConfig().getUserName()); 
+					calendarFilters.remove(filterPane.getFilter().getID());
+					UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+				}
+			refresh();
+			/*btnEdit.setEnabled(false);
+			btnDelete.setEnabled(false);*/
 			}
 		});
 	}
