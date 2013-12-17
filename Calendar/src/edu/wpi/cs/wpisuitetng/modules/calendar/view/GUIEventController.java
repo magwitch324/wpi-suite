@@ -34,111 +34,118 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.Commit
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.EventFullView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.EventTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.FilterTab;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.FilterTab2;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 
-
-
 /**
- * The main GUI event controller that takes care of tab creation,
- * setting up mian tab view and tool bar view,
- * set scroll bar value, event full view and commitment full view.
+ * The main GUI event controller that takes care of tab creation, setting up
+ * mian tab view and tool bar view, set scroll bar value, event full view and
+ * commitment full view.
+ * 
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
- public class GUIEventController {
+public class GUIEventController {
 	private static GUIEventController instance = null;
 	private int scrollBarValue = 659;
 	private MainTabView main = null;
 	private ToolbarView toolbar = null;
-	//private TeamCalendar teamCalendar;
+	// private TeamCalendar teamCalendar;
 	private MyCalendar myCalendar;
 	private EventFullView eventFullView;
 	private CommitmentFullView commitFullView;
 	private CategoryTab manageCategoriesTab;
-	private FilterTab manageFiltersTab;
+	private FilterTab2 manageFiltersTab;
 	private boolean filtersTabOpen = false;
 	private boolean categoriesTabOpen = false;
 
-	
 	/**
-	 * Default constructor for ViewEventController.  Is protected to prevent instantiation.
+	 * Default constructor for ViewEventController. Is protected to prevent
+	 * instantiation.
 	 */
-	private GUIEventController() {}
+	private GUIEventController() {
+	}
 
 	/**
 	 * Returns the singleton instance of the vieweventcontroller.
-
-	 * @return The instance of this controller. */
+	 * 
+	 * @return The instance of this controller.
+	 */
 	public static GUIEventController getInstance() {
 		if (instance == null) {
 			instance = new GUIEventController();
 
 			/**
-			 * we add this shutdown hook in order to 
-			 * avoid server communication every time someone clicks a checkbox
+			 * we add this shutdown hook in order to avoid server communication
+			 * every time someone clicks a checkbox
 			 */
 			Runtime.getRuntime().addShutdownHook(new Thread() {
 				@Override
 				public void run() {
 					GUIEventController.getInstance().saveProps();
-					
+
 				}
 			});
 
 		}
 		return instance;
 	}
-	
+
 	/**
 	 * Called on Janeway shutdown to save props
 	 */
-	public void saveProps(){
-		//teamCalendar.saveProps();
-		//myCalendar.saveProps();
-		//commitFullView.saveProps();
-		final CalendarProperties calProps = CalendarPropertiesModel.getInstance().getCalendarProps(
-				ConfigManager.getConfig().getProjectName() + "-"
-						+ ConfigManager.getConfig().getUserName() + "-PROPS");
-		if(calProps != null){
+	public void saveProps() {
+		// teamCalendar.saveProps();
+		// myCalendar.saveProps();
+		// commitFullView.saveProps();
+		final CalendarProperties calProps = CalendarPropertiesModel
+				.getInstance().getCalendarProps(
+						ConfigManager.getConfig().getProjectName() + "-"
+								+ ConfigManager.getConfig().getUserName()
+								+ "-PROPS");
+		if (calProps != null) {
 			UpdatePropsController.getInstance().updateCalendarProps(calProps);
 		}
 	}
+
 	/**
 	 * Called on Janeway shutdown to remove year old items
 	 */
-	public void removeYearOld(){
-		//teamCalendar.saveProps();
-		//myCalendar.saveProps();
-		//commitFullView.saveProps();
+	public void removeYearOld() {
+		// teamCalendar.saveProps();
+		// myCalendar.saveProps();
+		// commitFullView.saveProps();
 	}
 
 	/**
 	 * Sets the main view to the given view.
-
-	 * @param mainview MainView
+	 * 
+	 * @param mainview
+	 *            MainView
 	 */
 	public void setMainView(MainTabView mainview) {
 		main = mainview;
-		//teamCalendar = new TeamCalendar();
+		// teamCalendar = new TeamCalendar();
 		myCalendar = new MyCalendar();
 		eventFullView = new EventFullView(myCalendar);
 		commitFullView = new CommitmentFullView(myCalendar);
 
 		try {
-			Image img = ImageIO.read(getClass().getResource("Calendar_Icon.png"));
+			Image img = ImageIO.read(getClass()
+					.getResource("Calendar_Icon.png"));
 			main.addTab("Calendar", new ImageIcon(img), myCalendar);
 
-			//img = ImageIO.read(getClass().getResource("Team_Icon.png"));
-			//main.addTab("Team Calendar", new ImageIcon(img), teamCalendar);
+			// img = ImageIO.read(getClass().getResource("Team_Icon.png"));
+			// main.addTab("Team Calendar", new ImageIcon(img), teamCalendar);
 
 			img = ImageIO.read(getClass().getResource("Agenda_Icon.png"));
 			main.addTab("Events Agenda", new ImageIcon(img), eventFullView);
-			
+
 			img = ImageIO.read(getClass().getResource("All_Icon.png"));
 			main.addTab("All Commitments", new ImageIcon(img), commitFullView);
 
-		} catch (IOException ex) {}
-		catch(IllegalArgumentException ex){
+		} catch (IOException ex) {
+		} catch (IllegalArgumentException ex) {
 			main.addTab("My Calendar", new ImageIcon(), myCalendar);
 			main.addTab("Events Agenda", new ImageIcon(), eventFullView);
 			main.addTab("All Commitmets", new ImageIcon(), commitFullView);
@@ -148,18 +155,19 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 
 	/**
 	 * Gets calendar data corresponding to currently selected tab
+	 * 
 	 * @return index
 	 */
-	public AbCalendar getCalendar()
-	{
-			return myCalendar;
+	public AbCalendar getCalendar() {
+		return myCalendar;
 
 	}
 
-
 	/**
 	 * Sets the toolbarview to the given toolbar
-	 * @param tb the toolbar to be set as active.
+	 * 
+	 * @param tb
+	 *            the toolbar to be set as active.
 	 */
 	public void setToolBar(ToolbarView tb) {
 		toolbar = tb;
@@ -167,38 +175,44 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	}
 
 	/**
-
-	 * @return toolBar */
+	 * 
+	 * @return toolBar
+	 */
 	public ToolbarView getToolbar() {
 		return toolbar;
 	}
 
-
 	/**
 	 * Returns the main view
-
-	 * @return the main view */
+	 * 
+	 * @return the main view
+	 */
 	public MainTabView getMainView() {
 		return main;
 	}
 
 	/**
 	 * Method removeCommTab.
-	 * @param commTab CommitmentTab
-	 * @param goTo int
+	 * 
+	 * @param commTab
+	 *            CommitmentTab
+	 * @param goTo
+	 *            int
 	 */
-	public void removeCommTab(CommitmentTab commTab, int goTo)
-	{
+	public void removeCommTab(CommitmentTab commTab, int goTo) {
 
-			main.remove(commTab);
-			switch(goTo){
-				case 0 : main.setSelectedComponent(myCalendar);
-						break;
-				case 1 : main.setSelectedComponent(eventFullView);
-						break;
-				case 2 : main.setSelectedComponent(commitFullView);
-						break;
-			}
+		main.remove(commTab);
+		switch (goTo) {
+		case 0:
+			main.setSelectedComponent(myCalendar);
+			break;
+		case 1:
+			main.setSelectedComponent(eventFullView);
+			break;
+		case 2:
+			main.setSelectedComponent(commitFullView);
+			break;
+		}
 	}
 
 	/**
@@ -206,48 +220,51 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 */
 	public void createCommitment() {
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 1){
+		if (openedFrom > 1) {
 			openedFrom = 0;
 		}
 		final CommitmentTab newCommit = new CommitmentTab(openedFrom);
-//		final CommitmentTab2 newCommit2 = new CommitmentTab2(openedFrom);
+		// final CommitmentTab2 newCommit2 = new CommitmentTab2(openedFrom);
 		try {
-			final Image img = ImageIO.read(getClass().getResource("NewCommitment_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource(
+					"NewCommitment_Icon.png"));
 			main.addTab("New Commitment", new ImageIcon(img), newCommit);
-//			main.addTab("New Commitment2", new ImageIcon(img), newCommit2);
-		} catch (IOException ex) {}
-		catch(IllegalArgumentException ex){
+			// main.addTab("New Commitment2", new ImageIcon(img), newCommit2);
+		} catch (IOException ex) {
+		} catch (IllegalArgumentException ex) {
 			main.addTab("New Commitment", new ImageIcon(), newCommit);
-//			main.addTab("New Commitment2", new ImageIcon(), newCommit2);
+			// main.addTab("New Commitment2", new ImageIcon(), newCommit2);
 		}
-		//		main.addTab("New Commitment", null, newCommit, "New Commitment");
-		//		newCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		main.invalidate(); //force the tabbedpane to redraw.
+		// main.addTab("New Commitment", null, newCommit, "New Commitment");
+		// newCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		main.invalidate(); // force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(newCommit);
 	}
 
-	
-	/** Edit a commitment in a new tab
-	 * @param comm Commitment to edit
-	
+	/**
+	 * Edit a commitment in a new tab
+	 * 
+	 * @param comm
+	 *            Commitment to edit
 	 */
 	public void editCommitment(Commitment comm) {
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 1){
+		if (openedFrom > 1) {
 			openedFrom = 0;
 		}
 		final CommitmentTab editCommit = new CommitmentTab(comm, openedFrom);
 		try {
-			final Image img = ImageIO.read(getClass().getResource("EditCommitment_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource(
+					"EditCommitment_Icon.png"));
 			main.addTab("Edit Commitment", new ImageIcon(img), editCommit);
-		} catch (IOException ex) {}
-		catch(IllegalArgumentException ex){
+		} catch (IOException ex) {
+		} catch (IllegalArgumentException ex) {
 			main.addTab("Edit Commitment", new ImageIcon(), editCommit);
 		}
-		//		main.addTab("Edit Commitment", null, editCommit, "Edit Commitment");
-		//		editCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		main.invalidate(); //force the tabbedpane to redraw.
+		// main.addTab("Edit Commitment", null, editCommit, "Edit Commitment");
+		// editCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		main.invalidate(); // force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(editCommit);
 	}
@@ -257,134 +274,140 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 */
 	public void createEvent() {
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 1){
+		if (openedFrom > 1) {
 			openedFrom = 0;
 		}
 		final EventTab newEvent = new EventTab(openedFrom);
 		try {
-			final Image img = ImageIO.read(getClass().getResource("NewEvent_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource(
+					"NewEvent_Icon.png"));
 			main.addTab("New Event", new ImageIcon(img), newEvent);
-		} catch (IOException ex) {}
-		catch(IllegalArgumentException ex){
+		} catch (IOException ex) {
+		} catch (IllegalArgumentException ex) {
 			main.addTab("New Event", new ImageIcon(), newEvent);
 		}
-		main.invalidate(); //force the tabbedpane to redraw.
+		main.invalidate(); // force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(newEvent);
 	}
-	
+
 	public void createEvent(Date inputTime) {
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 1){
+		if (openedFrom > 1) {
 			openedFrom = 0;
 		}
 		final EventTab newEvent = new EventTab(openedFrom, inputTime);
 		try {
-			final Image img = ImageIO.read(getClass().getResource("NewEvent_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource(
+					"NewEvent_Icon.png"));
 			main.addTab("New Event", new ImageIcon(img), newEvent);
-		} catch (IOException ex) {}
-		catch(IllegalArgumentException ex){
+		} catch (IOException ex) {
+		} catch (IllegalArgumentException ex) {
 			main.addTab("New Event", new ImageIcon(), newEvent);
 		}
-		main.invalidate(); //force the tabbedpane to redraw.
+		main.invalidate(); // force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(newEvent);
-		
+
 	}
 
-	/** Edit a commitment in a new tab
-	
-	
-	 * @param event Event
+	/**
+	 * Edit a commitment in a new tab
+	 * 
+	 * 
+	 * @param event
+	 *            Event
 	 */
 	public void editEvent(Event event) {
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 1){
+		if (openedFrom > 1) {
 			openedFrom = 0;
 		}
 		final EventTab editEvent;
 		editEvent = new EventTab(event, openedFrom);
 		try {
-			final Image img = ImageIO.read(getClass().getResource("EditEvent_Icon.png"));
+			final Image img = ImageIO.read(getClass().getResource(
+					"EditEvent_Icon.png"));
 			main.addTab("Edit Event", new ImageIcon(img), editEvent);
-		} catch (IOException ex) {}
-		catch(IllegalArgumentException ex){
+		} catch (IOException ex) {
+		} catch (IllegalArgumentException ex) {
 			main.addTab("Edit Event", new ImageIcon(), editEvent);
 		}
-		main.invalidate(); //force the tabbedpane to redraw.
+		main.invalidate(); // force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(editEvent);
 	}
-	
-	
+
 	// Creates manage categories tab
 	/**
 	 * Method createManageCategories.
 	 */
 	public void createManageCategories() {
-		if(categoriesTabOpen){
+		if (categoriesTabOpen) {
 			main.setSelectedComponent(manageCategoriesTab);
-		}
-		else{
+		} else {
 			int openedFrom = main.getSelectedIndex();
-			if (openedFrom > 1){
+			if (openedFrom > 1) {
 				openedFrom = 0;
 			}
 			manageCategoriesTab = new CategoryTab();
 			try {
-				final Image img = ImageIO.read(getClass().getResource("ManageCategory_Icon.png"));
-				main.addTab("Manage Categories", new ImageIcon(img), manageCategoriesTab);
-			} catch (IOException ex) {}
-			catch(IllegalArgumentException ex){
-				main.addTab("Manage Category", new ImageIcon(), manageCategoriesTab);
+				final Image img = ImageIO.read(getClass().getResource(
+						"ManageCategory_Icon.png"));
+				main.addTab("Manage Categories", new ImageIcon(img),
+						manageCategoriesTab);
+			} catch (IOException ex) {
+			} catch (IllegalArgumentException ex) {
+				main.addTab("Manage Category", new ImageIcon(),
+						manageCategoriesTab);
 			}
-			main.invalidate(); //force the tabbedpane to redraw.
+			main.invalidate(); // force the tabbedpane to redraw.
 			main.repaint();
 			categoriesTabOpen = true;
 			main.setSelectedComponent(manageCategoriesTab);
 		}
-		
-		
+
 	}
 
-	
-	
-//	 Creates manage filters tab
+	// Creates manage filters tab
 	/**
 	 * Method createManageFilters.
 	 */
 	public void createManageFilters() {
-		if(filtersTabOpen){
+		if (filtersTabOpen) {
 			main.setSelectedComponent(manageFiltersTab);
-		}
-		else{
+		} else {
 			int openedFrom = main.getSelectedIndex();
-			if (openedFrom > 1){
+			if (openedFrom > 1) {
 				openedFrom = 0;
 			}
-			manageFiltersTab = new FilterTab(openedFrom);
+			manageFiltersTab = new FilterTab2(openedFrom);
 			try {
-				final Image img = ImageIO.read(getClass().getResource("ManageFilter_Icon.png"));
-				main.addTab("Manage Filters", new ImageIcon(img), manageFiltersTab);
-			} catch (IOException ex) {}
-			catch(IllegalArgumentException ex){
+				final Image img = ImageIO.read(getClass().getResource(
+						"ManageFilter_Icon.png"));
+				main.addTab("Manage Filters", new ImageIcon(img),
+						manageFiltersTab);
+			} catch (IOException ex) {
+			} catch (IllegalArgumentException ex) {
 				main.addTab("Manage Filters", new ImageIcon(), manageFiltersTab);
 			}
-			main.invalidate(); //force the tabbedpane to redraw.
+			main.invalidate(); // force the tabbedpane to redraw.
 			main.repaint();
 			filtersTabOpen = true;
 			main.setSelectedComponent(manageFiltersTab);
 		}
-		
+
 	}
 
-	
 	/**
 	 * Method switchView.
-	 * @param acal GregorianCalendar
-	 * @param switchtype AbCalendar.types
+	 * 
+	 * @param acal
+	 *            GregorianCalendar
+	 * @param switchtype
+	 *            AbCalendar.types
 	 */
-	public void switchView(GregorianCalendar acal, AbCalendar.types switchtype){
+	public void switchView(GregorianCalendar acal, AbCalendar.types switchtype) {
 		getCalendar().setCalsetView(acal, switchtype);
 		getCalendar().setViewButtonToActive(switchtype);
 
@@ -406,15 +429,14 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 		myCalendar.calView.updateScrollPosition(value);
 	}
 
-	public int getScrollBarValue()
-	{
+	public int getScrollBarValue() {
 		return scrollBarValue;
 	}
 
 	/**
 	 * Method applyCalProps.
 	 */
-	public void applyCalProps(){
+	public void applyCalProps() {
 		myCalendar.applyCalProps();
 		eventFullView.applyCalProps();
 		commitFullView.applyCalProps();
@@ -422,77 +444,83 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 
 	/**
 	 * Method removeEventTab.
-	 * @param eventTab EventTab
-	 * @param goTo int
+	 * 
+	 * @param eventTab
+	 *            EventTab
+	 * @param goTo
+	 *            int
 	 */
 	public void removeEventTab(EventTab eventTab, int goTo) {
 		main.remove(eventTab);
-		switch(goTo){
-		case 0: main.setSelectedComponent(myCalendar);
-		break;
-		case 1: main.setSelectedComponent(eventFullView);
-		break;
-		case 2: main.setSelectedComponent(commitFullView);
-		break;
+		switch (goTo) {
+		case 0:
+			main.setSelectedComponent(myCalendar);
+			break;
+		case 1:
+			main.setSelectedComponent(eventFullView);
+			break;
+		case 2:
+			main.setSelectedComponent(commitFullView);
+			break;
 		}
-		
-		
+
 	}
-	
+
 	/**
 	 * Method removeCategory.
-	 * @param catToDelete Category
+	 * 
+	 * @param catToDelete
+	 *            Category
 	 */
-	public void scrubCategory(Category catToDelete){
-		//get relevant calendar data
+	public void scrubCategory(Category catToDelete) {
+		// get relevant calendar data
 		CalendarData calData;
-		if (catToDelete.getIsPersonal()){
+		if (catToDelete.getIsPersonal()) {
 			calData = myCalendar.getMyCalData();
 		} else {
 			calData = myCalendar.getTeamCalData();
 		}
-		
-		//Scrub the category from any commitment/event that it is assigned to
-		final List<Commitment> commitments = calData.getCommitments().getCommitments();
-		for(Commitment tmpComm: commitments){
-			if (tmpComm.getCategoryID() == catToDelete.getID()){
+
+		// Scrub the category from any commitment/event that it is assigned to
+		final List<Commitment> commitments = calData.getCommitments()
+				.getCommitments();
+		for (Commitment tmpComm : commitments) {
+			if (tmpComm.getCategoryID() == catToDelete.getID()) {
 				tmpComm.setCategoryID(0);
 			}
 		}
 		final List<Event> events = calData.getEvents().getEvents();
-		for(Event tmpEvent: events){
-			if (tmpEvent.getCategoryID() == catToDelete.getID()){
+		for (Event tmpEvent : events) {
+			if (tmpEvent.getCategoryID() == catToDelete.getID()) {
 				tmpEvent.setCategoryID(0);
 			}
 		}
-		final List<RepeatingEvent> repeatingEvents = calData.getRepeatingEvents().getEvents();
-		for(RepeatingEvent tmpRepEvent: repeatingEvents){
-			if (tmpRepEvent.getCategoryID() == catToDelete.getID()){
+		final List<RepeatingEvent> repeatingEvents = calData
+				.getRepeatingEvents().getEvents();
+		for (RepeatingEvent tmpRepEvent : repeatingEvents) {
+			if (tmpRepEvent.getCategoryID() == catToDelete.getID()) {
 				tmpRepEvent.setCategoryID(0);
 			}
 		}
 	}
 
 	public void checkTabClose(int index) {
-		index +=3;
-		if(main.getComponent(index) instanceof CategoryTab){
+		index += 3;
+		if (main.getComponent(index) instanceof CategoryTab) {
 			categoriesTabOpen = false;
-		}
-		else if(main.getComponent(index) instanceof FilterTab){
+		} else if (main.getComponent(index) instanceof FilterTab) {
 			filtersTabOpen = false;
 		}
-		
-	}
-	
-	
-//	public void removeFilterTab(Filter filterToDelete){
-//		CalendarData calData;
-//		if (filterToDelete.getIsPersonal()){
-//			calData = myCalendar.getCalData();
-//		} else {
-//			calData = teamCalendar.getCalData();
-//		}
-//	}
 
+	}
+
+	// public void removeFilterTab(Filter filterToDelete){
+	// CalendarData calData;
+	// if (filterToDelete.getIsPersonal()){
+	// calData = myCalendar.getCalData();
+	// } else {
+	// calData = teamCalendar.getCalData();
+	// }
+	// }
 
 }
