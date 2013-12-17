@@ -475,7 +475,7 @@ public class CommitmentTab extends JPanel {
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setMinimumSize(new Dimension(23, 60));
 		scrollPane.setPreferredSize(new Dimension(2, 60));
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		final GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridheight = 3;
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.insets = new Insets(0, 0, 0, 5);

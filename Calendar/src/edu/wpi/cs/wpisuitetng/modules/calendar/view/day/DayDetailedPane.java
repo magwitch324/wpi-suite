@@ -53,9 +53,9 @@ public class DayDetailedPane extends JPanel {
 	 * @param detailLevel AbCalendar.types
 	 */
 	public DayDetailedPane(GregorianCalendar calendar, AbCalendar.types newDetailLevel){
-		this.detailLevel = newDetailLevel;
+		detailLevel = newDetailLevel;
 		
-		this.acal = (GregorianCalendar)calendar.clone();
+		acal = (GregorianCalendar)calendar.clone();
 		this.setMinimumSize(new Dimension(50, 800));
 		this.setPreferredSize(new Dimension(50, 800));
 		this.setBackground(CalendarStandard.CalendarYellow);
@@ -95,7 +95,9 @@ public class DayDetailedPane extends JPanel {
 		    		time.set(Calendar.SECOND, 0);
 		    		int i;
 		    		for (i = 0; i < blockNum; i++)
-		    			time.add(Calendar.MINUTE, 30);
+		    			{
+		    				time.add(Calendar.MINUTE, 30);
+		    			}
 		    		GUIEventController.getInstance().createEvent(time.getTime());
 		    	}
 		    }

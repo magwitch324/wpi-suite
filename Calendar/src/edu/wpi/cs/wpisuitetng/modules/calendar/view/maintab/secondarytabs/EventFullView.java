@@ -147,9 +147,9 @@ public class EventFullView extends JPanel{
 	private void setEventList() {
 		eventPanelList = new ArrayList<EventViewPanel>(); 
 
-		String searchText = getSearchInput().trim().toLowerCase();
+		final String searchText = getSearchInput().trim().toLowerCase();
 		
-		EventList events = new EventList();
+		final EventList events = new EventList();
 		
 		if (mode == ViewingMode.TEAM || mode == ViewingMode.BOTH) {
 			if(pcalendar.getTeamCalData() != null) {
@@ -169,11 +169,17 @@ public class EventFullView extends JPanel{
 		
 		for(Event event : events.getEvents()) {
 			if (getSearchInput() == "")
-				eventPanelList.add(new EventViewPanel(event));
+				{
+					eventPanelList.add(new EventViewPanel(event));
+				}
 			else if (event.getName().toLowerCase().contains(searchText))
-				eventPanelList.add(new EventViewPanel(event));
+				{
+					eventPanelList.add(new EventViewPanel(event));
+				}
 			else if (event.getDescription().toLowerCase().contains(searchText))
-				eventPanelList.add(new EventViewPanel(event));
+				{
+					eventPanelList.add(new EventViewPanel(event));
+				}
 		}
 		//Sorts the list of eventPanelList based on sort type and reverse_sort
 		sort();
@@ -318,8 +324,8 @@ public class EventFullView extends JPanel{
 		layout.putConstraint(SpringLayout.WEST, bothRadioButton, 0, SpringLayout.EAST, teamRadioButton);
 		
 		// Create search bar
-		JPanel search = new JPanel();
-		SpringLayout searchLayout = new SpringLayout();
+		final JPanel search = new JPanel();
+		final SpringLayout searchLayout = new SpringLayout();
 		search.setLayout(searchLayout);
 		search.setBackground(Color.WHITE);
 		

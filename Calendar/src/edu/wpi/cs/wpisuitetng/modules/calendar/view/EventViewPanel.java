@@ -117,14 +117,14 @@ public class EventViewPanel extends JPanel {
 	public int compareTo(EventViewPanel other, Sort_Type sort_type){
 		//compare based on name
 		if(sort_type == Sort_Type.NAME){
-			final String myname = this.event.getName();
+			final String myname = event.getName();
 			final String othername = other.event.getName();
 
 			return myname.compareTo(othername);
 		}
 		//compare based on the start date
 		else if(sort_type == Sort_Type.START_DATE){
-			final GregorianCalendar mycal = this.event.getStartTime();
+			final GregorianCalendar mycal = event.getStartTime();
 			final GregorianCalendar othercal = other.event.getStartTime();
 
 			if(mycal.before(othercal)){
@@ -139,7 +139,7 @@ public class EventViewPanel extends JPanel {
 		}
 		//compare based on the end date
 		else if(sort_type == Sort_Type.END_DATE){
-			final GregorianCalendar mycal = this.event.getEndTime();
+			final GregorianCalendar mycal = event.getEndTime();
 			final GregorianCalendar othercal = other.event.getEndTime();
 
 			if(mycal.before(othercal)){
@@ -154,7 +154,7 @@ public class EventViewPanel extends JPanel {
 		}
 		//compare based on the description
 		else if(sort_type == Sort_Type.DESCRIPTION){
-			final String mydesc = this.event.getDescription();
+			final String mydesc = event.getDescription();
 			final String otherdesc = other.event.getDescription();
 
 			return mydesc.compareTo(otherdesc);

@@ -147,9 +147,9 @@ public class CommitmentFullView extends JPanel{
 	private void setCommitmentList() {
 		commitmentPanelList = new ArrayList<CommitmentFullViewPanel>(); 
 
-		String searchText = getSearchInput().trim().toLowerCase();
+		final String searchText = getSearchInput().trim().toLowerCase();
 		
-		CommitmentList commitments = new CommitmentList();
+		final CommitmentList commitments = new CommitmentList();
 		
 		if (mode == ViewingMode.TEAM || mode == ViewingMode.BOTH) {
 			if(pcalendar.getTeamCalData() != null) {
@@ -169,11 +169,17 @@ public class CommitmentFullView extends JPanel{
 		
 		for(Commitment commitment : commitments.getCommitments()) {
 			if (getSearchInput() == "")
-				commitmentPanelList.add(new CommitmentFullViewPanel(commitment));
+				{
+					commitmentPanelList.add(new CommitmentFullViewPanel(commitment));
+				}
 			else if (commitment.getName().toLowerCase().contains(searchText))
-				commitmentPanelList.add(new CommitmentFullViewPanel(commitment));
+				{
+					commitmentPanelList.add(new CommitmentFullViewPanel(commitment));
+				}
 			else if (commitment.getDescription().toLowerCase().contains(searchText))
-				commitmentPanelList.add(new CommitmentFullViewPanel(commitment));
+				{
+					commitmentPanelList.add(new CommitmentFullViewPanel(commitment));
+				}
 		}
 		//Sorts the list of eventPanelList based on sort type and reverse_sort
 		sort();
@@ -318,8 +324,8 @@ public class CommitmentFullView extends JPanel{
 		layout.putConstraint(SpringLayout.WEST, bothRadioButton, 0, SpringLayout.EAST, teamRadioButton);
 		
 		// Create search bar
-		JPanel search = new JPanel();
-		SpringLayout searchLayout = new SpringLayout();
+		final JPanel search = new JPanel();
+		final SpringLayout searchLayout = new SpringLayout();
 		search.setLayout(searchLayout);
 		search.setBackground(Color.WHITE);
 		

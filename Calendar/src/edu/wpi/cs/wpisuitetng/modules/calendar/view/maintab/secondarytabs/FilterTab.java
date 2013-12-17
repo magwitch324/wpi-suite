@@ -892,7 +892,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		else{
 			inactiveTeamCat.add(aSelectedCategory);
 			activeTeamCat.remove(aSelectedCategory.getID());
-		}	
+		}
 	}
 	
 //	private void addCatToFilter(Category aCat, Filter aFilter){
@@ -900,7 +900,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 //	}
 	
 
-	private void populateInactiveCatLists(){		
+	private void populateInactiveCatLists(){
 		final List<Category> catList = new ArrayList<Category>();
 		final CategoryList bothCategories = new CategoryList();
 		final Category[] bothCatArray = new Category[inactiveTeamCat.getSize() + inactivePersonalCat.getSize()];

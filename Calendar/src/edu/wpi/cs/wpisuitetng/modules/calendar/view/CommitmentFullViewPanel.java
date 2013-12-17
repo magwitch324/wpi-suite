@@ -139,14 +139,14 @@ public class CommitmentFullViewPanel extends JPanel {
 	public int compareTo(CommitmentFullViewPanel other, Sort_Type sort_type){
 		//compare based on name
 		if(sort_type == Sort_Type.NAME){
-			final String myname = this.commitment.getName();
+			final String myname = commitment.getName();
 			final String othername = other.commitment.getName();
 
 			return myname.compareTo(othername);
 		}
 		//compare based on the due date
 		else if(sort_type == Sort_Type.DUE_DATE){
-			final GregorianCalendar mycal = this.commitment.getDueDate();
+			final GregorianCalendar mycal = commitment.getDueDate();
 			final GregorianCalendar othercal = other.commitment.getDueDate();
 
 			if(mycal.before(othercal)){
@@ -161,7 +161,7 @@ public class CommitmentFullViewPanel extends JPanel {
 		}
 		//compare based on the end date
 		else if(sort_type == Sort_Type.STATUS){
-			final Status mystat = this.commitment.getStatus();
+			final Status mystat = commitment.getStatus();
 			final Status otherstat = other.commitment.getStatus();
 
 			if(mystat.getId() > otherstat.getId()){
@@ -176,7 +176,7 @@ public class CommitmentFullViewPanel extends JPanel {
 		}
 		//compare based on the description
 		else if(sort_type == Sort_Type.DESCRIPTION){
-			final String mydesc = this.commitment.getDescription();
+			final String mydesc = commitment.getDescription();
 			final String otherdesc = other.commitment.getDescription();
 
 			return mydesc.compareTo(otherdesc);

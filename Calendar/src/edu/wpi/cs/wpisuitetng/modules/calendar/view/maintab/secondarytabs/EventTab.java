@@ -1513,7 +1513,7 @@ public class EventTab extends JPanel {
 	 */
 	protected void checkEndBeforeStart() {
 		if(initFlag){
-			GregorianCalendar tmp = new GregorianCalendar();
+			final GregorianCalendar tmp = new GregorianCalendar();
 			tmp.setTime(getStartDate().getTime());
 			tmp.add(Calendar.MINUTE, 1);
 			if(getEndDate().getTime().before(tmp.getTime()))
