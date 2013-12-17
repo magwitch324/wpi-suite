@@ -15,13 +15,14 @@ import javax.swing.JPanel;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 
- /* @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+
 /**
-  * @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+ * Commitment view panel is a commitment JPanel for
+ * category tab, commitment full view,
+ * and commitment view.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
  @SuppressWarnings("serial")
 public class CommitmentViewPanel extends JPanel {
 
