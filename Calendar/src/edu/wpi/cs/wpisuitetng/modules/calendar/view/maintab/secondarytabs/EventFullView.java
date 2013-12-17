@@ -8,7 +8,7 @@
  * Contributors: CS Anonymous
  ******************************************************************************/
 
-package edu.wpi.cs.wpisuitetng.modules.calendar.view;
+package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 
 import java.awt.Color;
@@ -45,6 +45,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropertiesModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.EventViewPanel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.EventViewPanel.Sort_Type;
 
 /**
@@ -518,7 +520,7 @@ public class EventFullView extends JPanel{
 	/**
 	 * Used after cal props has been fetched from the server.
 	 */
-	protected void applyCalProps(){
+	public void applyCalProps(){
 
 		calProps = CalendarPropertiesModel.getInstance().getCalendarProps( ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName() + "-PROPS");
 		

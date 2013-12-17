@@ -96,10 +96,6 @@ public class DayDetailedPane extends JPanel {
 		    		int i;
 		    		for (i = 0; i < blockNum; i++)
 		    			time.add(Calendar.MINUTE, 30);
-		    		
-		    		System.out.println("Creating event at this time: " + clickSpot + " = clickspot - " + blockNum + " = blockNum");
-		    		System.out.println("The AM/PM is: " + time.get(Calendar.AM_PM) + " -- AM is " + Calendar.AM);
-		    		
 		    		GUIEventController.getInstance().createEvent(time.getTime());
 		    	}
 		    }

@@ -8,7 +8,7 @@
  * Contributors: CS Anonymous
  ******************************************************************************/
 
-package edu.wpi.cs.wpisuitetng.modules.calendar.view;
+package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 
 import java.awt.BorderLayout;
@@ -53,6 +53,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropertiesModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentViewPanel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 /**
  * This class is used for creating the commitment View 
@@ -620,7 +623,7 @@ public class CommitmentFullView extends JPanel{
 	/**
 	 * Used after cal props has been fetched from the server.
 	 */
-	protected void applyCalProps(){
+	public void applyCalProps(){
 
 		calProps = CalendarPropertiesModel.getInstance().getCalendarProps(
 				ConfigManager.getConfig().getProjectName() + "-"
