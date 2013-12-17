@@ -205,7 +205,7 @@ public class CommitmentTab extends JPanel {
 		constraints.fill = GridBagConstraints.BOTH;
 		add(spacePanel1, constraints);
 		constraints = new GridBagConstraints();
-		constraints.weightx = 2;
+		constraints.weightx = 3;
 		constraints.gridx = 1;
 		constraints.weighty = 1;
 		constraints.fill = GridBagConstraints.BOTH;
