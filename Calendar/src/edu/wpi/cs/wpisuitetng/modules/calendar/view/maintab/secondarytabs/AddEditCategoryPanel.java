@@ -51,6 +51,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CategoryTab.CategoryMode;
 
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
@@ -82,6 +83,19 @@ public class AddEditCategoryPanel extends JPanel {
 		setupUI();
 	}
 	
+	/**
+	 * Constructor 
+	 * @param isPersonal
+	 */
+	public AddEditCategoryPanel(boolean isPersonal){
+		this();
+		if(isPersonal){
+			rdbtnPersonal.setSelected(true);
+		} else {
+			rdbtnTeam.setSelected(true);
+		}
+	}
+	
 	public void setupUI()
 	{
 		setBackground(Color.WHITE);
@@ -90,9 +104,9 @@ public class AddEditCategoryPanel extends JPanel {
 		add(horizontalGlue);
 		
 		final JPanel addEditFormPanel = new JPanel();
-		addEditFormPanel.setMinimumSize(new Dimension(460, 10));
+		addEditFormPanel.setMinimumSize(new Dimension(400, 10));
 		addEditFormPanel.setBackground(Color.WHITE);
-		addEditFormPanel.setPreferredSize(new Dimension(460, 10));
+		addEditFormPanel.setPreferredSize(new Dimension(400, 10));
 		addEditFormPanel.setMaximumSize(new Dimension(400, 4000));
 		add(addEditFormPanel);
 		final GridBagLayout gbl_addEditFormPanel = new GridBagLayout();
@@ -138,6 +152,13 @@ public class AddEditCategoryPanel extends JPanel {
 				if(textFieldName.getText().equals("") || textFieldName.getText().trim().equals("")){
 					btnSave.setEnabled(false);
 				} else { 
+					if (mode == CategoryMode.EDITING){
+						if (textFieldName.getText().equals(editingCategory.getName())
+								&& colorPickerPanel.getColor().equals(editingCategory.getCategoryColor())){
+							btnSave.setEnabled(false);
+							return;
+						}
+					}
 					btnSave.setEnabled(true);
 				}
 			}
@@ -164,18 +185,18 @@ public class AddEditCategoryPanel extends JPanel {
 		
 		final ButtonGroup teamPersonalRadioButtons = new ButtonGroup();
 		
+		// Personal radio button
+		rdbtnPersonal = new JRadioButton("Personal");
+		rdbtnPersonal.setBackground(Color.WHITE);
+		horizontalBox.add(rdbtnPersonal);
+		teamPersonalRadioButtons.add(rdbtnPersonal);
+		
 		// Team radio button
 		rdbtnTeam = new JRadioButton("Team");
 		rdbtnTeam.setBackground(Color.WHITE);
 		horizontalBox.add(rdbtnTeam);
 		teamPersonalRadioButtons.add(rdbtnTeam);
 		rdbtnTeam.setSelected(true);	//sets default to team
-		
-		// Personal radio button
-		rdbtnPersonal = new JRadioButton("Personal");
-		rdbtnPersonal.setBackground(Color.WHITE);
-		horizontalBox.add(rdbtnPersonal);
-		teamPersonalRadioButtons.add(rdbtnPersonal);
 		
 		final JLabel lblColor = new JLabel("<html><font>" + "Color" + "</font>" 
 											+ "<font color=red>" + "*" + "</font>" 
@@ -316,6 +337,18 @@ public class AddEditCategoryPanel extends JPanel {
 		final ChangeListener changeListener = new ChangeListener() {
 	      public void stateChanged(ChangeEvent changeEvent) {
 	        colorPreviewPanel.setBackground(colorPickerPanel.getColor());
+			if(textFieldName.getText().equals("") || textFieldName.getText().trim().equals("")){
+				btnSave.setEnabled(false);
+			} else { 
+				if (mode == CategoryMode.EDITING){
+					if (textFieldName.getText().equals(editingCategory.getName())
+							&& colorPickerPanel.getColor().equals(editingCategory.getCategoryColor())){
+						btnSave.setEnabled(false);
+						return;
+					}
+				}
+				btnSave.setEnabled(true);
+			}
 	      }
 	    };
 	    model.addChangeListener(changeListener);

@@ -52,7 +52,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropertiesModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentViewPanel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentFullView.ViewingMode;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentFullView.ViewingMode;
 
 /**
  * Create/edit catergory tab.
@@ -114,11 +114,11 @@ public class CategoryTab extends JPanel {
 		addListeners();
 		
 		//initialize in "viewing" mode
-		setupViewingView();
+		setupAddView();
 		setBackground(Color.WHITE);
 		initialized = true;
 		applyCalProps();
-		
+		refreshCategoryListPanel();
 	}
 
 
@@ -199,7 +199,7 @@ public class CategoryTab extends JPanel {
 		catch(IllegalArgumentException ex){
 			btnEdit.setText("Edit Category");
 		}
-		
+		btnEdit.setEnabled(false);
 		
 		
 		horizontalBox_1.add(btnEdit);
@@ -218,6 +218,7 @@ public class CategoryTab extends JPanel {
 		catch(IllegalArgumentException ex){
 			btnDelete.setText("Delete Category");
 		}
+		btnDelete.setEnabled(false);
 		
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -240,6 +241,8 @@ public class CategoryTab extends JPanel {
 					}
 				}
 			refreshCategoryListPanel();
+			btnEdit.setEnabled(false);
+			btnDelete.setEnabled(false);
 			}
 		});
 		
@@ -252,14 +255,17 @@ public class CategoryTab extends JPanel {
 		viewPanel.add(viewPanelStrut);
 		
 		addEditPanel = new AddEditCategoryPanel();
+		addEditPanel.setMinimumSize(new Dimension(460, 10));
+		addEditPanel.setPreferredSize(new Dimension(460, 10));
 		selectedCategories = new ArrayList<CategoryPanel>();
+
 	}
 	
 	/**
 	 * Populate the list of categories with data from team and personal category lists
 	 */
 	private void populateCategoryList() {
-		
+
 		final List<Category> catList = new ArrayList<Category>();
 		final CategoryList bothCategories = new CategoryList();
 		if(rdbtnPersonal.isSelected()) {
@@ -316,6 +322,8 @@ public class CategoryTab extends JPanel {
 					if (e.getClickCount() > 1)
 						{
 							editCategory(((CategoryPanel)e.getComponent()).getCategory());
+							btnEdit.setEnabled(false);
+							btnDelete.setEnabled(false);
 						}
 					if (e.getClickCount() == 1)
 					{
@@ -327,7 +335,8 @@ public class CategoryTab extends JPanel {
 						}
 						selectedCategories.add(comp);
 						comp.setSelected(true);
-						
+						btnEdit.setEnabled(true);
+						btnDelete.setEnabled(true);
 					}
 					
 				}
@@ -360,7 +369,11 @@ public class CategoryTab extends JPanel {
 
 	protected void editCategory(Category category) {
 		addEditPanel = new AddEditCategoryPanel(category);
+		addEditPanel.setMinimumSize(new Dimension(460, 10));
+		addEditPanel.setPreferredSize(new Dimension(460, 10));
 		setupAddView();
+		btnEdit.setEnabled(false);
+		btnDelete.setEnabled(false);
 	}
 
 
@@ -372,14 +385,14 @@ public class CategoryTab extends JPanel {
 	private void addListeners() {
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addEditPanel = new AddEditCategoryPanel();
+				addEditPanel = new AddEditCategoryPanel(!(rdbtnTeam.isSelected()));
 				setupAddView();
 			}
 		});
 		
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setupAddView();
+				editCategory(selectedCategories.get(0).getCategory());
 			}
 		});
 		
@@ -387,6 +400,8 @@ public class CategoryTab extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				calProps.setCategoryTabView(1);
 				refreshCategoryListPanel();
+				btnEdit.setEnabled(false);
+				btnDelete.setEnabled(false);
 			}
 		});
 		
@@ -394,6 +409,8 @@ public class CategoryTab extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				calProps.setCategoryTabView(0);
 				refreshCategoryListPanel();
+				btnEdit.setEnabled(false);
+				btnDelete.setEnabled(false);
 			}
 		});
 		
@@ -401,6 +418,8 @@ public class CategoryTab extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				calProps.setCategoryTabView(2);
 				refreshCategoryListPanel();
+				btnEdit.setEnabled(false);
+				btnDelete.setEnabled(false);
 			}
 		});
 	}
@@ -431,7 +450,7 @@ public class CategoryTab extends JPanel {
 		final GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
@@ -449,10 +468,10 @@ public class CategoryTab extends JPanel {
 		add(addEditPanel, gbc_addEditPanel);
 		
 		//set size of view panel
-		viewPanel.remove(viewPanelStrut);
-		viewPanelStrut = Box.createHorizontalStrut(400);
-		viewPanelStrut.setMaximumSize(new Dimension(400, 0));
-		viewPanel.add(viewPanelStrut);
+//		viewPanel.remove(viewPanelStrut);
+//		viewPanelStrut = Box.createHorizontalStrut(400);
+//		viewPanelStrut.setMaximumSize(new Dimension(400, 0));
+//		viewPanel.add(viewPanelStrut);
 		
 		revalidate();
 		repaint();
@@ -522,10 +541,10 @@ public class CategoryTab extends JPanel {
 		add(viewPanel, gbc_viewPanel);
 
 		//set size of view panel
-		viewPanel.remove(viewPanelStrut);
-		viewPanelStrut = Box.createHorizontalStrut(600);
-		viewPanelStrut.setMaximumSize(new Dimension(600, 0));
-		viewPanel.add(viewPanelStrut);
+//		viewPanel.remove(viewPanelStrut);
+//		viewPanelStrut = Box.createHorizontalStrut(600);
+//		viewPanelStrut.setMaximumSize(new Dimension(600, 0));
+//		viewPanel.add(viewPanelStrut);
 		
 		revalidate();
 		repaint();

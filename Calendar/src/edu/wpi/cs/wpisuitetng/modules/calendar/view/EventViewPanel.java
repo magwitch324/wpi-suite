@@ -36,7 +36,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 public class EventViewPanel extends JPanel {
 	private final Event event;
 
-	enum Sort_Type{
+	public enum Sort_Type{
 		NAME, START_DATE, END_DATE, DESCRIPTION
 	};
 

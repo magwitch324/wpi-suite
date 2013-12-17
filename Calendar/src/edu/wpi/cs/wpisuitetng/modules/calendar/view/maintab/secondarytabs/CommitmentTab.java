@@ -741,7 +741,7 @@ public class CommitmentTab extends JPanel {
 	 * automatic rounding of the minute spinner is done by a listener.
 	 */
 	private void setDefaultValuesForEditableElements() {
-		rdbtnTeam.setSelected(true);
+		rdbtnPersonal.setSelected(true);
 		final GregorianCalendar cal = new GregorianCalendar();
 		hourSpinner.setValue(cal.getTime());
 		minuteSpinner.setValue(cal.getTime());
