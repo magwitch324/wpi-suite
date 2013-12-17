@@ -266,6 +266,25 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 		main.repaint();
 		main.setSelectedComponent(newEvent);
 	}
+	
+	public void createEvent(Date inputTime) {
+		int openedFrom = main.getSelectedIndex();
+		if (openedFrom > 1){
+			openedFrom = 0;
+		}
+		final EventTab newEvent = new EventTab(openedFrom, inputTime);
+		try {
+			final Image img = ImageIO.read(getClass().getResource("NewEvent_Icon.png"));
+			main.addTab("New Event", new ImageIcon(img), newEvent);
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
+			main.addTab("New Event", new ImageIcon(), newEvent);
+		}
+		main.invalidate(); //force the tabbedpane to redraw.
+		main.repaint();
+		main.setSelectedComponent(newEvent);
+		
+	}
 
 	/** Edit a commitment in a new tab
 	
@@ -404,7 +423,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 * Method removeCategory.
 	 * @param catToDelete Category
 	 */
-	public void removeCategory(Category catToDelete){
+	public void scrubCategory(Category catToDelete){
 		//get relevant calendar data
 		CalendarData calData;
 		if (catToDelete.getIsPersonal()){

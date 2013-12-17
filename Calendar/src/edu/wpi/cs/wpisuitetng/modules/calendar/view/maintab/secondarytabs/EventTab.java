@@ -612,6 +612,7 @@ public class EventTab extends JPanel {
 		endDatePicker.setFormats(new DateFormat[] {format1, format2});
 
 		final GregorianCalendar c = new GregorianCalendar();
+		c.setTime(inputTime);
 		c.set(Calendar.HOUR_OF_DAY, 0);
 		c.set(Calendar.MINUTE, 0);
 		c.set(Calendar.SECOND, 0);
