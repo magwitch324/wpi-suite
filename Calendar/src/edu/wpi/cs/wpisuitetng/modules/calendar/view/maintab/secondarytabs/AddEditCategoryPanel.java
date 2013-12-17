@@ -104,10 +104,10 @@ public class AddEditCategoryPanel extends JPanel {
 		add(horizontalGlue);
 		
 		final JPanel addEditFormPanel = new JPanel();
-		addEditFormPanel.setMinimumSize(new Dimension(400, 10));
+		addEditFormPanel.setMinimumSize(new Dimension(430, 10));
 		addEditFormPanel.setBackground(Color.WHITE);
-		addEditFormPanel.setPreferredSize(new Dimension(400, 10));
-		addEditFormPanel.setMaximumSize(new Dimension(400, 4000));
+		addEditFormPanel.setPreferredSize(new Dimension(430, 10));
+		addEditFormPanel.setMaximumSize(new Dimension(430, 4000));
 		add(addEditFormPanel);
 		final GridBagLayout gbl_addEditFormPanel = new GridBagLayout();
 		gbl_addEditFormPanel.columnWidths = new int[]{0, 0, 0};
