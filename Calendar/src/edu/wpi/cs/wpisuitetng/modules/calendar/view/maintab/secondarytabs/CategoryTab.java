@@ -43,8 +43,10 @@ import javax.swing.SpringLayout;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
+import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropertiesModel;
@@ -218,12 +220,22 @@ public class CategoryTab extends JPanel {
 		
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				CalendarData calData;
+			
 				for(CategoryPanel catPane : selectedCategories ) {
 					GUIEventController.getInstance().scrubCategory(catPane.getCategory());
 					if(catPane.getCategory().getIsPersonal()) {
+						calData = CalendarDataModel.getInstance().getCalendarData(
+								ConfigManager.getConfig().getProjectName() +
+								"-" + ConfigManager.getConfig().getUserName()); 
 						personalCategories.remove(catPane.getCategory().getID());
+						UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 					} else {
+						calData = CalendarDataModel.getInstance().getCalendarData(
+								ConfigManager.getConfig().getProjectName()); 
 						teamCategories.remove(catPane.getCategory().getID());
+						UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 					}
 				}
 			refreshCategoryListPanel();
