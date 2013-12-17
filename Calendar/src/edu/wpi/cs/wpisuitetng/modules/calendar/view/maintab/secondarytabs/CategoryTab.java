@@ -52,7 +52,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropertiesModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentViewPanel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentFullView.ViewingMode;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentFullView.ViewingMode;
 
 /**
  * Create/edit catergory tab.
@@ -381,7 +381,7 @@ public class CategoryTab extends JPanel {
 	private void addListeners() {
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addEditPanel = new AddEditCategoryPanel();
+				addEditPanel = new AddEditCategoryPanel(!(rdbtnTeam.isSelected()));
 				setupAddView();
 			}
 		});
