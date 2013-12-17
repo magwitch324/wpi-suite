@@ -52,8 +52,8 @@ public class DayDetailedPane extends JPanel {
 	 * @param acal the date that is used for displaying
 	 * @param detailLevel AbCalendar.types
 	 */
-	public DayDetailedPane(GregorianCalendar calendar, AbCalendar.types detailLevel){
-		this.detailLevel = detailLevel;
+	public DayDetailedPane(GregorianCalendar calendar, AbCalendar.types newDetailLevel){
+		this.detailLevel = newDetailLevel;
 		
 		this.acal = (GregorianCalendar)calendar.clone();
 		this.setMinimumSize(new Dimension(50, 800));
@@ -80,7 +80,9 @@ public class DayDetailedPane extends JPanel {
 		
 		this.addMouseListener(new MouseAdapter(){
 		    public void mouseClicked(MouseEvent e) {
-		    	if(e.getClickCount() > 1){
+		    	if (detailLevel == AbCalendar.types.WEEK) {
+		    		// Do nothing
+		    	} else if (e.getClickCount() > 1) {
 		    		double clickSpot = e.getY() + 2;
 		    		double interval = getSize().height/48.0;
 		    		double blockNum = Math.floor(clickSpot/interval);
