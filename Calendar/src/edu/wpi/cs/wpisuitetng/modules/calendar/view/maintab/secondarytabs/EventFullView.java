@@ -324,6 +324,7 @@ public class EventFullView extends JPanel{
 		search.setBackground(Color.WHITE);
 		
 		searchInput = new JTextField();
+		searchInput.setBackground(CalendarStandard.CalendarYellow);
 		JLabel searchLabel = new JLabel("Search: ");
 		
 		// Listen for changes in the text
