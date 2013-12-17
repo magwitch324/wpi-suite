@@ -31,9 +31,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.ICalPane;
 
 /**
-  * @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+ * YearPane is a scroll pane that contains 12 month views.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
  @SuppressWarnings("serial")
 public class YearPane extends JScrollPane implements ICalPane{
 	GregorianCalendar supcal = null;

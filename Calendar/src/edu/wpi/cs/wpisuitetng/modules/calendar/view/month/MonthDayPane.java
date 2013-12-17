@@ -230,7 +230,7 @@ public class MonthDayPane extends JPanel {
 				double height = 0.0;
 
 				SpringLayout layout = (SpringLayout) big.getLayout();
-				JLabel curlab = null, lastlab = null;
+				JComponent curlab = null, lastlab = null;
 
 				for(CalendarObjectWrapper wrap: wraps){
 					curlab = wrap;

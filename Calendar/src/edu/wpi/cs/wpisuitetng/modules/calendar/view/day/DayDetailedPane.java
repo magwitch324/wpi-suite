@@ -83,10 +83,10 @@ public class DayDetailedPane extends JPanel {
 		    	if (detailLevel == AbCalendar.types.WEEK) {
 		    		// Do nothing
 		    	} else if (e.getClickCount() > 1) {
-		    		double clickSpot = e.getY() + 2;
-		    		double interval = getSize().height/48.0;
-		    		double blockNum = Math.floor(clickSpot/interval);
-		    		GregorianCalendar time = new GregorianCalendar();
+		    		final double clickSpot = e.getY() + 2;
+		    		final double interval = getSize().height/48.0;
+		    		final double blockNum = Math.floor(clickSpot/interval);
+		    		final GregorianCalendar time = new GregorianCalendar();
 		    		time.set(Calendar.YEAR, acal.get(Calendar.YEAR));
 		    		time.set(Calendar.MONTH, acal.get(Calendar.MONTH));
 		    		time.set(Calendar.DAY_OF_YEAR, acal.get(Calendar.DAY_OF_YEAR));
@@ -96,10 +96,6 @@ public class DayDetailedPane extends JPanel {
 		    		int i;
 		    		for (i = 0; i < blockNum; i++)
 		    			time.add(Calendar.MINUTE, 30);
-		    		
-		    		System.out.println("Creating event at this time: " + clickSpot + " = clickspot - " + blockNum + " = blockNum");
-		    		System.out.println("The AM/PM is: " + time.get(Calendar.AM_PM) + " -- AM is " + Calendar.AM);
-		    		
 		    		GUIEventController.getInstance().createEvent(time.getTime());
 		    	}
 		    }

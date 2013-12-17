@@ -16,7 +16,7 @@ import javax.swing.border.AbstractBorder;
 import javax.swing.border.Border;
 
 @SuppressWarnings("serial")
-public class CalendarObjectPanelBorder extends AbstractBorder implements Border {
+public class CalendarObjectPanelBorder extends AbstractBorder{
 	int left = 5;
 	int top = 1;
 	
