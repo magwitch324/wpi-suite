@@ -155,8 +155,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		
 		activeTeamCat = new CategoryList();
 		activePersonalCat = new CategoryList();
-		newTeamCatList = null;
-		newPersonalCatList = null;
 		
 		refresh();
 		initFlag = true;
@@ -733,17 +731,18 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 				ConfigManager.getConfig().getProjectName() + 
 				"-" + ConfigManager.getConfig().getUserName()); 
 		
-		final Filter newFilter = new Filter(name, newTeamCatList, newPersonalCatList);
+		final Filter newFilter = new Filter(name, newPersonalCatList, newTeamCatList);
 		if(mode == FilterMode.ADDING){
 			calData.addFilter(newFilter);
 		}
 		else{
 			editFilter.setName(name);
-			editFilter.setActiveTeamCategories(newTeamCatList);
-			editFilter.setActivePersonalCategories(newPersonalCatList);
+			editFilter.setActiveTeamCategories(newPersonalCatList);
+			editFilter.setActivePersonalCategories(newTeamCatList);
 			calData.getFilters().update(editFilter);
 		}
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+		System.out.println("Personal" + newFilter.getActivePersonalCategories() + ", Team" + newFilter.getActiveTeamCategories());
 	}
 	
 	private void populateFilterList(){
@@ -866,6 +865,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			inactiveTeamCat.remove(aSelectedCategory.getID());
 			activeTeamCat.add(aSelectedCategory);
 		}
+		System.out.println(activeTeamCat.getCategory(0).getID());
 	}
 	
 	private void removeCategoryFromFilter(){
@@ -881,7 +881,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 
 	private void populateInactiveCatLists(){	
 		
-		/*if(mode == FilterMode.EDITING){
+		if(mode == FilterMode.EDITING){
 			for(int i = 0; i < oldActiveTeamCat.size(); i++){
 				for(int j = 0; j < teamCategories.getSize(); j++)
 					if(oldActiveTeamCat.get(i) == teamCategories.getCategory(j).getID()){
@@ -897,7 +897,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 						break;
 					}
 			}
-		}*/
+		}
 		
 		final List<Category> catList = new ArrayList<Category>();
 		final CategoryList bothCategories = new CategoryList();
@@ -979,7 +979,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	
 	private void populateActiveCatLists(){
 	
-		/*if(mode == FilterMode.EDITING){
+		if(mode == FilterMode.EDITING){
 			for(int i = 0; i < oldActiveTeamCat.size(); i++){
 				for(int j = 0; j < teamCategories.getSize(); j++)
 					if(oldActiveTeamCat.get(i) == teamCategories.getCategory(j).getID()){
@@ -995,7 +995,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 						break;
 					}
 			}
-		}*/
+		}
 		
 		final List<Category> catList = new ArrayList<Category>();
 		final CategoryList bothCategories = new CategoryList();
@@ -1088,6 +1088,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	}
 	
 	private void updateList(){
+		newTeamCatList = new ArrayList<Integer>();
+		newPersonalCatList = new ArrayList<Integer>();
 		for(int i = 0; i < activeTeamCat.getSize(); i++){
 			newTeamCatList.add(activeTeamCat.getCategory(i).getID());
 		}
@@ -1095,33 +1097,4 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			newPersonalCatList.add(activePersonalCat.getCategory(i).getID());
 		}
 	}
-	
-	/*private void setEditFields(){
-		if(mode == FilterMode.ADDING){
-			filterName.setText("**New Filter**");
-			activeTeamCat = new CategoryList();
-			activePersonalCat = new CategoryList();
-		}
-		else{
-			filterName.setText(editFilter.getName());
-			activeTeamCat = new CategoryList();
-			activePersonalCat = new CategoryList();
-			
-			for(int i = 0; i < oldActiveTeamCat.size(); i++){
-				for(int j = 0; j < teamCategories.getSize(); j++)
-					if(oldActiveTeamCat.get(i) == teamCategories.getCategory(j).getID()){
-						activeTeamCat.add(teamCategories.getCategory(j));
-						break;
-					}
-			}
-		
-			for(int i = 0; i < oldActivePersonalCat.size(); i++){
-				for(int j = 0; j < personalCategories.getSize(); j++)
-					if(oldActivePersonalCat.get(i) == personalCategories.getCategory(j).getID()){
-						activePersonalCat.add(personalCategories.getCategory(j));
-						break;
-					}
-			}
-		}
-	}*/
 }
