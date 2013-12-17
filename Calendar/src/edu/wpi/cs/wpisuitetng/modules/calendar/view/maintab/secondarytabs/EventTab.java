@@ -1510,9 +1510,12 @@ public class EventTab extends JPanel {
 	 */
 	protected void checkEndBeforeStart() {
 		if(initFlag){
-			if(getEndDate().getTime().before(getStartDate().getTime()))
+			GregorianCalendar tmp = new GregorianCalendar();
+			tmp.setTime(getStartDate().getTime());
+			tmp.add(Calendar.MINUTE, 1);
+			if(getEndDate().getTime().before(tmp.getTime()))
 			{
-				setEndDate(getStartDate());
+				setEndDate(tmp);
 			}
 			checkRepeatDuration();
 		}

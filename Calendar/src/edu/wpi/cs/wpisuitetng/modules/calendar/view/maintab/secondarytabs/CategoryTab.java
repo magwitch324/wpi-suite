@@ -178,10 +178,10 @@ public class CategoryTab extends JPanel {
 		btnNew = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("New_Icon.png"));
-			btnNew = new JButton("New Category", new ImageIcon(img));
+			btnNew = new JButton("New", new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			btnNew.setText("New Category");
+			btnNew.setText("New");
 		}
 		
 		horizontalBox_1.add(btnNew);
@@ -194,10 +194,10 @@ public class CategoryTab extends JPanel {
 		btnEdit = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Edit_Icon.png"));
-			btnEdit = new JButton("Edit Category", new ImageIcon(img));
+			btnEdit = new JButton("Edit", new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			btnEdit.setText("Edit Category");
+			btnEdit.setText("Edit");
 		}
 		btnEdit.setEnabled(false);
 		
@@ -213,10 +213,10 @@ public class CategoryTab extends JPanel {
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
 			final Image newimg = img.getScaledInstance( 30, 30,  java.awt.Image.SCALE_SMOOTH ) ;
-			btnDelete = new JButton("Delete Category", new ImageIcon(newimg));
+			btnDelete = new JButton("Delete", new ImageIcon(newimg));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			btnDelete.setText("Delete Category");
+			btnDelete.setText("Delete");
 		}
 		btnDelete.setEnabled(false);
 		
