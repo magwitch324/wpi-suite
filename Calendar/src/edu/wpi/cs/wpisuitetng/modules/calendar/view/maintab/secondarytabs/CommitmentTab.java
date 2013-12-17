@@ -177,7 +177,6 @@ public class CommitmentTab extends JPanel {
 
 	/**
 	 * Create the panel.
-
 	 * @param openedFrom int
 	 */
 	public CommitmentTab(int openedFrom) {
@@ -186,22 +185,50 @@ public class CommitmentTab extends JPanel {
 		this.setBackground(Color.WHITE);
 		formPanel = new JPanel();
 		formPanel.setBackground(Color.WHITE);
-		formPanel.setPreferredSize(new Dimension(700, 500));
-		formPanel.setMaximumSize(new Dimension(1200, 500));
-		formPanel.setMinimumSize(new Dimension(700, 500));
-		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		//formPanel.setPreferredSize(new Dimension(700, 500));
+		//formPanel.setMaximumSize(new Dimension(1200, 500));
+		//formPanel.setMinimumSize(new Dimension(700, 500));
+		setLayout(new GridBagLayout());
+		final JPanel spacePanel1 = new JPanel();
+		final JPanel spacePanel2 = new JPanel();
+		formPanel = new JPanel();
+		formPanel.setBackground(Color.WHITE);
+		formPanel.setPreferredSize(new Dimension(500, 600));
+		formPanel.setMinimumSize(new Dimension(500, 600));
+		spacePanel1.setMinimumSize(formPanel.getSize());
+		spacePanel1.setBackground(Color.WHITE);
+		spacePanel2.setMinimumSize(formPanel.getSize());
+		spacePanel2.setBackground(Color.WHITE);
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.weightx = 1;
+		constraints.gridx = 0;
+		constraints.weighty = 1;
+		constraints.fill = GridBagConstraints.BOTH;
+		add(spacePanel1, constraints);
+		constraints = new GridBagConstraints();
+		constraints.weightx = 2;
+		constraints.gridx = 1;
+		constraints.weighty = 1;
+		constraints.fill = GridBagConstraints.BOTH;
+		add(formPanel, constraints);
+		constraints = new GridBagConstraints();
+		constraints.weightx = 1;
+		constraints.gridx = 2;
+		constraints.weighty = 1;
+		constraints.fill = GridBagConstraints.BOTH;
+		add(spacePanel2, constraints);
 
 		glue = Box.createGlue();
-		glue.setBackground(Color.WHITE);
-		add(glue);
-		add(formPanel);
+		glue.setBackground(CalendarStandard.CalendarYellow);
+		//add(glue);
+		//add(formPanel);
 
 		// form uses GridBagLayout w/ two columns
 		final GridBagLayout gbl = new GridBagLayout();
-		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-		gbl.columnWeights = new double[]{0.0, 1.0};
-		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl.columnWidths = new int[] {0, 0};
+		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0};
+		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl.columnWidths = new int[] {0, 0, 0, 0};
 		formPanel.setLayout(gbl);
 
 		addLabels();
@@ -214,7 +241,7 @@ public class CommitmentTab extends JPanel {
 		initFlag = true;
 
 		glue_1 = Box.createGlue();
-		add(glue_1);
+		//add(glue_1);
 	}
 
 	/**
@@ -318,7 +345,7 @@ public class CommitmentTab extends JPanel {
 	 */
 	private void addLabels() {
 		//Name label
-		final JLabel lblName = new JLabel("<html><font>" + "Name" + "</font>" 
+		final JLabel lblName = new JLabel("<html><body style='width: 50px'><font>" + "Name" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -333,7 +360,7 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(lblName, gbc);
 
 		//Description label
-		lblDesc = new JLabel("Description:");
+		lblDesc = new JLabel("<html><body style='width: 50px'>Description:</html>");
 		lblDesc.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblDesc = new GridBagConstraints();
 		gbc_lblDesc.fill = GridBagConstraints.BOTH;
@@ -343,7 +370,7 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(lblDesc, gbc_lblDesc);
 
 		//Category label
-		lblCategory = new JLabel("Category:");
+		lblCategory = new JLabel("<html><body style='width: 50px'>Category:</html>");
 		lblCategory.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblCategory = new GridBagConstraints();
 		gbc_lblCategory.anchor = GridBagConstraints.EAST;
@@ -355,7 +382,7 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(lblCategory, gbc_lblCategory);
 
 		//Type label
-		lblType = new JLabel("Type:");
+		lblType = new JLabel("<html><body style='width: 50px'>Type:</html>");
 		lblType.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblType = new GridBagConstraints();
 		gbc_lblType.anchor = GridBagConstraints.EAST;
@@ -365,7 +392,7 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(lblType, gbc_lblType);
 
 		//Time label
-		final JLabel lblTime = new JLabel("<html><font>" + "Time" + "</font>" 
+		final JLabel lblTime = new JLabel("<html><body style='width: 50px'><font>" + "Time" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblTime.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -393,7 +420,7 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(lblTimeError, gbc_lblTimeError);
 
 		//Date label
-		final JLabel lblDate = new JLabel("<html><font>" + "Date" + "</font>" 
+		final JLabel lblDate = new JLabel("<html><body style='width: 50px'><font>" + "Date" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblDate.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -408,7 +435,7 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(lblDate, gbc_lblDate);
 
 		//Invalid Date label
-		lblDateError = new JLabel("<html><font color='red'>"
+		lblDateError = new JLabel("<html><body style='width: 50px'><font color='red'>"
 				+ "Please enter a valid date (MM/DD/YYYY).</font></html>");
 		lblDateError.setVisible(false);
 		lblDateError.setHorizontalAlignment(SwingConstants.LEFT);
@@ -422,7 +449,7 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(lblDateError, gbc_lblDateError);
 
 		//Status label
-		lblStatus = new JLabel("Status:");
+		lblStatus = new JLabel("<html><body style='width: 50px'>Status:</html>");
 		//		lblStatus.setBackground(CalendarStandard.CalendarRed);
 		//		lblStatus.setForeground(Color.WHITE);
 		final GridBagConstraints gbc_lblStatus = new GridBagConstraints();
