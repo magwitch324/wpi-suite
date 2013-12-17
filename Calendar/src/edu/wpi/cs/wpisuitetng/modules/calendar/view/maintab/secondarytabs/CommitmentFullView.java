@@ -195,10 +195,12 @@ public class CommitmentFullView extends JPanel{
 		int commitment_height = 0;
 		for(CommitmentFullViewPanel cvp : commitmentPanelList) {
 			if(last == null){
-				layout.putConstraint(SpringLayout.NORTH, cvp, 0, SpringLayout.NORTH, commitmentPanel);
+				layout.putConstraint(SpringLayout.NORTH, cvp, 
+						0, SpringLayout.NORTH, commitmentPanel);
 			}
 			else{
-				layout.putConstraint(SpringLayout.NORTH, cvp, 0, SpringLayout.SOUTH, last);
+				layout.putConstraint(SpringLayout.NORTH, cvp, 
+						0, SpringLayout.SOUTH, last);
 			}
 			
 			layout.putConstraint(SpringLayout.WEST, cvp, 0, SpringLayout.WEST, commitmentPanel);
@@ -227,7 +229,8 @@ public class CommitmentFullView extends JPanel{
 		
 		final JPanel datadisplay = getDataDisplay();
 		layout.putConstraint(SpringLayout.NORTH, datadisplay, 0, SpringLayout.NORTH, apanel);
-		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datadisplay, 0, SpringLayout.HORIZONTAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datadisplay,
+				0, SpringLayout.HORIZONTAL_CENTER, apanel);
 		layout.putConstraint(SpringLayout.WEST, datadisplay, 0, SpringLayout.WEST, apanel);
 		layout.putConstraint(SpringLayout.EAST, datadisplay, 0, SpringLayout.EAST, apanel);
 		apanel.add(datadisplay);
@@ -313,14 +316,20 @@ public class CommitmentFullView extends JPanel{
 		viewSwitchGroup.add(teamRadioButton);
 		viewSwitchGroup.add(bothRadioButton);
 		
-		layout.putConstraint(SpringLayout.VERTICAL_CENTER, personalRadioButton, 0, SpringLayout.VERTICAL_CENTER, apanel);
-		layout.putConstraint(SpringLayout.EAST, personalRadioButton, 0, SpringLayout.WEST, teamRadioButton);
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, personalRadioButton,
+				0, SpringLayout.VERTICAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.EAST, personalRadioButton, 
+				0, SpringLayout.WEST, teamRadioButton);
 		
-		layout.putConstraint(SpringLayout.VERTICAL_CENTER, teamRadioButton, 0, SpringLayout.VERTICAL_CENTER, apanel);
-		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, teamRadioButton, 0, SpringLayout.HORIZONTAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, teamRadioButton,
+				0, SpringLayout.VERTICAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, teamRadioButton,
+				0, SpringLayout.HORIZONTAL_CENTER, apanel);
 		
-		layout.putConstraint(SpringLayout.VERTICAL_CENTER, bothRadioButton, 0, SpringLayout.VERTICAL_CENTER, apanel);
-		layout.putConstraint(SpringLayout.WEST, bothRadioButton, 0, SpringLayout.EAST, teamRadioButton);
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, bothRadioButton,
+				0, SpringLayout.VERTICAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.WEST, bothRadioButton,
+				0, SpringLayout.EAST, teamRadioButton);
 		
 		// Create search bar
 		final JPanel search = new JPanel();
@@ -344,7 +353,7 @@ public class CommitmentFullView extends JPanel{
 			  update();
 		  }
 
-		  public void update() {
+		  private void update() {
 			  updateList();
 		  }
 		});
@@ -353,11 +362,14 @@ public class CommitmentFullView extends JPanel{
 		search.add(searchInput);
 
 		searchLayout.putConstraint(SpringLayout.WEST, searchLabel, 0, SpringLayout.WEST, search);
-		searchLayout.putConstraint(SpringLayout.VERTICAL_CENTER, searchLabel, 0, SpringLayout.VERTICAL_CENTER, search);
+		searchLayout.putConstraint(SpringLayout.VERTICAL_CENTER, searchLabel,
+				0, SpringLayout.VERTICAL_CENTER, search);
 		
-		searchLayout.putConstraint(SpringLayout.WEST, searchInput, 10, SpringLayout.EAST, searchLabel);
+		searchLayout.putConstraint(SpringLayout.WEST, searchInput,
+				10, SpringLayout.EAST, searchLabel);
 		searchLayout.putConstraint(SpringLayout.EAST, searchInput, 0, SpringLayout.EAST, search);
-		searchLayout.putConstraint(SpringLayout.VERTICAL_CENTER, searchInput, 0, SpringLayout.VERTICAL_CENTER, search);
+		searchLayout.putConstraint(SpringLayout.VERTICAL_CENTER, searchInput, 
+				0, SpringLayout.VERTICAL_CENTER, search);
 		
 		apanel.add(search);
 		
@@ -408,29 +420,35 @@ public class CommitmentFullView extends JPanel{
 					try {
 						final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
 						jName.setIcon(new ImageIcon(img));
-						jName.setText("<html><font color='white'><b>" + "Name" + "</b></font></html>");
+						jName.setText("<html><font color='white'><b>" 
+						+ "Name" + "</b></font></html>");
 					} 
 					catch (IOException ex) {}
 					catch(IllegalArgumentException ex){
-						jName.setText("<html><font color='white'><b>" + "Name ^" + "</b></font></html>");
+						jName.setText("<html><font color='white'><b>" 
+					+ "Name ^" + "</b></font></html>");
 					}
 				}
 				else{
 					try {
-						final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+						final Image img = ImageIO.read(getClass().getResource(
+								"DownArrow_Icon.png"));
 						jName.setIcon(new ImageIcon(img));
-						jName.setText("<html><font color='white'><b>" + "Name" + "</b></font></html>");
+						jName.setText("<html><font color='white'><b>" 
+						+ "Name" + "</b></font></html>");
 					} 
 					catch (IOException ex) {}
 					catch(IllegalArgumentException ex){
-						jName.setText("<html><font color='white'><b>" + "Name v" + "</b></font></html>");
+						jName.setText("<html><font color='white'><b>"
+					+ "Name v" + "</b></font></html>");
 					}
 				}
 				sort();
 			}
 		});
 		
-		jStartDate = new JButton("<html><font color='white'><b>" + "Due Date" + "</b></font></html>");
+		jStartDate = new JButton("<html><font color='white'><b>" 
+		+ "Due Date" + "</b></font></html>");
 		jStartDate.setBackground(CalendarStandard.CalendarRed);
 		jStartDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
@@ -451,22 +469,27 @@ public class CommitmentFullView extends JPanel{
 					try {
 						final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
 						jStartDate.setIcon(new ImageIcon(img));
-						jStartDate.setText("<html><font color='white'><b>" + "Due Date" + "</b></font></html>");
+						jStartDate.setText("<html><font color='white'><b>"
+						+ "Due Date" + "</b></font></html>");
 					} 
 					catch (IOException ex) {}
 					catch(IllegalArgumentException ex){
-						jStartDate.setText("<html><font color='white'><b>" + "Due Date ^" + "</b></font></html>");
+						jStartDate.setText("<html><font color='white'><b>" 
+					+ "Due Date ^" + "</b></font></html>");
 					}
 				}
 				else{
 					try {
-						final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+						final Image img = ImageIO.read(getClass().getResource(
+								"DownArrow_Icon.png"));
 						jStartDate.setIcon(new ImageIcon(img));
-						jStartDate.setText("<html><font color='white'><b>" + "Due Date" + "</b></font></html>");
+						jStartDate.setText("<html><font color='white'><b>"
+						+ "Due Date" + "</b></font></html>");
 					} 
 					catch (IOException ex) {}
 					catch(IllegalArgumentException ex){
-						jStartDate.setText("<html><font color='white'><b>" + "Due Date v" + "</b></font></html>");
+						jStartDate.setText("<html><font color='white'><b>" 
+					+ "Due Date v" + "</b></font></html>");
 					}
 				}
 				sort();
@@ -474,7 +497,8 @@ public class CommitmentFullView extends JPanel{
 		});
 		
 		
-		jEndDate = new JButton("<html><font color='white'><b>" + "Status" + "</b></font></html>");
+		jEndDate = new JButton("<html><font color='white'><b>" 
+		+ "Status" + "</b></font></html>");
 		jEndDate.setBackground(CalendarStandard.CalendarRed);
 		jEndDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
@@ -495,29 +519,35 @@ public class CommitmentFullView extends JPanel{
 					try {
 						final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
 						jEndDate.setIcon(new ImageIcon(img));
-						jEndDate.setText("<html><font color='white'><b>" + "Status" + "</b></font></html>");
+						jEndDate.setText("<html><font color='white'><b>"
+						+ "Status" + "</b></font></html>");
 					} 
 					catch (IOException ex) {}
 					catch(IllegalArgumentException ex){
-						jEndDate.setText("<html><font color='white'><b>" + "Status ^" + "</b></font></html>");
+						jEndDate.setText("<html><font color='white'><b>"
+					+ "Status ^" + "</b></font></html>");
 					}
 				}
 				else{
 					try {
-						final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+						final Image img = ImageIO.read(getClass().getResource(
+								"DownArrow_Icon.png"));
 						jEndDate.setIcon(new ImageIcon(img));
-						jEndDate.setText("<html><font color='white'><b>" + "Status" + "</b></font></html>");
+						jEndDate.setText("<html><font color='white'><b>"
+						+ "Status" + "</b></font></html>");
 					} 
 					catch (IOException ex) {}
 					catch(IllegalArgumentException ex){
-						jEndDate.setText("<html><font color='white'><b>" + "Status v" + "</b></font></html>");
+						jEndDate.setText("<html><font color='white'><b>"
+					+ "Status v" + "</b></font></html>");
 					}
 				}
 				sort();
 			}
 		});
 		
-		jDescription = new JButton("<html><font color='white'><b>" + "Description" + "</b></font></html>");
+		jDescription = new JButton("<html><font color='white'><b>"
+		+ "Description" + "</b></font></html>");
 		jDescription.setBackground(CalendarStandard.CalendarRed);
 		jDescription.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
@@ -538,22 +568,27 @@ public class CommitmentFullView extends JPanel{
 					try {
 						final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
 						jDescription.setIcon(new ImageIcon(img));
-						jDescription.setText("<html><font color='white'><b>" + "Description" + "</b></font></html>");
+						jDescription.setText("<html><font color='white'><b>"
+						+ "Description" + "</b></font></html>");
 					} 
 					catch (IOException ex) {}
 					catch(IllegalArgumentException ex){
-						jDescription.setText("<html><font color='white'><b>" + "Description ^" + "</b></font></html>");
+						jDescription.setText("<html><font color='white'><b>"
+					+ "Description ^" + "</b></font></html>");
 					}
 				}
 				else{
 					try {
-						final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+						final Image img = ImageIO.read(getClass().getResource(
+								"DownArrow_Icon.png"));
 						jDescription.setIcon(new ImageIcon(img));
-						jDescription.setText("<html><font color='white'><b>" + "Description" + "</b></font></html>");
+						jDescription.setText("<html><font color='white'><b>" 
+						+ "Description" + "</b></font></html>");
 					} 
 					catch (IOException ex) {}
 					catch(IllegalArgumentException ex){
-						jDescription.setText("<html><font color='white'><b>" + "Description v" + "</b></font></html>");
+						jDescription.setText("<html><font color='white'><b>" 
+					+ "Description v" + "</b></font></html>");
 					}
 				}
 				sort();
@@ -593,7 +628,8 @@ public class CommitmentFullView extends JPanel{
 	 */
 	public void applyCalProps(){
 
-		calProps = CalendarPropertiesModel.getInstance().getCalendarProps( ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName() + "-PROPS");
+		calProps = CalendarPropertiesModel.getInstance().getCalendarProps(
+				ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName() + "-PROPS");
 		
 		if(initialized && calProps != null){
 			mode =  ViewingMode.values()[calProps.getCommitmentViewMode()];

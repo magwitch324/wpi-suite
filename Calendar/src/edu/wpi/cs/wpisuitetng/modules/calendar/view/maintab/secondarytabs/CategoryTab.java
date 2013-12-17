@@ -270,7 +270,8 @@ public class CategoryTab extends JPanel {
 		} else if(rdbtnTeam.isSelected()) {
 			catList.addAll(teamCategories.getCategories());
 		} else {
-			final Category[] bothCatArray = new Category[teamCategories.getSize() + personalCategories.getSize()];
+			final Category[] bothCatArray = 
+					new Category[teamCategories.getSize() + personalCategories.getSize()];
 			catList.addAll(teamCategories.getCategories());
 			catList.addAll(personalCategories.getCategories());
 			for(int i = 0; i < catList.size(); i++)

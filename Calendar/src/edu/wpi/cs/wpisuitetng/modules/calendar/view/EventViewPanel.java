@@ -73,15 +73,18 @@ public class EventViewPanel extends JPanel {
 		df.applyPattern("EEEE, MMMM d, y - hh:mm a");
 		
 		//Label for the start time of the event
-		final JLabel start_date = new JLabel("" + df.format(event.getStartTime().getTime()), JLabel.LEFT);
+		final JLabel start_date = new JLabel("" + 
+		df.format(event.getStartTime().getTime()), JLabel.LEFT);
 		start_date.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		
 		//Label for the end time of the event
-		final JLabel end_date = new JLabel("" + df.format(event.getEndTime().getTime()), JLabel.LEFT);
+		final JLabel end_date = new JLabel("" + 
+		df.format(event.getEndTime().getTime()), JLabel.LEFT);
 		end_date.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		
 		//JLabel for the description of the event
-		final JLabel description = new JLabel("<HTML>" + event.getDescription() + "</HTML>", JLabel.LEFT);
+		final JLabel description = new JLabel("<HTML>" + 
+		event.getDescription() + "</HTML>", JLabel.LEFT);
 		description.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		
 		this.add(namelabel);

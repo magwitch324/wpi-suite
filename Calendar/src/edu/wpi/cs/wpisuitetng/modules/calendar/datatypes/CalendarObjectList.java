@@ -201,8 +201,6 @@ public abstract class CalendarObjectList<T extends CalendarObject> {
 	
 	 * @return List<T> 
 	 * * @throws CalendarException 
-	 * * @throws CalendarException 
-	 * * @throws CalendarException
 	 */
 	public List<T> filter(GregorianCalendar date, int amount)
 			throws CalendarException {

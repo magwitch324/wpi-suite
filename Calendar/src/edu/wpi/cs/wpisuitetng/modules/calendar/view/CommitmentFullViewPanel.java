@@ -78,15 +78,18 @@ public class CommitmentFullViewPanel extends JPanel {
 		df.applyPattern("EEEE, MMMM d, y - hh:mm a");
 		
 		//Label for the start time of the event
-		final JLabel due_date = new JLabel("" + df.format(commitment.getDueDate().getTime()), JLabel.LEFT);
+		final JLabel due_date = new JLabel("" + 
+		df.format(commitment.getDueDate().getTime()), JLabel.LEFT);
 		due_date.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		
 		//Label for the end time of the event
-		final JLabel status = new JLabel("" + Status.convertToString(commitment.getStatus().getId()), JLabel.LEFT);
+		final JLabel status = new JLabel("" + 
+		Status.convertToString(commitment.getStatus().getId()), JLabel.LEFT);
 		status.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		
 		//JLabel for the description of the event
-		final JLabel description = new JLabel("<HTML>" + commitment.getDescription() + "</HTML>", JLabel.LEFT);
+		final JLabel description = new JLabel("<HTML>" + 
+		commitment.getDescription() + "</HTML>", JLabel.LEFT);
 		description.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		
 		this.add(namelabel);
