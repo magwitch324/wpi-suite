@@ -121,5 +121,9 @@ public class WeekView extends CalendarView {
 		revalidate();
 		repaint();
 	}
+	
+	public String getCommRangeText(){
+		return "Show all open commitments for week";
+	}
 
 }

@@ -13,6 +13,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -86,7 +87,7 @@ public abstract class CalendarView extends JSplitPane {
 		labelPanel.setLayout(new GridLayout(1, 1, 0, 0));
 		labelPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.GRAY));
 //		labelPanel.setBorder(new EmptyBorder(0, 10, 0 , 10));
-//		labelPanel.setMinimumSize(new Dimension(330, 50));
+		labelPanel.setMinimumSize(new Dimension(300, 50));
 		labelPanel.setBackground(CalendarStandard.CalendarRed);
 		final JLabel dateLabel = new JLabel(
 				"<html><font color='white'><body style='width: 100%'><center>" + 
@@ -99,7 +100,7 @@ public abstract class CalendarView extends JSplitPane {
 		panel.add(labelPanel);
 		//radio buttons for controlling the filter in the commitment pane
 		showVisibleButton = new JRadioButton(
-				"Show all open commitments in visible range");
+				getCommRangeText());
 		showVisibleButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		showVisibleButton.setBackground(Color.WHITE);
 		showVisibleButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
@@ -254,5 +255,7 @@ public abstract class CalendarView extends JSplitPane {
 		GUIEventController.getInstance().getCalendar().updateCommPane();
 		
 	}
+	
+	public abstract String getCommRangeText();
 	
 }
