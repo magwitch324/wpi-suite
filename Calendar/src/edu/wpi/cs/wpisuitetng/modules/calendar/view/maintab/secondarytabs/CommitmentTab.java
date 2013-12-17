@@ -80,6 +80,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 /**
  * Create/edit commitment tab.
@@ -173,11 +175,13 @@ public class CommitmentTab extends JPanel {
 	private boolean firstRun;
 	private Category uncategorized;
 	private JLabel colon;
+	private JScrollPane scrollPane;
 
 
 	/**
 	 * Create the panel.
 	 * @param openedFrom int
+	 * @wbp.parser.constructor
 	 */
 	public CommitmentTab(int openedFrom) {
 		this.openedFrom = openedFrom;
@@ -220,10 +224,10 @@ public class CommitmentTab extends JPanel {
 
 		// form uses GridBagLayout w/ two columns
 		final GridBagLayout gbl = new GridBagLayout();
-		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-		gbl.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0};
-		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl.columnWidths = new int[] {0, 0, 0, 0};
+		gbl.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
+		gbl.columnWeights = new double[]{0.0, 1.0};
+		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl.columnWidths = new int[] {0, 0};
 		formPanel.setLayout(gbl);
 
 		addLabels();
@@ -363,6 +367,27 @@ public class CommitmentTab extends JPanel {
 		gbc_lblDesc.gridx = 0;
 		gbc_lblDesc.gridy = 1;
 		formPanel.add(lblDesc, gbc_lblDesc);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setMinimumSize(new Dimension(23, 60));
+		scrollPane.setPreferredSize(new Dimension(2, 60));
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 3;
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 1;
+		formPanel.add(scrollPane, gbc_scrollPane);
+		
+				//Text area for description
+				descriptionTextField = new JTextArea();
+				scrollPane.setViewportView(descriptionTextField);
+				//				descriptionTextField.setPreferredSize(new Dimension(500,160));
+				//				descPane.setViewportView(descriptionTextField);
+				descriptionTextField.setLineWrap(true);
+				descriptionTextField.setBackground(CalendarStandard.CalendarYellow);
+				descriptionTextField.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
 		//Category label
 		lblCategory = new JLabel("<html><body style='width: 50px'>Category:</html>");
@@ -371,7 +396,7 @@ public class CommitmentTab extends JPanel {
 		gbc_lblCategory.anchor = GridBagConstraints.EAST;
 		gbc_lblCategory.insets = new Insets(0, 0, 5, 5);
 		gbc_lblCategory.gridx = 0;
-		gbc_lblCategory.gridy = 2;
+		gbc_lblCategory.gridy = 4;
 		gbc_lblCategory.weightx = 1;
 		gbc_lblCategory.weighty = 1;
 		formPanel.add(lblCategory, gbc_lblCategory);
@@ -383,7 +408,7 @@ public class CommitmentTab extends JPanel {
 		gbc_lblType.anchor = GridBagConstraints.EAST;
 		gbc_lblType.insets = new Insets(0, 0, 5, 5);
 		gbc_lblType.gridx = 0;
-		gbc_lblType.gridy = 3;
+		gbc_lblType.gridy = 5;
 		formPanel.add(lblType, gbc_lblType);
 
 		//Time label
@@ -396,7 +421,7 @@ public class CommitmentTab extends JPanel {
 		gbc_lblTime.fill = GridBagConstraints.VERTICAL;
 		gbc_lblTime.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTime.gridx = 0;
-		gbc_lblTime.gridy = 4;
+		gbc_lblTime.gridy = 6;
 		gbc_lblTime.weightx = 1;
 		gbc_lblTime.weighty = 1;
 		formPanel.add(lblTime, gbc_lblTime);
@@ -409,7 +434,7 @@ public class CommitmentTab extends JPanel {
 		gbc_lblTimeError.insets = new Insets(0, 0, 5, 0);
 		gbc_lblTimeError.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblTimeError.gridx = 1;
-		gbc_lblTimeError.gridy = 5;
+		gbc_lblTimeError.gridy = 7;
 		gbc_lblTimeError.weightx = 1;
 		gbc_lblTimeError.weighty = 1;
 		formPanel.add(lblTimeError, gbc_lblTimeError);
@@ -424,7 +449,7 @@ public class CommitmentTab extends JPanel {
 		gbc_lblDate.anchor = GridBagConstraints.EAST;
 		gbc_lblDate.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDate.gridx = 0;
-		gbc_lblDate.gridy = 7;
+		gbc_lblDate.gridy = 8;
 		gbc_lblDate.weightx = 1;
 		gbc_lblDate.weighty = 1;
 		formPanel.add(lblDate, gbc_lblDate);
@@ -438,7 +463,7 @@ public class CommitmentTab extends JPanel {
 		gbc_lblDateError.insets = new Insets(0, 0, 5, 0);
 		gbc_lblDateError.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblDateError.gridx = 1;
-		gbc_lblDateError.gridy = 8;
+		gbc_lblDateError.gridy = 9;
 		gbc_lblDateError.weightx = 1;
 		gbc_lblDateError.weighty = 1;
 		formPanel.add(lblDateError, gbc_lblDateError);
@@ -452,7 +477,7 @@ public class CommitmentTab extends JPanel {
 		gbc_lblStatus.fill = GridBagConstraints.VERTICAL;
 		gbc_lblStatus.anchor = GridBagConstraints.EAST;
 		gbc_lblStatus.gridx = 0;
-		gbc_lblStatus.gridy = 9;
+		gbc_lblStatus.gridy = 10;
 		gbc_lblStatus.weightx = 1;
 		gbc_lblStatus.weighty = 3;
 		formPanel.add(lblStatus, gbc_lblStatus);
@@ -470,31 +495,13 @@ public class CommitmentTab extends JPanel {
 		nameTextField.setBackground(CalendarStandard.CalendarYellow);
 		nameTextField.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		final GridBagConstraints gbc_nameTextField = new GridBagConstraints();
-		gbc_nameTextField.gridwidth = 3;
-		gbc_nameTextField.insets = new Insets(0, 0, 0, 5);
+		gbc_nameTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_nameTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_nameTextField.weightx = 10;
 		gbc_nameTextField.weighty = 1;
 		gbc_nameTextField.gridx = 1;
 		gbc_nameTextField.gridy = 0;
 		formPanel.add(nameTextField, gbc_nameTextField);
-
-		//Text area for description
-		descriptionTextField = new JTextArea();
-		//				descriptionTextField.setPreferredSize(new Dimension(500,160));
-		//				descPane.setViewportView(descriptionTextField);
-		descriptionTextField.setLineWrap(true);
-		descriptionTextField.setBackground(CalendarStandard.CalendarYellow);
-		descriptionTextField.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-		final GridBagConstraints gbc_descriptionTextField = new GridBagConstraints();
-		gbc_descriptionTextField.gridwidth = 3;
-		gbc_descriptionTextField.fill = GridBagConstraints.BOTH;
-		gbc_descriptionTextField.insets = new Insets(0, 0, 0, 5);
-		gbc_descriptionTextField.weightx = 10;
-		gbc_descriptionTextField.weighty = 5;
-		gbc_descriptionTextField.gridx = 1;
-		gbc_descriptionTextField.gridy = 1;
-		formPanel.add(descriptionTextField, gbc_descriptionTextField);
 
 		//Create category box, add two dummy categories
 		categoryComboBox = new JComboBox<Category>();
@@ -505,11 +512,10 @@ public class CommitmentTab extends JPanel {
 
 
 		final GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
+		gbc_categoryComboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_categoryComboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_categoryComboBox.insets = new Insets(0, 0, 0, 5);
-		gbc_categoryComboBox.gridwidth = 3;
 		gbc_categoryComboBox.gridx = 1;
-		gbc_categoryComboBox.gridy = 2;
+		gbc_categoryComboBox.gridy = 4;
 		gbc_categoryComboBox.weightx = 10;
 		gbc_categoryComboBox.weighty = 1;
 		formPanel.add(categoryComboBox, gbc_categoryComboBox);
@@ -518,11 +524,10 @@ public class CommitmentTab extends JPanel {
 		rdbtnPanel = new JPanel();
 		rdbtnPanel.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_rdbtnPanel = new GridBagConstraints();
-		gbc_rdbtnPanel.gridwidth = 3;
-		gbc_rdbtnPanel.insets = new Insets(0, 0, 0, 5);
+		gbc_rdbtnPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_rdbtnPanel.fill = GridBagConstraints.BOTH;
 		gbc_rdbtnPanel.gridx = 1;
-		gbc_rdbtnPanel.gridy = 3;
+		gbc_rdbtnPanel.gridy = 5;
 		formPanel.add(rdbtnPanel, gbc_rdbtnPanel);
 		rdbtnGroup = new ButtonGroup();
 
@@ -541,11 +546,10 @@ public class CommitmentTab extends JPanel {
 		spinnerPanel = new JPanel();
 		spinnerPanel.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_spinnerPanel = new GridBagConstraints();
-		gbc_spinnerPanel.gridwidth = 3;
-		gbc_spinnerPanel.insets = new Insets(0, 0, 0, 5);
+		gbc_spinnerPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_spinnerPanel.fill = GridBagConstraints.BOTH;
 		gbc_spinnerPanel.gridx = 1;
-		gbc_spinnerPanel.gridy = 4;
+		gbc_spinnerPanel.gridy = 6;
 		formPanel.add(spinnerPanel, gbc_spinnerPanel);
 		spinnerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
@@ -588,11 +592,10 @@ public class CommitmentTab extends JPanel {
 		datePicker.putClientProperty("JDatePicker.backgroundOnEditable", Boolean.TRUE);
 		datePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		final GridBagConstraints gbc_jdp = new GridBagConstraints();
-		gbc_jdp.gridwidth = 3;
-		gbc_jdp.insets = new Insets(0, 0, 0, 5);
+		gbc_jdp.insets = new Insets(0, 0, 5, 0);
 		gbc_jdp.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jdp.gridx = 1;
-		gbc_jdp.gridy = 7;
+		gbc_jdp.gridy = 8;
 		gbc_jdp.weightx = 1;
 		gbc_jdp.weighty = 3;
 		formPanel.add(datePicker, gbc_jdp);
@@ -608,15 +611,14 @@ public class CommitmentTab extends JPanel {
 		statusComboBox.setBackground(CalendarStandard.CalendarYellow);
 		statusComboBox.setSelectedIndex(0);
 		final GridBagConstraints gbc_statusComboBox = new GridBagConstraints();
-		gbc_statusComboBox.gridwidth = 3;
-		gbc_statusComboBox.insets = new Insets(0, 0, 0, 5);
+		gbc_statusComboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_statusComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_statusComboBox.gridx = 1;
-		gbc_statusComboBox.gridy = 9;
+		gbc_statusComboBox.gridy = 10;
 		gbc_statusComboBox.weightx = 1;
 		gbc_statusComboBox.weighty = 3;
 		formPanel.add(statusComboBox,  gbc_statusComboBox);
-
+		
 		//updates the list of categories
 		// this is here to avoid a NullPointerException
 		updateCategoryList();
@@ -769,7 +771,7 @@ public class CommitmentTab extends JPanel {
 		final GridBagConstraints gbc_btnPanel = new GridBagConstraints();
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
 		gbc_btnPanel.gridx = 1;
-		gbc_btnPanel.gridy = 10;
+		gbc_btnPanel.gridy = 11;
 
 		/**
 		 *  Initialize Save Commitment button.////////////////

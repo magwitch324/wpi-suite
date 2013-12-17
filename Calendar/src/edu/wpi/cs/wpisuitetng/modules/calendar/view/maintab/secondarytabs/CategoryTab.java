@@ -114,7 +114,7 @@ public class CategoryTab extends JPanel {
 		addListeners();
 		
 		//initialize in "viewing" mode
-		setupAddView();
+		setupViewingView();
 		setBackground(Color.WHITE);
 		initialized = true;
 		applyCalProps();
