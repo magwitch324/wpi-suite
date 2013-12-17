@@ -99,8 +99,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 	private CategoryList allCategories;
 	private List<Integer> newTeamCatList;
 	private List<Integer> newPersonalCatList;
-	private final CategoryList inactiveTeamCat;
-	private final CategoryList inactivePersonalCat;
+	private CategoryList inactiveTeamCat;
+	private CategoryList inactivePersonalCat;
 	private CategoryList activeTeamCat;
 	private CategoryList activePersonalCat;
 
@@ -145,14 +145,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 		aSelectedFilter = null;
 		selectedFilters = new ArrayList<FilterPanel>();
 		selectedCategories = new ArrayList<CategoryPanel>();
-		inactiveTeamCat = new CategoryList();
-		inactivePersonalCat = new CategoryList();
-		for(Category c:teamCategories.getCategories()){
-			inactiveTeamCat.add(c);
-		}
-		for(Category c:personalCategories.getCategories()){
-			inactivePersonalCat.add(c);
-		} 
 		
 		activeTeamCat = new CategoryList();
 		activePersonalCat = new CategoryList();
@@ -191,7 +183,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 		scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-//		scrollPane.setSize(new Dimension(50, 600));
 		scrollPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -211,7 +202,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 		//Adds the label on top of the scroll pane
 		final JLabel filterList = new JLabel("List of Filters", SwingConstants.CENTER);
 		filterList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-//		filterList.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		filterList.setForeground(Color.WHITE);
 		filterList.setBackground(CalendarStandard.CalendarRed);
 		filterList.setOpaque(true);
@@ -259,7 +249,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 		scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-//		scrollPane.setSize(new Dimension(50, 600));
 		scrollPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -279,7 +268,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 		//Adds the label on top of the scroll pane
 		final JLabel filterList = new JLabel("List of Filters", SwingConstants.CENTER);
 		filterList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-//		filterList.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		filterList.setForeground(Color.WHITE);
 		filterList.setBackground(CalendarStandard.CalendarRed);
 		filterList.setOpaque(true);
@@ -431,7 +419,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 		catch(IllegalArgumentException ex){
 			addCatBtn.setIcon(new ImageIcon());
 		}
-//		addCatBtn.setText("Add Category");
 		addCatBtn.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
 		addCatBtn.setToolTipText("Add Category to Filter");
@@ -447,7 +434,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 		catch(IllegalArgumentException ex){
 			removeCatBtn.setIcon(new ImageIcon());
 		}
-//		removeCatBtn.setText("Remove Category");
 		removeCatBtn.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
 		removeCatBtn.setToolTipText("Remove Category from Filter");
@@ -575,7 +561,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 		editPanel.add(buttonPanel2, gbc_btnPanel2);
 	}
 	
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Method addListeners.
 	 */
@@ -585,9 +570,17 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 			public void actionPerformed(ActionEvent e) {
 				mode = FilterMode.ADDING;
 				aSelectedFilter = null;
-				refresh();
 				activeTeamCat = new CategoryList();
 				activePersonalCat = new CategoryList();
+				inactiveTeamCat = new CategoryList();
+				inactivePersonalCat = new CategoryList();
+				for(Category c:teamCategories.getCategories()){
+					inactiveTeamCat.add(c);
+				}
+				for(Category c:personalCategories.getCategories()){
+					inactivePersonalCat.add(c);
+				}
+				refresh();
 			}
 		});
 		
@@ -597,11 +590,25 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 				//if(mode != FilterMode.EDITING){
 					mode = FilterMode.EDITING;
 					addOldCatLists();
+					activeTeamCat = new CategoryList();
+					activePersonalCat = new CategoryList();
+					inactiveTeamCat = new CategoryList();
+					inactivePersonalCat = new CategoryList();
+					for(Category c:teamCategories.getCategories()){
+						inactiveTeamCat.add(c);
+					}
+					for(Category c:personalCategories.getCategories()){
+						inactivePersonalCat.add(c);
+					} 
 					refresh();
 					filterName.setText(aSelectedFilter.getName());
 					editFilter = aSelectedFilter;
 					oldActiveTeamCat = aSelectedFilter.getActiveTeamCategories();
 					oldActivePersonalCat = aSelectedFilter.getActivePersonalCategories();
+					//System.out.println(activeTeamCat.getCategory(0).getID());
+					System.out.println(activePersonalCat.getCategory(0).getID());
+					//System.out.println(inactiveTeamCat.getCategory(0).getID());
+					System.out.println(inactivePersonalCat.getCategory(0).getID());
 			/*	}
 				else{
 					refresh();
@@ -625,8 +632,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 					UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 				}
 			refresh();
-			/*btnEdit.setEnabled(false);
-			btnDelete.setEnabled(false);*/
 			}
 		});
 	}
@@ -754,7 +759,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 			calData.getFilters().update(editFilter);
 		}
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
-		System.out.println("Personal" + newFilter.getActivePersonalCategories() + ", Team" + newFilter.getActiveTeamCategories());
 	}
 	
 	private void populateFilterList(){
@@ -795,11 +799,20 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 				public void mouseClicked(MouseEvent e) {
 					if (e.getClickCount() > 1 /*&& mode != FilterMode.EDITING*/){
 						mode = FilterMode.EDITING;
+						activeTeamCat = new CategoryList();
+						activePersonalCat = new CategoryList();
+						inactiveTeamCat = new CategoryList();
+						inactivePersonalCat = new CategoryList();
+						for(Category c:teamCategories.getCategories()){
+							inactiveTeamCat.add(c);
+						}
+						for(Category c:personalCategories.getCategories()){
+							inactivePersonalCat.add(c);
+						}
 						addOldCatLists();
 						refresh();
 						aSelectedFilter = ((FilterPanel)e.getComponent()).getFilter();
 						editFilter = aSelectedFilter;
-						System.out.println(oldActiveTeamCat);
 						//setEditFields();
 						filterName.setText(aSelectedFilter.getName());
 					}
@@ -877,17 +890,16 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 			inactiveTeamCat.remove(aSelectedCategory.getID());
 			activeTeamCat.add(aSelectedCategory);
 		}
-		System.out.println(activeTeamCat.getCategory(0).getID());
 	}
 	
 	private void removeCategoryFromFilter(){
 		if(aSelectedCategory.getIsPersonal()){
-			inactivePersonalCat.add(aSelectedCategory);
 			activePersonalCat.remove(aSelectedCategory.getID());
+			inactivePersonalCat.add(aSelectedCategory);
 		}
 		else{
-			inactiveTeamCat.add(aSelectedCategory);
 			activeTeamCat.remove(aSelectedCategory.getID());
+			inactiveTeamCat.add(aSelectedCategory);
 		}	
 	}	
 
@@ -1119,5 +1131,14 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 		for(int i = 0; i < aSelectedFilter.getActivePersonalCategories().size(); i++){
 			oldActivePersonalCat.add(aSelectedFilter.getActivePersonalCategories().get(i));
 		};
+	}
+	
+	private void refreshCatLists(){
+		remove(activeCatPane);
+		remove(inactiveCatPane);
+		populateActiveCatLists();
+		populateInactiveCatLists();
+		revalidate();
+		repaint();
 	}
 }
