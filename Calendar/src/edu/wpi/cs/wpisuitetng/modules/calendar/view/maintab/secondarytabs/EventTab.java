@@ -232,7 +232,8 @@ public class EventTab extends JPanel {
 		formPanel.setLayout(gbl);
 
 		//Name label
-		final JLabel lblName = new JLabel("<html><body style='width: 80px'><font>" + "Name" + "</font>" 
+		final JLabel lblName = new JLabel("<html><body style='width: 80px'><font>"
+		+ "Name" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -368,7 +369,8 @@ public class EventTab extends JPanel {
 		updateCategoryList();
 
 		//Date label
-		final JLabel lblDate_1 = new JLabel("<html><body style='width: 80px'><font>" + "Start Date" + "</font>" 
+		final JLabel lblDate_1 = new JLabel("<html><body style='width: 80px'><font>"
+		+ "Start Date" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblDate_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -383,7 +385,8 @@ public class EventTab extends JPanel {
 		formPanel.add(lblDate_1, gbc_lblDate_1);
 
 		//Time label
-		final JLabel lblTime = new JLabel("<html><body style='width: 80px'><font>" + "Start Time" + "</font>" 
+		final JLabel lblTime = new JLabel("<html><body style='width: 80px'><font>" 
+		+ "Start Time" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblTime.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -502,7 +505,8 @@ public class EventTab extends JPanel {
 		//End Date/Time Forms
 
 		//Date label
-		final JLabel lblDate_2 = new JLabel("<html><body style='width: 80px'><font>" + "End Date" + "</font>" 
+		final JLabel lblDate_2 = new JLabel("<html><body style='width: 80px'><font>" 
+		+ "End Date" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblDate_2.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -517,7 +521,8 @@ public class EventTab extends JPanel {
 		formPanel.add(lblDate_2, gbc_lblDate_2);
 
 		//Time2 label
-		final JLabel lblTime2 = new JLabel("<html><body style='width: 80px'><font>" + "End Time" + "</font>" 
+		final JLabel lblTime2 = new JLabel("<html><body style='width: 80px'><font>"
+		+ "End Time" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblTime2.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -717,7 +722,8 @@ public class EventTab extends JPanel {
 
 
 		//Add Repetitions Label
-		lblNumberRepetitions = new JLabel("<html><body style='width: 80px'># of Occurrences:</html>");
+		lblNumberRepetitions = new JLabel(
+				"<html><body style='width: 80px'># of Occurrences:</html>");
 		lblNumberRepetitions.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblNumberRepetitions = new GridBagConstraints();
 		gbc_lblNumberRepetitions.anchor = GridBagConstraints.EAST;

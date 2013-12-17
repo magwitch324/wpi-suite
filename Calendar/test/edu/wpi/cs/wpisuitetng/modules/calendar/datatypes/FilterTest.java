@@ -67,7 +67,7 @@ public class FilterTest {
 	 */
 	@Test
 	public void mainConstructorTest(){
-		final Filter testFilter = new Filter("test", personalCategories1,teamCategories1);
+		final Filter testFilter = new Filter("test", personalCategories1, teamCategories1);
 		
 		assertEquals("test", testFilter.getName());
 		assertEquals(personalCategories1, testFilter.getActivePersonalCategories());
@@ -78,7 +78,7 @@ public class FilterTest {
 	 */
 	@Test
 	public void setterConstructorTest(){
-		final Filter testFilter = new Filter("test", personalCategories1,teamCategories1);
+		final Filter testFilter = new Filter("test", personalCategories1, teamCategories1);
 		testFilter.setName("setter tests");
 		testFilter.setActivePersonalCategories(personalCategories2);
 		testFilter.setActiveTeamCategories(teamCategories2);
@@ -95,8 +95,8 @@ public class FilterTest {
 	 */
 	@Test
 	public void compareTest(){
-		final Filter F1 = new Filter("Filter1", personalCategories1,teamCategories1);
-		final Filter F2 = new Filter("Filter2", personalCategories1,teamCategories1);
+		final Filter F1 = new Filter("Filter1", personalCategories1, teamCategories1);
+		final Filter F2 = new Filter("Filter2", personalCategories1, teamCategories1);
 		assertEquals(-1, F1.getName().compareToIgnoreCase(F2.getName()));
 	}
 

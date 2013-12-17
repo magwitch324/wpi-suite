@@ -57,8 +57,10 @@ public class FilterListTest {
 		personalCategories1.add(4);
 		personalCategories1.add(7);
 		
-		final Filter filter1 = new Filter("personal filter 1", personalCategories1,teamCategories1);
-		final Filter filter2 = new Filter("personal filter 2", personalCategories2,teamCategories2);
+		final Filter filter1 = new Filter(
+				"personal filter 1", personalCategories1, teamCategories1);
+		final Filter filter2 = new Filter(
+				"personal filter 2", personalCategories2, teamCategories2);
 		
 		filterList1 = new ArrayList<Filter>();
 		filterList2 = new ArrayList<Filter>();
