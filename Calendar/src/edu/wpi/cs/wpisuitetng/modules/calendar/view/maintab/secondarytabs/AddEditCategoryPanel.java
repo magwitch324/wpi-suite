@@ -248,9 +248,6 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_horizontalBox_1.gridy = 4;
 		addEditFormPanel.add(horizontalBox_1, gbc_horizontalBox_1);
 		
-
-
-		
 		btnSave = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Save_Icon.png"));
