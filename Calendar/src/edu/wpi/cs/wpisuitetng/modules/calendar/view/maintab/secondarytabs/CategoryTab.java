@@ -381,7 +381,7 @@ public class CategoryTab extends JPanel {
 	private void addListeners() {
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addEditPanel = new AddEditCategoryPanel();
+				addEditPanel = new AddEditCategoryPanel(!(rdbtnTeam.isSelected()));
 				setupAddView();
 			}
 		});
