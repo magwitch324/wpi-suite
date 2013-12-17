@@ -356,7 +356,7 @@ public class EventTab extends JPanel {
 		buttonGroup.add(rdbtnTeam);
 		rdbtnPanel.add(rdbtnTeam);
 
-		rdbtnTeam.setSelected(true);
+		rdbtnPersonal.setSelected(true);
 
 		updateCategoryList();
 
