@@ -40,6 +40,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
  * The inner class for a month representation on the year view.
  * Creates the header for the month name, the weekday names, and then the
  * 42 individual days.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
 public class YearMonthPane extends JPanel{

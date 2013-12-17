@@ -83,7 +83,7 @@ public class EventFullView extends JPanel{
 	 * @author CS Anonymous
 	 */
 	public enum ViewingMode {
-		TEAM, PERSONAL, BOTH;
+		PERSONAL, TEAM, BOTH;
 	};
 	ViewingMode mode;
 	
@@ -281,22 +281,22 @@ public class EventFullView extends JPanel{
 
 		});
 		
-		apanel.add(teamRadioButton);
 		apanel.add(personalRadioButton);
+		apanel.add(teamRadioButton);
 		apanel.add(bothRadioButton);
 		
-		viewSwitchGroup.add(teamRadioButton);
 		viewSwitchGroup.add(personalRadioButton);
+		viewSwitchGroup.add(teamRadioButton);
 		viewSwitchGroup.add(bothRadioButton);
 		
-		layout.putConstraint(SpringLayout.VERTICAL_CENTER, teamRadioButton, 0, SpringLayout.VERTICAL_CENTER, apanel);
-		layout.putConstraint(SpringLayout.EAST, teamRadioButton, 0, SpringLayout.WEST, personalRadioButton);
-		
 		layout.putConstraint(SpringLayout.VERTICAL_CENTER, personalRadioButton, 0, SpringLayout.VERTICAL_CENTER, apanel);
-		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, personalRadioButton, 0, SpringLayout.HORIZONTAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.EAST, personalRadioButton, 0, SpringLayout.WEST, teamRadioButton);
+		
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, teamRadioButton, 0, SpringLayout.VERTICAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, teamRadioButton, 0, SpringLayout.HORIZONTAL_CENTER, apanel);
 		
 		layout.putConstraint(SpringLayout.VERTICAL_CENTER, bothRadioButton, 0, SpringLayout.VERTICAL_CENTER, apanel);
-		layout.putConstraint(SpringLayout.WEST, bothRadioButton, 0, SpringLayout.EAST, personalRadioButton);
+		layout.putConstraint(SpringLayout.WEST, bothRadioButton, 0, SpringLayout.EAST, teamRadioButton);
 		return apanel;
 		
 	}
@@ -527,11 +527,13 @@ public class EventFullView extends JPanel{
 
 			switch (calProps.getEventViewMode()){
 			
-			case 0: viewSwitchGroup.setSelected(teamRadioButton.getModel(), true);
+			case 0: viewSwitchGroup.setSelected(personalRadioButton.getModel(), true);
 			break;
 			
-			case 1: viewSwitchGroup.setSelected(personalRadioButton.getModel(), true);
+			case 1: viewSwitchGroup.setSelected(teamRadioButton.getModel(), true);
 			break;
+			
+			
 			
 			case 2: viewSwitchGroup.setSelected(bothRadioButton.getModel(), true);
 			break;
