@@ -93,7 +93,7 @@ public class EventTab extends JPanel {
 	private JScrollPane descPane;
 	private JPanel panel;
 	private JSpinner.DateEditor endTimeEditor;
-	private JPanel panel_1;
+	private JPanel rdbtnPanel;
 	private JRadioButton rdbtnPersonal;
 	private JRadioButton rdbtnTeam;
 	private JLabel lblType;
@@ -172,6 +172,9 @@ public class EventTab extends JPanel {
 		}
 	}
 
+	/**
+	 * @wbp.parser.constructor
+	 */
 	public EventTab(int openedFrom) {
 		this(openedFrom, (new GregorianCalendar()).getTime());
 	}
@@ -224,7 +227,7 @@ public class EventTab extends JPanel {
 		formPanel.setLayout(gbl);
 
 		//Name label
-		final JLabel lblName = new JLabel("<html><font>" + "Name" + "</font>" 
+		final JLabel lblName = new JLabel("<html><body style='width: 50px'><font>" + "Name" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -256,7 +259,7 @@ public class EventTab extends JPanel {
 
 
 		//Description label
-		final JLabel lblDesc = new JLabel("Description:");
+		final JLabel lblDesc = new JLabel("<html><body style='width: 50px'>Description:</html>");
 		lblDesc.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblDesc = new GridBagConstraints();
 		gbc_lblDesc.fill = GridBagConstraints.BOTH;
@@ -293,7 +296,7 @@ public class EventTab extends JPanel {
 
 
 		//Category label
-		final JLabel lblCategory = new JLabel("Category:");
+		final JLabel lblCategory = new JLabel("<html><body style='width: 50px'>Category:</html>");
 		lblCategory.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblCategory = new GridBagConstraints();
 		gbc_lblCategory.anchor = GridBagConstraints.EAST;
@@ -324,7 +327,7 @@ public class EventTab extends JPanel {
 		formPanel.add(categoryComboBox, gbc_categoryComboBox);
 
 
-		lblType = new JLabel("Type:");
+		lblType = new JLabel("<html><body style='width: 50px'>Type:</html>");
 		lblType.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblType = new GridBagConstraints();
 		gbc_lblType.anchor = GridBagConstraints.EAST;
@@ -333,32 +336,32 @@ public class EventTab extends JPanel {
 		gbc_lblType.gridy = 3;
 		formPanel.add(lblType, gbc_lblType);
 
-		panel_1 = new JPanel();
-		panel_1.setBackground(Color.WHITE);
-		final GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.gridwidth = 3;
-		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
-		gbc_panel_1.fill = GridBagConstraints.BOTH;
-		gbc_panel_1.gridx = 1;
-		gbc_panel_1.gridy = 3;
-		formPanel.add(panel_1, gbc_panel_1);
+		rdbtnPanel = new JPanel();
+		rdbtnPanel.setBackground(Color.WHITE);
+		final GridBagConstraints gbc_rdbtnPanel = new GridBagConstraints();
+		gbc_rdbtnPanel.gridwidth = 3;
+		gbc_rdbtnPanel.insets = new Insets(0, 0, 5, 0);
+		gbc_rdbtnPanel.fill = GridBagConstraints.BOTH;
+		gbc_rdbtnPanel.gridx = 1;
+		gbc_rdbtnPanel.gridy = 3;
+		formPanel.add(rdbtnPanel, gbc_rdbtnPanel);
 
 		rdbtnPersonal = new JRadioButton("Personal");
 		rdbtnPersonal.setBackground(Color.WHITE);
 		buttonGroup.add(rdbtnPersonal);
-		panel_1.add(rdbtnPersonal);
+		rdbtnPanel.add(rdbtnPersonal);
 
 		rdbtnTeam = new JRadioButton("Team");
 		rdbtnTeam.setBackground(Color.WHITE);
 		buttonGroup.add(rdbtnTeam);
-		panel_1.add(rdbtnTeam);
+		rdbtnPanel.add(rdbtnTeam);
 
 		rdbtnTeam.setSelected(true);
 
 		updateCategoryList();
 
 		//Date label
-		final JLabel lblDate_1 = new JLabel("<html><font>" + "Start Date" + "</font>" 
+		final JLabel lblDate_1 = new JLabel("<html><body style='width: 50px'><font>" + "Start Date" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblDate_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -373,7 +376,7 @@ public class EventTab extends JPanel {
 		formPanel.add(lblDate_1, gbc_lblDate_1);
 
 		//Time label
-		final JLabel lblTime = new JLabel("<html><font>" + "Start Time" + "</font>" 
+		final JLabel lblTime = new JLabel("<html><body style='width: 60px'><font>" + "Start Time" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblTime.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -492,7 +495,7 @@ public class EventTab extends JPanel {
 		//End Date/Time Forms
 
 		//Date label
-		final JLabel lblDate_2 = new JLabel("<html><font>" + "End Date" + "</font>" 
+		final JLabel lblDate_2 = new JLabel("<html><body style='width: 50px'><font>" + "End Date" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblDate_2.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -507,7 +510,7 @@ public class EventTab extends JPanel {
 		formPanel.add(lblDate_2, gbc_lblDate_2);
 
 		//Time2 label
-		final JLabel lblTime2 = new JLabel("<html><font>" + "End Time" + "</font>" 
+		final JLabel lblTime2 = new JLabel("<html><body style='width: 60px'><font>" + "End Time" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblTime2.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -627,7 +630,7 @@ public class EventTab extends JPanel {
 		oldStartTime = new GregorianCalendar();
 
 		//Add Repeat Label
-		lblRepeat = new JLabel("Repetition:");
+		lblRepeat = new JLabel("<html><body style='width: 50px'>Repetition:</html>");
 		lblRepeat.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblRepeat = new GridBagConstraints();
 		gbc_lblRepeat.anchor = GridBagConstraints.EAST;
@@ -639,7 +642,7 @@ public class EventTab extends JPanel {
 		formPanel.add(lblRepeat, gbc_lblRepeat);
 
 		//Add Repeat Checkbox
-		repeatCheckBox = new JCheckBox("Repeats?");
+		repeatCheckBox = new JCheckBox("<html>Repeats?</html>");
 		repeatCheckBox.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_repeatCheckBox = new GridBagConstraints();
 		gbc_repeatCheckBox.gridwidth = 1;
@@ -667,7 +670,7 @@ public class EventTab extends JPanel {
 		});
 
 		//Add Repeat type Label
-		lblRepeatType = new JLabel("Repeat Type");
+		lblRepeatType = new JLabel("<html><body style='width: 60px'>Repeat Type:</html>");
 		lblRepeatType.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblRepeatType = new GridBagConstraints();
 		gbc_lblRepeatType.anchor = GridBagConstraints.EAST;
@@ -707,7 +710,7 @@ public class EventTab extends JPanel {
 
 
 		//Add Repetitions Label
-		lblNumberRepetitions = new JLabel("# of Occurrences:");
+		lblNumberRepetitions = new JLabel("<html><body style='width: 80px'># of Occurrences:</html>");
 		lblNumberRepetitions.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblNumberRepetitions = new GridBagConstraints();
 		gbc_lblNumberRepetitions.anchor = GridBagConstraints.EAST;

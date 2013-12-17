@@ -19,9 +19,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.CalendarView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentView;
 
 /**
-  * @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+ * Week View contains a week pane and 2 gregorian calendar to specify
+ * the start date and end date of the week pane.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
  @SuppressWarnings("serial")
 public class WeekView extends CalendarView {
 
