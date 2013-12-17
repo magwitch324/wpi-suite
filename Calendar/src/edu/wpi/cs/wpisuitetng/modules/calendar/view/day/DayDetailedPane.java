@@ -81,19 +81,23 @@ public class DayDetailedPane extends JPanel {
 		this.addMouseListener(new MouseAdapter(){
 		    public void mouseClicked(MouseEvent e) {
 		    	if(e.getClickCount() > 1){
-		    		int clickSpot = e.getY();
-		    		int interval = clickSpot/48;
+		    		double clickSpot = e.getY() + 2;
+		    		double interval = getSize().height/48.0;
 		    		double blockNum = Math.floor(clickSpot/interval);
 		    		GregorianCalendar time = new GregorianCalendar();
 		    		time.set(Calendar.YEAR, acal.get(Calendar.YEAR));
 		    		time.set(Calendar.MONTH, acal.get(Calendar.MONTH));
 		    		time.set(Calendar.DAY_OF_YEAR, acal.get(Calendar.DAY_OF_YEAR));
-		    		time.set(Calendar.HOUR, 0);
+		    		time.set(Calendar.HOUR_OF_DAY, 0);
 		    		time.set(Calendar.MINUTE, 0);
 		    		time.set(Calendar.SECOND, 0);
 		    		int i;
 		    		for (i = 0; i < blockNum; i++)
 		    			time.add(Calendar.MINUTE, 30);
+		    		
+		    		System.out.println("Creating event at this time: " + clickSpot + " = clickspot - " + blockNum + " = blockNum");
+		    		System.out.println("The AM/PM is: " + time.get(Calendar.AM_PM) + " -- AM is " + Calendar.AM);
+		    		
 		    		GUIEventController.getInstance().createEvent(time.getTime());
 		    	}
 		    }
