@@ -51,6 +51,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropertiesModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentFullViewPanel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.EventViewPanel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.EventViewPanel.Sort_Type;
 
@@ -71,6 +72,7 @@ public class EventFullView extends JPanel{
 	private boolean initialized;
 
 	List<EventViewPanel> eventPanelList = new ArrayList<EventViewPanel>();
+	List<EventViewPanel> permaOrderPanelList;
 	
 	private boolean reverse_sort;
 
@@ -181,6 +183,9 @@ public class EventFullView extends JPanel{
 					eventPanelList.add(new EventViewPanel(event));
 				}
 		}
+		
+		permaOrderPanelList = new ArrayList<EventViewPanel>();
+		permaOrderPanelList.addAll(eventPanelList);
 		//Sorts the list of eventPanelList based on sort type and reverse_sort
 		sort();
 	}
@@ -657,6 +662,8 @@ public class EventFullView extends JPanel{
 	 * Sorts the list with the current sort_mode and reverse if needed
 	 */
 	protected void sort(){
+		eventPanelList.clear();
+		eventPanelList.addAll(permaOrderPanelList);
 		Collections.sort(eventPanelList, new Comparator<EventViewPanel>() {
 			@Override 
 			public int compare(EventViewPanel e1, EventViewPanel e2) {

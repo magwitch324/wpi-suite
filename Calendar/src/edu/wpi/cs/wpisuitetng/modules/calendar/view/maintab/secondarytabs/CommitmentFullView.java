@@ -71,6 +71,7 @@ public class CommitmentFullView extends JPanel{
 	private boolean initialized;
 
 	List<CommitmentFullViewPanel> commitmentPanelList = new ArrayList<CommitmentFullViewPanel>();
+	List<CommitmentFullViewPanel> permaOrderPanelList;
 	
 	private boolean reverse_sort;
 
@@ -180,6 +181,9 @@ public class CommitmentFullView extends JPanel{
 					commitmentPanelList.add(new CommitmentFullViewPanel(commitment));
 				}
 		}
+		
+		permaOrderPanelList = new ArrayList<CommitmentFullViewPanel>();
+		permaOrderPanelList.addAll(commitmentPanelList);
 		//Sorts the list of eventPanelList based on sort type and reverse_sort
 		sort();
 	}
@@ -657,6 +661,8 @@ public class CommitmentFullView extends JPanel{
 	 * Sorts the list with the current sort_mode and reverse if needed
 	 */
 	protected void sort(){
+		commitmentPanelList.clear();
+		commitmentPanelList.addAll(permaOrderPanelList);
 		Collections.sort(commitmentPanelList, new Comparator<CommitmentFullViewPanel>() {
 			@Override 
 			public int compare(CommitmentFullViewPanel c1, CommitmentFullViewPanel c2) {
