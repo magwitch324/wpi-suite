@@ -114,7 +114,7 @@ public class CategoryTab extends JPanel {
 		addListeners();
 		
 		//initialize in "viewing" mode
-		setupViewingView();
+		setupAddView();
 		setBackground(Color.WHITE);
 		initialized = true;
 		applyCalProps();
@@ -255,6 +255,8 @@ public class CategoryTab extends JPanel {
 		viewPanel.add(viewPanelStrut);
 		
 		addEditPanel = new AddEditCategoryPanel();
+		addEditPanel.setMinimumSize(new Dimension(460, 10));
+		addEditPanel.setPreferredSize(new Dimension(460, 10));
 		selectedCategories = new ArrayList<CategoryPanel>();
 
 	}
@@ -367,6 +369,8 @@ public class CategoryTab extends JPanel {
 
 	protected void editCategory(Category category) {
 		addEditPanel = new AddEditCategoryPanel(category);
+		addEditPanel.setMinimumSize(new Dimension(460, 10));
+		addEditPanel.setPreferredSize(new Dimension(460, 10));
 		setupAddView();
 		btnEdit.setEnabled(false);
 		btnDelete.setEnabled(false);
@@ -446,7 +450,7 @@ public class CategoryTab extends JPanel {
 		final GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
@@ -464,10 +468,10 @@ public class CategoryTab extends JPanel {
 		add(addEditPanel, gbc_addEditPanel);
 		
 		//set size of view panel
-		viewPanel.remove(viewPanelStrut);
-		viewPanelStrut = Box.createHorizontalStrut(400);
-		viewPanelStrut.setMaximumSize(new Dimension(400, 0));
-		viewPanel.add(viewPanelStrut);
+//		viewPanel.remove(viewPanelStrut);
+//		viewPanelStrut = Box.createHorizontalStrut(400);
+//		viewPanelStrut.setMaximumSize(new Dimension(400, 0));
+//		viewPanel.add(viewPanelStrut);
 		
 		revalidate();
 		repaint();
@@ -537,10 +541,10 @@ public class CategoryTab extends JPanel {
 		add(viewPanel, gbc_viewPanel);
 
 		//set size of view panel
-		viewPanel.remove(viewPanelStrut);
-		viewPanelStrut = Box.createHorizontalStrut(600);
-		viewPanelStrut.setMaximumSize(new Dimension(600, 0));
-		viewPanel.add(viewPanelStrut);
+//		viewPanel.remove(viewPanelStrut);
+//		viewPanelStrut = Box.createHorizontalStrut(600);
+//		viewPanelStrut.setMaximumSize(new Dimension(600, 0));
+//		viewPanel.add(viewPanelStrut);
 		
 		revalidate();
 		repaint();
