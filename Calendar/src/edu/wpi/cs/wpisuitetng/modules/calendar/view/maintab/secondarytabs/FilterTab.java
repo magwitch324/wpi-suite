@@ -595,6 +595,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			public void actionPerformed(ActionEvent e) {
 				//if(mode != FilterMode.EDITING){
 					mode = FilterMode.EDITING;
+					addOldCatLists();
 					refresh();
 					filterName.setText(aSelectedFilter.getName());
 					editFilter = aSelectedFilter;
@@ -783,11 +784,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 				public void mouseClicked(MouseEvent e) {
 					if (e.getClickCount() > 1 /*&& mode != FilterMode.EDITING*/){
 						mode = FilterMode.EDITING;
+						addOldCatLists();
 						refresh();
 						aSelectedFilter = ((FilterPanel)e.getComponent()).getFilter();
 						editFilter = aSelectedFilter;
-						oldActiveTeamCat = aSelectedFilter.getActiveTeamCategories();
-						oldActivePersonalCat = aSelectedFilter.getActivePersonalCategories();
+						System.out.println(oldActiveTeamCat);
 						//setEditFields();
 						filterName.setText(aSelectedFilter.getName());
 					}
@@ -1096,5 +1097,16 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		for(int i = 0; i < activePersonalCat.getSize(); i++){
 			newPersonalCatList.add(activePersonalCat.getCategory(i).getID());
 		}
+	}
+	
+	private void addOldCatLists(){
+		oldActiveTeamCat = new ArrayList<Integer>();
+		oldActivePersonalCat = new ArrayList<Integer>();
+		for(int i = 0; i < aSelectedFilter.getActiveTeamCategories().size(); i++){
+			oldActiveTeamCat.add(aSelectedFilter.getActiveTeamCategories().get(i));
+		}
+		for(int i = 0; i < aSelectedFilter.getActivePersonalCategories().size(); i++){
+			oldActivePersonalCat.add(aSelectedFilter.getActivePersonalCategories().get(i));
+		};
 	}
 }
