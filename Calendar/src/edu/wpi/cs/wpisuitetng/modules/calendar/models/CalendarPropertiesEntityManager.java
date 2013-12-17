@@ -31,7 +31,7 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
- public class CalPropsEntityManager implements EntityManager<CalendarProps> {
+ public class CalendarPropertiesEntityManager implements EntityManager<CalendarProperties> {
 
 	/** The database */
 	Data db;
@@ -44,7 +44,7 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 	 * 
 	 * @param db a reference to the persistent database
 	 */
-	public CalPropsEntityManager(Data db) {
+	public CalendarPropertiesEntityManager(Data db) {
 		this.db = db; 
 	}
 
@@ -55,8 +55,8 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 	 * (edu.wpi.cs.wpisuitetng.Session, java.lang.String)
 	 */
 	@Override
-	public CalendarProps makeEntity(Session s, String content) throws WPISuiteException {
-		final CalendarProps newCalProps = CalendarProps.fromJson(content);
+	public CalendarProperties makeEntity(Session s, String content) throws WPISuiteException {
+		final CalendarProperties newCalProps = CalendarProperties.fromJson(content);
 		if(!db.save(newCalProps, s.getProject())) {
 			throw new WPISuiteException();
 		}
@@ -76,11 +76,11 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 	 * * @throws NotFoundException
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getEntity(Session, String) */
 	@Override
-	public CalendarProps[] getEntity(Session s, String id) throws NotFoundException {
-		CalendarProps[] calData = null;
+	public CalendarProperties[] getEntity(Session s, String id) throws NotFoundException {
+		CalendarProperties[] calData = null;
 		try {
-			calData = db.retrieve(CalendarProps.class, "id", id, 
-					s.getProject()).toArray(new CalendarProps[0]);
+			calData = db.retrieve(CalendarProperties.class, "id", id, 
+					s.getProject()).toArray(new CalendarProperties[0]);
 		} catch (WPISuiteException e) {
 			e.printStackTrace();
 		}
@@ -102,8 +102,8 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 	 * * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#getAll(Session)
 	 */
 	@Override
-	public CalendarProps[] getAll(Session s) {
-		return db.retrieveAll(new CalendarProps(), s.getProject()).toArray(new CalendarProps[0]);
+	public CalendarProperties[] getAll(Session s) {
+		return db.retrieveAll(new CalendarProperties(), s.getProject()).toArray(new CalendarProperties[0]);
 	}
 
 	/**
@@ -112,7 +112,7 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 	 * @param model the model to be saved
 	 */
 	@Override
-	public void save(Session s, CalendarProps model) {
+	public void save(Session s, CalendarProperties model) {
 		db.save(model, s.getProject());
 	}
 	
@@ -160,7 +160,7 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 	@Override
 	public void deleteAll(Session s) throws WPISuiteException {
 		ensureRole(s, Role.ADMIN);
-		db.deleteAll(new CalendarProps(), s.getProject());
+		db.deleteAll(new CalendarProperties(), s.getProject());
 	}
 	
 	/**
@@ -176,7 +176,7 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#Count() */
 	@Override
 	public int Count() throws WPISuiteException {
-		return db.retrieveAll(new CalendarProps()).size();
+		return db.retrieveAll(new CalendarProperties()).size();
 	}
 
 	/**
@@ -193,21 +193,21 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 	 * @see edu.wpi.cs.wpisuitetng.modules.EntityManager#update(Session, String)
 	 */
 	@Override
-	public CalendarProps update(Session session, String content) throws WPISuiteException {
+	public CalendarProperties update(Session session, String content) throws WPISuiteException {
 		
-		final CalendarProps updatedCalData = CalendarProps.fromJson(content);
+		final CalendarProperties updatedCalData = CalendarProperties.fromJson(content);
 		/*
 		 * Because of the disconnected objects problem in db4o, we can't just save Categorys.
 		 * We have to get the original defect from db4o, copy properties from updatedCategory,
 		 * then save the original Category again.
 		 */
-		final List<Model> oldCalData = db.retrieve(CalendarProps.class, "id", 
+		final List<Model> oldCalData = db.retrieve(CalendarProperties.class, "id", 
 				updatedCalData.getId(), session.getProject());
 		if(oldCalData.size() < 1 || oldCalData.get(0) == null) {
 			throw new BadRequestException("CalendarProps with ID does not exist.");
 		}
 				
-		final CalendarProps existingCalData = (CalendarProps)oldCalData.get(0);
+		final CalendarProperties existingCalData = (CalendarProperties)oldCalData.get(0);
 
 		// copy values to old CalendarProps and fill in our changeset appropriately
 		existingCalData.copyFrom(updatedCalData);

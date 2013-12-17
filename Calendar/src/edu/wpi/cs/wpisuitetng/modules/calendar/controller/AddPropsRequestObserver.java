@@ -9,7 +9,7 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
 import edu.wpi.cs.wpisuitetng.network.RequestObserver;
 import edu.wpi.cs.wpisuitetng.network.models.IRequest;
 import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
@@ -44,7 +44,7 @@ public class AddPropsRequestObserver implements RequestObserver {
 		final ResponseModel response = iReq.getResponse();
 		
 		// Parse the CalendarProps out of the response body
-		final CalendarProps calprops = CalendarProps.fromJson(response.getBody());
+		final CalendarProperties calprops = CalendarProperties.fromJson(response.getBody());
 	}
 
 	/**

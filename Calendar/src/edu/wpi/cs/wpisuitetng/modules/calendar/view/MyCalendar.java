@@ -42,8 +42,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropertiesModel;
 
 
 /**
@@ -361,18 +361,18 @@ public class MyCalendar extends AbCalendar {
 	protected void applyCalProps(){
 
 		//check if the personal cal props exists, if not create it
-		if (CalendarPropsModel.getInstance().getCalendarProps(
+		if (CalendarPropertiesModel.getInstance().getCalendarProps(
 				ConfigManager.getConfig().getProjectName() + "-"
 						+ ConfigManager.getConfig().getUserName() + "-PROPS") == null) {
-			final CalendarProps createdProps = new CalendarProps(ConfigManager
+			final CalendarProperties createdProps = new CalendarProperties(ConfigManager
 					.getConfig().getProjectName()
 					+ "-"
 					+ ConfigManager.getConfig().getUserName() + "-PROPS");
-			CalendarPropsModel.getInstance().addCalendarProps(createdProps);
+			CalendarPropertiesModel.getInstance().addCalendarProps(createdProps);
 		}
 
 
-		calProps = CalendarPropsModel.getInstance().getCalendarProps(
+		calProps = CalendarPropertiesModel.getInstance().getCalendarProps(
 				ConfigManager.getConfig().getProjectName() + "-"
 						+ ConfigManager.getConfig().getUserName() + "-PROPS");
 		//set the comm list to the new data

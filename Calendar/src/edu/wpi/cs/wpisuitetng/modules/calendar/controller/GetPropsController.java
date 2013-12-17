@@ -12,8 +12,8 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropertiesModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import edu.wpi.cs.wpisuitetng.network.Network;
 import edu.wpi.cs.wpisuitetng.network.Request;
@@ -85,15 +85,15 @@ public class GetPropsController implements ActionListener {
 	
 	 * @param calData CalendarProps[]
 	 */
-	public void receivedCalendarProps(CalendarProps[] calData) {
+	public void receivedCalendarProps(CalendarProperties[] calData) {
 		// Empty the local model to eliminate duplications
-		CalendarPropsModel.getInstance().emptyModel();
+		CalendarPropertiesModel.getInstance().emptyModel();
 		System.out.println("Received CalProps");
 		// Make sure the response was not null
 		if (calData != null) {
 			
 			// add the categories to the local model
-			CalendarPropsModel.getInstance().addCalendarProps(calData);
+			CalendarPropertiesModel.getInstance().addCalendarProps(calData);
 			//refreshes calendar GUI
 			GUIEventController.getInstance().applyCalProps();
 		}

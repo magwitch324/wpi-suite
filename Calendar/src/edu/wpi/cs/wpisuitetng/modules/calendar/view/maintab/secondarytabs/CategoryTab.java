@@ -46,8 +46,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropsModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropertiesModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentViewPanel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentFullView.ViewingMode;
@@ -76,7 +76,7 @@ public class CategoryTab extends JPanel {
 	private JTextField textFieldName;
 	private JScrollPane scrollPane;
 	protected List<CategoryPanel> selectedCategories;
-	private CalendarProps calProps;
+	private CalendarProperties calProps;
 	private boolean initialized;
 
 	/**
@@ -523,7 +523,7 @@ public class CategoryTab extends JPanel {
 	 */
 	protected void applyCalProps(){
 
-		calProps = CalendarPropsModel.getInstance().getCalendarProps(
+		calProps = CalendarPropertiesModel.getInstance().getCalendarProps(
 				ConfigManager.getConfig().getProjectName() + "-"
 						+ ConfigManager.getConfig().getUserName() + "-PROPS");
 		if(calProps != null && initialized){

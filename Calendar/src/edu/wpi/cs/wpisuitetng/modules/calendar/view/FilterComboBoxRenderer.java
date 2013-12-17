@@ -71,9 +71,9 @@ public class FilterComboBoxRenderer extends JPanel implements
 			final CategoryList teamCats = GUIEventController.getInstance().getCalendar().getTeamCalData().getCategories();
 			final CategoryList myCats = GUIEventController.getInstance().getCalendar().getMyCalData().getCategories();
 			//gets the drawing area ready
-			for(int c:value.getActiveCategories()){
-				
-			}
+//			for(int c:value.getActiveCategories()){
+//				
+//			}
 			colorImage = new BufferedImage(20, 20, BufferedImage.TYPE_BYTE_INDEXED);
 			final Graphics2D graphics = colorImage.createGraphics();
 
