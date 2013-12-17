@@ -22,8 +22,6 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,15 +48,14 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropertiesModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentViewPanel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentFullView.ViewingMode;
 
 /**
  * Create/edit catergory tab.
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
+@SuppressWarnings("serial")
 public class CategoryTab extends JPanel {
 
 	private final CategoryList teamCategories;
@@ -273,7 +270,8 @@ public class CategoryTab extends JPanel {
 		} else if(rdbtnTeam.isSelected()) {
 			catList.addAll(teamCategories.getCategories());
 		} else {
-			final Category[] bothCatArray = new Category[teamCategories.getSize() + personalCategories.getSize()];
+			final Category[] bothCatArray = 
+					new Category[teamCategories.getSize() + personalCategories.getSize()];
 			catList.addAll(teamCategories.getCategories());
 			catList.addAll(personalCategories.getCategories());
 			for(int i = 0; i < catList.size(); i++)

@@ -58,6 +58,8 @@ import java.awt.Rectangle;
 import java.beans.PropertyChangeListener;
 
 /**
+ * AddEditCategoryPanel is created by clicking the new category button
+ * in the category tab.
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
@@ -154,7 +156,8 @@ public class AddEditCategoryPanel extends JPanel {
 				} else { 
 					if (mode == CategoryMode.EDITING){
 						if (textFieldName.getText().equals(editingCategory.getName())
-								&& colorPickerPanel.getColor().equals(editingCategory.getCategoryColor())){
+								&& colorPickerPanel.getColor().equals(
+										editingCategory.getCategoryColor())){
 							btnSave.setEnabled(false);
 							return;
 						}
@@ -342,7 +345,8 @@ public class AddEditCategoryPanel extends JPanel {
 			} else { 
 				if (mode == CategoryMode.EDITING){
 					if (textFieldName.getText().equals(editingCategory.getName())
-							&& colorPickerPanel.getColor().equals(editingCategory.getCategoryColor())){
+							&& colorPickerPanel.getColor().equals(
+									editingCategory.getCategoryColor())){
 						btnSave.setEnabled(false);
 						return;
 					}

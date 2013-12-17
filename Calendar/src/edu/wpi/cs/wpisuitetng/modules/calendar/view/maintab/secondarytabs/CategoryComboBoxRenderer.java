@@ -22,6 +22,7 @@ import javax.swing.ListCellRenderer;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 
 /**
+ * Renders a category ComboBox used in commitment tab and event tab.
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */

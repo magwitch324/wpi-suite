@@ -377,8 +377,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		//adds the scroll pane containing the categories not in the filter
 		inactiveCatPane = new JScrollPane();
 		inactiveCatPane.setPreferredSize(new Dimension(2, 200));
-		inactiveCatPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		inactiveCatPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		inactiveCatPane.setHorizontalScrollBarPolicy(
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		inactiveCatPane.setVerticalScrollBarPolicy(
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		inactiveCatPane.getVerticalScrollBar().setBackground(CalendarStandard.CalendarYellow);
 		inactiveCatPane.getViewport().setBackground(Color.WHITE);
 		final GridBagConstraints gbc_inactiveFilter = new GridBagConstraints();
@@ -465,7 +467,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	}
 
 	/**
-	 * Adds the button panel to Filter tab for viewing mode. Delete and edit button are disabled by default.
+	 * Adds the button panel to Filter tab for viewing mode.
+	 * Delete and edit button are disabled by default.
 	 * 
 	 */	
 	private void addButtonPanel(){
@@ -892,7 +895,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		else{
 			inactiveTeamCat.add(aSelectedCategory);
 			activeTeamCat.remove(aSelectedCategory.getID());
-		}	
+		}
 	}
 	
 //	private void addCatToFilter(Category aCat, Filter aFilter){
@@ -900,10 +903,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 //	}
 	
 
-	private void populateInactiveCatLists(){		
+	private void populateInactiveCatLists(){
 		final List<Category> catList = new ArrayList<Category>();
 		final CategoryList bothCategories = new CategoryList();
-		final Category[] bothCatArray = new Category[inactiveTeamCat.getSize() + inactivePersonalCat.getSize()];
+		final Category[] bothCatArray = 
+				new Category[inactiveTeamCat.getSize() + inactivePersonalCat.getSize()];
 		catList.addAll(inactiveTeamCat.getCategories());
 		catList.addAll(inactivePersonalCat.getCategories());
 		for(int i = 0; i < catList.size(); i++)
@@ -1006,7 +1010,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		
 		final List<Category> catList = new ArrayList<Category>();
 		final CategoryList bothCategories = new CategoryList();
-		final Category[] bothCatArray = new Category[activeTeamCat.getSize() + activePersonalCat.getSize()];
+		final Category[] bothCatArray = 
+				new Category[activeTeamCat.getSize() + activePersonalCat.getSize()];
 		catList.addAll(activeTeamCat.getCategories());
 		catList.addAll(activePersonalCat.getCategories());
 		for(int i = 0; i < catList.size(); i++)

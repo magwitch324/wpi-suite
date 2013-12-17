@@ -41,7 +41,8 @@ public class GetPropsRequestObserver implements RequestObserver {
 	@Override
 	public void responseSuccess(IRequest iReq) {
 		// Convert the JSON array of CalendarProps to a CalendarProps object array
-		final CalendarProperties[] calData = CalendarProperties.fromJsonArray(iReq.getResponse().getBody());
+		final CalendarProperties[] calData = 
+				CalendarProperties.fromJsonArray(iReq.getResponse().getBody());
 		
 		// Pass these Events to the controller
 		controller.receivedCalendarProps(calData);

@@ -147,9 +147,9 @@ public class EventFullView extends JPanel{
 	private void setEventList() {
 		eventPanelList = new ArrayList<EventViewPanel>(); 
 
-		String searchText = getSearchInput().trim().toLowerCase();
+		final String searchText = getSearchInput().trim().toLowerCase();
 		
-		EventList events = new EventList();
+		final EventList events = new EventList();
 		
 		if (mode == ViewingMode.TEAM || mode == ViewingMode.BOTH) {
 			if(pcalendar.getTeamCalData() != null) {
@@ -169,11 +169,17 @@ public class EventFullView extends JPanel{
 		
 		for(Event event : events.getEvents()) {
 			if (getSearchInput() == "")
-				eventPanelList.add(new EventViewPanel(event));
+				{
+					eventPanelList.add(new EventViewPanel(event));
+				}
 			else if (event.getName().toLowerCase().contains(searchText))
-				eventPanelList.add(new EventViewPanel(event));
+				{
+					eventPanelList.add(new EventViewPanel(event));
+				}
 			else if (event.getDescription().toLowerCase().contains(searchText))
-				eventPanelList.add(new EventViewPanel(event));
+				{
+					eventPanelList.add(new EventViewPanel(event));
+				}
 		}
 		//Sorts the list of eventPanelList based on sort type and reverse_sort
 		sort();
@@ -222,7 +228,8 @@ public class EventFullView extends JPanel{
 		
 		final JPanel datadisplay = getDataDisplay();
 		layout.putConstraint(SpringLayout.NORTH, datadisplay, 0, SpringLayout.NORTH, apanel);
-		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datadisplay, 0, SpringLayout.HORIZONTAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datadisplay, 
+				0, SpringLayout.HORIZONTAL_CENTER, apanel);
 		layout.putConstraint(SpringLayout.WEST, datadisplay, 0, SpringLayout.WEST, apanel);
 		layout.putConstraint(SpringLayout.EAST, datadisplay, 0, SpringLayout.EAST, apanel);
 		apanel.add(datadisplay);
@@ -261,7 +268,7 @@ public class EventFullView extends JPanel{
 		
 		viewSwitchGroup = new ButtonGroup();
 		
-		teamRadioButton = new JRadioButton("View Team Events");
+		teamRadioButton = new JRadioButton("Team");
 		teamRadioButton.setBackground(Color.WHITE);
 		teamRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
@@ -274,7 +281,7 @@ public class EventFullView extends JPanel{
 
 		});
 		
-		personalRadioButton = new JRadioButton("View Personal Events");
+		personalRadioButton = new JRadioButton("Personal");
 		personalRadioButton.setBackground(Color.WHITE);
 		personalRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
@@ -287,7 +294,7 @@ public class EventFullView extends JPanel{
 
 		});
 		
-		bothRadioButton = new JRadioButton("View All Events");
+		bothRadioButton = new JRadioButton("Both");
 		bothRadioButton.setBackground(Color.WHITE);
 		bothRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
@@ -308,22 +315,29 @@ public class EventFullView extends JPanel{
 		viewSwitchGroup.add(teamRadioButton);
 		viewSwitchGroup.add(bothRadioButton);
 		
-		layout.putConstraint(SpringLayout.VERTICAL_CENTER, personalRadioButton, 0, SpringLayout.VERTICAL_CENTER, apanel);
-		layout.putConstraint(SpringLayout.EAST, personalRadioButton, 0, SpringLayout.WEST, teamRadioButton);
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, personalRadioButton,
+				0, SpringLayout.VERTICAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.EAST, personalRadioButton, 
+				0, SpringLayout.WEST, teamRadioButton);
 		
-		layout.putConstraint(SpringLayout.VERTICAL_CENTER, teamRadioButton, 0, SpringLayout.VERTICAL_CENTER, apanel);
-		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, teamRadioButton, 0, SpringLayout.HORIZONTAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, teamRadioButton,
+				0, SpringLayout.VERTICAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, teamRadioButton, 
+				0, SpringLayout.HORIZONTAL_CENTER, apanel);
 		
-		layout.putConstraint(SpringLayout.VERTICAL_CENTER, bothRadioButton, 0, SpringLayout.VERTICAL_CENTER, apanel);
-		layout.putConstraint(SpringLayout.WEST, bothRadioButton, 0, SpringLayout.EAST, teamRadioButton);
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, bothRadioButton,
+				0, SpringLayout.VERTICAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.WEST, bothRadioButton, 
+				0, SpringLayout.EAST, teamRadioButton);
 		
 		// Create search bar
-		JPanel search = new JPanel();
-		SpringLayout searchLayout = new SpringLayout();
+		final JPanel search = new JPanel();
+		final SpringLayout searchLayout = new SpringLayout();
 		search.setLayout(searchLayout);
 		search.setBackground(Color.WHITE);
 		
 		searchInput = new JTextField();
+		searchInput.setBackground(CalendarStandard.CalendarYellow);
 		JLabel searchLabel = new JLabel("Search: ");
 		
 		// Listen for changes in the text
@@ -338,7 +352,7 @@ public class EventFullView extends JPanel{
 			  update();
 		  }
 
-		  public void update() {
+		  private void update() {
 			  updateList();
 		  }
 		});
@@ -347,15 +361,19 @@ public class EventFullView extends JPanel{
 		search.add(searchInput);
 
 		searchLayout.putConstraint(SpringLayout.WEST, searchLabel, 0, SpringLayout.WEST, search);
-		searchLayout.putConstraint(SpringLayout.VERTICAL_CENTER, searchLabel, 0, SpringLayout.VERTICAL_CENTER, search);
+		searchLayout.putConstraint(SpringLayout.VERTICAL_CENTER, searchLabel,
+				0, SpringLayout.VERTICAL_CENTER, search);
 		
-		searchLayout.putConstraint(SpringLayout.WEST, searchInput, 10, SpringLayout.EAST, searchLabel);
-		searchLayout.putConstraint(SpringLayout.EAST, searchInput, 0, SpringLayout.EAST, search);
-		searchLayout.putConstraint(SpringLayout.VERTICAL_CENTER, searchInput, 0, SpringLayout.VERTICAL_CENTER, search);
+		searchLayout.putConstraint(SpringLayout.WEST, searchInput, 
+				10, SpringLayout.EAST, searchLabel);
+		searchLayout.putConstraint(SpringLayout.EAST, searchInput, 
+				0, SpringLayout.EAST, search);
+		searchLayout.putConstraint(SpringLayout.VERTICAL_CENTER, searchInput,
+				0, SpringLayout.VERTICAL_CENTER, search);
 		
 		apanel.add(search);
 		
-		layout.putConstraint(SpringLayout.WEST, search, 20, SpringLayout.EAST, bothRadioButton);
+		layout.putConstraint(SpringLayout.WEST, search, 50, SpringLayout.EAST, bothRadioButton);
 		layout.putConstraint(SpringLayout.EAST, search, -10, SpringLayout.EAST, apanel);
 		layout.putConstraint(SpringLayout.NORTH, search, 0, SpringLayout.NORTH, apanel);
 		layout.putConstraint(SpringLayout.SOUTH, search, 0, SpringLayout.SOUTH, apanel);
@@ -402,29 +420,35 @@ public class EventFullView extends JPanel{
 					try {
 						final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
 						jName.setIcon(new ImageIcon(img));
-						jName.setText("<html><font color='white'><b>" + "Name" + "</b></font></html>");
+						jName.setText("<html><font color='white'><b>" + "Name" 
+						+ "</b></font></html>");
 					} 
 					catch (IOException ex) {}
 					catch(IllegalArgumentException ex){
-						jName.setText("<html><font color='white'><b>" + "Name ^" + "</b></font></html>");
+						jName.setText("<html><font color='white'><b>" + "Name ^" 
+					+ "</b></font></html>");
 					}
 				}
 				else{
 					try {
-						final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+						final Image img = ImageIO.read(getClass().getResource(
+								"DownArrow_Icon.png"));
 						jName.setIcon(new ImageIcon(img));
-						jName.setText("<html><font color='white'><b>" + "Name" + "</b></font></html>");
+						jName.setText("<html><font color='white'><b>" 
+						+ "Name" + "</b></font></html>");
 					} 
 					catch (IOException ex) {}
 					catch(IllegalArgumentException ex){
-						jName.setText("<html><font color='white'><b>" + "Name v" + "</b></font></html>");
+						jName.setText("<html><font color='white'><b>" 
+					+ "Name v" + "</b></font></html>");
 					}
 				}
 				sort();
 			}
 		});
 		
-		jStartDate = new JButton("<html><font color='white'><b>" + "Start Date" + "</b></font></html>");
+		jStartDate = new JButton("<html><font color='white'><b>" 
+		+ "Start Date" + "</b></font></html>");
 		jStartDate.setBackground(CalendarStandard.CalendarRed);
 		jStartDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
@@ -445,22 +469,27 @@ public class EventFullView extends JPanel{
 					try {
 						final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
 						jStartDate.setIcon(new ImageIcon(img));
-						jStartDate.setText("<html><font color='white'><b>" + "Start Date" + "</b></font></html>");
+						jStartDate.setText("<html><font color='white'><b>"
+						+ "Start Date" + "</b></font></html>");
 					} 
 					catch (IOException ex) {}
 					catch(IllegalArgumentException ex){
-						jStartDate.setText("<html><font color='white'><b>" + "Start Date ^" + "</b></font></html>");
+						jStartDate.setText("<html><font color='white'><b>"
+					+ "Start Date ^" + "</b></font></html>");
 					}
 				}
 				else{
 					try {
-						final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+						final Image img = ImageIO.read(getClass().getResource(
+								"DownArrow_Icon.png"));
 						jStartDate.setIcon(new ImageIcon(img));
-						jStartDate.setText("<html><font color='white'><b>" + "Start Date" + "</b></font></html>");
+						jStartDate.setText("<html><font color='white'><b>" 
+						+ "Start Date" + "</b></font></html>");
 					} 
 					catch (IOException ex) {}
 					catch(IllegalArgumentException ex){
-						jStartDate.setText("<html><font color='white'><b>" + "Start Date v" + "</b></font></html>");
+						jStartDate.setText("<html><font color='white'><b>"
+					+ "Start Date v" + "</b></font></html>");
 					}
 				}
 				sort();
@@ -489,29 +518,35 @@ public class EventFullView extends JPanel{
 					try {
 						final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
 						jEndDate.setIcon(new ImageIcon(img));
-						jEndDate.setText("<html><font color='white'><b>" + "End Date" + "</b></font></html>");
+						jEndDate.setText("<html><font color='white'><b>"
+						+ "End Date" + "</b></font></html>");
 					} 
 					catch (IOException ex) {}
 					catch(IllegalArgumentException ex){
-						jEndDate.setText("<html><font color='white'><b>" + "End Date ^" + "</b></font></html>");
+						jEndDate.setText("<html><font color='white'><b>"
+					+ "End Date ^" + "</b></font></html>");
 					}
 				}
 				else{
 					try {
-						final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+						final Image img = ImageIO.read(getClass().getResource(
+								"DownArrow_Icon.png"));
 						jEndDate.setIcon(new ImageIcon(img));
-						jEndDate.setText("<html><font color='white'><b>" + "End Date" + "</b></font></html>");
+						jEndDate.setText("<html><font color='white'><b>"
+						+ "End Date" + "</b></font></html>");
 					} 
 					catch (IOException ex) {}
 					catch(IllegalArgumentException ex){
-						jEndDate.setText("<html><font color='white'><b>" + "End Date v" + "</b></font></html>");
+						jEndDate.setText("<html><font color='white'><b>"
+					+ "End Date v" + "</b></font></html>");
 					}
 				}
 				sort();
 			}
 		});
 		
-		jDescription = new JButton("<html><font color='white'><b>" + "Description" + "</b></font></html>");
+		jDescription = new JButton("<html><font color='white'><b>"
+		+ "Description" + "</b></font></html>");
 		jDescription.setBackground(CalendarStandard.CalendarRed);
 		jDescription.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
@@ -532,22 +567,27 @@ public class EventFullView extends JPanel{
 					try {
 						final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
 						jDescription.setIcon(new ImageIcon(img));
-						jDescription.setText("<html><font color='white'><b>" + "Description" + "</b></font></html>");
+						jDescription.setText("<html><font color='white'><b>" 
+						+ "Description" + "</b></font></html>");
 					} 
 					catch (IOException ex) {}
 					catch(IllegalArgumentException ex){
-						jDescription.setText("<html><font color='white'><b>" + "Description ^" + "</b></font></html>");
+						jDescription.setText("<html><font color='white'><b>"
+					+ "Description ^" + "</b></font></html>");
 					}
 				}
 				else{
 					try {
-						final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+						final Image img = ImageIO.read(getClass().getResource(
+								"DownArrow_Icon.png"));
 						jDescription.setIcon(new ImageIcon(img));
-						jDescription.setText("<html><font color='white'><b>" + "Description" + "</b></font></html>");
+						jDescription.setText("<html><font color='white'><b>"
+						+ "Description" + "</b></font></html>");
 					} 
 					catch (IOException ex) {}
 					catch(IllegalArgumentException ex){
-						jDescription.setText("<html><font color='white'><b>" + "Description v" + "</b></font></html>");
+						jDescription.setText("<html><font color='white'><b>"
+					+ "Description v" + "</b></font></html>");
 					}
 				}
 				sort();
@@ -587,7 +627,9 @@ public class EventFullView extends JPanel{
 	 */
 	public void applyCalProps(){
 
-		calProps = CalendarPropertiesModel.getInstance().getCalendarProps( ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName() + "-PROPS");
+		calProps = CalendarPropertiesModel.getInstance().getCalendarProps( 
+				ConfigManager.getConfig().getProjectName() + 
+				"-" + ConfigManager.getConfig().getUserName() + "-PROPS");
 		
 		if(initialized && calProps != null){
 			mode =  ViewingMode.values()[calProps.getEventViewMode()];

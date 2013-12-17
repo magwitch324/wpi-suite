@@ -23,9 +23,10 @@ import javax.swing.SpringLayout;
 
 
 /**
-  * @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+ * Detailed day is the basic display element for DayPane and WeekPane.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
  @SuppressWarnings("serial")
 public class DetailedDay extends JPanel {
 	

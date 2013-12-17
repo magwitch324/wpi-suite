@@ -119,4 +119,8 @@ public class YearView extends CalendarView {
 	    revalidate();
 	    repaint();
 	}
+	
+	public String getCommRangeText(){
+		return "Show all open commitments for year";
+	}
 }

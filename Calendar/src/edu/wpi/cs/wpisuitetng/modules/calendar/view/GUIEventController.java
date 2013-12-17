@@ -58,6 +58,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	private FilterTab manageFiltersTab;
 	private boolean filtersTabOpen = false;
 	private boolean categoriesTabOpen = false;
+	private int lastTab = 0;
 
 	
 	/**
@@ -183,32 +184,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	}
 
 	/**
-	 * Method removeCommTab.
-	 * @param commTab CommitmentTab
-	 * @param goTo int
-	 */
-	public void removeCommTab(CommitmentTab commTab, int goTo)
-	{
-
-			main.remove(commTab);
-			switch(goTo){
-				case 0 : main.setSelectedComponent(myCalendar);
-						break;
-				case 1 : main.setSelectedComponent(eventFullView);
-						break;
-				case 2 : main.setSelectedComponent(commitFullView);
-						break;
-			}
-	}
-
-	/**
 	 * Method createCommitment.
 	 */
 	public void createCommitment() {
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 1){
-			openedFrom = 0;
-		}
+		lastTab = openedFrom;
 		final CommitmentTab newCommit = new CommitmentTab(openedFrom);
 //		final CommitmentTab2 newCommit2 = new CommitmentTab2(openedFrom);
 		try {
@@ -234,9 +214,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 */
 	public void editCommitment(Commitment comm) {
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 1){
-			openedFrom = 0;
-		}
+		lastTab = openedFrom;
 		final CommitmentTab editCommit = new CommitmentTab(comm, openedFrom);
 		try {
 			final Image img = ImageIO.read(getClass().getResource("EditCommitment_Icon.png"));
@@ -257,9 +235,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 */
 	public void createEvent() {
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 1){
-			openedFrom = 0;
-		}
+		lastTab = openedFrom;
 		final EventTab newEvent = new EventTab(openedFrom);
 		try {
 			final Image img = ImageIO.read(getClass().getResource("NewEvent_Icon.png"));
@@ -275,9 +251,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	
 	public void createEvent(Date inputTime) {
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 1){
-			openedFrom = 0;
-		}
+		lastTab = openedFrom;
 		final EventTab newEvent = new EventTab(openedFrom, inputTime);
 		try {
 			final Image img = ImageIO.read(getClass().getResource("NewEvent_Icon.png"));
@@ -299,9 +273,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 */
 	public void editEvent(Event event) {
 		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 1){
-			openedFrom = 0;
-		}
+		lastTab = openedFrom;
 		final EventTab editEvent;
 		editEvent = new EventTab(event, openedFrom);
 		try {
@@ -327,9 +299,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 		}
 		else{
 			int openedFrom = main.getSelectedIndex();
-			if (openedFrom > 1){
-				openedFrom = 0;
-			}
+			lastTab = openedFrom;
 			manageCategoriesTab = new CategoryTab();
 			try {
 				final Image img = ImageIO.read(getClass().getResource("ManageCategory_Icon.png"));
@@ -341,7 +311,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 			main.invalidate(); //force the tabbedpane to redraw.
 			main.repaint();
 			categoriesTabOpen = true;
-			main.setSelectedComponent(manageCategoriesTab);	
+			main.setSelectedComponent(manageCategoriesTab);
 		}
 		
 		
@@ -359,9 +329,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 		}
 		else{
 			int openedFrom = main.getSelectedIndex();
-			if (openedFrom > 1){
-				openedFrom = 0;
-			}
+			lastTab = openedFrom;
 			manageFiltersTab = new FilterTab(openedFrom);
 			try {
 				final Image img = ImageIO.read(getClass().getResource("ManageFilter_Icon.png"));
@@ -426,17 +394,16 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 * @param goTo int
 	 */
 	public void removeEventTab(EventTab eventTab, int goTo) {
-		main.remove(eventTab);
-		switch(goTo){
-		case 0: main.setSelectedComponent(myCalendar);
-		break;
-		case 1: main.setSelectedComponent(eventFullView);
-		break;
-		case 2: main.setSelectedComponent(commitFullView);
-		break;
-		}
-		
-		
+		main.remove(eventTab);		
+	}
+	
+	/**
+	 * Method removeCommTab.
+	 * @param commTab CommitmentTab
+	 * @param goTo int
+	 */
+	public void removeCommTab(CommitmentTab commTab, int goTo) {
+			main.remove(commTab);
 	}
 	
 	/**
@@ -482,6 +449,19 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 			filtersTabOpen = false;
 		}
 		
+	}
+
+	public void setLastTab() {
+		switch(lastTab){
+		case 0: main.setSelectedComponent(myCalendar);
+		break;
+		case 1: main.setSelectedComponent(eventFullView);
+		break;
+		case 2: main.setSelectedComponent(commitFullView);
+		break;
+		default: main.setSelectedComponent(myCalendar);
+		break;
+		}
 	}
 	
 	

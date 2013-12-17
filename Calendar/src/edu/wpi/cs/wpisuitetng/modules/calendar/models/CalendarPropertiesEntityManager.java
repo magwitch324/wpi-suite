@@ -103,7 +103,8 @@ import edu.wpi.cs.wpisuitetng.modules.core.models.User;
 	 */
 	@Override
 	public CalendarProperties[] getAll(Session s) {
-		return db.retrieveAll(new CalendarProperties(), s.getProject()).toArray(new CalendarProperties[0]);
+		return db.retrieveAll(new CalendarProperties(),
+				s.getProject()).toArray(new CalendarProperties[0]);
 	}
 
 	/**

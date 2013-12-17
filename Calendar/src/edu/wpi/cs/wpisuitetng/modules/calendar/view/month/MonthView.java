@@ -119,5 +119,9 @@ public class MonthView extends CalendarView {
 	    revalidate();
 	    repaint();
 	}
+	
+	public String getCommRangeText(){
+		return "Show all open commitments for month";
+	}
 
 }
