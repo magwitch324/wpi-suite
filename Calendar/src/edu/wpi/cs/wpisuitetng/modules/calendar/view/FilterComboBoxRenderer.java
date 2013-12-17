@@ -37,14 +37,14 @@ public class FilterComboBoxRenderer extends JPanel implements
 
 	private BufferedImage colorImage;
 	private ImageIcon colorIcon;
-	private JLabel labelItem = new JLabel();
+	private final JLabel labelItem = new JLabel();
 	
 	/**
 	 * Constructor for CategoryComboBoxRenderer.
 	 */
 	public FilterComboBoxRenderer(){
 		setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
+		final GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 0;
          
@@ -68,12 +68,12 @@ public class FilterComboBoxRenderer extends JPanel implements
 	public Component getListCellRendererComponent(JList<? extends Filter> list,
 			Filter value, int index, boolean isSelected, boolean cellHasFocus) {
 		if(value != null){
-			CategoryList teamCats = GUIEventController.getInstance().getCalendar().getTeamCalData().getCategories();
-			CategoryList myCats = GUIEventController.getInstance().getCalendar().getMyCalData().getCategories();
+			final CategoryList teamCats = GUIEventController.getInstance().getCalendar().getTeamCalData().getCategories();
+			final CategoryList myCats = GUIEventController.getInstance().getCalendar().getMyCalData().getCategories();
 			//gets the drawing area ready
-			for(int c:value.getActiveCategories()){
-				
-			}
+//			for(int c:value.getActiveCategories()){
+//				
+//			}
 			colorImage = new BufferedImage(20, 20, BufferedImage.TYPE_BYTE_INDEXED);
 			final Graphics2D graphics = colorImage.createGraphics();
 

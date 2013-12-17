@@ -47,8 +47,8 @@ public class CategoryPanel extends JPanel {
 	 */
 	public CategoryPanel() {
 		setPreferredSize(new Dimension(80, 50));
-		setMaximumSize(new Dimension(80,50));
-		setMinimumSize(new Dimension(80,50));
+		setMaximumSize(new Dimension(80, 50));
+		setMinimumSize(new Dimension(80, 50));
 		setBackground(CalendarStandard.CalendarYellow);
 		final Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 		setBorder(loweredbevel);
@@ -137,9 +137,13 @@ public class CategoryPanel extends JPanel {
 		// TODO Auto-generated method stub
 		selected = b;
 		if(b)
-			setBackground(CalendarStandard.HeatMapRed);
+			{
+				setBackground(CalendarStandard.HeatMapRed);
+			}
 		else
-			setBackground(CalendarStandard.CalendarYellow);
+			{
+				setBackground(CalendarStandard.CalendarYellow);
+			}
 		
 	}
 

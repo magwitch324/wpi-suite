@@ -20,7 +20,7 @@ import edu.wpi.cs.wpisuitetng.modules.AbstractModel;
   * @author CS Anonymous
   * @version $Revision: 1.0 $
   */
-public class CalendarProps extends AbstractModel {
+public class CalendarProperties extends AbstractModel {
 
 	/** the ID of the CalendarProps */
 	private String id;
@@ -31,11 +31,12 @@ public class CalendarProps extends AbstractModel {
 	private int commViewMode;
 	private int eventViewMode;
 	private boolean showCommRange;
+	private int categoryTabView;
 
 	/**
 	 * Constructs a CalendarProps with default characteristics
 	 */
-	public CalendarProps() {
+	public CalendarProperties() {
 		id = "";
 		showMyComm = false;
 		showMyEvent = false;
@@ -44,6 +45,7 @@ public class CalendarProps extends AbstractModel {
 		showCommRange = false;
 		commViewMode = 0;
 		eventViewMode = 0;
+		categoryTabView = 0;
 	}
 
 	/**
@@ -55,7 +57,7 @@ public class CalendarProps extends AbstractModel {
 	
 	 */
 	// need to phase out supplying the ID
-	public CalendarProps(String id) {
+	public CalendarProperties(String id) {
 		this();
 		this.id = id;
 
@@ -171,7 +173,7 @@ public class CalendarProps extends AbstractModel {
 	
 	
 	/**
-	 * getter for setting whether commitpane is showing in range or all
+	 * setter for setting whether commitpane is showing in range or all
 	 * 
 	 * @param showAll
 	 */
@@ -187,6 +189,24 @@ public class CalendarProps extends AbstractModel {
 		return showCommRange;
 	}
 	
+	
+	/**
+	 * setter for setting whether categories tab shows team/personal/both
+	 * 
+	 * @param view
+	 */
+	public void setCategoryTabView(int view){
+		categoryTabView = view;
+	}
+	
+	/**
+	 * getter for whether categories tab shows team/personal/both
+	 * 
+	 */
+	public int getCategoryTabView(){
+		return categoryTabView;
+	}
+	
 	/**
 	 * Returns an instance of calendarProps constructed using the given
 	 * calendarProps encoded as a JSON string.
@@ -195,9 +215,9 @@ public class CalendarProps extends AbstractModel {
 	 *            JSON-encoded calendarProps to deserialize
 	
 	 * @return the calendarProps contained in the given JSON */
-	public static CalendarProps fromJson(String json) {
+	public static CalendarProperties fromJson(String json) {
 		final Gson parser = new Gson();
-		return parser.fromJson(json, CalendarProps.class);
+		return parser.fromJson(json, CalendarProperties.class);
 	}
 
 	/**
@@ -254,7 +274,7 @@ public class CalendarProps extends AbstractModel {
 	 * 
 	 */
 	public String toJSON() {
-		return new Gson().toJson(this, CalendarProps.class);
+		return new Gson().toJson(this, CalendarProperties.class);
 	}
 
 	/**
@@ -265,9 +285,9 @@ public class CalendarProps extends AbstractModel {
 	 *            string containing a JSON-encoded array of Category
 	
 	 * @return an array of calendarProps deserialized from the given JSON string */
-	public static CalendarProps[] fromJsonArray(String json) {
+	public static CalendarProperties[] fromJsonArray(String json) {
 		final Gson parser = new Gson();
-		return parser.fromJson(json, CalendarProps[].class);
+		return parser.fromJson(json, CalendarProperties[].class);
 	}
 
 	/**
@@ -302,7 +322,7 @@ public class CalendarProps extends AbstractModel {
 	 * Method copyFrom.
 	 * @param toCopyFrom CalendarProps
 	 */
-	public void copyFrom(CalendarProps toCopyFrom){
+	public void copyFrom(CalendarProperties toCopyFrom){
 		id = toCopyFrom.getId();
 		showMyComm = toCopyFrom.getMyShowComm();
 		showMyEvent = toCopyFrom.getMyShowEvent();
@@ -311,6 +331,7 @@ public class CalendarProps extends AbstractModel {
 		commViewMode = toCopyFrom.getCommViewMode();
 		eventViewMode = toCopyFrom.getEventViewMode();
 		showCommRange = toCopyFrom.getShowCommRange();
+		categoryTabView = toCopyFrom.getCategoryTabView();
 	}
 
 	

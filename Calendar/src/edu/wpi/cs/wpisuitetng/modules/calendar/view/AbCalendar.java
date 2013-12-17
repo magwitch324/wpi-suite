@@ -34,7 +34,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProps;
+import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.day.DayView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.month.MonthView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.week.WeekView;
@@ -58,7 +58,7 @@ public abstract class AbCalendar extends JPanel {
 	protected boolean initialized;
 	protected CalendarData myCalData;
 	protected CalendarData teamCalData;
-	protected CalendarProps calProps;
+	protected CalendarProperties calProps;
 
 	/**
 	 * @author CS Anonymous
