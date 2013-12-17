@@ -361,6 +361,10 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		editPanel.add(activeFilterlbl, gbc_activeFilterlbl);
 		
 		//Adds the text field for the name of the filter
+		String text = null;
+		if(filterName != null) {
+			text = filterName.getText();
+		}
 		filterName = new JTextField();
 		filterName.setBackground(CalendarStandard.CalendarYellow);
 		final GridBagConstraints gbc_filterName = new GridBagConstraints();
@@ -371,6 +375,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		gbc_filterName.gridy = 0;
 		if (aSelectedFilter != null){
 			filterName.setText(aSelectedFilter.getName());
+		}
+		else if(text != null) {
+			filterName.setText(text);
 		}
 		editPanel.add(filterName, gbc_filterName);
 		
