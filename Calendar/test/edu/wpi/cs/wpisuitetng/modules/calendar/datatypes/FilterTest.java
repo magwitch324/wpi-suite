@@ -12,7 +12,6 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.processing.Filer;
 import org.junit.Before;
 import org.junit.Test;
 
