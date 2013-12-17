@@ -14,7 +14,6 @@ import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -22,8 +21,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
-
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CategoryList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
 
@@ -68,8 +65,10 @@ public class FilterComboBoxRenderer extends JPanel implements
 	public Component getListCellRendererComponent(JList<? extends Filter> list,
 			Filter value, int index, boolean isSelected, boolean cellHasFocus) {
 		if(value != null){
-			final CategoryList teamCats = GUIEventController.getInstance().getCalendar().getTeamCalData().getCategories();
-			final CategoryList myCats = GUIEventController.getInstance().getCalendar().getMyCalData().getCategories();
+			final CategoryList teamCats = 
+					GUIEventController.getInstance().getCalendar().getTeamCalData().getCategories();
+			final CategoryList myCats = 
+					GUIEventController.getInstance().getCalendar().getMyCalData().getCategories();
 			//gets the drawing area ready
 //			for(int c:value.getActiveCategories()){
 //				

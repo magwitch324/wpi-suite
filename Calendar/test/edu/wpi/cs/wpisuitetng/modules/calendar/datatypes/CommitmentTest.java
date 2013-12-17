@@ -11,8 +11,6 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
 import static java.util.Calendar.DECEMBER;
 import static org.junit.Assert.assertEquals;
-
-import java.awt.Color;
 import java.util.Date;
 import java.util.GregorianCalendar;
 

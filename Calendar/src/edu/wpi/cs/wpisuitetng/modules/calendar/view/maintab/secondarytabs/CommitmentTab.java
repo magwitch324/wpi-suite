@@ -50,8 +50,6 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -80,6 +78,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 /**
  * Create/edit commitment tab.
@@ -142,10 +142,6 @@ public class CommitmentTab extends JPanel {
 	private Commitment editingCommitment;
 	private EditingMode mode = EditingMode.ADDING;
 
-
-	private Component glue;
-	private Component glue_1;
-
 	/**
 	 * @author Tianci
 	 */
@@ -173,11 +169,13 @@ public class CommitmentTab extends JPanel {
 	private boolean firstRun;
 	private Category uncategorized;
 	private JLabel colon;
+	private JScrollPane scrollPane;
 
 
 	/**
 	 * Create the panel.
 	 * @param openedFrom int
+	 * @wbp.parser.constructor
 	 */
 	public CommitmentTab(int openedFrom) {
 		this.openedFrom = openedFrom;
@@ -213,17 +211,12 @@ public class CommitmentTab extends JPanel {
 		constraints.fill = GridBagConstraints.BOTH;
 		add(spacePanel2, constraints);
 
-		//glue = Box.createGlue();
-		//glue.setBackground(CalendarStandard.CalendarYellow);
-		//add(glue);
-		//add(formPanel);
-
 		// form uses GridBagLayout w/ two columns
 		final GridBagLayout gbl = new GridBagLayout();
-		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-		gbl.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0};
-		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl.columnWidths = new int[] {0, 0, 0, 0};
+		gbl.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
+		gbl.columnWeights = new double[]{0.0, 1.0};
+		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl.columnWidths = new int[] {0, 0};
 		formPanel.setLayout(gbl);
 
 		addLabels();
@@ -234,9 +227,6 @@ public class CommitmentTab extends JPanel {
 
 
 		initFlag = true;
-
-		//glue_1 = Box.createGlue();
-		//add(glue_1);
 	}
 
 	/**
@@ -340,7 +330,8 @@ public class CommitmentTab extends JPanel {
 	 */
 	private void addLabels() {
 		//Name label
-		final JLabel lblName = new JLabel("<html><body style='width: 50px'><font>" + "Name" + "</font>" 
+		final JLabel lblName = new JLabel("<html><body style='width: 80px'><font>"
+		+ "Name" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -355,7 +346,7 @@ public class CommitmentTab extends JPanel {
 		formPanel.add(lblName, gbc);
 
 		//Description label
-		lblDesc = new JLabel("<html><body style='width: 50px'>Description:</html>");
+		lblDesc = new JLabel("<html><body style='width: 80px'>Description:</html>");
 		lblDesc.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblDesc = new GridBagConstraints();
 		gbc_lblDesc.fill = GridBagConstraints.BOTH;
@@ -363,31 +354,32 @@ public class CommitmentTab extends JPanel {
 		gbc_lblDesc.gridx = 0;
 		gbc_lblDesc.gridy = 1;
 		formPanel.add(lblDesc, gbc_lblDesc);
-
+		
 		//Category label
-		lblCategory = new JLabel("<html><body style='width: 50px'>Category:</html>");
+		lblCategory = new JLabel("<html><body style='width: 80px'>Category:</html>");
 		lblCategory.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblCategory = new GridBagConstraints();
 		gbc_lblCategory.anchor = GridBagConstraints.EAST;
 		gbc_lblCategory.insets = new Insets(0, 0, 5, 5);
 		gbc_lblCategory.gridx = 0;
-		gbc_lblCategory.gridy = 2;
+		gbc_lblCategory.gridy = 4;
 		gbc_lblCategory.weightx = 1;
 		gbc_lblCategory.weighty = 1;
 		formPanel.add(lblCategory, gbc_lblCategory);
 
 		//Type label
-		lblType = new JLabel("<html><body style='width: 50px'>Type:</html>");
+		lblType = new JLabel("<html><body style='width: 80px'>Type:</html>");
 		lblType.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblType = new GridBagConstraints();
 		gbc_lblType.anchor = GridBagConstraints.EAST;
 		gbc_lblType.insets = new Insets(0, 0, 5, 5);
 		gbc_lblType.gridx = 0;
-		gbc_lblType.gridy = 3;
+		gbc_lblType.gridy = 5;
 		formPanel.add(lblType, gbc_lblType);
 
 		//Time label
-		final JLabel lblTime = new JLabel("<html><body style='width: 50px'><font>" + "Time" + "</font>" 
+		final JLabel lblTime = new JLabel("<html><body style='width: 80px'><font>"
+		+ "Time" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblTime.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -396,7 +388,7 @@ public class CommitmentTab extends JPanel {
 		gbc_lblTime.fill = GridBagConstraints.VERTICAL;
 		gbc_lblTime.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTime.gridx = 0;
-		gbc_lblTime.gridy = 4;
+		gbc_lblTime.gridy = 6;
 		gbc_lblTime.weightx = 1;
 		gbc_lblTime.weighty = 1;
 		formPanel.add(lblTime, gbc_lblTime);
@@ -409,13 +401,14 @@ public class CommitmentTab extends JPanel {
 		gbc_lblTimeError.insets = new Insets(0, 0, 5, 0);
 		gbc_lblTimeError.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblTimeError.gridx = 1;
-		gbc_lblTimeError.gridy = 5;
+		gbc_lblTimeError.gridy = 7;
 		gbc_lblTimeError.weightx = 1;
 		gbc_lblTimeError.weighty = 1;
 		formPanel.add(lblTimeError, gbc_lblTimeError);
 
 		//Date label
-		final JLabel lblDate = new JLabel("<html><body style='width: 50px'><font>" + "Date" + "</font>" 
+		final JLabel lblDate = new JLabel("<html><body style='width: 80px'><font>"
+		+ "Date" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblDate.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -424,13 +417,13 @@ public class CommitmentTab extends JPanel {
 		gbc_lblDate.anchor = GridBagConstraints.EAST;
 		gbc_lblDate.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDate.gridx = 0;
-		gbc_lblDate.gridy = 7;
+		gbc_lblDate.gridy = 8;
 		gbc_lblDate.weightx = 1;
 		gbc_lblDate.weighty = 1;
 		formPanel.add(lblDate, gbc_lblDate);
 
 		//Invalid Date label
-		lblDateError = new JLabel("<html><body style='width: 50px'><font color='red'>"
+		lblDateError = new JLabel("<html><body style='width: 80px'><font color='red'>"
 				+ "Please enter a valid date (MM/DD/YYYY).</font></html>");
 		lblDateError.setVisible(false);
 		lblDateError.setHorizontalAlignment(SwingConstants.LEFT);
@@ -438,13 +431,13 @@ public class CommitmentTab extends JPanel {
 		gbc_lblDateError.insets = new Insets(0, 0, 5, 0);
 		gbc_lblDateError.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblDateError.gridx = 1;
-		gbc_lblDateError.gridy = 8;
+		gbc_lblDateError.gridy = 9;
 		gbc_lblDateError.weightx = 1;
 		gbc_lblDateError.weighty = 1;
 		formPanel.add(lblDateError, gbc_lblDateError);
 
 		//Status label
-		lblStatus = new JLabel("<html><body style='width: 50px'>Status:</html>");
+		lblStatus = new JLabel("<html><body style='width: 80px'>Status:</html>");
 		//		lblStatus.setBackground(CalendarStandard.CalendarRed);
 		//		lblStatus.setForeground(Color.WHITE);
 		final GridBagConstraints gbc_lblStatus = new GridBagConstraints();
@@ -452,7 +445,7 @@ public class CommitmentTab extends JPanel {
 		gbc_lblStatus.fill = GridBagConstraints.VERTICAL;
 		gbc_lblStatus.anchor = GridBagConstraints.EAST;
 		gbc_lblStatus.gridx = 0;
-		gbc_lblStatus.gridy = 9;
+		gbc_lblStatus.gridy = 10;
 		gbc_lblStatus.weightx = 1;
 		gbc_lblStatus.weighty = 3;
 		formPanel.add(lblStatus, gbc_lblStatus);
@@ -470,8 +463,7 @@ public class CommitmentTab extends JPanel {
 		nameTextField.setBackground(CalendarStandard.CalendarYellow);
 		nameTextField.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		final GridBagConstraints gbc_nameTextField = new GridBagConstraints();
-		gbc_nameTextField.gridwidth = 3;
-		gbc_nameTextField.insets = new Insets(0, 0, 0, 5);
+		gbc_nameTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_nameTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_nameTextField.weightx = 10;
 		gbc_nameTextField.weighty = 1;
@@ -479,23 +471,29 @@ public class CommitmentTab extends JPanel {
 		gbc_nameTextField.gridy = 0;
 		formPanel.add(nameTextField, gbc_nameTextField);
 
-		//Text area for description
+		//scroll pane for description text field.
+		scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setMinimumSize(new Dimension(23, 60));
+		scrollPane.setPreferredSize(new Dimension(2, 60));
+		final GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 3;
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.insets = new Insets(0, 0, 0, 5);
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 1;
+		formPanel.add(scrollPane, gbc_scrollPane);
+
+		//Text area for description. Inside a scroll pane.
 		descriptionTextField = new JTextArea();
+		scrollPane.setViewportView(descriptionTextField);
 		//				descriptionTextField.setPreferredSize(new Dimension(500,160));
 		//				descPane.setViewportView(descriptionTextField);
 		descriptionTextField.setLineWrap(true);
 		descriptionTextField.setBackground(CalendarStandard.CalendarYellow);
 		descriptionTextField.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-		final GridBagConstraints gbc_descriptionTextField = new GridBagConstraints();
-		gbc_descriptionTextField.gridwidth = 3;
-		gbc_descriptionTextField.fill = GridBagConstraints.BOTH;
-		gbc_descriptionTextField.insets = new Insets(0, 0, 0, 5);
-		gbc_descriptionTextField.weightx = 10;
-		gbc_descriptionTextField.weighty = 5;
-		gbc_descriptionTextField.gridx = 1;
-		gbc_descriptionTextField.gridy = 1;
-		formPanel.add(descriptionTextField, gbc_descriptionTextField);
 
+		
 		//Create category box, add two dummy categories
 		categoryComboBox = new JComboBox<Category>();
 		categoryComboBox.setRenderer(new CategoryComboBoxRenderer());
@@ -505,11 +503,10 @@ public class CommitmentTab extends JPanel {
 
 
 		final GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
+		gbc_categoryComboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_categoryComboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_categoryComboBox.insets = new Insets(0, 0, 0, 5);
-		gbc_categoryComboBox.gridwidth = 3;
 		gbc_categoryComboBox.gridx = 1;
-		gbc_categoryComboBox.gridy = 2;
+		gbc_categoryComboBox.gridy = 4;
 		gbc_categoryComboBox.weightx = 10;
 		gbc_categoryComboBox.weighty = 1;
 		formPanel.add(categoryComboBox, gbc_categoryComboBox);
@@ -518,11 +515,10 @@ public class CommitmentTab extends JPanel {
 		rdbtnPanel = new JPanel();
 		rdbtnPanel.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_rdbtnPanel = new GridBagConstraints();
-		gbc_rdbtnPanel.gridwidth = 3;
-		gbc_rdbtnPanel.insets = new Insets(0, 0, 0, 5);
+		gbc_rdbtnPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_rdbtnPanel.fill = GridBagConstraints.BOTH;
 		gbc_rdbtnPanel.gridx = 1;
-		gbc_rdbtnPanel.gridy = 3;
+		gbc_rdbtnPanel.gridy = 5;
 		formPanel.add(rdbtnPanel, gbc_rdbtnPanel);
 		rdbtnGroup = new ButtonGroup();
 
@@ -541,11 +537,10 @@ public class CommitmentTab extends JPanel {
 		spinnerPanel = new JPanel();
 		spinnerPanel.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_spinnerPanel = new GridBagConstraints();
-		gbc_spinnerPanel.gridwidth = 3;
-		gbc_spinnerPanel.insets = new Insets(0, 0, 0, 5);
+		gbc_spinnerPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_spinnerPanel.fill = GridBagConstraints.BOTH;
 		gbc_spinnerPanel.gridx = 1;
-		gbc_spinnerPanel.gridy = 4;
+		gbc_spinnerPanel.gridy = 6;
 		formPanel.add(spinnerPanel, gbc_spinnerPanel);
 		spinnerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
@@ -588,11 +583,10 @@ public class CommitmentTab extends JPanel {
 		datePicker.putClientProperty("JDatePicker.backgroundOnEditable", Boolean.TRUE);
 		datePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		final GridBagConstraints gbc_jdp = new GridBagConstraints();
-		gbc_jdp.gridwidth = 3;
-		gbc_jdp.insets = new Insets(0, 0, 0, 5);
+		gbc_jdp.insets = new Insets(0, 0, 5, 0);
 		gbc_jdp.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jdp.gridx = 1;
-		gbc_jdp.gridy = 7;
+		gbc_jdp.gridy = 8;
 		gbc_jdp.weightx = 1;
 		gbc_jdp.weighty = 3;
 		formPanel.add(datePicker, gbc_jdp);
@@ -608,15 +602,14 @@ public class CommitmentTab extends JPanel {
 		statusComboBox.setBackground(CalendarStandard.CalendarYellow);
 		statusComboBox.setSelectedIndex(0);
 		final GridBagConstraints gbc_statusComboBox = new GridBagConstraints();
-		gbc_statusComboBox.gridwidth = 3;
-		gbc_statusComboBox.insets = new Insets(0, 0, 0, 5);
+		gbc_statusComboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_statusComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_statusComboBox.gridx = 1;
-		gbc_statusComboBox.gridy = 9;
+		gbc_statusComboBox.gridy = 10;
 		gbc_statusComboBox.weightx = 1;
 		gbc_statusComboBox.weighty = 3;
 		formPanel.add(statusComboBox,  gbc_statusComboBox);
-
+		
 		//updates the list of categories
 		// this is here to avoid a NullPointerException
 		updateCategoryList();
@@ -769,7 +762,7 @@ public class CommitmentTab extends JPanel {
 		final GridBagConstraints gbc_btnPanel = new GridBagConstraints();
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
 		gbc_btnPanel.gridx = 1;
-		gbc_btnPanel.gridy = 10;
+		gbc_btnPanel.gridy = 11;
 
 		/**
 		 *  Initialize Save Commitment button.////////////////
@@ -907,7 +900,8 @@ public class CommitmentTab extends JPanel {
 					try {
 						//System.out.println("Focus lost, arrow actions set to false, commit edit");
 						hourEditor.getTextField().commitEdit();
-						//System.out.println("focus lost commit edit finished, tempHour is " + tempHour + " ");
+						//System.out.println("focus lost commit edit finished,
+						//tempHour is " + tempHour + " ");
 						checkTimeSpinnerStatus(hourSpinner, enumTimeSpinner.HOUR);
 						checkSaveBtnStatus();
 					} catch (ParseException e1) {
@@ -940,15 +934,19 @@ public class CommitmentTab extends JPanel {
 				 boolean AMPMFlag;
 				 final int currentAMPM = cal.get(Calendar.AM_PM);
 
-				//System.out.println("change event, arrow is " + upArrowAction + " " + downArrowAction + " temp is " + tempHour);
+				//System.out.println("change event, arrow is " 
+				 //+ upArrowAction + " " + downArrowAction + " temp is " + tempHour);
 				if ( upArrowAction || downArrowAction) {
 					//System.out.println("Arrow action mode");
 					if (firstRun) {
 						//System.out.println("FIRST RUN!!");
-						if( (Integer.parseInt(hourEditor.getTextField().getText()) == 11 && upArrowAction)
+						if( (Integer.parseInt(hourEditor.getTextField().getText()) == 11 
+								&& upArrowAction)
 								|| 
-								(Integer.parseInt(hourEditor.getTextField().getText()) == 12 && downArrowAction)) {
-							//System.out.println("HourSpinner rollover, " + upArrowAction + " " + downArrowAction +
+								(Integer.parseInt(hourEditor.getTextField().getText()) == 12 
+								&& downArrowAction)) {
+							//System.out.println("HourSpinner rollover, " +
+							//upArrowAction + " " + downArrowAction +
 							//		" text is " + AMPMEditor.getTextField().getText());
 							cal.setTime((Date) AMPMSpinner.getValue());
 							cal.add(Calendar.AM_PM, 1);  
@@ -964,7 +962,8 @@ public class CommitmentTab extends JPanel {
 						}
 						else {
 							lblTimeError.setText(" ");
-							hourEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
+							hourEditor.getTextField().setBackground(
+									CalendarStandard.CalendarYellow);
 							hourErr = false;
 						}
 						firstRun = false;
@@ -976,7 +975,8 @@ public class CommitmentTab extends JPanel {
 					cal.setTime((Date) hourSpinner.getValue());
 					
 					if (cal.get(Calendar.HOUR) == 12 || cal.get(Calendar.HOUR) == 01) {
-						//System.out.println("AMPMflag is true. cal time is " + cal.getTime().toString());
+						//System.out.println("AMPMflag is true. 
+						//cal time is " + cal.getTime().toString());
 						AMPMFlag = true;
 					}
 					else {
@@ -994,14 +994,16 @@ public class CommitmentTab extends JPanel {
 					checkSaveBtnStatus();
 				}
 				else {
-					//System.out.println("tempHour set to text field " + hourEditor.getTextField().getText());
+					//System.out.println("tempHour set to text field "
+					//+ hourEditor.getTextField().getText());
 					tempHour = Integer.parseInt(
 							hourEditor.getTextField().getText().toString());
 					checkTimeSpinnerStatus(hourSpinner, enumTimeSpinner.HOUR);
 					//System.out.println("Cal time is " + cal.getTime().toString());
 					
 					if (cal.get(Calendar.AM_PM) == 1) {
-						//System.out.println("Hourflag is true. cal time is " + cal.getTime().toString());
+						//System.out.println("Hourflag is true. cal time is "
+						//+ cal.getTime().toString());
 						AMPMFlag = true;
 					}
 					else {
@@ -1035,7 +1037,8 @@ public class CommitmentTab extends JPanel {
 						//System.out.println("Focus lost, arrow actions set to false, commit edit");
 
 						minuteEditor.getTextField().commitEdit();
-						//System.out.println("focus lost commit edit finished, tempMINUTE is " + tempMin + " ");
+						//System.out.println("focus lost commit edit finished,
+						//tempMINUTE is " + tempMin + " ");
 						checkTimeSpinnerStatus(minuteSpinner, enumTimeSpinner.MINUTE);
 						checkSaveBtnStatus();
 					} catch (ParseException e1) {
@@ -1070,29 +1073,34 @@ public class CommitmentTab extends JPanel {
 				 int currentHour = cal.get(Calendar.HOUR);
 
 
-				 //System.out.println("change event, arrow is " + upArrowAction + " " + downArrowAction + " temp is " + tempMin);
+				 //System.out.println("change event, arrow is " + upArrowAction 
+				 //+ " " + downArrowAction + " temp is " + tempMin);
 				 if ( upArrowAction || downArrowAction) {
 					 //System.out.println("Arrow action mode");
 					 if (firstRun) {
-						 if(Integer.parseInt(minuteEditor.getTextField().getText()) == 59 && upArrowAction) {
+						 if(Integer.parseInt(minuteEditor.getTextField().getText()) == 59 
+								 && upArrowAction) {
 							 cal.setTime((Date) hourSpinner.getValue());
 							 cal.add(Calendar.HOUR, 1);  
 							 hourSpinner.setValue(cal.getTime());
 						 }
-						 if(Integer.parseInt(minuteEditor.getTextField().getText()) == 00 && downArrowAction) {
+						 if(Integer.parseInt(minuteEditor.getTextField().getText()) == 00 
+								 && downArrowAction) {
 							 cal.setTime((Date) hourSpinner.getValue());
 							 cal.add(Calendar.HOUR, -1);  
 							 hourSpinner.setValue(cal.getTime());
 						 }
 						 if( Integer.parseInt(minuteEditor.getTextField().getText()) > 59) {
-							 minuteEditor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
+							 minuteEditor.getTextField().setBackground(
+									 Color.getHSBColor(3, 0.3f, 1f));
 							 lblTimeError.setText("<html><font color='red'>"
 									 + "Please enter a valid time.</font></html>");
 							 minuteErr = true;
 						 }
 						 else {
 							 lblTimeError.setText(" ");
-							 minuteEditor.getTextField().setBackground(CalendarStandard.CalendarYellow);
+							 minuteEditor.getTextField().setBackground(
+									 CalendarStandard.CalendarYellow);
 							 minuteErr = false;
 						 }
 						 firstRun = false;
@@ -1103,7 +1111,8 @@ public class CommitmentTab extends JPanel {
 				 }
 				 else {
 					 checkSaveBtnStatus();
-					 //System.out.println("tempMin set to text field " + minuteEditor.getTextField().getText());
+					 //System.out.println("tempMin set to text field " 
+					 //+ minuteEditor.getTextField().getText());
 					 tempMin = Integer.parseInt(
 							 minuteEditor.getTextField().getText().toString());
 					 cal.setTime((Date) minuteSpinner.getValue());
@@ -1115,7 +1124,8 @@ public class CommitmentTab extends JPanel {
 					 //System.out.println("Cal time is " + cal.getTime().toString());
 
 					 if (cal.get(Calendar.MINUTE) == 59 || cal.get(Calendar.MINUTE) == 00) {
-						 //System.out.println("Hourflag is true. cal time is " + cal.getTime().toString());
+						 //System.out.println("Hourflag is true. cal time is "
+						 //+ cal.getTime().toString());
 						 hourFlag = true;
 					 }
 					 else {
@@ -1411,14 +1421,16 @@ public class CommitmentTab extends JPanel {
 			 * COMMENT THIS OUT TO NOT ADD A LOT OF COMMITMENTS
 			 * The script to add a bunch of commitments
 			 */
-			//			GregorianCalendar day = new GregorianCalendar(2013, Calendar.JANUARY, 1, 8, 00, 00);
+			//			GregorianCalendar day = new GregorianCalendar(
+			//2013, Calendar.JANUARY, 1, 8, 00, 00);
 			//			GregorianCalendar lastDay = new GregorianCalendar();
 			//			lastDay.setTime(day.getTime());
 			//			lastDay.add(Calendar.YEAR, 1);
 			//			Random rnd = new Random();
 			//			String[] commitments = {"Meeting", "Party", "Shindig", "Meal"};
 			//			String[] names = {"Anthony", "Andrew", "Frank", "Julie", 
-			//			"Pavel", "Sam", "Sean", "Seiichiro", "Thom", "Teresa", "Tim", "Tucker", "Coach Mike"};
+			//			"Pavel", "Sam", "Sean", "Seiichiro", "Thom", 
+			//"Teresa", "Tim", "Tucker", "Coach Mike"};
 			//			while (day.before(lastDay)) {
 			//				CalendarStandard.printcalendar(lastDay);
 			//				GregorianCalendar set = new GregorianCalendar();
@@ -1433,12 +1445,14 @@ public class CommitmentTab extends JPanel {
 			//					String[] people = {names[rnd.nextInt(13)], 
 			//			names[rnd.nextInt(13)], names[rnd.nextInt(13)]};
 			//					Event newEvent = new Event("A long " + 
-			//			commitment, "Event with " + people[0] + ", " + people[1] + ", and " + people[2],
+			//			commitment, "Event with " + people[0] + ", "
+			//+ people[1] + ", and " + people[2],
 			//												set, endTime, people, 0, false);
 			//					calData.addEvent(newEvent);
 			//				} else {
 			//					Commitment newCommitment = 
-			//			new Commitment(commitment + " with " + name, set, "No Description", 0, false);
+			//			new Commitment(commitment + " with " + name, set,
+			//"No Description", 0, false);
 			//					calData.addCommitment(newCommitment);
 			//				}
 			//				
@@ -1516,10 +1530,15 @@ public class CommitmentTab extends JPanel {
 					calDate.set(Calendar.AM_PM, calAMPM.get(Calendar.AM_PM));
 					
 					if (nameTextField.getText().equals(editingCommitment.getName()) 
-							&& descriptionTextField.getText().equals(editingCommitment.getDescription())
-							&& ((Category)categoryComboBox.getSelectedItem()).getID() == editingCommitment.getCategoryID()
-							&& Status.getStatusValue(statusComboBox.getSelectedIndex()).equals(editingCommitment.getStatus())
-							&& calDate.getTime().equals(editingCommitment.getDueDate().getTime())
+							&& descriptionTextField.getText().equals(
+									editingCommitment.getDescription())
+							&& ((Category)categoryComboBox.getSelectedItem()).getID() 
+							== editingCommitment.getCategoryID()
+							&& Status.getStatusValue(
+									statusComboBox.getSelectedIndex()).equals(
+											editingCommitment.getStatus())
+							&& calDate.getTime().equals(
+									editingCommitment.getDueDate().getTime())
 							&& hourErr == false
 							&& minuteErr == false
 							&& ampmErr == false

@@ -145,6 +145,7 @@ public class EventTab extends JPanel {
 	private int endTempHour = 1;
 	private int openedFrom;
 	private Category uncategorized;
+	private GridBagConstraints constraints_1;
 
 
 
@@ -205,12 +206,16 @@ public class EventTab extends JPanel {
 		constraints.weighty = 1;
 		constraints.fill = GridBagConstraints.BOTH;
 		add(spacePanel1, constraints);
-		constraints = new GridBagConstraints();
-		constraints.weightx = 2;
-		constraints.gridx = 1;
-		constraints.weighty = 1;
-		constraints.fill = GridBagConstraints.BOTH;
-		add(formPanel, constraints);
+
+		constraints_1 = new GridBagConstraints();
+		constraints_1.gridy = 0;
+		constraints_1.weightx = 2;
+		constraints_1.gridx = 1;
+		constraints_1.weighty = 1;
+		constraints_1.fill = GridBagConstraints.BOTH;
+		add(formPanel, constraints_1);
+
+		
 		constraints = new GridBagConstraints();
 		constraints.weightx = 1;
 		constraints.gridx = 2;
@@ -220,14 +225,15 @@ public class EventTab extends JPanel {
 
 		// form uses GridBagLayout w/ two columns
 		final GridBagLayout gbl = new GridBagLayout();
-		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		gbl.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0};
-		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl.columnWidths = new int[] {0, 0, 0, 0};
 		formPanel.setLayout(gbl);
 
 		//Name label
-		final JLabel lblName = new JLabel("<html><body style='width: 50px'><font>" + "Name" + "</font>" 
+		final JLabel lblName = new JLabel("<html><body style='width: 80px'><font>"
+		+ "Name" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -247,7 +253,7 @@ public class EventTab extends JPanel {
 		nameTextField.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		gbc_nameTextField = new GridBagConstraints();
 		gbc_nameTextField.gridwidth = 3;
-		gbc_nameTextField.insets = new Insets(0, 0, 5, 0);
+		gbc_nameTextField.insets = new Insets(5, 0, 5, 0);
 		gbc_nameTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_nameTextField.weightx = 10;
 		gbc_nameTextField.weighty = 1;
@@ -259,7 +265,7 @@ public class EventTab extends JPanel {
 
 
 		//Description label
-		final JLabel lblDesc = new JLabel("<html><body style='width: 50px'>Description:</html>");
+		final JLabel lblDesc = new JLabel("<html><body style='width: 80px'>Description:</html>");
 		lblDesc.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblDesc = new GridBagConstraints();
 		gbc_lblDesc.fill = GridBagConstraints.BOTH;
@@ -281,28 +287,30 @@ public class EventTab extends JPanel {
 		descriptionTextArea.setLineWrap(true);
 		descriptionTextArea.setBackground(CalendarStandard.CalendarYellow);
 		final GridBagConstraints gbc_descriptionTextField = new GridBagConstraints();
+		gbc_descriptionTextField.gridheight = 3;
 		gbc_descriptionTextField.gridwidth = 3;
 		gbc_descriptionTextField.fill = GridBagConstraints.BOTH;
-		gbc_descriptionTextField.insets = new Insets(0, 0, 5, 0);
+		gbc_descriptionTextField.insets = new Insets(0, 0, 0, 5);
 		gbc_descriptionTextField.weightx = 10;
 		gbc_descriptionTextField.weighty = 5;
 		gbc_descriptionTextField.gridx = 1;
 		gbc_descriptionTextField.gridy = 1;
 		gbc.gridwidth = 3;
 		descriptionScrollPane = new JScrollPane(descriptionTextArea);
+		descriptionScrollPane.setMinimumSize(new Dimension(23, 60));
+		descriptionScrollPane.setPreferredSize(new Dimension(10, 60));
 		formPanel.add(descriptionScrollPane, gbc_descriptionTextField);
-		descriptionScrollPane.setMaximumSize(new Dimension(10000000, 10));
 		descriptionScrollPane.getViewport().setMaximumSize(new Dimension(10000000, 10));
 
 
 		//Category label
-		final JLabel lblCategory = new JLabel("<html><body style='width: 50px'>Category:</html>");
+		final JLabel lblCategory = new JLabel("<html><body style='width: 80px'>Category:</html>");
 		lblCategory.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblCategory = new GridBagConstraints();
 		gbc_lblCategory.anchor = GridBagConstraints.EAST;
 		gbc_lblCategory.insets = new Insets(0, 0, 5, 5);
 		gbc_lblCategory.gridx = 0;
-		gbc_lblCategory.gridy = 2;
+		gbc_lblCategory.gridy = 4;
 		gbc_lblCategory.weightx = 1;
 		gbc_lblCategory.weighty = 1;
 		formPanel.add(lblCategory, gbc_lblCategory);
@@ -318,32 +326,32 @@ public class EventTab extends JPanel {
 		final GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
 		gbc_categoryComboBox.gridwidth = 3;
 		gbc_categoryComboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_categoryComboBox.insets = new Insets(0, 0, 5, 0);
+		gbc_categoryComboBox.insets = new Insets(0, 0, 0, 5);
 		gbc_categoryComboBox.gridx = 1;
-		gbc_categoryComboBox.gridy = 2;
+		gbc_categoryComboBox.gridy = 4;
 		gbc_categoryComboBox.weightx = 10;
 		gbc_categoryComboBox.weighty = 1;
 		gbc.gridwidth = 3;
 		formPanel.add(categoryComboBox, gbc_categoryComboBox);
 
 
-		lblType = new JLabel("<html><body style='width: 50px'>Type:</html>");
+		lblType = new JLabel("<html><body style='width: 80px'>Type:</html>");
 		lblType.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblType = new GridBagConstraints();
 		gbc_lblType.anchor = GridBagConstraints.EAST;
 		gbc_lblType.insets = new Insets(0, 0, 5, 5);
 		gbc_lblType.gridx = 0;
-		gbc_lblType.gridy = 3;
+		gbc_lblType.gridy = 5;
 		formPanel.add(lblType, gbc_lblType);
 
 		rdbtnPanel = new JPanel();
 		rdbtnPanel.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_rdbtnPanel = new GridBagConstraints();
 		gbc_rdbtnPanel.gridwidth = 3;
-		gbc_rdbtnPanel.insets = new Insets(0, 0, 5, 0);
+		gbc_rdbtnPanel.insets = new Insets(0, 0, 0, 5);
 		gbc_rdbtnPanel.fill = GridBagConstraints.BOTH;
 		gbc_rdbtnPanel.gridx = 1;
-		gbc_rdbtnPanel.gridy = 3;
+		gbc_rdbtnPanel.gridy = 5;
 		formPanel.add(rdbtnPanel, gbc_rdbtnPanel);
 
 		rdbtnPersonal = new JRadioButton("Personal");
@@ -361,7 +369,8 @@ public class EventTab extends JPanel {
 		updateCategoryList();
 
 		//Date label
-		final JLabel lblDate_1 = new JLabel("<html><body style='width: 50px'><font>" + "Start Date" + "</font>" 
+		final JLabel lblDate_1 = new JLabel("<html><body style='width: 80px'><font>"
+		+ "Start Date" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblDate_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -370,13 +379,14 @@ public class EventTab extends JPanel {
 		gbc_lblDate_1.anchor = GridBagConstraints.EAST;
 		gbc_lblDate_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDate_1.gridx = 0;
-		gbc_lblDate_1.gridy = 4;
+		gbc_lblDate_1.gridy = 6;
 		gbc_lblDate_1.weightx = 1;
 		gbc_lblDate_1.weighty = 1;
 		formPanel.add(lblDate_1, gbc_lblDate_1);
 
 		//Time label
-		final JLabel lblTime = new JLabel("<html><body style='width: 60px'><font>" + "Start Time" + "</font>" 
+		final JLabel lblTime = new JLabel("<html><body style='width: 80px'><font>" 
+		+ "Start Time" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblTime.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -385,7 +395,7 @@ public class EventTab extends JPanel {
 		gbc_lblTime.fill = GridBagConstraints.VERTICAL;
 		gbc_lblTime.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTime.gridx = 2;
-		gbc_lblTime.gridy = 4;
+		gbc_lblTime.gridy = 6;
 		gbc_lblTime.weighty = 1;
 		formPanel.add(lblTime, gbc_lblTime);
 
@@ -431,7 +441,7 @@ public class EventTab extends JPanel {
 		gbc_startspinner.fill = GridBagConstraints.HORIZONTAL;
 		gbc_startspinner.insets = new Insets(0, 0, 5, 0);
 		gbc_startspinner.gridx = 3;
-		gbc_startspinner.gridy = 4;
+		gbc_startspinner.gridy = 6;
 		gbc_startspinner.weightx = 1;
 		gbc_startspinner.weighty = 3;
 		formPanel.add(startSpinnerPanel, gbc_startspinner);
@@ -446,7 +456,7 @@ public class EventTab extends JPanel {
 		gbc_lblTimeError.insets = new Insets(0, 0, 5, 0);
 		gbc_lblTimeError.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblTimeError.gridx = 3;
-		gbc_lblTimeError.gridy = 5;
+		gbc_lblTimeError.gridy = 7;
 		gbc_lblTimeError.weightx = 1;
 		gbc_lblTimeError.weighty = 1;
 		formPanel.add(lblTimeError, gbc_lblTimeError);
@@ -460,7 +470,7 @@ public class EventTab extends JPanel {
 		gbc_lblDateError.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDateError.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblDateError.gridx = 1;
-		gbc_lblDateError.gridy = 5;
+		gbc_lblDateError.gridy = 7;
 		gbc_lblDateError.weightx = 1;
 		gbc_lblDateError.weighty = 1;
 		formPanel.add(lblDateError, gbc_lblDateError);
@@ -475,7 +485,7 @@ public class EventTab extends JPanel {
 		gbc_jdp.insets = new Insets(0, 0, 5, 5);
 		gbc_jdp.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jdp.gridx = 1;
-		gbc_jdp.gridy = 4;
+		gbc_jdp.gridy = 6;
 		gbc_jdp.weightx = 1;
 		gbc_jdp.weighty = 3;
 		formPanel.add(startDatePicker, gbc_jdp);
@@ -495,7 +505,8 @@ public class EventTab extends JPanel {
 		//End Date/Time Forms
 
 		//Date label
-		final JLabel lblDate_2 = new JLabel("<html><body style='width: 50px'><font>" + "End Date" + "</font>" 
+		final JLabel lblDate_2 = new JLabel("<html><body style='width: 80px'><font>" 
+		+ "End Date" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblDate_2.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -504,13 +515,14 @@ public class EventTab extends JPanel {
 		gbc_lblDate_2.anchor = GridBagConstraints.EAST;
 		gbc_lblDate_2.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDate_2.gridx = 0;
-		gbc_lblDate_2.gridy = 6;
+		gbc_lblDate_2.gridy = 8;
 		gbc_lblDate_2.weightx = 1;
 		gbc_lblDate_2.weighty = 1;
 		formPanel.add(lblDate_2, gbc_lblDate_2);
 
 		//Time2 label
-		final JLabel lblTime2 = new JLabel("<html><body style='width: 60px'><font>" + "End Time" + "</font>" 
+		final JLabel lblTime2 = new JLabel("<html><body style='width: 80px'><font>"
+		+ "End Time" + "</font>" 
 				+ "<font color=red>" + "*" + "</font>" 
 				+ "<font>" + ":" + "</font></html>");
 		lblTime2.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -519,7 +531,7 @@ public class EventTab extends JPanel {
 		gbc_lblTime2.fill = GridBagConstraints.VERTICAL;
 		gbc_lblTime2.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTime2.gridx = 2;
-		gbc_lblTime2.gridy = 6;
+		gbc_lblTime2.gridy = 8;
 		gbc_lblTime2.weighty = 1;
 		formPanel.add(lblTime2, gbc_lblTime2);
 
@@ -562,9 +574,9 @@ public class EventTab extends JPanel {
 		endAMPMEditor.getTextField().setFocusLostBehavior(JFormattedTextField.PERSIST);
 		final GridBagConstraints gbc_spinner2 = new GridBagConstraints();
 		gbc_spinner2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_spinner2.insets = new Insets(0, 0, 5, 0);
+		gbc_spinner2.insets = new Insets(0, 0, 0, 5);
 		gbc_spinner2.gridx = 3;
-		gbc_spinner2.gridy = 6;
+		gbc_spinner2.gridy = 8;
 		gbc_spinner2.weightx = 1.0;
 		gbc_spinner2.weighty = 3;
 		formPanel.add(endSpinnerPanel, gbc_spinner2);
@@ -576,7 +588,7 @@ public class EventTab extends JPanel {
 		gbc_lblTimeError2.insets = new Insets(0, 0, 5, 0);
 		gbc_lblTimeError2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblTimeError2.gridx = 3;
-		gbc_lblTimeError2.gridy = 7;
+		gbc_lblTimeError2.gridy = 9;
 		gbc_lblTimeError2.weightx = 1;
 		gbc_lblTimeError2.weighty = 1;
 		formPanel.add(lblTimeError2, gbc_lblTimeError2);
@@ -590,7 +602,7 @@ public class EventTab extends JPanel {
 		gbc_lblDateError2.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDateError2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblDateError2.gridx = 1;
-		gbc_lblDateError2.gridy = 7;
+		gbc_lblDateError2.gridy = 9;
 		gbc_lblDateError2.weightx = 1;
 		gbc_lblDateError2.weighty = 1;
 		formPanel.add(lblDateError2, gbc_lblDateError2);
@@ -599,10 +611,10 @@ public class EventTab extends JPanel {
 		endDatePicker = new JXDatePicker();
 		endDatePicker.getEditor().setBackground(CalendarStandard.CalendarYellow);
 		final GridBagConstraints gbc_jdp2 = new GridBagConstraints();
-		gbc_jdp2.insets = new Insets(0, 0, 5, 5);
+		gbc_jdp2.insets = new Insets(0, 0, 0, 5);
 		gbc_jdp2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jdp2.gridx = 1;
-		gbc_jdp2.gridy = 6;
+		gbc_jdp2.gridy = 8;
 		gbc_jdp2.weightx = 1;
 		gbc_jdp2.weighty = 3;
 		formPanel.add(endDatePicker, gbc_jdp2);
@@ -630,26 +642,26 @@ public class EventTab extends JPanel {
 		oldStartTime = new GregorianCalendar();
 
 		//Add Repeat Label
-		lblRepeat = new JLabel("<html><body style='width: 50px'>Repetition:</html>");
+		lblRepeat = new JLabel("<html><body style='width: 80px'>Repetition:</html>");
 		lblRepeat.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblRepeat = new GridBagConstraints();
 		gbc_lblRepeat.anchor = GridBagConstraints.EAST;
 		gbc_lblRepeat.fill = GridBagConstraints.VERTICAL;
 		gbc_lblRepeat.insets = new Insets(0, 0, 5, 5);
 		gbc_lblRepeat.gridx = 0;
-		gbc_lblRepeat.gridy = 8;
+		gbc_lblRepeat.gridy = 10;
 		gbc_lblRepeat.weighty = 1;
 		formPanel.add(lblRepeat, gbc_lblRepeat);
 
 		//Add Repeat Checkbox
-		repeatCheckBox = new JCheckBox("<html>Repeats?</html>");
+		repeatCheckBox = new JCheckBox("<html><body style='width: 80px'>Repeats?</html>");
 		repeatCheckBox.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_repeatCheckBox = new GridBagConstraints();
 		gbc_repeatCheckBox.gridwidth = 1;
 		gbc_repeatCheckBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_repeatCheckBox.insets = new Insets(0, 0, 5, 0);
+		gbc_repeatCheckBox.insets = new Insets(0, 0, 5, 5);
 		gbc_repeatCheckBox.gridx = 1;
-		gbc_repeatCheckBox.gridy = 8;
+		gbc_repeatCheckBox.gridy = 10;
 		gbc_repeatCheckBox.weightx = 10;
 		gbc_repeatCheckBox.weighty = 1;
 		formPanel.add(repeatCheckBox, gbc_repeatCheckBox);
@@ -670,14 +682,14 @@ public class EventTab extends JPanel {
 		});
 
 		//Add Repeat type Label
-		lblRepeatType = new JLabel("<html><body style='width: 60px'>Repeat Type:</html>");
+		lblRepeatType = new JLabel("<html><body style='width: 80px'>Repeat Type:</html>");
 		lblRepeatType.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblRepeatType = new GridBagConstraints();
 		gbc_lblRepeatType.anchor = GridBagConstraints.EAST;
 		gbc_lblRepeatType.fill = GridBagConstraints.VERTICAL;
 		gbc_lblRepeatType.insets = new Insets(0, 0, 5, 5);
 		gbc_lblRepeatType.gridx = 2;
-		gbc_lblRepeatType.gridy = 8;
+		gbc_lblRepeatType.gridy = 10;
 		gbc_lblRepeatType.weighty = 1;
 		formPanel.add(lblRepeatType, gbc_lblRepeatType);
 
@@ -689,9 +701,9 @@ public class EventTab extends JPanel {
 		final GridBagConstraints gbc_repeatTypeComboBox = new GridBagConstraints();
 		gbc_repeatTypeComboBox.gridwidth = 1;
 		gbc_repeatTypeComboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_repeatTypeComboBox.insets = new Insets(0, 0, 5, 0);
+		gbc_repeatTypeComboBox.insets = new Insets(0, 0, 0, 5);
 		gbc_repeatTypeComboBox.gridx = 3;
-		gbc_repeatTypeComboBox.gridy = 8;
+		gbc_repeatTypeComboBox.gridy = 10;
 		gbc_repeatTypeComboBox.weightx = 10;
 		gbc_repeatTypeComboBox.weighty = 1;
 		formPanel.add(repeatTypeComboBox, gbc_repeatTypeComboBox);
@@ -710,14 +722,15 @@ public class EventTab extends JPanel {
 
 
 		//Add Repetitions Label
-		lblNumberRepetitions = new JLabel("<html><body style='width: 80px'># of Occurrences:</html>");
+		lblNumberRepetitions = new JLabel(
+				"<html><body style='width: 80px'># of Occurrences:</html>");
 		lblNumberRepetitions.setHorizontalAlignment(SwingConstants.RIGHT);
 		final GridBagConstraints gbc_lblNumberRepetitions = new GridBagConstraints();
 		gbc_lblNumberRepetitions.anchor = GridBagConstraints.EAST;
 		gbc_lblNumberRepetitions.fill = GridBagConstraints.VERTICAL;
 		gbc_lblNumberRepetitions.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNumberRepetitions.gridx = 0;
-		gbc_lblNumberRepetitions.gridy = 10;
+		gbc_lblNumberRepetitions.gridy = 12;
 		gbc_lblNumberRepetitions.weighty = 1;
 		formPanel.add(lblNumberRepetitions, gbc_lblNumberRepetitions);
 
@@ -727,9 +740,9 @@ public class EventTab extends JPanel {
 		final GridBagConstraints gbc_repeatAmt = new GridBagConstraints();
 		gbc_repeatAmt.gridwidth = 3;
 		gbc_repeatAmt.fill = GridBagConstraints.HORIZONTAL;
-		gbc_repeatAmt.insets = new Insets(0, 0, 5, 0);
+		gbc_repeatAmt.insets = new Insets(0, 0, 0, 5);
 		gbc_repeatAmt.gridx = 1;
-		gbc_repeatAmt.gridy = 10;
+		gbc_repeatAmt.gridy = 12;
 		gbc_repeatAmt.weightx = 10;
 		gbc_repeatAmt.weighty = 1;
 		formPanel.add(repeatAmt, gbc_repeatAmt);
@@ -757,10 +770,10 @@ public class EventTab extends JPanel {
 		lblRepeatError = new JLabel(" ");
 		lblRepeatError.setHorizontalAlignment(SwingConstants.LEFT);
 		final GridBagConstraints gbc_lblRepeatError = new GridBagConstraints();
-		gbc_lblRepeatError.insets = new Insets(0, 0, 0, 0);
+		gbc_lblRepeatError.insets = new Insets(0, 0, 5, 5);
 		gbc_lblRepeatError.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblRepeatError.gridx = 1;
-		gbc_lblRepeatError.gridy = 9;
+		gbc_lblRepeatError.gridy = 11;
 		gbc_lblRepeatError.weightx = 0;
 		gbc_lblRepeatError.weighty = 0;
 		//lblRepeatError.setMaximumSize(new Dimension(10, 10));
@@ -792,11 +805,11 @@ public class EventTab extends JPanel {
 	
 
 		final GridBagConstraints gbc_btnPanel = new GridBagConstraints();
+		gbc_btnPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_btnPanel.gridwidth = 3;
-		gbc_btnPanel.insets = new Insets(0, 0, 0, 5);
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
 		gbc_btnPanel.gridx = 1;
-		gbc_btnPanel.gridy = 11;
+		gbc_btnPanel.gridy = 13;
 
 		//Add Cancel button
 		try {
@@ -1506,9 +1519,12 @@ public class EventTab extends JPanel {
 	 */
 	protected void checkEndBeforeStart() {
 		if(initFlag){
-			if(getEndDate().getTime().before(getStartDate().getTime()))
+			final GregorianCalendar tmp = new GregorianCalendar();
+			tmp.setTime(getStartDate().getTime());
+			tmp.add(Calendar.MINUTE, 1);
+			if(getEndDate().getTime().before(tmp.getTime()))
 			{
-				setEndDate(getStartDate());
+				setEndDate(tmp);
 			}
 			checkRepeatDuration();
 		}

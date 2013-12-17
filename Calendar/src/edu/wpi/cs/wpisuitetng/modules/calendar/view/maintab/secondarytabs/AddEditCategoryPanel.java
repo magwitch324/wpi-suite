@@ -58,6 +58,8 @@ import java.awt.Rectangle;
 import java.beans.PropertyChangeListener;
 
 /**
+ * AddEditCategoryPanel is created by clicking the new category button
+ * in the category tab.
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
@@ -104,10 +106,10 @@ public class AddEditCategoryPanel extends JPanel {
 		add(horizontalGlue);
 		
 		final JPanel addEditFormPanel = new JPanel();
-		addEditFormPanel.setMinimumSize(new Dimension(400, 10));
+		addEditFormPanel.setMinimumSize(new Dimension(430, 10));
 		addEditFormPanel.setBackground(Color.WHITE);
-		addEditFormPanel.setPreferredSize(new Dimension(400, 10));
-		addEditFormPanel.setMaximumSize(new Dimension(400, 4000));
+		addEditFormPanel.setPreferredSize(new Dimension(430, 10));
+		addEditFormPanel.setMaximumSize(new Dimension(430, 4000));
 		add(addEditFormPanel);
 		final GridBagLayout gbl_addEditFormPanel = new GridBagLayout();
 		gbl_addEditFormPanel.columnWidths = new int[]{0, 0, 0};
@@ -154,7 +156,8 @@ public class AddEditCategoryPanel extends JPanel {
 				} else { 
 					if (mode == CategoryMode.EDITING){
 						if (textFieldName.getText().equals(editingCategory.getName())
-								&& colorPickerPanel.getColor().equals(editingCategory.getCategoryColor())){
+								&& colorPickerPanel.getColor().equals(
+										editingCategory.getCategoryColor())){
 							btnSave.setEnabled(false);
 							return;
 						}
@@ -342,7 +345,8 @@ public class AddEditCategoryPanel extends JPanel {
 			} else { 
 				if (mode == CategoryMode.EDITING){
 					if (textFieldName.getText().equals(editingCategory.getName())
-							&& colorPickerPanel.getColor().equals(editingCategory.getCategoryColor())){
+							&& colorPickerPanel.getColor().equals(
+									editingCategory.getCategoryColor())){
 						btnSave.setEnabled(false);
 						return;
 					}

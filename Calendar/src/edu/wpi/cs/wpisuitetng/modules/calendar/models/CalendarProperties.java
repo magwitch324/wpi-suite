@@ -139,7 +139,7 @@ public class CalendarProperties extends AbstractModel {
 	 * 
 	 * @param showComm
 	 */
-	public void setCommViewMode(int mode){
+	public void setCommitmentViewMode(int mode){
 		commViewMode = mode;
 	}
 	
@@ -147,7 +147,7 @@ public class CalendarProperties extends AbstractModel {
 	 * getter for setting what is selected in all comm view
 	 * 
 	 */
-	public int getCommViewMode(){
+	public int getCommitmentViewMode(){
 		return commViewMode;
 	}
 	
@@ -328,7 +328,7 @@ public class CalendarProperties extends AbstractModel {
 		showMyEvent = toCopyFrom.getMyShowEvent();
 		myTeamBoth = toCopyFrom.getMyTeamBoth();
 		showTeamData = toCopyFrom.getShowTeamData();
-		commViewMode = toCopyFrom.getCommViewMode();
+		commViewMode = toCopyFrom.getCommitmentViewMode();
 		eventViewMode = toCopyFrom.getEventViewMode();
 		showCommRange = toCopyFrom.getShowCommRange();
 		categoryTabView = toCopyFrom.getCategoryTabView();

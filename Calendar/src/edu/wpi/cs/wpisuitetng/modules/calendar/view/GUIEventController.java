@@ -341,7 +341,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 			main.invalidate(); //force the tabbedpane to redraw.
 			main.repaint();
 			categoriesTabOpen = true;
-			main.setSelectedComponent(manageCategoriesTab);	
+			main.setSelectedComponent(manageCategoriesTab);
 		}
 		
 		

@@ -22,8 +22,6 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,15 +48,14 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropertiesModel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentViewPanel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentFullView.ViewingMode;
 
 /**
  * Create/edit catergory tab.
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
+@SuppressWarnings("serial")
 public class CategoryTab extends JPanel {
 
 	private final CategoryList teamCategories;
@@ -114,7 +111,7 @@ public class CategoryTab extends JPanel {
 		addListeners();
 		
 		//initialize in "viewing" mode
-		setupAddView();
+		setupViewingView();
 		setBackground(Color.WHITE);
 		initialized = true;
 		applyCalProps();
@@ -178,10 +175,10 @@ public class CategoryTab extends JPanel {
 		btnNew = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("New_Icon.png"));
-			btnNew = new JButton("New Category", new ImageIcon(img));
+			btnNew = new JButton("New", new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			btnNew.setText("New Category");
+			btnNew.setText("New");
 		}
 		
 		horizontalBox_1.add(btnNew);
@@ -194,10 +191,10 @@ public class CategoryTab extends JPanel {
 		btnEdit = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Edit_Icon.png"));
-			btnEdit = new JButton("Edit Category", new ImageIcon(img));
+			btnEdit = new JButton("Edit", new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			btnEdit.setText("Edit Category");
+			btnEdit.setText("Edit");
 		}
 		btnEdit.setEnabled(false);
 		
@@ -213,10 +210,10 @@ public class CategoryTab extends JPanel {
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
 			final Image newimg = img.getScaledInstance( 30, 30,  java.awt.Image.SCALE_SMOOTH ) ;
-			btnDelete = new JButton("Delete Category", new ImageIcon(newimg));
+			btnDelete = new JButton("Delete", new ImageIcon(newimg));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			btnDelete.setText("Delete Category");
+			btnDelete.setText("Delete");
 		}
 		btnDelete.setEnabled(false);
 		
@@ -273,7 +270,8 @@ public class CategoryTab extends JPanel {
 		} else if(rdbtnTeam.isSelected()) {
 			catList.addAll(teamCategories.getCategories());
 		} else {
-			final Category[] bothCatArray = new Category[teamCategories.getSize() + personalCategories.getSize()];
+			final Category[] bothCatArray = 
+					new Category[teamCategories.getSize() + personalCategories.getSize()];
 			catList.addAll(teamCategories.getCategories());
 			catList.addAll(personalCategories.getCategories());
 			for(int i = 0; i < catList.size(); i++)
