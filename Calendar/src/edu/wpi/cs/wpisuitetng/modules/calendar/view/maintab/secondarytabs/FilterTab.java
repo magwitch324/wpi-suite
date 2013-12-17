@@ -100,8 +100,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	private List<Category> listOfActivePersonalCat;
 	private List<Integer> newTeamCatList;
 	private List<Integer> newPersonalCatList;
-	private CategoryList inactiveTeamCat;
-	private CategoryList inactivePersonalCat;
+	private final CategoryList inactiveTeamCat;
+	private final CategoryList inactivePersonalCat;
 	
 
 
@@ -744,7 +744,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		final List<Integer> activeTeamCatList = null;//newTeamCatList;
 		final List<Integer> activePersonalCatList = null; //newPersonalCatList;
 		
-		Filter newFilter = new Filter(name, activeTeamCatList, activePersonalCatList);
+		final Filter newFilter = new Filter(name, activeTeamCatList, activePersonalCatList);
 		if(mode == FilterMode.ADDING){
 			calData.addFilter(newFilter);
 		}

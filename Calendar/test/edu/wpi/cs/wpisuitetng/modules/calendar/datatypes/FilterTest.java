@@ -21,7 +21,7 @@ import org.junit.Test;
  * @version $Revision: 1.0 $
  */
 
-public class FilterTest {	
+public class FilterTest {
 	private List<Integer> personalCategories1;
 	private List<Integer> personalCategories2;
 	private List<Integer> teamCategories1;
@@ -29,22 +29,22 @@ public class FilterTest {
 
 	@Before
 	public void setUp() {
-		List<Integer> personalCategories1 = new ArrayList<Integer>();
+		final List<Integer> personalCategories1 = new ArrayList<Integer>();
 		personalCategories1.add(1);
 		personalCategories1.add(3);
 		personalCategories1.add(4);
 		
-		List<Integer> personalCategories2 = new ArrayList<Integer>();
+		final List<Integer> personalCategories2 = new ArrayList<Integer>();
 		personalCategories1.add(1);
 		personalCategories1.add(2);
 		personalCategories1.add(5);
 		
-		List<Integer> teamCategories1 = new ArrayList<Integer>();
+		final List<Integer> teamCategories1 = new ArrayList<Integer>();
 		personalCategories1.add(2);
 		personalCategories1.add(5);
 		personalCategories1.add(6);
 		
-		List<Integer> teamCategories2 = new ArrayList<Integer>();
+		final List<Integer> teamCategories2 = new ArrayList<Integer>();
 		personalCategories1.add(3);
 		personalCategories1.add(4);
 		personalCategories1.add(7);
