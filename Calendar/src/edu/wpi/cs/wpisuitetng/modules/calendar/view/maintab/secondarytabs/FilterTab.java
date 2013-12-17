@@ -150,6 +150,12 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		selectedCategories = new ArrayList<CategoryPanel>();
 		inactiveTeamCat = new CategoryList();
 		inactivePersonalCat = new CategoryList();
+		for(Category c:teamCategories.getCategories()){
+			inactiveTeamCat.add(c);
+		}
+		for(Category c:personalCategories.getCategories()){
+			inactivePersonalCat.add(c);
+		} 
 		initFlag = true;
 		}
 	
@@ -423,6 +429,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		addCatBtn.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
 		addCatBtn.setToolTipText("Add Category to Filter");
+		addCatBtn.setEnabled(false);
 		
 		
 		//Remove Category from Filter button
@@ -438,6 +445,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		removeCatBtn.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
 		removeCatBtn.setToolTipText("Remove Category from Filter");
+		removeCatBtn.setEnabled(false);
 		
 		catBtnPanel.add(addCatBtn, BorderLayout.WEST);
 		catBtnPanel.add(removeCatBtn, BorderLayout.EAST);
@@ -628,14 +636,16 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		removeCatBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				removeCatFromFilter();
+				removeCategoryFromFilter();
+				refresh();
 			}
 		});
 		
 		addCatBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				addCatToFilter();
+				addCategoryToFilter();
+				refresh();
 			}
 		});
 		
@@ -852,7 +862,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		selectedCategories.clear();
 	}
 	
-	private void removeCategory(){
+	private void addCategoryToFilter(){
 		if(aSelectedCategory.getIsPersonal()){
 			inactivePersonalCat.remove(aSelectedCategory.getID());
 		}
@@ -861,13 +871,40 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		}
 	}
 	
-	private void populateInactiveCatLists(){
-		for(Category c:teamCategories.getCategories()){
-			inactiveTeamCat.add(c);
+
+	
+	private void removeCategoryFromFilter(){
+//		if (aCat.getIsPersonal()){
+//			for(int i = 0; i < aFilter.getActivePersonalCategories().size(); i++){
+//				int aCatID = aFilter.getActivePersonalCategories().get(i);
+//				if (aCatID == aCat.getID()) {
+//					aFilter.getActivePersonalCategories().remove(aCat.getID());
+//				}
+//			}
+//		}
+//		else{
+//			for(int i = 0; i < aFilter.getActiveTeamCategories().size(); i++){
+//				int aCatID = aFilter.getActiveTeamCategories().get(i);
+//				if (aCatID == aCat.getID()) {
+//					aFilter.getActiveTeamCategories().remove(aCat.getID());
+//				}
+//			}
+		
+		if(aSelectedCategory.getIsPersonal()){
+			inactivePersonalCat.add(aSelectedCategory);
 		}
-		for(Category c:personalCategories.getCategories()){
-			inactivePersonalCat.add(c);
-		} 
+		else{
+			inactiveTeamCat.add(aSelectedCategory);
+		}	
+	}
+	
+//	private void addCatToFilter(Category aCat, Filter aFilter){
+//		aFilter.getActivePersonalCategories().add(aCat.getID());
+//	}
+	
+
+	private void populateInactiveCatLists(){
+		
 		
 		/*if(mode == FilterMode.EDITING){
 			for(int i = 0; i < activeTeamCat.size(); i++){
@@ -940,9 +977,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 					if (e.getClickCount() > 1){
 						mode = FilterMode.EDITING;
 						aSelectedCategory = ((CategoryPanel)e.getComponent()).getCategory();
-						removeCategory();
-						inactiveTeamCat.removeAll();
-						inactivePersonalCat.removeAll();
+						addCategoryToFilter();
 						refresh();
 					}
 					else if (e.getClickCount() == 1){
