@@ -270,6 +270,7 @@ public class EventTab extends JPanel {
 		final GridBagConstraints gbc_lblDesc = new GridBagConstraints();
 		gbc_lblDesc.fill = GridBagConstraints.BOTH;
 		gbc_lblDesc.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDesc.weighty = 5;
 		gbc_lblDesc.gridx = 0;
 		gbc_lblDesc.gridy = 1;
 		formPanel.add(lblDesc, gbc_lblDesc);
