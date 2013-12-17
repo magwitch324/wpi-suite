@@ -733,8 +733,8 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 				"-" + ConfigManager.getConfig().getUserName()); 
 		
 
-		final List<Integer> activeTeamCatList = null;//newTeamCatList;
-		final List<Integer> activePersonalCatList = null; //newPersonalCatList;
+		final List<Integer> activeTeamCatList = newTeamCatList;
+		final List<Integer> activePersonalCatList = newPersonalCatList;
 		
 		Filter newFilter = new Filter(name, activeTeamCatList, activePersonalCatList);
 		if(mode == FilterMode.ADDING){
@@ -889,12 +889,12 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		final CategoryList inactiveTeamCat = teamCategories; 
 		final CategoryList inactivePersonalCat = personalCategories; 
 		
-		/*if(mode == FilterMode.EDITING && !activeTeamCat.isEmpty()){
+		if(mode == FilterMode.EDITING){
 			for(int i = 0; i < activeTeamCat.size(); i++){
 				for(int j = 0; j < inactiveTeamCat.getSize(); j++){
 					if(activeTeamCat.get(i) == inactiveTeamCat.getCategory(j).getID()){
 						inactiveTeamCat.remove(j);
-						//break;
+						break;
 					}
 				}
 			}
@@ -903,11 +903,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 				for(int j = 0; j < inactivePersonalCat.getSize(); j++){
 					if(activePersonalCat.get(i) == inactivePersonalCat.getCategory(j).getID()){
 						inactivePersonalCat.remove(j);
-						//break;
+						break;
 					}
 				}
 			}
-		}*/
+		}
 		
 		final List<Category> catList = new ArrayList<Category>();
 		final CategoryList bothCategories = new CategoryList();
@@ -962,11 +962,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	
 	private void populateActiveCatLists(){
 		
-		if(mode == FilterMode.ADDING || activeTeamCat.isEmpty()){
+		if(mode == FilterMode.ADDING){
 			listOfActiveTeamCat = null;
 			listOfActivePersonalCat = null;
 		}
-		/*else{
+		else{
 			for(int i = 0; i < activeTeamCat.size(); i++){
 				for(int j = 0; j < teamCategories.getSize(); j++)
 					if(activeTeamCat.get(i) == teamCategories.getCategory(j).getID()){
@@ -982,7 +982,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 						break;
 					}
 			}
-		}*/
+		}
 		
 		final List<Category> catList = new ArrayList<Category>();
 		final CategoryList bothCategories = new CategoryList();
