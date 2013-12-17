@@ -226,7 +226,7 @@ public class CategoryTab extends JPanel {
 						teamCategories.remove(catPane.getCategory().getID());
 					}
 				}
-				
+			refreshCategoryListPanel();
 			}
 		});
 		
