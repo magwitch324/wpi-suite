@@ -964,6 +964,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 						selectedCategories.add(comp);
 						comp.setSelected(true);
 						addCatBtn.setEnabled(true);
+						removeCatBtn.setEnabled(false);
 						aSelectedCategory = ((CategoryPanel)e.getComponent()).getCategory();
 					}
 				}
@@ -1066,6 +1067,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 						selectedCategories.add(comp);
 						comp.setSelected(true);
 						removeCatBtn.setEnabled(true);
+						addCatBtn.setEnabled(false);
 						aSelectedCategory = ((CategoryPanel)e.getComponent()).getCategory();
 					}
 				}
