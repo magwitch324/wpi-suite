@@ -261,7 +261,7 @@ public class EventFullView extends JPanel{
 		
 		viewSwitchGroup = new ButtonGroup();
 		
-		teamRadioButton = new JRadioButton("View Team Events");
+		teamRadioButton = new JRadioButton("Team");
 		teamRadioButton.setBackground(Color.WHITE);
 		teamRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
@@ -274,7 +274,7 @@ public class EventFullView extends JPanel{
 
 		});
 		
-		personalRadioButton = new JRadioButton("View Personal Events");
+		personalRadioButton = new JRadioButton("Personal");
 		personalRadioButton.setBackground(Color.WHITE);
 		personalRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
@@ -287,7 +287,7 @@ public class EventFullView extends JPanel{
 
 		});
 		
-		bothRadioButton = new JRadioButton("View All Events");
+		bothRadioButton = new JRadioButton("Both");
 		bothRadioButton.setBackground(Color.WHITE);
 		bothRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
@@ -355,7 +355,7 @@ public class EventFullView extends JPanel{
 		
 		apanel.add(search);
 		
-		layout.putConstraint(SpringLayout.WEST, search, 20, SpringLayout.EAST, bothRadioButton);
+		layout.putConstraint(SpringLayout.WEST, search, 50, SpringLayout.EAST, bothRadioButton);
 		layout.putConstraint(SpringLayout.EAST, search, -10, SpringLayout.EAST, apanel);
 		layout.putConstraint(SpringLayout.NORTH, search, 0, SpringLayout.NORTH, apanel);
 		layout.putConstraint(SpringLayout.SOUTH, search, 0, SpringLayout.SOUTH, apanel);

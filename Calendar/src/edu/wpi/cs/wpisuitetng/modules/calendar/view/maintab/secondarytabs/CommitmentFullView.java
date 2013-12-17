@@ -11,19 +11,16 @@
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -31,7 +28,6 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -39,55 +35,59 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
-import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropertiesModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentViewPanel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentFullViewPanel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentFullViewPanel.Sort_Type;
 
 /**
- * This class is used for creating the commitment View 
- * tab that shows all commitments including those 
+ * This class is used for creating the event View 
+ * tab that shows all events including those 
  * that have been completed.
-/* @author CS Anonymous
+ * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
 public class CommitmentFullView extends JPanel{
 
 	AbCalendar pcalendar;
-	JPanel commitPanel;
+	JPanel commitmentPanel;
 	JScrollPane scrollPane;
-	JPanel header;
 	private CalendarProperties calProps;
 	private boolean initialized;
 
-	List<Commitment> commitmentList = new ArrayList<Commitment>();
-	private int namesort = 0;
-	private int datesort = 0;
-	private int dessort = 0;
-	private int statussort = 0;
-	JButton jName;
-	JButton jDueDate;
-	JButton jDescription;
-	JButton jStatus;
+	List<CommitmentFullViewPanel> commitmentPanelList = new ArrayList<CommitmentFullViewPanel>();
+	
+	private boolean reverse_sort;
 
+	//Button group for sort type
+	JButton jName;
+	JButton jStartDate;
+	JButton jEndDate;
+	JButton jDescription;
+
+	//radio group for display type
 	JRadioButton bothRadioButton;
 	JRadioButton personalRadioButton;
 	JRadioButton teamRadioButton;
 	ButtonGroup viewSwitchGroup;
+	
+	// Search input
+	JTextField searchInput = new JTextField();
 
 	/**
 	 * @author CS Anonymous
@@ -96,102 +96,172 @@ public class CommitmentFullView extends JPanel{
 		PERSONAL, TEAM, BOTH;
 	};
 	ViewingMode mode;
+	
+	Sort_Type sort_mode;	//The current sorting type
+	
 
-	/*Constructor creates main scrolling Panel and 
-	 * sets tcalendar which will grab teams commitments*/
 	/**
-	 * Constructor for CommitmentFullView.
+	 * Constructor creates main scrolling Panel and 
+	 * sets calendar which will grab teams events
 	 * @param personalCalendar AbCalendar
 	 */
 	public CommitmentFullView(AbCalendar personalCalendar) {
+		setLayout(new GridLayout(1, 1));
+		this.setBackground(Color.WHITE);
+		
 		initialized = false;
 		pcalendar = personalCalendar;
 
 		mode = ViewingMode.TEAM;
 
-		commitPanel = new JPanel();
-
-		// Header panel
-		header = new JPanel();
-		header.setBackground(Color.WHITE);
-		header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
-		header.setBorder(new EmptyBorder(5, 5, 5, 5));
-		header.setBorder(new MatteBorder(0, 0, 2, 0, Color.BLACK));
-
-		scrollPane = new JScrollPane(commitPanel, 
-				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		add(scrollPane, BorderLayout.CENTER );
+		commitmentPanel = new JPanel();
+		commitmentPanel.setBackground(Color.WHITE);
+		commitmentPanel.setBorder(new EmptyBorder(5, 5, 10, 5));
+		
+		scrollPane = new JScrollPane(commitmentPanel, 
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		scrollPane.getHorizontalScrollBar().setUnitIncrement(20);
-
+		scrollPane.setViewportView(commitmentPanel);
+		scrollPane.getViewport().setBackground(Color.WHITE);
+		scrollPane.setBackground(Color.WHITE);
+		scrollPane.setForeground(Color.WHITE);
 		// Sets the UPPER RIGHT corner box
 		final JPanel cornerBoxUR = new JPanel();
 		cornerBoxUR.setBackground(Color.WHITE);
-		scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER,
-				cornerBoxUR);
+		scrollPane.setCorner(ScrollPaneConstants.UPPER_RIGHT_CORNER, cornerBoxUR);
+		scrollPane.setColumnHeader(getHeader());
+		
 		add(scrollPane);
 
-		/*spring layout to allow adjustments to size of screen without messing up panels*/
-		final SpringLayout layout = new SpringLayout();
-		setLayout(layout);
-		layout.putConstraint(SpringLayout.WEST, scrollPane, 0, SpringLayout.WEST, this);
-		layout.putConstraint(SpringLayout.EAST, scrollPane, 0, SpringLayout.EAST, this);
-		layout.putConstraint(SpringLayout.NORTH, scrollPane, 0, SpringLayout.NORTH, this);
-		layout.putConstraint(SpringLayout.SOUTH, scrollPane, 0, SpringLayout.SOUTH, this);
-		scrollPane.setViewportView(commitPanel);
-
-		setCommitlist();
+		setCommitmentList();
 		setupPanels();
 		initialized = true;
 		applyCalProps();
 	}
-	/*Sets the calendars commitments to the commitmentList array to populate panel*/
-	private void setCommitlist() {
+	
+	/**
+	 * Sets the calendars events to the eventList array to populate panel
+	 **/
+	private void setCommitmentList() {
+		commitmentPanelList = new ArrayList<CommitmentFullViewPanel>(); 
 
-		if (mode == ViewingMode.TEAM){
-			if(pcalendar.getTeamCalData() != null){
-				commitmentList = pcalendar.getTeamCalData().getCommitments().getCommitments();
+		String searchText = getSearchInput().trim().toLowerCase();
+		
+		CommitmentList commitments = new CommitmentList();
+		
+		if (mode == ViewingMode.TEAM || mode == ViewingMode.BOTH) {
+			if(pcalendar.getTeamCalData() != null) {
+				for (Commitment c : pcalendar.getTeamCalData().getCommitments().getCommitments()) {
+					commitments.add(c);
+				}
 			}
-		} else if (mode == ViewingMode.PERSONAL){
-			if(pcalendar.getMyCalData() != null){
-			commitmentList = pcalendar.getMyCalData().getCommitments().getCommitments();
-			}
-		} else if(pcalendar.getTeamCalData() != null && pcalendar.getMyCalData() != null) { 
-			final CombinedCommitmentList combinedList = new CombinedCommitmentList(
-					new ArrayList<Commitment>(
-							pcalendar.getMyCalData().getCommitments().getCommitments()));
-			final CalendarData teamData = pcalendar.getTeamCalData();
-
-			/*if we are supposed to show team data, 
-			 * we need to put the team commitments into the list in the right order*/
-			for (int i = 0; i < teamData.getCommitments()
-					.getCommitments().size(); i++) {
-				combinedList.add(teamData.getCommitments()
-						.getCommitments().get(i));
-			}
-			commitmentList = combinedList.getCommitments();
 		}
+			
+		if (mode == ViewingMode.PERSONAL || mode == ViewingMode.BOTH) {
+			if(pcalendar.getMyCalData() != null) {
+				for (Commitment c : pcalendar.getMyCalData().getCommitments().getCommitments()) {
+					commitments.add(c);
+				}
+			}
+		}
+		
+		for(Commitment commitment : commitments.getCommitments()) {
+			if (getSearchInput() == "")
+				commitmentPanelList.add(new CommitmentFullViewPanel(commitment));
+			else if (commitment.getName().toLowerCase().contains(searchText))
+				commitmentPanelList.add(new CommitmentFullViewPanel(commitment));
+			else if (commitment.getDescription().toLowerCase().contains(searchText))
+				commitmentPanelList.add(new CommitmentFullViewPanel(commitment));
+		}
+		//Sorts the list of eventPanelList based on sort type and reverse_sort
+		sort();
 	}
 
-	/*commit panel is populated with all events 
+	/** 
+	 * Event panel is populated with all events 
 	 * which are in separate panels that can be scrolled and clicked*/
 	private void setupPanels() {
-		commitPanel.setLayout(new BoxLayout(commitPanel, BoxLayout.Y_AXIS));
-		commitPanel.setBorder(new EmptyBorder(5, 5, 10, 5));
-		commitPanel.setBackground(Color.WHITE);
+		commitmentPanel.removeAll();
+		final SpringLayout layout = new SpringLayout();
+		commitmentPanel.setLayout(layout);
+		CommitmentFullViewPanel last = null;
+		int commitment_height = 0;
+		for(CommitmentFullViewPanel cvp : commitmentPanelList) {
+			if(last == null){
+				layout.putConstraint(SpringLayout.NORTH, cvp, 0, SpringLayout.NORTH, commitmentPanel);
+			}
+			else{
+				layout.putConstraint(SpringLayout.NORTH, cvp, 0, SpringLayout.SOUTH, last);
+			}
+			
+			layout.putConstraint(SpringLayout.WEST, cvp, 0, SpringLayout.WEST, commitmentPanel);
+			layout.putConstraint(SpringLayout.EAST, cvp, 0, SpringLayout.EAST, commitmentPanel);
+			commitmentPanel.add(cvp);
+			commitment_height += cvp.getPreferredSize().height;
+			last = cvp;
+		}
+		commitmentPanel.setPreferredSize(new Dimension(10, commitment_height));
+		scrollPane.revalidate();
+		scrollPane.repaint();
+	}
 
-		header.removeAll();
-
-
-		final JPanel viewSwitcher = new JPanel();
-
-		final SpringLayout switcherLayout = new SpringLayout();
-
-		viewSwitcher.setLayout(switcherLayout);
-		viewSwitcher.setBackground(Color.WHITE);
-
-        teamRadioButton = new JRadioButton("View Team Commitments");
+	/**
+	 * Creates the view port used as the header of the scroll pane
+	 * @return	The view port containing data display information and sort buttons
+	 */
+	private JViewport getHeader(){
+		final JViewport port = new JViewport();
+		final JPanel apanel = new JPanel();
+		apanel.setBackground(Color.WHITE);
+		apanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		apanel.setBorder(new MatteBorder(0, 0, 2, 0, Color.BLACK));
+		final SpringLayout layout = new SpringLayout();
+		apanel.setLayout(layout);
+		
+		final JPanel datadisplay = getDataDisplay();
+		layout.putConstraint(SpringLayout.NORTH, datadisplay, 0, SpringLayout.NORTH, apanel);
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, datadisplay, 0, SpringLayout.HORIZONTAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.WEST, datadisplay, 0, SpringLayout.WEST, apanel);
+		layout.putConstraint(SpringLayout.EAST, datadisplay, 0, SpringLayout.EAST, apanel);
+		apanel.add(datadisplay);
+		
+		final JPanel sortbuttons = getSortButtons();
+		layout.putConstraint(SpringLayout.NORTH, sortbuttons, 0, SpringLayout.SOUTH, datadisplay);
+		layout.putConstraint(SpringLayout.WEST, sortbuttons, 0, SpringLayout.WEST, apanel);
+		layout.putConstraint(SpringLayout.SOUTH, sortbuttons, 0, SpringLayout.SOUTH, apanel);
+		layout.putConstraint(SpringLayout.EAST, sortbuttons, 0, SpringLayout.EAST, apanel);
+		apanel.add(sortbuttons);
+		
+		port.addComponentListener(new ComponentAdapter(){
+			public void componentResized(ComponentEvent e) {
+				apanel.setPreferredSize(new Dimension(port.getWidth(), 100));
+			}
+		});
+		
+		port.setView(apanel);
+		
+		return port;
+	}
+	
+	/**
+	 * Creates the radio buttons used for which data is displayed
+	 * @return The panel containing the data display radio buttons
+	 */
+	private JPanel getDataDisplay(){
+		final JPanel apanel = new JPanel();
+		apanel.setBackground(Color.WHITE);
+		final SpringLayout layout = new SpringLayout();
+		apanel.setLayout(layout);
+		apanel.setPreferredSize(new Dimension(500, 50));
+		apanel.setMaximumSize(new Dimension(20000, 50));
+		apanel.setBorder(BorderFactory.createLoweredBevelBorder());
+		apanel.setBorder(new MatteBorder(5, 5, 5, 5, Color.WHITE));
+		
+		viewSwitchGroup = new ButtonGroup();
+		
+		teamRadioButton = new JRadioButton("Team");
 		teamRadioButton.setBackground(Color.WHITE);
 		teamRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
@@ -203,13 +273,8 @@ public class CommitmentFullView extends JPanel{
 			}
 
 		});
-		viewSwitcher.add(teamRadioButton, SpringLayout.WEST);
-		if (mode == ViewingMode.TEAM){
-			teamRadioButton.setSelected(true);
-		}
-
-
-		personalRadioButton = new JRadioButton("View Personal Commitments");
+		
+		personalRadioButton = new JRadioButton("Personal");
 		personalRadioButton.setBackground(Color.WHITE);
 		personalRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
@@ -221,18 +286,8 @@ public class CommitmentFullView extends JPanel{
 			}
 
 		});
-		viewSwitcher.add(personalRadioButton, SpringLayout.HORIZONTAL_CENTER);
-		if (mode == ViewingMode.PERSONAL){
-			personalRadioButton.setSelected(true);
-		}
-
-
-		switcherLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, teamRadioButton,
-				0, SpringLayout.HORIZONTAL_CENTER, viewSwitcher);
-		switcherLayout.putConstraint(SpringLayout.VERTICAL_CENTER, teamRadioButton, 
-				0, SpringLayout.VERTICAL_CENTER, viewSwitcher);
-
-		bothRadioButton = new JRadioButton("View All Commitments");
+		
+		bothRadioButton = new JRadioButton("Both");
 		bothRadioButton.setBackground(Color.WHITE);
 		bothRadioButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this radio button
@@ -244,379 +299,286 @@ public class CommitmentFullView extends JPanel{
 			}
 
 		});
-		viewSwitcher.add(bothRadioButton, SpringLayout.EAST);
-		if (mode == ViewingMode.BOTH){
-			bothRadioButton.setSelected(true);
-		}
-		bothRadioButton.setMinimumSize(new Dimension(100, 50));
-		bothRadioButton.setMaximumSize(new Dimension(100, 50));
-		bothRadioButton.setAlignmentX(CENTER_ALIGNMENT);
-
-		viewSwitchGroup = new ButtonGroup();
+		
+		apanel.add(personalRadioButton);
+		apanel.add(teamRadioButton);
+		apanel.add(bothRadioButton);
+		
 		viewSwitchGroup.add(personalRadioButton);
 		viewSwitchGroup.add(teamRadioButton);
 		viewSwitchGroup.add(bothRadioButton);
+		
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, personalRadioButton, 0, SpringLayout.VERTICAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.EAST, personalRadioButton, 0, SpringLayout.WEST, teamRadioButton);
+		
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, teamRadioButton, 0, SpringLayout.VERTICAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, teamRadioButton, 0, SpringLayout.HORIZONTAL_CENTER, apanel);
+		
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, bothRadioButton, 0, SpringLayout.VERTICAL_CENTER, apanel);
+		layout.putConstraint(SpringLayout.WEST, bothRadioButton, 0, SpringLayout.EAST, teamRadioButton);
+		
+		// Create search bar
+		JPanel search = new JPanel();
+		SpringLayout searchLayout = new SpringLayout();
+		search.setLayout(searchLayout);
+		search.setBackground(Color.WHITE);
+		
+		searchInput = new JTextField();
+		JLabel searchLabel = new JLabel("Search: ");
+		
+		// Listen for changes in the text
+		searchInput.getDocument().addDocumentListener(new DocumentListener() {
+		  public void changedUpdate(DocumentEvent e) {
+			  update();
+		  }
+		  public void removeUpdate(DocumentEvent e) {
+			  update();
+		  }
+		  public void insertUpdate(DocumentEvent e) {
+			  update();
+		  }
 
-		switcherLayout.putConstraint(SpringLayout.EAST, personalRadioButton, 
-				0, SpringLayout.WEST, teamRadioButton);
-		switcherLayout.putConstraint(SpringLayout.VERTICAL_CENTER, personalRadioButton, 
-				0, SpringLayout.VERTICAL_CENTER, viewSwitcher);
-		switcherLayout.putConstraint(SpringLayout.WEST, bothRadioButton,
-				0, SpringLayout.EAST, teamRadioButton);
-		switcherLayout.putConstraint(SpringLayout.VERTICAL_CENTER, bothRadioButton,
-				0, SpringLayout.VERTICAL_CENTER, viewSwitcher);
+		  public void update() {
+			  updateList();
+		  }
+		});
+		
+		search.add(searchLabel);
+		search.add(searchInput);
 
-
-
-		viewSwitcher.setPreferredSize(new Dimension(300, 50));
-		viewSwitcher.setMaximumSize(new Dimension(20000, 50));
-
-		header.add(viewSwitcher);
-
-		final JPanel topButtons = new JPanel();
-
-		final GridLayout experimentLayout = new GridLayout(0, 4);
-		topButtons.setLayout(experimentLayout);
-
-		jName = new JButton("<html><font color='white'><b>"
-				+ "Name" + "</b></font></html>");
-		if(namesort == 1){
-			try {
-				final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
-				jName.setIcon(new ImageIcon(img));
-				jName.setText("<html><font color='white'><b>"
-						+ "Name" + "</b></font></html>");
-			} catch (IOException ex) {}
-			catch(IllegalArgumentException ex){
-				jName.setText("<html><font color='white'><b>"
-						+ "Name ^" + "</b></font></html>");
-			}
-		}
-		else if(namesort == 2){
-			try {
-				final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
-				jName.setIcon(new ImageIcon(img));
-				jName.setText("<html><font color='white'><b>"
-						+ "Name" + "</b></font></html>");
-			} catch (IOException ex) {}
-			catch(IllegalArgumentException ex){
-				jName.setText("<html><font color='white'><b>"
-						+ "Name v" + "</b></font></html>");
-			}
-		}
-
-
+		searchLayout.putConstraint(SpringLayout.WEST, searchLabel, 0, SpringLayout.WEST, search);
+		searchLayout.putConstraint(SpringLayout.VERTICAL_CENTER, searchLabel, 0, SpringLayout.VERTICAL_CENTER, search);
+		
+		searchLayout.putConstraint(SpringLayout.WEST, searchInput, 10, SpringLayout.EAST, searchLabel);
+		searchLayout.putConstraint(SpringLayout.EAST, searchInput, 0, SpringLayout.EAST, search);
+		searchLayout.putConstraint(SpringLayout.VERTICAL_CENTER, searchInput, 0, SpringLayout.VERTICAL_CENTER, search);
+		
+		apanel.add(search);
+		
+		layout.putConstraint(SpringLayout.WEST, search, 50, SpringLayout.EAST, bothRadioButton);
+		layout.putConstraint(SpringLayout.EAST, search, -10, SpringLayout.EAST, apanel);
+		layout.putConstraint(SpringLayout.NORTH, search, 0, SpringLayout.NORTH, apanel);
+		layout.putConstraint(SpringLayout.SOUTH, search, 0, SpringLayout.SOUTH, apanel);
+		
+		return apanel;
+		
+	}
+	
+	private String getSearchInput() {
+		return searchInput.getText();
+	}
+	
+	/**
+	 * Creates the buttons used for sorting
+	 * @return the panel containing all sorting buttons
+	 */
+	private JPanel getSortButtons(){
+		final JPanel apanel = new JPanel();
+		apanel.setPreferredSize(new Dimension(50, 50));
+		apanel.setLayout(new GridLayout(1, 4));
+		apanel.setBorder(BorderFactory.createLoweredBevelBorder());
+		apanel.setBorder(new MatteBorder(5, 5, 5, 5, Color.WHITE));
+		
+		
+		jName = new JButton("<html><font color='white'><b>" + "Name" + "</b></font></html>");
 		jName.setBackground(CalendarStandard.CalendarRed);
 		jName.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
 		jName.setToolTipText("Sort by Name");
 		//sort by name
-		jName.addMouseListener(new MouseAdapter() {
+		jName.addActionListener(new ActionListener(){
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				datesort = 0;
-				dessort = 0;
-				statussort = 0;
-				Collections.sort(commitmentList);
-				if(namesort == 1){
-					namesort = 2;
-					Collections.reverse(commitmentList);
+			public void actionPerformed(ActionEvent e) {
+				clearButtons();
+				if(sort_mode == Sort_Type.NAME){
+					reverse_sort = !reverse_sort;
 				}
-				else if(namesort == 2 || namesort == 0){
-					namesort = 1;
+				else{
+					sort_mode = Sort_Type.NAME;
+					reverse_sort = false;
 				}
-				updateView();
-			}
-
-		});
-
-
-
-		jDueDate = new JButton("<html><font color='white'><b>"
-				+ "Due Date" + "</b></font></html>");
-		jDueDate.setBackground(CalendarStandard.CalendarRed);
-
-		if(datesort == 1){
-			try {
-				final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
-				jDueDate.setIcon(new ImageIcon(img));
-				jDueDate.setText("<html><font color='white'><b>"
-						+ "Due Date" + "</b></font></html>");
-			} catch (IOException ex) {}
-			catch(IllegalArgumentException ex){
-				jDueDate.setText("<html><font color='white'><b>"
-						+ "Due Date ^" + "</b></font></html>");
-			}
-		}
-		else if(datesort == 2){
-			try {
-				final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
-				jDueDate.setIcon(new ImageIcon(img));
-				jDueDate.setText("<html><font color='white'><b>"
-						+ "Due Date" + "</b></font></html>");
-			} catch (IOException ex) {}
-			catch(IllegalArgumentException ex){
-				jDueDate.setText("<html><font color='white'><b>"
-						+ "Due Date v" + "</b></font></html>");
-			}
-		}
-
-		jDueDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
-		// To change cursor as it moves over this button
-		jDueDate.setToolTipText("Sort by Due Date");
-
-		// sort by date 
-		jDueDate.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				namesort = 0;
-				dessort = 0;
-				statussort = 0;
-				Collections.sort(commitmentList, new Comparator<Commitment>() {
-
-					@Override 
-					public int compare(Commitment c1, Commitment c2) {
-						int reslut = 0;
-						if(c1.getDueDate().before(c2.getDueDate()))
-							{
-							reslut = -1;
-							}
-						else if(c1.getDueDate().after(c2.getDueDate())) 
-							{
-							 reslut = 1;
-							}
-							return reslut;
+				
+				if(!reverse_sort){
+					try {
+						final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
+						jName.setIcon(new ImageIcon(img));
+						jName.setText("<html><font color='white'><b>" + "Name" + "</b></font></html>");
+					} 
+					catch (IOException ex) {}
+					catch(IllegalArgumentException ex){
+						jName.setText("<html><font color='white'><b>" + "Name ^" + "</b></font></html>");
 					}
-				});
-				if(datesort == 1){
-					datesort = 2;
-					Collections.reverse(commitmentList);
 				}
-				else if(datesort == 2 || datesort == 0){
-					datesort = 1;
+				else{
+					try {
+						final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+						jName.setIcon(new ImageIcon(img));
+						jName.setText("<html><font color='white'><b>" + "Name" + "</b></font></html>");
+					} 
+					catch (IOException ex) {}
+					catch(IllegalArgumentException ex){
+						jName.setText("<html><font color='white'><b>" + "Name v" + "</b></font></html>");
+					}
 				}
-				updateView();
+				sort();
 			}
 		});
-
-
-		jDescription = new JButton("<html><font color='white'><b>"
-				+ "Description" + "</b></font></html>");
+		
+		jStartDate = new JButton("<html><font color='white'><b>" + "Due Date" + "</b></font></html>");
+		jStartDate.setBackground(CalendarStandard.CalendarRed);
+		jStartDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
+		jStartDate.setToolTipText("Sort by Due Date");
+		jStartDate.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				clearButtons();
+				if(sort_mode == Sort_Type.DUE_DATE){
+					reverse_sort = !reverse_sort;
+				}
+				else{
+					sort_mode = Sort_Type.DUE_DATE;
+					reverse_sort = false;
+				}
+				
+				if(!reverse_sort){
+					try {
+						final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
+						jStartDate.setIcon(new ImageIcon(img));
+						jStartDate.setText("<html><font color='white'><b>" + "Due Date" + "</b></font></html>");
+					} 
+					catch (IOException ex) {}
+					catch(IllegalArgumentException ex){
+						jStartDate.setText("<html><font color='white'><b>" + "Due Date ^" + "</b></font></html>");
+					}
+				}
+				else{
+					try {
+						final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+						jStartDate.setIcon(new ImageIcon(img));
+						jStartDate.setText("<html><font color='white'><b>" + "Due Date" + "</b></font></html>");
+					} 
+					catch (IOException ex) {}
+					catch(IllegalArgumentException ex){
+						jStartDate.setText("<html><font color='white'><b>" + "Due Date v" + "</b></font></html>");
+					}
+				}
+				sort();
+			}
+		});
+		
+		
+		jEndDate = new JButton("<html><font color='white'><b>" + "Status" + "</b></font></html>");
+		jEndDate.setBackground(CalendarStandard.CalendarRed);
+		jEndDate.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+		// To change cursor as it moves over this button
+		jEndDate.setToolTipText("Sort by Status");
+		jEndDate.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				clearButtons();
+				if(sort_mode == Sort_Type.STATUS){
+					reverse_sort = !reverse_sort;
+				}
+				else{
+					sort_mode = Sort_Type.STATUS;
+					reverse_sort = false;
+				}
+				
+				if(!reverse_sort){
+					try {
+						final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
+						jEndDate.setIcon(new ImageIcon(img));
+						jEndDate.setText("<html><font color='white'><b>" + "Status" + "</b></font></html>");
+					} 
+					catch (IOException ex) {}
+					catch(IllegalArgumentException ex){
+						jEndDate.setText("<html><font color='white'><b>" + "Status ^" + "</b></font></html>");
+					}
+				}
+				else{
+					try {
+						final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+						jEndDate.setIcon(new ImageIcon(img));
+						jEndDate.setText("<html><font color='white'><b>" + "Status" + "</b></font></html>");
+					} 
+					catch (IOException ex) {}
+					catch(IllegalArgumentException ex){
+						jEndDate.setText("<html><font color='white'><b>" + "Status v" + "</b></font></html>");
+					}
+				}
+				sort();
+			}
+		});
+		
+		jDescription = new JButton("<html><font color='white'><b>" + "Description" + "</b></font></html>");
 		jDescription.setBackground(CalendarStandard.CalendarRed);
-		if(dessort == 1){
-			try {
-				final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
-				jDescription.setIcon(new ImageIcon(img));
-				jDescription.setText("<html><font color='white'><b>"
-						+ "Description" + "</b></font></html>");
-			} catch (IOException ex) {}
-			catch(IllegalArgumentException ex){
-				jDescription.setText("<html><font color='white'><b>"
-						+ "Description ^" + "</b></font></html>");
-			}
-		}
-		else if(dessort == 2){
-			try {
-				final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
-				jDescription.setIcon(new ImageIcon(img));
-				jDescription.setText("<html><font color='white'><b>"
-						+ "Description" + "</b></font></html>");
-			} catch (IOException ex) {}
-			catch(IllegalArgumentException ex){
-				jDescription.setText("<html><font color='white'><b>"
-						+ "Description v" + "</b></font></html>");
-			}
-		}
-
-		jDescription.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		jDescription.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button
 		jDescription.setToolTipText("Sort by Description");
-		jDescription.addMouseListener(new MouseAdapter() {
+		jDescription.addActionListener(new ActionListener(){
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				namesort = 0;
-				datesort = 0;
-				statussort = 0;
-				Collections.sort(commitmentList, new Comparator<Commitment>() {
-
-					@Override 
-					public int compare(Commitment c1, Commitment c2) {
-						return c1.getDescription().compareTo(c2.getDescription());
+			public void actionPerformed(ActionEvent e) {
+				clearButtons();
+				if(sort_mode == Sort_Type.DESCRIPTION){
+					reverse_sort = !reverse_sort;
+				}
+				else{
+					sort_mode = Sort_Type.DESCRIPTION;
+					reverse_sort = false;
+				}
+				
+				if(!reverse_sort){
+					try {
+						final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
+						jDescription.setIcon(new ImageIcon(img));
+						jDescription.setText("<html><font color='white'><b>" + "Description" + "</b></font></html>");
+					} 
+					catch (IOException ex) {}
+					catch(IllegalArgumentException ex){
+						jDescription.setText("<html><font color='white'><b>" + "Description ^" + "</b></font></html>");
 					}
-				});
-				if(dessort == 1){
-					dessort = 2;
-					Collections.reverse(commitmentList);
 				}
-				else if(dessort == 2 || dessort == 0){
-					dessort = 1;
+				else{
+					try {
+						final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
+						jDescription.setIcon(new ImageIcon(img));
+						jDescription.setText("<html><font color='white'><b>" + "Description" + "</b></font></html>");
+					} 
+					catch (IOException ex) {}
+					catch(IllegalArgumentException ex){
+						jDescription.setText("<html><font color='white'><b>" + "Description v" + "</b></font></html>");
+					}
 				}
-				updateView();
+				sort();
 			}
 		});
+		
+		apanel.add(jName);
+		apanel.add(jStartDate);
+		apanel.add(jEndDate);
+		apanel.add(jDescription);
 
-		jStatus = new JButton("<html><font color='white'><b>"
-				+ "Status" + "</b></font></html>");
-		if(statussort == 1){
-			try {
-				final Image img = ImageIO.read(getClass().getResource("UpArrow_Icon.png"));
-				jStatus.setIcon(new ImageIcon(img));
-				jStatus.setText("<html><font color='white'><b>"
-						+ "Status" + "</b></font></html>");
-			} catch (IOException ex) {}
-			catch(IllegalArgumentException ex){
-				jStatus.setText("<html><font color='white'><b>"
-						+ "Status ^" + "</b></font></html>");
-			}
-		}
-		else if(statussort == 2){
-			try {
-				final Image img = ImageIO.read(getClass().getResource("DownArrow_Icon.png"));
-				jStatus.setIcon(new ImageIcon(img));
-				jStatus.setText("<html><font color='white'><b>"
-						+ "Status" + "</b></font></html>");
-			} catch (IOException ex) {}
-			catch(IllegalArgumentException ex){
-				jStatus.setText("<html><font color='white'><b>"
-						+ "Status v" + "</b></font></html>");
-			}
-		}
-		jStatus.setBackground(CalendarStandard.CalendarRed);
-		jStatus.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
-		// To change cursor as it moves over this button
-		jStatus.setToolTipText("Sort by Status");
-
-		jStatus.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				namesort = 0;
-				datesort = 0;
-				dessort = 0;
-				Collections.sort(commitmentList, new Comparator<Commitment>() {
-
-					@Override 
-					public int compare(Commitment c1, Commitment c2) {
-						return c1.getStatus().convertToString(c1.getStatus().getId()).compareTo(
-								c2.getStatus().convertToString(c2.getStatus().getId()));
-
-					}
-				});
-				if(statussort == 1){
-					statussort = 2;
-					Collections.reverse(commitmentList);
-				}
-				else if(statussort == 2 || statussort == 0){
-					statussort = 1;
-				}
-				updateView();
-			}
-		});
-
-		final GridBagConstraints c = new GridBagConstraints();
-		c.anchor = GridBagConstraints.LINE_START;
-		c.fill = GridBagConstraints.BOTH;
-		c.gridx = 0;
-		topButtons.add(jName, c);
-		topButtons.add(jDueDate, c);
-		topButtons.add(jDescription, c);
-		topButtons.add(jStatus, c);
-		topButtons.setPreferredSize(new Dimension(300, 50));
-		topButtons.setMaximumSize(new Dimension(20000, 50));
-		final Border loweredbevel1 = BorderFactory.createLoweredBevelBorder();
-		topButtons.setBorder(loweredbevel1);
-		topButtons.setBorder(new MatteBorder(5, 5, 5, 5, Color.WHITE));
-
-		header.add(topButtons);
-
-		scrollPane.setColumnHeaderView(header);
-		for(int i = 0; i < commitmentList.size(); i++){
-			CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
-			Image nameImg;
-			Image scaleImg;
-			JLabel name = new JLabel(commitmentList.get(i).getName(), JLabel.LEFT);
-			name.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
-			try {
-				if (commitmentList.get(i).getIsPersonal())
-				{
-					nameImg = ImageIO.read(getClass().getResource("PersonalCommitment_Icon.png"));
-					scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-					name.setIcon(new ImageIcon(scaleImg));
-				}
-				else
-				{
-					nameImg = ImageIO.read(getClass().getResource("TeamCommitment_Icon.png"));
-					scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-					name.setIcon(new ImageIcon(scaleImg));
-				}
-			} catch (IOException | IllegalArgumentException e) {
-
-			}
-
-			SimpleDateFormat df = new SimpleDateFormat();
-			df.applyPattern("EEEE, MMMM d, y - hh:mm a");
-			
-			JLabel date = new JLabel("" + 
-			df.format(commitmentList.get(i).getDueDate().getTime()), JLabel.LEFT);
-			date.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
-			JLabel description = new JLabel("<HTML>" + 
-			commitmentList.get(i).getDescription() + "</HTML>", JLabel.LEFT);
-			description.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
-			JLabel status = new JLabel(Status.convertToString(
-					commitmentList.get(i).getStatus().id), JLabel.LEFT);
-			status.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
-
-			commitmentPanel.setLayout(experimentLayout);
-			//GridBagConstraints c = new GridBagConstraints();
-			c.anchor = GridBagConstraints.BASELINE_LEADING;
-			c.fill = GridBagConstraints.BASELINE_LEADING;
-			c.weightx = 1;
-			commitmentPanel.add(name, c);
-			commitmentPanel.add(date, c);
-			commitmentPanel.add(description, c);
-			commitmentPanel.add(status, c);
-			commitmentPanel.setBackground(CalendarStandard.CalendarYellow);
-			commitmentPanel.setPreferredSize(new Dimension(300, 75));
-			commitmentPanel.setMaximumSize(new Dimension(20000, 75));
-			Border loweredbevel = BorderFactory.createLoweredBevelBorder();
-			commitmentPanel.setBorder(loweredbevel);
-			commitmentPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
-			commitmentPanel.setToolTipText("Click to Edit or Delete this Commitment");
-			// To change cursor as it moves over this commitment pannel
-			commitmentPanel.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					if (e.getClickCount() >= 1)
-						{
-						GUIEventController.getInstance().editCommitment(
-								((CommitmentViewPanel)e.getComponent()).getCommitment());
-						}
-				}
-			});
-
-			commitPanel.add(commitmentPanel);
-		}
+		return apanel;
 	}
-
+			
 	/**
-	 * Method updateList.
+	 * Updates the event panel list and then displays them
 	 */
 	public void updateList(){
-		commitPanel.removeAll();
-		setCommitlist();
+		setCommitmentList();
 		setupPanels();
 	}
 
 	/**
-	 * Method updateView.
+	 * Switches to the given view mode 
+	 * @param newMode the viewing mode to change to
 	 */
-	public void updateView(){
-		commitPanel.removeAll();
-		setupPanels();
-	}
-
 	private void switchView(ViewingMode newMode){
 		mode = newMode;
-		calProps.setCommViewMode(mode.ordinal());
+		if( calProps != null){
+			calProps.setCommitmentViewMode(mode.ordinal());
+		}
 		this.updateList();
 	}
 
@@ -625,18 +587,21 @@ public class CommitmentFullView extends JPanel{
 	 */
 	public void applyCalProps(){
 
-		calProps = CalendarPropertiesModel.getInstance().getCalendarProps(
-				ConfigManager.getConfig().getProjectName() + "-"
-						+ ConfigManager.getConfig().getUserName() + "-PROPS");
+		calProps = CalendarPropertiesModel.getInstance().getCalendarProps( ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName() + "-PROPS");
+		
 		if(initialized && calProps != null){
-			mode =  ViewingMode.values()[calProps.getCommViewMode()];
-			
+			mode =  ViewingMode.values()[calProps.getCommitmentViewMode()];
 
-			switch (calProps.getCommViewMode()){
+			switch (calProps.getCommitmentViewMode()){
+			
 			case 0: viewSwitchGroup.setSelected(personalRadioButton.getModel(), true);
 			break;
+			
 			case 1: viewSwitchGroup.setSelected(teamRadioButton.getModel(), true);
 			break;
+			
+			
+			
 			case 2: viewSwitchGroup.setSelected(bothRadioButton.getModel(), true);
 			break;
 			}
@@ -644,6 +609,34 @@ public class CommitmentFullView extends JPanel{
 			updateList();
 
 		}
+	}
+	
+	/**
+	 * Sorts the list with the current sort_mode and reverse if needed
+	 */
+	protected void sort(){
+		Collections.sort(commitmentPanelList, new Comparator<CommitmentFullViewPanel>() {
+			@Override 
+			public int compare(CommitmentFullViewPanel c1, CommitmentFullViewPanel c2) {
+				return c1.compareTo(c2, sort_mode);
+			}
+		});
+		
+		if(reverse_sort){
+			Collections.reverse(commitmentPanelList);
+		}
+		
+		setupPanels();
+	}
+	
+	/**
+	 * Clear the icons from the sort buttons
+	 */
+	private void clearButtons(){
+		jName.setIcon(null);
+		jStartDate.setIcon(null);
+		jEndDate.setIcon(null);
+		jDescription.setIcon(null);
 	}
 
 }
