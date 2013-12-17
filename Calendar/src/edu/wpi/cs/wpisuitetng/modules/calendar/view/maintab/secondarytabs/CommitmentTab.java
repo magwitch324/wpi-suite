@@ -47,6 +47,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -76,10 +77,12 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
+
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
@@ -1403,39 +1406,40 @@ public class CommitmentTab extends JPanel {
 			 * COMMENT THIS OUT TO NOT ADD A LOT OF COMMITMENTS
 			 * The script to add a bunch of commitments
 			 */
-			//			GregorianCalendar day = new GregorianCalendar(2013, Calendar.JANUARY, 1, 8, 00, 00);
-			//			GregorianCalendar lastDay = new GregorianCalendar();
-			//			lastDay.setTime(day.getTime());
-			//			lastDay.add(Calendar.YEAR, 1);
-			//			Random rnd = new Random();
-			//			String[] commitments = {"Meeting", "Party", "Shindig", "Meal"};
-			//			String[] names = {"Anthony", "Andrew", "Frank", "Julie", 
-			//			"Pavel", "Sam", "Sean", "Seiichiro", "Thom", "Teresa", "Tim", "Tucker", "Coach Mike"};
-			//			while (day.before(lastDay)) {
-			//				CalendarStandard.printcalendar(lastDay);
-			//				GregorianCalendar set = new GregorianCalendar();
-			//				set.setTime(day.getTime());
-			//				set.add(Calendar.HOUR, rnd.nextInt(10));
-			//				String commitment = commitments[rnd.nextInt(4)];
-			//				String name = names[rnd.nextInt(13)];
-			//				if (rnd.nextInt(2) == 1) {
-			//					GregorianCalendar endTime = new GregorianCalendar();
-			//					endTime.setTime(set.getTime());
-			//					endTime.add(Calendar.HOUR, rnd.nextInt(4)+1);
-			//					String[] people = {names[rnd.nextInt(13)], 
-			//			names[rnd.nextInt(13)], names[rnd.nextInt(13)]};
-			//					Event newEvent = new Event("A long " + 
-			//			commitment, "Event with " + people[0] + ", " + people[1] + ", and " + people[2],
-			//												set, endTime, people, 0, false);
-			//					calData.addEvent(newEvent);
-			//				} else {
-			//					Commitment newCommitment = 
-			//			new Commitment(commitment + " with " + name, set, "No Description", 0, false);
-			//					calData.addCommitment(newCommitment);
-			//				}
-			//				
-			//				day.add(Calendar.DAY_OF_YEAR, rnd.nextInt(3));
-			//			}
+//			GregorianCalendar day = new GregorianCalendar(2013, Calendar.JANUARY, 1, 8, 00, 00);
+//			GregorianCalendar lastDay = new GregorianCalendar();
+//			lastDay.setTime(day.getTime());
+//			lastDay.add(Calendar.YEAR, 1);
+//			Random rnd = new Random();
+//			String[] commitments = {"Meeting", "Party", "Shindig", "Meal"};
+//			String[] names = {"Anthony", "Andrew", "Frank", "Julie", 
+//			"Pavel", "Sam", "Sean", "Seiichiro", "Thom", "Teresa", "Tim", "Tucker", "Coach Mike"};
+//			while (day.before(lastDay)) {
+//				CalendarStandard.printcalendar(lastDay);
+//				GregorianCalendar set = new GregorianCalendar();
+//				set.setTime(day.getTime());
+//				set.add(Calendar.HOUR, rnd.nextInt(10));
+//				String commitment = commitments[rnd.nextInt(4)];
+//				String name = names[rnd.nextInt(13)];
+//				if (rnd.nextInt(2) == 1) {
+//					GregorianCalendar endTime = new GregorianCalendar();
+//					endTime.setTime(set.getTime());
+//					endTime.add(Calendar.HOUR, rnd.nextInt(4)+1);
+//					String[] people = {names[rnd.nextInt(13)], 
+//			names[rnd.nextInt(13)], names[rnd.nextInt(13)]};
+//					Event newEvent = new Event("A long " + 
+//			commitment, "Event with " + people[0] + ", " + people[1] + ", and " + people[2],
+//												set, endTime, people, 0, rdbtnPersonal.isSelected());
+//					calData.addEvent(newEvent);
+//				} else {
+//					Commitment newCommitment = 
+//			new Commitment(commitment + " with " + name, set, "No Description", 0, rdbtnPersonal.isSelected());
+//					calData.addCommitment(newCommitment);
+//				}
+//				
+//				day.add(Calendar.DAY_OF_YEAR, rnd.nextInt(3));
+//			} 
+			// END SCRIPT
 
 		}
 		else

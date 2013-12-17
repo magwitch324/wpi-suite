@@ -135,10 +135,9 @@ public class CommitmentFullView extends JPanel{
 		
 		add(scrollPane);
 
-		setCommitmentList();
-		setupPanels();
-		initialized = true;
 		applyCalProps();
+		updateList();
+		initialized = true;
 	}
 	
 	/**
