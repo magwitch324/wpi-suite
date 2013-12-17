@@ -13,7 +13,10 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -22,7 +25,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -34,7 +36,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar.types;
 
 /**
  * Calendar object panel make up the event/commitment elements
@@ -52,17 +53,19 @@ public class CalendarObjectPanel extends JPanel {
 	AbCalendar.types detailLevel;
 	int columnwidth = 2;
 	int columnspanned = 1;
-	
+
 	/**
 	 * Protected constructor that handles common code
 	 * @param parent the parent which sizes are based upon
 	 * @param acal	the current date to be displayed
 	 */
 	private CalendarObjectPanel(JComponent parent, GregorianCalendar acal){
+		super();
+		this.setOpaque(false);	  
 		this.parent = parent;
 		this.acal.setTime(acal.getTime());
-		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 		this.setBackground(Color.WHITE);
+		this.setBorder(new CalendarObjectPanelBorder());
 		this.addMouseListener(new MouseAdapter(){
 		    public void mouseClicked(MouseEvent e) {
 		    	if(e.getClickCount() > 1){
@@ -84,6 +87,21 @@ public class CalendarObjectPanel extends JPanel {
 		this(parent, acal);
 		this.event = event;
 		detailLevel = AbCalendar.types.DAY;
+		Color bgcolor = null;
+		try{
+			if(event.getIsPersonal()){
+				bgcolor = GUIEventController.getInstance().getCalendar().getMyCalData().getCategories().getCategory(event.getCategoryID()).getCategoryColor();
+			}
+			else{
+				bgcolor = GUIEventController.getInstance().getCalendar().getTeamCalData().getCategories().getCategory(event.getCategoryID()).getCategoryColor();
+			}
+		}
+		catch(java.lang.NullPointerException excep){
+			bgcolor = Color.WHITE;
+		}
+		
+		this.setForeground(bgcolor);
+		
 		setLabel();
 	}
 	
@@ -97,6 +115,22 @@ public class CalendarObjectPanel extends JPanel {
 		this(parent, acal);
 		this.comm = comm;
 		detailLevel = AbCalendar.types.DAY;
+		Color bgcolor = null;
+		
+		try{
+			if(comm.getIsPersonal()){
+				bgcolor = GUIEventController.getInstance().getCalendar().getMyCalData().getCategories().getCategory(comm.getCategoryID()).getCategoryColor();
+			}
+			else{
+				bgcolor = GUIEventController.getInstance().getCalendar().getTeamCalData().getCategories().getCategory(comm.getCategoryID()).getCategoryColor();
+			}
+		}
+		catch(java.lang.NullPointerException excep){
+			bgcolor = Color.WHITE;
+		}
+		
+		this.setForeground(bgcolor);
+		
 		setLabel();
 	}
 	
@@ -180,11 +214,16 @@ public class CalendarObjectPanel extends JPanel {
 		setToolTipText(tt);
 		
 		final JLabel nameL = new JLabel(name);
+		nameL.setBackground(new Color(0,0,0,0));
+		
 		nameL.setFont(new Font("SansSerif", Font.BOLD, 14));
 		description = description.replaceAll("\n", " ");
 		final JLabel descL = new JLabel(description);
+		descL.setBackground(new Color(0,0,0,0));
 		final JLabel timeL = new JLabel(time);
+		timeL.setBackground(new Color(0,0,0,0));
 		final JLabel iconL = new JLabel();
+		iconL.setBackground(new Color(0,0,0,0));
 		
 		setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this text
 		
@@ -244,7 +283,6 @@ public class CalendarObjectPanel extends JPanel {
 		textLayout.putConstraint(SpringLayout.WEST, descL, 0, SpringLayout.WEST, textPanel);
 		textLayout.putConstraint(SpringLayout.NORTH, descL, 0, SpringLayout.SOUTH, timeL);
 		textLayout.putConstraint(SpringLayout.EAST, descL, 0, SpringLayout.EAST, textPanel);
-		
 	}
 	
 	/**
