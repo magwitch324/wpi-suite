@@ -19,9 +19,11 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.CalendarView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentView;
 
 /**
-  * @author CS Anonymous
-  * @version $Revision: 1.0 $
-  */
+ * Year View includes a year pane and a gregorian calendar that specifies
+ * the date range to display.
+ * @author CS Anonymous
+ * @version $Revision: 1.0 $
+ */
  @SuppressWarnings("serial")
 public class YearView extends CalendarView {
 

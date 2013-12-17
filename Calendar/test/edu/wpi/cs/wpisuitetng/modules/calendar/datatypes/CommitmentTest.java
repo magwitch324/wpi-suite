@@ -12,6 +12,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 import static java.util.Calendar.DECEMBER;
 import static org.junit.Assert.assertEquals;
 
+import java.awt.Color;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -136,6 +137,18 @@ public class CommitmentTest {
 		assertEquals("New", Status.convertToString(0));
 		assertEquals("In Progress", Status.convertToString(1));
 		assertEquals("Completed", Status.convertToString(2));
+	}
+	
+	/**
+	 * Tests to ensure that compare function work correctly
+	 */
+	@Test
+	public void compareTest(){
+		final GregorianCalendar tmpCal = new GregorianCalendar(1, DECEMBER, 2013);
+		final GregorianCalendar tmpCal2 = new GregorianCalendar(2, DECEMBER, 2013);
+		final Commitment C1 = new Commitment("Commitment1", tmpCal, "test description", 2, true);
+		final Commitment C2 = new Commitment("Commitment2", tmpCal2, "test description", 4, true);
+		assertEquals(-1, C1.getName().compareToIgnoreCase(C2.getName()));
 	}
 	
 	
