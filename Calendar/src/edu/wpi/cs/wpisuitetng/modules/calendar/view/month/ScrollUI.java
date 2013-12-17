@@ -73,8 +73,6 @@ public class ScrollUI extends LayerUI<JComponent> implements ActionListener {
 			is_in = false;
 
 			final Timer atimer = new Timer(5, this);
-			atimer.setDelay(5);
-			atimer.setRepeats(false);
 			atimer.setInitialDelay(5);
 			atimer.start();
 
