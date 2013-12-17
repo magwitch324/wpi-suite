@@ -114,7 +114,7 @@ public class CategoryTab extends JPanel {
 		addListeners();
 		
 		//initialize in "viewing" mode
-		setupViewingView();
+		setupAddView();
 		setBackground(Color.WHITE);
 		initialized = true;
 		applyCalProps();
@@ -255,6 +255,8 @@ public class CategoryTab extends JPanel {
 		viewPanel.add(viewPanelStrut);
 		
 		addEditPanel = new AddEditCategoryPanel();
+		addEditPanel.setMinimumSize(new Dimension(460, 10));
+		addEditPanel.setPreferredSize(new Dimension(460, 10));
 		selectedCategories = new ArrayList<CategoryPanel>();
 
 	}
@@ -367,6 +369,8 @@ public class CategoryTab extends JPanel {
 
 	protected void editCategory(Category category) {
 		addEditPanel = new AddEditCategoryPanel(category);
+		addEditPanel.setMinimumSize(new Dimension(460, 10));
+		addEditPanel.setPreferredSize(new Dimension(460, 10));
 		setupAddView();
 		btnEdit.setEnabled(false);
 		btnDelete.setEnabled(false);
