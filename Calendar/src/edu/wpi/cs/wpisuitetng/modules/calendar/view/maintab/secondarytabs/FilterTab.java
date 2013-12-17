@@ -90,14 +90,18 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	private SpringLayout activeListLayout;
 	private Filter editFilter;
 	protected List<FilterPanel> selectedFilters;
+	protected List<CategoryPanel> selectedCategories;
 	private List<Integer> activeTeamCat;
 	private List<Integer> activePersonalCat;
 	private Filter aSelectedFilter;
+	private Category aSelectedCategory;
 	private CategoryList allCategories;
 	private List<Category> listOfActiveTeamCat;
 	private List<Category> listOfActivePersonalCat;
 	private List<Integer> newTeamCatList;
 	private List<Integer> newPersonalCatList;
+	private CategoryList inactiveTeamCat;
+	private CategoryList inactivePersonalCat;
 	
 
 
@@ -145,6 +149,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		aSelectedFilter = null;
 		refresh();
 		selectedFilters = new ArrayList<FilterPanel>();
+		selectedCategories = new ArrayList<CategoryPanel>();
+		inactiveTeamCat = new CategoryList();
+		inactivePersonalCat = new CategoryList();
 		initFlag = true;
 		}
 	
@@ -439,6 +446,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		editPanel.add(catBtnPanel, gbc_catBtnPanel);
 		
 		addButtonPanel2();
+		selectedCategories = new ArrayList<CategoryPanel>();
 	}
 
 	/**
@@ -859,6 +867,24 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		selectedFilters.clear();
 	}
 	
+	
+	protected void removeSelectedCategories() {
+		for (CategoryPanel cPanel: selectedCategories)
+		{
+			cPanel.setSelected(false);
+		}
+		selectedCategories.clear();
+	}
+	
+	private void removeCategory(){
+		if(aSelectedCategory.getIsPersonal()){
+			inactivePersonalCat.remove(aSelectedCategory.getID());
+		}
+		else{
+			inactiveTeamCat.remove(aSelectedCategory.getID());
+		}
+	}
+	
 
 	
 	private void removeCatFromFilter(Category aCat, Filter aFilter){
@@ -886,8 +912,12 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 	}
 	
 	private void populateInactiveCatLists(){
-		final CategoryList inactiveTeamCat = teamCategories; 
-		final CategoryList inactivePersonalCat = personalCategories; 
+		for(Category c:teamCategories.getCategories()){
+			inactiveTeamCat.add(c);
+		}
+		for(Category c:personalCategories.getCategories()){
+			inactivePersonalCat.add(c);
+		} 
 		
 		/*if(mode == FilterMode.EDITING && !activeTeamCat.isEmpty()){
 			for(int i = 0; i < activeTeamCat.size(); i++){
@@ -952,6 +982,35 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			}
 
 			inactiveListPanel.add(catPanel);
+			
+			
+			catPanel.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount() > 1){
+						mode = FilterMode.EDITING;
+						aSelectedCategory = ((CategoryPanel)e.getComponent()).getCategory();
+						removeCategory();
+						inactiveTeamCat.removeAll();
+						inactivePersonalCat.removeAll();
+						refresh();
+					}
+					else if (e.getClickCount() == 1){
+						mode = FilterMode.EDITING;
+						CategoryPanel comp = (CategoryPanel) e.getComponent();
+						if(selectedCategories.isEmpty() || e.isControlDown());
+						else
+						{
+							removeSelectedCategories(); //clear existing selections
+						}
+						selectedCategories.add(comp);
+						comp.setSelected(true);
+						addCatBtn.setEnabled(true);
+						aSelectedCategory = ((CategoryPanel)e.getComponent()).getCategory();
+					}
+				}
+			});
+			
 			
 			oldCatPanel = catPanel; //update oldCatPanel to be previously added panel
 		}
