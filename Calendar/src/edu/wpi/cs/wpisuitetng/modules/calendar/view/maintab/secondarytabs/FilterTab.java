@@ -131,8 +131,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		personalCategories = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName() + 
 				"-" + ConfigManager.getConfig().getUserName()).getCategories(); 
-		allCat();
-		
 		calendarFilters = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName() + 
 				"-" + ConfigManager.getConfig().getUserName()).getFilters();
@@ -334,7 +332,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		gbc_inactiveFilterlbl.insets = new Insets(0, 30, 0, 5);
 		gbc_inactiveFilterlbl.fill = GridBagConstraints.BOTH;
 		gbc_inactiveFilterlbl.gridx = 0;
-		gbc_inactiveFilterlbl.gridy = 1;
+		gbc_inactiveFilterlbl.gridy = 3;
 		editPanel.add(inactiveFilterlbl, gbc_inactiveFilterlbl);
 		
 		final JLabel activeFilterlbl = new JLabel();
@@ -346,7 +344,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		gbc_activeFilterlbl.insets = new Insets(0, 30, 0, 5);
 		gbc_activeFilterlbl.fill = GridBagConstraints.BOTH;
 		gbc_activeFilterlbl.gridx = 0;
-		gbc_activeFilterlbl.gridy = 3;
+		gbc_activeFilterlbl.gridy = 1;
 		editPanel.add(activeFilterlbl, gbc_activeFilterlbl);
 		
 		//Adds the text field for the name of the filter
@@ -374,7 +372,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		gbc_inactiveFilter.insets = new Insets(5, 0, 5, 15);
 		gbc_inactiveFilter.gridwidth = 3;
 		gbc_inactiveFilter.gridx = 1;
-		gbc_inactiveFilter.gridy = 1;
+		gbc_inactiveFilter.gridy = 3;
 		editPanel.add(inactiveCatPane, gbc_inactiveFilter);
 		
 		//adds the scroll pane containing the categories in the filter
@@ -388,7 +386,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		gbc_activeFilter.insets = new Insets(5, 0, 5, 15);
 		gbc_activeFilter.gridwidth = 3;
 		gbc_activeFilter.gridx = 1;
-		gbc_activeFilter.gridy = 3;
+		gbc_activeFilter.gridy = 1;
 		editPanel.add(activeCatPane, gbc_activeFilter);
 		
 		inactiveListPanel = new JPanel();
@@ -706,28 +704,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		}
 	}
 	
-	protected void addEditView(){
-		if(mode == FilterMode.ADDING){
-			editFilterMode();
-			addEditViewListeners();
-//			filterName.setText("**New Filter**");
-			populateFilterList();
-			populateInactiveCatLists();
-			//populateActiveCatLists();
-			revalidate();
-			repaint();
-		}
-		else{
-			editFilterMode();
-			addEditViewListeners();
-			populateFilterList();
-			populateInactiveCatLists();
-			//populateActiveCatLists();
-			revalidate();
-			repaint();
-		}
-	}
-	
 	/**
 	 * Adds a new filter with the information contained in the fields
 	 */
@@ -885,32 +861,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 		}
 	}
 	
-
-	
-	private void removeCatFromFilter(Category aCat, Filter aFilter){
-		if (aCat.getIsPersonal()){
-			for(int i = 0; i < aFilter.getActivePersonalCategories().size(); i++){
-				int aCatID = aFilter.getActivePersonalCategories().get(i);
-				if (aCatID == aCat.getID()) {
-					aFilter.getActivePersonalCategories().remove(aCat.getID());
-				}
-			}
-		}
-		else{
-			for(int i = 0; i < aFilter.getActiveTeamCategories().size(); i++){
-				int aCatID = aFilter.getActiveTeamCategories().get(i);
-				if (aCatID == aCat.getID()) {
-					aFilter.getActiveTeamCategories().remove(aCat.getID());
-				}
-			}
-		}
-		
-	}
-	
-	private void addCatToFilter(Category aCat, Filter aFilter){
-		aFilter.getActivePersonalCategories().add(aCat.getID());
-	}
-	
 	private void populateInactiveCatLists(){
 		for(Category c:teamCategories.getCategories()){
 			inactiveTeamCat.add(c);
@@ -919,7 +869,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			inactivePersonalCat.add(c);
 		} 
 		
-		if(mode == FilterMode.EDITING){
+		/*if(mode == FilterMode.EDITING){
 			for(int i = 0; i < activeTeamCat.size(); i++){
 				for(int j = 0; j < inactiveTeamCat.getSize(); j++){
 					if(activeTeamCat.get(i) == inactiveTeamCat.getCategory(j).getID()){
@@ -937,7 +887,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 					}
 				}
 			}
-		}
+		}*/
 		
 		final List<Category> catList = new ArrayList<Category>();
 		final CategoryList bothCategories = new CategoryList();
@@ -1025,7 +975,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			listOfActiveTeamCat = null;
 			listOfActivePersonalCat = null;
 		}
-		else{
+		/*else{
 			for(int i = 0; i < activeTeamCat.size(); i++){
 				for(int j = 0; j < teamCategories.getSize(); j++)
 					if(activeTeamCat.get(i) == teamCategories.getCategory(j).getID()){
@@ -1041,7 +991,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 						break;
 					}
 			}
-		}
+		}*/
 		
 		final List<Category> catList = new ArrayList<Category>();
 		final CategoryList bothCategories = new CategoryList();
@@ -1111,35 +1061,4 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 			btnSaveFilter.setEnabled(true);
 		}
 	}
-	
-	protected CategoryList getCat(List<Integer> aList){
-		final CategoryList catList = new CategoryList();
-		for(int i = 0; i < aList.size(); i++){
-			for(int j = 0; i < allCategories.getSize(); j++){
-				if(aList.get(i) == allCategories.getCategory(j).getID()){
-					catList.add(allCategories.getCategory(j));
-					break;
-				}
-			}
-		}
-		return catList;
-	}
-	
-	protected CategoryList allCat(){
-		final List<Category> categories = new ArrayList<Category>();
-		allCategories = new CategoryList();
-		final Category[] bothCatArray = new Category[teamCategories.getSize() + personalCategories.getSize()];
-		categories.addAll(teamCategories.getCategories());
-		categories.addAll(personalCategories.getCategories());
-		for(int i = 0; i < categories.size(); i++)
-		{
-			bothCatArray[i] = categories.get(i);
-		}
-		allCategories.addCategories(bothCatArray);
-		allCategories.sortByAlphabet();
-		/*allCategories.clear();
-		allCategories.addAll(Categories.getCategories());*/
-		return allCategories;
-	}
-	
 }
