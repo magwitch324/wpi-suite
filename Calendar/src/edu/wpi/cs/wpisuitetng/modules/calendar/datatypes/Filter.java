@@ -56,7 +56,6 @@ public class Filter implements Comparator<Filter>{
 	 */
 	// need to phase out supplying the ID
 	public Filter(String name, List<Integer> activePersonalCatList, List<Integer> activeTeamCatList) {
-		this();
 		this.name = name;
 		activePersonalCategories = activePersonalCatList;
 		activeTeamCategories = activeTeamCatList;
