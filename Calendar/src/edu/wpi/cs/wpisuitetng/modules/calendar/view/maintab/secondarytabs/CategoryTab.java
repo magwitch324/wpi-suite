@@ -139,20 +139,21 @@ public class CategoryTab extends JPanel {
 		viewPanel.add(horizontalBox);
 		final ButtonGroup teamPersonalRadioButtons = new ButtonGroup();
 		
+		rdbtnPersonal = new JRadioButton("Personal");
+		rdbtnPersonal.setBackground(Color.WHITE);
+		teamPersonalRadioButtons.add(rdbtnPersonal);
+		horizontalBox.add(rdbtnPersonal);
+		rdbtnPersonal.setSelected(true);
+		
 		rdbtnTeam = new JRadioButton("Team");
 		rdbtnTeam.setBackground(Color.WHITE);
 		teamPersonalRadioButtons.add(rdbtnTeam);
 		horizontalBox.add(rdbtnTeam);
 		
-		rdbtnPersonal = new JRadioButton("Personal");
-		rdbtnPersonal.setBackground(Color.WHITE);
-		teamPersonalRadioButtons.add(rdbtnPersonal);
-		horizontalBox.add(rdbtnPersonal);
-		
 		rdbtnBoth = new JRadioButton("Both");
 		rdbtnBoth.setBackground(Color.WHITE);
 //		rdbtnBoth.setSelected(true);
-		rdbtnPersonal.setSelected(true);
+
 		teamPersonalRadioButtons.add(rdbtnBoth);
 		horizontalBox.add(rdbtnBoth);
 		
