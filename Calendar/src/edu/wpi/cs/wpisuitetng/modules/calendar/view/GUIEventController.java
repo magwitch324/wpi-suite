@@ -404,7 +404,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 * Method removeCategory.
 	 * @param catToDelete Category
 	 */
-	public void removeCategory(Category catToDelete){
+	public void scrubCategory(Category catToDelete){
 		//get relevant calendar data
 		CalendarData calData;
 		if (catToDelete.getIsPersonal()){

@@ -216,6 +216,21 @@ public class CategoryTab extends JPanel {
 			btnDelete.setText("Delete Category");
 		}
 		
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for(CategoryPanel catPane : selectedCategories ) {
+					GUIEventController.getInstance().scrubCategory(catPane.getCategory());
+					if(catPane.getCategory().getIsPersonal()) {
+						personalCategories.remove(catPane.getCategory().getID());
+					} else {
+						teamCategories.remove(catPane.getCategory().getID());
+					}
+				}
+				
+			}
+		});
+		
+		
 		horizontalBox_1.add(btnDelete);
 		
 		
