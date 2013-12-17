@@ -9,24 +9,12 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.datatypes;
 
-import static java.util.Calendar.DECEMBER;
-import static java.util.Calendar.JANUARY;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.Assert.*;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-
+import javax.annotation.processing.Filer;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Comparator;
-
-import com.google.gson.Gson;
-
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatType;
 
 /**
  * @author CS Anonymous
@@ -35,7 +23,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent.RepeatTy
 
 public class FilterTest {	
 	private List<Integer> personalCategories1;
+	private List<Integer> personalCategories2;
 	private List<Integer> teamCategories1;
+	private List<Integer> teamCategories2;
 
 	@Before
 	public void setUp() {
@@ -44,10 +34,20 @@ public class FilterTest {
 		personalCategories1.add(3);
 		personalCategories1.add(4);
 		
+		List<Integer> personalCategories2 = new ArrayList<Integer>();
+		personalCategories1.add(1);
+		personalCategories1.add(2);
+		personalCategories1.add(5);
+		
 		List<Integer> teamCategories1 = new ArrayList<Integer>();
 		personalCategories1.add(2);
 		personalCategories1.add(5);
 		personalCategories1.add(6);
+		
+		List<Integer> teamCategories2 = new ArrayList<Integer>();
+		personalCategories1.add(3);
+		personalCategories1.add(4);
+		personalCategories1.add(7);
 	}
 
 	/**
@@ -56,9 +56,11 @@ public class FilterTest {
 	@Test
 	public void defaultConstructorTest(){
 		final Filter testFilter = new Filter();
+		
 		assertEquals("", testFilter.getName());
-		assertEquals(new ArrayList<Integer>(), testFilter.getActivePersonalCategories()); 
-		assertEquals(new ArrayList<Integer>(), testFilter.getActiveTeamCategories());	
+		assertEquals(new ArrayList<Integer>(), testFilter.getActivePersonalCategories());
+		assertEquals(new ArrayList<Integer>(), testFilter.getActiveTeamCategories());
+		assertEquals(0, testFilter.getID());
 	}
 	
 	/**
@@ -67,9 +69,36 @@ public class FilterTest {
 	@Test
 	public void mainConstructorTest(){
 		final Filter testFilter = new Filter("test", personalCategories1,teamCategories1);
+		
 		assertEquals("test", testFilter.getName());
-		assertEquals(personalCategories1, testFilter.getActivePersonalCategories()); 
-		assertEquals(teamCategories1, testFilter.getActiveTeamCategories());	
+		assertEquals(personalCategories1, testFilter.getActivePersonalCategories());
+		assertEquals(teamCategories1, testFilter.getActiveTeamCategories());
+	}
+	/**
+	 * Ensures that setters work correctly
+	 */
+	@Test
+	public void setterConstructorTest(){
+		final Filter testFilter = new Filter("test", personalCategories1,teamCategories1);
+		testFilter.setName("setter tests");
+		testFilter.setActivePersonalCategories(personalCategories2);
+		testFilter.setActiveTeamCategories(teamCategories2);
+		testFilter.setID(1);
+		
+		assertEquals("setter tests", testFilter.getName());
+		assertEquals(personalCategories2, testFilter.getActivePersonalCategories());
+		assertEquals(teamCategories2, testFilter.getActiveTeamCategories());
+		assertEquals(1, testFilter.getID());
+	}
+	
+	/**
+	 * Tests to ensure that compare function work correctly
+	 */
+	@Test
+	public void compareTest(){
+		final Filter F1 = new Filter("Filter1", personalCategories1,teamCategories1);
+		final Filter F2 = new Filter("Filter2", personalCategories1,teamCategories1);
+		assertEquals(-1, F1.getName().compareToIgnoreCase(F2.getName()));
 	}
 
 }
