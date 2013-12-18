@@ -508,7 +508,7 @@ public class GUIEventController {
 		index += 3;
 		if (main.getComponent(index) instanceof CategoryTab) {
 			categoriesTabOpen = false;
-		} else if (main.getComponent(index) instanceof FilterTab) {
+		} else if (main.getComponent(index) instanceof FilterTab2) {
 			filtersTabOpen = false;
 		}
 

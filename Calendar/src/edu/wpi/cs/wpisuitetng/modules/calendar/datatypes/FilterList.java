@@ -26,16 +26,12 @@ public class FilterList {
 	 * The list in which all the filters are contained
 	 */
 	private final List<Filter> filters;
-	
-	/** the the id to be used for the next filter */
-	private int nextID;
 
 	/**
 	 * Constructs an empty list of filters
 	 */
 	public FilterList (){
 		filters = new ArrayList<Filter>();
-		nextID = 1;
 	}
 
 
@@ -47,8 +43,6 @@ public class FilterList {
 	 */
 	public void add(Filter newFilter){
 		// add the filter
-		newFilter.setID(nextID);
-		nextID++;
 		filters.add(newFilter);
 		sortByAlphabet();
 
