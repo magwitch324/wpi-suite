@@ -738,6 +738,7 @@ public class FilterTab2 extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mode = FilterMode.VIEWING;
+				selectedFilterPanel = null;
 				refreshMainView();
 			}
 		});
