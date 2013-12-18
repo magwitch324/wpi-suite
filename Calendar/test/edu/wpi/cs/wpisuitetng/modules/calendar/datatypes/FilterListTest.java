@@ -99,15 +99,15 @@ public class FilterListTest {
 	@Test
 	public void getFilterTest() {
 		assertEquals("personal filter 2", filterList2.getFilter(2).getName());
-		assertEquals(Integer.valueOf(2), filterList2.getFilter(1).getActiveTeamCategories().get(0));
+		assertEquals(Integer.valueOf(3), filterList2.getFilter(1).getActiveTeamCategories().get(0));
 	}
 	
 	@Test
 	public void removeFilterTest() {
 		filterList2.remove(1);
-		assertEquals("personal filter 2", filterList2.getElementAt(0).getName());
+		assertEquals("personal filter 1", filterList2.getElementAt(0).getName());
 		filterList2.remove(1);
-		assertEquals("personal filter 2", filterList2.getElementAt(0).getName());
+		assertEquals("personal filter 1", filterList2.getElementAt(0).getName());
 	}
 	
 	@Test
