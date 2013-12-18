@@ -75,6 +75,7 @@ public class FilterTab2 extends JPanel {
 	private JButton btnSaveFilter;
 	private JButton btnEdit;
 	private JButton btnDelete;
+	private JButton btnDeleteFilter;
 
 	public FilterTab2(int openedFrom) {
 		this.openedFrom = openedFrom;
@@ -270,7 +271,7 @@ public class FilterTab2 extends JPanel {
 					}
 				}
 				if (!contained) change = true;
-			}
+			} 
 			if (!filterName.getText().equals(selectedFilterPanel.getFilter().getName())) change = true;
 			if (!change) btnSaveFilter.setEnabled(false);
 				
@@ -715,9 +716,45 @@ public class FilterTab2 extends JPanel {
 				refreshMainView();
 			}
 		});
+		
+		// Add Delete Button
+		btnDeleteFilter = new JButton();
+		try {
+			final Image img = ImageIO.read(getClass().getResource(
+					"Delete_Icon.png"));
+			btnDeleteFilter.setIcon(new ImageIcon(img));
+		} catch (IOException ex) {
+		} catch (IllegalArgumentException ex) {
+			btnDeleteFilter.setIcon(new ImageIcon());
+		}
+		btnDeleteFilter.setText("Delete Filter");
+		btnDeleteFilter.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		// To change cursor as it moves over this button
+		btnDeleteFilter.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CalendarData calData;
 
-		filterButtonPanel.add(btnSaveFilter, BorderLayout.WEST);
-		filterButtonPanel.add(btnCancelFilter, BorderLayout.EAST);
+				calData = CalendarDataModel.getInstance().getCalendarData(
+						ConfigManager.getConfig().getProjectName() + "-"
+								+ ConfigManager.getConfig().getUserName());
+				calendarFilters.remove(selectedFilterPanel.getFilter().getID());
+				UpdateCalendarDataController.getInstance().updateCalendarData(
+						calData);
+				
+				mode = FilterMode.VIEWING;
+				refreshMainView();
+			}
+		});
+
+		if (mode == FilterMode.EDITING) {
+			filterButtonPanel.add(btnSaveFilter, BorderLayout.WEST);
+			filterButtonPanel.add(btnCancelFilter, BorderLayout.CENTER);
+			filterButtonPanel.add(btnDeleteFilter, BorderLayout.EAST);
+		} else {
+			filterButtonPanel.add(btnSaveFilter, BorderLayout.WEST);
+			filterButtonPanel.add(btnCancelFilter, BorderLayout.EAST);
+		}
 		// Set the horizontal gap
 		editPanel.add(filterButtonPanel, gbc_btnPanel2);
 	}
@@ -751,6 +788,9 @@ public class FilterTab2 extends JPanel {
 						1, SpringLayout.EAST, filterListPanel);
 			}
 			filterListPanel.add(filterPanel);
+			if (selectedFilterPanel != null)
+				if (filterPanel.getFilter().equals(selectedFilterPanel.getFilter())) 
+					filterPanel.setSelected(true);
 
 			filterPanel.addMouseListener(new MouseAdapter() {
 				@Override
