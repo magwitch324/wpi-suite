@@ -23,6 +23,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdatePropsController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
@@ -460,5 +461,12 @@ public class GUIEventController {
 		default: main.setSelectedComponent(myCalendar);
 		break;
 		}
+	}
+	
+	public void updateFilterComboBox(){
+		myCalendar.updateFilterList();
+	}
+	public void deleteFilterUpdateComboBox(Filter filter){
+		myCalendar.deleteFilterUpdateComboBox(filter);
 	}
 }
