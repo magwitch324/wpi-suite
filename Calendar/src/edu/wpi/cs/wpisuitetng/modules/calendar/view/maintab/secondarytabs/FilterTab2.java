@@ -352,7 +352,6 @@ public class FilterTab2 extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				mode = FilterMode.ADDING;
 				selectedFilterPanel = null;
-				refreshMainView();
 				refreshEditView();
 			}
 		});
@@ -373,6 +372,7 @@ public class FilterTab2 extends JPanel {
 		btnEdit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				mode = FilterMode.EDITING;
 				refreshEditView(selectedFilterPanel.getFilter());
 			}
 		});
@@ -481,6 +481,7 @@ public class FilterTab2 extends JPanel {
 
 		// Adds the text field for the name of the filter
 		filterName = new JTextField();
+		if (mode == FilterMode.EDITING) filterName.setText(selectedFilterPanel.getFilter().getName()); 
 		filterName.setBackground(CalendarStandard.CalendarYellow);
 		final GridBagConstraints gbc_filterName = new GridBagConstraints();
 		gbc_filterName.fill = GridBagConstraints.BOTH;
@@ -488,9 +489,6 @@ public class FilterTab2 extends JPanel {
 		gbc_filterName.gridwidth = 3;
 		gbc_filterName.gridx = 1;
 		gbc_filterName.gridy = 0;
-		if (selectedFilterPanel != null) {
-			filterName.setText(selectedFilterPanel.getName());
-		}
 		editPanel.add(filterName, gbc_filterName);
 		filterName.addActionListener(new ActionListener() {
 			@Override
