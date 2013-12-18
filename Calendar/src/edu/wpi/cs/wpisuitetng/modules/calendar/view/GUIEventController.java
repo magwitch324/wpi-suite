@@ -187,7 +187,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 * Method createCommitment.
 	 */
 	public void createCommitment() {
-		int openedFrom = main.getSelectedIndex();
+		final int openedFrom = main.getSelectedIndex();
 		lastTab = openedFrom;
 		final CommitmentTab newCommit = new CommitmentTab(openedFrom);
 //		final CommitmentTab2 newCommit2 = new CommitmentTab2(openedFrom);
@@ -213,7 +213,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	
 	 */
 	public void editCommitment(Commitment comm) {
-		int openedFrom = main.getSelectedIndex();
+		final int openedFrom = main.getSelectedIndex();
 		lastTab = openedFrom;
 		final CommitmentTab editCommit = new CommitmentTab(comm, openedFrom);
 		try {
@@ -234,7 +234,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 * Method createEvent.
 	 */
 	public void createEvent() {
-		int openedFrom = main.getSelectedIndex();
+		final int openedFrom = main.getSelectedIndex();
 		lastTab = openedFrom;
 		final EventTab newEvent = new EventTab(openedFrom);
 		try {
@@ -250,7 +250,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	}
 	
 	public void createEvent(Date inputTime) {
-		int openedFrom = main.getSelectedIndex();
+		final int openedFrom = main.getSelectedIndex();
 		lastTab = openedFrom;
 		final EventTab newEvent = new EventTab(openedFrom, inputTime);
 		try {
@@ -272,7 +272,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 * @param event Event
 	 */
 	public void editEvent(Event event) {
-		int openedFrom = main.getSelectedIndex();
+		final int openedFrom = main.getSelectedIndex();
 		lastTab = openedFrom;
 		final EventTab editEvent;
 		editEvent = new EventTab(event, openedFrom);
@@ -298,7 +298,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 			main.setSelectedComponent(manageCategoriesTab);
 		}
 		else{
-			int openedFrom = main.getSelectedIndex();
+			final int openedFrom = main.getSelectedIndex();
 			lastTab = openedFrom;
 			manageCategoriesTab = new CategoryTab();
 			try {
@@ -328,7 +328,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 			main.setSelectedComponent(manageFiltersTab);
 		}
 		else{
-			int openedFrom = main.getSelectedIndex();
+			final int openedFrom = main.getSelectedIndex();
 			lastTab = openedFrom;
 			manageFiltersTab = new FilterTab(openedFrom);
 			try {
@@ -394,7 +394,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 * @param goTo int
 	 */
 	public void removeEventTab(EventTab eventTab, int goTo) {
-		main.remove(eventTab);		
+		main.remove(eventTab);
 	}
 	
 	/**

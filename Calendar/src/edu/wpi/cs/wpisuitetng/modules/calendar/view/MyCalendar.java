@@ -91,7 +91,7 @@ public class MyCalendar extends AbCalendar {
 		this.add(datapanel);
 
 		filterComboBox = new JComboBox<Filter>();
-		JLabel filterLabel = new JLabel("Filter: ");
+		final JLabel filterLabel = new JLabel("Filter: ");
 		filterLabel.setFont(CalendarStandard.CalendarFont);
 		layout.putConstraint(SpringLayout.WEST, filterLabel, 30, SpringLayout.EAST, datapanel);
 		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filterLabel, 0, SpringLayout.VERTICAL_CENTER, datapanel);
@@ -138,7 +138,7 @@ public class MyCalendar extends AbCalendar {
 	protected void updateFilterList(){
 		
 		final int selectedFilter;
-		Filter test = new Filter();
+		final Filter test = new Filter();
 		test.setName("a test filter");
 		test.setID(100);
 		test.getActiveTeamCategories().add(1);
@@ -310,9 +310,9 @@ public class MyCalendar extends AbCalendar {
 			}//else if the team is selected
 			
 			//Apply the selected filter
-			Filter selectedFilter = ((Filter) filterComboBox.getSelectedItem());
+			final Filter selectedFilter = ((Filter) filterComboBox.getSelectedItem());
 			if(selectedFilter != null && selectedFilter.getID() != 0){
-				Iterator<Event> it = combinedEventList.getEvents().iterator();
+				final Iterator<Event> it = combinedEventList.getEvents().iterator();
 				 while(it.hasNext()){
 					 Event e = it.next();
 					 if(!selectedFilter.getActiveTeamCategories().contains(e.getCategoryID()) && !selectedFilter.getActivePersonalCategories().contains(e.getCategoryID())){
@@ -320,7 +320,7 @@ public class MyCalendar extends AbCalendar {
 					 }
 				 }
 				 
-				 Iterator<Commitment> it2 = combinedCommList.getCommitments().iterator();
+				 final Iterator<Commitment> it2 = combinedCommList.getCommitments().iterator();
 				 while(it2.hasNext()){
 					 Commitment c = it2.next();
 					 if(!selectedFilter.getActiveTeamCategories().contains(c.getCategoryID()) && !selectedFilter.getActivePersonalCategories().contains(c.getCategoryID())){

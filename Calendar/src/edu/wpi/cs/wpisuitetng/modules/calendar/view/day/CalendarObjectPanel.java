@@ -61,7 +61,7 @@ public class CalendarObjectPanel extends JPanel {
 	 */
 	private CalendarObjectPanel(JComponent parent, GregorianCalendar acal){
 		super();
-		this.setOpaque(false);	  
+		this.setOpaque(false);
 		this.parent = parent;
 		this.acal.setTime(acal.getTime());
 		this.setBackground(Color.WHITE);
@@ -214,16 +214,16 @@ public class CalendarObjectPanel extends JPanel {
 		setToolTipText(tt);
 		
 		final JLabel nameL = new JLabel(name);
-		nameL.setBackground(new Color(0,0,0,0));
+		nameL.setBackground(new Color(0, 0, 0, 0));
 		
 		nameL.setFont(new Font("SansSerif", Font.BOLD, 14));
 		description = description.replaceAll("\n", " ");
 		final JLabel descL = new JLabel(description);
-		descL.setBackground(new Color(0,0,0,0));
+		descL.setBackground(new Color(0, 0, 0, 0));
 		final JLabel timeL = new JLabel(time);
-		timeL.setBackground(new Color(0,0,0,0));
+		timeL.setBackground(new Color(0, 0, 0, 0));
 		final JLabel iconL = new JLabel();
-		iconL.setBackground(new Color(0,0,0,0));
+		iconL.setBackground(new Color(0, 0, 0, 0));
 		
 		setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this text
 		

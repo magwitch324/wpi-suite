@@ -61,14 +61,20 @@ public class CategoryList {
 	public Category getCategory(int id)
 	{
 		Category temp = null;
+		Category result = null;
+		if (id == 0){
+			return temp;
+		}
+		
 		// iterate through list of categories until id is found
 		for (int i=0; i < categories.size(); i++){
 			temp = categories.get(i);
 			if (temp.getID() == id){
+				result = temp;
 				break;
 			}
 		}
-		return temp;
+		return result;
 	}
 	/**
 	 * Removes the category with the given ID
