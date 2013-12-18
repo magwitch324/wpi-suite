@@ -398,7 +398,7 @@ public class FilterTab extends JPanel {
 	 */
 	private void addButtonPanel() {
 
-		JPanel buttonPanel = new JPanel(new BorderLayout(25, 0));
+		final JPanel buttonPanel = new JPanel(new BorderLayout(25, 0));
 		buttonPanel.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_btnPanel = new GridBagConstraints();
 		gbc_btnPanel.anchor = GridBagConstraints.CENTER;
@@ -407,7 +407,7 @@ public class FilterTab extends JPanel {
 		gbc_btnPanel.insets = new Insets(0, 15, 0, 15);
 
 		// New Filter button
-		JButton btnNewFilter = new JButton();
+		final JButton btnNewFilter = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource(
 					"New_Icon.png"));
@@ -467,7 +467,7 @@ public class FilterTab extends JPanel {
 		btnDelete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				CalendarData calData;
+				final CalendarData calData;
 				GUIEventController.getInstance().deleteFilterUpdateComboBox(selectedFilterPanel.getFilter());
 				calData = CalendarDataModel.getInstance().getCalendarData(
 						ConfigManager.getConfig().getProjectName() + "-"
@@ -582,7 +582,7 @@ public class FilterTab extends JPanel {
 		});
 
 		// adds the scroll pane containing the categories not in the filter
-		JScrollPane inactiveCatPane = new JScrollPane();
+		final JScrollPane inactiveCatPane = new JScrollPane();
 		inactiveCatPane.setPreferredSize(new Dimension(2, 200));
 		inactiveCatPane
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -600,7 +600,7 @@ public class FilterTab extends JPanel {
 		editPanel.add(inactiveCatPane, gbc_inactiveFilter);
 
 		// adds the scroll pane containing the categories in the filter
-		JScrollPane activeCatPane = new JScrollPane();
+		final JScrollPane activeCatPane = new JScrollPane();
 		activeCatPane.setPreferredSize(new Dimension(2, 200));
 		activeCatPane
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -631,7 +631,7 @@ public class FilterTab extends JPanel {
 
 		// add the two buttons to move categories between active and inactive
 		// panes
-		JPanel catBtnPanel = new JPanel(new BorderLayout(20, 0));
+		final JPanel catBtnPanel = new JPanel(new BorderLayout(20, 0));
 		catBtnPanel.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_catBtnPanel = new GridBagConstraints();
 		gbc_catBtnPanel.anchor = GridBagConstraints.CENTER;
@@ -694,7 +694,7 @@ public class FilterTab extends JPanel {
 	 * Method addButtonPanel2.
 	 */
 	public void addEditFilterButtonPanel() {
-		JPanel filterButtonPanel = new JPanel(new BorderLayout(25, 0));
+		final JPanel filterButtonPanel = new JPanel(new BorderLayout(25, 0));
 		filterButtonPanel.setBackground(Color.WHITE);
 		final GridBagConstraints gbc_btnPanel2 = new GridBagConstraints();
 		gbc_btnPanel2.insets = new Insets(0, 0, 0, 15);
@@ -727,7 +727,7 @@ public class FilterTab extends JPanel {
 		});
 
 		// New Cancel button
-		JButton btnCancelFilter = new JButton();
+		final JButton btnCancelFilter = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource(
 					"Cancel_Icon.png"));
@@ -764,7 +764,7 @@ public class FilterTab extends JPanel {
 		btnDeleteFilter.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				CalendarData calData;
+				final CalendarData calData;
 				GUIEventController.getInstance().deleteFilterUpdateComboBox(selectedFilterPanel.getFilter());
 				calData = CalendarDataModel.getInstance().getCalendarData(
 						ConfigManager.getConfig().getProjectName() + "-"
@@ -822,10 +822,12 @@ public class FilterTab extends JPanel {
 			}
 			filterListPanel.add(filterPanel);
 			if (selectedFilterPanel != null)
+				{
 				if (filterPanel.getFilter().equals(selectedFilterPanel.getFilter())) 
 					{
 						filterPanel.setSelected(true);
 					}
+				}
 
 			filterPanel.addMouseListener(new MouseAdapter() {
 				@Override
