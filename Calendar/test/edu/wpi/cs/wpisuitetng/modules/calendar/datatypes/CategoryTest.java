@@ -56,6 +56,13 @@ public class CategoryTest {
 		assertEquals(Color.cyan, testCategory.getCategoryColor());
 		assertFalse(testCategory.getIsPersonal());
 	}
+	
+	@Test
+	public void toStringTest() {
+		final Category c1 = new Category ("C1", Color.blue, true);
+		assertEquals("C1", c1.toString());
+	}
+	
 	/**
 	 * Tests to make sure copyFrom() works as intended
 	 */
@@ -77,11 +84,22 @@ public class CategoryTest {
 	public void compareTest(){
 		final Category c1 = new Category ("C1", Color.blue, true);
 		final Category c2 = new Category ("C2", Color.gray, false);
-		assertEquals(-1, c1.getName().compareToIgnoreCase(c2.getName()));
+		assertEquals(-1, c1.compare(c1, c2));
 	}
 	
+	@Test
+	public void setNameMoreThan100charsTest() {
+		final Category c1 = new Category ("C1", Color.blue, true);
+		String sect = "aaaaaaaaaaaaaaaaaaaaaaaaa";
+		String longName = sect.concat(sect).concat(sect).concat(sect).concat(sect);
+		c1.setName(longName);
+		assertEquals(100, c1.getName().length());
+	}
 	
-	
-	
-	
+	@Test
+	public void toJSONTest() {
+		final Category c1 = new Category ("C1", Color.blue, true);
+		String JSONCat = c1.toJSON();
+		assertNotNull(JSONCat);
+	}	
 }
