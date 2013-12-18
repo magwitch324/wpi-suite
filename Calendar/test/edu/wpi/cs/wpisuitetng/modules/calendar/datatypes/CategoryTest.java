@@ -101,5 +101,5 @@ public class CategoryTest {
 		final Category c1 = new Category ("C1", Color.blue, true);
 		String JSONCat = c1.toJSON();
 		assertNotNull(JSONCat);
-	}	
+	}
 }

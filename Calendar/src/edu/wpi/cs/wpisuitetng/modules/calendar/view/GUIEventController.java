@@ -394,7 +394,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 * @param goTo int
 	 */
 	public void removeEventTab(EventTab eventTab, int goTo) {
-		main.remove(eventTab);		
+		main.remove(eventTab);
 	}
 	
 	/**

@@ -42,7 +42,7 @@ public class CalendarObjectWrapperBorder extends AbstractBorder{
 		g2.fillRoundRect(x, y, width, height, 0, 0);
 
 		g2.setColor(background_color);
-		g2.fillRoundRect(x+left, y, width-(left), height, 0, 0);	
+		g2.fillRoundRect(x + left, y, width - (left), height, 0, 0);
 	}
 	
 	public Insets getBorderInsets(Component c){
