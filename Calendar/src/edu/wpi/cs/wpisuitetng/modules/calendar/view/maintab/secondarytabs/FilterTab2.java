@@ -80,7 +80,7 @@ public class FilterTab2 extends JPanel {
 	private JPanel activeListPanel;
 	private SpringLayout activeListLayout;
 	private JTextField filterName;
-	private int openedFrom;
+	private final int openedFrom;
 	private JButton btnSaveFilter;
 	private JButton btnEdit;
 	private JButton btnDelete;
@@ -180,7 +180,9 @@ public class FilterTab2 extends JPanel {
 					}
 				}
 				if (!isActive)
-					inactiveCategories.add(c);
+					{
+						inactiveCategories.add(c);
+					}
 			}
 
 			for (Category c : teamCategories.getCategories()) {
@@ -193,7 +195,9 @@ public class FilterTab2 extends JPanel {
 					}
 				}
 				if (!isActive)
-					inactiveCategories.add(c);
+					{
+						inactiveCategories.add(c);
+					}
 			}
 
 		}
@@ -220,25 +224,29 @@ public class FilterTab2 extends JPanel {
 	}
 
 	private void addFilter() {
-		CalendarData calData;
+		final CalendarData calData;
 
-		String name = filterName.getText();
+		final String name = filterName.getText();
 
 		calData = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName() + "-"
 						+ ConfigManager.getConfig().getUserName());
 
-		List<Integer> activePersonalCategories = new ArrayList<Integer>();
-		List<Integer> activeTeamCategories = new ArrayList<Integer>();
+		final List<Integer> activePersonalCategories = new ArrayList<Integer>();
+		final List<Integer> activeTeamCategories = new ArrayList<Integer>();
 
 		for (Category c : activeCategories) {
 			if (c.getIsPersonal())
-				activePersonalCategories.add(c.getID());
+				{
+					activePersonalCategories.add(c.getID());
+				}
 			else
-				activeTeamCategories.add(c.getID());
+				{
+					activeTeamCategories.add(c.getID());
+				}
 		}
 
-		Filter newFilter = new Filter(name, activePersonalCategories,
+		final Filter newFilter = new Filter(name, activePersonalCategories,
 				activeTeamCategories);
 		if (mode == FilterMode.ADDING) {
 			calData.addFilter(newFilter);
@@ -333,7 +341,7 @@ public class FilterTab2 extends JPanel {
 		add(viewPanel, constraints);
 
 		// Adds the scroll pane the filters will be on
-		JScrollPane scrollPane = new JScrollPane();
+		final JScrollPane scrollPane = new JScrollPane();
 		scrollPane
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane
@@ -799,7 +807,9 @@ public class FilterTab2 extends JPanel {
 			filterListPanel.add(filterPanel);
 			if (selectedFilterPanel != null)
 				if (filterPanel.getFilter().equals(selectedFilterPanel.getFilter())) 
-					filterPanel.setSelected(true);
+					{
+						filterPanel.setSelected(true);
+					}
 
 			filterPanel.addMouseListener(new MouseAdapter() {
 				@Override
@@ -810,7 +820,9 @@ public class FilterTab2 extends JPanel {
 					btnDelete.setEnabled(true);
 					
 					if (selectedFilterPanel != null)
-						selectedFilterPanel.setSelected(false);
+						{
+							selectedFilterPanel.setSelected(false);
+						}
 					if (e.getClickCount() > 1) {
 						mode = FilterMode.EDITING;
 						selectedFilterPanel = fp;
@@ -868,7 +880,9 @@ public class FilterTab2 extends JPanel {
 				public void mouseClicked(MouseEvent e) {
 					CategoryPanel cp = (CategoryPanel) e.getComponent();
 					if (selectedCategoryPanel != null)
-						selectedCategoryPanel.setSelected(false);
+						{
+							selectedCategoryPanel.setSelected(false);
+						}
 					if (e.getClickCount() > 1) {
 						selectedCategoryPanel = cp;
 						cp.setSelected(true);
@@ -930,7 +944,9 @@ public class FilterTab2 extends JPanel {
 				public void mouseClicked(MouseEvent e) {
 					CategoryPanel cp = (CategoryPanel) e.getComponent();
 					if (selectedCategoryPanel != null)
-						selectedCategoryPanel.setSelected(false);
+						{
+							selectedCategoryPanel.setSelected(false);
+						}
 					if (e.getClickCount() > 1) {
 						selectedCategoryPanel = cp;
 						cp.setSelected(true);
