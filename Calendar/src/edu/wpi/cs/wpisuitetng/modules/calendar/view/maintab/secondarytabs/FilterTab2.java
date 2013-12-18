@@ -553,6 +553,7 @@ public class FilterTab2 extends JPanel {
 
 		// Adds the text field for the name of the filter
 		filterName = new JTextField();
+		filterName.setColumns(1000000);
 		if (mode == FilterMode.EDITING) filterName.setText(selectedFilterPanel.getFilter().getName()); 
 		filterName.setBackground(CalendarStandard.CalendarYellow);
 		final GridBagConstraints gbc_filterName = new GridBagConstraints();
@@ -717,6 +718,7 @@ public class FilterTab2 extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				addFilter();
 				mode = FilterMode.VIEWING;
+				selectedFilterPanel = null;
 				refreshMainView();
 			}
 		});
@@ -769,6 +771,7 @@ public class FilterTab2 extends JPanel {
 						calData);
 				
 				mode = FilterMode.VIEWING;
+				selectedFilterPanel = null;
 				refreshMainView();
 			}
 		});
