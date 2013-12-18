@@ -244,7 +244,9 @@ public class CommitmentTab extends JPanel {
 
 		initFlag = false; //We need this to deal with the nested constructors
 
-
+		buttonPanel.add(btnDelete, BorderLayout.LINE_END);
+		
+		
 		/**
 		 * Initialize Delete Commitment button.////////////////
 		 */
@@ -845,7 +847,7 @@ public class CommitmentTab extends JPanel {
 			}
 		});
 		btnDelete.setEnabled(false);
-		buttonPanel.add(btnDelete, BorderLayout.LINE_END);
+
 
 		/**
 		 * Add buttons to button panel, and add button panel to main panel for commitment tab.
@@ -1539,10 +1541,6 @@ public class CommitmentTab extends JPanel {
 											editingCommitment.getStatus())
 							&& calDate.getTime().equals(
 									editingCommitment.getDueDate().getTime())
-							&& hourErr == false
-							&& minuteErr == false
-							&& ampmErr == false
-							&& lblDateError.isVisible()
 							){
 						btnSaveCommitment.setEnabled(false);
 						return;

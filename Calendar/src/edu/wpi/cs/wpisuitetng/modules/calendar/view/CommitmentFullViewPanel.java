@@ -14,7 +14,6 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.LayoutManager;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -131,15 +130,6 @@ public class CommitmentFullViewPanel extends JPanel {
 				}
 			}
 		});
-	}
-
-	/**
-	 * Constructor for CommitmentViewPanel.
-	 * @param layout LayoutManager
-	 */
-	public CommitmentFullViewPanel(LayoutManager layout) {
-		super(layout);
-		// TODO Auto-generated constructor stub
 	}
 
 	public Commitment getCommitment() {

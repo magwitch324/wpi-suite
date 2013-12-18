@@ -41,7 +41,6 @@ public class CalendarObjectWrapper extends JPanel{
 	 * @param c Commitment
 	 */
 	public CalendarObjectWrapper(Commitment c){
-		super();
 		label = new JLabel(c.getName());
 		this.setLayout(new GridLayout(1, 1));
 		this.add(label);
@@ -86,7 +85,6 @@ public class CalendarObjectWrapper extends JPanel{
 	 * @param e Event
 	 */
 	public CalendarObjectWrapper(Event e){
-		super();
 		label = new JLabel(e.getName());
 		this.setLayout(new GridLayout(1, 1));
 		this.add(label);
