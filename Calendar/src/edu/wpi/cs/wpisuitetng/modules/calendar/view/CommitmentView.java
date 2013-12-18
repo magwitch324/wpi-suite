@@ -55,7 +55,7 @@ public class CommitmentView extends JPanel {
 	JPanel commitPanel;
 	JScrollPane scrollPane;
 	private List<Commitment> commitmentList = new ArrayList<Commitment>();
-	private List<CommitmentViewPanel> panels = new ArrayList<CommitmentViewPanel>();
+	private final List<CommitmentViewPanel> panels = new ArrayList<CommitmentViewPanel>();
 	int commitpanel_height = 0;
 	/**
 	 * Constructor for CommitmentView.

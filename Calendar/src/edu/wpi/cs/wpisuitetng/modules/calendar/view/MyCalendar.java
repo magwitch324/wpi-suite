@@ -192,7 +192,7 @@ public class MyCalendar extends AbCalendar {
 	}
 	
 	public void deleteFilterUpdateComboBox(Filter toDelete){
-		int selectedFilter;
+		final int selectedFilter;
 		if(filterComboBox.getSelectedItem() != null){
 			selectedFilter = ((Filter) filterComboBox.getSelectedItem()).getID();
 			if(selectedFilter == toDelete.getID()){
