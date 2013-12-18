@@ -9,6 +9,7 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -29,6 +30,7 @@ import javax.swing.JPanel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.month.CalendarObjectWrapperBorder;
 
 
 /**
@@ -72,6 +74,24 @@ public class CommitmentFullViewPanel extends JPanel {
 		} catch (IOException | IllegalArgumentException exception) {
 
 		}
+		//gets the current category color 
+		Color fore_color;
+		try {
+			if (commitment.getIsPersonal()) {
+				fore_color = GUIEventController.getInstance().getCalendar()
+						.getMyCalData().getCategories()
+						.getCategory(commitment.getCategoryID()).getCategoryColor();
+			} else {
+				fore_color = GUIEventController.getInstance().getCalendar()
+						.getTeamCalData().getCategories()
+						.getCategory(commitment.getCategoryID()).getCategoryColor();
+			}
+		} catch (java.lang.NullPointerException excep) {
+			fore_color = Color.WHITE;
+		}
+		this.setBorder(BorderFactory.createCompoundBorder(BorderFactory
+				.createLoweredBevelBorder(), new CalendarObjectWrapperBorder(
+				fore_color, CalendarStandard.CalendarYellow)));
 		
 		//Formatter used for dates
 		final SimpleDateFormat df = new SimpleDateFormat();
@@ -100,7 +120,6 @@ public class CommitmentFullViewPanel extends JPanel {
 		this.setBackground(CalendarStandard.CalendarYellow);
 		this.setPreferredSize(new Dimension(300, 75));
 		this.setMaximumSize(new Dimension(20000, 75));
-		this.setBorder(BorderFactory.createLoweredBevelBorder());
 		this.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		this.setToolTipText("Click to Edit or Delete this Commitment");
 		// To change cursor as it moves over this commitment pannel
