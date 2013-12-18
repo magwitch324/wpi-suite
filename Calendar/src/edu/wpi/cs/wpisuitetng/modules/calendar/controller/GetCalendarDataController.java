@@ -62,7 +62,7 @@ public class GetCalendarDataController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// Send a request to the core to get this CalendarData
 		final Request request = Network.getInstance().makeRequest(
-				"calendar/calendardata", HttpMethod.GET); // GET == read
+				"calendar/calendardata", HttpMethod.GET);
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); // send the request
 	}
@@ -72,7 +72,7 @@ public class GetCalendarDataController implements ActionListener {
 	 */
 	public void retrieveCalendarData() {
 		final Request request = Network.getInstance().makeRequest(
-				"calendar/calendardata", HttpMethod.GET); // GET == read
+				"calendar/calendardata", HttpMethod.GET);
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); // send the request
 		System.out.println("Retrieve caldata Sent");
