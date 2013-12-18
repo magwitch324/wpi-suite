@@ -81,6 +81,7 @@ public class MyCalendar extends AbCalendar {
 				10, SpringLayout.SOUTH, viewbtnpanel);
 		layout.putConstraint(SpringLayout.WEST, rdbtnpanel, 
 				0, SpringLayout.WEST, viewbtnpanel);
+		rdbtnpanel.setBackground(Color.WHITE);
 		this.add(rdbtnpanel);
 		
 		
