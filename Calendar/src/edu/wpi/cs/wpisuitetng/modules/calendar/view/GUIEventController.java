@@ -34,7 +34,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.Commit
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.EventFullView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.EventTab;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.FilterTab2;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.FilterTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 
 /**
@@ -54,7 +54,7 @@ public class GUIEventController {
 	private EventFullView eventFullView;
 	private CommitmentFullView commitFullView;
 	private CategoryTab manageCategoriesTab;
-	private FilterTab2 manageFiltersTab;
+	private FilterTab manageFiltersTab;
 	private boolean filtersTabOpen = false;
 	private boolean categoriesTabOpen = false;
 	private int lastTab = 0;
@@ -320,7 +320,7 @@ public class GUIEventController {
 		else{
 			final int openedFrom = main.getSelectedIndex();
 			lastTab = openedFrom;
-			manageFiltersTab = new FilterTab2(openedFrom);
+			manageFiltersTab = new FilterTab(openedFrom);
 			try {
 				final Image img = ImageIO.read(getClass().getResource(
 						"ManageFilter_Icon.png"));
@@ -444,7 +444,7 @@ public class GUIEventController {
 		index += 3;
 		if (main.getComponent(index) instanceof CategoryTab) {
 			categoriesTabOpen = false;
-		} else if (main.getComponent(index) instanceof FilterTab2) {
+		} else if (main.getComponent(index) instanceof FilterTab) {
 			filtersTabOpen = false;
 		}
 

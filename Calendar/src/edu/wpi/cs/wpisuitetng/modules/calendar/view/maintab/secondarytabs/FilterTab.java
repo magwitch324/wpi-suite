@@ -50,7 +50,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
-public class FilterTab2 extends JPanel {
+public class FilterTab extends JPanel {
 
 	private enum FilterMode {
 		ADDING(0), EDITING(1), VIEWING(2);
@@ -87,7 +87,7 @@ public class FilterTab2 extends JPanel {
 	private JButton btnDelete;
 	private JButton btnDeleteFilter;
 
-	public FilterTab2(int openedFrom) {
+	public FilterTab(int openedFrom) {
 		this.openedFrom = openedFrom;
 
 		final GridBagLayout gridBagLayout = new GridBagLayout();
