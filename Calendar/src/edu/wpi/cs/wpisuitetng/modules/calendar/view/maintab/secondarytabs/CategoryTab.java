@@ -168,7 +168,7 @@ public class CategoryTab extends JPanel {
 		categoryListLabelPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 		
 		final JLabel categoryListLabel = new JLabel("List of Categories");
-		categoryListLabel.setPreferredSize(new Dimension(120, 24));
+		categoryListLabel.setPreferredSize(new Dimension(130, 24));
 		categoryListLabelPanel.add(categoryListLabel);
 		categoryListLabel.setForeground(Color.WHITE);
 		categoryListLabel.setBackground(new Color(196, 0, 14));
