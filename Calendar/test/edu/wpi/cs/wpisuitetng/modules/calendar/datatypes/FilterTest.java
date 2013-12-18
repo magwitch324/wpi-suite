@@ -25,28 +25,34 @@ public class FilterTest {
 	private List<Integer> personalCategories2;
 	private List<Integer> teamCategories1;
 	private List<Integer> teamCategories2;
+	
+	private Filter filter1;
+	private Filter filter2;
 
 	@Before
 	public void setUp() {
-		final List<Integer> personalCategories1 = new ArrayList<Integer>();
+		personalCategories1 = new ArrayList<Integer>();
 		personalCategories1.add(1);
 		personalCategories1.add(3);
 		personalCategories1.add(4);
 		
-		final List<Integer> personalCategories2 = new ArrayList<Integer>();
-		personalCategories1.add(1);
-		personalCategories1.add(2);
-		personalCategories1.add(5);
+		personalCategories2 = new ArrayList<Integer>();
+		personalCategories2.add(1);
+		personalCategories2.add(2);
+		personalCategories2.add(5);
 		
-		final List<Integer> teamCategories1 = new ArrayList<Integer>();
-		personalCategories1.add(2);
-		personalCategories1.add(5);
-		personalCategories1.add(6);
+		teamCategories1 = new ArrayList<Integer>();
+		teamCategories1.add(2);
+		teamCategories1.add(5);
+		teamCategories1.add(6);
 		
-		final List<Integer> teamCategories2 = new ArrayList<Integer>();
-		personalCategories1.add(3);
-		personalCategories1.add(4);
-		personalCategories1.add(7);
+		teamCategories2 = new ArrayList<Integer>();
+		teamCategories2.add(3);
+		teamCategories2.add(4);
+		teamCategories2.add(7);
+		
+		filter1 = new Filter("Filter1", personalCategories1, teamCategories1);
+		filter2 = new Filter("Filter2", personalCategories1, teamCategories1);
 	}
 
 	/**
@@ -90,14 +96,29 @@ public class FilterTest {
 		assertEquals(1, testFilter.getID());
 	}
 	
+	@Test
+	public void toStringTest() {
+		assertEquals("Filter1", filter1.toString());
+	}
+	
 	/**
 	 * Tests to ensure that compare function work correctly
 	 */
 	@Test
 	public void compareTest(){
-		final Filter F1 = new Filter("Filter1", personalCategories1, teamCategories1);
-		final Filter F2 = new Filter("Filter2", personalCategories1, teamCategories1);
-		assertEquals(-1, F1.getName().compareToIgnoreCase(F2.getName()));
+		assertEquals(-1, filter1.compare(filter1, filter2));
+		filter1.setName("z");
+		assertEquals(20, filter1.compare(filter1, filter2));
+		filter1.setName("filter2");
+		assertEquals(0, filter1.compare(filter1, filter2));
+	}
+	
+	@Test
+	public void setNameMoreThan100charsTest() {
+		final String sect = "aaaaaaaaaaaaaaaaaaaaaaaaa";
+		final String longName = sect.concat(sect).concat(sect).concat(sect).concat(sect);
+		filter1.setName(longName);
+		assertEquals(100, filter1.getName().length());
 	}
 
 }

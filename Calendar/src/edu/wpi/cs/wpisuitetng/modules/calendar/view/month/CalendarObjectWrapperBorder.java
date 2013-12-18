@@ -22,9 +22,9 @@ public class CalendarObjectWrapperBorder extends AbstractBorder{
 	}
 	
 	public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-		Color foreground_color = foreground;
-		Color background_color = background;
-		Graphics2D g2 = (Graphics2D) g;
+		final Color foreground_color = foreground;
+		final Color background_color = background;
+		final Graphics2D g2 = (Graphics2D) g;
 		
 		if(width > 100){
 			left = 7;
@@ -42,7 +42,7 @@ public class CalendarObjectWrapperBorder extends AbstractBorder{
 		g2.fillRoundRect(x, y, width, height, 0, 0);
 
 		g2.setColor(background_color);
-		g2.fillRoundRect(x+left, y, width-(left), height, 0, 0);	
+		g2.fillRoundRect(x + left, y, width - (left), height, 0, 0);
 	}
 	
 	public Insets getBorderInsets(Component c){

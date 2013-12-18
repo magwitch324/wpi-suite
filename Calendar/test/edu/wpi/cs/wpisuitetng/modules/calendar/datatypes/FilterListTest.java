@@ -19,8 +19,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class FilterListTest {
-	private List<Filter> filterList1;
-	private List<Filter> filterList2;
+	private FilterList filterList1;
+	private FilterList filterList2;
 	
 	private List<Integer> personalCategories1;
 	private List<Integer> personalCategories2;
@@ -37,33 +37,33 @@ public class FilterListTest {
 	@Before
 	public void setup() {
 		
-		final List<Integer> personalCategories1 = new ArrayList<Integer>();
+		personalCategories1 = new ArrayList<Integer>();
 		personalCategories1.add(1);
 		personalCategories1.add(3);
 		personalCategories1.add(4);
 	
-		final List<Integer> personalCategories2 = new ArrayList<Integer>();
-		personalCategories1.add(1);
-		personalCategories1.add(2);
-		personalCategories1.add(5);
+		personalCategories2 = new ArrayList<Integer>();
+		personalCategories2.add(1);
+		personalCategories2.add(2);
+		personalCategories2.add(5);
 	
-		final List<Integer> teamCategories1 = new ArrayList<Integer>();
-		personalCategories1.add(2);
-		personalCategories1.add(5);
-		personalCategories1.add(6);
+		teamCategories1 = new ArrayList<Integer>();
+		teamCategories1.add(2);
+		teamCategories1.add(5);
+		teamCategories1.add(6);
 	
-		final List<Integer> teamCategories2 = new ArrayList<Integer>();
-		personalCategories1.add(3);
-		personalCategories1.add(4);
-		personalCategories1.add(7);
+		teamCategories2 = new ArrayList<Integer>();
+		teamCategories2.add(3);
+		teamCategories2.add(4);
+		teamCategories2.add(7);
 		
-		final Filter filter1 = new Filter(
+		filter1 = new Filter(
 				"personal filter 1", personalCategories1, teamCategories1);
-		final Filter filter2 = new Filter(
+		filter2 = new Filter(
 				"personal filter 2", personalCategories2, teamCategories2);
 		
-		filterList1 = new ArrayList<Filter>();
-		filterList2 = new ArrayList<Filter>();
+		filterList1 = new FilterList();
+		filterList2 = new FilterList();
 		filterList2.add(filter1);
 		filterList2.add(filter2);
 	}
@@ -74,18 +74,81 @@ public class FilterListTest {
 	@Test
 	public void addOneFilterTest() {
 		filterList1.add(filter1);
-		assertEquals("personal filter 1", filterList1.get(0).getName());
-		assertEquals(personalCategories1, filterList1.get(0).getActivePersonalCategories());
-		//still need to work on this one 
+		assertEquals("personal filter 1", filterList1.getElementAt(0).getName());
+		assertEquals(Integer.valueOf(1), filterList1.getElementAt(0).getActivePersonalCategories().get(0));
 	}
 	
 	/**
-	 * Method addOneFilterTest.
+	 * Method addTwoFilterTest.
 	 */
 	@Test
 	public void addTwoFilterTest() {
-		//still need to work on this one 
+		filterList1.add(filter2);
+		filterList1.add(filter1);
+		assertEquals("personal filter 1", filterList1.getElementAt(0).getName());
+		assertEquals(Integer.valueOf(2), filterList1.getElementAt(1).getActivePersonalCategories().get(1)); 
 	}
 	
+	@Test
+	public void getFilterNullTest() {
+		assertNull(filterList1.getFilter(1));
+	}
+	
+	@Test
+	public void getFilterTest() {
+		assertEquals("personal filter 2", filterList2.getFilter(2).getName());
+		assertEquals(Integer.valueOf(2), filterList2.getFilter(1).getActiveTeamCategories().get(0));
+	}
+	
+	@Test
+	public void removeFilterTest() {
+		filterList2.remove(1);
+		assertEquals("personal filter 2", filterList2.getElementAt(0).getName());
+		filterList2.remove(1);
+		assertEquals("personal filter 2", filterList2.getElementAt(0).getName());
+	}
+	
+	@Test
+	public void getSizeTest() {
+		assertEquals(2, filterList2.getSize());
+		filterList2.add(new Filter("personal filter 3", personalCategories1, teamCategories2));
+		assertEquals(3, filterList2.getSize());
+	}
+	
+	@Test
+	public void removeAllTest() {
+		filterList2.removeAll();
+		assertEquals(0, filterList2.getSize());
+	}
+	
+	@Test
+	public void addFiltersTest() {
+		final Filter[] filterArray = new Filter[] {filter1, filter2};
+		filterList1.addFilters(filterArray);
+		assertEquals("personal filter 1", filterList1.getElementAt(0).getName());
+		assertEquals(Integer.valueOf(1), filterList1.getElementAt(0).getActivePersonalCategories().get(0));
+	}
+	
+	@Test
+	public void updateTest() {
+		filter1.setName("Name Changed");
+		filterList2.update(filter1);
+		assertEquals("Name Changed", filterList2.getElementAt(0).getName());
+	}
+	
+	@Test
+	public void sortByAlphabetTest() {
+		final Filter a = new Filter(
+				"a", personalCategories1, teamCategories1);
+		final Filter z = new Filter(
+				"z", personalCategories2, teamCategories2);
+		final Filter h = new Filter(
+				"h", personalCategories2, teamCategories2);
+		filterList1.add(h);
+		filterList1.add(a);
+		filterList1.add(z);
+		assertEquals("z", filterList1.getElementAt(2).getName());
+		assertEquals("h", filterList1.getElementAt(1).getName());
+	}
 
 }
