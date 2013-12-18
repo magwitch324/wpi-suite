@@ -108,13 +108,15 @@ public class CommitmentView extends JPanel {
 			message.setOpaque(true);
 			message.setBorder(new EmptyBorder(0, 0, 15, 0));
 			commitPanel.add(message, BorderLayout.CENTER);
+			return;
 		}
 		
+		CommitmentViewPanel commitmentPanel = null;
 		for(int i = 0; i < commitmentList.size(); i++){
 			if (commitmentList.get(i).getStatus().id != 2) {//Skips over completed commitments
-				CommitmentViewPanel commitmentPanel = 
-						new CommitmentViewPanel(commitmentList.get(i));
+				commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
 				commitmentPanel.setBackground(CalendarStandard.CalendarYellow);
+				//sets the border to the needed border
 				Color fore_color;
 				try {
 					if (commitmentList.get(i).getIsPersonal()) {
@@ -190,6 +192,21 @@ public class CommitmentView extends JPanel {
 				// Get time
 				JLabel time = new JLabel("Due Time: " + tm.format(comm.getDueDate().getTime()));
 
+				
+				//code for setting the category
+				String cat_str = "Category: ";
+				try{
+					cat_str += GUIEventController.getInstance().getCalendar()
+						.getTeamCalData().getCategories()
+						.getCategory(commitmentList.get(i).getCategoryID()).getName();
+				}
+				catch(java.lang.NullPointerException excep){
+					//no associated category
+					cat_str += "none";
+				}
+				
+				final JLabel category = new JLabel(cat_str, JLabel.LEFT);
+				
 				commitmentPanel.setLayout(new GridBagLayout());
 				GridBagConstraints c = new GridBagConstraints();
 				c.anchor = GridBagConstraints.LINE_START;
@@ -202,6 +219,7 @@ public class CommitmentView extends JPanel {
 				commitmentPanel.add(time, c);
 				commitmentPanel.add(description, c);
 				commitmentPanel.add(status, c);
+				commitmentPanel.add(category, c);
 				commitmentPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 				commitmentPanel.setToolTipText("Click to Edit or Delete this Commitment");
 				// To change cursor as it moves over the commitment
@@ -236,7 +254,7 @@ public class CommitmentView extends JPanel {
 
 				commitPanel.add(commitmentPanel);
 				JSeparator separator = new JSeparator();
-				separator.setOrientation(JSplitPane.VERTICAL_SPLIT);
+				separator.setOrientation(JSeparator.HORIZONTAL);
 				commPanelLayout.putConstraint(SpringLayout.NORTH, separator, 
 						1, SpringLayout.SOUTH, commitmentPanel);
 				commPanelLayout.putConstraint(SpringLayout.WEST, separator,
@@ -245,16 +263,12 @@ public class CommitmentView extends JPanel {
 						0, SpringLayout.EAST, commitPanel);
 
 				commitPanel.add(separator);
-				if (n == commitmentList.size() - 1)
-					{
-					commPanelLayout.putConstraint(
-							SpringLayout.SOUTH, commitPanel, 0, SpringLayout.SOUTH, separator);
-					}
-
 				n++;
 			}
 		}
-
+		
+		commPanelLayout.putConstraint( SpringLayout.SOUTH, commitPanel, 0, SpringLayout.SOUTH, commitmentPanel);
+		
 		revalidate();
 		repaint();
 	}
