@@ -61,6 +61,10 @@ public class CategoryList {
 	public Category getCategory(int id)
 	{
 		Category temp = null;
+		if (id == 0){
+			return temp;
+		}
+		
 		// iterate through list of categories until id is found
 		for (int i=0; i < categories.size(); i++){
 			temp = categories.get(i);
