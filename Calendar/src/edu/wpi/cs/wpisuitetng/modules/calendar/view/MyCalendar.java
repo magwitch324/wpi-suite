@@ -341,6 +341,7 @@ public class MyCalendar extends AbCalendar {
 			
 			if(selectedFilter != null && selectedFilter.getID() != 0){
 				System.out.println(selectedFilter.getActivePersonalCategories());
+				System.out.println(selectedFilter.getActiveTeamCategories());
 				final Iterator<Event> it = combinedEventList.getEvents().iterator();
 				 while(it.hasNext()){
 					 Event e = it.next();

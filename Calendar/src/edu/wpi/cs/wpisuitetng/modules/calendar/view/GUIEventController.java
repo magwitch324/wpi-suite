@@ -24,6 +24,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.FilterList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.RepeatingEvent;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
@@ -392,14 +393,14 @@ public class GUIEventController {
 	public void removeEventTab(EventTab eventTab, int goTo) {
 		main.remove(eventTab);
 	}
-	
+
 	/**
 	 * Method removeCommTab.
 	 * @param commTab CommitmentTab
 	 * @param goTo int
 	 */
 	public void removeCommTab(CommitmentTab commTab, int goTo) {
-			main.remove(commTab);
+		main.remove(commTab);
 	}
 
 	/**
@@ -438,6 +439,19 @@ public class GUIEventController {
 				tmpRepEvent.setCategoryID(0);
 			}
 		}
+		FilterList filters = calData.getFilters();
+		for(Filter f: filters.getFilters()){
+			if(catToDelete.getIsPersonal()){
+				if(f.getActivePersonalCategories().contains(catToDelete.getID())){
+					f.getActivePersonalCategories().remove(f.getActivePersonalCategories().indexOf(catToDelete.getID()));
+				}
+			}
+			else{
+				if(f.getActiveTeamCategories().contains(catToDelete.getID())){
+					f.getActiveTeamCategories().remove(f.getActiveTeamCategories().indexOf(catToDelete.getID()));
+				}
+			}
+		}
 	}
 
 	public void checkTabClose(int index) {
@@ -462,7 +476,7 @@ public class GUIEventController {
 		break;
 		}
 	}
-	
+
 	public void updateFilterComboBox(){
 		myCalendar.updateFilterList();
 	}
