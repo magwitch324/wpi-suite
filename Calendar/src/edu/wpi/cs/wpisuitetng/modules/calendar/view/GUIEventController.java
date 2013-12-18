@@ -33,7 +33,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.Commit
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.EventFullView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.EventTab;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.FilterTab;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.FilterTab2;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 
@@ -50,7 +49,6 @@ public class GUIEventController {
 	private int scrollBarValue = 659;
 	private MainTabView main = null;
 	private ToolbarView toolbar = null;
-	// private TeamCalendar teamCalendar;
 	private MyCalendar myCalendar;
 	private EventFullView eventFullView;
 	private CommitmentFullView commitFullView;
@@ -58,6 +56,7 @@ public class GUIEventController {
 	private FilterTab2 manageFiltersTab;
 	private boolean filtersTabOpen = false;
 	private boolean categoriesTabOpen = false;
+	private int lastTab = 0;
 
 	/**
 	 * Default constructor for ViewEventController. Is protected to prevent
@@ -94,16 +93,11 @@ public class GUIEventController {
 	/**
 	 * Called on Janeway shutdown to save props
 	 */
-	public void saveProps() {
-		// teamCalendar.saveProps();
-		// myCalendar.saveProps();
-		// commitFullView.saveProps();
-		final CalendarProperties calProps = CalendarPropertiesModel
-				.getInstance().getCalendarProps(
-						ConfigManager.getConfig().getProjectName() + "-"
-								+ ConfigManager.getConfig().getUserName()
-								+ "-PROPS");
-		if (calProps != null) {
+	public void saveProps(){
+		final CalendarProperties calProps = CalendarPropertiesModel.getInstance().getCalendarProps(
+				ConfigManager.getConfig().getProjectName() + "-"
+						+ ConfigManager.getConfig().getUserName() + "-PROPS");
+		if(calProps != null){
 			UpdatePropsController.getInstance().updateCalendarProps(calProps);
 		}
 	}
@@ -111,10 +105,9 @@ public class GUIEventController {
 	/**
 	 * Called on Janeway shutdown to remove year old items
 	 */
-	public void removeYearOld() {
-		// teamCalendar.saveProps();
-		// myCalendar.saveProps();
-		// commitFullView.saveProps();
+
+	public void removeYearOld(){
+
 	}
 
 	/**
@@ -125,7 +118,6 @@ public class GUIEventController {
 	 */
 	public void setMainView(MainTabView mainview) {
 		main = mainview;
-		// teamCalendar = new TeamCalendar();
 		myCalendar = new MyCalendar();
 		eventFullView = new EventFullView(myCalendar);
 		commitFullView = new CommitmentFullView(myCalendar);
@@ -134,9 +126,6 @@ public class GUIEventController {
 			Image img = ImageIO.read(getClass()
 					.getResource("Calendar_Icon.png"));
 			main.addTab("Calendar", new ImageIcon(img), myCalendar);
-
-			// img = ImageIO.read(getClass().getResource("Team_Icon.png"));
-			// main.addTab("Team Calendar", new ImageIcon(img), teamCalendar);
 
 			img = ImageIO.read(getClass().getResource("Agenda_Icon.png"));
 			main.addTab("Events Agenda", new ImageIcon(img), eventFullView);
@@ -192,52 +181,21 @@ public class GUIEventController {
 	}
 
 	/**
-	 * Method removeCommTab.
-	 * 
-	 * @param commTab
-	 *            CommitmentTab
-	 * @param goTo
-	 *            int
-	 */
-	public void removeCommTab(CommitmentTab commTab, int goTo) {
-
-		main.remove(commTab);
-		switch (goTo) {
-		case 0:
-			main.setSelectedComponent(myCalendar);
-			break;
-		case 1:
-			main.setSelectedComponent(eventFullView);
-			break;
-		case 2:
-			main.setSelectedComponent(commitFullView);
-			break;
-		}
-	}
-
-	/**
 	 * Method createCommitment.
 	 */
 	public void createCommitment() {
-		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 1) {
-			openedFrom = 0;
-		}
+		final int openedFrom = main.getSelectedIndex();
+		lastTab = openedFrom;
 		final CommitmentTab newCommit = new CommitmentTab(openedFrom);
-		// final CommitmentTab2 newCommit2 = new CommitmentTab2(openedFrom);
 		try {
 			final Image img = ImageIO.read(getClass().getResource(
 					"NewCommitment_Icon.png"));
 			main.addTab("New Commitment", new ImageIcon(img), newCommit);
-			// main.addTab("New Commitment2", new ImageIcon(img), newCommit2);
-		} catch (IOException ex) {
-		} catch (IllegalArgumentException ex) {
+		} catch (IOException ex) {}
+		catch(IllegalArgumentException ex){
 			main.addTab("New Commitment", new ImageIcon(), newCommit);
-			// main.addTab("New Commitment2", new ImageIcon(), newCommit2);
 		}
-		// main.addTab("New Commitment", null, newCommit, "New Commitment");
-		// newCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		main.invalidate(); // force the tabbedpane to redraw.
+		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(newCommit);
 	}
@@ -249,10 +207,8 @@ public class GUIEventController {
 	 *            Commitment to edit
 	 */
 	public void editCommitment(Commitment comm) {
-		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 1) {
-			openedFrom = 0;
-		}
+		final int openedFrom = main.getSelectedIndex();
+		lastTab = openedFrom;
 		final CommitmentTab editCommit = new CommitmentTab(comm, openedFrom);
 		try {
 			final Image img = ImageIO.read(getClass().getResource(
@@ -262,9 +218,7 @@ public class GUIEventController {
 		} catch (IllegalArgumentException ex) {
 			main.addTab("Edit Commitment", new ImageIcon(), editCommit);
 		}
-		// main.addTab("Edit Commitment", null, editCommit, "Edit Commitment");
-		// editCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		main.invalidate(); // force the tabbedpane to redraw.
+		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(editCommit);
 	}
@@ -273,10 +227,8 @@ public class GUIEventController {
 	 * Method createEvent.
 	 */
 	public void createEvent() {
-		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 1) {
-			openedFrom = 0;
-		}
+		final int openedFrom = main.getSelectedIndex();
+		lastTab = openedFrom;
 		final EventTab newEvent = new EventTab(openedFrom);
 		try {
 			final Image img = ImageIO.read(getClass().getResource(
@@ -292,10 +244,8 @@ public class GUIEventController {
 	}
 
 	public void createEvent(Date inputTime) {
-		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 1) {
-			openedFrom = 0;
-		}
+		final int openedFrom = main.getSelectedIndex();
+		lastTab = openedFrom;
 		final EventTab newEvent = new EventTab(openedFrom, inputTime);
 		try {
 			final Image img = ImageIO.read(getClass().getResource(
@@ -319,10 +269,8 @@ public class GUIEventController {
 	 *            Event
 	 */
 	public void editEvent(Event event) {
-		int openedFrom = main.getSelectedIndex();
-		if (openedFrom > 1) {
-			openedFrom = 0;
-		}
+		final int openedFrom = main.getSelectedIndex();
+		lastTab = openedFrom;
 		final EventTab editEvent;
 		editEvent = new EventTab(event, openedFrom);
 		try {
@@ -345,11 +293,10 @@ public class GUIEventController {
 	public void createManageCategories() {
 		if (categoriesTabOpen) {
 			main.setSelectedComponent(manageCategoriesTab);
-		} else {
-			int openedFrom = main.getSelectedIndex();
-			if (openedFrom > 1) {
-				openedFrom = 0;
-			}
+		}
+		else{
+			final int openedFrom = main.getSelectedIndex();
+			lastTab = openedFrom;
 			manageCategoriesTab = new CategoryTab();
 			try {
 				final Image img = ImageIO.read(getClass().getResource(
@@ -376,11 +323,10 @@ public class GUIEventController {
 	public void createManageFilters() {
 		if (filtersTabOpen) {
 			main.setSelectedComponent(manageFiltersTab);
-		} else {
-			int openedFrom = main.getSelectedIndex();
-			if (openedFrom > 1) {
-				openedFrom = 0;
-			}
+		}
+		else{
+			final int openedFrom = main.getSelectedIndex();
+			lastTab = openedFrom;
 			manageFiltersTab = new FilterTab2(openedFrom);
 			try {
 				final Image img = ImageIO.read(getClass().getResource(
@@ -452,18 +398,15 @@ public class GUIEventController {
 	 */
 	public void removeEventTab(EventTab eventTab, int goTo) {
 		main.remove(eventTab);
-		switch (goTo) {
-		case 0:
-			main.setSelectedComponent(myCalendar);
-			break;
-		case 1:
-			main.setSelectedComponent(eventFullView);
-			break;
-		case 2:
-			main.setSelectedComponent(commitFullView);
-			break;
-		}
-
+	}
+	
+	/**
+	 * Method removeCommTab.
+	 * @param commTab CommitmentTab
+	 * @param goTo int
+	 */
+	public void removeCommTab(CommitmentTab commTab, int goTo) {
+			main.remove(commTab);
 	}
 
 	/**
@@ -514,13 +457,16 @@ public class GUIEventController {
 
 	}
 
-	// public void removeFilterTab(Filter filterToDelete){
-	// CalendarData calData;
-	// if (filterToDelete.getIsPersonal()){
-	// calData = myCalendar.getCalData();
-	// } else {
-	// calData = teamCalendar.getCalData();
-	// }
-	// }
-
+	public void setLastTab() {
+		switch(lastTab){
+		case 0: main.setSelectedComponent(myCalendar);
+		break;
+		case 1: main.setSelectedComponent(eventFullView);
+		break;
+		case 2: main.setSelectedComponent(commitFullView);
+		break;
+		default: main.setSelectedComponent(myCalendar);
+		break;
+		}
+	}
 }

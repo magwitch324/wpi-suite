@@ -60,10 +60,6 @@ public class WeekView extends CalendarView {
 		startDate.set(Calendar.MILLISECOND, 0);
 		startDate.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 
-//		while (startDate.get(Calendar.DAY_OF_WEEK) != startDate.getFirstDayOfWeek()) {
-//			startDate.add(Calendar.DAY_OF_WEEK, -1);
-//		}
-		
 		// Get end date by skipping to next sunday and
 		// then backing up to the saturday
 		endDate.setTime(startDate.getTime());
@@ -120,6 +116,10 @@ public class WeekView extends CalendarView {
 		}
 		revalidate();
 		repaint();
+	}
+	
+	public String getCommRangeText(){
+		return "Show all open commitments for week";
 	}
 
 }

@@ -71,6 +71,7 @@ public class EventFullView extends JPanel{
 	private boolean initialized;
 
 	List<EventViewPanel> eventPanelList = new ArrayList<EventViewPanel>();
+	List<EventViewPanel> permaOrderPanelList;
 	
 	private boolean reverse_sort;
 
@@ -150,10 +151,12 @@ public class EventFullView extends JPanel{
 		final String searchText = getSearchInput().trim().toLowerCase();
 		
 		final EventList events = new EventList();
-		
 		if (mode == ViewingMode.TEAM || mode == ViewingMode.BOTH) {
 			if(pcalendar.getTeamCalData() != null) {
 				for (Event e : pcalendar.getTeamCalData().getEvents().getEvents()) {
+					events.add(e);
+				}
+				for (Event e : pcalendar.getTeamCalData().getRepeatingEvents().toCombinedEventList().getEvents()){
 					events.add(e);
 				}
 			}
@@ -162,6 +165,9 @@ public class EventFullView extends JPanel{
 		if (mode == ViewingMode.PERSONAL || mode == ViewingMode.BOTH) {
 			if(pcalendar.getMyCalData() != null) {
 				for (Event e : pcalendar.getMyCalData().getEvents().getEvents()) {
+					events.add(e);
+				}
+				for (Event e : pcalendar.getMyCalData().getRepeatingEvents().toCombinedEventList().getEvents()){
 					events.add(e);
 				}
 			}
@@ -181,6 +187,9 @@ public class EventFullView extends JPanel{
 					eventPanelList.add(new EventViewPanel(event));
 				}
 		}
+		
+		permaOrderPanelList = new ArrayList<EventViewPanel>();
+		permaOrderPanelList.addAll(eventPanelList);
 		//Sorts the list of eventPanelList based on sort type and reverse_sort
 		sort();
 	}
@@ -338,7 +347,7 @@ public class EventFullView extends JPanel{
 		
 		searchInput = new JTextField();
 		searchInput.setBackground(CalendarStandard.CalendarYellow);
-		JLabel searchLabel = new JLabel("Search: ");
+		final JLabel searchLabel = new JLabel("Search: ");
 		
 		// Listen for changes in the text
 		searchInput.getDocument().addDocumentListener(new DocumentListener() {
@@ -657,6 +666,8 @@ public class EventFullView extends JPanel{
 	 * Sorts the list with the current sort_mode and reverse if needed
 	 */
 	protected void sort(){
+		eventPanelList.clear();
+		eventPanelList.addAll(permaOrderPanelList);
 		Collections.sort(eventPanelList, new Comparator<EventViewPanel>() {
 			@Override 
 			public int compare(EventViewPanel e1, EventViewPanel e2) {

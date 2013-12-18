@@ -49,6 +49,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.year.YearView;
 
 /**
  * Abstract calendar panel that is identified by its enumerator.
+ * It displays 4 icons to draw the abstract calendar.
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
@@ -385,7 +386,6 @@ public abstract class AbCalendar extends JPanel {
 	 */
 	protected void setView(){
 		viewpanel.removeAll();
-		//System.out.println("Cal COUNT start: " + viewpanel.getComponentCount());
 		viewpanel.setLayout(new GridLayout(1, 1));
 		//TODO do views
 		switch(currenttype.getCurrentType()){
@@ -412,7 +412,6 @@ public abstract class AbCalendar extends JPanel {
 		
 		viewpanel.revalidate();
 		viewpanel.repaint();
-		//System.out.println("Cal COUNT end: " + viewpanel.getComponentCount());
 
 	}
 
@@ -469,9 +468,6 @@ public abstract class AbCalendar extends JPanel {
 	/**
 	 * This function is called on Janeway shutdown to save the calendar props.
 	 */
-/*	public void saveProps(){
-		UpdatePropsController.getInstance().updateCalendarProps(calProps);
-	}*/
 
 	public void setViewButtonToActive(AbCalendar.types switchView){
 		final int k = switchView.ordinal();

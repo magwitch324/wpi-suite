@@ -9,13 +9,17 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.month;
 
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
+import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
@@ -27,17 +31,19 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
  * @version $Revision: 1.0 $
  */
 @SuppressWarnings("serial")
-public class CalendarObjectWrapper extends JLabel{
+public class CalendarObjectWrapper extends JPanel{
 	Commitment comm = null;
 	Event event = null;
-	
+	JLabel label = null;
 	/**
 	 * Constructor for wrapper.
 	
 	 * @param c Commitment
 	 */
 	public CalendarObjectWrapper(Commitment c){
-		super(c.getName());
+		label = new JLabel(c.getName());
+		this.setLayout(new GridLayout(1, 1));
+		this.add(label);
 		comm = c;
 		
 		//adds the proper image to this
@@ -53,11 +59,24 @@ public class CalendarObjectWrapper extends JLabel{
 			
 			scaleImg = nameImg.getScaledInstance(13, 13, Image.SCALE_SMOOTH);
 			final ImageIcon imageIcon = new ImageIcon(scaleImg);
-			this.setIcon(imageIcon);
+			label.setIcon(imageIcon);
 			
 		} catch (IOException exc) { }
 		
-		this.setPreferredSize(super.getPreferredSize());
+		Color bgcolor = null;
+		try{
+			if(comm.getIsPersonal()){
+				bgcolor = GUIEventController.getInstance().getCalendar().getMyCalData().getCategories().getCategory(comm.getCategoryID()).getCategoryColor();
+			}
+			else{
+				bgcolor = GUIEventController.getInstance().getCalendar().getTeamCalData().getCategories().getCategory(comm.getCategoryID()).getCategoryColor();
+			}
+		}
+		catch(java.lang.NullPointerException excep){
+			bgcolor = Color.WHITE;
+		}
+		
+		this.setBorder(new CalendarObjectWrapperBorder(bgcolor, CalendarStandard.CalendarYellow));
 	}
 	
 	/**
@@ -66,7 +85,9 @@ public class CalendarObjectWrapper extends JLabel{
 	 * @param e Event
 	 */
 	public CalendarObjectWrapper(Event e){
-		super(e.getName());
+		label = new JLabel(e.getName());
+		this.setLayout(new GridLayout(1, 1));
+		this.add(label);
 		event = e;
 		
 		//adds the proper image to this
@@ -82,11 +103,24 @@ public class CalendarObjectWrapper extends JLabel{
 			
 			scaleImg = nameImg.getScaledInstance(13, 13, Image.SCALE_SMOOTH);
 			final ImageIcon imageIcon = new ImageIcon(scaleImg);
-			this.setIcon(imageIcon);
+			label.setIcon(imageIcon);
 			
 		} catch (IOException exc) { }
+
+		Color bgcolor = null;
+		try{
+			if(event.getIsPersonal()){
+				bgcolor = GUIEventController.getInstance().getCalendar().getMyCalData().getCategories().getCategory(event.getCategoryID()).getCategoryColor();
+			}
+			else{
+				bgcolor = GUIEventController.getInstance().getCalendar().getTeamCalData().getCategories().getCategory(event.getCategoryID()).getCategoryColor();
+			}
+		}
+		catch(java.lang.NullPointerException excep){
+			bgcolor = Color.WHITE;
+		}
 		
-		this.setPreferredSize(super.getPreferredSize());
+		this.setBorder(new CalendarObjectWrapperBorder(bgcolor, CalendarStandard.CalendarYellow));
 	}
 	
 	/**
@@ -115,5 +149,7 @@ public class CalendarObjectWrapper extends JLabel{
 		}
 			return result;
 	}
+	
+	
 	
 }

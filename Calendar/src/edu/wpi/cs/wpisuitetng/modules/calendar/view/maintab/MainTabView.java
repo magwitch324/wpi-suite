@@ -17,6 +17,7 @@ import javax.swing.Icon;
 import javax.swing.JTabbedPane;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.CommitmentFullView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.EventFullView;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.tab.ClosableTabComponent;
@@ -35,8 +36,7 @@ public class MainTabView extends JTabbedPane {
 	 */
 	public MainTabView() {
 		setTabPlacement(TOP);
-		setTabLayoutPolicy(SCROLL_TAB_LAYOUT);
-//		setBorder(BorderFactory.createEmptyBorder(5, 3, 3, 3, Color.WHITE));	
+		setTabLayoutPolicy(SCROLL_TAB_LAYOUT);	
 	}
 	
 	
@@ -57,6 +57,10 @@ public class MainTabView extends JTabbedPane {
 	public void removeTabAt(int index) {
 		// if a tab does not have the close button UI, it cannot be removed
 		if(getTabComponentAt(index) instanceof ClosableTabComponent) {
+			if (index == getSelectedIndex())
+				{
+					GUIEventController.getInstance().setLastTab();
+				}
 			super.removeTabAt(index);
 		}
 	}

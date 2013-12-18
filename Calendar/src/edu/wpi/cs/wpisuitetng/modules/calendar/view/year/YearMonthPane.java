@@ -66,7 +66,6 @@ public class YearMonthPane extends JPanel{
 		
 		final SpringLayout layout = new SpringLayout();
 		this.setLayout(layout);
-		//this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		this.setBorder(BorderFactory.createSoftBevelBorder(BevelBorder.RAISED));
 		
 		//Creates the month lbl and a wrapper and places it in this at the top
@@ -205,6 +204,8 @@ public class YearMonthPane extends JPanel{
 	
 	/**
 	 * Mouse listener for whether the month was double clicked
+	 * @author CS Anonymous
+	 * @version $Revision: 1.0 $
 	 */
 	protected class AMouseMonthEvent extends MouseAdapter{
 		GregorianCalendar adate = new GregorianCalendar();

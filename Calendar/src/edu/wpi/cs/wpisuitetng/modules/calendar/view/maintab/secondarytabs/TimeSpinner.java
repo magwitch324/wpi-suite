@@ -9,7 +9,6 @@
  ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -72,120 +71,10 @@ public class TimeSpinner extends JSpinner {
 		this.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				//checkTimeSpinnerStatus(myType);
-				//refreshTemp();
-				//checkSaveBtnStatus();
 			}
 		});
 	}
 
-	
-	private void refreshTemp() {
-		switch(myType){
-		case HOUR:
-			fallBackValueInt = Integer.parseInt(editor.getTextField().getText());
-			if (upArrowAction) {
-				if (fallBackValueInt == 12)
-					{
-					fallBackValueInt = 1;
-					}
-				else {
-					fallBackValueInt++;
-				}
-			}
-			else if (downArrowAction)
-				{
-				if (fallBackValueInt == 1)
-					{
-					fallBackValueInt = 12;
-					}
-				else {
-					fallBackValueInt--;
-				}
-				}
-			break;
-		case MINUTE:
-			fallBackValueInt = Integer.parseInt(editor.getTextField().getText());
-			System.out.println("before increment tempMin" + fallBackValueInt);
-			if (upArrowAction) {
-				if (fallBackValueInt == 59)
-					{
-					fallBackValueInt = 0;
-					}
-				else {
-					fallBackValueInt++;
-				}
-			}
-			else if (downArrowAction)
-				{
-				if (fallBackValueInt == 0)
-					{
-					fallBackValueInt = 59;
-					}
-				else {
-					fallBackValueInt--;
-				}
-				}
-			break;
-		case AMPM:
-			fallBackValueStr = editor.getTextField().getText();
-
-			System.out.println("new tempAMPM is " + fallBackValueStr);
-			
-			break;
-		}
-	}
-	
-	private void checkTimeSpinnerStatus(enumTimeSpinner hour) {
-
-		int currentText = 0;
-		
-		//System.out.println(tempAMPMString);
-		switch (hour) {
-		case HOUR:
-			currentText = Integer.parseInt(editor.getTextField().getText());
-				if(currentText < 1 || currentText > 12) {
-					editor.getTextField().setText(Integer.toString(fallBackValueInt));
-					editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
-					errorVisible = true;
-				}
-				else {
-					editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-					errorVisible = false;
-				}
-			break;
-			
-		case MINUTE:
-			currentText = Integer.parseInt(editor.getTextField().getText());
-			System.out.println("curent text before check" + currentText);
-			System.out.println("curent temp before check" + fallBackValueInt);
-				if(currentText < 0 || currentText > 59) {
-					editor.getTextField().setText(Integer.toString(fallBackValueInt));
-					editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
-					errorVisible = true;
-				}
-				else {
-					editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-					errorVisible = false;
-			}
-			break;
-		case AMPM:
-			final String tempAMPMString = editor.getTextField().getText().toUpperCase();
-			System.out.println("Input is " + tempAMPMString);
-			
-			if(!tempAMPMString.equals("AM") && !tempAMPMString.equals("PM")) {
-				editor.getTextField().setText(fallBackValueStr);
-				editor.getTextField().setBackground(Color.getHSBColor(3, 0.3f, 1f));
-				errorVisible = true;
-			}
-			else {
-				editor.getTextField().setBackground(CalendarStandard.CalendarYellow);
-					errorVisible = false;
-		}
-			break;
-		}
-}
-	
 	/**
 	 * @author CS Anonymous
 	 */

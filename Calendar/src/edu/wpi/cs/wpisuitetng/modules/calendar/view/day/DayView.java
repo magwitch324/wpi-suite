@@ -103,10 +103,7 @@ public class DayView extends CalendarView {
 		}
 
 		revalidate();
-		repaint();
-
-		//refresh();
-		
+		repaint();	
 	}
 
 	@Override
@@ -122,6 +119,10 @@ public class DayView extends CalendarView {
 		}
 		revalidate();
 		repaint();
+	}
+	
+	public String getCommRangeText(){
+		return "Show all open commitments for day";
 	}
 
 }

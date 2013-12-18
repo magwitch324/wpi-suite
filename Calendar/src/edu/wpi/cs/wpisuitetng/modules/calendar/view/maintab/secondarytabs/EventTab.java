@@ -270,20 +270,13 @@ public class EventTab extends JPanel {
 		final GridBagConstraints gbc_lblDesc = new GridBagConstraints();
 		gbc_lblDesc.fill = GridBagConstraints.BOTH;
 		gbc_lblDesc.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDesc.weighty = 5;
 		gbc_lblDesc.gridx = 0;
 		gbc_lblDesc.gridy = 1;
 		formPanel.add(lblDesc, gbc_lblDesc);
 
-
-		//Scrollpane for description text area
-		//		descPane = new JScrollPane();
-		//		descPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		//		descPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
 		//Text area for description
 		descriptionTextArea = new JTextArea();
-		//		descriptionTextArea.setPreferredSize(new Dimension(500,160));
-		//		descPane.setViewportView(descriptionTextArea);
 		descriptionTextArea.setLineWrap(true);
 		descriptionTextArea.setBackground(CalendarStandard.CalendarYellow);
 		final GridBagConstraints gbc_descriptionTextField = new GridBagConstraints();
@@ -398,12 +391,7 @@ public class EventTab extends JPanel {
 		gbc_lblTime.gridy = 6;
 		gbc_lblTime.weighty = 1;
 		formPanel.add(lblTime, gbc_lblTime);
-
-		//Time spinner, half hour resolution
-		//		startTimeSpinner = new JSpinner( new SpinnerDateModelMinute());
-		//		startTimeSpinner.setModel(startSpinnerModel);
-		//		startTimeEditor = new JSpinner.DateEditor(startTimeSpinner, "hh:mm a");
-		//		startTimeSpinner.setEditor(startTimeEditor);
+		
 		// Create time spinner panel.
 		startSpinnerPanel = new JPanel();
 		startSpinnerPanel.setBackground(Color.WHITE);
@@ -489,9 +477,6 @@ public class EventTab extends JPanel {
 		gbc_jdp.weightx = 1;
 		gbc_jdp.weighty = 3;
 		formPanel.add(startDatePicker, gbc_jdp);
-		//Calendar calendar = startDatePicker.getMonthView().getCalendar();
-		//calendar.setTime(new Date());
-		//startDatePicker.getMonthView().setLowerBound(calendar.getTime());
 		final SimpleDateFormat format1 = new SimpleDateFormat( "MM/dd/yyyy" );
 		final SimpleDateFormat format2 = new SimpleDateFormat( "MM.dd.yyyy" );
 		startDatePicker.setFormats(new DateFormat[] {format1, format2});
@@ -534,12 +519,7 @@ public class EventTab extends JPanel {
 		gbc_lblTime2.gridy = 8;
 		gbc_lblTime2.weighty = 1;
 		formPanel.add(lblTime2, gbc_lblTime2);
-
-		//Time spinner, half hour resolution
-		//		endTimeSpinner = new JSpinner( new SpinnerDateModelMinute());
-		//		endTimeSpinner.setModel(endSpinnerModel);
-		//		endTimeEditor = new JSpinner.DateEditor(endTimeSpinner, "hh:mm a");
-		//		endTimeSpinner.setEditor(endTimeEditor);
+		
 		// Create time spinner panel.
 		endSpinnerPanel = new JPanel();
 		endSpinnerPanel.setBackground(Color.WHITE);
@@ -618,9 +598,6 @@ public class EventTab extends JPanel {
 		gbc_jdp2.weightx = 1;
 		gbc_jdp2.weighty = 3;
 		formPanel.add(endDatePicker, gbc_jdp2);
-		//Calendar calendar = startDatePicker.getMonthView().getCalendar();
-		//calendar.setTime(new Date());
-		//startDatePicker.getMonthView().setLowerBound(calendar.getTime());
 		endDatePicker.setFormats(new DateFormat[] {format1, format2});
 
 		final GregorianCalendar c = new GregorianCalendar();
@@ -776,7 +753,6 @@ public class EventTab extends JPanel {
 		gbc_lblRepeatError.gridy = 11;
 		gbc_lblRepeatError.weightx = 0;
 		gbc_lblRepeatError.weighty = 0;
-		//lblRepeatError.setMaximumSize(new Dimension(10, 10));
 		formPanel.add(lblRepeatError, gbc_lblRepeatError);
 
 
@@ -847,17 +823,6 @@ public class EventTab extends JPanel {
 	 * Method checkRepeatVsDuration.
 	 */
 	protected void checkRepeatVsDuration() {
-		/*GregorianCalendar combinedStart = new GregorianCalendar();
-		combinedStart.setTime(startDatePicker.getDate());
-		combinedStart.set(Calendar.MINUTE, startTempMin);
-		combinedStart.set(Calendar.HOUR, startTempHour);
-
-		GregorianCalendar combinedEnd = new GregorianCalendar();
-		combinedEnd.setTime(endDatePicker.getDate());
-		combinedEnd.set(Calendar.MINUTE, endTempMin);
-		combinedEnd.set(Calendar.HOUR, endTempHour);
-
-		System.out.println(get + ":" + startTempMin + "   " + endTempHour + ":" + endTempMin)*/
 
 		final long diff = getEndDate().getTime().getTime() - getStartDate().getTime().getTime();
 
@@ -992,18 +957,6 @@ public class EventTab extends JPanel {
 			}
 		});
 
-
-
-		//		//Triggered on enter.
-		//		startDatePicker.addActionListener(new ActionListener() {
-		//			@Override
-		//			public void actionPerformed(ActionEvent e) {
-		//				checkStartDatePickerStatus();
-		//				checkSaveBtnStatus();
-		//			}
-		//		});
-
-
 		//Triggered on change.
 		startDatePicker.addPropertyChangeListener(new PropertyChangeListener() {
 
@@ -1071,9 +1024,6 @@ public class EventTab extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				//checkSaveBtnStatus();
-				//checkEndDatePickerStatus();
-				//checkEndBeforeStart();
 			}
 
 		});
@@ -1089,19 +1039,6 @@ public class EventTab extends JPanel {
 				}
 			}
 		});
-
-
-
-		//		//Triggered on enter.
-		//		endDatePicker.addActionListener(new ActionListener() {
-		//			@Override
-		//			public void actionPerformed(ActionEvent e) {
-		//				checkEndDatePickerStatus();
-		//				checkSaveBtnStatus();
-		//				checkEndBeforeStart();
-		//
-		//			}
-		//		});
 
 		//Triggered on change.
 		endDatePicker.addPropertyChangeListener(new PropertyChangeListener() {
@@ -1135,7 +1072,6 @@ public class EventTab extends JPanel {
 				} catch (ParseException e1) {
 					checkStartTimeSpinnerStatus(startHourSpinner);
 					checkSaveBtnStatus();
-					//e1.printStackTrace();
 				}
 			}
 		});
@@ -1197,7 +1133,6 @@ public class EventTab extends JPanel {
 				} catch (ParseException e1) {
 					checkStartTimeSpinnerStatus(startMinuteSpinner);
 					checkSaveBtnStatus();
-					//e1.printStackTrace();
 				}
 			}
 		});
@@ -1333,7 +1268,6 @@ public class EventTab extends JPanel {
 				} catch (ParseException e1) {
 					checkEndTimeSpinnerStatus(endHourSpinner);
 					checkSaveBtnStatus();
-					//e1.printStackTrace();
 				}
 			}
 		});
@@ -1393,7 +1327,6 @@ public class EventTab extends JPanel {
 				} catch (ParseException e1) {
 					checkEndTimeSpinnerStatus(endMinuteSpinner);
 					checkSaveBtnStatus();
-					//e1.printStackTrace();
 				}
 			}
 		});
@@ -1465,7 +1398,6 @@ public class EventTab extends JPanel {
 				 } catch (ParseException e1) {
 					 checkEndTimeSpinnerStatus(endAMPMSpinner);
 					 checkSaveBtnStatus();
-					// e1.printStackTrace();
 				 }
 			 }
 		 });
@@ -1639,15 +1571,6 @@ public class EventTab extends JPanel {
 				if (mode == EditingMode.EDITING) {
 					//get some date data
 					//Parse date and time info
-
-					//System.out.println("AMPM is " + calAMPM.get(Calendar.AM_PM));
-					//System.out.println("Hour of day is " + calHour.get(Calendar.HOUR_OF_DAY));
-					//System.out.println("Current commit hour is " 
-					//+ editingEvent.getDueDate().get(Calendar.HOUR_OF_DAY));
-					//System.out.println("Time in milli is " + calDate.getTimeInMillis());
-					//System.out.println("Commit time in milli is " 
-					//+ editingEvent.getDueDate().getTimeInMillis());
-
 					//make sure something changed
 					if (nameTextField.getText().equals(editingEvent.getName()) 
 							&& descriptionTextArea.getText().equals(editingEvent.getDescription())
@@ -2027,10 +1950,6 @@ public class EventTab extends JPanel {
 					ConfigManager.getConfig().getProjectName()); 
 			isTeamEvent = true;
 		}
-		//		for(Event event: calData.getEvents().getEvents())
-		//		{
-		//			System.out.println("Event name: " + event.getName()+", id: "+ event.getId());
-		//		}
 
 		//repeat events are handled separately because if the tab is editing a repeating event,
 		// then it was opened with a dummy event
@@ -2185,7 +2104,6 @@ public class EventTab extends JPanel {
 					formatter.setLenient(false);
 					date = formatter.parse(startDatePicker.getEditor().getText());
 				}catch(ParseException pe){
-					//try next formatter
 				}
 				catch(NullPointerException ne){
 					result = false;
@@ -2224,7 +2142,6 @@ public class EventTab extends JPanel {
 					formatter.setLenient(false);
 					date = formatter.parse(endDatePicker.getEditor().getText());
 				}catch(ParseException pe){
-					//try next formatter
 				}
 				catch(NullPointerException ne){
 					result = false;

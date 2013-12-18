@@ -111,7 +111,7 @@ public class Category extends AbstractModel implements Comparator<Category>{
 	 */
 	public void setName(String n) {
 
-		if (name.length() > 100) {
+		if (n.length() > 100) {
 			name = n.substring(0, 100);
 		} else { 
 			name = n;

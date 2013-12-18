@@ -32,12 +32,14 @@ import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
 
 import edu.wpi.cs.wpisuitetng.janeway.config.ConfigManager;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
@@ -49,6 +51,9 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropertiesModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
+import java.awt.GridLayout;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 
 /**
  * Create/edit catergory tab.
@@ -77,6 +82,7 @@ public class CategoryTab extends JPanel {
 	protected List<CategoryPanel> selectedCategories;
 	private CalendarProperties calProps;
 	private boolean initialized;
+	private Component btnNewStrut;
 
 	/**
 	 * @author CS Anonymous
@@ -149,10 +155,23 @@ public class CategoryTab extends JPanel {
 		
 		rdbtnBoth = new JRadioButton("Both");
 		rdbtnBoth.setBackground(Color.WHITE);
-//		rdbtnBoth.setSelected(true);
 
 		teamPersonalRadioButtons.add(rdbtnBoth);
 		horizontalBox.add(rdbtnBoth);
+		
+		JPanel categoryListLabelPanel = new JPanel();
+		categoryListLabelPanel.setMaximumSize(new Dimension(32767, 24));
+		categoryListLabelPanel.setPreferredSize(new Dimension(10, 24));
+		categoryListLabelPanel.setBackground(new Color(196, 0, 14));
+		viewPanel.add(categoryListLabelPanel);
+		categoryListLabelPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+		
+		JLabel categoryListLabel = new JLabel("List of Categories");
+		categoryListLabel.setPreferredSize(new Dimension(120, 24));
+		categoryListLabelPanel.add(categoryListLabel);
+		categoryListLabel.setForeground(Color.WHITE);
+		categoryListLabel.setBackground(new Color(196, 0, 14));
+		
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -175,34 +194,34 @@ public class CategoryTab extends JPanel {
 		btnNew = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("New_Icon.png"));
-			btnNew = new JButton("New", new ImageIcon(img));
+			btnNew = new JButton("New Category", new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			btnNew.setText("New");
+			btnNew.setText("New Category");
 		}
 		
 		horizontalBox_1.add(btnNew);
 
-		final Component horizontalStrut_1 = Box.createHorizontalStrut(20);
-		horizontalStrut_1.setMaximumSize(new Dimension(20, 0));
-		horizontalBox_1.add(horizontalStrut_1);
+		btnNewStrut = Box.createHorizontalStrut(10);
+		btnNewStrut.setMaximumSize(new Dimension(10, 0));
+		horizontalBox_1.add(btnNewStrut);
 		
 		//Add Edit button
 		btnEdit = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Edit_Icon.png"));
-			btnEdit = new JButton("Edit", new ImageIcon(img));
+			btnEdit = new JButton("Edit Category", new ImageIcon(img));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			btnEdit.setText("Edit");
+			btnEdit.setText("Edit Category");
 		}
 		btnEdit.setEnabled(false);
 		
 		
 		horizontalBox_1.add(btnEdit);
 		
-		final Component horizontalStrut_2 = Box.createHorizontalStrut(20);
-		horizontalStrut_2.setMaximumSize(new Dimension(20, 0));
+		final Component horizontalStrut_2 = Box.createHorizontalStrut(10);
+		horizontalStrut_2.setMaximumSize(new Dimension(10, 0));
 		horizontalBox_1.add(horizontalStrut_2);
 		
 		// Add Delete Button
@@ -210,10 +229,10 @@ public class CategoryTab extends JPanel {
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
 			final Image newimg = img.getScaledInstance( 30, 30,  java.awt.Image.SCALE_SMOOTH ) ;
-			btnDelete = new JButton("Delete", new ImageIcon(newimg));
+			btnDelete = new JButton("Delete Category", new ImageIcon(newimg));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
-			btnDelete.setText("Delete");
+			btnDelete.setText("Delete Category");
 		}
 		btnDelete.setEnabled(false);
 		
@@ -247,8 +266,8 @@ public class CategoryTab extends JPanel {
 		horizontalBox_1.add(btnDelete);
 		
 		
-		viewPanelStrut = Box.createHorizontalStrut(600);
-		viewPanelStrut.setMaximumSize(new Dimension(600, 0));
+		viewPanelStrut = Box.createHorizontalStrut(450);
+		viewPanelStrut.setMaximumSize(new Dimension(450, 0));
 		viewPanel.add(viewPanelStrut);
 		
 		addEditPanel = new AddEditCategoryPanel();
@@ -326,8 +345,7 @@ public class CategoryTab extends JPanel {
 					if (e.getClickCount() == 1)
 					{
 						CategoryPanel comp = (CategoryPanel) e.getComponent();
-						if(selectedCategories.isEmpty() || e.isControlDown());
-						else
+						if(!selectedCategories.isEmpty() && ! e.isControlDown())
 						{
 							removeSelectedCategories(); //clear existing selections
 						}
@@ -344,12 +362,8 @@ public class CategoryTab extends JPanel {
 			oldCatPanel = catPanel; //update oldCatPanel to be previously added panel
 		}
 		
-//		if(categoryListLayout.getConstraint(SpringLayout.SOUTH, categoryListPanel).getValue() < 
-//				categoryListLayout.getConstraint(SpringLayout.SOUTH, catPanel).getValue()) {
 		categoryListLayout.putConstraint(SpringLayout.SOUTH, 
-				categoryListPanel, 0, SpringLayout.SOUTH, catPanel);
-//		}
-		
+				categoryListPanel, 0, SpringLayout.SOUTH, catPanel);	
 	}
 	
 
@@ -446,14 +460,14 @@ public class CategoryTab extends JPanel {
 		mode = CategoryMode.ADDING;
 		this.removeAll();
 		final GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] {0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[] {0, 0};
+		gridBagLayout.rowHeights = new int[]{0};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.0};
+		gridBagLayout.rowWeights = new double[]{1.0};
 		setLayout(gridBagLayout);
 		
 		final GridBagConstraints gbc_viewPanel = new GridBagConstraints();
-		gbc_viewPanel.insets = new Insets(0, 0, 0, 5);
+		gbc_viewPanel.insets = new Insets(0, 15, 0, 15);
 		gbc_viewPanel.fill = GridBagConstraints.BOTH;
 		gbc_viewPanel.gridx = 0;
 		gbc_viewPanel.gridy = 0;
@@ -465,11 +479,8 @@ public class CategoryTab extends JPanel {
 		gbc_addEditPanel.gridy = 0;
 		add(addEditPanel, gbc_addEditPanel);
 		
-		//set size of view panel
-//		viewPanel.remove(viewPanelStrut);
-//		viewPanelStrut = Box.createHorizontalStrut(400);
-//		viewPanelStrut.setMaximumSize(new Dimension(400, 0));
-//		viewPanel.add(viewPanelStrut);
+		btnNew.setVisible(false);
+		btnNewStrut.setVisible(false);
 		
 		revalidate();
 		repaint();
@@ -502,18 +513,6 @@ public class CategoryTab extends JPanel {
 			}
 			
 		});
-//		addEditPanel.getSaveButton().addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				
-//			}
-//		});
-//		
-//		addEditPanel.getCancelButton().addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				setupViewingView();
-//			}
-//		});
-		
 	}
 	
 	/**
@@ -525,10 +524,10 @@ public class CategoryTab extends JPanel {
 		mode = CategoryMode.VIEWING;
 		this.removeAll();
 		final GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] {0, 0, 0, 0};
+		gridBagLayout.columnWidths = new int[] {0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 1.0};
+		gridBagLayout.rowWeights = new double[]{1.0};
 		setLayout(gridBagLayout);
 		
 		final GridBagConstraints gbc_viewPanel = new GridBagConstraints();
@@ -538,11 +537,10 @@ public class CategoryTab extends JPanel {
 		gbc_viewPanel.gridy = 0;
 		add(viewPanel, gbc_viewPanel);
 
+		btnNew.setVisible(true);
+		btnNewStrut.setVisible(true);
+
 		//set size of view panel
-//		viewPanel.remove(viewPanelStrut);
-//		viewPanelStrut = Box.createHorizontalStrut(600);
-//		viewPanelStrut.setMaximumSize(new Dimension(600, 0));
-//		viewPanel.add(viewPanelStrut);
 		
 		revalidate();
 		repaint();

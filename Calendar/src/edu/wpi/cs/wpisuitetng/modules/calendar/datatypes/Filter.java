@@ -98,7 +98,7 @@ public class Filter implements Comparator<Filter>{
 	 */
 	public void setName(String n) {
 
-		if (name.length() > 100) {
+		if (n.length() > 100) {
 			name = n.substring(0, 100);
 		} else { 
 			name = n;

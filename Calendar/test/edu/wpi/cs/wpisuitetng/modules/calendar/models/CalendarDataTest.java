@@ -42,7 +42,6 @@ public class CalendarDataTest {
 		System.out.println(list.getCommitments().get(1).getDescription() 
 				+ data.getCommitments().getCommitments().get(1).getID());
 		helper(list);
-		//System.out.println(data.getCommitments().getCommitments().get(0).getDescription());
 		System.out.println(data.getCommitments().getCommitments().get(1).getDescription()
 				+ data.getCommitments().getCommitments().get(1).getID());
 		helper2(data.getCommitments().getCommitments().get(1));

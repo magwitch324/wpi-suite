@@ -71,6 +71,7 @@ public class CommitmentFullView extends JPanel{
 	private boolean initialized;
 
 	List<CommitmentFullViewPanel> commitmentPanelList = new ArrayList<CommitmentFullViewPanel>();
+	List<CommitmentFullViewPanel> permaOrderPanelList;
 	
 	private boolean reverse_sort;
 
@@ -135,10 +136,9 @@ public class CommitmentFullView extends JPanel{
 		
 		add(scrollPane);
 
-		setCommitmentList();
-		setupPanels();
-		initialized = true;
 		applyCalProps();
+		updateList();
+		initialized = true;
 	}
 	
 	/**
@@ -181,6 +181,9 @@ public class CommitmentFullView extends JPanel{
 					commitmentPanelList.add(new CommitmentFullViewPanel(commitment));
 				}
 		}
+		
+		permaOrderPanelList = new ArrayList<CommitmentFullViewPanel>();
+		permaOrderPanelList.addAll(commitmentPanelList);
 		//Sorts the list of eventPanelList based on sort type and reverse_sort
 		sort();
 	}
@@ -340,7 +343,7 @@ public class CommitmentFullView extends JPanel{
 		
 		searchInput = new JTextField();
 		searchInput.setBackground(CalendarStandard.CalendarYellow);
-		JLabel searchLabel = new JLabel("Search: ");
+		final JLabel searchLabel = new JLabel("Search: ");
 		
 		// Listen for changes in the text
 		searchInput.getDocument().addDocumentListener(new DocumentListener() {
@@ -630,7 +633,8 @@ public class CommitmentFullView extends JPanel{
 	public void applyCalProps(){
 
 		calProps = CalendarPropertiesModel.getInstance().getCalendarProps(
-				ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName() + "-PROPS");
+				ConfigManager.getConfig().getProjectName() +
+				"-" + ConfigManager.getConfig().getUserName() + "-PROPS");
 		
 		if(initialized && calProps != null){
 			mode =  ViewingMode.values()[calProps.getCommitmentViewMode()];
@@ -658,6 +662,8 @@ public class CommitmentFullView extends JPanel{
 	 * Sorts the list with the current sort_mode and reverse if needed
 	 */
 	protected void sort(){
+		commitmentPanelList.clear();
+		commitmentPanelList.addAll(permaOrderPanelList);
 		Collections.sort(commitmentPanelList, new Comparator<CommitmentFullViewPanel>() {
 			@Override 
 			public int compare(CommitmentFullViewPanel c1, CommitmentFullViewPanel c2) {

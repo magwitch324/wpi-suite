@@ -13,16 +13,18 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SpringLayout;
@@ -35,6 +37,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataCont
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedCommitmentList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.CombinedEventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
+import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
@@ -86,10 +89,16 @@ public class MyCalendar extends AbCalendar {
 		layout.putConstraint(SpringLayout.SOUTH, datapanel, 0, SpringLayout.SOUTH, viewbtnpanel);
 		this.add(datapanel);
 
-		filterComboBox = new JComboBox();
+		filterComboBox = new JComboBox<Filter>();
+		final JLabel filterLabel = new JLabel("Filter: ");
+		filterLabel.setFont(CalendarStandard.CalendarFont);
+		layout.putConstraint(SpringLayout.WEST, filterLabel, 30, SpringLayout.EAST, datapanel);
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filterLabel,
+				0, SpringLayout.VERTICAL_CENTER, datapanel);
+		add(filterLabel);
 		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filterComboBox, 
 				0, SpringLayout.VERTICAL_CENTER, datapanel);
-		layout.putConstraint(SpringLayout.WEST, filterComboBox, 30, SpringLayout.EAST, datapanel);
+		layout.putConstraint(SpringLayout.WEST, filterComboBox, 5, SpringLayout.EAST, filterLabel);
 		layout.putConstraint(SpringLayout.EAST, filterComboBox, -5, SpringLayout.EAST, this);
 		filterComboBox.setMaximumSize(new Dimension(20, 20));
 		filterComboBox.setBackground(CalendarStandard.CalendarYellow);
@@ -127,12 +136,12 @@ public class MyCalendar extends AbCalendar {
 	 * Updates the filter list in the FilterComboBox
 	 */
 	protected void updateFilterList(){
-		/*
+		
 		final int selectedFilter;
-		Filter test = new Filter();
+		final Filter test = new Filter();
 		test.setName("a test filter");
 		test.setID(100);
-		test.getActiveCategories().add(1);
+		test.getActiveTeamCategories().add(1);
 
 		if(filterComboBox.getSelectedItem() != null){
 			selectedFilter = ((Filter) filterComboBox.getSelectedItem()).getID();
@@ -163,7 +172,7 @@ public class MyCalendar extends AbCalendar {
 		if(selectedFilter != 0){
 			filterComboBox.setSelectedItem(myCalData.getFilters().getFilter(selectedFilter));
 		}
-		*/
+		
 	}
 
 	@Override
@@ -301,24 +310,29 @@ public class MyCalendar extends AbCalendar {
 			}//else if the team is selected
 			
 			//Apply the selected filter
-			/*Filter selectedFilter = ((Filter) filterComboBox.getSelectedItem());
+			final Filter selectedFilter = ((Filter) filterComboBox.getSelectedItem());
 			if(selectedFilter != null && selectedFilter.getID() != 0){
-				Iterator<Event> it = combinedEventList.getEvents().iterator();
+				final Iterator<Event> it = combinedEventList.getEvents().iterator();
 				 while(it.hasNext()){
 					 Event e = it.next();
-					 if(!selectedFilter.getActiveCategories().contains(e.getCategoryID())){
+					 if(!selectedFilter.getActiveTeamCategories().contains(
+							 e.getCategoryID()) 
+							 && !selectedFilter.getActivePersonalCategories().contains(e.getCategoryID())){
 						 it.remove();
 					 }
 				 }
 				 
-				 Iterator<Commitment> it2 = combinedCommList.getCommitments().iterator();
+				 final Iterator<Commitment> it2 = combinedCommList.getCommitments().iterator();
 				 while(it2.hasNext()){
 					 Commitment c = it2.next();
-					 if(!selectedFilter.getActiveCategories().contains(c.getCategoryID())){
+					 if(!selectedFilter.getActiveTeamCategories().contains(
+							 c.getCategoryID()) 
+							 && !selectedFilter.getActivePersonalCategories().contains(
+									 c.getCategoryID())){
 						 it2.remove();
 					 }
 				 }
-			}*/
+			}
 			
 			events = combinedEventList;
 			commitments = combinedCommList;
@@ -373,7 +387,6 @@ public class MyCalendar extends AbCalendar {
 						+ ConfigManager.getConfig().getUserName() + "-PROPS");
 		//set the comm list to the new data
 		showcom.setSelected(calProps.getMyShowComm());
-		//showteam.setSelected(calProps.getShowTeamData());
 		calView.applyCalProps(calProps);
 		switch(calProps.getMyTeamBoth()){
 		case 0: myCalendar.setSelected(true);
@@ -405,7 +418,7 @@ public class MyCalendar extends AbCalendar {
 		showcom = new JCheckBox("Show Commitments");
 		showcom.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		showcom.setToolTipText("Display Commitments in Calendar View");
-		showcom.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14f));
+		showcom.setFont(CalendarStandard.CalendarFont);
 		showcom.setBackground(Color.WHITE);
 		showcom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -425,7 +438,7 @@ public class MyCalendar extends AbCalendar {
 		myCalendar.setBackground(Color.WHITE);
 		myCalendar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		myCalendar.setToolTipText("View Personal Calendar");
-		myCalendar.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14f));
+		myCalendar.setFont(CalendarStandard.CalendarFont);
 		myCalendar.setSelected(true);
 		myCalendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -447,7 +460,7 @@ public class MyCalendar extends AbCalendar {
 		teamCalendar.setBackground(Color.WHITE);
 		teamCalendar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		teamCalendar.setToolTipText("View Team Calendar");
-		teamCalendar.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14f));
+		teamCalendar.setFont(CalendarStandard.CalendarFont);
 		teamCalendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//update the commitments to either include or not include team data
@@ -467,7 +480,7 @@ public class MyCalendar extends AbCalendar {
 		bothCalendar.setBackground(Color.WHITE);
 		bothCalendar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		bothCalendar.setToolTipText("View Both Calendars");
-		bothCalendar.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14f));
+		bothCalendar.setFont(CalendarStandard.CalendarFont);
 		bothCalendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//update the commitments to either include or not include team data
@@ -486,25 +499,6 @@ public class MyCalendar extends AbCalendar {
 		calendarSelection.add(myCalendar);
 		calendarSelection.add(teamCalendar);
 		calendarSelection.add(bothCalendar);
-
-		/*
-		showteam = new JCheckBox("Show Team Data");
-		showteam.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        showteam.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14f));
-		showteam.setBackground(Color.WHITE);
-		showteam.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				calProps.setShowTeamData(showteam.isSelected());
-				//update the commitments to either include or not include team data
-				updateCalData();
-				setView();
-			}
-		});
-
-        layout.putConstraint(SpringLayout.NORTH, showteam, 0, SpringLayout.NORTH, panel);
-        layout.putConstraint(SpringLayout.WEST, showteam, 15, SpringLayout.EAST, showcom);
-        layout.putConstraint(SpringLayout.SOUTH, showteam, 0, SpringLayout.SOUTH, panel);
-        panel.add(showteam);*/
 
 		final int width = showcom.getPreferredSize().width + 30 
 				+ myCalendar.getPreferredSize().width + 30 

@@ -19,6 +19,7 @@ import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
  * This controller responds when the user clicks the Update button by
  * adding the contents of the CalendarProps text fields to the model as a new
  * category.
+ * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
 public class AddPropsController{
@@ -54,7 +55,7 @@ public class AddPropsController{
 	public void addCalendarProps(CalendarProperties newCalProps) 
 	{
 		final Request request = Network.getInstance().makeRequest(
-				"calendar/calendarprops", HttpMethod.PUT); // PUT == create
+				"calendar/calendarprops", HttpMethod.PUT);
 		request.setBody(newCalProps.toJSON()); // put the new calData in the body of the request
 		request.addObserver(observer); // add an observer to process the response
 		request.send(); 
