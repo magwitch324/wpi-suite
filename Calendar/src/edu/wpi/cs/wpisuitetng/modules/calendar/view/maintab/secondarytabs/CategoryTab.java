@@ -345,8 +345,7 @@ public class CategoryTab extends JPanel {
 					if (e.getClickCount() == 1)
 					{
 						CategoryPanel comp = (CategoryPanel) e.getComponent();
-						if(selectedCategories.isEmpty() || e.isControlDown());
-						else
+						if(!selectedCategories.isEmpty() && ! e.isControlDown())
 						{
 							removeSelectedCategories(); //clear existing selections
 						}

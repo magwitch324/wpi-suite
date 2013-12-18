@@ -791,8 +791,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 					else if (e.getClickCount() == 1 && mode == FilterMode.VIEWING){
 						mode = FilterMode.EDITING;
 						FilterPanel comp = (FilterPanel) e.getComponent();
-						if(selectedFilters.isEmpty() || e.isControlDown());
-						else
+						if(! selectedFilters.isEmpty() && ! e.isControlDown())
 						{
 							removeSelectedFilters(); //clear existing selections
 						}
@@ -805,8 +804,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 					else if(e.getClickCount() == 1){
 						mode = FilterMode.EDITING;
 						FilterPanel comp = (FilterPanel) e.getComponent();
-						if(selectedFilters.isEmpty() || e.isControlDown());
-						else
+						if(! selectedFilters.isEmpty() && ! e.isControlDown())
 						{
 							removeSelectedFilters(); //clear existing selections
 						}
@@ -927,8 +925,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 					else if (e.getClickCount() == 1){
 						mode = FilterMode.EDITING;
 						CategoryPanel comp = (CategoryPanel) e.getComponent();
-						if(selectedCategories.isEmpty() || e.isControlDown());
-						else
+						if(! selectedCategories.isEmpty() && ! e.isControlDown())
 						{
 							removeSelectedCategories(); //clear existing selections
 						}
@@ -1007,8 +1004,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 					else if (e.getClickCount() == 1){
 						mode = FilterMode.EDITING;
 						CategoryPanel comp = (CategoryPanel) e.getComponent();
-						if(selectedCategories.isEmpty() || e.isControlDown());
-						else
+						if(! selectedCategories.isEmpty() && ! e.isControlDown())
 						{
 							removeSelectedCategories(); //clear existing selections
 						}
