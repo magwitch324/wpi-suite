@@ -311,7 +311,9 @@ public class MyCalendar extends AbCalendar {
 			
 			//Apply the selected filter
 			final Filter selectedFilter = ((Filter) filterComboBox.getSelectedItem());
+			
 			if(selectedFilter != null && selectedFilter.getID() != 0){
+				//System.out.println(selectedFilter.getActivePersonalCategories());
 				final Iterator<Event> it = combinedEventList.getEvents().iterator();
 				 while(it.hasNext()){
 					 Event e = it.next();
