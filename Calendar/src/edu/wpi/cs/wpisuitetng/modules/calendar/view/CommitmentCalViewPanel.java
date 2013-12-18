@@ -52,14 +52,11 @@ public class CommitmentCalViewPanel extends JPanel {
 		
 		
 		final String name = comm.getName();
-		//String descr = "Descr: " + comm.getDescription();
-//		String tag = comm.getIsPersonal() ? "[Personal]" : "[Team]";
-//		setLayout(new GridLayout(2,1));
+		
 		setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this text
 
 		JLabel alab = new JLabel(comm.getDescription(), JLabel.CENTER);
 		alab.setBackground(CalendarStandard.CalendarYellow);
-//		alab.setBackground(new Color(0,0,0,0));
 		add(alab, SwingConstants.CENTER);
 		
 		Image nameImg;
@@ -78,13 +75,9 @@ public class CommitmentCalViewPanel extends JPanel {
 			scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 			alab = new JLabel(name, new ImageIcon(scaleImg), JLabel.CENTER);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			alab = new JLabel(name, JLabel.CENTER);
 		}
 		
-		//alab.setSize( alab.getPreferredSize() );
-		alab.setBackground(CalendarStandard.CalendarYellow);
-//		alab.setBackground(new Color(0,0,0,0));
 		add(alab, SwingConstants.CENTER);
 		
 	}

@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -38,6 +39,7 @@ import javax.swing.border.EmptyBorder;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.month.CalendarObjectWrapperBorder;
 
 /**
  * Commitment view contains and shows a list of commitments in a jpanel
@@ -50,9 +52,6 @@ public class CommitmentView extends JPanel {
 	JPanel commitPanel;
 
 	private List<Commitment> commitmentList = new ArrayList<Commitment>();
-
-
-//	private List<CommitmentViewPanel> commitmentPanelList;
 	
 	/**
 	 * Constructor for CommitmentView.
@@ -76,22 +75,7 @@ public class CommitmentView extends JPanel {
 		layout.putConstraint(SpringLayout.NORTH, scrollPane, 0, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.SOUTH, scrollPane, 0, SpringLayout.SOUTH, this);
 		scrollPane.setViewportView(commitPanel);
-
-		    	
-//		update();
 		
-		//test data will be where event data is handled
-
-
-
-		/*  String testData = new String(
-		 * "Commitment1: did a commitment here it is move on to next");
-	        for(int i = 0; i< 150; i++){
-	        	JLabel commit = new JLabel(testData);
-	        	JLabel line = new JLabel("\n");
-	        	commitPanel.add(commit);
-	        }
-		 */
 	}
 
 	/**
@@ -131,8 +115,24 @@ public class CommitmentView extends JPanel {
 				CommitmentViewPanel commitmentPanel = 
 						new CommitmentViewPanel(commitmentList.get(i));
 				commitmentPanel.setBackground(CalendarStandard.CalendarYellow);
-//				commitmentPanel.setBackground(Color.LIGHT_GRAY.brighter());
-
+				Color fore_color;
+				try {
+					if (commitmentList.get(i).getIsPersonal()) {
+						fore_color = GUIEventController.getInstance().getCalendar()
+								.getMyCalData().getCategories()
+								.getCategory(commitmentList.get(i).getCategoryID()).getCategoryColor();
+					} else {
+						fore_color = GUIEventController.getInstance().getCalendar()
+								.getTeamCalData().getCategories()
+								.getCategory(commitmentList.get(i).getCategoryID()).getCategoryColor();
+					}
+				} catch (java.lang.NullPointerException excep) {
+					fore_color = Color.WHITE;
+				}
+				commitmentPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory
+						.createLoweredBevelBorder(), new CalendarObjectWrapperBorder(
+						fore_color, CalendarStandard.CalendarYellow)));
+				
 				Image nameImg;
 				Image scaleImg;
 				JLabel tag = new JLabel();
@@ -202,25 +202,9 @@ public class CommitmentView extends JPanel {
 				commitmentPanel.add(time, c);
 				commitmentPanel.add(description, c);
 				commitmentPanel.add(status, c);
-				//  description.setMaximumSize(new Dimension(285,300));
-				commitmentPanel.setBorder(new EmptyBorder(10, 5, 10, 20));
 				commitmentPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 				commitmentPanel.setToolTipText("Click to Edit or Delete this Commitment");
 				// To change cursor as it moves over the commitment
-				// commitmentPanel.setPreferredSize(new Dimension(280,300));
-				// commitmentPanel.setMinimumSize(new Dimension(290, 400));
-				// commitmentPanel.setMaximumSize(new Dimension(3000,1000));
-				//  SpringLayout layoutDescription = new SpringLayout();
-				//   description.setLayout(layoutDescription);
-				/* layoutDescription.putConstraint(SpringLayout.WEST, description, 
-				0, SpringLayout.WEST, commitmentPanel);*/
-				/* layoutDescription.putConstraint(SpringLayout.EAST, description,
-				0, SpringLayout.EAST, commitmentPanel);*/
-				/* layoutDescription.putConstraint(SpringLayout.NORTH, description, 
-				 * 0, SpringLayout.NORTH, commitmentPanel);*/
-				/*  layoutDescription.putConstraint(SpringLayout.SOUTH, description, 
-				 * 0, SpringLayout.SOUTH, commitmentPanel);*/
-				//	        commitmentPanelList.add(i,commitmentPanel);
 				commitmentPanel.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
