@@ -46,6 +46,7 @@ public class CategoryPanel extends JPanel {
 	 * Constructor for CategoryPanel.
 	 */
 	public CategoryPanel() {
+		setToolTipText("Double Click to Edit or Delete this Category.");
 		setPreferredSize(new Dimension(80, 50));
 		setMaximumSize(new Dimension(80, 50));
 		setMinimumSize(new Dimension(80, 50));
