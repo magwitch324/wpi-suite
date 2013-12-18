@@ -343,7 +343,7 @@ public class CommitmentFullView extends JPanel{
 		
 		searchInput = new JTextField();
 		searchInput.setBackground(CalendarStandard.CalendarYellow);
-		JLabel searchLabel = new JLabel("Search: ");
+		final JLabel searchLabel = new JLabel("Search: ");
 		
 		// Listen for changes in the text
 		searchInput.getDocument().addDocumentListener(new DocumentListener() {

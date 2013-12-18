@@ -90,8 +90,8 @@ public class CategoryTest {
 	@Test
 	public void setNameMoreThan100charsTest() {
 		final Category c1 = new Category ("C1", Color.blue, true);
-		String sect = "aaaaaaaaaaaaaaaaaaaaaaaaa";
-		String longName = sect.concat(sect).concat(sect).concat(sect).concat(sect);
+		final String sect = "aaaaaaaaaaaaaaaaaaaaaaaaa";
+		final String longName = sect.concat(sect).concat(sect).concat(sect).concat(sect);
 		c1.setName(longName);
 		assertEquals(100, c1.getName().length());
 	}
@@ -99,7 +99,7 @@ public class CategoryTest {
 	@Test
 	public void toJSONTest() {
 		final Category c1 = new Category ("C1", Color.blue, true);
-		String JSONCat = c1.toJSON();
+		final String JSONCat = c1.toJSON();
 		assertNotNull(JSONCat);
 	}
 }

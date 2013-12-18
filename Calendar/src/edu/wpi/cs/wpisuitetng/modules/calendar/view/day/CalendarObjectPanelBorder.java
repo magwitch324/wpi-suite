@@ -21,10 +21,10 @@ public class CalendarObjectPanelBorder extends AbstractBorder{
 	int top = 1;
 	
 	public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-		Color foreground_color = c.getForeground();
-		Color background_color = c.getBackground();
-		Color transparent = new Color(0, 0, 0, 0);
-		Graphics2D g2 = (Graphics2D) g;
+		final Color foreground_color = c.getForeground();
+		final Color background_color = c.getBackground();
+		final Color transparent = new Color(0, 0, 0, 0);
+		final Graphics2D g2 = (Graphics2D) g;
 		
 		if(width > 100){
 			top = 1;

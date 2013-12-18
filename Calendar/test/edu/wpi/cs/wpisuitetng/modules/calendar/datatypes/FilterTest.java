@@ -115,8 +115,8 @@ public class FilterTest {
 	
 	@Test
 	public void setNameMoreThan100charsTest() {
-		String sect = "aaaaaaaaaaaaaaaaaaaaaaaaa";
-		String longName = sect.concat(sect).concat(sect).concat(sect).concat(sect);
+		final String sect = "aaaaaaaaaaaaaaaaaaaaaaaaa";
+		final String longName = sect.concat(sect).concat(sect).concat(sect).concat(sect);
 		filter1.setName(longName);
 		assertEquals(100, filter1.getName().length());
 	}

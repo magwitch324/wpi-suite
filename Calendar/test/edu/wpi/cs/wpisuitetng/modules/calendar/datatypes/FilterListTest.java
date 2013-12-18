@@ -123,7 +123,7 @@ public class FilterListTest {
 	
 	@Test
 	public void addFiltersTest() {
-		Filter[] filterArray = new Filter[] {filter1, filter2};
+		final Filter[] filterArray = new Filter[] {filter1, filter2};
 		filterList1.addFilters(filterArray);
 		assertEquals("personal filter 1", filterList1.getElementAt(0).getName());
 		assertEquals(Integer.valueOf(1), filterList1.getElementAt(0).getActivePersonalCategories().get(0));
@@ -138,11 +138,11 @@ public class FilterListTest {
 	
 	@Test
 	public void sortByAlphabetTest() {
-		Filter a = new Filter(
+		final Filter a = new Filter(
 				"a", personalCategories1, teamCategories1);
-		Filter z = new Filter(
+		final Filter z = new Filter(
 				"z", personalCategories2, teamCategories2);
-		Filter h = new Filter(
+		final Filter h = new Filter(
 				"h", personalCategories2, teamCategories2);
 		filterList1.add(h);
 		filterList1.add(a);
