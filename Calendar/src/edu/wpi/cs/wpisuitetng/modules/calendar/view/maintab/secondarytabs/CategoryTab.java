@@ -339,8 +339,7 @@ public class CategoryTab extends JPanel {
 					if (e.getClickCount() > 1)
 						{
 							editCategory(((CategoryPanel)e.getComponent()).getCategory());
-							btnEdit.setEnabled(false);
-							btnDelete.setEnabled(false);
+							
 						}
 					if (e.getClickCount() == 1)
 					{
@@ -352,8 +351,7 @@ public class CategoryTab extends JPanel {
 						}
 						selectedCategories.add(comp);
 						comp.setSelected(true);
-						btnEdit.setEnabled(true);
-						btnDelete.setEnabled(true);
+						
 					}
 					
 				}
@@ -385,8 +383,6 @@ public class CategoryTab extends JPanel {
 		addEditPanel.setMinimumSize(new Dimension(460, 10));
 		addEditPanel.setPreferredSize(new Dimension(460, 10));
 		setupAddView();
-		btnEdit.setEnabled(false);
-		btnDelete.setEnabled(false);
 	}
 
 
@@ -413,8 +409,7 @@ public class CategoryTab extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				calProps.setCategoryTabView(1);
 				refreshCategoryListPanel();
-				btnEdit.setEnabled(false);
-				btnDelete.setEnabled(false);
+				
 			}
 		});
 		
@@ -422,8 +417,7 @@ public class CategoryTab extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				calProps.setCategoryTabView(0);
 				refreshCategoryListPanel();
-				btnEdit.setEnabled(false);
-				btnDelete.setEnabled(false);
+				
 			}
 		});
 		
@@ -431,8 +425,7 @@ public class CategoryTab extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				calProps.setCategoryTabView(2);
 				refreshCategoryListPanel();
-				btnEdit.setEnabled(false);
-				btnDelete.setEnabled(false);
+				
 			}
 		});
 	}
@@ -482,6 +475,9 @@ public class CategoryTab extends JPanel {
 		
 		btnNew.setVisible(false);
 		btnNewStrut.setVisible(false);
+
+		btnEdit.setEnabled(false);
+		btnDelete.setEnabled(false);
 		
 		revalidate();
 		repaint();
@@ -540,7 +536,9 @@ public class CategoryTab extends JPanel {
 
 		btnNew.setVisible(true);
 		btnNewStrut.setVisible(true);
-
+		btnEdit.setEnabled(true);
+		btnDelete.setEnabled(true);
+		
 		//set size of view panel
 		
 		revalidate();
