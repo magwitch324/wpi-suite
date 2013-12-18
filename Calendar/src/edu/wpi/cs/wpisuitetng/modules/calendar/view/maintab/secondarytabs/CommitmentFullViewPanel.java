@@ -29,6 +29,7 @@ import javax.swing.JPanel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.month.CalendarObjectWrapperBorder;
 
@@ -62,12 +63,12 @@ public class CommitmentFullViewPanel extends JPanel {
 			Image nameImg;
 			Image scaleImg;
 			if (commitment.getIsPersonal()){
-				nameImg = ImageIO.read(getClass().getResource("PersonalCommitment_Icon.png"));
+				nameImg = ImageIO.read(AbCalendar.class.getResource("PersonalCommitment_Icon.png"));
 				scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 				namelabel.setIcon(new ImageIcon(scaleImg));
 			}
 			else{
-				nameImg = ImageIO.read(getClass().getResource("TeamCommitment_Icon.png"));
+				nameImg = ImageIO.read(AbCalendar.class.getResource("TeamCommitment_Icon.png"));
 				scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 				namelabel.setIcon(new ImageIcon(scaleImg));
 			}

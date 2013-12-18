@@ -212,9 +212,16 @@ public class CommitmentView extends JPanel {
 				//code for setting the category
 				String cat_str = "Category: ";
 				try{
-					cat_str += GUIEventController.getInstance().getCalendar()
-						.getTeamCalData().getCategories()
-						.getCategory(commitmentList.get(i).getCategoryID()).getName();
+					if (commitmentList.get(i).getIsPersonal()){
+						cat_str += GUIEventController.getInstance().getCalendar()
+								.getMyCalData().getCategories()
+								.getCategory(commitmentList.get(i).getCategoryID()).getName();	
+					}
+					else{
+						cat_str += GUIEventController.getInstance().getCalendar()
+								.getTeamCalData().getCategories()
+								.getCategory(commitmentList.get(i).getCategoryID()).getName();	
+					}
 				}
 				catch(java.lang.NullPointerException excep){
 					//no associated category
@@ -251,7 +258,6 @@ public class CommitmentView extends JPanel {
 				});
 
 				commPanelList.add(n, commitmentPanel);
-				//commitmentPanel.setMaximumSize(new Dimension(2000, 100));
 				if(n > 0)
 					{
 					commPanelLayout.putConstraint(SpringLayout.NORTH, commitmentPanel, 
@@ -289,23 +295,27 @@ public class CommitmentView extends JPanel {
 		for(CommitmentViewPanel commitmentPanel : panels){
 			commitmentPanel.setSize(commitmentPanel.getPreferredSize());
 		}
+		
 		resetSize();
 	}
 	
 	protected void resetSize(){
-		int height = 10;
+		int height = 8;
 		int width = scrollPane.getViewport().getSize().width;
 		for(CommitmentViewPanel commitmentPanel : panels){
-			height += commitmentPanel.getSize().getHeight();
+			height += commitmentPanel.getSize().getHeight() + 2;
 		}
 		commitPanel.setPreferredSize(new Dimension(width, height));
 		
-		height = 10;
+		height = 8;
 		width = scrollPane.getViewport().getSize().width;
 		for(CommitmentViewPanel commitmentPanel : panels){
-			height += commitmentPanel.getSize().getHeight();
+			height += commitmentPanel.getSize().getHeight() + 2;
 		}
 		commitPanel.setPreferredSize(new Dimension(width, height));
+		
+		commitPanel.revalidate();
+		commitPanel.repaint();
 	}
 
 }
