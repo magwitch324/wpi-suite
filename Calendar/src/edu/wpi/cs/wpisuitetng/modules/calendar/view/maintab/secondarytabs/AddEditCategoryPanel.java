@@ -74,6 +74,7 @@ public class AddEditCategoryPanel extends JPanel {
 	CategoryTab.CategoryMode mode;
 	private Category editingCategory;
 	private JPanel colorPreviewPanel;
+	private JButton btnDelete;
 
 
 	/**
@@ -278,7 +279,7 @@ public class AddEditCategoryPanel extends JPanel {
 		catch(IllegalArgumentException ex){
 			btnSave.setIcon(new ImageIcon());
 		}
-		btnSave.setText("Save Category");
+		btnSave.setText("Save");
 		btnSave.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button		
 		horizontalBox_1.add(btnSave);
@@ -300,7 +301,26 @@ public class AddEditCategoryPanel extends JPanel {
 		btnCancel.setText("Cancel");
 		
 		horizontalBox_1.add(btnCancel);
-				
+		
+		if (mode == CategoryTab.CategoryMode.EDITING)
+		{
+			final Component horizontalStrut2 = Box.createHorizontalStrut(20);
+	
+			horizontalBox_1.add(horizontalStrut2);
+			
+			// Add Delete Button
+			btnDelete = new JButton();
+			try {
+				final Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
+				final Image newimg = img.getScaledInstance( 30, 30,  java.awt.Image.SCALE_SMOOTH ) ;
+				btnDelete = new JButton("Delete", new ImageIcon(newimg));
+			} catch (IOException ex) {}
+			catch(IllegalArgumentException ex){
+				btnDelete.setText("Delete");
+			}
+			horizontalBox_1.add(btnDelete);
+		}
+		
 		final Component horizontalGlue_1 = Box.createHorizontalGlue();
 
 		add(horizontalGlue_1);

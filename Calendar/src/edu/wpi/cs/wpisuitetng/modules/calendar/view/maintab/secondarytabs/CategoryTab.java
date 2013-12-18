@@ -83,6 +83,7 @@ public class CategoryTab extends JPanel {
 	private CalendarProperties calProps;
 	private boolean initialized;
 	private Component btnNewStrut;
+	private Box buttonBox;
 
 	/**
 	 * @author CS Anonymous
@@ -186,8 +187,8 @@ public class CategoryTab extends JPanel {
 		categoryListLayout = new SpringLayout();
 		categoryListPanel.setLayout(categoryListLayout);
 		
-		final Box horizontalBox_1 = Box.createHorizontalBox();
-		viewPanel.add(horizontalBox_1);
+		buttonBox = Box.createHorizontalBox();
+		viewPanel.add(buttonBox);
 		
 
 		//New Category button
@@ -200,11 +201,11 @@ public class CategoryTab extends JPanel {
 			btnNew.setText("New Category");
 		}
 		
-		horizontalBox_1.add(btnNew);
+		buttonBox.add(btnNew);
 
 		btnNewStrut = Box.createHorizontalStrut(10);
 		btnNewStrut.setMaximumSize(new Dimension(10, 0));
-		horizontalBox_1.add(btnNewStrut);
+		buttonBox.add(btnNewStrut);
 		
 		//Add Edit button
 		btnEdit = new JButton();
@@ -218,11 +219,11 @@ public class CategoryTab extends JPanel {
 		btnEdit.setEnabled(false);
 		
 		
-		horizontalBox_1.add(btnEdit);
+		buttonBox.add(btnEdit);
 		
 		final Component horizontalStrut_2 = Box.createHorizontalStrut(10);
 		horizontalStrut_2.setMaximumSize(new Dimension(10, 0));
-		horizontalBox_1.add(horizontalStrut_2);
+		buttonBox.add(horizontalStrut_2);
 		
 		// Add Delete Button
 		btnDelete = new JButton();
@@ -263,7 +264,7 @@ public class CategoryTab extends JPanel {
 		});
 		
 		
-		horizontalBox_1.add(btnDelete);
+		buttonBox.add(btnDelete);
 		
 		
 		viewPanelStrut = Box.createHorizontalStrut(450);
@@ -339,8 +340,7 @@ public class CategoryTab extends JPanel {
 					if (e.getClickCount() > 1)
 						{
 							editCategory(((CategoryPanel)e.getComponent()).getCategory());
-							btnEdit.setEnabled(false);
-							btnDelete.setEnabled(false);
+							
 						}
 					if (e.getClickCount() == 1)
 					{
@@ -351,8 +351,10 @@ public class CategoryTab extends JPanel {
 						}
 						selectedCategories.add(comp);
 						comp.setSelected(true);
-						btnEdit.setEnabled(true);
 						btnDelete.setEnabled(true);
+						btnEdit.setEnabled(true);
+
+						
 					}
 					
 				}
@@ -384,8 +386,6 @@ public class CategoryTab extends JPanel {
 		addEditPanel.setMinimumSize(new Dimension(460, 10));
 		addEditPanel.setPreferredSize(new Dimension(460, 10));
 		setupAddView();
-		btnEdit.setEnabled(false);
-		btnDelete.setEnabled(false);
 	}
 
 
@@ -412,8 +412,8 @@ public class CategoryTab extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				calProps.setCategoryTabView(1);
 				refreshCategoryListPanel();
-				btnEdit.setEnabled(false);
 				btnDelete.setEnabled(false);
+				btnEdit.setEnabled(false);
 			}
 		});
 		
@@ -421,8 +421,8 @@ public class CategoryTab extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				calProps.setCategoryTabView(0);
 				refreshCategoryListPanel();
-				btnEdit.setEnabled(false);
 				btnDelete.setEnabled(false);
+				btnEdit.setEnabled(false);
 			}
 		});
 		
@@ -430,8 +430,8 @@ public class CategoryTab extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				calProps.setCategoryTabView(2);
 				refreshCategoryListPanel();
-				btnEdit.setEnabled(false);
 				btnDelete.setEnabled(false);
+				btnEdit.setEnabled(false);
 			}
 		});
 	}
@@ -479,8 +479,7 @@ public class CategoryTab extends JPanel {
 		gbc_addEditPanel.gridy = 0;
 		add(addEditPanel, gbc_addEditPanel);
 		
-		btnNew.setVisible(false);
-		btnNewStrut.setVisible(false);
+		buttonBox.setVisible(false);
 		
 		revalidate();
 		repaint();
@@ -537,9 +536,9 @@ public class CategoryTab extends JPanel {
 		gbc_viewPanel.gridy = 0;
 		add(viewPanel, gbc_viewPanel);
 
-		btnNew.setVisible(true);
-		btnNewStrut.setVisible(true);
+		buttonBox.setVisible(true);
 
+		
 		//set size of view panel
 		
 		revalidate();
