@@ -1447,11 +1447,12 @@ public class CommitmentTab extends JPanel {
 //			names[rnd.nextInt(13)], names[rnd.nextInt(13)]};
 //					Event newEvent = new Event("A long " + 
 //			commitment, "Event with " + people[0] + ", " + people[1] + ", and " + people[2],
-//												set, endTime, people, 0, rdbtnPersonal.isSelected());
+//				set, endTime, people, 0, rdbtnPersonal.isSelected());
 //					calData.addEvent(newEvent);
 //				} else {
 //					Commitment newCommitment = 
-//			new Commitment(commitment + " with " + name, set, "No Description", 0, rdbtnPersonal.isSelected());
+//			new Commitment(commitment + " with " + name, set, 
+			//"No Description", 0, rdbtnPersonal.isSelected());
 //					calData.addCommitment(newCommitment);
 //				}
 //				
@@ -1694,8 +1695,6 @@ public class CommitmentTab extends JPanel {
 		return false;
 	}
 
-	/**
-	 */
 	class SpinnerUI extends BasicSpinnerUI  {
 		protected Component createNextButton()  
 		{  

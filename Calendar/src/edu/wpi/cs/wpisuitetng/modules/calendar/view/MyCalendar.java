@@ -93,7 +93,8 @@ public class MyCalendar extends AbCalendar {
 		final JLabel filterLabel = new JLabel("Filter: ");
 		filterLabel.setFont(CalendarStandard.CalendarFont);
 		layout.putConstraint(SpringLayout.WEST, filterLabel, 30, SpringLayout.EAST, datapanel);
-		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filterLabel, 0, SpringLayout.VERTICAL_CENTER, datapanel);
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filterLabel,
+				0, SpringLayout.VERTICAL_CENTER, datapanel);
 		add(filterLabel);
 		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filterComboBox, 
 				0, SpringLayout.VERTICAL_CENTER, datapanel);
@@ -314,7 +315,9 @@ public class MyCalendar extends AbCalendar {
 				final Iterator<Event> it = combinedEventList.getEvents().iterator();
 				 while(it.hasNext()){
 					 Event e = it.next();
-					 if(!selectedFilter.getActiveTeamCategories().contains(e.getCategoryID()) && !selectedFilter.getActivePersonalCategories().contains(e.getCategoryID())){
+					 if(!selectedFilter.getActiveTeamCategories().contains(
+							 e.getCategoryID()) 
+							 && !selectedFilter.getActivePersonalCategories().contains(e.getCategoryID())){
 						 it.remove();
 					 }
 				 }
@@ -322,7 +325,10 @@ public class MyCalendar extends AbCalendar {
 				 final Iterator<Commitment> it2 = combinedCommList.getCommitments().iterator();
 				 while(it2.hasNext()){
 					 Commitment c = it2.next();
-					 if(!selectedFilter.getActiveTeamCategories().contains(c.getCategoryID()) && !selectedFilter.getActivePersonalCategories().contains(c.getCategoryID())){
+					 if(!selectedFilter.getActiveTeamCategories().contains(
+							 c.getCategoryID()) 
+							 && !selectedFilter.getActivePersonalCategories().contains(
+									 c.getCategoryID())){
 						 it2.remove();
 					 }
 				 }

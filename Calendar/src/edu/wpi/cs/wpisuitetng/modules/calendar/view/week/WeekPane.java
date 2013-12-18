@@ -246,6 +246,8 @@ public class WeekPane extends JPanel implements ICalPane {
 
 	/**
 	 * Mouse event listening for double click so it can switch to day
+	 * @author CS Anonymous
+	 * @version $Revision: 1.0 $
 	 */
 	protected class AMouseEvent extends MouseAdapter{
 		GregorianCalendar adate = new GregorianCalendar();

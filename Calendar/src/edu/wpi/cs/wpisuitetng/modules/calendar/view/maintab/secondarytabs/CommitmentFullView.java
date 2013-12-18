@@ -633,7 +633,8 @@ public class CommitmentFullView extends JPanel{
 	public void applyCalProps(){
 
 		calProps = CalendarPropertiesModel.getInstance().getCalendarProps(
-				ConfigManager.getConfig().getProjectName() + "-" + ConfigManager.getConfig().getUserName() + "-PROPS");
+				ConfigManager.getConfig().getProjectName() +
+				"-" + ConfigManager.getConfig().getUserName() + "-PROPS");
 		
 		if(initialized && calProps != null){
 			mode =  ViewingMode.values()[calProps.getCommitmentViewMode()];

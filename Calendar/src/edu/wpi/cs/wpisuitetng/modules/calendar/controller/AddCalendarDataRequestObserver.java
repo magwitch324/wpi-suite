@@ -17,6 +17,7 @@ import edu.wpi.cs.wpisuitetng.network.models.ResponseModel;
 /**
  * This observer is called when a response is received from a request
  * to the server to add a CalendarData.
+ * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
 public class AddCalendarDataRequestObserver implements RequestObserver {

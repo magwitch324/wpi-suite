@@ -75,7 +75,8 @@ public class FilterListTest {
 	public void addOneFilterTest() {
 		filterList1.add(filter1);
 		assertEquals("personal filter 1", filterList1.getElementAt(0).getName());
-		assertEquals(Integer.valueOf(1), filterList1.getElementAt(0).getActivePersonalCategories().get(0));
+		assertEquals(Integer.valueOf(1), 
+				filterList1.getElementAt(0).getActivePersonalCategories().get(0));
 	}
 	
 	/**
@@ -86,7 +87,8 @@ public class FilterListTest {
 		filterList1.add(filter2);
 		filterList1.add(filter1);
 		assertEquals("personal filter 1", filterList1.getElementAt(0).getName());
-		assertEquals(Integer.valueOf(2), filterList1.getElementAt(1).getActivePersonalCategories().get(1)); 
+		assertEquals(Integer.valueOf(2),
+				filterList1.getElementAt(1).getActivePersonalCategories().get(1)); 
 	}
 	
 	@Test
@@ -126,7 +128,8 @@ public class FilterListTest {
 		final Filter[] filterArray = new Filter[] {filter1, filter2};
 		filterList1.addFilters(filterArray);
 		assertEquals("personal filter 1", filterList1.getElementAt(0).getName());
-		assertEquals(Integer.valueOf(1), filterList1.getElementAt(0).getActivePersonalCategories().get(0));
+		assertEquals(Integer.valueOf(1), 
+				filterList1.getElementAt(0).getActivePersonalCategories().get(0));
 	}
 	
 	@Test

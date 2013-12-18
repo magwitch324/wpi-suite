@@ -22,7 +22,7 @@ import edu.wpi.cs.wpisuitetng.network.models.HttpMethod;
 /**
  * This controller coordinates retrieving all of the categories
  * from the server.
- *
+ * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
 public class GetCalendarDataController implements ActionListener {
