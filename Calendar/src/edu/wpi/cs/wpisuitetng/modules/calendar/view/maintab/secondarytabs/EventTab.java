@@ -209,7 +209,7 @@ public class EventTab extends JPanel {
 
 		constraints_1 = new GridBagConstraints();
 		constraints_1.gridy = 0;
-		constraints_1.weightx = 2;
+		constraints_1.weightx = 3;
 		constraints_1.gridx = 1;
 		constraints_1.weighty = 1;
 		constraints_1.fill = GridBagConstraints.BOTH;
@@ -225,10 +225,10 @@ public class EventTab extends JPanel {
 
 		// form uses GridBagLayout w/ two columns
 		final GridBagLayout gbl = new GridBagLayout();
-		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-		gbl.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0};
-		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl.columnWidths = new int[] {0, 0, 0, 0};
+		gbl.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
+		gbl.columnWeights = new double[]{0.0, 1.0};
+		gbl.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl.columnWidths = new int[] {0, 0};
 		formPanel.setLayout(gbl);
 
 		//Name label
@@ -283,7 +283,7 @@ public class EventTab extends JPanel {
 		gbc_descriptionTextField.gridheight = 3;
 		gbc_descriptionTextField.gridwidth = 3;
 		gbc_descriptionTextField.fill = GridBagConstraints.BOTH;
-		gbc_descriptionTextField.insets = new Insets(0, 0, 0, 5);
+		gbc_descriptionTextField.insets = new Insets(0, 0, 5, 0);
 		gbc_descriptionTextField.weightx = 10;
 		gbc_descriptionTextField.weighty = 5;
 		gbc_descriptionTextField.gridx = 1;
@@ -319,7 +319,7 @@ public class EventTab extends JPanel {
 		final GridBagConstraints gbc_categoryComboBox = new GridBagConstraints();
 		gbc_categoryComboBox.gridwidth = 3;
 		gbc_categoryComboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_categoryComboBox.insets = new Insets(0, 0, 0, 5);
+		gbc_categoryComboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_categoryComboBox.gridx = 1;
 		gbc_categoryComboBox.gridy = 4;
 		gbc_categoryComboBox.weightx = 10;

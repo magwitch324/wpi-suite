@@ -477,7 +477,7 @@ public class CommitmentTab extends JPanel {
 		final GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridheight = 3;
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.insets = new Insets(0, 0, 0, 5);
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane.gridx = 1;
 		gbc_scrollPane.gridy = 1;
 		formPanel.add(scrollPane, gbc_scrollPane);
