@@ -110,7 +110,7 @@ public class CommitmentFullViewPanel extends JPanel {
 		//JLabel for the description of the event
 		final JLabel description = new JLabel("<HTML>" + 
 		commitment.getDescription() + "</HTML>", JLabel.LEFT);
-		description.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		description.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 5));
 
 		this.add(namelabel);
 		this.add(due_date);

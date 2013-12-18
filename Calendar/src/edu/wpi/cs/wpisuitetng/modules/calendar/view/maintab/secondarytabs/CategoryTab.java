@@ -347,24 +347,27 @@ public class CategoryTab extends JPanel {
 			catPanel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					if (e.getClickCount() > 1)
+					if(mode==CategoryMode.VIEWING)
+					{
+						if (e.getClickCount() > 1)
+							{
+								editCategory(((CategoryPanel)e.getComponent()).getCategory());
+								
+							}
+						if (e.getClickCount() == 1)
 						{
-							editCategory(((CategoryPanel)e.getComponent()).getCategory());
+							CategoryPanel comp = (CategoryPanel) e.getComponent();
+							if(!selectedCategories.isEmpty() && ! e.isControlDown())
+							{
+								removeSelectedCategories(); //clear existing selections
+							}
+							selectedCategories.add(comp);
+							comp.setSelected(true);
+							btnDelete.setEnabled(true);
+							btnEdit.setEnabled(true);
+	
 							
 						}
-					if (e.getClickCount() == 1)
-					{
-						CategoryPanel comp = (CategoryPanel) e.getComponent();
-						if(!selectedCategories.isEmpty() && ! e.isControlDown())
-						{
-							removeSelectedCategories(); //clear existing selections
-						}
-						selectedCategories.add(comp);
-						comp.setSelected(true);
-						btnDelete.setEnabled(true);
-						btnEdit.setEnabled(true);
-
-						
 					}
 					
 				}
@@ -408,6 +411,7 @@ public class CategoryTab extends JPanel {
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				addEditPanel = new AddEditCategoryPanel(!(rdbtnTeam.isSelected()));
+				removeSelectedCategories();
 				setupAddView();
 			}
 		});
@@ -519,6 +523,8 @@ public class CategoryTab extends JPanel {
 				// TODO Auto-generated method stub
 				refreshCategoryListPanel();
 				setupViewingView();
+				btnDelete.setEnabled(false);
+				btnEdit.setEnabled(false);
 			}
 			
 		});

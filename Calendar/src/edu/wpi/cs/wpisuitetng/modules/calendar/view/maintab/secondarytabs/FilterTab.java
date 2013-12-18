@@ -50,7 +50,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
-public class FilterTab2 extends JPanel {
+public class FilterTab extends JPanel {
 
 	private enum FilterMode {
 		ADDING(0), EDITING(1), VIEWING(2);
@@ -87,7 +87,7 @@ public class FilterTab2 extends JPanel {
 	private JButton btnDelete;
 	private JButton btnDeleteFilter;
 
-	public FilterTab2(int openedFrom) {
+	public FilterTab(int openedFrom) {
 		this.openedFrom = openedFrom;
 
 		final GridBagLayout gridBagLayout = new GridBagLayout();
@@ -556,6 +556,7 @@ public class FilterTab2 extends JPanel {
 
 		// Adds the text field for the name of the filter
 		filterName = new JTextField();
+		filterName.setColumns(1000000);
 		if (mode == FilterMode.EDITING) filterName.setText(selectedFilterPanel.getFilter().getName()); 
 		filterName.setBackground(CalendarStandard.CalendarYellow);
 		final GridBagConstraints gbc_filterName = new GridBagConstraints();
@@ -720,6 +721,7 @@ public class FilterTab2 extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				addFilter();
 				mode = FilterMode.VIEWING;
+				selectedFilterPanel = null;
 				refreshMainView();
 			}
 		});
@@ -772,6 +774,7 @@ public class FilterTab2 extends JPanel {
 						calData);
 				
 				mode = FilterMode.VIEWING;
+				selectedFilterPanel = null;
 				GUIEventController.getInstance().updateFilterComboBox();
 				refreshMainView();
 			}

@@ -148,7 +148,7 @@ public class CommitmentView extends JPanel {
 				try {
 						if (commitmentList.get(i).getIsPersonal())
 						{
-							nameImg = ImageIO.read(getClass().getResource(
+							nameImg = ImageIO.read(AbCalendar.class.getResource(
 									"PersonalCommitment_Icon.png"));
 							scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 							tag.setText("[Personal]");
@@ -156,7 +156,7 @@ public class CommitmentView extends JPanel {
 						}
 						else
 						{
-							nameImg = ImageIO.read(getClass().getResource(
+							nameImg = ImageIO.read(AbCalendar.class.getResource(
 									"TeamCommitment_Icon.png"));
 							scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 							tag.setText("[Team]");

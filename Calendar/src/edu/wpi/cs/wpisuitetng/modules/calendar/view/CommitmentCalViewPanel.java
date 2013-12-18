@@ -65,12 +65,12 @@ public class CommitmentCalViewPanel extends JPanel {
 		try {
 			if (comm.getIsPersonal())
 			{
-				nameImg = ImageIO.read(getClass().getResource("PersonalCommitment_Icon.png"));
+				nameImg = ImageIO.read(AbCalendar.class.getResource("PersonalCommitment_Icon.png"));
 				
 			}
 			else
 			{
-				nameImg = ImageIO.read(getClass().getResource("TeamCommitment_Icon.png"));
+				nameImg = ImageIO.read(AbCalendar.class.getResource("TeamCommitment_Icon.png"));
 			}
 			scaleImg = nameImg.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 			alab = new JLabel(name, new ImageIcon(scaleImg), JLabel.CENTER);
