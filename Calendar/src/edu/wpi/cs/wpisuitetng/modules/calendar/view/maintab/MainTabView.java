@@ -36,8 +36,7 @@ public class MainTabView extends JTabbedPane {
 	 */
 	public MainTabView() {
 		setTabPlacement(TOP);
-		setTabLayoutPolicy(SCROLL_TAB_LAYOUT);
-//		setBorder(BorderFactory.createEmptyBorder(5, 3, 3, 3, Color.WHITE));	
+		setTabLayoutPolicy(SCROLL_TAB_LAYOUT);	
 	}
 	
 	

@@ -387,7 +387,6 @@ public class MyCalendar extends AbCalendar {
 						+ ConfigManager.getConfig().getUserName() + "-PROPS");
 		//set the comm list to the new data
 		showcom.setSelected(calProps.getMyShowComm());
-		//showteam.setSelected(calProps.getShowTeamData());
 		calView.applyCalProps(calProps);
 		switch(calProps.getMyTeamBoth()){
 		case 0: myCalendar.setSelected(true);
@@ -500,25 +499,6 @@ public class MyCalendar extends AbCalendar {
 		calendarSelection.add(myCalendar);
 		calendarSelection.add(teamCalendar);
 		calendarSelection.add(bothCalendar);
-
-		/*
-		showteam = new JCheckBox("Show Team Data");
-		showteam.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        showteam.setFont(CalendarStandard.CalendarFont.deriveFont(Font.PLAIN, 14f));
-		showteam.setBackground(Color.WHITE);
-		showteam.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				calProps.setShowTeamData(showteam.isSelected());
-				//update the commitments to either include or not include team data
-				updateCalData();
-				setView();
-			}
-		});
-
-        layout.putConstraint(SpringLayout.NORTH, showteam, 0, SpringLayout.NORTH, panel);
-        layout.putConstraint(SpringLayout.WEST, showteam, 15, SpringLayout.EAST, showcom);
-        layout.putConstraint(SpringLayout.SOUTH, showteam, 0, SpringLayout.SOUTH, panel);
-        panel.add(showteam);*/
 
 		final int width = showcom.getPreferredSize().width + 30 
 				+ myCalendar.getPreferredSize().width + 30 
