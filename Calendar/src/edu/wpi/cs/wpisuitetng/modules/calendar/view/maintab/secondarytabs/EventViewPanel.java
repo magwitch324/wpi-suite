@@ -28,6 +28,7 @@ import javax.swing.JPanel;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.month.CalendarObjectWrapperBorder;
 
@@ -61,13 +62,13 @@ public class EventViewPanel extends JPanel {
 			Image nameImg;
 			Image scaleImg;
 			if (event.getIsPersonal()) {
-				nameImg = ImageIO.read(getClass().getResource(
+				nameImg = ImageIO.read(AbCalendar.class.getResource(
 						"PersonalEvent_Icon.png"));
 				scaleImg = nameImg
 						.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 				namelabel.setIcon(new ImageIcon(scaleImg));
 			} else {
-				nameImg = ImageIO.read(getClass().getResource(
+				nameImg = ImageIO.read(AbCalendar.class.getResource(
 						"TeamEvent_Icon.png"));
 				scaleImg = nameImg
 						.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
@@ -113,14 +114,14 @@ public class EventViewPanel extends JPanel {
 		// JLabel for the description of the event
 		final JLabel description = new JLabel("<HTML>" + event.getDescription()
 				+ "</HTML>", JLabel.LEFT);
-		description.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		description.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 5));
 
 		this.add(namelabel);
 		this.add(start_date);
 		this.add(end_date);
 		this.add(description);
 
-		this.setPreferredSize(new Dimension(300, 75));
+		this.setPreferredSize(new Dimension(300, 100));
 		this.setMaximumSize(new Dimension(20000, 75));
 		this.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		this.setToolTipText("Click to Edit or Delete this Event");

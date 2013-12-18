@@ -78,9 +78,10 @@ public class MyCalendar extends AbCalendar {
 
 		final JComponent rdbtnpanel = getRadioButtonPanel();
 		layout.putConstraint(SpringLayout.NORTH, rdbtnpanel, 
-				10, SpringLayout.SOUTH, viewbtnpanel);
+				8, SpringLayout.SOUTH, viewbtnpanel);
 		layout.putConstraint(SpringLayout.WEST, rdbtnpanel, 
 				0, SpringLayout.WEST, viewbtnpanel);
+		layout.putConstraint(SpringLayout.EAST, rdbtnpanel, 0, SpringLayout.EAST, viewbtnpanel);
 		this.add(rdbtnpanel);
 		
 		
@@ -100,15 +101,20 @@ public class MyCalendar extends AbCalendar {
 		filterComboBox = new JComboBox<Filter>();
 		final JLabel filterLabel = new JLabel("Filter: ");
 		filterLabel.setFont(CalendarStandard.CalendarFont);
-		layout.putConstraint(SpringLayout.WEST, filterLabel, 30, SpringLayout.EAST, datapanel);
-		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filterLabel,
-				0, SpringLayout.VERTICAL_CENTER, datapanel);
-		add(filterLabel);
+		
 		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filterComboBox, 
 				0, SpringLayout.VERTICAL_CENTER, datapanel);
-		layout.putConstraint(SpringLayout.WEST, filterComboBox, 5, SpringLayout.EAST, filterLabel);
 		layout.putConstraint(SpringLayout.EAST, filterComboBox, -5, SpringLayout.EAST, this);
-		filterComboBox.setMaximumSize(new Dimension(20, 20));
+		
+//		layout.putConstraint(SpringLayout., filterComboBox, -5, SpringLayout.EAST, this);
+		filterComboBox.setPreferredSize(new Dimension(200, 20));
+//		layout.putConstraint(SpringLayout.WEST, filterLabel, 30, SpringLayout.EAST, datapanel);
+		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filterLabel,
+				0, SpringLayout.VERTICAL_CENTER, datapanel);
+		layout.putConstraint(SpringLayout.EAST, filterLabel,
+				0, SpringLayout.WEST, filterComboBox);
+		add(filterLabel);
+		
 		filterComboBox.setBackground(CalendarStandard.CalendarYellow);
 		filterComboBox.setToolTipText("Select Filters");
 		filterComboBox.addActionListener(new ActionListener() {
@@ -539,6 +545,28 @@ public class MyCalendar extends AbCalendar {
 		panel.setLayout(layout);
 		
 		//create the my/team/both radio buttons
+		teamCalendar = new JRadioButton("Team");
+		teamCalendar.setAlignmentX(Component.CENTER_ALIGNMENT);
+		teamCalendar.setBackground(Color.WHITE);
+		teamCalendar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		teamCalendar.setToolTipText("View Team Calendar");
+		teamCalendar.setFont(CalendarStandard.CalendarFont);
+		teamCalendar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//update the commitments to either include or not include team data
+				calProps.setMyTeamBoth(1);
+				updateCalData();
+				//setView(); redundant called in updateCalData
+			}
+		});
+
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, teamCalendar, 0, SpringLayout.HORIZONTAL_CENTER, panel);
+		layout.putConstraint(SpringLayout.SOUTH, teamCalendar, 0, SpringLayout.SOUTH, panel);
+		layout.putConstraint(SpringLayout.NORTH, teamCalendar, 0, SpringLayout.NORTH, panel);
+
+		panel.add(teamCalendar);
+		
+		
 		myCalendar = new JRadioButton("Personal");
 		myCalendar.setAlignmentX(Component.CENTER_ALIGNMENT);
 		myCalendar.setBackground(Color.WHITE);
@@ -556,30 +584,12 @@ public class MyCalendar extends AbCalendar {
 		});
 
 		layout.putConstraint(SpringLayout.NORTH, myCalendar, 0, SpringLayout.NORTH, panel);
-		layout.putConstraint(SpringLayout.WEST, myCalendar, 0, SpringLayout.WEST, panel);
+		layout.putConstraint(SpringLayout.EAST, myCalendar, -15, SpringLayout.WEST, teamCalendar);
 		layout.putConstraint(SpringLayout.SOUTH, myCalendar, 0, SpringLayout.SOUTH, panel);
 		panel.add(myCalendar);
 
 
-		teamCalendar = new JRadioButton("Team");
-		teamCalendar.setAlignmentX(Component.CENTER_ALIGNMENT);
-		teamCalendar.setBackground(Color.WHITE);
-		teamCalendar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		teamCalendar.setToolTipText("View Team Calendar");
-		teamCalendar.setFont(CalendarStandard.CalendarFont);
-		teamCalendar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//update the commitments to either include or not include team data
-				calProps.setMyTeamBoth(1);
-				updateCalData();
-				//setView(); redundant called in updateCalData
-			}
-		});
-
-		layout.putConstraint(SpringLayout.NORTH, teamCalendar, 0, SpringLayout.NORTH, panel);
-		layout.putConstraint(SpringLayout.WEST, teamCalendar, 15, SpringLayout.EAST, myCalendar);
-		layout.putConstraint(SpringLayout.SOUTH, teamCalendar, 0, SpringLayout.SOUTH, panel);
-		panel.add(teamCalendar);
+		
 
 		bothCalendar = new JRadioButton("Both");
 		bothCalendar.setAlignmentX(Component.CENTER_ALIGNMENT);
