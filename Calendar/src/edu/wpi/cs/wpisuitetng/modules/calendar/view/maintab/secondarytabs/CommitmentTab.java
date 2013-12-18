@@ -1471,8 +1471,8 @@ public class CommitmentTab extends JPanel {
 //									.getID(), rdbtnPersonal.isSelected());
 //					calData.addCommitment(newCommitment);
 //				}
-//				GregorianCalendar hotStart = new GregorianCalendar(2013, 12, 11);
-//				GregorianCalendar hotEnd   = new GregorianCalendar(2013, 12, 18);
+//				GregorianCalendar hotStart = new GregorianCalendar(2013, Calendar.DECEMBER, 11);
+//				GregorianCalendar hotEnd   = new GregorianCalendar(2013, Calendar.DECEMBER, 18);
 //				
 //				if (day.before(hotEnd) && day.after(hotStart)) day.add(Calendar.HOUR, rnd.nextInt(5));
 //				else day.add(Calendar.DAY_OF_YEAR, rnd.nextInt(8));
