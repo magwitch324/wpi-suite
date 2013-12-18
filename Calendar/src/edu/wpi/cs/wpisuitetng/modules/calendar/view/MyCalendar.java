@@ -82,6 +82,7 @@ public class MyCalendar extends AbCalendar {
 		layout.putConstraint(SpringLayout.WEST, rdbtnpanel, 
 				0, SpringLayout.WEST, viewbtnpanel);
 		layout.putConstraint(SpringLayout.EAST, rdbtnpanel, 0, SpringLayout.EAST, viewbtnpanel);
+		rdbtnpanel.setBackground(Color.WHITE);
 		this.add(rdbtnpanel);
 		
 		
@@ -192,7 +193,7 @@ public class MyCalendar extends AbCalendar {
 	}
 	
 	public void deleteFilterUpdateComboBox(Filter toDelete){
-		int selectedFilter;
+		final int selectedFilter;
 		if(filterComboBox.getSelectedItem() != null){
 			selectedFilter = ((Filter) filterComboBox.getSelectedItem()).getID();
 			if(selectedFilter == toDelete.getID()){
