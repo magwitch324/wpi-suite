@@ -323,6 +323,7 @@ public class AddEditCategoryPanel extends JPanel {
 				btnDelete.setText("Delete");
 			}
 			horizontalBox_1.add(btnDelete);
+			
 		}
 		
 		final Component horizontalGlue_1 = Box.createHorizontalGlue();
@@ -397,6 +398,27 @@ public class AddEditCategoryPanel extends JPanel {
 		//Disable changing team/personal
 		rdbtnPersonal.setEnabled(false);
 		rdbtnTeam.setEnabled(false);
+		
+		//delete button event handler
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				CalendarData calData;
+				GUIEventController.getInstance().scrubCategory(editingCategory);
+				if(editingCategory.getIsPersonal()) {
+					calData = CalendarDataModel.getInstance().getCalendarData(
+							ConfigManager.getConfig().getProjectName() +
+							"-" + ConfigManager.getConfig().getUserName()); 
+				} else {
+					calData = CalendarDataModel.getInstance().getCalendarData(
+							ConfigManager.getConfig().getProjectName()); 
+				}
+			calData.getCategories().remove(editingCategory.getID());
+			UpdateCalendarDataController.getInstance().updateCalendarData(calData);
+			close();
+			}
+		});
+		
 	}
 
 	/**
