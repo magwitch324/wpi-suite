@@ -103,14 +103,6 @@ public class GUIEventController {
 	}
 
 	/**
-	 * Called on Janeway shutdown to remove year old items
-	 */
-
-	public void removeYearOld(){
-
-	}
-
-	/**
 	 * Sets the main view to the given view.
 	 * 
 	 * @param mainview
