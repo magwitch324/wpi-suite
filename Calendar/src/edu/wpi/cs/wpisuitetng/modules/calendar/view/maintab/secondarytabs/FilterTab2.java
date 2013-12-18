@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * Copyright (c) 2013 WPI-Suite
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: CS Anonymous
+ ******************************************************************************/
 package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import java.awt.BorderLayout;
@@ -71,10 +80,11 @@ public class FilterTab2 extends JPanel {
 	private JPanel activeListPanel;
 	private SpringLayout activeListLayout;
 	private JTextField filterName;
-	private int openedFrom;
+	private final int openedFrom;
 	private JButton btnSaveFilter;
 	private JButton btnEdit;
 	private JButton btnDelete;
+	private JButton btnDeleteFilter;
 
 	public FilterTab2(int openedFrom) {
 		this.openedFrom = openedFrom;
@@ -170,7 +180,9 @@ public class FilterTab2 extends JPanel {
 					}
 				}
 				if (!isActive)
-					inactiveCategories.add(c);
+					{
+						inactiveCategories.add(c);
+					}
 			}
 
 			for (Category c : teamCategories.getCategories()) {
@@ -183,7 +195,9 @@ public class FilterTab2 extends JPanel {
 					}
 				}
 				if (!isActive)
-					inactiveCategories.add(c);
+					{
+						inactiveCategories.add(c);
+					}
 			}
 
 		}
@@ -210,25 +224,29 @@ public class FilterTab2 extends JPanel {
 	}
 
 	private void addFilter() {
-		CalendarData calData;
+		final CalendarData calData;
 
-		String name = filterName.getText();
+		final String name = filterName.getText();
 
 		calData = CalendarDataModel.getInstance().getCalendarData(
 				ConfigManager.getConfig().getProjectName() + "-"
 						+ ConfigManager.getConfig().getUserName());
 
-		List<Integer> activePersonalCategories = new ArrayList<Integer>();
-		List<Integer> activeTeamCategories = new ArrayList<Integer>();
+		final List<Integer> activePersonalCategories = new ArrayList<Integer>();
+		final List<Integer> activeTeamCategories = new ArrayList<Integer>();
 
 		for (Category c : activeCategories) {
 			if (c.getIsPersonal())
-				activePersonalCategories.add(c.getID());
+				{
+					activePersonalCategories.add(c.getID());
+				}
 			else
-				activeTeamCategories.add(c.getID());
+				{
+					activeTeamCategories.add(c.getID());
+				}
 		}
 
-		Filter newFilter = new Filter(name, activePersonalCategories,
+		final Filter newFilter = new Filter(name, activePersonalCategories,
 				activeTeamCategories);
 		if (mode == FilterMode.ADDING) {
 			calData.addFilter(newFilter);
@@ -252,25 +270,33 @@ public class FilterTab2 extends JPanel {
 		}
 		if (mode == FilterMode.EDITING) {
 			boolean change = false;
-			boolean contained = false;
+			int countMatches = selectedFilterPanel.getFilter().getActivePersonalCategories().size() +
+					   selectedFilterPanel.getFilter().getActiveTeamCategories().size();
 			for (Category c : activeCategories) {
+				boolean contained = false;
 				if (c.getIsPersonal()) {
 					for (Integer id : selectedFilterPanel.getFilter()
 							.getActivePersonalCategories()) {
 						if (c.getID() == id) {
 							contained = true;
+							countMatches--;
+							System.out.println("Got a match Personal");
 						}
+						
 					}
 				} else if (!c.getIsPersonal()) {
 					for (Integer id : selectedFilterPanel.getFilter()
 							.getActiveTeamCategories()) {
 						if (c.getID() == id) {
 							contained = true;
+							countMatches--;
+							System.out.println("Got a match Team");
 						}
 					}
 				}
 				if (!contained) change = true;
-			}
+			} 
+			if (countMatches != 0) change = true;
 			if (!filterName.getText().equals(selectedFilterPanel.getFilter().getName())) change = true;
 			if (!change) btnSaveFilter.setEnabled(false);
 				
@@ -323,7 +349,7 @@ public class FilterTab2 extends JPanel {
 		add(viewPanel, constraints);
 
 		// Adds the scroll pane the filters will be on
-		JScrollPane scrollPane = new JScrollPane();
+		final JScrollPane scrollPane = new JScrollPane();
 		scrollPane
 				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane
@@ -715,9 +741,45 @@ public class FilterTab2 extends JPanel {
 				refreshMainView();
 			}
 		});
+		
+		// Add Delete Button
+		btnDeleteFilter = new JButton();
+		try {
+			final Image img = ImageIO.read(getClass().getResource(
+					"Delete_Icon.png"));
+			btnDeleteFilter.setIcon(new ImageIcon(img));
+		} catch (IOException ex) {
+		} catch (IllegalArgumentException ex) {
+			btnDeleteFilter.setIcon(new ImageIcon());
+		}
+		btnDeleteFilter.setText("Delete Filter");
+		btnDeleteFilter.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		// To change cursor as it moves over this button
+		btnDeleteFilter.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CalendarData calData;
 
-		filterButtonPanel.add(btnSaveFilter, BorderLayout.WEST);
-		filterButtonPanel.add(btnCancelFilter, BorderLayout.EAST);
+				calData = CalendarDataModel.getInstance().getCalendarData(
+						ConfigManager.getConfig().getProjectName() + "-"
+								+ ConfigManager.getConfig().getUserName());
+				calendarFilters.remove(selectedFilterPanel.getFilter().getID());
+				UpdateCalendarDataController.getInstance().updateCalendarData(
+						calData);
+				
+				mode = FilterMode.VIEWING;
+				refreshMainView();
+			}
+		});
+
+		if (mode == FilterMode.EDITING) {
+			filterButtonPanel.add(btnSaveFilter, BorderLayout.WEST);
+			filterButtonPanel.add(btnCancelFilter, BorderLayout.CENTER);
+			filterButtonPanel.add(btnDeleteFilter, BorderLayout.EAST);
+		} else {
+			filterButtonPanel.add(btnSaveFilter, BorderLayout.WEST);
+			filterButtonPanel.add(btnCancelFilter, BorderLayout.EAST);
+		}
 		// Set the horizontal gap
 		editPanel.add(filterButtonPanel, gbc_btnPanel2);
 	}
@@ -751,6 +813,11 @@ public class FilterTab2 extends JPanel {
 						1, SpringLayout.EAST, filterListPanel);
 			}
 			filterListPanel.add(filterPanel);
+			if (selectedFilterPanel != null)
+				if (filterPanel.getFilter().equals(selectedFilterPanel.getFilter())) 
+					{
+						filterPanel.setSelected(true);
+					}
 
 			filterPanel.addMouseListener(new MouseAdapter() {
 				@Override
@@ -761,7 +828,9 @@ public class FilterTab2 extends JPanel {
 					btnDelete.setEnabled(true);
 					
 					if (selectedFilterPanel != null)
-						selectedFilterPanel.setSelected(false);
+						{
+							selectedFilterPanel.setSelected(false);
+						}
 					if (e.getClickCount() > 1) {
 						mode = FilterMode.EDITING;
 						selectedFilterPanel = fp;
@@ -819,7 +888,9 @@ public class FilterTab2 extends JPanel {
 				public void mouseClicked(MouseEvent e) {
 					CategoryPanel cp = (CategoryPanel) e.getComponent();
 					if (selectedCategoryPanel != null)
-						selectedCategoryPanel.setSelected(false);
+						{
+							selectedCategoryPanel.setSelected(false);
+						}
 					if (e.getClickCount() > 1) {
 						selectedCategoryPanel = cp;
 						cp.setSelected(true);
@@ -881,7 +952,9 @@ public class FilterTab2 extends JPanel {
 				public void mouseClicked(MouseEvent e) {
 					CategoryPanel cp = (CategoryPanel) e.getComponent();
 					if (selectedCategoryPanel != null)
-						selectedCategoryPanel.setSelected(false);
+						{
+							selectedCategoryPanel.setSelected(false);
+						}
 					if (e.getClickCount() > 1) {
 						selectedCategoryPanel = cp;
 						cp.setSelected(true);

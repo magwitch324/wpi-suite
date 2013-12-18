@@ -530,11 +530,13 @@ public class CommitmentTab extends JPanel {
 		rdbtnPersonal.setBackground(Color.WHITE);
 		rdbtnGroup.add(rdbtnPersonal);
 		rdbtnPanel.add(rdbtnPersonal);
+		rdbtnPersonal.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 		rdbtnTeam = new JRadioButton("Team");
 		rdbtnTeam.setBackground(Color.WHITE);
 		rdbtnGroup.add(rdbtnTeam);
 		rdbtnPanel.add(rdbtnTeam);
+		rdbtnTeam.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 		// Create time spinner panel.
 		spinnerPanel = new JPanel();

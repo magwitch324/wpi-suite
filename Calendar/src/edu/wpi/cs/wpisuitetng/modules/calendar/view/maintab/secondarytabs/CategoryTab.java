@@ -11,6 +11,7 @@ package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -51,6 +52,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropertiesModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
+
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -148,14 +150,17 @@ public class CategoryTab extends JPanel {
 		teamPersonalRadioButtons.add(rdbtnPersonal);
 		horizontalBox.add(rdbtnPersonal);
 		rdbtnPersonal.setSelected(true);
+		rdbtnPersonal.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		rdbtnTeam = new JRadioButton("Team");
 		rdbtnTeam.setBackground(Color.WHITE);
 		teamPersonalRadioButtons.add(rdbtnTeam);
 		horizontalBox.add(rdbtnTeam);
+		rdbtnTeam.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		rdbtnBoth = new JRadioButton("Both");
 		rdbtnBoth.setBackground(Color.WHITE);
+		rdbtnBoth.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 		teamPersonalRadioButtons.add(rdbtnBoth);
 		horizontalBox.add(rdbtnBoth);
@@ -201,6 +206,8 @@ public class CategoryTab extends JPanel {
 			btnNew.setText("New Category");
 		}
 		
+		btnNew.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
 		buttonBox.add(btnNew);
 
 		btnNewStrut = Box.createHorizontalStrut(10);
@@ -217,7 +224,7 @@ public class CategoryTab extends JPanel {
 			btnEdit.setText("Edit Category");
 		}
 		btnEdit.setEnabled(false);
-		
+		btnEdit.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		buttonBox.add(btnEdit);
 		
@@ -236,6 +243,8 @@ public class CategoryTab extends JPanel {
 			btnDelete.setText("Delete Category");
 		}
 		btnDelete.setEnabled(false);
+		
+		btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -307,6 +316,7 @@ public class CategoryTab extends JPanel {
 		// CategoryPanel to keep track of spring layout constraints of previously added panel
 		CategoryPanel oldCatPanel = new CategoryPanel(); 
 		CategoryPanel catPanel = new CategoryPanel();
+		catPanel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		for(int i = 0; i < catList.size(); i++)
 		{
 			catPanel = new CategoryPanel(catList.get(i));
