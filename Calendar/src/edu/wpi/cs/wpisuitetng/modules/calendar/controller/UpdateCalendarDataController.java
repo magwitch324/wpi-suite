@@ -62,7 +62,7 @@ public class UpdateCalendarDataController{
 		GUIEventController.getInstance().updateCalData();
 		System.out.println("Updating caldata");
 		final Request request = Network.getInstance().makeRequest(
-				"calendar/calendardata", HttpMethod.POST); // POST == update
+				"calendar/calendardata", HttpMethod.POST);
 		request.setBody(newCalData.toJSON()); 
 		// put the updated CalendarData in the body of the request
 		request.addObserver(observer); 
