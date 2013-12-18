@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2013 WPI-Suite
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: CS Anonymous
+ ******************************************************************************/
+
 package edu.wpi.cs.loginactivity;
 
 import java.text.DateFormat;
@@ -40,13 +50,8 @@ import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
-/*
 
- * This code is very messy I am not using most of it because it was taken from my day view class
-
- * 
- * */
-public class AndroidEventFull extends Activity implements Runnable{
+public class AndroidDayView extends Activity implements Runnable{
 
 	
 	LinearLayout mainLayout;
@@ -92,8 +97,8 @@ public class AndroidEventFull extends Activity implements Runnable{
 		DateFormat formatter = new SimpleDateFormat("MMM d yyyy");
 		Log.d("current day", formatter.format(DaySingleton.getInstance().getSelectedDay()));
 		currentDate =  formatter.format(DaySingleton.getInstance().getSelectedDay());
-		setupTop();
 		setupTabs();
+		setupTop();
 		setupSpinner();
 		
 	}
@@ -239,9 +244,20 @@ public class AndroidEventFull extends Activity implements Runnable{
         
 		getTabs();
 		
-		tabb2.addView(tab1Scroll);
-		//tabb2.addView(tab2Scroll);
+		tabb1.addView(tab1Scroll);
+		tabb2.addView(tab2Scroll);
 		
+        TabHost th = (TabHost) findViewById(R.id.tabhost);
+        th.setup();
+        TabSpec specs = th.newTabSpec("tag1");
+        specs.setContent(R.id.tab1);
+        specs.setIndicator("Events");
+        th.addTab(specs);
+        specs = th.newTabSpec("tag2");
+        specs.setContent(R.id.tab2);
+        specs.setIndicator("Commitments");
+        th.addTab(specs);
+        
         
 		
 	}
@@ -263,14 +279,21 @@ public class AndroidEventFull extends Activity implements Runnable{
 		}
 		
 		*/
-
+		GregorianCalendar g = new GregorianCalendar();
+		g.setTimeInMillis(DaySingleton.getInstance().getSelectedDay());
 		
         //events : change to events instead
 		insideTab1.removeAllViews();
 		insideTab2.removeAllViews();
 		events.clear();
 		commitments.clear();
-				eventList = eventFullList.getEvents();
+				try {
+				     eventList = eventFullList.filter(g);
+					
+				} catch (CalendarException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				DateFormat formatter = new SimpleDateFormat("EEE dd MMM yyy hh:mm a");  
 		
 				for(int i = 0; i< eventList.size(); i++){
@@ -302,7 +325,14 @@ public class AndroidEventFull extends Activity implements Runnable{
 				}		
 		
 		
-		commitmentList = commitmentfullList.getCommitments();
+		//commitments
+			try {
+			     commitmentList = commitmentfullList.filter(g);
+				
+			} catch (CalendarException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 				for(int i = 0; i< commitmentList.size(); i++){
 					LinearLayout layout = new LinearLayout(this);
 					ImageView icon = new ImageView(this);
@@ -341,7 +371,7 @@ public class AndroidEventFull extends Activity implements Runnable{
 		topLayout = (LinearLayout)findViewById(R.id.LinearLayout1);
 		topLayout.setBackgroundColor(CalendarYellow);
 		titleDate = (TextView)findViewById(R.id.textView1);
-		titleDate.setText("All Events");
+		titleDate.setText(currentDate);
 		titleDate.setTextSize(25);
 		titleDate.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 		refresh = (Button)findViewById(R.id.button1);
@@ -349,9 +379,9 @@ public class AndroidEventFull extends Activity implements Runnable{
 
 			@Override
 			public void onClick(View v) {
-		        pd = ProgressDialog.show(AndroidEventFull.this, "Loading..", "Getting Calendar Data", true,
+		        pd = ProgressDialog.show(AndroidDayView.this, "Loading..", "Getting Calendar Data", true,
 		                false);
-		        Thread thread = new Thread(AndroidEventFull.this);
+		        Thread thread = new Thread(AndroidDayView.this);
 		        thread.start();
 			}
 			
