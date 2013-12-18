@@ -48,6 +48,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Filter;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.FilterList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 
 public class FilterTab2 extends JPanel {
 
@@ -258,6 +259,7 @@ public class FilterTab2 extends JPanel {
 					activePersonalCategories);
 			calData.getFilters().update(selectedFilterPanel.getFilter());
 		}
+		GUIEventController.getInstance().updateFilterComboBox();
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 	}
 
@@ -466,7 +468,7 @@ public class FilterTab2 extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				CalendarData calData;
-
+				GUIEventController.getInstance().deleteFilterUpdateComboBox(selectedFilterPanel.getFilter());
 				calData = CalendarDataModel.getInstance().getCalendarData(
 						ConfigManager.getConfig().getProjectName() + "-"
 								+ ConfigManager.getConfig().getUserName());
@@ -474,6 +476,7 @@ public class FilterTab2 extends JPanel {
 				UpdateCalendarDataController.getInstance().updateCalendarData(
 						calData);
 				refreshMainView();
+				GUIEventController.getInstance().updateFilterComboBox();
 			}
 		});
 
@@ -760,7 +763,7 @@ public class FilterTab2 extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				CalendarData calData;
-
+				GUIEventController.getInstance().deleteFilterUpdateComboBox(selectedFilterPanel.getFilter());
 				calData = CalendarDataModel.getInstance().getCalendarData(
 						ConfigManager.getConfig().getProjectName() + "-"
 								+ ConfigManager.getConfig().getUserName());
@@ -769,6 +772,7 @@ public class FilterTab2 extends JPanel {
 						calData);
 				
 				mode = FilterMode.VIEWING;
+				GUIEventController.getInstance().updateFilterComboBox();
 				refreshMainView();
 			}
 		});
