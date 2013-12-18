@@ -22,20 +22,19 @@ import java.util.List;
  */
 public class FilterList {
 	
+	private int nextID;
+	
 	/**
 	 * The list in which all the filters are contained
 	 */
 	private final List<Filter> filters;
-	
-	/** the the id to be used for the next filter */
-	private int nextID;
 
 	/**
 	 * Constructs an empty list of filters
 	 */
 	public FilterList (){
-		filters = new ArrayList<Filter>();
 		nextID = 1;
+		filters = new ArrayList<Filter>();
 	}
 
 

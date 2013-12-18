@@ -62,6 +62,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * @param calendar GregorianCalendar
 	 */
 	protected CalendarView(GregorianCalendar calendar) {
+		setEnabled(false);
 		showAllCommFlag = false;
 	}
 	/**
@@ -86,7 +87,6 @@ public abstract class CalendarView extends JSplitPane {
 		final JPanel labelPanel = new JPanel();
 		labelPanel.setLayout(new GridLayout(1, 1, 0, 0));
 		labelPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.GRAY));
-//		labelPanel.setBorder(new EmptyBorder(0, 10, 0 , 10));
 		labelPanel.setMinimumSize(new Dimension(300, 50));
 		labelPanel.setBackground(CalendarStandard.CalendarRed);
 		final JLabel dateLabel = new JLabel(
@@ -144,37 +144,6 @@ public abstract class CalendarView extends JSplitPane {
 		final ButtonGroup commPanelFilters = new ButtonGroup();
 		commPanelFilters.add(showVisibleButton);
 		commPanelFilters.add(showAllButton);
-		//View all Commitments Button is no longer necessary, but I'm leaving this code here
-		//  in case the changes need to be reverted
-		/*
-		// View All Commitments Button - NOT SURE HOW TO CENTER???
-		JButton viewAllCommitmentsButton = new JButton();
-		
-		try {
-			Image img = ImageIO.read(getClass().getResource("All_Icon.png"));
-		    viewAllCommitmentsButton.setIcon(new ImageIcon(img));
-		    viewAllCommitmentsButton.setText("View All Commitments");
-		    viewAllCommitmentsButton.setBackground(Color.WHITE);
-		    viewAllCommitmentsButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
-		    // To change cursor as it moves over this icon
-		} catch (IOException ex) {}
-		catch(IllegalArgumentException ex){
-			viewAllCommitmentsButton.setIcon(new ImageIcon());
-			viewAllCommitmentsButton.setText("View All Commitments");
-		} 
-		
-		panel.add(viewAllCommitmentsButton);
-		viewAllCommitmentsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
-		
-		// the action listener for the Create View All Commitments Button
-		viewAllCommitmentsButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				GUIEventController.getInstance().createViewCommitmentsTab();
-			}	
-		});		
-		*/
 		final JSeparator separator = new JSeparator();
 		separator.setOrientation(VERTICAL_SPLIT);
 		separator.setBackground(Color.gray);

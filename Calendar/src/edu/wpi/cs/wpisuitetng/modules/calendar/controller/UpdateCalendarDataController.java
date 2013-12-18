@@ -62,7 +62,25 @@ public class UpdateCalendarDataController{
 		GUIEventController.getInstance().updateCalData();
 		System.out.println("Updating caldata");
 		final Request request = Network.getInstance().makeRequest(
-				"calendar/calendardata", HttpMethod.POST); // POST == update
+				"calendar/calendardata", HttpMethod.POST);
+		request.setBody(newCalData.toJSON()); 
+		// put the updated CalendarData in the body of the request
+		request.addObserver(observer); 
+		// add an observer to process the response
+		request.send(); 
+	}
+	
+	/**
+	 * This method updates a CalendarData to the server but does not update the gui
+	 * @param newCalData is the CalendarData to be updated to the server.
+	 */
+	public void updateCalendarDataNoGUIUpdate(CalendarData newCalData) 
+	{
+		//refreshes calendar GUI
+		//GUIEventController.getInstance().updateCalData();
+		System.out.println("Updating caldata no gui update");
+		final Request request = Network.getInstance().makeRequest(
+				"calendar/calendardata", HttpMethod.POST);
 		request.setBody(newCalData.toJSON()); 
 		// put the updated CalendarData in the body of the request
 		request.addObserver(observer); 

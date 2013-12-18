@@ -74,6 +74,7 @@ public class AddEditCategoryPanel extends JPanel {
 	CategoryTab.CategoryMode mode;
 	private Category editingCategory;
 	private JPanel colorPreviewPanel;
+	private JButton btnDelete;
 
 
 	/**
@@ -252,10 +253,8 @@ public class AddEditCategoryPanel extends JPanel {
 		colorPickerPanel.setMaximumSize(new Dimension(480, 2147483647));
 		colorPickerPanel.setPreferredSize(new Dimension(400, 100));
 		final AbstractColorChooserPanel panel = colorPickerPanel.getChooserPanels()[0];
-		//panel.setBackground(Color.WHITE);
 		final Component[] panelComponents = panel.getComponents();
 		for(Component comp:panelComponents){
-			//comp.setBackground(Color.WHITE);
 		}
 		final AbstractColorChooserPanel[] panels = { panel };
 		colorPickerPanel.setChooserPanels(panels);
@@ -302,7 +301,26 @@ public class AddEditCategoryPanel extends JPanel {
 		btnCancel.setText("Cancel");
 		
 		horizontalBox_1.add(btnCancel);
-				
+		
+		if (mode == CategoryTab.CategoryMode.EDITING)
+		{
+			final Component horizontalStrut2 = Box.createHorizontalStrut(20);
+	
+			horizontalBox_1.add(horizontalStrut2);
+			
+			// Add Delete Button
+			btnDelete = new JButton();
+			try {
+				final Image img = ImageIO.read(getClass().getResource("Delete_Icon.png"));
+				final Image newimg = img.getScaledInstance( 30, 30,  java.awt.Image.SCALE_SMOOTH ) ;
+				btnDelete = new JButton("Delete", new ImageIcon(newimg));
+			} catch (IOException ex) {}
+			catch(IllegalArgumentException ex){
+				btnDelete.setText("Delete");
+			}
+			horizontalBox_1.add(btnDelete);
+		}
+		
 		final Component horizontalGlue_1 = Box.createHorizontalGlue();
 
 		add(horizontalGlue_1);
@@ -316,10 +334,6 @@ public class AddEditCategoryPanel extends JPanel {
 			
 			public void actionPerformed(ActionEvent e) {
 				close();
-//				final int tabIndex = 
-//						GUIEventController.getInstance().getMainView().getSelectedIndex();
-//				GUIEventController.getInstance().getMainView().setComponentAt(
-//						tabIndex, new CategoryTab());
 			}
 		});
 		
@@ -330,10 +344,6 @@ public class AddEditCategoryPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				addCategory();
 				close();
-//				final int tabIndex = 
-//						GUIEventController.getInstance().getMainView().getSelectedIndex();
-//				GUIEventController.getInstance().getMainView().
-//				setComponentAt(tabIndex, new CategoryTab());
 			}
 		});
 		final ColorSelectionModel model = colorPickerPanel.getSelectionModel();
@@ -398,31 +408,6 @@ public class AddEditCategoryPanel extends JPanel {
 		} else {
 			btnSave.setEnabled(true);
 		}
-			
-			/*else {
-				if (mode == EditingMode.EDITING) {
-			
-					//make sure something changed
-					if (textFieldName.getText().equals(editingEvent.getName())) {
-						btnSave.setEnabled(false);
-						return;
-					}
-				}
-				if(repeatCheckBox.isSelected()){
-					try {
-						if (Integer.parseInt(repeatAmt.getText()) > 1){
-							btnSave.setEnabled(true);
-						} else {
-							btnSave.setEnabled(false);
-						}
-					} catch (Exception ex){
-						btnSave.setEnabled(false);
-					}
-					return;
-				}
-				btnSave.setEnabled(true);
-			}
-		}*/
 	}
 	
 	/**
@@ -433,7 +418,7 @@ public class AddEditCategoryPanel extends JPanel {
 		CalendarData calData;
 		// Name
 		final String name = textFieldName.getText();
-		// Team/Personal
+		// Team or Personal
 		boolean isPersonal;
 		
 		if (!rdbtnTeam.isSelected()){

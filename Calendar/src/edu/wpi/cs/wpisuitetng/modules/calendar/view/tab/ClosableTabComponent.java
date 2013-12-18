@@ -45,22 +45,6 @@ public class ClosableTabComponent extends JPanel implements ActionListener {
 		super(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		this.tabbedPane = tabbedPane;
 		setOpaque(false);
-
-		
-//		final JButton icon = new JButton();
-//		final int index = tabbedPane.indexOfTabComponent(ClosableTabComponent.this);
-//		try {
-//			Icon img = tabbedPane.getIconAt(index);
-//			icon.setIcon(img);
-//			icon.setBorder(BorderFactory.createEmptyBorder());
-//			icon.setContentAreaFilled(false);
-//		} catch(IllegalArgumentException ex){
-//			icon.setIcon(new ImageIcon());
-//		} 
-//
-//		icon.setMargin(new Insets(0, 0, 0, 0));
-//		add(icon);
-		
 	
 		final JLabel label = new JLabel() {
 			// display the title according to what's set on our JTabbedPane

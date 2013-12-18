@@ -56,6 +56,7 @@ public class CommitmentView extends JPanel {
 	JScrollPane scrollPane;
 	private List<Commitment> commitmentList = new ArrayList<Commitment>();
 	private List<CommitmentViewPanel> panels = new ArrayList<CommitmentViewPanel>();
+	int commitpanel_height = 0;
 	/**
 	 * Constructor for CommitmentView.
 	 */
@@ -69,26 +70,10 @@ public class CommitmentView extends JPanel {
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 
 		scrollPane.getViewport().addComponentListener(new ComponentAdapter(){
-
 			@Override
 			public void componentResized(ComponentEvent e) {
-				int height = 10;
-				int width = scrollPane.getViewport().getSize().width;
-				for(CommitmentViewPanel commitmentPanel : panels){
-					height += commitmentPanel.getSize().getHeight();
-				}
-				System.out.println("height reset 3" + height);
-				commitPanel.setPreferredSize(new Dimension(width, height));
-				
-				height = 10;
-				width = scrollPane.getViewport().getSize().width;
-				for(CommitmentViewPanel commitmentPanel : panels){
-					height += commitmentPanel.getSize().getHeight();
-				}
-				System.out.println("height reset 4" + height);
-				commitPanel.setPreferredSize(new Dimension(width, height));
+				resetSize();
 			}
-			
 		});
 		final SpringLayout layout = new SpringLayout();
 		setLayout(layout);
@@ -96,8 +81,6 @@ public class CommitmentView extends JPanel {
 		layout.putConstraint(SpringLayout.EAST, scrollPane, 0, SpringLayout.EAST, this);
 		layout.putConstraint(SpringLayout.NORTH, scrollPane, 0, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.SOUTH, scrollPane, 0, SpringLayout.SOUTH, this);
-		//scrollPane.setViewportView(commitPanel);
-		
 	}
 
 	/**
@@ -139,6 +122,7 @@ public class CommitmentView extends JPanel {
 				CommitmentViewPanel commitmentPanel = new CommitmentViewPanel(commitmentList.get(i));
 				panels.add(commitmentPanel);
 				commitmentPanel.setBackground(CalendarStandard.CalendarYellow);
+				
 				//sets the border to the needed border
 				Color fore_color;
 				try {
@@ -157,7 +141,7 @@ public class CommitmentView extends JPanel {
 				commitmentPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory
 						.createLoweredBevelBorder(), new CalendarObjectWrapperBorder(
 						fore_color, CalendarStandard.CalendarYellow)));
-				
+
 				Image nameImg;
 				Image scaleImg;
 				JLabel tag = new JLabel();
@@ -208,6 +192,15 @@ public class CommitmentView extends JPanel {
 				JLabel status = new JLabel("Status: " 
 				+ Status.convertToString(comm.getStatus().id));
 				
+				
+				description.addComponentListener(new ComponentAdapter(){
+					@Override
+					public void componentResized(ComponentEvent e) {
+						resetSize();
+					}
+				});
+				
+				
 				// Setting up time string
 				SimpleDateFormat tm = new SimpleDateFormat();
 				tm.applyPattern("hh:mm a");
@@ -245,7 +238,7 @@ public class CommitmentView extends JPanel {
 				commitmentPanel.add(category, c);
 				commitmentPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 				commitmentPanel.setToolTipText("Click to Edit or Delete this Commitment");
-				// To change cursor as it moves over the commitment
+
 				commitmentPanel.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
@@ -293,35 +286,26 @@ public class CommitmentView extends JPanel {
 		commitPanel.revalidate();
 		commitPanel.repaint();
 		
-		int height = 15;
+		for(CommitmentViewPanel commitmentPanel : panels){
+			commitmentPanel.setSize(commitmentPanel.getPreferredSize());
+		}
+		resetSize();
+	}
+	
+	protected void resetSize(){
+		int height = 10;
 		int width = scrollPane.getViewport().getSize().width;
 		for(CommitmentViewPanel commitmentPanel : panels){
-			height += commitmentPanel.getSize().getHeight() + 1;
+			height += commitmentPanel.getSize().getHeight();
 		}
-		System.out.println("height first 2" + height);
 		commitPanel.setPreferredSize(new Dimension(width, height));
-		commitPanel.setSize(new Dimension(width, height));
 		
-		scrollPane.revalidate();
-		scrollPane.repaint();
-		scrollPane.getViewport().revalidate();
-		scrollPane.getViewport().repaint();
-		height = 15;
+		height = 10;
 		width = scrollPane.getViewport().getSize().width;
 		for(CommitmentViewPanel commitmentPanel : panels){
-			height += commitmentPanel.getSize().getHeight() + 1;
+			height += commitmentPanel.getSize().getHeight();
 		}
-		System.out.println("height first 1" + height);
 		commitPanel.setPreferredSize(new Dimension(width, height));
-		commitPanel.setSize(new Dimension(width, height));
-		//commPanelLayout.putConstraint( SpringLayout.SOUTH, commitPanel, 0, SpringLayout.SOUTH, commitmentPanel);
-		
-		//revalidate();
-		//repaint();
-		
-		//commitPanel.invalidate();
-		//commitPanel.repaint();
-		//scrollPane.setSize(scrollPane.getSize());
 	}
 
 }

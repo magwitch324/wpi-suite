@@ -38,7 +38,6 @@ public class CommitmentTest {
 		assertEquals("", testComm.getName());
 		assertEquals("", testComm.getDescription());
 		//TODO: see if this line can be reworked somehow 
-		//assertEquals(tmpCal.getTime(), testComm.getDueDate().getTime());
 		//It should test that the dueDate field got initialized properly
 		assertEquals(Status.NEW, testComm.getStatus());
 		assertEquals(false, testComm.getIsPersonal());
@@ -51,7 +50,6 @@ public class CommitmentTest {
 	@Test
 	public void mainConstructorTest(){
 		final GregorianCalendar tmpCal = new GregorianCalendar(1, DECEMBER, 2013);
-		//tmpCal.setTime(new Date());
 		final Commitment testComm = new Commitment("test", tmpCal, "test description", 2, true);
 		assertEquals(0, testComm.getID());
 		assertEquals("test", testComm.getName());

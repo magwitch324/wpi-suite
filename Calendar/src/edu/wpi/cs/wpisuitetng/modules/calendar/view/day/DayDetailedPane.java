@@ -395,23 +395,9 @@ public class DayDetailedPane extends JPanel {
 		commlist = new ArrayList<Commitment>();
 		//sorting check
 		if (commList != null) {
-			
-			/*for(Commitment comm : commList){
-				int index = 0;
-				for(Commitment comp : commlist){
-					if(comp.getDueDate().after(comm.getDueDate())){
-						break;
-					}
-					index ++;
-				}
-				
-				commlist.add(index, comm);
-				}*/
 			commlist.addAll(commList);
-			
-			
-		} else {
-
+		} 
+		else {
 		}
 		merge();
 		updatepane();
@@ -429,24 +415,7 @@ public class DayDetailedPane extends JPanel {
 		else{
 			eventlist = eventList;
 		}
-/*
-		eventlist = new ArrayList<Event>();
-		//sorting check
-		if (eventList != null) {
-			for(Event event : eventList){
-				int index = 0;
-				for(Event comp : eventlist){
-					if(comp.getStartTime().after(event.getStartTime())){
-						break;
-					}
-					index ++;
-				}
-				
-				eventlist.add(index, event);
-			}
-		} else {
-			
-		}*/	
+		
 		merge();
 		updatepane();
 	}

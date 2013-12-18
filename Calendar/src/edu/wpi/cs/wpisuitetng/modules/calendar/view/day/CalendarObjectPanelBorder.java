@@ -42,7 +42,8 @@ public class CalendarObjectPanelBorder extends AbstractBorder{
 			left = 5;
 		}
 		
-		g2.setRenderingHints(new RenderingHints( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
+		g2.setRenderingHints(new RenderingHints(
+				RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
 		
 		g2.setColor(transparent);
 		g2.drawRect(x, y, width, height);

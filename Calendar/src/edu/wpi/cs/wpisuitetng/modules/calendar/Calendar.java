@@ -33,8 +33,6 @@ public class Calendar implements IJanewayModule {
 	
 	/** The tabs used by this module */
 	private final List<JanewayTabModel> tabs;
-	//public final MainTabController mainTabController;
-	//public ToolbarController toolbarController;
 
 	/**
 	 * Constructor for Calendar.
@@ -42,31 +40,12 @@ public class Calendar implements IJanewayModule {
 	public Calendar() {
 		//MainTab
 		final MainTabView mainPanel = new MainTabView(); 
-		//mainTabController = new MainTabController(mainPanel);
-		
-		/*
-		// Setup button panel
-		JToolBar toolbarPanel = new JToolBar();
-		toolbarPanel.setLayout(new FlowLayout());
-		toolbarPanel.add(new JButton("<html>Create<br />Commitment</html>"));
-		toolbarPanel.add(new JButton("<html>Create<br />Event</html>"));
-		*/
-		
-		
+			
 		final ToolbarView toolbarPanel = new ToolbarView(false);
-		/*toolbarPanel.setLayout(new FlowLayout());
-		toolbarPanel.add(new JButton("<html>Create<br />Commitment</html>"));
-		toolbarPanel.add(new JButton("<html>Create<br />Event</html>"));
-		*/
-		
-		//toolbarController = new ToolbarController(toolbarPanel, mainTabController);
 		
 		//Instantiate event controller
 		GUIEventController.getInstance().setMainView(mainPanel);
-		//GUIEventController.getInstance().setToolBar(toolbarPanel);
-		//GUIEventController.getInstance().getToolbar().setSize(1, 1);
 
-		
 		tabs = new ArrayList<JanewayTabModel>();
 		// Create a tab model that contains the toolBar panel and the main content panel
 		final JanewayTabModel tab1 = new JanewayTabModel(

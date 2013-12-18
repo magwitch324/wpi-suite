@@ -123,6 +123,8 @@ public class YearDayPane extends JPanel{
 
 	/**
 	 * Internal class used to calculate color in incremental steps between a range of colors
+	 * @author CS Anonymous
+	 * @version $Revision: 1.0 $
 	 */
 	protected class BackgroundColor{
 		protected Color lower;

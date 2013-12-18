@@ -169,7 +169,6 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 					GUIEventController.getInstance().createManageCategories();
-			//	}
 			}
 		});
 		
@@ -187,7 +186,6 @@ public class ButtonsPanel_Create extends ToolbarGroupView{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 					GUIEventController.getInstance().createManageFilters();
-			//	}
 			}
 		});
 		

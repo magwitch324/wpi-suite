@@ -52,7 +52,7 @@ public class CommitmentCalViewPanel extends JPanel {
 		
 		
 		final String name = comm.getName();
-		
+
 		setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this text
 
 		JLabel alab = new JLabel(comm.getDescription(), JLabel.CENTER);
