@@ -148,10 +148,10 @@ public class MyCalendar extends AbCalendar {
 	protected void updateFilterList(){
 		
 		final int selectedFilter;
-		final Filter test = new Filter();
-		test.setName("a test filter");
-		test.setID(100);
-		test.getActiveTeamCategories().add(1);
+		//final Filter test = new Filter();
+		//test.setName("a test filter");
+		//test.setID(100);
+		//test.getActiveTeamCategories().add(1);
 
 		if(filterComboBox.getSelectedItem() != null){
 			selectedFilter = ((Filter) filterComboBox.getSelectedItem()).getID();
@@ -167,7 +167,7 @@ public class MyCalendar extends AbCalendar {
 
 		//adds the "none" filter
 		filterComboBox.addItem(noneFilter);
-		filterComboBox.addItem(test);
+		//filterComboBox.addItem(test);
 
 		// gets Caldata
 
@@ -323,7 +323,7 @@ public class MyCalendar extends AbCalendar {
 			final Filter selectedFilter = ((Filter) filterComboBox.getSelectedItem());
 			
 			if(selectedFilter != null && selectedFilter.getID() != 0){
-				//System.out.println(selectedFilter.getActivePersonalCategories());
+				System.out.println(selectedFilter.getActivePersonalCategories());
 				final Iterator<Event> it = combinedEventList.getEvents().iterator();
 				 while(it.hasNext()){
 					 Event e = it.next();
