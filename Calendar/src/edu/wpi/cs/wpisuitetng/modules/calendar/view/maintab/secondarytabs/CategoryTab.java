@@ -159,14 +159,14 @@ public class CategoryTab extends JPanel {
 		teamPersonalRadioButtons.add(rdbtnBoth);
 		horizontalBox.add(rdbtnBoth);
 		
-		JPanel categoryListLabelPanel = new JPanel();
+		final JPanel categoryListLabelPanel = new JPanel();
 		categoryListLabelPanel.setMaximumSize(new Dimension(32767, 24));
 		categoryListLabelPanel.setPreferredSize(new Dimension(10, 24));
 		categoryListLabelPanel.setBackground(new Color(196, 0, 14));
 		viewPanel.add(categoryListLabelPanel);
 		categoryListLabelPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 		
-		JLabel categoryListLabel = new JLabel("List of Categories");
+		final JLabel categoryListLabel = new JLabel("List of Categories");
 		categoryListLabel.setPreferredSize(new Dimension(120, 24));
 		categoryListLabelPanel.add(categoryListLabel);
 		categoryListLabel.setForeground(Color.WHITE);
@@ -344,8 +344,7 @@ public class CategoryTab extends JPanel {
 					if (e.getClickCount() == 1)
 					{
 						CategoryPanel comp = (CategoryPanel) e.getComponent();
-						if(selectedCategories.isEmpty() || e.isControlDown());
-						else
+						if(!selectedCategories.isEmpty() && ! e.isControlDown())
 						{
 							removeSelectedCategories(); //clear existing selections
 						}
@@ -362,7 +361,7 @@ public class CategoryTab extends JPanel {
 		}
 		
 		categoryListLayout.putConstraint(SpringLayout.SOUTH, 
-				categoryListPanel, 0, SpringLayout.SOUTH, catPanel);	
+				categoryListPanel, 0, SpringLayout.SOUTH, catPanel);
 	}
 	
 

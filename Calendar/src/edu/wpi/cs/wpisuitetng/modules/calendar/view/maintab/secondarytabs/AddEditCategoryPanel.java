@@ -278,7 +278,7 @@ public class AddEditCategoryPanel extends JPanel {
 		catch(IllegalArgumentException ex){
 			btnSave.setIcon(new ImageIcon());
 		}
-		btnSave.setText("Save");
+		btnSave.setText("Save Category");
 		btnSave.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		// To change cursor as it moves over this button		
 		horizontalBox_1.add(btnSave);
