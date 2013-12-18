@@ -62,6 +62,7 @@ public abstract class CalendarView extends JSplitPane {
 	 * @param calendar GregorianCalendar
 	 */
 	protected CalendarView(GregorianCalendar calendar) {
+		setEnabled(false);
 		showAllCommFlag = false;
 	}
 	/**

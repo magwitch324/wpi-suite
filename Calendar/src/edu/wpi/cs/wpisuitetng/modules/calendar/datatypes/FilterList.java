@@ -22,6 +22,8 @@ import java.util.List;
  */
 public class FilterList {
 	
+	private int nextID;
+	
 	/**
 	 * The list in which all the filters are contained
 	 */
@@ -31,6 +33,7 @@ public class FilterList {
 	 * Constructs an empty list of filters
 	 */
 	public FilterList (){
+		nextID = 1;
 		filters = new ArrayList<Filter>();
 	}
 
@@ -43,6 +46,8 @@ public class FilterList {
 	 */
 	public void add(Filter newFilter){
 		// add the filter
+		newFilter.setID(nextID);
+		nextID++;
 		filters.add(newFilter);
 		sortByAlphabet();
 
