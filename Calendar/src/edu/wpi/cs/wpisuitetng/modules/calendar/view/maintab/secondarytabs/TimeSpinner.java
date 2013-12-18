@@ -80,7 +80,7 @@ public class TimeSpinner extends JSpinner {
 	}
 
 	
-	private void refreshTemp() {
+	/*private void refreshTemp() {
 		switch(myType){
 		case HOUR:
 			fallBackValueInt = Integer.parseInt(editor.getTextField().getText());
@@ -135,8 +135,9 @@ public class TimeSpinner extends JSpinner {
 			break;
 		}
 	}
+	*/
 	
-	private void checkTimeSpinnerStatus(enumTimeSpinner hour) {
+	/*private void checkTimeSpinnerStatus(enumTimeSpinner hour) {
 
 		int currentText = 0;
 		
@@ -185,6 +186,7 @@ public class TimeSpinner extends JSpinner {
 			break;
 		}
 }
+*/
 	
 	/**
 	 * @author CS Anonymous

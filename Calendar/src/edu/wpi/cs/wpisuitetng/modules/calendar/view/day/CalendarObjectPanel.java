@@ -60,7 +60,6 @@ public class CalendarObjectPanel extends JPanel {
 	 * @param acal	the current date to be displayed
 	 */
 	private CalendarObjectPanel(JComponent parent, GregorianCalendar acal){
-		super();
 		this.setOpaque(false);
 		this.parent = parent;
 		this.acal.setTime(acal.getTime());

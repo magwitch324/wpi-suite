@@ -59,7 +59,9 @@ public class MainTabView extends JTabbedPane {
 		// if a tab does not have the close button UI, it cannot be removed
 		if(getTabComponentAt(index) instanceof ClosableTabComponent) {
 			if (index == getSelectedIndex())
-				GUIEventController.getInstance().setLastTab();
+				{
+					GUIEventController.getInstance().setLastTab();
+				}
 			super.removeTabAt(index);
 		}
 	}
