@@ -253,25 +253,33 @@ public class FilterTab2 extends JPanel {
 		}
 		if (mode == FilterMode.EDITING) {
 			boolean change = false;
-			boolean contained = false;
+			int countMatches = selectedFilterPanel.getFilter().getActivePersonalCategories().size() +
+					   selectedFilterPanel.getFilter().getActiveTeamCategories().size();
 			for (Category c : activeCategories) {
+				boolean contained = false;
 				if (c.getIsPersonal()) {
 					for (Integer id : selectedFilterPanel.getFilter()
 							.getActivePersonalCategories()) {
 						if (c.getID() == id) {
 							contained = true;
+							countMatches--;
+							System.out.println("Got a match Personal");
 						}
+						
 					}
 				} else if (!c.getIsPersonal()) {
 					for (Integer id : selectedFilterPanel.getFilter()
 							.getActiveTeamCategories()) {
 						if (c.getID() == id) {
 							contained = true;
+							countMatches--;
+							System.out.println("Got a match Team");
 						}
 					}
 				}
 				if (!contained) change = true;
 			} 
+			if (countMatches != 0) change = true;
 			if (!filterName.getText().equals(selectedFilterPanel.getFilter().getName())) change = true;
 			if (!change) btnSaveFilter.setEnabled(false);
 				
