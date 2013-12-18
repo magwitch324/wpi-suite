@@ -38,6 +38,7 @@ public class FilterPanel extends JPanel{
 	private boolean selected = false;
 	
 	public FilterPanel(){
+		setToolTipText("Double Click to Edit or Delete this Filter.");
 		setPreferredSize(new Dimension(80, 50));
 		setMaximumSize(new Dimension(80, 50));
 		setMinimumSize(new Dimension(80, 50));

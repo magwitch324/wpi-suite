@@ -203,10 +203,22 @@ public class CalendarObjectPanel extends JPanel {
 		
 		final String name = calobj.getName();
 		String description = calobj.getDescription();
+		String category;
 		
+		try {
+			if(calobj.getIsPersonal()) {
+				category = GUIEventController.getInstance().getCalendar().getMyCalData().getCategories().getCategory(calobj.getCategoryID()).getName();
+			} else {
+				category = GUIEventController.getInstance().getCalendar().getTeamCalData().getCategories().getCategory(calobj.getCategoryID()).getName();
+			}
+		} catch(java.lang.NullPointerException excep){
+			category = "";
+		}
+			
 		String tt = "<html>Name: " + name + "<br>" + time + 
-				"<br>Description: " + description + "</html>";
+				"<br>Description: " + description + "<br>Cateogry: " + category ;
 		tt = tt.replaceAll("\n", "<br>");
+		
 		setToolTipText(tt);
 		
 		final JLabel nameL = new JLabel(name);

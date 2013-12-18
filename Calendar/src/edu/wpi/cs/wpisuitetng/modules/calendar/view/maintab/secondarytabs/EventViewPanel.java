@@ -7,7 +7,7 @@
  * 
  * Contributors: CS Anonymous
  ******************************************************************************/
-package edu.wpi.cs.wpisuitetng.modules.calendar.view;
+package edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -28,6 +28,7 @@ import javax.swing.JPanel;
 
 import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.GUIEventController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.month.CalendarObjectWrapperBorder;
 
 /**

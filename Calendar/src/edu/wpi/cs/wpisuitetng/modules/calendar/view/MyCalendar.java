@@ -190,6 +190,16 @@ public class MyCalendar extends AbCalendar {
 		}
 		
 	}
+	
+	public void deleteFilterUpdateComboBox(Filter toDelete){
+		int selectedFilter;
+		if(filterComboBox.getSelectedItem() != null){
+			selectedFilter = ((Filter) filterComboBox.getSelectedItem()).getID();
+			if(selectedFilter == toDelete.getID()){
+				filterComboBox.setSelectedIndex(0);
+			}
+		}
+	}
 
 	@Override
 	public void updateCalData() {
