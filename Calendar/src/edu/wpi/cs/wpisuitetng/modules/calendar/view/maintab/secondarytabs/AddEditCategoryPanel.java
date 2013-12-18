@@ -194,6 +194,7 @@ public class AddEditCategoryPanel extends JPanel {
 		rdbtnPersonal.setBackground(Color.WHITE);
 		horizontalBox.add(rdbtnPersonal);
 		teamPersonalRadioButtons.add(rdbtnPersonal);
+		rdbtnPersonal.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		// Team radio button
 		rdbtnTeam = new JRadioButton("Team");
@@ -201,6 +202,7 @@ public class AddEditCategoryPanel extends JPanel {
 		horizontalBox.add(rdbtnTeam);
 		teamPersonalRadioButtons.add(rdbtnTeam);
 		rdbtnTeam.setSelected(true);	//sets default to team
+		rdbtnTeam.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		final JLabel lblColor = new JLabel("<html><font>" + "Color" + "</font>" 
 											+ "<font color=red>" + "*" + "</font>" 
@@ -263,6 +265,7 @@ public class AddEditCategoryPanel extends JPanel {
 		colorPickerPanel.setBorder(textFieldName.getBorder());
 		
 		colorPickerPanel.setColor(Color.BLUE);
+		colorPickerPanel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		colorPreviewPanel.setBackground(Color.BLUE);
 		
 		final Box horizontalBox_1 = Box.createHorizontalBox();
@@ -299,6 +302,7 @@ public class AddEditCategoryPanel extends JPanel {
 			btnCancel.setIcon(new ImageIcon());
 		}
 		btnCancel.setText("Cancel");
+		btnCancel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		
 		horizontalBox_1.add(btnCancel);
 		

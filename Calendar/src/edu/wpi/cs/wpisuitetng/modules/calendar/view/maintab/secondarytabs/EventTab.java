@@ -351,12 +351,14 @@ public class EventTab extends JPanel {
 		rdbtnPersonal.setBackground(Color.WHITE);
 		buttonGroup.add(rdbtnPersonal);
 		rdbtnPanel.add(rdbtnPersonal);
-
+		rdbtnPersonal.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
 		rdbtnTeam = new JRadioButton("Team");
 		rdbtnTeam.setBackground(Color.WHITE);
 		buttonGroup.add(rdbtnTeam);
 		rdbtnPanel.add(rdbtnTeam);
-
+		rdbtnTeam.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
 		rdbtnPersonal.setSelected(true);
 
 		updateCategoryList();
