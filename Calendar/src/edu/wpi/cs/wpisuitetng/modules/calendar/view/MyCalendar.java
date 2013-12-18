@@ -214,7 +214,7 @@ public class MyCalendar extends AbCalendar {
 		if(startup){
 			//used to check for and remove old data. runs only on startup
 			myCalData.removeYearOld();
-			UpdateCalendarDataController.getInstance().updateCalendarData(myCalData);
+			UpdateCalendarDataController.getInstance().updateCalendarDataNoGUIUpdate(myCalData);
 			teamCalData.removeYearOld();
 			UpdateCalendarDataController.getInstance().updateCalendarData(teamCalData);
 			
