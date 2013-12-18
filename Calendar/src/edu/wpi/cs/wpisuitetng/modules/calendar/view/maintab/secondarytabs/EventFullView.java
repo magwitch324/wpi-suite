@@ -51,8 +51,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropertiesModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.EventViewPanel;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.EventViewPanel.Sort_Type;
+import edu.wpi.cs.wpisuitetng.modules.calendar.view.maintab.secondarytabs.EventViewPanel.Sort_Type;
 
 /**
  * This class is used for creating the event View 
