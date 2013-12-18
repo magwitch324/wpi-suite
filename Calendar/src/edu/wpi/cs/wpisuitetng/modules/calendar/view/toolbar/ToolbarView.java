@@ -35,31 +35,6 @@ public class ToolbarView  extends DefaultToolbarView {
 	 */
 	public ToolbarView(boolean visible) {
 		super.setBackground(Color.WHITE);
-		
-		// REMOVE BUTTONS FOR NOW BECAUSE THEY NEED TO BE MOVED DOWN
-		//createButtons = new ButtonsPanel_Create();
-		//this.addGroup(createButtons);
-		
-		/*
-		JPanel contentPanel = new JPanel();
-		SpringLayout layout  = new SpringLayout();
-		contentPanel.setLayout(layout);
-		contentPanel.setOpaque(false);
-		createCommitButton = new JButton("<html>Create<br />Commitment</html>");
-		createEventButton = new JButton("<html>Create<br />Event</html>");
-		contentPanel.add(createCommitButton);
-		contentPanel.add(createEventButton);
-
-		
-		ToolbarGroupView toolbarGroup = new ToolbarGroupView("Home", contentPanel);
-		
-		// Calculate the width of the toolbar
-		Double toolbarGroupWidth = createCommitButton.getPreferredSize().getWidth() +
-		 createEventButton.getPreferredSize().getWidth() + 40; 
-		 // 40 accounts for margins between the buttons
-		toolbarGroup.setPreferredWidth(toolbarGroupWidth.intValue());
-		addGroup(toolbarGroup);
-		*/
 	}
 	
 	public ButtonsPanel_Create getButtonsPanel_Create() {

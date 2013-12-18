@@ -155,7 +155,6 @@ public class CategoryTab extends JPanel {
 		
 		rdbtnBoth = new JRadioButton("Both");
 		rdbtnBoth.setBackground(Color.WHITE);
-//		rdbtnBoth.setSelected(true);
 
 		teamPersonalRadioButtons.add(rdbtnBoth);
 		horizontalBox.add(rdbtnBoth);
@@ -364,12 +363,8 @@ public class CategoryTab extends JPanel {
 			oldCatPanel = catPanel; //update oldCatPanel to be previously added panel
 		}
 		
-//		if(categoryListLayout.getConstraint(SpringLayout.SOUTH, categoryListPanel).getValue() < 
-//				categoryListLayout.getConstraint(SpringLayout.SOUTH, catPanel).getValue()) {
 		categoryListLayout.putConstraint(SpringLayout.SOUTH, 
-				categoryListPanel, 0, SpringLayout.SOUTH, catPanel);
-//		}
-		
+				categoryListPanel, 0, SpringLayout.SOUTH, catPanel);	
 	}
 	
 
@@ -487,11 +482,6 @@ public class CategoryTab extends JPanel {
 		
 		btnNew.setVisible(false);
 		btnNewStrut.setVisible(false);
-		//set size of view panel
-//		viewPanel.remove(viewPanelStrut);
-//		viewPanelStrut = Box.createHorizontalStrut(400);
-//		viewPanelStrut.setMaximumSize(new Dimension(400, 0));
-//		viewPanel.add(viewPanelStrut);
 		
 		revalidate();
 		repaint();
@@ -524,18 +514,6 @@ public class CategoryTab extends JPanel {
 			}
 			
 		});
-//		addEditPanel.getSaveButton().addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				
-//			}
-//		});
-//		
-//		addEditPanel.getCancelButton().addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				setupViewingView();
-//			}
-//		});
-		
 	}
 	
 	/**
@@ -564,10 +542,6 @@ public class CategoryTab extends JPanel {
 		btnNewStrut.setVisible(true);
 
 		//set size of view panel
-//		viewPanel.remove(viewPanelStrut);
-//		viewPanelStrut = Box.createHorizontalStrut(600);
-//		viewPanelStrut.setMaximumSize(new Dimension(600, 0));
-//		viewPanel.add(viewPanelStrut);
 		
 		revalidate();
 		repaint();

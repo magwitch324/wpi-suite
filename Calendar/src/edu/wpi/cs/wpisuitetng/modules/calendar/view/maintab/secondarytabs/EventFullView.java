@@ -51,7 +51,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.EventList;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarProperties;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropertiesModel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.AbCalendar;
-import edu.wpi.cs.wpisuitetng.modules.calendar.view.CommitmentFullViewPanel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.EventViewPanel;
 import edu.wpi.cs.wpisuitetng.modules.calendar.view.EventViewPanel.Sort_Type;
 
@@ -152,10 +151,12 @@ public class EventFullView extends JPanel{
 		final String searchText = getSearchInput().trim().toLowerCase();
 		
 		final EventList events = new EventList();
-		
 		if (mode == ViewingMode.TEAM || mode == ViewingMode.BOTH) {
 			if(pcalendar.getTeamCalData() != null) {
 				for (Event e : pcalendar.getTeamCalData().getEvents().getEvents()) {
+					events.add(e);
+				}
+				for (Event e : pcalendar.getTeamCalData().getRepeatingEvents().toCombinedEventList().getEvents()){
 					events.add(e);
 				}
 			}
@@ -164,6 +165,9 @@ public class EventFullView extends JPanel{
 		if (mode == ViewingMode.PERSONAL || mode == ViewingMode.BOTH) {
 			if(pcalendar.getMyCalData() != null) {
 				for (Event e : pcalendar.getMyCalData().getEvents().getEvents()) {
+					events.add(e);
+				}
+				for (Event e : pcalendar.getMyCalData().getRepeatingEvents().toCombinedEventList().getEvents()){
 					events.add(e);
 				}
 			}
@@ -343,7 +347,7 @@ public class EventFullView extends JPanel{
 		
 		searchInput = new JTextField();
 		searchInput.setBackground(CalendarStandard.CalendarYellow);
-		JLabel searchLabel = new JLabel("Search: ");
+		final JLabel searchLabel = new JLabel("Search: ");
 		
 		// Listen for changes in the text
 		searchInput.getDocument().addDocumentListener(new DocumentListener() {

@@ -13,10 +13,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -60,8 +57,7 @@ public class CalendarObjectPanel extends JPanel {
 	 * @param acal	the current date to be displayed
 	 */
 	private CalendarObjectPanel(JComponent parent, GregorianCalendar acal){
-		super();
-		this.setOpaque(false);	  
+		this.setOpaque(false);
 		this.parent = parent;
 		this.acal.setTime(acal.getTime());
 		this.setBackground(Color.WHITE);
@@ -214,16 +210,16 @@ public class CalendarObjectPanel extends JPanel {
 		setToolTipText(tt);
 		
 		final JLabel nameL = new JLabel(name);
-		nameL.setBackground(new Color(0,0,0,0));
+		nameL.setBackground(new Color(0, 0, 0, 0));
 		
 		nameL.setFont(new Font("SansSerif", Font.BOLD, 14));
 		description = description.replaceAll("\n", " ");
 		final JLabel descL = new JLabel(description);
-		descL.setBackground(new Color(0,0,0,0));
+		descL.setBackground(new Color(0, 0, 0, 0));
 		final JLabel timeL = new JLabel(time);
-		timeL.setBackground(new Color(0,0,0,0));
+		timeL.setBackground(new Color(0, 0, 0, 0));
 		final JLabel iconL = new JLabel();
-		iconL.setBackground(new Color(0,0,0,0));
+		iconL.setBackground(new Color(0, 0, 0, 0));
 		
 		setCursor(new Cursor(Cursor.HAND_CURSOR)); // To change cursor as it moves over this text
 		

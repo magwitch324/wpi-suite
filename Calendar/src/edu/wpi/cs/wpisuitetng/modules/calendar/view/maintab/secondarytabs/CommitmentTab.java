@@ -47,7 +47,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -75,7 +74,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.CalendarStandard;
 import edu.wpi.cs.wpisuitetng.modules.calendar.controller.UpdateCalendarDataController;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Category;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Commitment;
-import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Event;
 import edu.wpi.cs.wpisuitetng.modules.calendar.datatypes.Status;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarData;
 import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarDataModel;
@@ -244,7 +242,9 @@ public class CommitmentTab extends JPanel {
 
 		initFlag = false; //We need this to deal with the nested constructors
 
-
+		buttonPanel.add(btnDelete, BorderLayout.LINE_END);
+		
+		
 		/**
 		 * Initialize Delete Commitment button.////////////////
 		 */
@@ -845,7 +845,7 @@ public class CommitmentTab extends JPanel {
 			}
 		});
 		btnDelete.setEnabled(false);
-		buttonPanel.add(btnDelete, BorderLayout.LINE_END);
+
 
 		/**
 		 * Add buttons to button panel, and add button panel to main panel for commitment tab.
@@ -1447,11 +1447,12 @@ public class CommitmentTab extends JPanel {
 //			names[rnd.nextInt(13)], names[rnd.nextInt(13)]};
 //					Event newEvent = new Event("A long " + 
 //			commitment, "Event with " + people[0] + ", " + people[1] + ", and " + people[2],
-//												set, endTime, people, 0, rdbtnPersonal.isSelected());
+//				set, endTime, people, 0, rdbtnPersonal.isSelected());
 //					calData.addEvent(newEvent);
 //				} else {
 //					Commitment newCommitment = 
-//			new Commitment(commitment + " with " + name, set, "No Description", 0, rdbtnPersonal.isSelected());
+//			new Commitment(commitment + " with " + name, set, 
+			//"No Description", 0, rdbtnPersonal.isSelected());
 //					calData.addCommitment(newCommitment);
 //				}
 //				
@@ -1539,10 +1540,6 @@ public class CommitmentTab extends JPanel {
 											editingCommitment.getStatus())
 							&& calDate.getTime().equals(
 									editingCommitment.getDueDate().getTime())
-							&& hourErr == false
-							&& minuteErr == false
-							&& ampmErr == false
-							&& lblDateError.isVisible()
 							){
 						btnSaveCommitment.setEnabled(false);
 						return;
@@ -1698,8 +1695,6 @@ public class CommitmentTab extends JPanel {
 		return false;
 	}
 
-	/**
-	 */
 	class SpinnerUI extends BasicSpinnerUI  {
 		protected Component createNextButton()  
 		{  

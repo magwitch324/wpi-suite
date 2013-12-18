@@ -36,8 +36,7 @@ public class MainTabView extends JTabbedPane {
 	 */
 	public MainTabView() {
 		setTabPlacement(TOP);
-		setTabLayoutPolicy(SCROLL_TAB_LAYOUT);
-//		setBorder(BorderFactory.createEmptyBorder(5, 3, 3, 3, Color.WHITE));	
+		setTabLayoutPolicy(SCROLL_TAB_LAYOUT);	
 	}
 	
 	
@@ -59,7 +58,9 @@ public class MainTabView extends JTabbedPane {
 		// if a tab does not have the close button UI, it cannot be removed
 		if(getTabComponentAt(index) instanceof ClosableTabComponent) {
 			if (index == getSelectedIndex())
-				GUIEventController.getInstance().setLastTab();
+				{
+					GUIEventController.getInstance().setLastTab();
+				}
 			super.removeTabAt(index);
 		}
 	}

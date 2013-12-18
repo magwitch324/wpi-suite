@@ -88,7 +88,6 @@ public class CommitmentListTest {
 		end.set(2013, NOVEMBER, 25);
 		
 		final List<Commitment> newData = commitments.filter(start, end);
-//		printlist(newData);
 		assertEquals(2, newData.size());
 	}
 	
