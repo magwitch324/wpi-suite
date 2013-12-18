@@ -75,6 +75,7 @@ public class AddEditCategoryPanel extends JPanel {
 	private Category editingCategory;
 	private JPanel colorPreviewPanel;
 	private JButton btnDelete;
+	private JLabel lblTitle;
 
 
 	/**
@@ -84,6 +85,7 @@ public class AddEditCategoryPanel extends JPanel {
 	public AddEditCategoryPanel() {
 		mode = CategoryTab.CategoryMode.ADDING;
 		setupUI();
+		lblTitle.setText("Adding a New Category");
 	}
 	
 	/**
@@ -114,10 +116,18 @@ public class AddEditCategoryPanel extends JPanel {
 		add(addEditFormPanel);
 		final GridBagLayout gbl_addEditFormPanel = new GridBagLayout();
 		gbl_addEditFormPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_addEditFormPanel.rowHeights = new int[] {0, 0, 0, 0, 0};
+		gbl_addEditFormPanel.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0};
 		gbl_addEditFormPanel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gbl_addEditFormPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl_addEditFormPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		addEditFormPanel.setLayout(gbl_addEditFormPanel);
+		
+		lblTitle = new JLabel();
+		GridBagConstraints gbc_lblTitle = new GridBagConstraints();
+		gbc_lblTitle.gridheight = 2;
+		gbc_lblTitle.insets = new Insets(0, 0, 5, 0);
+		gbc_lblTitle.gridx = 1;
+		gbc_lblTitle.gridy = 0;
+		addEditFormPanel.add(lblTitle, gbc_lblTitle);
 		
 
 		final JLabel lblName = new JLabel("<html><font>" + "Name" + "</font>" 
@@ -127,7 +137,7 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_lblName.anchor = GridBagConstraints.EAST;
 		gbc_lblName.insets = new Insets(0, 0, 5, 5);
 		gbc_lblName.gridx = 0;
-		gbc_lblName.gridy = 0;
+		gbc_lblName.gridy = 2;
 		addEditFormPanel.add(lblName, gbc_lblName);
 		
 		textFieldName = new JTextField();
@@ -136,7 +146,7 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_textFieldName.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldName.gridx = 1;
-		gbc_textFieldName.gridy = 0;
+		gbc_textFieldName.gridy = 2;
 		addEditFormPanel.add(textFieldName, gbc_textFieldName);
 		textFieldName.addKeyListener(new KeyListener(){
 
@@ -177,14 +187,14 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_lblType.anchor = GridBagConstraints.EAST;
 		gbc_lblType.insets = new Insets(0, 0, 5, 5);
 		gbc_lblType.gridx = 0;
-		gbc_lblType.gridy = 1;
+		gbc_lblType.gridy = 3;
 		addEditFormPanel.add(lblType, gbc_lblType);
 		
 		final Box horizontalBox = Box.createHorizontalBox();
 		final GridBagConstraints gbc_horizontalBox = new GridBagConstraints();
 		gbc_horizontalBox.insets = new Insets(0, 0, 5, 0);
 		gbc_horizontalBox.gridx = 1;
-		gbc_horizontalBox.gridy = 1;
+		gbc_horizontalBox.gridy = 3;
 		addEditFormPanel.add(horizontalBox, gbc_horizontalBox);
 		
 		final ButtonGroup teamPersonalRadioButtons = new ButtonGroup();
@@ -211,7 +221,7 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_lblColor.anchor = GridBagConstraints.EAST;
 		gbc_lblColor.insets = new Insets(0, 0, 5, 5);
 		gbc_lblColor.gridx = 0;
-		gbc_lblColor.gridy = 2;
+		gbc_lblColor.gridy = 4;
 		addEditFormPanel.add(lblColor, gbc_lblColor);
 		
 		final JPanel colorPreviewContainer = new JPanel();
@@ -220,7 +230,7 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_colorPreviewContainer.insets = new Insets(0, 0, 5, 0);
 		gbc_colorPreviewContainer.fill = GridBagConstraints.BOTH;
 		gbc_colorPreviewContainer.gridx = 1;
-		gbc_colorPreviewContainer.gridy = 2;
+		gbc_colorPreviewContainer.gridy = 4;
 		addEditFormPanel.add(colorPreviewContainer, gbc_colorPreviewContainer);
 		colorPreviewContainer.setLayout(new BoxLayout(colorPreviewContainer, BoxLayout.X_AXIS));
 		
@@ -237,7 +247,7 @@ public class AddEditCategoryPanel extends JPanel {
 		gbc_panel_3.fill = GridBagConstraints.BOTH;
 		gbc_panel_3.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_3.gridx = 1;
-		gbc_panel_3.gridy = 3;
+		gbc_panel_3.gridy = 5;
 		addEditFormPanel.add(colorContainer1, gbc_panel_3);
 		colorContainer1.setLayout(new BoxLayout(colorContainer1, BoxLayout.X_AXIS));
 		
@@ -271,7 +281,7 @@ public class AddEditCategoryPanel extends JPanel {
 		final Box horizontalBox_1 = Box.createHorizontalBox();
 		final GridBagConstraints gbc_horizontalBox_1 = new GridBagConstraints();
 		gbc_horizontalBox_1.gridx = 1;
-		gbc_horizontalBox_1.gridy = 4;
+		gbc_horizontalBox_1.gridy = 6;
 		addEditFormPanel.add(horizontalBox_1, gbc_horizontalBox_1);
 		
 		btnSave = new JButton();
@@ -296,7 +306,8 @@ public class AddEditCategoryPanel extends JPanel {
 		btnCancel = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource("Cancel_Icon.png"));
-			btnCancel.setIcon(new ImageIcon(img));
+			final Image newimg = img.getScaledInstance( 30, 30,  java.awt.Image.SCALE_SMOOTH ) ;
+			btnCancel.setIcon(new ImageIcon(newimg));
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
 			btnCancel.setIcon(new ImageIcon());
@@ -381,7 +392,7 @@ public class AddEditCategoryPanel extends JPanel {
 	public AddEditCategoryPanel(Category category) {
 		mode = CategoryTab.CategoryMode.EDITING;
 		setupUI();
-		
+		lblTitle.setText("Editing Category " + category.getName());
 		editingCategory = category;
 		textFieldName.setText(category.getName());
 		if(category.getIsPersonal())
