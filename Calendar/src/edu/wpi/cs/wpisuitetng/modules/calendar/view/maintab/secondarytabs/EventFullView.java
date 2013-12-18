@@ -198,6 +198,8 @@ public class EventFullView extends JPanel{
 	 * Event panel is populated with all events 
 	 * which are in separate panels that can be scrolled and clicked*/
 	private void setupPanels() {
+		
+		searchInput.setToolTipText("Search By Name or Description");
 		eventPanel.removeAll();
 		final SpringLayout layout = new SpringLayout();
 		eventPanel.setLayout(layout);

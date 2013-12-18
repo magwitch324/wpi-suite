@@ -110,6 +110,8 @@ public class CommitmentFullView extends JPanel{
 		setLayout(new GridLayout(1, 1));
 		this.setBackground(Color.WHITE);
 		
+	
+		
 		initialized = false;
 		pcalendar = personalCalendar;
 
@@ -192,6 +194,8 @@ public class CommitmentFullView extends JPanel{
 	 * Event panel is populated with all events 
 	 * which are in separate panels that can be scrolled and clicked*/
 	private void setupPanels() {
+		
+		searchInput.setToolTipText("Search By Name or Description");
 		commitmentPanel.removeAll();
 		final SpringLayout layout = new SpringLayout();
 		commitmentPanel.setLayout(layout);
