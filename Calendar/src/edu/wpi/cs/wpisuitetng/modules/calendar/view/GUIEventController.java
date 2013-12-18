@@ -50,7 +50,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	private int scrollBarValue = 659;
 	private MainTabView main = null;
 	private ToolbarView toolbar = null;
-	//private TeamCalendar teamCalendar;
 	private MyCalendar myCalendar;
 	private EventFullView eventFullView;
 	private CommitmentFullView commitFullView;
@@ -94,9 +93,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 * Called on Janeway shutdown to save props
 	 */
 	public void saveProps(){
-		//teamCalendar.saveProps();
-		//myCalendar.saveProps();
-		//commitFullView.saveProps();
 		final CalendarProperties calProps = CalendarPropertiesModel.getInstance().getCalendarProps(
 				ConfigManager.getConfig().getProjectName() + "-"
 						+ ConfigManager.getConfig().getUserName() + "-PROPS");
@@ -108,9 +104,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 * Called on Janeway shutdown to remove year old items
 	 */
 	public void removeYearOld(){
-		//teamCalendar.saveProps();
-		//myCalendar.saveProps();
-		//commitFullView.saveProps();
 	}
 
 	/**
@@ -120,7 +113,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 	 */
 	public void setMainView(MainTabView mainview) {
 		main = mainview;
-		//teamCalendar = new TeamCalendar();
 		myCalendar = new MyCalendar();
 		eventFullView = new EventFullView(myCalendar);
 		commitFullView = new CommitmentFullView(myCalendar);
@@ -128,9 +120,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 		try {
 			Image img = ImageIO.read(getClass().getResource("Calendar_Icon.png"));
 			main.addTab("Calendar", new ImageIcon(img), myCalendar);
-
-			//img = ImageIO.read(getClass().getResource("Team_Icon.png"));
-			//main.addTab("Team Calendar", new ImageIcon(img), teamCalendar);
 
 			img = ImageIO.read(getClass().getResource("Agenda_Icon.png"));
 			main.addTab("Events Agenda", new ImageIcon(img), eventFullView);
@@ -190,18 +179,13 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 		final int openedFrom = main.getSelectedIndex();
 		lastTab = openedFrom;
 		final CommitmentTab newCommit = new CommitmentTab(openedFrom);
-//		final CommitmentTab2 newCommit2 = new CommitmentTab2(openedFrom);
 		try {
 			final Image img = ImageIO.read(getClass().getResource("NewCommitment_Icon.png"));
 			main.addTab("New Commitment", new ImageIcon(img), newCommit);
-//			main.addTab("New Commitment2", new ImageIcon(img), newCommit2);
 		} catch (IOException ex) {}
 		catch(IllegalArgumentException ex){
 			main.addTab("New Commitment", new ImageIcon(), newCommit);
-//			main.addTab("New Commitment2", new ImageIcon(), newCommit2);
 		}
-		//		main.addTab("New Commitment", null, newCommit, "New Commitment");
-		//		newCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(newCommit);
@@ -223,8 +207,6 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 		catch(IllegalArgumentException ex){
 			main.addTab("Edit Commitment", new ImageIcon(), editCommit);
 		}
-		//		main.addTab("Edit Commitment", null, editCommit, "Edit Commitment");
-		//		editCommit.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		main.invalidate(); //force the tabbedpane to redraw.
 		main.repaint();
 		main.setSelectedComponent(editCommit);
@@ -463,16 +445,4 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.view.toolbar.ToolbarView;
 		break;
 		}
 	}
-	
-	
-//	public void removeFilterTab(Filter filterToDelete){
-//		CalendarData calData;
-//		if (filterToDelete.getIsPersonal()){
-//			calData = myCalendar.getCalData();
-//		} else {
-//			calData = teamCalendar.getCalData();
-//		}
-//	}
-
-
 }

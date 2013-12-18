@@ -52,7 +52,6 @@ public class EventTest {
 	 */
 	@Test
 	public void mainConstructorTest(){
-		//tmpCal.setTime(new Date());
 		final Event testEvent = new Event (
 				"test", "test description", _20120129, _20120130, people1, 1, true);
 		//add Participants 

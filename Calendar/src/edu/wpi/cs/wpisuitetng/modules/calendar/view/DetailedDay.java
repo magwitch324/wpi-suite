@@ -102,24 +102,6 @@ public class DetailedDay extends JPanel {
 		this.didResize();
 	}
 	
-//	public void setSecondView(JComponent secondView)
-//	{
-//		this.secondview = secondView;
-/*		layout.putConstraint(SpringLayout.WEST, this.secondview, 
-	2, SpringLayout.HORIZONTAL_CENTER, this);*/
-//		layout.putConstraint(SpringLayout.NORTH, this.secondview, 0, SpringLayout.NORTH, this);
-//		layout.putConstraint(SpringLayout.EAST, this.secondview, -10, SpringLayout.EAST, this);
-//		layout.putConstraint(SpringLayout.SOUTH, this.secondview, 0, SpringLayout.SOUTH, this);
-//		this.remove(JLayeredPane.PALETTE_LAYER);
-//		this.setLayout(layout);
-//		this.add(this.secondview, JLayeredPane.PALETTE_LAYER);
-//		
-//
-//		this.makelines();
-//		this.didResize();
-//		
-//	}
-	
 	/**
  * Method makelines.
  */
@@ -191,45 +173,4 @@ protected void makelines(){
 			// TODO Auto-generated method stub
 		}
 	}
-
-//
-//	/** Displays previously created commitments on DetailedDay
-//	 * @param comm Commitment to be added to the display
-//	 * 
-//	 */
-//	public void displayCommitment(Commitment comm)
-//	{
-//		GregorianCalendar cal = new GregorianCalendar();
-//		cal.setTime(comm.getDueDate().getTime());
-//		
-//		//map hour to location in terms of halfhourmarks (0 - 47)
-//		int loc = cal.get(Calendar.HOUR_OF_DAY)*2;
-//		if (cal.get(Calendar.MINUTE) == 30)
-//			loc += 1;
-//		
-//		//add white panel in appropriate half hour slot
-//		JPanel commPanel = new JPanel();
-//		commPanel.setBackground(Color.white);
-//		commPanel.add(new JLabel(comm.getName()));
-//		this.add(commPanel);				
-/*		layout.putConstraint(SpringLayout.NORTH, commPanel, 
-	0, SpringLayout.NORTH, halfhourmarks[loc]);*/
-//		layout.putConstraint(SpringLayout.EAST, commPanel, 0, SpringLayout.EAST, this);
-//		layout.putConstraint(SpringLayout.WEST, commPanel, 0, SpringLayout.WEST, this);
-//		if (loc == 47)
-//			layout.putConstraint(SpringLayout.SOUTH, commPanel, 0, SpringLayout.SOUTH, this);
-//		else
-/*			layout.putConstraint(SpringLayout.SOUTH, commPanel, 
-	0, SpringLayout.NORTH, halfhourmarks[loc+1]);*/
-//	}
-//
-//	/** Displays previously created commitments on DetailedDay
-//	 * @param commList CommitmentList to be added to the display
-//	 * 
-//	 */
-//	public void displayCommitments(List<Commitment> commList) {
-//		// TODO Auto-generated method stub
-//		for(int i = 0; i < commList.size(); i++)
-//			displayCommitment(commList.get(i));
-//	}
 }

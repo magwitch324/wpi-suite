@@ -70,14 +70,10 @@ public class FilterComboBoxRenderer extends JPanel implements
 			final CategoryList myCats = 
 					GUIEventController.getInstance().getCalendar().getMyCalData().getCategories();
 			//gets the drawing area ready
-//			for(int c:value.getActiveCategories()){
-//				
-//			}
 			colorImage = new BufferedImage(20, 20, BufferedImage.TYPE_BYTE_INDEXED);
 			final Graphics2D graphics = colorImage.createGraphics();
 
 			//Fills in the image with the desired color
-			//graphics.setPaint(value.getCategoryColor());
 			graphics.fillRect(0, 0, colorImage.getWidth(), colorImage.getHeight());
 
 			//Draws a black border on around the image, 
@@ -94,8 +90,6 @@ public class FilterComboBoxRenderer extends JPanel implements
 			colorIcon = new ImageIcon(colorImage);
 
 			//sets the fields of the label
-			//setText(value.getName());
-			//setIcon(colorIcon);
 		}
 		//sets the proper background color for the label
         if (isSelected) {
