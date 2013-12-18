@@ -111,13 +111,33 @@ public class CommitmentFullViewPanel extends JPanel {
 		commitment.getDescription() + "</HTML>", JLabel.LEFT);
 		description.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 		
+		String cat_str = "Category: ";
+		try{
+			cat_str += GUIEventController.getInstance().getCalendar()
+				.getTeamCalData().getCategories()
+				.getCategory(commitment.getCategoryID()).getName();
+		}
+		catch(java.lang.NullPointerException excep){
+			cat_str += "[none]";
+		}
+		
+		final JLabel category = new JLabel(cat_str, JLabel.LEFT);
+		category.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		
 		this.add(namelabel);
 		this.add(due_date);
 		this.add(status);
 		this.add(description);
+		this.add(category);
+		
+		int height = namelabel.getPreferredSize().height +
+				due_date.getPreferredSize().height +
+				status.getPreferredSize().height +
+				description.getPreferredSize().height +
+				category.getPreferredSize().height;
 
 		this.setBackground(CalendarStandard.CalendarYellow);
-		this.setPreferredSize(new Dimension(300, 75));
+		this.setPreferredSize(new Dimension(300, height));
 		this.setMaximumSize(new Dimension(20000, 75));
 		this.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
 		this.setToolTipText("Click to Edit or Delete this Commitment");
