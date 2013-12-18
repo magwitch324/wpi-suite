@@ -50,7 +50,7 @@ import edu.wpi.cs.wpisuitetng.modules.calendar.models.CalendarPropertiesModel;
  * @author CS Anonymous
  * @version $Revision: 1.0 $
  */
- @SuppressWarnings("serial")
+@SuppressWarnings("serial")
 
 public class MyCalendar extends AbCalendar {
 	JRadioButton myCalendar;
@@ -84,8 +84,8 @@ public class MyCalendar extends AbCalendar {
 		layout.putConstraint(SpringLayout.EAST, rdbtnpanel, 0, SpringLayout.EAST, viewbtnpanel);
 		rdbtnpanel.setBackground(Color.WHITE);
 		this.add(rdbtnpanel);
-		
-		
+
+
 		final JComponent dateswitchpanel = getDatePanel();
 		layout.putConstraint(SpringLayout.NORTH, dateswitchpanel, 
 				0, SpringLayout.SOUTH, viewbtnpanel);
@@ -102,20 +102,20 @@ public class MyCalendar extends AbCalendar {
 		filterComboBox = new JComboBox<Filter>();
 		final JLabel filterLabel = new JLabel("Filter: ");
 		filterLabel.setFont(CalendarStandard.CalendarFont);
-		
+
 		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filterComboBox, 
 				0, SpringLayout.VERTICAL_CENTER, datapanel);
 		layout.putConstraint(SpringLayout.EAST, filterComboBox, -5, SpringLayout.EAST, this);
-		
-//		layout.putConstraint(SpringLayout., filterComboBox, -5, SpringLayout.EAST, this);
+
+		//		layout.putConstraint(SpringLayout., filterComboBox, -5, SpringLayout.EAST, this);
 		filterComboBox.setPreferredSize(new Dimension(200, 20));
-//		layout.putConstraint(SpringLayout.WEST, filterLabel, 30, SpringLayout.EAST, datapanel);
+		//		layout.putConstraint(SpringLayout.WEST, filterLabel, 30, SpringLayout.EAST, datapanel);
 		layout.putConstraint(SpringLayout.VERTICAL_CENTER, filterLabel,
 				0, SpringLayout.VERTICAL_CENTER, datapanel);
 		layout.putConstraint(SpringLayout.EAST, filterLabel,
 				0, SpringLayout.WEST, filterComboBox);
 		add(filterLabel);
-		
+
 		filterComboBox.setBackground(CalendarStandard.CalendarYellow);
 		filterComboBox.setToolTipText("Select Filters");
 		filterComboBox.addActionListener(new ActionListener() {
@@ -137,23 +137,23 @@ public class MyCalendar extends AbCalendar {
 		viewbtns[currenttype.getCurrentType()].setSelected(true);
 
 		setView();
-		
+
 		//update the filter information
 		noneFilter = new Filter();
 		noneFilter.setID(0);
 		noneFilter.setName("No Filter");
-		
+
 
 	}
-	
-	
+
+
 
 
 	/**
 	 * Updates the filter list in the FilterComboBox
 	 */
 	protected void updateFilterList(){
-		
+
 		final int selectedFilter;
 		//final Filter test = new Filter();
 		//test.setName("a test filter");
@@ -189,9 +189,9 @@ public class MyCalendar extends AbCalendar {
 		if(selectedFilter != 0){
 			filterComboBox.setSelectedItem(myCalData.getFilters().getFilter(selectedFilter));
 		}
-		
+
 	}
-	
+
 	public void deleteFilterUpdateComboBox(Filter toDelete){
 		final int selectedFilter;
 		if(filterComboBox.getSelectedItem() != null){
@@ -244,7 +244,7 @@ public class MyCalendar extends AbCalendar {
 			UpdateCalendarDataController.getInstance().updateCalendarDataNoGUIUpdate(myCalData);
 			teamCalData.removeYearOld();
 			UpdateCalendarDataController.getInstance().updateCalendarData(teamCalData);
-			
+
 			updateFilterList();
 		}
 
@@ -267,8 +267,8 @@ public class MyCalendar extends AbCalendar {
 		//if we dont have the caldata dont do anything
 		if (initialized && getMyCalData() != null && getTeamCalData() != null) {
 
-			
-			
+
+
 			CombinedCommitmentList combinedCommList;
 			CombinedEventList combinedEventList;
 			//If we are supposed to display just my calendar data
@@ -299,7 +299,7 @@ public class MyCalendar extends AbCalendar {
 						combinedCommList.add(getTeamCalData().getCommitments()
 								.getCommitments().get(i));
 					}
-					
+
 
 					//get the combined events for team
 					final CombinedEventList teamRepeatEvents = 
@@ -316,7 +316,7 @@ public class MyCalendar extends AbCalendar {
 						combinedEventList.add(getTeamCalData().getEvents()
 								.getEvents().get(i));
 					}
-					
+
 
 				}
 
@@ -335,38 +335,53 @@ public class MyCalendar extends AbCalendar {
 							.getEvents().get(i));
 				}
 			}//else if the team is selected
-			
+
 			//Apply the selected filter
 			final Filter selectedFilter = ((Filter) filterComboBox.getSelectedItem());
-			
+
 			if(selectedFilter != null && selectedFilter.getID() != 0){
-				//System.out.println(selectedFilter.getActivePersonalCategories());
-				//System.out.println(selectedFilter.getActiveTeamCategories());
+				System.out.println(selectedFilter.getActivePersonalCategories());
+				System.out.println(selectedFilter.getActiveTeamCategories());
 				final Iterator<Event> it = combinedEventList.getEvents().iterator();
-				 while(it.hasNext()){
-					 Event e = it.next();
-					 if(!selectedFilter.getActiveTeamCategories().contains(
-							 e.getCategoryID()) 
-							 && !selectedFilter.getActivePersonalCategories().contains(e.getCategoryID())){
-						 it.remove();
-					 }
-				 }
-				 
-				 final Iterator<Commitment> it2 = combinedCommList.getCommitments().iterator();
-				 while(it2.hasNext()){
-					 Commitment c = it2.next();
-					 if(!selectedFilter.getActiveTeamCategories().contains(
-							 c.getCategoryID()) 
-							 && !selectedFilter.getActivePersonalCategories().contains(
-									 c.getCategoryID())){
-						 it2.remove();
-					 }
-				 }
+				while(it.hasNext()){
+					Event e = it.next();
+					if(e.getIsPersonal()){
+						//System.out.println(e.getName());
+						//System.out.println(e.getCategoryID());
+						if(!selectedFilter.getActivePersonalCategories().contains(e.getCategoryID())){
+							it.remove();
+						}
+					}
+					else{
+						if(!selectedFilter.getActiveTeamCategories().contains(
+								e.getCategoryID())){
+							it.remove();
+						}
+					}
+				}
+
+				final Iterator<Commitment> it2 = combinedCommList.getCommitments().iterator();
+				while(it2.hasNext()){
+					Commitment c = it2.next();
+					if(c.getIsPersonal()){
+						//System.out.println(e.getName());
+						//System.out.println(e.getCategoryID());
+						if(!selectedFilter.getActivePersonalCategories().contains(c.getCategoryID())){
+							it2.remove();
+						}
+					}
+					else{
+						if(!selectedFilter.getActiveTeamCategories().contains(
+								c.getCategoryID())){
+							it2.remove();
+						}
+					}
+				}
 			}
-			
+
 			events = combinedEventList;
 			commitments = combinedCommList;
-			
+
 		}//if initialized and not null
 	}
 
@@ -426,7 +441,7 @@ public class MyCalendar extends AbCalendar {
 		case 2: bothCalendar.setSelected(true);
 		break;
 		}
-		
+
 
 	}
 
@@ -462,90 +477,90 @@ public class MyCalendar extends AbCalendar {
 		layout.putConstraint(SpringLayout.SOUTH, showcom, 0, SpringLayout.SOUTH, panel);
 		panel.add(showcom);
 
-//		//create the my/team/both radio buttons
-//		myCalendar = new JRadioButton("Personal");
-//		myCalendar.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		myCalendar.setBackground(Color.WHITE);
-//		myCalendar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-//		myCalendar.setToolTipText("View Personal Calendar");
-//		myCalendar.setFont(CalendarStandard.CalendarFont);
-//		myCalendar.setSelected(true);
-//		myCalendar.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				//update the commitments to either include or not include team data
-//				calProps.setMyTeamBoth(0);
-//				updateCalData();
-//				//setView(); redundant called in updateCalData
-//			}
-//		});
-//
-//		layout.putConstraint(SpringLayout.NORTH, myCalendar, 0, SpringLayout.NORTH, panel);
-//		layout.putConstraint(SpringLayout.WEST, myCalendar, 15, SpringLayout.EAST, showcom);
-//		layout.putConstraint(SpringLayout.SOUTH, myCalendar, 0, SpringLayout.SOUTH, panel);
-//		panel.add(myCalendar);
-//
-//
-//		teamCalendar = new JRadioButton("Team");
-//		teamCalendar.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		teamCalendar.setBackground(Color.WHITE);
-//		teamCalendar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-//		teamCalendar.setToolTipText("View Team Calendar");
-//		teamCalendar.setFont(CalendarStandard.CalendarFont);
-//		teamCalendar.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				//update the commitments to either include or not include team data
-//				calProps.setMyTeamBoth(1);
-//				updateCalData();
-//				//setView(); redundant called in updateCalData
-//			}
-//		});
-//
-//		layout.putConstraint(SpringLayout.NORTH, teamCalendar, 0, SpringLayout.NORTH, panel);
-//		layout.putConstraint(SpringLayout.WEST, teamCalendar, 15, SpringLayout.EAST, myCalendar);
-//		layout.putConstraint(SpringLayout.SOUTH, teamCalendar, 0, SpringLayout.SOUTH, panel);
-//		panel.add(teamCalendar);
-//
-//		bothCalendar = new JRadioButton("Both");
-//		bothCalendar.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		bothCalendar.setBackground(Color.WHITE);
-//		bothCalendar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-//		bothCalendar.setToolTipText("View Both Calendars");
-//		bothCalendar.setFont(CalendarStandard.CalendarFont);
-//		bothCalendar.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				//update the commitments to either include or not include team data
-//				calProps.setMyTeamBoth(2);
-//				updateCalData();
-//				//setView(); redundant called in updateCalData
-//			}
-//		});
-//
-//		layout.putConstraint(SpringLayout.NORTH, bothCalendar, 0, SpringLayout.NORTH, panel);
-//		layout.putConstraint(SpringLayout.WEST, bothCalendar, 15, SpringLayout.EAST, teamCalendar);
-//		layout.putConstraint(SpringLayout.SOUTH, bothCalendar, 0, SpringLayout.SOUTH, panel);
-//		panel.add(bothCalendar);
-//
-//		final ButtonGroup calendarSelection = new ButtonGroup();
-//		calendarSelection.add(myCalendar);
-//		calendarSelection.add(teamCalendar);
-//		calendarSelection.add(bothCalendar);
+		//		//create the my/team/both radio buttons
+		//		myCalendar = new JRadioButton("Personal");
+		//		myCalendar.setAlignmentX(Component.CENTER_ALIGNMENT);
+		//		myCalendar.setBackground(Color.WHITE);
+		//		myCalendar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		//		myCalendar.setToolTipText("View Personal Calendar");
+		//		myCalendar.setFont(CalendarStandard.CalendarFont);
+		//		myCalendar.setSelected(true);
+		//		myCalendar.addActionListener(new ActionListener() {
+		//			public void actionPerformed(ActionEvent e) {
+		//				//update the commitments to either include or not include team data
+		//				calProps.setMyTeamBoth(0);
+		//				updateCalData();
+		//				//setView(); redundant called in updateCalData
+		//			}
+		//		});
+		//
+		//		layout.putConstraint(SpringLayout.NORTH, myCalendar, 0, SpringLayout.NORTH, panel);
+		//		layout.putConstraint(SpringLayout.WEST, myCalendar, 15, SpringLayout.EAST, showcom);
+		//		layout.putConstraint(SpringLayout.SOUTH, myCalendar, 0, SpringLayout.SOUTH, panel);
+		//		panel.add(myCalendar);
+		//
+		//
+		//		teamCalendar = new JRadioButton("Team");
+		//		teamCalendar.setAlignmentX(Component.CENTER_ALIGNMENT);
+		//		teamCalendar.setBackground(Color.WHITE);
+		//		teamCalendar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		//		teamCalendar.setToolTipText("View Team Calendar");
+		//		teamCalendar.setFont(CalendarStandard.CalendarFont);
+		//		teamCalendar.addActionListener(new ActionListener() {
+		//			public void actionPerformed(ActionEvent e) {
+		//				//update the commitments to either include or not include team data
+		//				calProps.setMyTeamBoth(1);
+		//				updateCalData();
+		//				//setView(); redundant called in updateCalData
+		//			}
+		//		});
+		//
+		//		layout.putConstraint(SpringLayout.NORTH, teamCalendar, 0, SpringLayout.NORTH, panel);
+		//		layout.putConstraint(SpringLayout.WEST, teamCalendar, 15, SpringLayout.EAST, myCalendar);
+		//		layout.putConstraint(SpringLayout.SOUTH, teamCalendar, 0, SpringLayout.SOUTH, panel);
+		//		panel.add(teamCalendar);
+		//
+		//		bothCalendar = new JRadioButton("Both");
+		//		bothCalendar.setAlignmentX(Component.CENTER_ALIGNMENT);
+		//		bothCalendar.setBackground(Color.WHITE);
+		//		bothCalendar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		//		bothCalendar.setToolTipText("View Both Calendars");
+		//		bothCalendar.setFont(CalendarStandard.CalendarFont);
+		//		bothCalendar.addActionListener(new ActionListener() {
+		//			public void actionPerformed(ActionEvent e) {
+		//				//update the commitments to either include or not include team data
+		//				calProps.setMyTeamBoth(2);
+		//				updateCalData();
+		//				//setView(); redundant called in updateCalData
+		//			}
+		//		});
+		//
+		//		layout.putConstraint(SpringLayout.NORTH, bothCalendar, 0, SpringLayout.NORTH, panel);
+		//		layout.putConstraint(SpringLayout.WEST, bothCalendar, 15, SpringLayout.EAST, teamCalendar);
+		//		layout.putConstraint(SpringLayout.SOUTH, bothCalendar, 0, SpringLayout.SOUTH, panel);
+		//		panel.add(bothCalendar);
+		//
+		//		final ButtonGroup calendarSelection = new ButtonGroup();
+		//		calendarSelection.add(myCalendar);
+		//		calendarSelection.add(teamCalendar);
+		//		calendarSelection.add(bothCalendar);
 
 		final int width = showcom.getPreferredSize().width;// + 30 
-//				+ myCalendar.getPreferredSize().width + 30 
-//				+ teamCalendar.getPreferredSize().width + 30
-//				+ bothCalendar.getPreferredSize().width;
+		//				+ myCalendar.getPreferredSize().width + 30 
+		//				+ teamCalendar.getPreferredSize().width + 30
+		//				+ bothCalendar.getPreferredSize().width;
 		final int height = showcom.getPreferredSize().height;
 		panel.setPreferredSize(new Dimension(width, height));
 
 		return panel;
 	}
-	
+
 	private JComponent getRadioButtonPanel() {
 		final JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 0, 0, 0));
 		final SpringLayout layout = new SpringLayout();
 		panel.setLayout(layout);
-		
+
 		//create the my/team/both radio buttons
 		teamCalendar = new JRadioButton("Team");
 		teamCalendar.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -567,8 +582,8 @@ public class MyCalendar extends AbCalendar {
 		layout.putConstraint(SpringLayout.NORTH, teamCalendar, 0, SpringLayout.NORTH, panel);
 
 		panel.add(teamCalendar);
-		
-		
+
+
 		myCalendar = new JRadioButton("Personal");
 		myCalendar.setAlignmentX(Component.CENTER_ALIGNMENT);
 		myCalendar.setBackground(Color.WHITE);
@@ -591,7 +606,7 @@ public class MyCalendar extends AbCalendar {
 		panel.add(myCalendar);
 
 
-		
+
 
 		bothCalendar = new JRadioButton("Both");
 		bothCalendar.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -625,8 +640,8 @@ public class MyCalendar extends AbCalendar {
 		panel.setPreferredSize(new Dimension(width, height));
 
 		return panel;
-		
-		
+
+
 	}
 
 }
