@@ -10,6 +10,8 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -70,6 +72,9 @@ public class FilterTab2 extends JPanel {
 	private SpringLayout activeListLayout;
 	private JTextField filterName;
 	private int openedFrom;
+	private JButton btnSaveFilter;
+	private JButton btnEdit;
+	private JButton btnDelete;
 
 	public FilterTab2(int openedFrom) {
 		this.openedFrom = openedFrom;
@@ -117,6 +122,7 @@ public class FilterTab2 extends JPanel {
 		} else {
 			setupCategoryLists(editFilter);
 		}
+		checkFilterValid();
 		revalidate();
 		repaint();
 	}
@@ -189,6 +195,7 @@ public class FilterTab2 extends JPanel {
 		inactiveCategories.remove(
 				selectedCategoryPanel.getCategory());
 		activeCategories.add(selectedCategoryPanel.getCategory());
+		checkFilterValid();
 		populateInactiveCategoryList();
 		populateActiveCategoryList();
 	}
@@ -197,6 +204,7 @@ public class FilterTab2 extends JPanel {
 		activeCategories.remove(
 				selectedCategoryPanel.getCategory());
 		inactiveCategories.add(selectedCategoryPanel.getCategory());
+		checkFilterValid();
 		populateInactiveCategoryList();
 		populateActiveCategoryList();
 	}
@@ -235,7 +243,43 @@ public class FilterTab2 extends JPanel {
 		UpdateCalendarDataController.getInstance().updateCalendarData(calData);
 	}
 
-	// / Functions after this point are used for adding items to the view
+	public void checkFilterValid() {
+		if (filterName.getText().trim().length() == 0 ||
+				activeCategories.size() == 0) {
+			btnSaveFilter.setEnabled(false);
+		} else {
+			btnSaveFilter.setEnabled(true);
+		}
+		if (mode == FilterMode.EDITING) {
+			boolean change = false;
+			boolean contained = false;
+			for (Category c : activeCategories) {
+				if (c.getIsPersonal()) {
+					for (Integer id : selectedFilterPanel.getFilter()
+							.getActivePersonalCategories()) {
+						if (c.getID() == id) {
+							contained = true;
+						}
+					}
+				} else if (!c.getIsPersonal()) {
+					for (Integer id : selectedFilterPanel.getFilter()
+							.getActiveTeamCategories()) {
+						if (c.getID() == id) {
+							contained = true;
+						}
+					}
+				}
+				if (!contained) change = true;
+			}
+			if (!filterName.getText().equals(selectedFilterPanel.getFilter().getName())) change = true;
+			if (!change) btnSaveFilter.setEnabled(false);
+				
+		}
+		
+	}
+	
+	
+	// Functions after this point are used for adding items to the view
 
 	/**
 	 * Create the Main view that shows the list of filters This function puts
@@ -316,7 +360,7 @@ public class FilterTab2 extends JPanel {
 		gbc_filterList.gridy = 0;
 		viewPanel.add(filterList, gbc_filterList);
 
-		addButtonPanel();
+		if (mode == FilterMode.VIEWING) addButtonPanel();
 	}
 
 	/**
@@ -357,7 +401,8 @@ public class FilterTab2 extends JPanel {
 		});
 
 		// Add Edit button
-		JButton btnEdit = new JButton();
+		btnEdit = new JButton();
+		btnEdit.setEnabled(false);
 		try {
 			final Image img = ImageIO.read(getClass().getResource(
 					"Edit_Icon.png"));
@@ -378,7 +423,8 @@ public class FilterTab2 extends JPanel {
 		});
 
 		// Add Delete Button
-		JButton btnDelete = new JButton();
+		btnDelete = new JButton();
+		btnDelete.setEnabled(false);
 		try {
 			final Image img = ImageIO.read(getClass().getResource(
 					"Delete_Icon.png"));
@@ -490,10 +536,18 @@ public class FilterTab2 extends JPanel {
 		gbc_filterName.gridx = 1;
 		gbc_filterName.gridy = 0;
 		editPanel.add(filterName, gbc_filterName);
-		filterName.addActionListener(new ActionListener() {
+		filterName.addKeyListener(new KeyListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO
+			public void keyTyped(KeyEvent e) {
+				checkFilterValid();
+			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+				checkFilterValid();
+			}
+			@Override
+			public void keyReleased(KeyEvent e) {
+				checkFilterValid();
 			}
 		});
 
@@ -620,7 +674,7 @@ public class FilterTab2 extends JPanel {
 		gbc_btnPanel2.gridy = 4;
 
 		// New Save button
-		JButton btnSaveFilter = new JButton();
+		btnSaveFilter = new JButton();
 		try {
 			final Image img = ImageIO.read(getClass().getResource(
 					"Save_Icon.png"));
@@ -702,6 +756,10 @@ public class FilterTab2 extends JPanel {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					FilterPanel fp = (FilterPanel) e.getComponent();
+					
+					btnEdit.setEnabled(true);
+					btnDelete.setEnabled(true);
+					
 					if (selectedFilterPanel != null)
 						selectedFilterPanel.setSelected(false);
 					if (e.getClickCount() > 1) {
@@ -710,8 +768,10 @@ public class FilterTab2 extends JPanel {
 						fp.setSelected(true);
 						refreshEditView(fp.getFilter());
 					} else if (e.getClickCount() == 1) {
-						selectedFilterPanel = fp;
-						fp.setSelected(true);
+						if (mode == FilterMode.VIEWING) {
+							selectedFilterPanel = fp;
+							fp.setSelected(true);
+						}
 					}
 				}
 			});
