@@ -395,7 +395,7 @@ public class DayDetailedPane extends JPanel {
 		commlist = new ArrayList<Commitment>();
 		//sorting check
 		if (commList != null) {
-			commlist.addAll(commList);		
+			commlist.addAll(commList);
 		} 
 		else {
 		}

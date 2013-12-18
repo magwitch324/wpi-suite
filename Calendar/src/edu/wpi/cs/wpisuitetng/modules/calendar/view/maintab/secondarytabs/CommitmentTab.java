@@ -494,7 +494,7 @@ public class CommitmentTab extends JPanel {
 		//				descPane.setViewportView(descriptionTextField);
 		descriptionTextField.setLineWrap(true);
 		descriptionTextField.setBackground(CalendarStandard.CalendarYellow);
-		descriptionTextField.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+
 
 		
 		//Create category box, add two dummy categories

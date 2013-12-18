@@ -103,7 +103,7 @@ public class DayView extends CalendarView {
 		}
 
 		revalidate();
-		repaint();	
+		repaint();
 	}
 
 	@Override

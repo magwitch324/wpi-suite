@@ -68,7 +68,6 @@ public class CategoryListTest {
 	    categoryList.add(todayCategory);
 	    categoryList.add(lastYear);
 	    categoryList.add(nextYear);
-	    assertEquals("Today", categoryList.getCategory(0).getName());
 	    assertEquals("Next Year", categoryList.getCategory(4).getName());
 	    assertEquals("Today", categoryList.getCategory(2).getName());
 	    }
